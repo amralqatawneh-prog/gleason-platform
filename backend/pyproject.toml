@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gleason-platform-backend"
-version = "0.1.0"
-description = "Phase 1 backend foundation for the Gleason comparison platform"
+version = "0.2.0"
+description = "Phase 2 historical and AE projection services for the Gleason comparison platform"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1.0",
@@ -14,6 +14,7 @@ dependencies = [
   "pydantic-settings>=2.7,<3.0",
   "sqlalchemy>=2.0,<3.0",
   "psycopg[binary]>=3.2,<4.0",
+  "pyproj==3.8.0",
 ]
 
 [project.optional-dependencies]

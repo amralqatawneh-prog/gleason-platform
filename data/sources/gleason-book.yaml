@@ -1,4 +1,5 @@
 id: gleason-book
+source_version: gleason-1893-upload-v1
 title: "Is the Bible From Heaven? Is the Earth a Globe?"
 author: "Alexander Gleason"
 source_type: historical_primary_source
@@ -11,11 +12,31 @@ pdf_pages: 432
 sha256: "03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60"
 model_policy:
   authority: source_claim_only
-  rule_classes:
-    - DOCUMENTED
-    - DERIVED
-    - ASSUMED
+  rule_classes: [DOCUMENTED, DERIVED, DISPLAY_CONVENTION, REFERENCE]
   validation_truth: false
-  forward_inverse_locked: false
-notes:
-  - "Phase 1 registers source identity only. Projection equations are not implemented until Phase 2 source reconstruction and validation."
+  forward_inverse_locked: true
+phase2_reconstruction:
+  model_id: gleason-historical
+  model_version: GH-0.2.0
+  output_units: normalized-radius
+  source_evidence:
+    - locator: "PDF pp. 376-377 / printed pp. 349-350, Chapter XVII"
+      supports: "circular map, 24-hour dial, radiating latitude arms, longitude/time relation"
+    - locator: "PDF p. 429 / printed p. 402, Fig. 43"
+      supports: "straight longitude lines and linear historical divergence rule"
+    - locator: "PDF pp. 360-361 / printed pp. 333-334, Fig. 30"
+      supports: "illustrative solar spiral only"
+      warning: "author explicitly makes no claim of exactness of diagram construction"
+  derivation:
+    radial_rule: "r = (90 - latitude_deg) / 180"
+    angular_rule: "theta = normalized_longitude_deg in radians"
+    display_orientation: "prime meridian at top; DISPLAY_CONVENTION only"
+  historical_longitude_rule:
+    formula: "book_miles_per_degree = 60 - (2/3) * latitude_deg"
+    evidence_level: DERIVED
+    units: "historical book miles; not WGS84 distance"
+georeferencing:
+  engine_status: implemented
+  standalone_historical_scan: not_embedded
+  control_points: []
+  policy: "Do not fabricate scan control points."
