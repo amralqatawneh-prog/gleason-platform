@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   acceptance:
@@ -33,7 +33,6 @@ jobs:
           mkdir -p work/data/sources work/database/init work/docs work/scripts
 
           cp .env.example .gitignore CHANGELOG.md PROJECT_ARCHITECTURE.md README.md VERSION work/
-
           cp pyproject.toml work/backend/
           cp backend.Dockerfile work/backend/Dockerfile
           cp __init__.py work/backend/app/__init__.py
@@ -57,7 +56,6 @@ jobs:
           cp gleason-book.yaml work/data/sources/
           cp docker-compose.yml work/
           cp database/init/001_postgis.sql work/database/init/
-
           for f in GIT_COMMIT.txt OFFLINE_ARCHITECTURE.md PHASE_1_CHECKSUMS.txt PHASE_1_REPORT.md SECURITY.md TEST_REPORT.md verification-results.json; do
             [ -f "$f" ] && cp "$f" work/docs/
           done
@@ -146,23 +144,3 @@ jobs:
       - name: Stop Docker stack
         if: always()
         run: cd "$PROJECT_DIR" && docker compose down -v --remove-orphans || true
-
-      - name: Normalize repository structure after successful gates
-        if: success() && github.ref == 'refs/heads/phase1-gate-fix'
-        shell: bash
-        run: |
-          set -euxo pipefail
-          [ "$PROJECT_DIR" = "work" ] || exit 0
-          cp .github/workflows/blank.yml /tmp/phase1-gates.yml
-          rm -rf work/frontend/node_modules work/frontend/dist work/frontend/.phase1-test-build
-          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name work -exec rm -rf {} +
-          shopt -s dotglob nullglob
-          cp -a work/. .
-          rm -rf work
-          mkdir -p .github/workflows
-          cp /tmp/phase1-gates.yml .github/workflows/phase1-gates.yml
-          git add -A
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: normalize Phase 1 repository structure"
-          git push origin HEAD:phase1-gate-fix
