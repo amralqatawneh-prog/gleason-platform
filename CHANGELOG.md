@@ -1,21 +1,19 @@
 # Changelog
 
-## [0.1.0] - 2026-09-09
-
+## [0.2.0] - 2026-09-09
 ### Added
-- Phase 1 monorepo foundation.
-- FastAPI base API, health/readiness/capability endpoints.
-- Configuration, structured logging, request correlation and standardized errors.
-- Database lifecycle abstraction and PostgreSQL-ready Docker stack.
-- React/Vite responsive app shell with Arabic/English and RTL/LTR.
-- PWA app shell, service worker and offline fallback.
-- IndexedDB/offline pack manifest abstractions.
-- WebGL capability detection and 3D graceful-degradation shell.
-- Capacitor mobile shell configuration.
-- Unit/integration/static Phase 1 tests and documentation.
-
+- Source-grounded Gleason Historical projection `GH-0.2.0`.
+- Independent WGS84 north-polar AE provider `AE-0.2.0`.
+- Projection APIs, source catalog, interactive OpenLayers maps, offline Core World Pack, Source Viewer and affine georeferencing engine.
+- Python/TypeScript Phase 2 validation tests and mathematical/dependency documentation.
 ### Changed
-- Normalized the repository permanently into `backend/`, `frontend/`, `data/`, `database/`, and `docs/` domains.
-- Removed flattened duplicate application files from the repository root.
-- Renamed the acceptance workflow to `.github/workflows/phase1-gates.yml`.
-- Added a CI structure guard so flattened backend/frontend files cannot silently return to the root.
+- Release advanced to v0.2.0 and capabilities advertise only implemented Phase 2 features.
+- Service Worker cache includes the Phase 2 offline pack manifest.
+### Explicit limitation
+- No verified distributable standalone historical scan is embedded; scan control points are not fabricated.
+
+## [0.1.0] - 2026-09-09
+### Added
+- Phase 1 monorepo, FastAPI/React/Vite/PWA foundation, Docker/PostGIS/Redis, RTL/LTR and tests.
+### Changed
+- Repository permanently normalized into backend/frontend/data/database/docs domains with CI structure guard.

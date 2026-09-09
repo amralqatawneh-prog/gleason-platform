@@ -1,121 +1,37 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ProjectionMap, type Phase2MapModel } from './map2d/ProjectionMap';
+import type { GeoPoint } from './models/projectionTypes';
 import { fetchCapabilities } from './api';
 import { type Locale, strings } from './i18n';
-import { detectCapabilities, threeDMode } from './platform/capabilities';
+import { detectCapabilities } from './platform/capabilities';
+import { SourceViewer } from './source/SourceViewer';
 import { RELEASE_NAME } from './shared/version';
 
+interface Selection { model: Phase2MapModel; point: GeoPoint; }
+
 export default function App() {
-  const [locale, setLocale] = useState<Locale>('ar');
-  const [online, setOnline] = useState(navigator.onLine);
-  const [serverState, setServerState] = useState<'checking' | 'connected' | 'offline'>('checking');
-  const capabilities = useMemo(() => detectCapabilities(), []);
-  const t = strings[locale];
-  const direction = locale === 'ar' ? 'rtl' : 'ltr';
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = direction;
-  }, [locale, direction]);
-
-  useEffect(() => {
-    const sync = () => setOnline(navigator.onLine);
-    addEventListener('online', sync);
-    addEventListener('offline', sync);
-    return () => {
-      removeEventListener('online', sync);
-      removeEventListener('offline', sync);
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchCapabilities().then((result) => setServerState(result ? 'connected' : 'offline'));
-  }, [online]);
-
-  return (
-    <div className="app-shell" dir={direction}>
-      <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark" aria-hidden="true">◎</span>
-          <div>
-            <h1>{t.title}</h1>
-            <p>{t.subtitle} · {RELEASE_NAME}</p>
-          </div>
-        </div>
-        <div className="top-actions">
-          <span className={`status-dot ${online ? 'ok' : 'warn'}`}>{online ? t.online : t.offlineNow}</span>
-          <span className="status-dot">API: {serverState}</span>
-          <button className="secondary" onClick={() => setLocale(locale === 'ar' ? 'en' : 'ar')}>
-            {locale === 'ar' ? 'English' : 'العربية'}
-          </button>
-        </div>
-      </header>
-
-      <div className="workspace">
-        <aside className="sidebar">
-          <label className="search-box">
-            <span>⌕</span>
-            <input aria-label={t.search} placeholder={t.search} disabled />
-          </label>
-          <section>
-            <h2>{t.layers}</h2>
-            {['الدول / Countries', 'المدن / Cities', 'Grid', 'الشمس / Sun', 'القمر / Moon'].map((item) => (
-              <label className="layer-row" key={item}>
-                <input type="checkbox" disabled /> <span>{item}</span>
-              </label>
-            ))}
-          </section>
-          <section>
-            <h2>{t.time}</h2>
-            <input className="time-slider" type="range" min="0" max="24" value="12" readOnly />
-            <div className="time-readout">2026-09-09 · 12:00 UTC</div>
-          </section>
-        </aside>
-
-        <main className="comparison-grid">
-          <ModelPanel title={t.gleason} badge="Historical / Source-bound" text={t.notImplemented} />
-          <ModelPanel
-            title={t.globe}
-            badge={threeDMode(capabilities) === 'available' ? t.available3d : t.fallback3d}
-            text={t.notImplemented}
-          />
-        </main>
-
-        <aside className="inspector">
-          <h2>{t.compare}</h2>
-          <dl>
-            <Metric label="Latitude" value="—" />
-            <Metric label="Longitude" value="—" />
-            <Metric label="Distance" value="—" />
-            <Metric label="Azimuth" value="—" />
-          </dl>
-          <div className="notice">
-            <strong>{t.offline}</strong>
-            <span>IndexedDB · Service Worker · Offline Pack schema v1</span>
-          </div>
-        </aside>
-      </div>
-
-      <footer className="statusbar">
-        <span>WGS84: foundation only</span>
-        <span>Gleason: source engine pending Phase 2</span>
-        <span>{capabilities.touch ? 'Touch capable' : 'Pointer device'}</span>
-      </footer>
+  const [locale,setLocale]=useState<Locale>('ar');
+  const [online,setOnline]=useState(navigator.onLine);
+  const [serverState,setServerState]=useState<'checking'|'connected'|'offline'>('checking');
+  const [selection,setSelection]=useState<Selection|null>(null);
+  const capabilities=useMemo(()=>detectCapabilities(),[]);
+  const t=strings[locale]; const direction=locale==='ar'?'rtl':'ltr';
+  useEffect(()=>{document.documentElement.lang=locale;document.documentElement.dir=direction;},[locale,direction]);
+  useEffect(()=>{const sync=()=>setOnline(navigator.onLine);addEventListener('online',sync);addEventListener('offline',sync);return()=>{removeEventListener('online',sync);removeEventListener('offline',sync);};},[]);
+  useEffect(()=>{fetchCapabilities().then((result)=>setServerState(result?'connected':'offline'));},[online]);
+  const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>setSelection({model,point}),[]);
+  return <div className="app-shell" dir={direction}>
+    <header className="topbar"><div className="brand"><span className="brand-mark">◎</span><div><h1>{t.title}</h1><p>{t.subtitle} · {RELEASE_NAME}</p></div></div><div className="top-actions"><span className={`status-dot ${online?'ok':'warn'}`}>{online?t.online:t.offlineNow}</span><span className="status-dot">API: {serverState}</span><button className="secondary" onClick={()=>setLocale(locale==='ar'?'en':'ar')}>{locale==='ar'?'English':'العربية'}</button></div></header>
+    <div className="workspace phase2-workspace">
+      <aside className="sidebar">
+        <section className="phase-card"><span className="eyebrow">Phase 2 · v0.2.0</span><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div></section>
+        <section className="phase-card"><h2>{locale==='ar'?'حدود هذه المرحلة':'Phase boundary'}</h2><p>{locale==='ar'?'الخريطتان مستقلتان عمدًا. المزامنة بين النماذج تبدأ في المرحلة 5.':'The two maps are intentionally independent. Cross-model synchronization begins in Phase 5.'}</p></section>
+        <section className="phase-card"><h2>{locale==='ar'?'الحزمة المحلية':'Offline pack'}</h2><p>Core World Pack v1 · Natural Earth 110m</p><span className="evidence-badge">Bundled · Offline</span></section>
+      </aside>
+      <main className="phase2-main"><div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint}/></div><SourceViewer locale={locale}/></main>
+      <aside className="inspector"><h2>{locale==='ar'?'المفتش الجغرافي':'Geographic inspector'}</h2>{selection?<dl><Metric label={locale==='ar'?'الخريطة':'Map'} value={selection.model}/><Metric label="Latitude" value={selection.point.latitude.toFixed(6)}/><Metric label="Longitude" value={selection.point.longitude.toFixed(6)}/><Metric label={locale==='ar'?'الحالة':'Status'} value="local inverse ✓"/></dl>:<p className="muted">{locale==='ar'?'انقر داخل إحدى الخريطتين لاستعادة الإحداثيات الجغرافية.':'Click inside either map to recover geographic coordinates.'}</p>}<div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>DOCUMENTED ≠ DERIVED ≠ REFERENCE</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-  );
+    <footer className="statusbar"><span>GH-0.2.0 historical reconstruction</span><span>AE-0.2.0 independent reference</span><span>WGS84 globe: Phase 4</span><span>Synchronization: Phase 5</span></footer>
+  </div>;
 }
-
-function ModelPanel({ title, badge, text }: { title: string; badge: string; text: string }) {
-  return (
-    <section className="model-panel">
-      <div className="panel-title"><strong>{title}</strong><span>{badge}</span></div>
-      <div className="map-placeholder">
-        <div className="grid-art" aria-hidden="true" />
-        <div className="placeholder-message"><span className="orb">◎</span><p>{text}</p></div>
-      </div>
-    </section>
-  );
-}
-
-function Metric({ label, value }: { label: string; value: string }) {
-  return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;
-}
+function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}

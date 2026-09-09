@@ -1,67 +1,35 @@
-# Gleason Comparison Platform — v0.1.0
+# Gleason Comparison Platform — v0.2.0
 
-Phase 1 operational foundation for the long-term geospatial/astronomical comparison platform.
+Phase 2 adds source-grounded historical and reference projection engines plus an offline interactive 2D world-map baseline.
 
-## Repository layout
+## Layout
+`backend/` FastAPI providers/tests · `frontend/` React/OpenLayers/PWA · `data/sources/` source registry · `database/` PostGIS bootstrap · `docs/` reports/references.
 
-```text
-.
-├── backend/                  # FastAPI application, services and Python tests
-│   ├── app/
-│   │   ├── api/
-│   │   └── services/
-│   └── tests/
-├── frontend/                 # React + TypeScript + Vite + PWA/Capacitor shell
-│   ├── public/
-│   ├── src/
-│   │   ├── offline/
-│   │   ├── platform/
-│   │   └── shared/
-│   └── tests/
-├── data/
-│   └── sources/              # Source registry and future normalized datasets
-├── database/
-│   └── init/                 # PostgreSQL/PostGIS bootstrap SQL
-├── docs/                     # Architecture, reports, security and verification records
-├── .github/workflows/        # Continuous-integration acceptance gates
-├── docker-compose.yml        # Local/CI multi-service runtime
-├── PROJECT_ARCHITECTURE.md   # Accepted architecture baseline
-├── CHANGELOG.md
-└── VERSION
-```
+## v0.2.0
+- Gleason Historical `GH-0.2.0` with explicit provenance.
+- Independent north-polar AE `AE-0.2.0`.
+- Forward/inverse APIs.
+- Interactive OpenLayers maps with click-to-coordinate inverse transform.
+- Bundled Natural Earth 110m baseline through world-atlas; no live tile API required for the core map.
+- Historical Source Viewer and affine georeferencing engine.
+- Arabic/English responsive PWA foundation.
 
-Application source files must not be placed directly in the repository root. CI enforces this rule so the repository remains organized as the project grows.
+The maps are intentionally not synchronized; cross-model synchronization is Phase 5. The historical provider does not claim that Gleason printed the analytic equation used by the software. `DOCUMENTED`, `DERIVED`, `DISPLAY_CONVENTION`, and `REFERENCE` remain separate.
 
-## What works in v0.1.0
+## Historical scan
+The georeferencing engine exists, but no verified distributable standalone historical map scan is embedded. No control points are invented.
 
-- FastAPI application with `/api/v1/health`, `/api/v1/ready`, `/api/v1/capabilities`.
-- Structured JSON logging, request IDs, CORS and centralized API errors.
-- Database configuration/lifecycle abstraction with SQLite development fallback and PostgreSQL/PostGIS production configuration.
-- React + TypeScript + Vite application shell with Arabic/English, RTL/LTR and responsive layouts.
-- Installable PWA foundation: manifest, service worker, cache versioning and offline page.
-- IndexedDB abstraction and versioned Offline Pack manifest types.
-- Browser capability detection including WebGL2 and graceful 2D fallback messaging.
-- Capacitor configuration shell for Android/iOS.
-- Dockerfiles + Compose for frontend, backend, PostgreSQL/PostGIS and Redis.
-- Backend tests, frontend offline-core tests and GitHub Actions release gates.
-
-No Gleason projection, 3D globe, live aviation, astronomy or scientific comparison is implemented in this phase.
-
-## Local development
-
-### Backend
-
+## Backend
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate
 pip install -e '.[dev]'
 pytest -q
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### Frontend
-
+## Frontend
 ```bash
 cd frontend
 npm install
@@ -70,20 +38,10 @@ npm run build
 npm run dev
 ```
 
-Open `http://localhost:5173`.
-
-### Docker
-
+## Docker
 ```bash
 cp .env.example .env
 docker compose up --build
 ```
 
-Frontend: `http://localhost:8080`  
-Backend docs: `http://localhost:8000/docs`
-
-## Acceptance verification
-
-Every push and pull request runs the Phase 1 acceptance workflow. It verifies the permanent repository structure, backend tests, frontend core tests, production npm build, PWA artifacts, Docker Compose runtime, PostgreSQL/PostGIS connectivity, Redis and frontend/backend HTTP smoke tests.
-
-See `docs/PHASE_1_REPORT.md`, `docs/TEST_REPORT.md` and `docs/REPOSITORY_STRUCTURE.md`.
+See `docs/PHASE_2_REPORT.md`, `docs/MATHEMATICAL_REFERENCES.md`, and `docs/DEPENDENCIES.md`.

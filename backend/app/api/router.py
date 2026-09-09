@@ -3,13 +3,14 @@ from __future__ import annotations
 from fastapi import APIRouter, Request
 
 from ..services.capabilities import platform_capabilities
+from .projection_routes import router as projection_router
 
 router = APIRouter()
 
 
 @router.get("/health", tags=["system"])
 def health() -> dict[str, object]:
-    return {"status": "ok", "service": "gleason-platform-backend", "version": "0.1.0"}
+    return {"status": "ok", "service": "gleason-platform-backend", "version": "0.2.0"}
 
 
 @router.get("/ready", tags=["system"])
@@ -29,3 +30,6 @@ def ready(request: Request) -> dict[str, object]:
 @router.get("/capabilities", tags=["system"])
 def capabilities() -> dict[str, object]:
     return platform_capabilities()
+
+
+router.include_router(projection_router)
