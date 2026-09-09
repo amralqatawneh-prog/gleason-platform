@@ -1,0 +1,142 @@
+name: Phase 1 Acceptance Gates
+
+on:
+  push:
+    branches: [main, chore/permanent-repo-structure]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance:
+    name: repository structure + npm build + Docker runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate permanent repository structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s backend/pyproject.toml
+          test -s backend/app/main.py
+          test -s frontend/package.json
+          test -s frontend/src/App.tsx
+          test -s data/sources/gleason-book.yaml
+          test -s database/init/001_postgis.sql
+          test -d docs
+
+          forbidden=(
+            App.tsx api.ts i18n.ts main.tsx styles.css
+            package.json pyproject.toml router.py main.py config.py database.py
+            errors.py logging_config.py middleware.py capabilities.py capabilities.ts
+            indexedDb.ts packManifest.ts capacitor.config.ts nginx.conf
+            manifest.webmanifest offline.html sw.js
+            test_api.py test_config.py test_database.py conftest.py
+            tsconfig.app.json tsconfig.core.json tsconfig.json tsconfig.node.json vite.config.ts
+            backend.Dockerfile gleason-book.yaml
+          )
+          for path in "${forbidden[@]}"; do
+            if [ -e "$path" ]; then
+              echo "Flattened application file found at repository root: $path" >&2
+              exit 1
+            fi
+          done
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Backend tests
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+          pytest -q
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Frontend core tests
+        working-directory: frontend
+        run: npm run test:core
+
+      - name: npm production build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Verify production PWA artifacts
+        working-directory: frontend
+        run: |
+          test -s dist/index.html
+          test -s dist/manifest.webmanifest
+          test -s dist/sw.js
+          test -s dist/icons/icon-192.png
+          test -s dist/icons/icon-512.png
+
+      - name: Smoke-test production preview
+        working-directory: frontend
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/vite-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill $PREVIEW_PID || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/tmp/index.html; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/manifest.webmanifest >/tmp/manifest.json
+          grep -q '<div id="root"></div>' /tmp/index.html
+          grep -q 'Gleason' /tmp/manifest.json
+
+      - name: Validate Docker Compose
+        run: docker compose config
+
+      - name: Build and start Docker stack
+        run: docker compose up --build -d
+
+      - name: Wait for backend readiness and PostgreSQL binding
+        run: |
+          for i in $(seq 1 90); do
+            if curl --fail --silent http://127.0.0.1:8000/api/v1/ready >/tmp/ready.json; then break; fi
+            sleep 2
+          done
+          cat /tmp/ready.json
+          jq -e '.status == "ready" and .database.reachable == true and .database.dialect == "postgresql"' /tmp/ready.json
+
+      - name: Verify PostGIS extension
+        run: |
+          VERSION=$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')
+          test -n "$VERSION"
+          echo "PostGIS=$VERSION"
+
+      - name: Verify Redis
+        run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
+
+      - name: Verify frontend and PWA over Docker HTTP
+        run: |
+          for i in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:8080/ >/tmp/docker-index.html; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:8080/manifest.webmanifest >/tmp/docker-manifest.json
+          grep -q '<div id="root"></div>' /tmp/docker-index.html
+          grep -q 'Gleason' /tmp/docker-manifest.json
+          docker compose ps
+
+      - name: Capture Docker logs on failure
+        if: failure()
+        run: docker compose logs --no-color --tail=400
+
+      - name: Stop Docker stack
+        if: always()
+        run: docker compose down -v --remove-orphans || true
