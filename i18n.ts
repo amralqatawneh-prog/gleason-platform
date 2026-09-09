@@ -1,0 +1,36 @@
+export type Locale = 'ar' | 'en';
+
+export const strings = {
+  ar: {
+    title: 'منصة المقارنة الجغرافية والفلكية',
+    subtitle: 'الأساس التشغيلي — المرحلة 1',
+    search: 'ابحث عن دولة، مدينة، نهر، جبل أو مطار',
+    layers: 'الطبقات',
+    time: 'الزمن',
+    compare: 'المقارنة',
+    gleason: 'نموذج جليسون التاريخي',
+    globe: 'النموذج الكروي WGS84',
+    notImplemented: 'سيتم تنفيذ المحرك الحسابي في المرحلة المخصصة له.',
+    offline: 'الأساس غير المتصل جاهز',
+    online: 'متصل بالإنترنت',
+    offlineNow: 'غير متصل — الوظائف المحلية فقط',
+    available3d: 'WebGL2 متاح',
+    fallback3d: '3D غير متاح — سيتم استخدام وضع 2D',
+  },
+  en: {
+    title: 'Geospatial & Astronomical Comparison Platform',
+    subtitle: 'Operational foundation — Phase 1',
+    search: 'Search country, city, river, mountain or airport',
+    layers: 'Layers',
+    time: 'Time',
+    compare: 'Comparison',
+    gleason: 'Gleason Historical Model',
+    globe: 'WGS84 Globe Model',
+    notImplemented: 'The computational engine will be implemented in its scheduled phase.',
+    offline: 'Offline foundation ready',
+    online: 'Online',
+    offlineNow: 'Offline — local functions only',
+    available3d: 'WebGL2 available',
+    fallback3d: '3D unavailable — 2D fallback will be used',
+  },
+} as const;

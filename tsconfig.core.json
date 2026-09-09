@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "outDir": ".phase1-test-build",
+    "rootDir": "src",
+    "lib": ["ES2022", "DOM"]
+  },
+  "include": [
+    "src/offline/packManifest.ts",
+    "src/platform/capabilities.ts",
+    "src/shared/version.ts"
+  ]
+}

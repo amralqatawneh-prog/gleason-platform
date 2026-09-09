@@ -1,0 +1,89 @@
+{
+  "release": "v0.1.0",
+  "phase": 1,
+  "passed": 16,
+  "total": 16,
+  "all_passed": true,
+  "results": [
+    {
+      "name": "backend pytest",
+      "passed": true,
+      "detail": ".......                                                                  [100%]"
+    },
+    {
+      "name": "backend compileall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "service worker syntax",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "frontend offline-core tests",
+      "passed": true,
+      "detail": "f .phase1-test-build && tsc -p tsconfig.core.json && node --test tests/*.test.mjs\n\nTAP version 13\n# Subtest: uses 2D fallback when WebGL2 is missing\nok 1 - uses 2D fallback when WebGL2 is missing\n  ---\n  duration_ms: 0.572494\n  type: 'test'\n  ...\n# Subtest: allows 3D shell when WebGL2 exists\nok 2 - allows 3D shell when WebGL2 exists\n  ---\n  duration_ms: 0.116824\n  type: 'test'\n  ...\n# Subtest: accepts a valid offline pack manifest\nok 3 - accepts a valid offline pack manifest\n  ---\n  duration_ms: 0.668677\n  type: 'test'\n  ...\n# Subtest: rejects malformed checksum and unknown pack kind\nok 4 - rejects malformed checksum and unknown pack kind\n  ---\n  duration_ms: 0.155112\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 72.445297"
+    },
+    {
+      "name": "frontend TS/TSX syntax parse",
+      "passed": true,
+      "detail": "Parsed 8 TypeScript/TSX files"
+    },
+    {
+      "name": "valid JSON: frontend/package.json",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "name": "valid JSON: frontend/public/manifest.webmanifest",
+      "passed": true,
+      "detail": "ok"
+    },
+    {
+      "name": "docker-compose service contract",
+      "passed": true,
+      "detail": "services=['backend', 'db', 'frontend', 'redis']"
+    },
+    {
+      "name": "RTL/LTR application foundation",
+      "passed": true,
+      "detail": "dir sync"
+    },
+    {
+      "name": "responsive phone breakpoint",
+      "passed": true,
+      "detail": "420px"
+    },
+    {
+      "name": "responsive tablet breakpoint",
+      "passed": true,
+      "detail": "760px"
+    },
+    {
+      "name": "wide layout breakpoint",
+      "passed": true,
+      "detail": "1100px"
+    },
+    {
+      "name": "Gleason source catalog contract",
+      "passed": true,
+      "detail": "03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60"
+    },
+    {
+      "name": "PWA icon dimensions",
+      "passed": true,
+      "detail": "192=(192, 192), 512=(512, 512)"
+    },
+    {
+      "name": "service worker offline fallback",
+      "passed": true,
+      "detail": "offline shell"
+    },
+    {
+      "name": "future features not claimed",
+      "passed": true,
+      "detail": "false flags"
+    }
+  ]
+}

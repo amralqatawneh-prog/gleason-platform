@@ -1,0 +1,21 @@
+id: gleason-book
+title: "Is the Bible From Heaven? Is the Earth a Globe?"
+author: "Alexander Gleason"
+source_type: historical_primary_source
+edition: "Second Edition, revised and enlarged"
+publication_notes:
+  copyright: 1890
+  revised_enlarged: 1893
+project_file_name: "Alex Gleason - Is the Bible From Heaven.pdf"
+pdf_pages: 432
+sha256: "03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60"
+model_policy:
+  authority: source_claim_only
+  rule_classes:
+    - DOCUMENTED
+    - DERIVED
+    - ASSUMED
+  validation_truth: false
+  forward_inverse_locked: false
+notes:
+  - "Phase 1 registers source identity only. Projection equations are not implemented until Phase 2 source reconstruction and validation."
