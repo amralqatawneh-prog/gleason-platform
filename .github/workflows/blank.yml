@@ -2,7 +2,7 @@ name: Phase 1 Acceptance Gates
 
 on:
   push:
-    branches: [main, phase1-gate-fix]
+    branches: [main, chore/permanent-repo-structure]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -12,72 +12,72 @@ permissions:
 
 jobs:
   acceptance:
-    name: npm production build + Docker runtime
+    name: repository structure + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 40
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select or reconstruct Phase 1 source tree
+      - name: Validate permanent repository structure
         shell: bash
         run: |
-          set -euxo pipefail
-          if [ -s backend/pyproject.toml ] && [ -s frontend/package.json ]; then
-            echo "PROJECT_DIR=." >> "$GITHUB_ENV"
-            exit 0
-          fi
+          set -euo pipefail
+          test -s backend/pyproject.toml
+          test -s backend/app/main.py
+          test -s frontend/package.json
+          test -s frontend/src/App.tsx
+          test -s data/sources/gleason-book.yaml
+          test -s database/init/001_postgis.sql
+          test -d docs
 
-          echo "PROJECT_DIR=work" >> "$GITHUB_ENV"
-          mkdir -p work/backend/app/api work/backend/app/services work/backend/tests
-          mkdir -p work/frontend/src/offline work/frontend/src/platform work/frontend/src/shared work/frontend/tests work/frontend/public/icons work/frontend/mobile
-          mkdir -p work/data/sources work/database/init work/docs work/scripts
-
-          cp .env.example .gitignore CHANGELOG.md PROJECT_ARCHITECTURE.md README.md VERSION work/
-          cp pyproject.toml work/backend/
-          cp backend.Dockerfile work/backend/Dockerfile
-          cp __init__.py work/backend/app/__init__.py
-          touch work/backend/app/api/__init__.py work/backend/app/services/__init__.py
-          cp router.py work/backend/app/api/router.py
-          cp config.py database.py errors.py logging_config.py main.py middleware.py work/backend/app/
-          cp capabilities.py work/backend/app/services/capabilities.py
-          cp conftest.py test_api.py test_config.py test_database.py work/backend/tests/
-
-          cp Dockerfile work/frontend/Dockerfile
-          cp package.json capacitor.config.ts index.html nginx.conf tsconfig.app.json tsconfig.core.json tsconfig.json tsconfig.node.json vite.config.ts work/frontend/
-          cp App.tsx api.ts i18n.ts main.tsx styles.css work/frontend/src/
-          cp indexedDb.ts packManifest.ts work/frontend/src/offline/
-          cp capabilities.ts work/frontend/src/platform/
-          cp version.ts work/frontend/src/shared/
-          cp capabilities.test.mjs offline-pack.test.mjs work/frontend/tests/
-          cp manifest.webmanifest offline.html sw.js work/frontend/public/
-          cp frontend/public/icons/icon-192.png frontend/public/icons/icon-512.png work/frontend/public/icons/
-          printf '%s\n' '# Capacitor mobile shell' '' 'Native Android/iOS projects are generated in later phases; the web/PWA codebase is canonical.' > work/frontend/mobile/README.md
-
-          cp gleason-book.yaml work/data/sources/
-          cp docker-compose.yml work/
-          cp database/init/001_postgis.sql work/database/init/
-          for f in GIT_COMMIT.txt OFFLINE_ARCHITECTURE.md PHASE_1_CHECKSUMS.txt PHASE_1_REPORT.md SECURITY.md TEST_REPORT.md verification-results.json; do
-            [ -f "$f" ] && cp "$f" work/docs/
+          forbidden=(
+            App.tsx api.ts i18n.ts main.tsx styles.css
+            package.json pyproject.toml router.py main.py config.py database.py
+            errors.py logging_config.py middleware.py capabilities.py capabilities.ts
+            indexedDb.ts packManifest.ts capacitor.config.ts nginx.conf
+            manifest.webmanifest offline.html sw.js
+            test_api.py test_config.py test_database.py conftest.py
+            tsconfig.app.json tsconfig.core.json tsconfig.json tsconfig.node.json vite.config.ts
+            backend.Dockerfile gleason-book.yaml
+          )
+          for path in "${forbidden[@]}"; do
+            if [ -e "$path" ]; then
+              echo "Flattened application file found at repository root: $path" >&2
+              exit 1
+            fi
           done
-          [ -f verify_phase1.py ] && cp verify_phase1.py work/scripts/
 
-          test -s work/frontend/package.json
-          test -s work/backend/pyproject.toml
-          test -s work/docker-compose.yml
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Backend tests
+        working-directory: backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+          pytest -q
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Install frontend dependencies
-        run: cd "$PROJECT_DIR/frontend" && npm install --no-audit --no-fund
+        working-directory: frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Frontend core tests
+        working-directory: frontend
+        run: npm run test:core
 
       - name: npm production build
-        run: cd "$PROJECT_DIR/frontend" && npm run build
+        working-directory: frontend
+        run: npm run build
 
       - name: Verify production PWA artifacts
+        working-directory: frontend
         run: |
-          cd "$PROJECT_DIR/frontend"
           test -s dist/index.html
           test -s dist/manifest.webmanifest
           test -s dist/sw.js
@@ -85,8 +85,8 @@ jobs:
           test -s dist/icons/icon-512.png
 
       - name: Smoke-test production preview
+        working-directory: frontend
         run: |
-          cd "$PROJECT_DIR/frontend"
           npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/vite-preview.log 2>&1 &
           PREVIEW_PID=$!
           trap 'kill $PREVIEW_PID || true' EXIT
@@ -99,10 +99,10 @@ jobs:
           grep -q 'Gleason' /tmp/manifest.json
 
       - name: Validate Docker Compose
-        run: cd "$PROJECT_DIR" && docker compose config
+        run: docker compose config
 
       - name: Build and start Docker stack
-        run: cd "$PROJECT_DIR" && docker compose up --build -d
+        run: docker compose up --build -d
 
       - name: Wait for backend readiness and PostgreSQL binding
         run: |
@@ -115,15 +115,12 @@ jobs:
 
       - name: Verify PostGIS extension
         run: |
-          cd "$PROJECT_DIR"
           VERSION=$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')
           test -n "$VERSION"
           echo "PostGIS=$VERSION"
 
       - name: Verify Redis
-        run: |
-          cd "$PROJECT_DIR"
-          test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
+        run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
 
       - name: Verify frontend and PWA over Docker HTTP
         run: |
@@ -134,13 +131,12 @@ jobs:
           curl --fail --silent http://127.0.0.1:8080/manifest.webmanifest >/tmp/docker-manifest.json
           grep -q '<div id="root"></div>' /tmp/docker-index.html
           grep -q 'Gleason' /tmp/docker-manifest.json
-          cd "$PROJECT_DIR"
           docker compose ps
 
       - name: Capture Docker logs on failure
         if: failure()
-        run: cd "$PROJECT_DIR" && docker compose logs --no-color --tail=400
+        run: docker compose logs --no-color --tail=400
 
       - name: Stop Docker stack
         if: always()
-        run: cd "$PROJECT_DIR" && docker compose down -v --remove-orphans || true
+        run: docker compose down -v --remove-orphans || true
