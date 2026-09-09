@@ -1,36 +1,142 @@
-# This is a basic workflow to help you get started with Actions
+name: Phase 1 Acceptance Gates
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [main, phase1-gate-fix]
   pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+jobs:
+  acceptance:
+    name: npm production build + Docker runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Reconstruct Phase 1 source tree
+        shell: bash
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          set -euxo pipefail
+          mkdir -p work/backend/app/api work/backend/app/services work/backend/tests
+          mkdir -p work/frontend/src/offline work/frontend/src/platform work/frontend/src/shared work/frontend/tests work/frontend/public/icons
+          mkdir -p work/data/sources work/database/init
+
+          cp pyproject.toml work/backend/
+          cp backend.Dockerfile work/backend/Dockerfile
+          cp __init__.py work/backend/app/__init__.py
+          touch work/backend/app/api/__init__.py work/backend/app/services/__init__.py
+          cp router.py work/backend/app/api/router.py
+          cp config.py database.py errors.py logging_config.py main.py middleware.py work/backend/app/
+          cp capabilities.py work/backend/app/services/capabilities.py
+          cp conftest.py test_api.py test_config.py test_database.py work/backend/tests/
+
+          cp Dockerfile work/frontend/Dockerfile
+          cp package.json capacitor.config.ts index.html nginx.conf tsconfig.app.json tsconfig.core.json tsconfig.json tsconfig.node.json vite.config.ts work/frontend/
+          cp App.tsx api.ts i18n.ts main.tsx styles.css work/frontend/src/
+          cp indexedDb.ts packManifest.ts work/frontend/src/offline/
+          cp capabilities.ts work/frontend/src/platform/
+          cp version.ts work/frontend/src/shared/
+          cp capabilities.test.mjs offline-pack.test.mjs work/frontend/tests/
+          cp manifest.webmanifest offline.html sw.js work/frontend/public/
+          cp frontend/public/icons/icon-192.png frontend/public/icons/icon-512.png work/frontend/public/icons/
+
+          cp gleason-book.yaml work/data/sources/
+          cp docker-compose.yml work/
+          cp database/init/001_postgis.sql work/database/init/
+
+          test -s work/frontend/package.json
+          test -s work/backend/pyproject.toml
+          test -s work/docker-compose.yml
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: work/frontend/package.json
+
+      - name: Install frontend dependencies
+        working-directory: work/frontend
+        run: npm install --no-audit --no-fund
+
+      - name: npm production build
+        working-directory: work/frontend
+        run: npm run build
+
+      - name: Verify production PWA artifacts
+        working-directory: work/frontend
+        run: |
+          test -s dist/index.html
+          test -s dist/manifest.webmanifest
+          test -s dist/sw.js
+          test -s dist/icons/icon-192.png
+          test -s dist/icons/icon-512.png
+
+      - name: Smoke-test production preview
+        working-directory: work/frontend
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/vite-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill $PREVIEW_PID || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/tmp/index.html; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/manifest.webmanifest >/tmp/manifest.json
+          grep -q '<div id="root"></div>' /tmp/index.html
+          grep -q 'Gleason' /tmp/manifest.json
+
+      - name: Validate Docker Compose
+        working-directory: work
+        run: docker compose config
+
+      - name: Build and start Docker stack
+        working-directory: work
+        run: docker compose up --build -d
+
+      - name: Wait for backend readiness and PostgreSQL binding
+        working-directory: work
+        run: |
+          for i in $(seq 1 90); do
+            if curl --fail --silent http://127.0.0.1:8000/api/v1/ready >/tmp/ready.json; then break; fi
+            sleep 2
+          done
+          cat /tmp/ready.json
+          jq -e '.status == "ready" and .database.reachable == true and .database.dialect == "postgresql"' /tmp/ready.json
+
+      - name: Verify PostGIS extension
+        working-directory: work
+        run: |
+          VERSION=$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')
+          test -n "$VERSION"
+          echo "PostGIS=$VERSION"
+
+      - name: Verify Redis
+        working-directory: work
+        run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
+
+      - name: Verify frontend and PWA over Docker HTTP
+        working-directory: work
+        run: |
+          for i in $(seq 1 60); do
+            if curl --fail --silent http://127.0.0.1:8080/ >/tmp/docker-index.html; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:8080/manifest.webmanifest >/tmp/docker-manifest.json
+          grep -q '<div id="root"></div>' /tmp/docker-index.html
+          grep -q 'Gleason' /tmp/docker-manifest.json
+          docker compose ps
+
+      - name: Capture Docker logs on failure
+        if: failure()
+        working-directory: work
+        run: docker compose logs --no-color --tail=400
+
+      - name: Stop Docker stack
+        if: always()
+        working-directory: work
+        run: docker compose down -v --remove-orphans || true
