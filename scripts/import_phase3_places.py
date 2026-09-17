@@ -237,13 +237,18 @@ def main() -> int:
     if args.mode == "natural-earth-geojson" and not args.category:
         raise SystemExit("--category is required for Natural Earth imports")
     items = import_natural_earth(args.input, args) if args.mode == "natural-earth-geojson" else import_ourairports(args.input, args)
+    effective_category = args.category or "airport"
     engine = create_engine(args.database_url)
     if engine.dialect.name != "postgresql":
         raise SystemExit("production importer requires PostgreSQL/PostGIS")
     with engine.begin() as connection:
         upsert_source(connection, args)
         upsert_places(connection, items)
-    print(json.dumps({"imported": len(items), "source_id": args.source_id, "category": args.category, "mode": args.mode}))
+        catalog_rows = connection.execute(
+            text("SELECT count(*) FROM places WHERE source_id=:source_id AND category::text=:category"),
+            {"source_id": args.source_id, "category": effective_category},
+        ).scalar_one()
+    print(json.dumps({"prepared": len(items), "catalog_rows": catalog_rows, "source_id": args.source_id, "category": effective_category, "mode": args.mode}))
     return 0
 
 
