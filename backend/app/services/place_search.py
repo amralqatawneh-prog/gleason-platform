@@ -16,6 +16,34 @@ def _normalize_categories(categories: Sequence[PlaceCategory] | None) -> list[st
     return [item.value for item in categories or []]
 
 
+def _dynamic_filter_clauses(
+    *,
+    category_values: list[str],
+    country_code: str | None,
+    region_pack: str | None,
+    params: dict[str, object],
+    category_column: str,
+) -> list[str]:
+    clauses: list[str] = []
+    if country_code:
+        params["country_code"] = country_code.upper()
+        clauses.append("p.country_code = :country_code")
+    if region_pack:
+        params["region_pack"] = region_pack
+        clauses.append(
+            "EXISTS (SELECT 1 FROM region_pack_places rpp "
+            "WHERE rpp.place_id = p.id AND rpp.pack_id = :region_pack)"
+        )
+    if category_values:
+        placeholders: list[str] = []
+        for index, category in enumerate(category_values):
+            key = f"category_{index}"
+            params[key] = category
+            placeholders.append(f":{key}")
+        clauses.append(f"{category_column} IN ({', '.join(placeholders)})")
+    return clauses
+
+
 def search_places(
     engine: Engine,
     query: str,
@@ -39,14 +67,23 @@ def search_places(
         "query": cleaned,
         "query_like": f"%{cleaned.lower()}%",
         "query_prefix": f"{cleaned.lower()}%",
-        "country_code": country_code.upper() if country_code else None,
-        "region_pack": region_pack,
         "limit": limit,
     }
 
     if engine.dialect.name == "postgresql":
+        clauses = ["p.search_text LIKE :query_like"]
+        clauses.extend(
+            _dynamic_filter_clauses(
+                category_values=category_values,
+                country_code=country_code,
+                region_pack=region_pack,
+                params=params,
+                category_column="p.category::text",
+            )
+        )
+        where = " AND ".join(clauses)
         sql = text(
-            """
+            f"""
             SELECT
                 p.id, p.category::text AS category, p.name, p.name_ar,
                 p.country_code, p.region_code, p.latitude, p.longitude,
@@ -65,36 +102,23 @@ def search_places(
                 END AS score
             FROM places p
             JOIN place_sources s ON s.source_id = p.source_id
-            WHERE p.search_text LIKE :query_like
-              AND (:country_code IS NULL OR p.country_code = :country_code)
-              AND (
-                    :region_pack IS NULL OR EXISTS (
-                        SELECT 1 FROM region_pack_places rpp
-                        WHERE rpp.place_id = p.id AND rpp.pack_id = :region_pack
-                    )
-                  )
-              AND (cardinality(CAST(:categories AS text[])) = 0 OR p.category::text = ANY(CAST(:categories AS text[])))
+            WHERE {where}
             ORDER BY score DESC, p.name ASC, p.id ASC
             LIMIT :limit
             """
         )
-        params["categories"] = category_values
     else:
         # Development/test fallback. PostgreSQL/PostGIS remains the production spatial backend.
         clauses = ["lower(p.search_text) LIKE :query_like"]
-        if country_code:
-            clauses.append("p.country_code = :country_code")
-        if category_values:
-            placeholders = []
-            for index, category in enumerate(category_values):
-                key = f"category_{index}"
-                placeholders.append(f":{key}")
-                params[key] = category
-            clauses.append(f"p.category IN ({', '.join(placeholders)})")
-        if region_pack and inspector.has_table("region_pack_places"):
-            clauses.append(
-                "EXISTS (SELECT 1 FROM region_pack_places rpp WHERE rpp.place_id = p.id AND rpp.pack_id = :region_pack)"
+        clauses.extend(
+            _dynamic_filter_clauses(
+                category_values=category_values,
+                country_code=country_code,
+                region_pack=region_pack if inspector.has_table("region_pack_places") else None,
+                params=params,
+                category_column="p.category",
             )
+        )
         where = " AND ".join(clauses)
         sql = text(
             f"""
