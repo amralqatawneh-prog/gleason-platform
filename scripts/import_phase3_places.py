@@ -11,6 +11,7 @@ from sqlalchemy import create_engine, text
 
 CATEGORIES = {"country", "city", "sea", "ocean", "river", "mountain", "airport"}
 COORDINATE_MODES = {"point", "source-fields", "derived-bbox-center", "derived-line-midpoint"}
+BATCH_SIZE = 1000
 
 
 def finite_coordinate(latitude: float, longitude: float) -> tuple[float, float]:
@@ -95,33 +96,40 @@ def upsert_source(connection, args: argparse.Namespace) -> None:
     )
 
 
-def upsert_place(connection, item: dict[str, Any]) -> None:
-    connection.execute(
-        text(
-            """
-            INSERT INTO places (
-                id, category, name, name_ar, aliases, country_code, region_code,
-                latitude, longitude, source_id, source_record_id, properties, quality
-            ) VALUES (
-                :id, CAST(:category AS place_category), :name, :name_ar, CAST(:aliases AS jsonb),
-                :country_code, :region_code, :latitude, :longitude, :source_id,
-                :source_record_id, CAST(:properties AS jsonb), CAST(:quality AS jsonb)
-            )
-            ON CONFLICT (source_id, source_record_id) DO UPDATE SET
-                id=excluded.id, category=excluded.category, name=excluded.name,
-                name_ar=excluded.name_ar, aliases=excluded.aliases,
-                country_code=excluded.country_code, region_code=excluded.region_code,
-                latitude=excluded.latitude, longitude=excluded.longitude,
-                properties=excluded.properties, quality=excluded.quality, updated_at=now()
-            """
-        ),
-        {
-            **item,
-            "aliases": json.dumps(item.get("aliases", []), ensure_ascii=False),
-            "properties": json.dumps(item.get("properties", {}), ensure_ascii=False),
-            "quality": json.dumps(item.get("quality", {}), ensure_ascii=False),
-        },
+UPSERT_PLACE_SQL = text(
+    """
+    INSERT INTO places (
+        id, category, name, name_ar, aliases, country_code, region_code,
+        latitude, longitude, source_id, source_record_id, properties, quality
+    ) VALUES (
+        :id, CAST(:category AS place_category), :name, :name_ar, CAST(:aliases AS jsonb),
+        :country_code, :region_code, :latitude, :longitude, :source_id,
+        :source_record_id, CAST(:properties AS jsonb), CAST(:quality AS jsonb)
     )
+    ON CONFLICT (source_id, source_record_id) DO UPDATE SET
+        id=excluded.id, category=excluded.category, name=excluded.name,
+        name_ar=excluded.name_ar, aliases=excluded.aliases,
+        country_code=excluded.country_code, region_code=excluded.region_code,
+        latitude=excluded.latitude, longitude=excluded.longitude,
+        properties=excluded.properties, quality=excluded.quality, updated_at=now()
+    """
+)
+
+
+def _db_item(item: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **item,
+        "aliases": json.dumps(item.get("aliases", []), ensure_ascii=False),
+        "properties": json.dumps(item.get("properties", {}), ensure_ascii=False),
+        "quality": json.dumps(item.get("quality", {}), ensure_ascii=False),
+    }
+
+
+def upsert_places(connection, items: list[dict[str, Any]]) -> None:
+    for start in range(0, len(items), BATCH_SIZE):
+        batch = [_db_item(item) for item in items[start : start + BATCH_SIZE]]
+        if batch:
+            connection.execute(UPSERT_PLACE_SQL, batch)
 
 
 def import_natural_earth(path: Path, args: argparse.Namespace) -> list[dict[str, Any]]:
@@ -234,8 +242,7 @@ def main() -> int:
         raise SystemExit("production importer requires PostgreSQL/PostGIS")
     with engine.begin() as connection:
         upsert_source(connection, args)
-        for item in items:
-            upsert_place(connection, item)
+        upsert_places(connection, items)
     print(json.dumps({"imported": len(items), "source_id": args.source_id, "category": args.category, "mode": args.mode}))
     return 0
 
