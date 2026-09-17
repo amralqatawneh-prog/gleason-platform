@@ -73,6 +73,22 @@ def test_ecef_round_trip(provider: WGS84ReferenceProvider) -> None:
     assert output["ellipsoidal_height_m"] == pytest.approx(original.ellipsoidal_height_m, abs=1e-5)
 
 
+def test_ecef_round_trip_accepts_serialized_previous_output(
+    provider: WGS84ReferenceProvider,
+) -> None:
+    original = WGS84GeodeticPoint(
+        latitude=25.2854,
+        longitude=51.5310,
+        ellipsoidal_height_m=10.0,
+    )
+    ecef_result = provider.geodetic_to_ecef(original)
+    round_trip = provider.ecef_to_geodetic(ecef_result.output)
+    output = round_trip.output
+    assert output["latitude"] == pytest.approx(original.latitude, abs=1e-9)
+    assert output["longitude"] == pytest.approx(original.longitude, abs=1e-9)
+    assert output["ellipsoidal_height_m"] == pytest.approx(original.ellipsoidal_height_m, abs=1e-5)
+
+
 def test_geodesic_equatorial_degree(provider: WGS84ReferenceProvider) -> None:
     start = WGS84GeodeticPoint(latitude=0.0, longitude=0.0)
     end = WGS84GeodeticPoint(latitude=0.0, longitude=1.0)
