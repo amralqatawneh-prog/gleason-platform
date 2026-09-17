@@ -1,0 +1,48 @@
+schema_version: 1
+purpose: phase3-geographic-base-data
+policy:
+  require_source_id: true
+  require_source_version: true
+  require_source_license: true
+  prohibit_unattributed_production_records: true
+sources:
+  - id: natural-earth
+    name: Natural Earth
+    license: Public Domain
+    homepage: https://www.naturalearthdata.com/
+    intended_entity_types:
+      - country
+      - city
+      - sea
+      - ocean
+      - river
+      - mountain
+    themes:
+      countries:
+        scale: 50m
+        version: 5.1.1
+      populated_places:
+        scale: 50m
+        version: 5.1.2
+      rivers_lake_centerlines:
+        scale: 50m
+        version: 5.0.0
+      marine_areas:
+        scale: 50m
+        version: 5.1.0
+      elevation_points:
+        scale: 50m
+        version: 5.0.0
+    notes:
+      - Physical-region boundaries are cartographic/generalized and must preserve Natural Earth provenance.
+      - Do not silently reinterpret a cartographic label point as a precise legal or scientific boundary.
+  - id: ourairports
+    name: OurAirports
+    license: Public Domain
+    homepage: https://ourairports.com/data/
+    intended_entity_types:
+      - airport
+    version_policy: daily-data-snapshot-date
+    notes:
+      - Record the snapshot date as source_version when importing.
+      - Preserve source identifiers and do not claim guaranteed accuracy.
