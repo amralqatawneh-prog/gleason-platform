@@ -111,7 +111,7 @@ jobs:
           assert summary.processed == 1 and summary.counts_by_type == {'airport': 1}
           PY
           curl --fail --silent --get http://127.0.0.1:8000/api/v1/geography/region-pack --data-urlencode 'region=QA' >/tmp/qa-pack.json
-          jq -e '.manifest.region=="QA" and .manifest.entity_count>=2 and (.manifest.sha256|test("^[a-f0-9]{64}$")) and any(.entities[];.id=="ci:import:doha-airport" and .provenance.sourceLicense=="test-only")' /tmp/qa-pack.json
+          jq -e '.manifest.region=="QA" and .manifest.entityCount>=2 and (.manifest.sha256|test("^[a-f0-9]{64}$")) and any(.entities[];.id=="ci:import:doha-airport" and .provenance.sourceLicense=="test-only")' /tmp/qa-pack.json
       - name: Verify Redis
         run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
       - name: Verify frontend over Docker HTTP
