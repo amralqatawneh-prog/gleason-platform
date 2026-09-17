@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from collections.abc import Mapping
 
 import pyproj
 from pyproj import Geod, Transformer
@@ -123,11 +124,19 @@ class WGS84ReferenceProvider:
             ),
         )
 
-    def ecef_to_geodetic(self, point: ECEFPoint) -> ReferenceResult:
+    def ecef_to_geodetic(self, point: ECEFPoint | Mapping[str, float]) -> ReferenceResult:
+        """Convert ECEF to geodetic coordinates.
+
+        ``ReferenceResult.output`` is intentionally JSON-ready. Accepting either an
+        ``ECEFPoint`` or its serialized mapping lets callers safely chain
+        ``geodetic_to_ecef(...).output`` into this operation without reconstructing
+        the domain object manually.
+        """
+        ecef_point = ECEFPoint.model_validate(point)
         longitude, latitude, height_m = self._to_geodetic.transform(
-            point.x_m,
-            point.y_m,
-            point.z_m,
+            ecef_point.x_m,
+            ecef_point.y_m,
+            ecef_point.z_m,
         )
         # PROJ may choose +180; the schema permits both antimeridian spellings.
         output = WGS84GeodeticPoint(
@@ -137,7 +146,7 @@ class WGS84ReferenceProvider:
         )
         return ReferenceResult(
             operation="ecef_to_geodetic",
-            input=point.model_dump(),
+            input=ecef_point.model_dump(),
             output=output.model_dump(),
             provenance=self._provenance(
                 operation="ecef_to_geodetic",
