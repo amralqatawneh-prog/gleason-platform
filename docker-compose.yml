@@ -32,7 +32,7 @@ services:
       APP_DEBUG: "false"
       APP_LOG_LEVEL: INFO
       APP_API_PREFIX: /api/v1
-      APP_CORS_ORIGINS: http://localhost:8080
+      APP_CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
       APP_DATABASE_URL: postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason
       APP_REDIS_URL: redis://redis:6379/0
     depends_on:
