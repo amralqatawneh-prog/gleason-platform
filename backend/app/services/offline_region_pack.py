@@ -18,10 +18,10 @@ class RegionPackManifest(BaseModel):
     id: str
     version: str
     region: str
-    generated_at: str
-    entity_count: int
+    generatedAt: str
+    entityCount: int
     sha256: str
-    source_ids: list[str]
+    sourceIds: list[str]
 
 
 class RegionPack(BaseModel):
@@ -88,10 +88,10 @@ def build_region_pack(database: DatabaseManager, region: str, version: str = "1"
             id=f"geography-{normalized_region.lower()}-{version}",
             version=version,
             region=normalized_region,
-            generated_at=datetime.now(UTC).isoformat(),
-            entity_count=len(entities),
+            generatedAt=datetime.now(UTC).isoformat(),
+            entityCount=len(entities),
             sha256=digest,
-            source_ids=sorted(source_ids),
+            sourceIds=sorted(source_ids),
         ),
         entities=entities,
     )
