@@ -2,7 +2,7 @@ import { getLocalValue, setLocalValue } from '../offline/indexedDb';
 import { activeIndexes, type OfflinePlace, type PlaceCategory } from '../offline/searchIndex';
 import { loadSearchPackState } from '../offline/searchPackStore';
 
-export type GlobeLayerId = 'countries' | 'oceans' | 'seas' | 'rivers' | 'cities' | 'airports';
+export type GlobeLayerId = 'countries' | 'oceans' | 'seas' | 'rivers' | 'cities' | 'airports' | 'labels';
 export type GlobeLayerVisibility = Record<GlobeLayerId, boolean>;
 
 const SETTINGS_KEY = 'phase4-wgs84-globe-layers-v1';
@@ -14,9 +14,11 @@ export const DEFAULT_GLOBE_LAYERS: GlobeLayerVisibility = {
   rivers: true,
   cities: true,
   airports: false,
+  labels: true,
 };
 
 const CATEGORY_TO_LAYER: Partial<Record<PlaceCategory, GlobeLayerId>> = {
+  country: 'countries',
   ocean: 'oceans',
   sea: 'seas',
   river: 'rivers',
