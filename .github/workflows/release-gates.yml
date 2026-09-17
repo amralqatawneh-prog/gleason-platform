@@ -25,6 +25,8 @@ jobs:
           test -s frontend/src/offline/searchIndex.ts
           test -s frontend/src/search/PlaceSearch.tsx
           test -s scripts/import_phase3_places.py
+          test -s scripts/fetch_phase3_sources.py
+          test -s data/sources/phase3-source-lock.json
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
           test -s docs/PHASE_3_PLAN.md
@@ -37,8 +39,11 @@ jobs:
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md
           grep -q 'do not invent centroids' scripts/import_phase3_places.py
+          jq -e '.sources|length==6' data/sources/phase3-source-lock.json
       - uses: actions/setup-python@v5
         with: {python-version: '3.13'}
+      - name: Discover Phase 3 pinned source SHA-256 values
+        run: python scripts/fetch_phase3_sources.py --discover --output-dir /tmp/phase3-data | tee /tmp/phase3-source-hashes.json
       - name: Backend tests
         working-directory: backend
         run: python -m pip install --upgrade pip && pip install -e '.[dev]' && pytest -q
