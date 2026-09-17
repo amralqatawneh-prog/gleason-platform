@@ -70,12 +70,13 @@ export function searchOfflineGeography(
     .map((record) => {
       const name = normalizeGeographicSearchText(record.name);
       const nameAr = normalizeGeographicSearchText(record.nameAr ?? '');
+      const aliases = record.aliases.map(normalizeGeographicSearchText);
       const matches = tokens.every((token) => record.searchText.includes(token));
-      const rank = name === normalized || nameAr === normalized
-        ? 0
-        : name.startsWith(normalized) || nameAr.startsWith(normalized)
-          ? 1
-          : 2;
+      const exact = name === normalized || nameAr === normalized || aliases.includes(normalized);
+      const prefix = name.startsWith(normalized)
+        || nameAr.startsWith(normalized)
+        || aliases.some((alias) => alias.startsWith(normalized));
+      const rank = exact ? 0 : prefix ? 1 : 2;
       return { record, matches, rank };
     })
     .filter(({ matches }) => matches)
