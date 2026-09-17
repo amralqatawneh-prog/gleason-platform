@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gleason-platform-backend"
-version = "0.2.0"
-description = "Phase 2 historical and AE projection services for the Gleason comparison platform"
+version = "0.3.0.dev0"
+description = "Phase 3 geography dataset and unified search foundation for the Gleason comparison platform"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1.0",
