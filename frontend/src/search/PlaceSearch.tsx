@@ -14,7 +14,7 @@ const categories: Array<{ value: '' | PlaceCategory; ar: string; en: string }> =
   { value: 'airport', ar: 'مطارات', en: 'Airports' },
 ];
 
-interface DisplayResult {
+export interface PlaceSelection {
   id: string;
   category: PlaceCategory;
   name: string;
@@ -26,7 +26,7 @@ interface DisplayResult {
   offline: boolean;
 }
 
-function onlineResult(result: PlaceSearchResult): DisplayResult {
+function onlineResult(result: PlaceSearchResult): PlaceSelection {
   return {
     id: result.id,
     category: result.category,
@@ -40,7 +40,7 @@ function onlineResult(result: PlaceSearchResult): DisplayResult {
   };
 }
 
-function offlineResult(result: OfflinePlace): DisplayResult {
+function offlineResult(result: OfflinePlace): PlaceSelection {
   return {
     id: result.id,
     category: result.category,
@@ -54,10 +54,16 @@ function offlineResult(result: OfflinePlace): DisplayResult {
   };
 }
 
-export function PlaceSearch({ locale }: { locale: 'ar' | 'en' }) {
+type Props = {
+  locale: 'ar' | 'en';
+  onSelectPlace?: (place: PlaceSelection) => void;
+  selectedPlaceId?: string;
+};
+
+export function PlaceSearch({ locale, onSelectPlace, selectedPlaceId }: Props) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<'' | PlaceCategory>('');
-  const [results, setResults] = useState<DisplayResult[]>([]);
+  const [results, setResults] = useState<PlaceSelection[]>([]);
   const [state, setState] = useState<'idle' | 'loading' | 'offline' | 'error'>('idle');
   const [packMessage, setPackMessage] = useState('');
 
@@ -119,16 +125,21 @@ export function PlaceSearch({ locale }: { locale: 'ar' | 'en' }) {
     {state === 'idle' && query.trim() && results.length === 0 && <p className="muted">{locale === 'ar' ? 'لا توجد نتائج في البيانات المستوردة حاليًا.' : 'No results in the currently imported datasets.'}</p>}
     {packMessage && <p className="muted">{packMessage}</p>}
     <div className="search-results">
-      {results.map((result) => <article key={result.id} className="search-result">
+      {results.map((result) => <article key={result.id} className={`search-result ${selectedPlaceId === result.id ? 'selected' : ''}`}>
         <div>
           <strong>{locale === 'ar' && result.nameAr ? result.nameAr : result.name}</strong>
           <span className="evidence-badge">{result.category}</span>
           {result.offline && <span className="evidence-badge">OFFLINE</span>}
         </div>
         <small>{result.latitude.toFixed(5)}, {result.longitude.toFixed(5)} · {result.sourceLabel}</small>
-        {!result.offline && result.countryCode && <button className="secondary" type="button" onClick={() => void saveCountry(result.countryCode!)}>
-          {locale === 'ar' ? `حفظ ${result.countryCode} دون اتصال` : `Save ${result.countryCode} offline`}
-        </button>}
+        <div className="search-result__actions">
+          {onSelectPlace && <button className="secondary" type="button" onClick={() => onSelectPlace(result)}>
+            {locale === 'ar' ? 'اعرض على WGS84' : 'Locate on WGS84'}
+          </button>}
+          {!result.offline && result.countryCode && <button className="secondary" type="button" onClick={() => void saveCountry(result.countryCode!)}>
+            {locale === 'ar' ? `حفظ ${result.countryCode} دون اتصال` : `Save ${result.countryCode} offline`}
+          </button>}
+        </div>
       </article>)}
     </div>
   </section>;
