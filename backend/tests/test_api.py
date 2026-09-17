@@ -41,6 +41,33 @@ def test_capabilities_claim_only_implemented_phase2_features(tmp_path) -> None:
     assert payload["astronomy_engine"] is False
 
 
+def test_offline_search_core_endpoint_returns_versioned_pack(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/core")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["schemaVersion"] == 1
+    assert payload["id"] == "search-core-world-v1"
+    assert payload["version"] == "1.0.0"
+    assert payload["sourceIds"] == []
+    assert payload["entries"] == []
+
+
+def test_offline_search_country_endpoint_normalizes_code(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/country/qa")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["id"] == "region-qa-v1"
+    assert payload["entries"] == []
+
+
+def test_offline_search_country_rejects_invalid_code(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/country/qatar")
+    assert response.status_code == 422
+
+
 def test_cors_preflight(tmp_path) -> None:
     with make_client(tmp_path) as client:
         response = client.options(
