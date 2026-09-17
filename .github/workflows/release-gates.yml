@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0]
+    branches: [main, phase2-v0.2.0, phase3-v0.3.0]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 2 tests + npm build + Docker runtime
+    name: structure + release tests + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -22,11 +22,18 @@ jobs:
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
-      - name: Validate Phase 2 source policy
+      - name: Validate source policy and release version
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.2.0$' VERSION
+          grep -Eq '^0\.(2\.0|3\.0-dev)$' VERSION
+          if [ "${GITHUB_REF_NAME}" = "phase3-v0.3.0" ]; then
+            grep -q '^0.3.0-dev$' VERSION
+            test -s database/init/002_geographic_entities.sql
+            test -s backend/app/api/geography_routes.py
+            test -s frontend/src/offline/geographicSearch.ts
+            test -s docs/PHASE_3_PLAN.md
+          fi
       - uses: actions/setup-python@v5
         with: {python-version: '3.13'}
       - name: Backend tests
@@ -54,7 +61,7 @@ jobs:
         run: |
           for i in $(seq 1 90); do if curl --fail --silent http://127.0.0.1:8000/api/v1/ready >/tmp/ready.json; then break; fi; sleep 2; done
           jq -e '.status=="ready" and .database.reachable==true and .database.dialect=="postgresql"' /tmp/ready.json
-      - name: Verify Phase 2 projection API
+      - name: Verify Phase 2 projection API regression
         run: |
           curl --fail --silent http://127.0.0.1:8000/api/v1/models/projections >/tmp/models.json
           jq -e 'length==2 and any(.[];.model_id=="gleason-historical") and any(.[];.model_id=="ae-north-pole")' /tmp/models.json
@@ -63,7 +70,27 @@ jobs:
           curl --fail --silent http://127.0.0.1:8000/api/v1/sources/gleason >/tmp/source.json
           jq -e '.georeferencing.historical_scan=="not-embedded"' /tmp/source.json
       - name: Verify PostGIS
-        run: test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+        run: |
+          test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+      - name: Verify Phase 3 PostGIS schema and unified search
+        run: |
+          TABLE_EXISTS=$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT to_regclass('public.geographic_entities') IS NOT NULL;" | tr -d '[:space:]')
+          test "$TABLE_EXISTS" = "t"
+          docker compose exec -T db psql -U gleason -d gleason <<'SQL'
+          INSERT INTO geographic_entities (
+            id, entity_type, name, name_ar, aliases, country_code,
+            source_id, source_version, source_license, geom
+          ) VALUES (
+            'ci:qa-doha', 'city', 'Doha', 'الدوحة', '["Ad Dawhah"]'::jsonb, 'QA',
+            'ci-test-fixture', '1', 'test-only', ST_SetSRID(ST_Point(51.5310, 25.2854), 4326)
+          ) ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+          SQL
+          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search \
+            --data-urlencode 'q=Doha' --data-urlencode 'entity_type=city' >/tmp/search-en.json
+          jq -e '.total>=1 and any(.results[];.id=="ci:qa-doha" and .entity_type=="city" and .provenance.source_license=="test-only")' /tmp/search-en.json
+          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search \
+            --data-urlencode 'q=الدوحة' >/tmp/search-ar.json
+          jq -e '.total>=1 and any(.results[];.id=="ci:qa-doha")' /tmp/search-ar.json
       - name: Verify Redis
         run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
       - name: Verify frontend over Docker HTTP
