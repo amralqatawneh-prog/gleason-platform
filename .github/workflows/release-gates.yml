@@ -55,6 +55,9 @@ jobs:
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm install --no-audit --no-fund
+      - name: Frontend dependency security gate
+        working-directory: frontend
+        run: npm audit --audit-level=high
       - name: Frontend core tests
         working-directory: frontend
         run: npm run test:core
