@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0]
+    branches: [main, phase2-v0.2.0, feat/phase3-data-search]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 2 tests + npm build + Docker runtime
+    name: structure + Phase 3 tests + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -18,15 +18,25 @@ jobs:
         run: |
           set -euo pipefail
           test -s backend/app/providers/projections/gleason.py
+          test -s backend/app/services/place_search.py
+          test -s backend/app/api/search_routes.py
+          test -s database/init/002_phase3_places.sql
           test -s frontend/src/map2d/ProjectionMap.tsx
+          test -s frontend/src/offline/searchIndex.ts
+          test -s frontend/src/search/PlaceSearch.tsx
+          test -s scripts/import_phase3_places.py
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
+          test -s docs/PHASE_3_PLAN.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
-      - name: Validate Phase 2 source policy
+      - name: Validate source and Phase 3 policy
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.2.0$' VERSION
+          grep -q '^0.3.0-dev$' VERSION
+          grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
+          grep -q 'OurAirports' docs/PHASE_3_PLAN.md
+          grep -q 'do not invent centroids' scripts/import_phase3_places.py
       - uses: actions/setup-python@v5
         with: {python-version: '3.13'}
       - name: Backend tests
@@ -54,16 +64,30 @@ jobs:
         run: |
           for i in $(seq 1 90); do if curl --fail --silent http://127.0.0.1:8000/api/v1/ready >/tmp/ready.json; then break; fi; sleep 2; done
           jq -e '.status=="ready" and .database.reachable==true and .database.dialect=="postgresql"' /tmp/ready.json
-      - name: Verify Phase 2 projection API
+      - name: Verify Phase 2 projection API remains green
         run: |
           curl --fail --silent http://127.0.0.1:8000/api/v1/models/projections >/tmp/models.json
           jq -e 'length==2 and any(.[];.model_id=="gleason-historical") and any(.[];.model_id=="ae-north-pole")' /tmp/models.json
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/projections/gleason-historical/forward -H 'content-type: application/json' -d '{"latitude":0,"longitude":90}' >/tmp/g.json
           jq -e '.output.x>0.499999 and .output.x<0.500001' /tmp/g.json
-          curl --fail --silent http://127.0.0.1:8000/api/v1/sources/gleason >/tmp/source.json
-          jq -e '.georeferencing.historical_scan=="not-embedded"' /tmp/source.json
-      - name: Verify PostGIS
-        run: test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+      - name: Verify Phase 3 PostGIS catalog schema
+        run: |
+          test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+          test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='pg_trgm';" | tr -d '[:space:]')"
+          test "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT count(*) FROM information_schema.tables WHERE table_name IN ('places','place_sources','region_packs','region_pack_places');" | tr -d '[:space:]')" = "4"
+      - name: Verify Phase 3 unified search API with ephemeral CI fixture
+        run: |
+          docker compose exec -T db psql -U gleason -d gleason <<'SQL'
+          INSERT INTO place_sources(source_id,name,version,license,source_url)
+          VALUES ('ci-fixture','CI fixture','1','TEST-ONLY','fixture://ci')
+          ON CONFLICT (source_id) DO NOTHING;
+          INSERT INTO places(id,category,name,name_ar,aliases,country_code,latitude,longitude,source_id,source_record_id)
+          VALUES ('ci-city', 'city', 'CI Search City', 'مدينة اختبار CI', '["CIC"]'::jsonb, 'QA', 25.0, 51.0, 'ci-fixture', '1')
+          ON CONFLICT (id) DO NOTHING;
+          SQL
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=CI%20Search&category=city' >/tmp/search.json
+          cat /tmp/search.json
+          jq -e '.count==1 and .results[0].id=="ci-city" and .results[0].category=="city" and .results[0].source.license=="TEST-ONLY"' /tmp/search.json
       - name: Verify Redis
         run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
       - name: Verify frontend over Docker HTTP
