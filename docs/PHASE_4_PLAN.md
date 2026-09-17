@@ -135,7 +135,7 @@ Minimum outputs:
 
 This is a WGS84 reference feature only; comparison against Gleason/AE outputs is deferred to the later comparison phase.
 
-### P4.6 — Offline and persistence contract
+### P4.6 — Offline and persistence contract — COMPLETE
 
 Phase 4 deterministic coordinate/geodesic commands must work without network access after the app shell is installed.
 
@@ -200,7 +200,7 @@ Phase 5 synchronization/comparison work is forbidden on the Phase 4 implementati
 
 ## Status
 
-**IN PROGRESS — Phase 4 authorized by owner on 2026-09-17.**
+**IN PROGRESS — P4.1 through P4.6 complete; P4.7 pending. Phase 4 authorized by owner on 2026-09-17.**
 
 Implementation branch: `feat/phase4-wgs84-reference`.
 
