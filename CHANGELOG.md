@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] — Phase 4
+### Started
+- Phase 4 authorized by owner on 2026-09-17.
+- Added `docs/PHASE_4_PLAN.md` defining the WGS84 Reference Model scope, provenance rules, delivery slices, acceptance gates, and explicit Phase 5 boundary.
+- Implementation branch: `feat/phase4-wgs84-reference`.
+### Boundary
+- No Phase 5 synchronization/comparison work is included.
+- Solar/lunar/planetary astronomy remains outside Phase 4.
+
 ## [0.3.0] - 2026-09-17
 ### Added
 - Phase 3 PostGIS/pg_trgm place catalog and unified search foundation.
