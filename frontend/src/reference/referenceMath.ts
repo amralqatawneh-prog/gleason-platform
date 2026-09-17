@@ -7,6 +7,13 @@ export type ReferenceGeoPoint = {
   longitude: number;
 };
 
+export type ScreenProjection = {
+  x: number;
+  y: number;
+  visible: boolean;
+  depth: number;
+};
+
 export function referenceViewMode(capabilities: BrowserCapabilities): ReferenceViewMode {
   return capabilities.webgl2 ? 'webgl3d' : 'fallback2d';
 }
@@ -41,6 +48,36 @@ export function latLonToEllipsoid(
   ];
 }
 
+export function projectGeoToScreen(
+  point: ReferenceGeoPoint,
+  width: number,
+  height: number,
+  yawRad: number,
+  pitchRad: number,
+): ScreenProjection | null {
+  if (width <= 0 || height <= 0) return null;
+  const [x0, y0, z0] = latLonToEllipsoid(point);
+  const cy = Math.cos(yawRad);
+  const sy = Math.sin(yawRad);
+  const x1 = cy * x0 + sy * z0;
+  const z1 = -sy * x0 + cy * z0;
+  const cp = Math.cos(pitchRad);
+  const sp = Math.sin(pitchRad);
+  const y2 = cp * y0 - sp * z1;
+  const z2 = sp * y0 + cp * z1;
+  const aspect = width / height;
+  const sx = aspect >= 1 ? 0.78 / aspect : 0.78;
+  const syScale = aspect >= 1 ? 0.78 : 0.78 * aspect;
+  const clipX = -x1 * sx;
+  const clipY = y2 * syScale;
+  return {
+    x: (clipX * 0.5 + 0.5) * width,
+    y: (0.5 - clipY * 0.5) * height,
+    visible: z2 > 0,
+    depth: z2,
+  };
+}
+
 export function screenPointToGeo(
   x: number,
   y: number,
@@ -51,8 +88,6 @@ export function screenPointToGeo(
 ): ReferenceGeoPoint | null {
   if (width <= 0 || height <= 0) return null;
   const scale = Math.min(width, height) * 0.42;
-  // The rendered external globe mirrors model-space X so east is visually to
-  // the right; invert screen X here to recover the original model coordinate.
   const nx = -(x - width / 2) / scale;
   const ny = -(y - height / 2) / scale;
   const r2 = nx * nx + ny * ny;
