@@ -146,7 +146,7 @@ Requirements:
 - reference calculations do not mutate Phase 3 source records,
 - any new cached visualization assets are versioned through the existing PWA/offline mechanisms.
 
-### P4.7 — Validation and release hardening
+### P4.7 — Validation and release hardening — IN PROGRESS
 
 Add backend, frontend and Docker acceptance gates for Phase 4 while retaining all Phase 1–3 gates.
 
@@ -200,7 +200,7 @@ Phase 5 synchronization/comparison work is forbidden on the Phase 4 implementati
 
 ## Status
 
-**IN PROGRESS — P4.1 through P4.6 complete; P4.7 pending. Phase 4 authorized by owner on 2026-09-17.**
+**IN PROGRESS — P4.1 through P4.6 complete; P4.7 started. Phase 4 authorized by owner on 2026-09-17.**
 
 Implementation branch: `feat/phase4-wgs84-reference`.
 
