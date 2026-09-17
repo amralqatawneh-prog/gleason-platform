@@ -9,7 +9,7 @@
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_admin_0_countries.geojson",
-      "sha256": null,
+      "sha256": "6866c877d39cba9c357620878839b336d569f8c662d3cfab4cb1dbe2d39c977f",
       "filename": "ne_110m_admin_0_countries.geojson"
     },
     {
@@ -19,7 +19,7 @@
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_populated_places_simple.geojson",
-      "sha256": null,
+      "sha256": "0dbd25c9ad8bd797ddf164b067f563be5c16be2c002254eb594862377963f9dc",
       "filename": "ne_110m_populated_places_simple.geojson"
     },
     {
@@ -29,7 +29,7 @@
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_geography_marine_polys.geojson",
-      "sha256": null,
+      "sha256": "b9c3f7f557d0ff5217906adc82b66ecdac14aa7438df7e518cf6675d037bceb8",
       "filename": "ne_110m_geography_marine_polys.geojson"
     },
     {
@@ -39,7 +39,7 @@
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_rivers_lake_centerlines.geojson",
-      "sha256": null,
+      "sha256": "55aa4497405afc07cdc931b7fbe062c4d6693ba2a550c0d24899953f5d507c8d",
       "filename": "ne_110m_rivers_lake_centerlines.geojson"
     },
     {
@@ -49,7 +49,7 @@
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_10m_geography_regions_elevation_points.geojson",
-      "sha256": null,
+      "sha256": "f98a16867867146ec4146d6d4b18c823eeedb2825947de666116cf9a4e3f43cb",
       "filename": "ne_10m_geography_regions_elevation_points.geojson"
     },
     {
@@ -59,7 +59,7 @@
       "commit": "634f91708ba8830b75e4f7905afce3cd4e49144e",
       "license": "Public Domain",
       "url": "https://raw.githubusercontent.com/davidmegginson/ourairports-data/634f91708ba8830b75e4f7905afce3cd4e49144e/airports.csv",
-      "sha256": null,
+      "sha256": "965c7b35e25faf45d6f21f718284593b3a269edfe9288abdb8d9004e4c543217",
       "filename": "airports.csv"
     }
   ]
