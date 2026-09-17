@@ -32,12 +32,14 @@ jobs:
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
           test -s docs/PHASE_3_PLAN.md
+          test -s docs/PHASE_3_REPORT.md
+          test -s docs/PHASE_3_ACCEPTANCE.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.3.0-dev$' VERSION
+          grep -q '^0.3.0$' VERSION
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md
           grep -q 'do not invent centroids' scripts/import_phase3_places.py
