@@ -9,6 +9,16 @@
 - No Phase 5 synchronization/comparison work is included.
 - Solar/lunar/planetary astronomy remains outside Phase 4.
 
+### P4.6
+- Added persistent WGS84 globe layer controls backed by IndexedDB.
+- Added country boundaries plus cached Phase 3 oceans, seas, rivers, cities, and saved regional airports.
+- Added continent/country/marine/city/airport labels with front-hemisphere filtering, responsive sizing, and collision suppression.
+- Corrected external-globe east/west orientation and matching geographic picking.
+- Added equivalent 2D fallback presentation for the reference layers and labels.
+- Documented that global airports remain excluded from the core-world pack and appear from installed regional packs.
+- Owner manual checks passed for layers, labels, saved airports, offline behavior, responsive sizing, and 2D fallback.
+- GitHub Actions run #155 passed after correcting the frontend core-test Vite typing configuration.
+
 ## [0.3.0] - 2026-09-17
 ### Added
 - Phase 3 PostGIS/pg_trgm place catalog and unified search foundation.
