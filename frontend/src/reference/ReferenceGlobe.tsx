@@ -31,7 +31,10 @@ void main() {
   float cp = cos(u_pitch);
   float sp = sin(u_pitch);
   p = vec3(p.x, cp * p.y - sp * p.z, sp * p.y + cp * p.z);
-  gl_Position = vec4(p.x * u_sx, p.y * u_sy, p.z * 0.78, 1.0);
+  // External-globe convention: increasing longitude (east) must appear to the
+  // viewer's right. The model-space camera convention puts the visible
+  // hemisphere on +Z, so both screen X and clip-space depth are inverted here.
+  gl_Position = vec4(-p.x * u_sx, p.y * u_sy, -p.z * 0.78, 1.0);
   gl_PointSize = u_point_size;
 }
 `;
