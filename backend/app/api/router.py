@@ -5,6 +5,7 @@ from fastapi import APIRouter, Request
 from ..services.capabilities import platform_capabilities
 from .offline_search_routes import router as offline_search_router
 from .projection_routes import router as projection_router
+from .reference_routes import router as reference_router
 from .search_routes import router as search_router
 
 router = APIRouter()
@@ -35,5 +36,6 @@ def capabilities() -> dict[str, object]:
 
 
 router.include_router(projection_router)
+router.include_router(reference_router)
 router.include_router(search_router)
 router.include_router(offline_search_router)
