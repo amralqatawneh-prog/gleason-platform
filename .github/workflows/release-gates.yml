@@ -31,7 +31,11 @@ jobs:
             grep -q '^0.3.0-dev$' VERSION
             test -s database/init/002_geographic_entities.sql
             test -s backend/app/api/geography_routes.py
+            test -s backend/app/importers/geography.py
+            test -s backend/app/services/offline_region_pack.py
             test -s frontend/src/offline/geographicSearch.ts
+            test -s frontend/src/offline/regionPack.ts
+            test -s frontend/src/search/GeographicSearchPanel.tsx
             test -s docs/PHASE_3_PLAN.md
           fi
       - uses: actions/setup-python@v5
@@ -85,12 +89,29 @@ jobs:
             'ci-test-fixture', '1', 'test-only', ST_SetSRID(ST_Point(51.5310, 25.2854), 4326)
           ) ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
           SQL
-          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search \
-            --data-urlencode 'q=Doha' --data-urlencode 'entity_type=city' >/tmp/search-en.json
+          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search --data-urlencode 'q=Doha' --data-urlencode 'entity_type=city' >/tmp/search-en.json
           jq -e '.total>=1 and any(.results[];.id=="ci:qa-doha" and .entity_type=="city" and .provenance.source_license=="test-only")' /tmp/search-en.json
-          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search \
-            --data-urlencode 'q=الدوحة' >/tmp/search-ar.json
+          curl --fail --silent --get http://127.0.0.1:8000/api/v1/search --data-urlencode 'q=الدوحة' >/tmp/search-ar.json
           jq -e '.total>=1 and any(.results[];.id=="ci:qa-doha")' /tmp/search-ar.json
+      - name: Verify Phase 3 importer and region-pack export
+        run: |
+          docker compose exec -T backend python - <<'PY'
+          import os
+          from app.database import DatabaseManager
+          from app.importers.geography import GeographicImportRecord, import_geographic_records
+          db = DatabaseManager(os.environ['APP_DATABASE_URL'])
+          record = GeographicImportRecord(
+              id='ci:import:doha-airport', entity_type='airport', name='Doha Test Airport',
+              aliases=['DTA'], country_code='QA', source_id='ci-import-fixture',
+              source_version='1', source_license='test-only',
+              geometry_geojson={'type':'Point','coordinates':[51.60,25.27]},
+              metadata={'fixture': True},
+          )
+          summary = import_geographic_records(db, [record])
+          assert summary.processed == 1 and summary.counts_by_type == {'airport': 1}
+          PY
+          curl --fail --silent --get http://127.0.0.1:8000/api/v1/geography/region-pack --data-urlencode 'region=QA' >/tmp/qa-pack.json
+          jq -e '.manifest.region=="QA" and .manifest.entity_count>=2 and (.manifest.sha256|test("^[a-f0-9]{64}$")) and any(.entities[];.id=="ci:import:doha-airport" and .provenance.sourceLicense=="test-only")' /tmp/qa-pack.json
       - name: Verify Redis
         run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
       - name: Verify frontend over Docker HTTP
