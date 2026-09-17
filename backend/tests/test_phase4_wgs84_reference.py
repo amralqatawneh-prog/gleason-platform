@@ -119,6 +119,34 @@ def test_identical_points_have_zero_distance_and_no_bearing(
     assert result.output["reverse_bearing_deg"] is None
 
 
+
+def test_geodesic_crosses_antimeridian_without_silent_input_normalization(
+    provider: WGS84ReferenceProvider,
+) -> None:
+    start = WGS84GeodeticPoint(latitude=0.0, longitude=179.0)
+    end = WGS84GeodeticPoint(latitude=0.0, longitude=-179.0)
+    result = provider.geodesic_inverse(start, end)
+    output = result.output
+    assert output["distance_m"] == pytest.approx(222638.98158654713, abs=1e-6)
+    assert output["initial_bearing_deg"] == pytest.approx(90.0, abs=1e-12)
+    assert output["final_bearing_deg"] == pytest.approx(90.0, abs=1e-12)
+    assert output["reverse_bearing_deg"] == pytest.approx(270.0, abs=1e-12)
+
+
+def test_geodetic_ecef_round_trip_near_antimeridian(
+    provider: WGS84ReferenceProvider,
+) -> None:
+    original = WGS84GeodeticPoint(
+        latitude=-33.8688,
+        longitude=179.999,
+        ellipsoidal_height_m=125.25,
+    )
+    ecef = provider.geodetic_to_ecef(original)
+    round_trip = provider.ecef_to_geodetic(ecef.output)
+    assert round_trip.output["latitude"] == pytest.approx(original.latitude, abs=1e-9)
+    assert round_trip.output["longitude"] == pytest.approx(original.longitude, abs=1e-9)
+    assert round_trip.output["ellipsoidal_height_m"] == pytest.approx(original.ellipsoidal_height_m, abs=1e-5)
+
 def test_reference_provenance_is_complete(provider: WGS84ReferenceProvider) -> None:
     result = provider.geodesic_inverse(
         WGS84GeodeticPoint(latitude=25.0, longitude=51.0),
