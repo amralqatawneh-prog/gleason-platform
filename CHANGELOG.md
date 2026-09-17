@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.0-dev] - 2026-09-17
+### Added
+- Phase 3 PostGIS/pg_trgm place catalog and unified search foundation.
+- Locked Natural Earth and OurAirports production-source import pipeline with SHA-256 verification and coordinate provenance classifications.
+- English/Arabic search over real source-derived records.
+- Deterministic core-world and country offline-search pack generation with CI artifact evidence.
+- Offline-search API routes and direct regression tests.
+- High-severity npm security gate in release acceptance CI.
+### Changed
+- Capacitor 7 dependencies updated from `7.0.0` to `7.6.9`.
+- Vite updated from `6.2.0` to `6.4.3` to clear audited High severity advisories.
+- Arabic CI search smoke test now uses URL-encoded query parameters.
+### Validation
+- GitHub Actions run `35225641209` (run #82) passed backend/frontend tests, `npm audit --audit-level=high`, production build, Docker/PostGIS/Redis runtime, real-source imports/search, offline pack generation and frontend HTTP checks.
+- Phase 3 remains pre-release until owner manual acceptance is complete; no `v0.3.0` tag is issued yet.
+
 ## [0.2.0] - 2026-09-09
 ### Added
 - Source-grounded Gleason Historical projection `GH-0.2.0`.
