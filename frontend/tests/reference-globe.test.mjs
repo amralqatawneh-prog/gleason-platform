@@ -44,6 +44,13 @@ test('screen center resolves to the front-facing geographic point', () => {
   assert.ok(Math.abs(point.longitude - 90) < 1e-12);
 });
 
+test('screen right is east of screen center on the external globe', () => {
+  const center = screenPointToGeo(200, 200, 400, 400, 0, 0);
+  const right = screenPointToGeo(220, 200, 400, 400, 0, 0);
+  assert.ok(center && right);
+  assert.ok(right.longitude > center.longitude);
+});
+
 test('canonical Phase 3 coordinate can be focused at WGS84 view center', () => {
   const canonical = { latitude: 25.2854, longitude: 51.5310 };
   const view = geoPointToViewAngles(canonical);
