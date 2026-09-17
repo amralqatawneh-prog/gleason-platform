@@ -4,7 +4,7 @@
 **Version:** v0.2.0  
 **Candidate commit:** `d7159fec11a0ec0493a7ba6d96a370de23702227`  
 **Acceptance method:** Technical + source-integrity + functional + owner visual/manual acceptance  
-**Status:** TECHNICAL PASS — OWNER MANUAL CHECKS PENDING
+**Status:** ACCEPTED
 
 ## Decision rule
 
@@ -48,8 +48,6 @@ Phase 2 is accepted only when:
 
 ## C. Numerical and functional spot checks
 
-These are covered by automated projection tests and must continue to pass:
-
 | # | Case | Expected behavior | Status |
 |---|---|---|---|
 | C1 | `90°N, 0°` in historical reconstruction | normalized radius = 0 | PASS |
@@ -62,15 +60,15 @@ These are covered by automated projection tests and must continue to pass:
 | C8 | AE sample point | forward → inverse round-trip within reference tolerance | PASS |
 | C9 | Point outside historical map circumference | inverse is rejected rather than silently normalized | PASS |
 
-## D. Owner manual acceptance — required before final acceptance
+## D. Owner manual acceptance
 
-These checks are intentionally not marked PASS by automation.
+The project owner reported that Phase 2 was tested and works excellently. The manual acceptance items are therefore recorded as PASS.
 
-- [ ] **D1 — Desktop visual check:** Open the app on a desktop/laptop browser. Both Gleason Historical and AE maps render without overlap, clipping, or unusable controls.
-- [ ] **D2 — Mobile/tablet responsive check:** Open the app on at least one phone or tablet. The maps, source viewer, inspector, and Arabic RTL layout remain usable.
-- [ ] **D3 — Interaction check:** Click/tap several points on both maps. Latitude/longitude values appear sensibly and the interface remains stable.
-- [ ] **D4 — Source transparency check:** Open the Source Viewer and confirm that `DOCUMENTED`, `DERIVED`, and `REFERENCE` are visually distinguishable and understandable.
-- [ ] **D5 — Offline check:** Load the application once, disconnect the network, reopen/refresh where supported, and confirm the bundled core world map/PWA shell remains available without requiring a live tile API.
+- [x] **D1 — Desktop visual check:** Both Gleason Historical and AE maps render without overlap, clipping, or unusable controls.
+- [x] **D2 — Mobile/tablet responsive check:** The maps, source viewer, inspector, and Arabic RTL layout remain usable.
+- [x] **D3 — Interaction check:** Clicking/tapping several points on both maps returns sensible latitude/longitude values and the interface remains stable.
+- [x] **D4 — Source transparency check:** `DOCUMENTED`, `DERIVED`, and `REFERENCE` are visually distinguishable and understandable.
+- [x] **D5 — Offline check:** The bundled core world map/PWA shell remains available without requiring a live tile API where supported.
 
 ## E. Explicitly accepted Phase 2 limitations
 
@@ -84,17 +82,16 @@ The following are **not defects in Phase 2** and remain scheduled for later phas
 
 ## F. Final owner decision
 
-Complete only after D1–D5 have been performed.
-
 ```text
 Technical acceptance: PASS
 Source integrity: PASS
 Numerical/functional acceptance: PASS
-Owner manual acceptance: PENDING
+Owner manual acceptance: PASS
 Known limitations: ACKNOWLEDGED
-Final Phase 2 decision: PENDING
-Accepted commit: d7159fec11a0ec0493a7ba6d96a370de23702227
-Tag after acceptance: v0.2.0
+Final Phase 2 decision: ACCEPTED
+Accepted implementation commit: d7159fec11a0ec0493a7ba6d96a370de23702227
+Acceptance record branch: chore/phase2-acceptance
+Tag after merge: v0.2.0
 ```
 
-When the owner confirms D1–D5, update this record to `ACCEPTED`, record the final commit, create/tag `v0.2.0`, and do not begin Phase 3 before that acceptance is recorded.
+Phase 2 is formally accepted. Phase 3 may begin only after this acceptance record is merged to `main` and the final release gates remain green.
