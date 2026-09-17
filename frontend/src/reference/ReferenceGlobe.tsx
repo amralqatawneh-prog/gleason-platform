@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { OfflinePlace } from '../offline/searchIndex';
 import type { BrowserCapabilities } from '../platform/capabilities';
 import { countryBoundaryRings } from './countryGeometry';
-import { buildGlobeLabels } from './globeLabels';
+import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
@@ -119,10 +119,15 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
   const countryPaths = useMemo(() => countryBoundaryRings().map(fallbackPath), []);
   const labels = useMemo(() => layers ? buildGlobeLabels(layerPlaces, layers, locale) : [], [layerPlaces, layers, locale]);
-  const projectedLabels = useMemo(() => labels
-    .map((label) => ({ label, screen: projectGeoToScreen(label, viewport.width, viewport.height, yaw, pitch) }))
-    .filter((item) => item.screen?.visible && (item.screen?.depth ?? 0) > 0.18)
-    .slice(0, 48), [labels, viewport, yaw, pitch]);
+  const projectedLabels = useMemo(() => declutterProjectedLabels(
+    labels.flatMap((label) => {
+      const screen = projectGeoToScreen(label, viewport.width, viewport.height, yaw, pitch);
+      return screen ? [{ label, screen }] : [];
+    }),
+    viewport.width,
+    viewport.height,
+    52,
+  ), [labels, viewport, yaw, pitch]);
 
   useEffect(() => {
     if (!focusPoint) return;
@@ -225,7 +230,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
     <div className="reference-globe-wrap">
       <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(drag.current.yaw+(e.clientX-drag.current.x)*.008);setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}}/>
       <div className="reference-label-layer" aria-hidden="true">
-        {projectedLabels.map(({label,screen})=>screen&&<span key={label.id} className={`reference-globe-label reference-globe-label-${label.kind}`} style={{left:screen.x,top:screen.y}} title={label.provenance}>{label.text}</span>)}
+        {projectedLabels.map(({label,screen,fontSizePx})=><span key={label.id} className={`reference-globe-label reference-globe-label-${label.kind}`} style={{left:screen.x,top:screen.y,fontSize:`${fontSizePx}px`}} title={label.provenance}>{label.text}</span>)}
       </div>
       {focusPoint&&<span className="reference-focus-dot" aria-label="selected Phase 3 place"/>}
     </div>
