@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ProjectionMap, type Phase2MapModel } from './map2d/ProjectionMap';
 import type { GeoPoint } from './models/projectionTypes';
 import type { OfflinePlace } from './offline/searchIndex';
+import { refreshCoreSearchPack } from './offline/searchPackStore';
 import { fetchCapabilities } from './api';
 import { type Locale, strings } from './i18n';
 import { detectCapabilities } from './platform/capabilities';
@@ -29,7 +30,13 @@ export default function App() {
   useEffect(()=>{document.documentElement.lang=locale;document.documentElement.dir=direction;},[locale,direction]);
   useEffect(()=>{const sync=()=>setOnline(navigator.onLine);addEventListener('online',sync);addEventListener('offline',sync);return()=>{removeEventListener('online',sync);removeEventListener('offline',sync);};},[]);
   useEffect(()=>{fetchCapabilities().then((result)=>setServerState(result?'connected':'offline'));},[online]);
-  useEffect(()=>{void loadGlobeLayerVisibility().then((layers)=>{setGlobeLayers(layers);return loadGlobePlaces(layers);}).then(setGlobePlaces).catch(()=>setGlobePlaces([]));},[]);
+  useEffect(()=>{
+    void loadGlobeLayerVisibility().then(async (layers)=>{
+      setGlobeLayers(layers);
+      if (navigator.onLine) await refreshCoreSearchPack().catch(()=>undefined);
+      return loadGlobePlaces(layers);
+    }).then(setGlobePlaces).catch(()=>setGlobePlaces([]));
+  },[]);
 
   const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>setSelection({model,point}),[]);
   const locatePlace=useCallback((place:PlaceSelection)=>{setSelectedPlace(place);setSelection({model:'wgs84',point:{latitude:place.latitude,longitude:place.longitude}});},[]);
