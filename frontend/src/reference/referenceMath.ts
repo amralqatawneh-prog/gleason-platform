@@ -19,6 +19,13 @@ export function normalizeLongitude(longitude: number): number {
   return ((longitude + 180) % 360 + 360) % 360 - 180;
 }
 
+export function geoPointToViewAngles(point: ReferenceGeoPoint): { yaw: number; pitch: number } {
+  return {
+    yaw: ((normalizeLongitude(point.longitude) - 90) * Math.PI) / 180,
+    pitch: (clampLatitude(point.latitude) * Math.PI) / 180,
+  };
+}
+
 export function latLonToEllipsoid(
   point: ReferenceGeoPoint,
   equatorialRadius = 1,
@@ -50,7 +57,6 @@ export function screenPointToGeo(
   if (r2 > 1) return null;
   const nz = Math.sqrt(Math.max(0, 1 - r2));
 
-  // Invert pitch then yaw to recover model-space unit sphere coordinates.
   const cp = Math.cos(-pitchRad);
   const sp = Math.sin(-pitchRad);
   const py = ny * cp - nz * sp;
