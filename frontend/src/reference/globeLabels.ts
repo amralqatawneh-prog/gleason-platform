@@ -1,5 +1,6 @@
 import type { OfflinePlace, PlaceCategory } from '../offline/searchIndex';
 import type { GlobeLayerVisibility } from './globeLayers';
+import type { ScreenProjection } from './referenceMath';
 
 export type GlobeLabel = {
   id: string;
@@ -9,6 +10,12 @@ export type GlobeLabel = {
   kind: 'continent' | PlaceCategory;
   priority: number;
   provenance: 'DISPLAY_CONVENTION' | 'PHASE3_PLACE';
+};
+
+export type ProjectedGlobeLabel = {
+  label: GlobeLabel;
+  screen: ScreenProjection;
+  fontSizePx: number;
 };
 
 const CONTINENTS = [
@@ -43,6 +50,57 @@ function layerAllows(category: PlaceCategory, layers: GlobeLayerVisibility): boo
     case 'airport': return layers.airports;
     case 'mountain': return false;
   }
+}
+
+function baseFontSize(kind: GlobeLabel['kind']): number {
+  switch (kind) {
+    case 'continent': return 10;
+    case 'country': return 7;
+    case 'ocean': return 8;
+    case 'sea': return 7;
+    case 'city': return 6;
+    case 'airport': return 5;
+    default: return 6;
+  }
+}
+
+export function globeLabelFontSize(kind: GlobeLabel['kind'], viewportWidth: number): number {
+  // Responsive sizing: browser/map zoom reduces the available CSS viewport, so
+  // labels get smaller rather than growing over neighbouring countries.
+  const viewportScale = Math.max(0.62, Math.min(1, viewportWidth / 900));
+  return Number((baseFontSize(kind) * viewportScale).toFixed(2));
+}
+
+export function declutterProjectedLabels(
+  candidates: Array<{ label: GlobeLabel; screen: ScreenProjection }>,
+  viewportWidth: number,
+  viewportHeight: number,
+  maxLabels = 64,
+): ProjectedGlobeLabel[] {
+  const accepted: Array<ProjectedGlobeLabel & { box: [number, number, number, number] }> = [];
+
+  for (const candidate of candidates) {
+    if (!candidate.screen.visible || candidate.screen.depth <= 0.18) continue;
+    const fontSizePx = globeLabelFontSize(candidate.label.kind, viewportWidth);
+    const estimatedWidth = Math.max(16, candidate.label.text.length * fontSizePx * 0.56 + 6);
+    const estimatedHeight = fontSizePx * 1.35 + 4;
+    const left = candidate.screen.x - estimatedWidth / 2;
+    const right = candidate.screen.x + estimatedWidth / 2;
+    const top = candidate.screen.y - estimatedHeight / 2;
+    const bottom = candidate.screen.y + estimatedHeight / 2;
+    if (right < 0 || left > viewportWidth || bottom < 0 || top > viewportHeight) continue;
+
+    const gap = 2;
+    const overlaps = accepted.some(({ box }) =>
+      left < box[2] + gap && right > box[0] - gap && top < box[3] + gap && bottom > box[1] - gap,
+    );
+    if (overlaps) continue;
+
+    accepted.push({ ...candidate, fontSizePx, box: [left, top, right, bottom] });
+    if (accepted.length >= maxLabels) break;
+  }
+
+  return accepted.map(({ box: _box, ...item }) => item);
 }
 
 export function buildGlobeLabels(
