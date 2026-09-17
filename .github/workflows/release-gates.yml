@@ -119,7 +119,7 @@ jobs:
         run: |
           curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=Arctic%20Ocean&category=ocean' >/tmp/ocean-search.json
           jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean" and .source.source_id=="natural-earth-marine-110m")' /tmp/ocean-search.json
-          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=المحيط%20المتجمد%20الشمالي&category=ocean' >/tmp/ocean-search-ar.json
+          curl --fail --silent --get 'http://127.0.0.1:8000/api/v1/search' --data-urlencode 'q=المحيط المتجمد الشمالي' --data-urlencode 'category=ocean' >/tmp/ocean-search-ar.json
           jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean")' /tmp/ocean-search-ar.json
           curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=DOH&category=airport' >/tmp/airport-search.json
           jq -e '.count>=1 and any(.results[]; .source.source_id=="ourairports-airports")' /tmp/airport-search.json
