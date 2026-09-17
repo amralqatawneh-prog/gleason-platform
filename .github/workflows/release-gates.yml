@@ -73,12 +73,19 @@ jobs:
       - name: Frontend core tests
         working-directory: frontend
         run: npm run test:core
+      - name: Validate service worker syntax
+        working-directory: frontend
+        run: npm run check:sw
       - name: npm production build
         working-directory: frontend
         run: npm run build
       - name: Verify production PWA and offline pack
         working-directory: frontend
-        run: test -s dist/index.html && test -s dist/sw.js && test -s dist/offline-packs/core-world-v1.json
+        run: |
+          test -s dist/index.html
+          test -s dist/sw.js
+          test -s dist/offline-packs/core-world-v1.json
+          grep -q "gleason-shell-v0.4.0-rc1" dist/sw.js
       - name: Validate Docker Compose
         run: docker compose config
       - name: Build and start Docker stack
