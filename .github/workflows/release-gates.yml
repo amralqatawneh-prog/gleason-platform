@@ -27,6 +27,7 @@ jobs:
           test -s scripts/import_phase3_places.py
           test -s scripts/import_phase3_locked_sources.py
           test -s scripts/fetch_phase3_sources.py
+          test -s scripts/build_phase3_offline_index.py
           test -s data/sources/phase3-source-lock.json
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
@@ -89,6 +90,7 @@ jobs:
           docker compose exec -T backend mkdir -p /tmp/phase3repo/scripts /tmp/phase3repo/data/sources /tmp/phase3-data
           docker cp scripts/import_phase3_places.py "$BACKEND_ID":/tmp/phase3repo/scripts/import_phase3_places.py
           docker cp scripts/import_phase3_locked_sources.py "$BACKEND_ID":/tmp/phase3repo/scripts/import_phase3_locked_sources.py
+          docker cp scripts/build_phase3_offline_index.py "$BACKEND_ID":/tmp/phase3repo/scripts/build_phase3_offline_index.py
           docker cp data/sources/phase3-source-lock.json "$BACKEND_ID":/tmp/phase3repo/data/sources/phase3-source-lock.json
           docker cp /tmp/phase3-data/. "$BACKEND_ID":/tmp/phase3-data/
           docker compose exec -T backend python /tmp/phase3repo/scripts/import_phase3_locked_sources.py \
@@ -99,17 +101,51 @@ jobs:
         run: |
           set -euo pipefail
           docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT category::text || '=' || count(*) FROM places GROUP BY category ORDER BY category" | tee /tmp/category-counts.txt
-          for category in airport city country mountain ocean river sea; do grep -Eq "^${category}=[1-9][0-9]*$" /tmp/category-counts.txt; done
+          grep -qx 'country=177' /tmp/category-counts.txt
+          grep -qx 'city=243' /tmp/category-counts.txt
+          grep -qx 'sea=16' /tmp/category-counts.txt
+          grep -qx 'ocean=7' /tmp/category-counts.txt
+          grep -qx 'river=12' /tmp/category-counts.txt
+          grep -qx 'mountain=632' /tmp/category-counts.txt
+          grep -qx 'airport=86089' /tmp/category-counts.txt
           test "$(docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT count(*) FROM place_sources WHERE dataset_sha256 ~ '^[0-9a-f]{64}$';" | tr -d '[:space:]')" = "6"
           test "$(docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT count(*) FROM places WHERE coalesce(quality->>'coordinate_classification','') = '';" | tr -d '[:space:]')" = "0"
-          docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT quality->>'coordinate_classification' || '=' || count(*) FROM places GROUP BY 1 ORDER BY 1" | tee /tmp/coordinate-classifications.txt
+          docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT (quality->>'coordinate_classification') AS class, count(*) FROM places GROUP BY class ORDER BY class" | tee /tmp/coordinate-classifications.txt
+          grep -q '^DERIVED_FROM_SOURCE_BBOX|' /tmp/coordinate-classifications.txt
+          grep -q '^DERIVED_FROM_SOURCE_GEOMETRY|' /tmp/coordinate-classifications.txt
+          grep -q '^SOURCE_LABEL|' /tmp/coordinate-classifications.txt
+          grep -q '^SOURCE_POINT|' /tmp/coordinate-classifications.txt
       - name: Verify unified search against real source records
         run: |
           curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=Arctic%20Ocean&category=ocean' >/tmp/ocean-search.json
-          cat /tmp/ocean-search.json
           jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean" and .source.source_id=="natural-earth-marine-110m")' /tmp/ocean-search.json
           curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=المحيط%20المتجمد%20الشمالي&category=ocean' >/tmp/ocean-search-ar.json
           jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean")' /tmp/ocean-search-ar.json
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=DOH&category=airport' >/tmp/airport-search.json
+          jq -e '.count>=1 and any(.results[]; .source.source_id=="ourairports-airports")' /tmp/airport-search.json
+      - name: Build real offline search core and region pack
+        run: |
+          set -euo pipefail
+          BACKEND_ID="$(docker compose ps -q backend)"
+          docker compose exec -T backend mkdir -p /tmp/phase3-packs
+          docker compose exec -T backend python /tmp/phase3repo/scripts/build_phase3_offline_index.py \
+            --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
+            --output /tmp/phase3-packs/search-core-world-v1.json \
+            --id search-core-world-v1 --version 1.0.0 --exclude-category airport
+          docker compose exec -T backend python /tmp/phase3repo/scripts/build_phase3_offline_index.py \
+            --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
+            --output /tmp/phase3-packs/region-qa-v1.json \
+            --id region-qa-v1 --version 1.0.0 --country QA
+          mkdir -p /tmp/phase3-packs
+          docker cp "$BACKEND_ID":/tmp/phase3-packs/. /tmp/phase3-packs/
+          jq -e '.schemaVersion==1 and .id=="search-core-world-v1" and (.entries|length)==1087 and all(.entries[];.category!="airport")' /tmp/phase3-packs/search-core-world-v1.json
+          jq -e '.schemaVersion==1 and .id=="region-qa-v1" and (.entries|length)>1 and all(.entries[];.countryCode=="QA")' /tmp/phase3-packs/region-qa-v1.json
+      - name: Upload Phase 3 offline search pack evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3-offline-search-packs
+          path: /tmp/phase3-packs/*.json
+          if-no-files-found: error
       - name: Verify Phase 3 unified search API with ephemeral CI fixture
         run: |
           docker compose exec -T db psql -U gleason -d gleason <<'SQL'
