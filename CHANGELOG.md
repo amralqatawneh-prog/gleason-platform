@@ -9,6 +9,13 @@
 - No Phase 5 synchronization/comparison work is included.
 - Solar/lunar/planetary astronomy remains outside Phase 4.
 
+### P4.7
+- Added antimeridian and near-antimeridian WGS84 regression tests.
+- Added Docker runtime smoke checks for WGS84 metadata, ECEF conversion, antimeridian geodesic, and invalid-longitude rejection.
+- Added service-worker syntax validation and Phase 4 PWA cache rotation to `gleason-shell-v0.4.0-rc1`.
+- Added `docs/PHASE_4_REPORT.md` as the pre-acceptance hardening report.
+- Phase 5 remains excluded pending explicit owner acceptance of Phase 4.
+
 ### P4.6
 - Added persistent WGS84 globe layer controls backed by IndexedDB.
 - Added country boundaries plus cached Phase 3 oceans, seas, rivers, cities, and saved regional airports.
