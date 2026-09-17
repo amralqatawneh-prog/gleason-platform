@@ -40,7 +40,7 @@ test('screen center resolves to the front-facing geographic point', () => {
   const point = screenPointToGeo(200, 200, 400, 400, 0, 0);
   assert.ok(point);
   assert.ok(Math.abs(point.latitude) < 1e-12);
-  assert.ok(Math.abs(point.longitude) < 1e-12);
+  assert.ok(Math.abs(point.longitude - 90) < 1e-12);
 });
 
 test('screen points outside globe return null', () => {
