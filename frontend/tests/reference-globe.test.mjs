@@ -5,6 +5,7 @@ import {
   geoPointToViewAngles,
   latLonToEllipsoid,
   normalizeLongitude,
+  projectGeoToScreen,
   referenceViewMode,
   screenPointToGeo,
 } from '../.phase1-test-build/reference/referenceMath.js';
@@ -49,6 +50,16 @@ test('screen right is east of screen center on the external globe', () => {
   const right = screenPointToGeo(220, 200, 400, 400, 0, 0);
   assert.ok(center && right);
   assert.ok(right.longitude > center.longitude);
+});
+
+test('projected labels use the same external-globe east/right convention', () => {
+  const center = projectGeoToScreen({ latitude: 0, longitude: 90 }, 400, 400, 0, 0);
+  const east = projectGeoToScreen({ latitude: 0, longitude: 100 }, 400, 400, 0, 0);
+  const back = projectGeoToScreen({ latitude: 0, longitude: -90 }, 400, 400, 0, 0);
+  assert.ok(center && east && back);
+  assert.equal(center.visible, true);
+  assert.ok(east.x > center.x);
+  assert.equal(back.visible, false);
 });
 
 test('canonical Phase 3 coordinate can be focused at WGS84 view center', () => {
