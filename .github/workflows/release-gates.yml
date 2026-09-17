@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0, feat/phase3-data-search]
+    branches: [main, phase2-v0.2.0, feat/phase3-data-search, feat/phase4-wgs84-reference]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 3 tests + npm build + Docker runtime
+    name: structure + Phase 4 validation + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -34,6 +34,16 @@ jobs:
           test -s docs/PHASE_3_PLAN.md
           test -s docs/PHASE_3_REPORT.md
           test -s docs/PHASE_3_ACCEPTANCE.md
+          test -s backend/app/providers/reference/wgs84.py
+          test -s backend/app/api/reference_routes.py
+          test -s backend/tests/test_phase4_wgs84_reference.py
+          test -s backend/tests/test_phase4_reference_api.py
+          test -s frontend/src/reference/ReferenceGlobe.tsx
+          test -s frontend/src/reference/GeodesicInspector.tsx
+          test -s frontend/src/reference/globeLayers.ts
+          test -s frontend/src/reference/globeLabels.ts
+          test -s docs/PHASE_4_PLAN.md
+          test -s docs/PHASE_4_P4_6_REPORT.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
         run: |
@@ -83,6 +93,17 @@ jobs:
           jq -e 'length==2 and any(.[];.model_id=="gleason-historical") and any(.[];.model_id=="ae-north-pole")' /tmp/models.json
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/projections/gleason-historical/forward -H 'content-type: application/json' -d '{"latitude":0,"longitude":90}' >/tmp/g.json
           jq -e '.output.x>0.499999 and .output.x<0.500001' /tmp/g.json
+      - name: Verify Phase 4 WGS84 reference API
+        run: |
+          set -euo pipefail
+          curl --fail --silent http://127.0.0.1:8000/api/v1/models/reference/wgs84 >/tmp/wgs84-meta.json
+          jq -e '.model_id=="wgs84-reference" and .model_version=="WGS84-0.4.0" and .geographic_crs=="EPSG:4979" and .ecef_crs=="EPSG:4978" and .semantic_type=="REFERENCE_RESULT"' /tmp/wgs84-meta.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":0,"ellipsoidal_height_m":0}' >/tmp/ecef.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and .operation=="geodetic_to_ecef" and (.output.x_m>6378136.999 and .output.x_m<6378137.001) and (.output.y_m|fabs)<0.001 and (.output.z_m|fabs)<0.001' /tmp/ecef.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodesic-inverse -H 'content-type: application/json' -d '{"start":{"latitude":0,"longitude":179,"ellipsoidal_height_m":0},"end":{"latitude":0,"longitude":-179,"ellipsoidal_height_m":0}}' >/tmp/anti.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and (.output.distance_m>222638.98 and .output.distance_m<222638.99) and (.output.initial_bearing_deg==90)' /tmp/anti.json
+          status="$(curl --silent --output /tmp/invalid-reference.json --write-out '%{http_code}' -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":181,"ellipsoidal_height_m":0}')"
+          test "$status" = "422"
       - name: Verify Phase 3 PostGIS catalog schema
         run: |
           test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
