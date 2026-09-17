@@ -1,0 +1,31 @@
+schema_version: 1
+phase: 3
+policy:
+  require_provenance: true
+  require_dataset_checksum_on_release_import: true
+  allow_fabricated_coordinates: false
+  test_fixtures_are_production_data: false
+sources:
+  - id: natural-earth
+    name: Natural Earth
+    role: geographic_base_catalog
+    license: Public Domain
+    url: https://www.naturalearthdata.com/
+    terms_url: https://www.naturalearthdata.com/about/terms-of-use/
+    version_policy: Record the exact downloaded theme version and SHA-256 at import time.
+    intended_categories:
+      - country
+      - city
+      - sea
+      - ocean
+      - river
+      - mountain
+    geometry_policy: Import only source-provided Point geometry into the Phase 3 search catalog; do not invent centroids.
+  - id: ourairports
+    name: OurAirports
+    role: airport_base_catalog
+    license: Public Domain
+    url: https://ourairports.com/data/
+    version_policy: Record download date and SHA-256 at import time because the CSV dump is updated frequently.
+    intended_categories:
+      - airport

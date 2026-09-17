@@ -4,6 +4,7 @@ import type { GeoPoint } from './models/projectionTypes';
 import { fetchCapabilities } from './api';
 import { type Locale, strings } from './i18n';
 import { detectCapabilities } from './platform/capabilities';
+import { PlaceSearch } from './search/PlaceSearch';
 import { SourceViewer } from './source/SourceViewer';
 import { RELEASE_NAME } from './shared/version';
 
@@ -24,14 +25,15 @@ export default function App() {
     <header className="topbar"><div className="brand"><span className="brand-mark">◎</span><div><h1>{t.title}</h1><p>{t.subtitle} · {RELEASE_NAME}</p></div></div><div className="top-actions"><span className={`status-dot ${online?'ok':'warn'}`}>{online?t.online:t.offlineNow}</span><span className="status-dot">API: {serverState}</span><button className="secondary" onClick={()=>setLocale(locale==='ar'?'en':'ar')}>{locale==='ar'?'English':'العربية'}</button></div></header>
     <div className="workspace phase2-workspace">
       <aside className="sidebar">
-        <section className="phase-card"><span className="eyebrow">Phase 2 · v0.2.0</span><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div></section>
-        <section className="phase-card"><h2>{locale==='ar'?'حدود هذه المرحلة':'Phase boundary'}</h2><p>{locale==='ar'?'الخريطتان مستقلتان عمدًا. المزامنة بين النماذج تبدأ في المرحلة 5.':'The two maps are intentionally independent. Cross-model synchronization begins in Phase 5.'}</p></section>
+        <section className="phase-card"><span className="eyebrow">Phase 3 · v0.3.0-dev</span><h2>{locale==='ar'?'طبقة البيانات والبحث':'Data & search layer'}</h2><p>{locale==='ar'?'بحث موحد فوق بيانات PostGIS الموثقة، مع فهرس Offline وحزم مناطق قيد التنفيذ.':'Unified search over provenance-backed PostGIS data, with offline index and region packs in progress.'}</p></section>
+        <PlaceSearch locale={locale}/>
+        <section className="phase-card"><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div></section>
         <section className="phase-card"><h2>{locale==='ar'?'الحزمة المحلية':'Offline pack'}</h2><p>Core World Pack v1 · Natural Earth 110m</p><span className="evidence-badge">Bundled · Offline</span></section>
       </aside>
       <main className="phase2-main"><div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint}/></div><SourceViewer locale={locale}/></main>
       <aside className="inspector"><h2>{locale==='ar'?'المفتش الجغرافي':'Geographic inspector'}</h2>{selection?<dl><Metric label={locale==='ar'?'الخريطة':'Map'} value={selection.model}/><Metric label="Latitude" value={selection.point.latitude.toFixed(6)}/><Metric label="Longitude" value={selection.point.longitude.toFixed(6)}/><Metric label={locale==='ar'?'الحالة':'Status'} value="local inverse ✓"/></dl>:<p className="muted">{locale==='ar'?'انقر داخل إحدى الخريطتين لاستعادة الإحداثيات الجغرافية.':'Click inside either map to recover geographic coordinates.'}</p>}<div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>DOCUMENTED ≠ DERIVED ≠ REFERENCE</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-    <footer className="statusbar"><span>GH-0.2.0 historical reconstruction</span><span>AE-0.2.0 independent reference</span><span>WGS84 globe: Phase 4</span><span>Synchronization: Phase 5</span></footer>
+    <footer className="statusbar"><span>Phase 3 search: v0.3.0-dev</span><span>GH-0.2.0 historical reconstruction</span><span>AE-0.2.0 independent reference</span><span>WGS84 globe: Phase 4</span></footer>
   </div>;
 }
 function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}

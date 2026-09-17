@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0]
+    branches: [main, phase2-v0.2.0, feat/phase3-data-search]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 2 tests + npm build + Docker runtime
+    name: structure + Phase 3 tests + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -18,17 +18,37 @@ jobs:
         run: |
           set -euo pipefail
           test -s backend/app/providers/projections/gleason.py
+          test -s backend/app/services/place_search.py
+          test -s backend/app/api/search_routes.py
+          test -s database/init/002_phase3_places.sql
           test -s frontend/src/map2d/ProjectionMap.tsx
+          test -s frontend/src/offline/searchIndex.ts
+          test -s frontend/src/search/PlaceSearch.tsx
+          test -s scripts/import_phase3_places.py
+          test -s scripts/import_phase3_locked_sources.py
+          test -s scripts/fetch_phase3_sources.py
+          test -s scripts/build_phase3_offline_index.py
+          test -s data/sources/phase3-source-lock.json
           test -s data/sources/gleason-book.yaml
           test -s docs/PHASE_2_REPORT.md
+          test -s docs/PHASE_3_PLAN.md
+          test -s docs/PHASE_3_REPORT.md
+          test -s docs/PHASE_3_ACCEPTANCE.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
-      - name: Validate Phase 2 source policy
+      - name: Validate source and Phase 3 policy
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.2.0$' VERSION
+          grep -q '^0.3.0$' VERSION
+          grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
+          grep -q 'OurAirports' docs/PHASE_3_PLAN.md
+          grep -q 'do not invent centroids' scripts/import_phase3_places.py
+          jq -e '.sources|length==6' data/sources/phase3-source-lock.json
+          jq -e 'all(.sources[]; (.sha256|type)=="string" and (.sha256|test("^[0-9a-f]{64}$")))' data/sources/phase3-source-lock.json
       - uses: actions/setup-python@v5
         with: {python-version: '3.13'}
+      - name: Verify locked Phase 3 source SHA-256 values
+        run: python scripts/fetch_phase3_sources.py --output-dir /tmp/phase3-data | tee /tmp/phase3-source-hashes.json
       - name: Backend tests
         working-directory: backend
         run: python -m pip install --upgrade pip && pip install -e '.[dev]' && pytest -q
@@ -37,6 +57,9 @@ jobs:
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm install --no-audit --no-fund
+      - name: Frontend dependency security gate
+        working-directory: frontend
+        run: npm audit --audit-level=high
       - name: Frontend core tests
         working-directory: frontend
         run: npm run test:core
@@ -54,16 +77,92 @@ jobs:
         run: |
           for i in $(seq 1 90); do if curl --fail --silent http://127.0.0.1:8000/api/v1/ready >/tmp/ready.json; then break; fi; sleep 2; done
           jq -e '.status=="ready" and .database.reachable==true and .database.dialect=="postgresql"' /tmp/ready.json
-      - name: Verify Phase 2 projection API
+      - name: Verify Phase 2 projection API remains green
         run: |
           curl --fail --silent http://127.0.0.1:8000/api/v1/models/projections >/tmp/models.json
           jq -e 'length==2 and any(.[];.model_id=="gleason-historical") and any(.[];.model_id=="ae-north-pole")' /tmp/models.json
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/projections/gleason-historical/forward -H 'content-type: application/json' -d '{"latitude":0,"longitude":90}' >/tmp/g.json
           jq -e '.output.x>0.499999 and .output.x<0.500001' /tmp/g.json
-          curl --fail --silent http://127.0.0.1:8000/api/v1/sources/gleason >/tmp/source.json
-          jq -e '.georeferencing.historical_scan=="not-embedded"' /tmp/source.json
-      - name: Verify PostGIS
-        run: test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+      - name: Verify Phase 3 PostGIS catalog schema
+        run: |
+          test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
+          test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='pg_trgm';" | tr -d '[:space:]')"
+          test "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT count(*) FROM information_schema.tables WHERE table_name IN ('places','place_sources','region_packs','region_pack_places');" | tr -d '[:space:]')" = "4"
+      - name: Import locked production datasets into PostGIS
+        run: |
+          set -euo pipefail
+          BACKEND_ID="$(docker compose ps -q backend)"
+          docker compose exec -T backend mkdir -p /tmp/phase3repo/scripts /tmp/phase3repo/data/sources /tmp/phase3-data
+          docker cp scripts/import_phase3_places.py "$BACKEND_ID":/tmp/phase3repo/scripts/import_phase3_places.py
+          docker cp scripts/import_phase3_locked_sources.py "$BACKEND_ID":/tmp/phase3repo/scripts/import_phase3_locked_sources.py
+          docker cp scripts/build_phase3_offline_index.py "$BACKEND_ID":/tmp/phase3repo/scripts/build_phase3_offline_index.py
+          docker cp data/sources/phase3-source-lock.json "$BACKEND_ID":/tmp/phase3repo/data/sources/phase3-source-lock.json
+          docker cp /tmp/phase3-data/. "$BACKEND_ID":/tmp/phase3-data/
+          docker compose exec -T backend python /tmp/phase3repo/scripts/import_phase3_locked_sources.py \
+            --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
+            --data-dir /tmp/phase3-data \
+            --lock /tmp/phase3repo/data/sources/phase3-source-lock.json
+      - name: Measure real Phase 3 catalog coverage and provenance
+        run: |
+          set -euo pipefail
+          docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT category::text || '=' || count(*) FROM places GROUP BY category ORDER BY category" | tee /tmp/category-counts.txt
+          grep -qx 'country=177' /tmp/category-counts.txt
+          grep -qx 'city=243' /tmp/category-counts.txt
+          grep -qx 'sea=16' /tmp/category-counts.txt
+          grep -qx 'ocean=7' /tmp/category-counts.txt
+          grep -qx 'river=12' /tmp/category-counts.txt
+          grep -qx 'mountain=632' /tmp/category-counts.txt
+          grep -qx 'airport=86089' /tmp/category-counts.txt
+          test "$(docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT count(*) FROM place_sources WHERE dataset_sha256 ~ '^[0-9a-f]{64}$';" | tr -d '[:space:]')" = "6"
+          test "$(docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT count(*) FROM places WHERE coalesce(quality->>'coordinate_classification','') = '';" | tr -d '[:space:]')" = "0"
+          docker compose exec -T db psql -U gleason -d gleason -Atc "SELECT (quality->>'coordinate_classification') AS class, count(*) FROM places GROUP BY class ORDER BY class" | tee /tmp/coordinate-classifications.txt
+          grep -q '^DERIVED_FROM_SOURCE_BBOX|' /tmp/coordinate-classifications.txt
+          grep -q '^DERIVED_FROM_SOURCE_GEOMETRY|' /tmp/coordinate-classifications.txt
+          grep -q '^SOURCE_LABEL|' /tmp/coordinate-classifications.txt
+          grep -q '^SOURCE_POINT|' /tmp/coordinate-classifications.txt
+      - name: Verify unified search against real source records
+        run: |
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=Arctic%20Ocean&category=ocean' >/tmp/ocean-search.json
+          jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean" and .source.source_id=="natural-earth-marine-110m")' /tmp/ocean-search.json
+          curl --fail --silent --get 'http://127.0.0.1:8000/api/v1/search' --data-urlencode 'q=المحيط المتجمد الشمالي' --data-urlencode 'category=ocean' >/tmp/ocean-search-ar.json
+          jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean")' /tmp/ocean-search-ar.json
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=DOH&category=airport' >/tmp/airport-search.json
+          jq -e '.count>=1 and any(.results[]; .source.source_id=="ourairports-airports")' /tmp/airport-search.json
+      - name: Build real offline search core and region pack
+        run: |
+          set -euo pipefail
+          BACKEND_ID="$(docker compose ps -q backend)"
+          docker compose exec -T backend mkdir -p /tmp/phase3-packs
+          docker compose exec -T backend python /tmp/phase3repo/scripts/build_phase3_offline_index.py \
+            --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
+            --output /tmp/phase3-packs/search-core-world-v1.json \
+            --id search-core-world-v1 --version 1.0.0 --exclude-category airport
+          docker compose exec -T backend python /tmp/phase3repo/scripts/build_phase3_offline_index.py \
+            --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
+            --output /tmp/phase3-packs/region-qa-v1.json \
+            --id region-qa-v1 --version 1.0.0 --country QA
+          mkdir -p /tmp/phase3-packs
+          docker cp "$BACKEND_ID":/tmp/phase3-packs/. /tmp/phase3-packs/
+          jq -e '.schemaVersion==1 and .id=="search-core-world-v1" and (.entries|length)==1087 and all(.entries[];.category!="airport")' /tmp/phase3-packs/search-core-world-v1.json
+          jq -e '.schemaVersion==1 and .id=="region-qa-v1" and (.entries|length)>1 and all(.entries[];.countryCode=="QA")' /tmp/phase3-packs/region-qa-v1.json
+      - name: Upload Phase 3 offline search pack evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3-offline-search-packs
+          path: /tmp/phase3-packs/*.json
+          if-no-files-found: error
+      - name: Verify Phase 3 unified search API with ephemeral CI fixture
+        run: |
+          docker compose exec -T db psql -U gleason -d gleason <<'SQL'
+          INSERT INTO place_sources(source_id,name,version,license,source_url)
+          VALUES ('ci-fixture','CI fixture','1','TEST-ONLY','fixture://ci')
+          ON CONFLICT (source_id) DO NOTHING;
+          INSERT INTO places(id,category,name,name_ar,aliases,country_code,latitude,longitude,source_id,source_record_id)
+          VALUES ('ci-city', 'city', 'CI Search City', 'مدينة اختبار CI', '["CIC"]'::jsonb, 'QA', 25.0, 51.0, 'ci-fixture', '1')
+          ON CONFLICT (id) DO NOTHING;
+          SQL
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=CI%20Search&category=city' >/tmp/search.json
+          jq -e '.count==1 and .results[0].id=="ci-city" and .results[0].category=="city" and .results[0].source.license=="TEST-ONLY"' /tmp/search.json
       - name: Verify Redis
         run: test "$(docker compose exec -T redis redis-cli ping | tr -d '\r')" = "PONG"
       - name: Verify frontend over Docker HTTP

@@ -15,10 +15,10 @@ def make_client(tmp_path):
 
 def test_health_endpoint_and_request_id(tmp_path) -> None:
     with make_client(tmp_path) as client:
-        response = client.get("/api/v1/health", headers={"X-Request-ID": "phase2-test"})
+        response = client.get("/api/v1/health", headers={"X-Request-ID": "phase3-test"})
     assert response.status_code == 200
-    assert response.headers["X-Request-ID"] == "phase2-test"
-    assert response.json()["version"] == "0.2.0"
+    assert response.headers["X-Request-ID"] == "phase3-test"
+    assert response.json()["version"] == "0.3.0-dev"
 
 
 def test_readiness_checks_database(tmp_path) -> None:
@@ -39,6 +39,33 @@ def test_capabilities_claim_only_implemented_phase2_features(tmp_path) -> None:
     assert payload["historical_scan_embedded"] is False
     assert payload["wgs84_globe"] is False
     assert payload["astronomy_engine"] is False
+
+
+def test_offline_search_core_endpoint_returns_versioned_pack(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/core")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["schemaVersion"] == 1
+    assert payload["id"] == "search-core-world-v1"
+    assert payload["version"] == "1.0.0"
+    assert payload["sourceIds"] == []
+    assert payload["entries"] == []
+
+
+def test_offline_search_country_endpoint_normalizes_code(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/country/qa")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["id"] == "region-qa-v1"
+    assert payload["entries"] == []
+
+
+def test_offline_search_country_rejects_invalid_code(tmp_path) -> None:
+    with make_client(tmp_path) as client:
+        response = client.get("/api/v1/offline-search/country/qatar")
+    assert response.status_code == 422
 
 
 def test_cors_preflight(tmp_path) -> None:
