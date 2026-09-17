@@ -51,7 +51,9 @@ export function screenPointToGeo(
 ): ReferenceGeoPoint | null {
   if (width <= 0 || height <= 0) return null;
   const scale = Math.min(width, height) * 0.42;
-  const nx = (x - width / 2) / scale;
+  // The rendered external globe mirrors model-space X so east is visually to
+  // the right; invert screen X here to recover the original model coordinate.
+  const nx = -(x - width / 2) / scale;
   const ny = -(y - height / 2) / scale;
   const r2 = nx * nx + ny * ny;
   if (r2 > 1) return null;
