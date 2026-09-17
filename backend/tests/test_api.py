@@ -15,10 +15,10 @@ def make_client(tmp_path):
 
 def test_health_endpoint_and_request_id(tmp_path) -> None:
     with make_client(tmp_path) as client:
-        response = client.get("/api/v1/health", headers={"X-Request-ID": "phase2-test"})
+        response = client.get("/api/v1/health", headers={"X-Request-ID": "phase3-test"})
     assert response.status_code == 200
-    assert response.headers["X-Request-ID"] == "phase2-test"
-    assert response.json()["version"] == "0.2.0"
+    assert response.headers["X-Request-ID"] == "phase3-test"
+    assert response.json()["version"] == "0.3.0-dev"
 
 
 def test_readiness_checks_database(tmp_path) -> None:
@@ -29,7 +29,7 @@ def test_readiness_checks_database(tmp_path) -> None:
     assert payload["database"]["dialect"] == "sqlite"
 
 
-def test_capabilities_claim_only_implemented_phase2_features(tmp_path) -> None:
+def test_capabilities_preserve_phase2_and_later_boundaries(tmp_path) -> None:
     with make_client(tmp_path) as client:
         payload = client.get("/api/v1/capabilities").json()
     assert payload["offline_core"] is True
