@@ -2,7 +2,7 @@
 
 ## Status
 
-**P4.7 IN PROGRESS — final technical hardening underway.**
+**P4.7 COMPLETE — technical hardening and manual regression checks passed. Phase 4 awaits explicit owner acceptance.**
 
 P4.1 through P4.6 are complete. Phase 5 remains out of scope until explicit Phase 4 owner acceptance.
 
@@ -44,6 +44,7 @@ Owner has reported PASS during Phase 4 for:
 - Saved regional airports.
 - Offline behavior with cached packs.
 - Responsive/mobile-size presentation.
+- Inverted horizontal globe drag interaction requested by the owner: dragging pointer right rotates the globe left, and dragging pointer left rotates the globe right.
 
 ## Release hardening changes
 
@@ -63,10 +64,6 @@ Owner has reported PASS during Phase 4 for:
 
 ## Remaining acceptance gate
 
-P4.7 is not complete until:
+P4.7 technical closure conditions are satisfied: CI run #177 passed after a transient Docker Hub network failure was retried, and the owner reported all requested manual regression checks passed, including the final inverted horizontal drag behavior.
 
-1. the final hardening CI run passes,
-2. the owner runs the requested final manual acceptance checks,
-3. the owner explicitly accepts Phase 4.
-
-Only after explicit Phase 4 acceptance may the release metadata be finalized for v0.4.0 and Phase 5 begin.
+Phase 4 itself remains awaiting explicit owner acceptance. Only after that acceptance may release metadata be finalized for v0.4.0 and Phase 5 begin.
