@@ -4,6 +4,7 @@ import type { BrowserCapabilities } from '../platform/capabilities';
 import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
+import { localGeodeticToEcef } from './offlineWgs84';
 import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, latLonToEllipsoid, fallbackScreenPointToGeo, draggedYaw, geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
@@ -241,5 +242,11 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
 }
 
 function ReferenceReadout({locale,point,mode,label,details}:{locale:'ar'|'en';point:ReferenceGeoPoint;mode:string;label?:string;details:number}) {
-  return <div className="reference-readout"><span>{locale==='ar'?'الوضع':'Mode'}: {mode}</span>{label&&<span>{locale==='ar'?'المكان':'Place'}: {label}</span>}<span>Lat {point.latitude.toFixed(6)}°</span><span>Lon {point.longitude.toFixed(6)}°</span><span>{locale==='ar'?'معالم':'Features'}: {details}</span><span>WGS 84</span></div>;
+  const ecef = localGeodeticToEcef(point);
+  return <div className="reference-readout"><span>{locale==='ar'?'الوضع':'Mode'}: {mode}</span>{label&&<span>{locale==='ar'?'المكان':'Place'}: {label}</span>}<span>Lat {point.latitude.toFixed(6)}°</span><span>Lon {point.longitude.toFixed(6)}°</span><span>{locale==='ar'?'معالم':'Features'}: {details}</span><span>WGS 84</span>
+    <details><summary>{locale==='ar'?'الإحداثيات الديكارتية ECEF':'ECEF coordinates'}</summary>
+      <div dir="ltr">X {ecef.output.x_m.toFixed(3)} m · Y {ecef.output.y_m.toFixed(3)} m · Z {ecef.output.z_m.toFixed(3)} m</div>
+      <small>{locale==='ar'?'حساب محلي؛ الارتفاع الإهليلجي 0 م':'Local calculation; ellipsoidal height 0 m'} · EPSG:4978 · {ecef.provenance.implementation} {ecef.provenance.implementation_version} · REFERENCE_RESULT</small>
+    </details>
+  </div>;
 }

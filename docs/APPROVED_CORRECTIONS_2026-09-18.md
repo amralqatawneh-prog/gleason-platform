@@ -7,7 +7,7 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 | ID | Approved scope | Execution/status |
 |---|---|---|
 | M1 | Geodetic ellipsoid rendering/picking; correct geographic marker; reject outside clicks | IMPLEMENTED; automated checks PASS |
-| M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | PENDING |
+| M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | IMPLEMENTED; automated checks PASS |
 | M3 | Accessible mobile layer controls and legible, decluttered labels | PENDING |
 | M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | PENDING |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | PENDING |
@@ -36,3 +36,15 @@ Each completed slice below will state the checks actually run, evidence, limitat
 - Validation: **32/32 frontend core tests PASS**, production build PASS. New tests cover more than 900 visible point projections across rotations/aspect ratios, an independent PROJ mid-latitude ECEF anchor, the old off-center error, the invisible outer ring, marker movement/back visibility and fallback margins.
 - Manual visual check on the changed revision: **NOT RUN**. Required later with corrected build.
 - Remaining build warning: existing bundle exceeds 500 kB; performance work is tracked under M8.
+
+### M2 — independent offline WGS84 and complete precache (implemented)
+
+- Added pinned GeographicLib JS 2.2.0 ellipsoidal inverse geodesics and existing proj4js 2.22.0 ECEF conversions, with explicit browser provenance and coordinate validation.
+- Online geodesic requests retain backend results; offline/unavailable-server requests use the independent local engine. Height is ignored by surface geodesics and identified as ellipsoidal for ECEF. Exact/near-antipodal cases are supported. Local ECEF inverse explicitly rejects the undefined geocentre neighbourhood (<1 m radius).
+- Current-point ECEF readout works locally. The local provider exposes both forward/inverse conversion commands.
+- Build generates a precache manifest containing all compiled JS/CSS and shell assets. Cache names use the accepted application version plus a content hash. Installation is atomic; updates wait for existing clients to close; only this application's old shell caches are removed.
+- Validation: **36/36 core tests PASS**, **2/2 generated-PWA tests PASS**, production build PASS. Worker tests use a clearly synthetic in-memory cache/network harness; actual browser/server-stop checks follow in M6.
+- `scripts/check_reference_parity.py`: **1,082 geodesics + 27 ECEF round trips PASS** against installed pyproj 3.8.0. Maximum differences: distance 3.73e-9 m; bearing 2.51e-12 degrees; forward ECEF 0 m; inverse height 8.91e-7 m.
+- Physical-device offline/manual visual checks on changed revision: **NOT RUN**.
+
+Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/geographiclib-js), [PROJ Cartesian conversion](https://proj.org/en/stable/operations/conversions/cart.html), and pinned package source in the dependency lockfile. Backend provider remains the parity authority.

@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import { localGeodesicInverse, validateGeo } from './reference/offlineWgs84';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api/v1';
 
@@ -79,6 +80,9 @@ export async function searchPlaces(query: string, category?: PlaceCategory): Pro
 }
 
 export async function geodesicInverse(start: ReferenceGeoInput, end: ReferenceGeoInput): Promise<GeodesicInverseResult> {
+  validateGeo(start); validateGeo(end);
+  if (!navigator.onLine) return localGeodesicInverse(start, end);
+  try {
   const response = await fetch(`${API_BASE}/reference/wgs84/geodesic-inverse`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -90,4 +94,7 @@ export async function geodesicInverse(start: ReferenceGeoInput, end: ReferenceGe
   });
   if (!response.ok) throw new Error(`geodesic inverse failed: ${response.status}`);
   return await response.json() as GeodesicInverseResult;
+  } catch {
+    return localGeodesicInverse(start, end);
+  }
 }

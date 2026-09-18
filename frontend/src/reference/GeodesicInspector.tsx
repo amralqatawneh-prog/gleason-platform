@@ -59,8 +59,8 @@ export function GeodesicInspector({ locale, currentPoint }: Props) {
         <span className="eyebrow">Phase 4 · P4.5</span>
         <h2>{locale === 'ar' ? 'مفتش المسافة الجيوديسية WGS84' : 'WGS84 geodesic inspector'}</h2>
         <p>{locale === 'ar'
-          ? 'المسافة والاتجاهات محسوبة في المحرك الخلفي WGS84 وتُعرض كـ REFERENCE_RESULT.'
-          : 'Distance and bearings are calculated by the backend WGS84 engine and returned as REFERENCE_RESULT.'}</p>
+          ? 'حسابات WGS84 تعمل أيضًا دون اتصال. يظهر مع النتيجة المحرك الذي أجرى الحساب.'
+          : 'WGS84 calculations also work offline. Each result identifies the engine that calculated it.'}</p>
       </div>
       <span className="evidence-badge">REFERENCE_RESULT</span>
     </div>
@@ -88,7 +88,7 @@ export function GeodesicInspector({ locale, currentPoint }: Props) {
       <button type="button" disabled={!canCalculate} onClick={() => void calculate()}>
         {state === 'loading' ? (locale === 'ar' ? 'جارٍ الحساب…' : 'Calculating…') : (locale === 'ar' ? 'احسب المسافة والاتجاهات' : 'Calculate distance & bearings')}
       </button>
-      {state === 'error' && <span className="muted">{locale === 'ar' ? 'تعذر الحصول على نتيجة WGS84 من الخادم.' : 'Could not obtain a WGS84 result from the server.'}</span>}
+      {state === 'error' && <span className="muted">{locale === 'ar' ? 'تعذر حساب النتيجة؛ تحقّق من الإحداثيات.' : 'Could not calculate the result; check the coordinates.'}</span>}
     </div>
 
     {result && distance && <div className="geodesic-result">
