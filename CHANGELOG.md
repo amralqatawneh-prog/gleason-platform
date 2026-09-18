@@ -14,7 +14,10 @@
 - Added Docker runtime smoke checks for WGS84 metadata, ECEF conversion, antimeridian geodesic, and invalid-longitude rejection.
 - Added service-worker syntax validation and Phase 4 PWA cache rotation to `gleason-shell-v0.4.0-rc1`.
 - Added `docs/PHASE_4_REPORT.md` as the pre-acceptance hardening report.
-- Phase 5 remains excluded pending explicit owner acceptance of Phase 4.
+- Added and locked inverse horizontal globe drag behavior: pointer right rotates the globe left; pointer left rotates the globe right.
+- GitHub Actions run #177 passed after retrying a transient Docker Hub authorization/network failure; all code/test/build/PWA gates had passed before the transient failure.
+- Owner manual regression checks passed, including the final drag-direction change.
+- P4.7 is technically complete; Phase 5 remains excluded pending explicit owner acceptance of Phase 4.
 
 ### P4.6
 - Added persistent WGS84 globe layer controls backed by IndexedDB.
