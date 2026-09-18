@@ -9,7 +9,7 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 | M1 | Geodetic ellipsoid rendering/picking; correct geographic marker; reject outside clicks | IMPLEMENTED; automated checks PASS |
 | M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | IMPLEMENTED; automated checks PASS |
 | M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
-| M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | PENDING |
+| M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | IMPLEMENTED; automated checks PASS |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | PENDING |
 | M6 | Locked installations and meaningful offline/browser/regression acceptance gates | PENDING |
 | M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | PENDING |
@@ -55,3 +55,11 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - Labels retain a 12 CSS px minimum; continent names remain larger than country names. Priority-based decluttering reduces density and excludes clipped labels instead of shrinking them to unreadable sizes.
 - Applied the same legibility/decluttering policy to the SVG fallback, accounting for its actual display scale.
 - Validation: **37/37 core tests PASS**, production build PASS. Mobile browser interaction checks are included in M6; physical-device visual checks: **NOT RUN**.
+
+### M4 — release identity and capability truth (implemented)
+
+- API root, health, OpenAPI and capabilities obtain the application version from backend package metadata; the UI obtains it from frontend package metadata at build time.
+- CI compares VERSION, both packages and npm lock metadata; it no longer hardcodes the accepted v0.3.0 value as a permanent future gate.
+- Capabilities correctly identify implemented Phase 3/4 features and separately expose `accepted_phase=3`, `phase=4`, `phase_status=awaiting-owner-acceptance`. Astronomy/synchronization remain false.
+- Removed stale Phase 2/P4.6 progress language from the main interface. Independent model versions are unchanged. No v0.4.0 release, tag or merge was performed.
+- Validation: **8/8 API tests PASS**, metadata consistency PASS, production build PASS.

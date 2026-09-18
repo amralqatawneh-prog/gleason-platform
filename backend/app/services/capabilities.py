@@ -1,11 +1,14 @@
 from __future__ import annotations
+from ..version import APP_VERSION, IMPLEMENTATION_PHASE, ACCEPTED_PHASE, PHASE_STATUS
 
 
 def platform_capabilities() -> dict[str, object]:
-    """Server-advertised capabilities implemented through Phase 2."""
+    """Implemented features and acceptance status are separate claims."""
     return {
-        "release": "v0.2.0",
-        "phase": 2,
+        "release": f"v{APP_VERSION}",
+        "phase": IMPLEMENTATION_PHASE,
+        "accepted_phase": ACCEPTED_PHASE,
+        "phase_status": PHASE_STATUS,
         "offline_core": True,
         "pwa": True,
         "rtl_ltr": True,
@@ -17,7 +20,12 @@ def platform_capabilities() -> dict[str, object]:
         "historical_georeferencing_engine": True,
         "historical_scan_embedded": False,
         "core_world_pack": True,
-        "wgs84_globe": False,
+        "wgs84_globe": True,
+        "wgs84_reference_api": True,
+        "wgs84_offline_math": True,
+        "place_search": True,
+        "regional_search_packs": True,
+        "cross_model_synchronization": False,
         "astronomy_engine": False,
         "live_flights": False,
     }

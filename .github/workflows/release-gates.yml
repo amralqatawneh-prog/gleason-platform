@@ -49,7 +49,7 @@ jobs:
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.3.0$' VERSION
+          python scripts/check_release_metadata.py
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md
           grep -q 'do not invent centroids' scripts/import_phase3_places.py
@@ -85,7 +85,7 @@ jobs:
           test -s dist/index.html
           test -s dist/sw.js
           test -s dist/offline-packs/core-world-v1.json
-          grep -q "gleason-shell-v0.4.0-rc1" dist/sw.js
+          node --test tests/pwa/*.test.mjs
       - name: Validate Docker Compose
         run: docker compose config
       - name: Build and start Docker stack

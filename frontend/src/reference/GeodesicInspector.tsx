@@ -56,7 +56,7 @@ export function GeodesicInspector({ locale, currentPoint }: Props) {
   return <section className="geodesic-inspector">
     <div className="section-heading">
       <div>
-        <span className="eyebrow">Phase 4 · P4.5</span>
+        
         <h2>{locale === 'ar' ? 'مفتش المسافة الجيوديسية WGS84' : 'WGS84 geodesic inspector'}</h2>
         <p>{locale === 'ar'
           ? 'حسابات WGS84 تعمل أيضًا دون اتصال. يظهر مع النتيجة المحرك الذي أجرى الحساب.'

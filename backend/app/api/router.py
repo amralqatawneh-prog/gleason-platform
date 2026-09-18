@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Request
 
 from ..services.capabilities import platform_capabilities
+from ..version import APP_VERSION
 from .offline_search_routes import router as offline_search_router
 from .projection_routes import router as projection_router
 from .reference_routes import router as reference_router
@@ -13,7 +14,7 @@ router = APIRouter()
 
 @router.get("/health", tags=["system"])
 def health() -> dict[str, object]:
-    return {"status": "ok", "service": "gleason-platform-backend", "version": "0.3.0-dev"}
+    return {"status": "ok", "service": "gleason-platform-backend", "version": APP_VERSION}
 
 
 @router.get("/ready", tags=["system"])
