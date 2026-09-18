@@ -18,12 +18,11 @@ type Props = {
 };
 
 export function GlobeLayerControls({ locale, layers, onChange, featureCount }: Props) {
-  return <section className="phase-card globe-layer-controls">
-    <span className="eyebrow">Phase 4 · P4.6</span>
-    <h2>{locale === 'ar' ? 'طبقات الكرة المرجعية' : 'Reference globe layers'}</h2>
+  return <details className="phase-card globe-layer-controls" open>
+    <summary>{locale === 'ar' ? 'طبقات الكرة المرجعية' : 'Reference globe layers'}</summary>
     <p>{locale === 'ar'
-      ? 'حدود الدول من الحزمة العالمية المضمنة، وبقية المعالم من فهارس Phase 3 المحفوظة محليًا. المطارات تظهر فقط من حزم الدول التي حفظتها.'
-      : 'Country boundaries come from the bundled world atlas; other features come from locally cached Phase 3 indexes. Airports appear only from country packs you saved.'}</p>
+      ? 'حدود الدول مضمنة في التطبيق. احفظ حزم الدول لإتاحة معالمها ومطاراتها دون اتصال.'
+      : 'Country boundaries are bundled. Save country packs to use their features and airports offline.'}</p>
     <div className="layer-toggle-list">
       {items.map((item) => <label key={item.id} className="layer-toggle">
         <input
@@ -35,5 +34,5 @@ export function GlobeLayerControls({ locale, layers, onChange, featureCount }: P
       </label>)}
     </div>
     <small>{locale === 'ar' ? 'المعالم المحملة حاليًا' : 'Currently loaded features'}: {featureCount}</small>
-  </section>;
+  </details>;
 }

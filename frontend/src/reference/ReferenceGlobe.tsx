@@ -111,6 +111,7 @@ function fallbackPath(ring: readonly [number, number][]): string {
 export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focusLabel, layers, layerPlaces = [] }: Props) {
   const mode = useMemo(() => referenceViewMode(capabilities), [capabilities]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const fallbackRef = useRef<SVGSVGElement | null>(null);
   const [yaw, setYaw] = useState(-0.55);
   const [pitch, setPitch] = useState(0.28);
   const [selected, setSelected] = useState<ReferenceGeoPoint>({ latitude: 25.2854, longitude: 51.531 });
@@ -129,6 +130,15 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
     viewport.height,
     52,
   ), [labels, viewport, yaw, pitch]);
+
+  useEffect(() => {
+    if (mode !== 'fallback2d' || !fallbackRef.current) return;
+    const svg = fallbackRef.current;
+    const measure = () => { const rect = svg.getBoundingClientRect(); setViewport({width:rect.width,height:rect.height}); };
+    measure();
+    const observer = new ResizeObserver(measure); observer.observe(svg);
+    return () => observer.disconnect();
+  }, [mode]);
 
   useEffect(() => {
     if (!focusPoint) return;
@@ -212,16 +222,20 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
   const choose = (point: ReferenceGeoPoint) => { setSelected(point); onPoint?.(point); };
 
   if (mode === 'fallback2d') {
-    const fallbackLabels = labels.slice(0, 80);
+    const scale = Math.min(viewport.width / 360, viewport.height / 180);
+    const fallbackLabels = scale > 0 ? declutterProjectedLabels(labels.map(label => ({ label, screen: {
+      x: (viewport.width - 360 * scale) / 2 + (label.longitude + 180) * scale,
+      y: (viewport.height - 180 * scale) / 2 + (90 - label.latitude) * scale, visible:true, depth:1,
+    }})), viewport.width, viewport.height, 40) : [];
     return <section className="reference-card" data-mode="fallback2d">
       <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
-      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const point = fallbackScreenPointToGeo(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height); if (point) choose(point); }}>
+      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg ref={fallbackRef} viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const point = fallbackScreenPointToGeo(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height); if (point) choose(point); }}>
         <rect width="360" height="180" rx="8"/>
         {[-120,-60,0,60,120].map((x)=><line key={`v${x}`} x1={x+180} x2={x+180} y1="0" y2="180"/>)}
         {[-60,-30,0,30,60].map((y)=><line key={`h${y}`} x1="0" x2="360" y1={90-y} y2={90-y}/>)}
         {layers?.countries !== false && countryPaths.map((d, index)=><path key={index} d={d} className="reference-country-line"/>)}
         {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r="1.3" className={`reference-place-dot reference-place-${place.category}`}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
-        {fallbackLabels.map((label)=><text key={label.id} x={label.longitude+180} y={90-label.latitude} className={`reference-map-label reference-map-label-${label.kind}`}><title>{label.provenance}</title>{label.text}</text>)}
+        {fallbackLabels.map(({label,fontSizePx})=><text key={label.id} x={label.longitude+180} y={90-label.latitude} dominantBaseline="central" style={{fontSize:fontSizePx/scale}} className={`reference-map-label reference-map-label-${label.kind}`}><title>{label.provenance}</title>{label.text}</text>)}
         {<circle cx={selected.longitude+180} cy={90-selected.latitude} r="4" className="reference-focus-marker"/>}
       </svg></div>
       <ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={selectedLabel} details={layerPlaces.length}/>

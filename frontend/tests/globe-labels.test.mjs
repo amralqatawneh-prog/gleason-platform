@@ -40,3 +40,11 @@ test('labels on the rear hemisphere are excluded', () => {
   const result = declutterProjectedLabels([rear], 400, 300);
   assert.equal(result.length, 0);
 });
+
+test('mobile labels remain readable and decluttering sorts priority without mutating input',()=>{
+  for(const kind of ['continent','country','ocean','sea','city','airport']) assert.ok(globeLabelFontSize(kind,320)>=12);
+  const input=[candidate('low','Test city',35,150,100),candidate('high','Test country',80,150,100)];
+  assert.deepEqual(declutterProjectedLabels(input,320,240).map(x=>x.label.id),['high']);
+  assert.equal(input[0].label.id,'low');
+  assert.equal(declutterProjectedLabels([candidate('edge','Clipped label',80,1,100)],320,240).length,0);
+});

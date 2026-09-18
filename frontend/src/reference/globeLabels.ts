@@ -54,21 +54,20 @@ function layerAllows(category: PlaceCategory, layers: GlobeLayerVisibility): boo
 
 function baseFontSize(kind: GlobeLabel['kind']): number {
   switch (kind) {
-    case 'continent': return 10;
-    case 'country': return 7;
-    case 'ocean': return 8;
-    case 'sea': return 7;
-    case 'city': return 6;
-    case 'airport': return 5;
-    default: return 6;
+    case 'continent': return 16;
+    case 'country': return 14;
+    case 'ocean': return 14;
+    case 'sea': return 13;
+    case 'city': return 13;
+    case 'airport': return 13;
+    default: return 13;
   }
 }
 
 export function globeLabelFontSize(kind: GlobeLabel['kind'], viewportWidth: number): number {
-  // Responsive sizing: browser/map zoom reduces the available CSS viewport, so
-  // labels get smaller rather than growing over neighbouring countries.
-  const viewportScale = Math.max(0.62, Math.min(1, viewportWidth / 900));
-  return Number((baseFontSize(kind) * viewportScale).toFixed(2));
+  // Reduce density through decluttering before sacrificing readability.
+  const viewportScale = Math.max(0.9, Math.min(1, viewportWidth / 900));
+  return Math.max(12, Number((baseFontSize(kind) * viewportScale).toFixed(2)));
 }
 
 export function declutterProjectedLabels(
@@ -79,16 +78,16 @@ export function declutterProjectedLabels(
 ): ProjectedGlobeLabel[] {
   const accepted: Array<ProjectedGlobeLabel & { box: [number, number, number, number] }> = [];
 
-  for (const candidate of candidates) {
+  for (const candidate of [...candidates].sort((a, b) => b.label.priority - a.label.priority)) {
     if (!candidate.screen.visible || candidate.screen.depth <= 0.18) continue;
     const fontSizePx = globeLabelFontSize(candidate.label.kind, viewportWidth);
-    const estimatedWidth = Math.max(16, candidate.label.text.length * fontSizePx * 0.56 + 6);
+    const estimatedWidth = Math.max(16, candidate.label.text.length * fontSizePx * 0.72 + 8);
     const estimatedHeight = fontSizePx * 1.35 + 4;
     const left = candidate.screen.x - estimatedWidth / 2;
     const right = candidate.screen.x + estimatedWidth / 2;
     const top = candidate.screen.y - estimatedHeight / 2;
     const bottom = candidate.screen.y + estimatedHeight / 2;
-    if (right < 0 || left > viewportWidth || bottom < 0 || top > viewportHeight) continue;
+    if (left < 0 || right > viewportWidth || top < 0 || bottom > viewportHeight) continue;
 
     const gap = 2;
     const overlaps = accepted.some(({ box }) =>

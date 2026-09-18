@@ -8,7 +8,7 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 |---|---|---|
 | M1 | Geodetic ellipsoid rendering/picking; correct geographic marker; reject outside clicks | IMPLEMENTED; automated checks PASS |
 | M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | IMPLEMENTED; automated checks PASS |
-| M3 | Accessible mobile layer controls and legible, decluttered labels | PENDING |
+| M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
 | M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | PENDING |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | PENDING |
 | M6 | Locked installations and meaningful offline/browser/regression acceptance gates | PENDING |
@@ -48,3 +48,10 @@ Each completed slice below will state the checks actually run, evidence, limitat
 - Physical-device offline/manual visual checks on changed revision: **NOT RUN**.
 
 Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/geographiclib-js), [PROJ Cartesian conversion](https://proj.org/en/stable/operations/conversions/cart.html), and pinned package source in the dependency lockfile. Backend provider remains the parity authority.
+
+### M3 — mobile controls and label legibility (implemented)
+
+- Removed the rule that hid the layer panel on narrow screens. Native expandable controls remain available to keyboard and touch users, with 44 px minimum targets.
+- Labels retain a 12 CSS px minimum; continent names remain larger than country names. Priority-based decluttering reduces density and excludes clipped labels instead of shrinking them to unreadable sizes.
+- Applied the same legibility/decluttering policy to the SVG fallback, accounting for its actual display scale.
+- Validation: **37/37 core tests PASS**, production build PASS. Mobile browser interaction checks are included in M6; physical-device visual checks: **NOT RUN**.

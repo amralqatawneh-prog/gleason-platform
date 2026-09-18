@@ -4,6 +4,7 @@
 
 - M1: correct geodetic WGS84 picking, geographic markers, rear visibility and fallback letterboxing; retain inverted drag.
 - M2: independent offline WGS84 geodesics/ECEF, backend parity gate, compiled-asset precache with content versioning.
+- M3: keep layer controls accessible on mobile and preserve legible 3D/2D labels with decluttering.
 - Owner approved M1–M8; Phase 4 acceptance remains pending.
 
 ## [Unreleased] — Phase 4
