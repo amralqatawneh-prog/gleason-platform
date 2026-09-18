@@ -26,6 +26,10 @@ export function normalizeLongitude(longitude: number): number {
   return ((longitude + 180) % 360 + 360) % 360 - 180;
 }
 
+export function draggedYaw(initialYaw: number, horizontalDeltaPx: number, sensitivity = 0.008): number {
+  return initialYaw - horizontalDeltaPx * sensitivity;
+}
+
 export function geoPointToViewAngles(point: ReferenceGeoPoint): { yaw: number; pitch: number } {
   return {
     yaw: ((normalizeLongitude(point.longitude) - 90) * Math.PI) / 180,
