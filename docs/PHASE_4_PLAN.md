@@ -1,6 +1,6 @@
 # Phase 4 Delivery Plan — v0.4.0
 
-**Current update — 2026-09-18:** v0.4.0 is the target release, not an accepted release. Owner-approved M1–M6 corrections are implemented locally; new remote browser/Docker gates remain pending permission to push. See `APPROVED_CORRECTIONS_2026-09-18.md` and `PHASE_4_CORRECTIONS_TEST_REPORT.md`. Historical slice completion below does not certify the changed build. M7/M8 roadmap: `ROADMAP_CURRENT.md`.
+**Current update — 2026-09-18:** v0.4.0 is the target release, not an accepted release. Owner-approved M1–M6 corrections are uploaded and CI #186 passed, including six browser tests and Docker/production-source gates. Owner/device review and explicit Phase 4 acceptance remain pending. See `APPROVED_CORRECTIONS_2026-09-18.md` and `PHASE_4_CORRECTIONS_TEST_REPORT.md`. Historical manual slice completion below does not certify the changed build. M7/M8 roadmap: `ROADMAP_CURRENT.md`.
 
 ## Scope from accepted architecture
 

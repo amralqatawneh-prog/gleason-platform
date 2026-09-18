@@ -11,8 +11,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Repository: `amralqatawneh-prog/gleason-platform`
 - Current implementation branch: `feat/phase4-wgs84-reference`
 - Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
-- Local correction code head: `59ace6b` (M1–M6); later roadmap commits are documentation only.
-- Baseline CI: `Release Acceptance Gates` #184 — SUCCESS. New correction CI has NOT RUN; normal push was blocked by automatic approval review pending explicit permission.
+- Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6); later roadmap/evidence commits are documentation only.
+- Validated correction snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) — SUCCESS, including six browser tests and Docker/production-source gates. Baseline #184 is historical evidence only.
+- Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
 - Phase 5 has NOT started.
 
@@ -159,12 +160,14 @@ Owner manual Phase 3 acceptance passed.
 ## Phase 4 — WGS84 Reference Model
 
 Overall Phase 4 status:
-**APPROVED CORRECTIONS IMPLEMENTED LOCALLY — M1–M6 local checks PASS; new remote browser/Docker gates and owner review remain pending. Phase 4 itself is NOT accepted.**
+**APPROVED CORRECTIONS UPLOADED AND AUTOMATICALLY VERIFIED — M1–M6 local and remote CI checks PASS. Corrected-build owner/device review remains NOT RUN. Phase 4 itself is NOT accepted.**
 
 ## Owner approval — 2026-09-18
 
 The owner approved all eight audit proposals: «نعم موافق، وموافق على المقترحات».
 This authorizes M1–M6 implementation, M7 roadmap reconciliation and M8 future backlog planning. It does not constitute Phase 4 acceptance, release/merge authorization or permission to start Phase 5.
+
+The owner subsequently answered «نعم اسمح» to the specific request to upload the seven commits to this repository/branch and run CI without merge or release. This upload is complete. See the correction report for the original/uploaded commit mapping and exact CI evidence.
 
 See `docs/APPROVED_CORRECTIONS_2026-09-18.md` for scope, progress and validation. Previous manual PASS records below refer to the historical implementation, not to the corrected revision.
 
@@ -359,7 +362,7 @@ Historical slice state (new correction evidence is separate):
 - P4.7 COMPLETE ✅
 
 Overall:
-- Phase 4: **CORRECTIONS IMPLEMENTED LOCALLY; REMOTE/MANUAL GATES PENDING** (M1–M6)
+- Phase 4: **CORRECTIONS UPLOADED; AUTOMATED GATES PASS; OWNER/DEVICE REVIEW PENDING** (M1–M6)
 - Phase 4 is **NOT YET ACCEPTED** until the owner explicitly says they accept Phase 4.
 - Phase 5: **NOT STARTED**
 
@@ -367,16 +370,15 @@ Overall:
 
 The next permitted sequence is:
 
-1. Obtain explicit permission for the normal push blocked by automatic approval review: local correction/documentation commits to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`. Code and documentation are prepared and committed locally.
-2. Run the new browser/Docker/production-source CI gates on the pushed revision, resolve actual failures, and record the exact head/run. M7 roadmap is reconciled and M8 remains approved future work.
-3. Present the corrected implementation and any outstanding manual checks, then request explicit **Phase 4 acceptance**.
-4. Only after explicit acceptance:
+1. Rebuild the uploaded correction branch and perform the owner/device checklist in `PHASE_4_CORRECTIONS_TEST_REPORT.md`: geographic selection/marker, inverted drag, mobile layers/labels, pack provenance, offline reopen and A/B results. Record PASS/FAIL/NOT RUN without inferring a waiver. CI #186 already passed the automated browser/Docker/source gates.
+2. Present the corrected implementation and any outstanding manual checks for explicit **Phase 4 acceptance**. M7 roadmap is reconciled and M8 remains approved future work.
+3. Only after explicit acceptance:
    - finalize release metadata to v0.4.0,
    - align `VERSION`, backend package version, frontend package version, changelog,
    - create acceptance/release documentation,
-   - merge the Phase 4 PR/branch according to repository workflow,
+   - merge the Phase 4 PR/branch only when authorized according to repository workflow,
    - optionally create/tag v0.4.0 only if actually performed and verified.
-5. Only after Phase 4 is accepted and release metadata is closed may **Phase 5** begin.
+4. Only after Phase 4 is accepted and release metadata is closed may **Phase 5** begin. Current upload authorization does not authorize merge or release.
 
 ## Phase 5 boundary / future agreed direction
 
@@ -400,7 +402,7 @@ Standard update/rebuild:
 
 ```bash
 git switch feat/phase4-wgs84-reference
-git pull
+git pull --ff-only
 docker compose up --build -d
 docker compose ps
 ```
@@ -408,8 +410,7 @@ docker compose ps
 Open:
 `http://127.0.0.1:8080`
 
-Then hard refresh:
-`Ctrl + Shift + R`
+Let the online build install its service-worker update, close all existing app tabs/windows, then reopen. The worker intentionally waits for old clients to close; a hard refresh alone does not guarantee activation. Complete installation before the offline checklist.
 
 Important:
 - Do NOT run `docker compose down -v` locally unless the owner explicitly intends to delete local Docker volumes/data.

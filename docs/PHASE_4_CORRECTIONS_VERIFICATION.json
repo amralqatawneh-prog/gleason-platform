@@ -1,6 +1,6 @@
 {
   "date": "2026-09-18",
-  "code_revision": "59ace6b",
+  "code_revision": "9dfb1e0bada56768e1a7429ed5f9eec24c130f3b",
   "owner_approved_proposals": [
     "M1",
     "M2",
@@ -48,11 +48,79 @@
   "e2e": {
     "defined": 6,
     "discovery_and_typecheck": "PASS",
-    "runtime": "NOT RUN"
+    "runtime": "PASS",
+    "pass": 6,
+    "fail": 0,
+    "duration_seconds": 27.8,
+    "catalog": "TEST-ONLY disposable SQLite through real FastAPI routes",
+    "run_id": 35387031277
   },
-  "new_remote_ci": "NOT RUN — git push rejected by automatic approval review; explicit destination permission required",
-  "new_docker_source_import_checks": "NOT RUN",
+  "new_remote_ci": {
+    "status": "PASS",
+    "run_number": 186,
+    "run_id": 35387031277,
+    "job_id": 105736221437,
+    "head_sha": "fb4dcab447ddbb94924df46576ab9f52f64e6c22",
+    "url": "https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277",
+    "required_steps": "all succeeded; conditional failure-log step skipped"
+  },
+  "new_docker_source_import_checks": {
+    "status": "PASS",
+    "run_id": 35387031277,
+    "source_hashes": "PASS",
+    "postgis": "PASS",
+    "redis": "PASS",
+    "frontend_http": "PASS",
+    "search_english_arabic": "PASS",
+    "api_cli_pack_entries": "MATCH",
+    "category_counts": {
+      "country": 177,
+      "city": 243,
+      "sea": 16,
+      "ocean": 7,
+      "river": 12,
+      "mountain": 632,
+      "airport": 86089
+    },
+    "core_pack_entries": 1087,
+    "qatar_pack_entries": 25
+  },
   "new_owner_manual_checks": "NOT RUN",
   "accepted_release": "0.3.0",
-  "remote_baseline": "99a3658bef7eb678df7beed157bd01ed92aaa62b"
+  "remote_baseline": "99a3658bef7eb678df7beed157bd01ed92aaa62b",
+  "validated_snapshot": "fb4dcab447ddbb94924df46576ab9f52f64e6c22",
+  "environments": {
+    "local": {
+      "python": "3.12.14",
+      "node": "24.19.0",
+      "uv": "0.12.15"
+    },
+    "ci_186": {
+      "python": "3.13.15",
+      "node": "22.23.2",
+      "npm": "10.9.8",
+      "uv": "0.12.15",
+      "chromium": "153.0.8010.12",
+      "os": "Ubuntu 24.04.5"
+    }
+  },
+  "upload": {
+    "permission": "explicit owner response: نعم اسمح",
+    "date": "2026-09-18",
+    "repository": "amralqatawneh-prog/gleason-platform",
+    "branch": "feat/phase4-wgs84-reference",
+    "correction_commits": 7,
+    "method": "GitHub Git Data API after CLI credentials unavailable",
+    "force": false,
+    "all_commit_trees_match_local": true,
+    "merged": false,
+    "release_created": false
+  },
+  "browser_artifact": {
+    "id": 10564377467,
+    "name": "phase4-browser-evidence",
+    "size_bytes": 1247624,
+    "sha256": "e656e22b7afb99e7d7773e87daf007da0c75952960a63f20d17855985f321860",
+    "manual_screenshot_review": "NOT RUN — artifact download returned HTTP 403"
+  }
 }

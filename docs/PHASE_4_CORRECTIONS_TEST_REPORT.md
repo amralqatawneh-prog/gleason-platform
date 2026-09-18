@@ -1,16 +1,16 @@
 # Phase 4 approved corrections — verification report
 
-Date: 2026-09-18. Code revision: `59ace6b` (M1–M6). Subsequent roadmap/handoff commits are documentation only.
+Date: 2026-09-18. Uploaded code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Validated snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`, which adds M7/M8 documentation. Subsequent evidence/handoff changes are documentation only.
 
-**Status: implemented and locally verified; new remote browser/Docker gates pending explicit push permission. Phase 4 is not accepted.**
+**Status: implemented, uploaded and automatically verified. Release Acceptance Gates #186 passed, including all six browser tests and Docker/production-source gates. Owner/device review remains NOT RUN; Phase 4 is not accepted.**
 
 ## Approval and scope
 
-The owner approved M1–M8. M1–M6 are implemented locally, M7 reconciles the roadmap, M8 is scheduled future work. No Phase 5 implementation, v0.4.0 release, merge or tag was performed. See `APPROVED_CORRECTIONS_2026-09-18.md` for the per-slice change record and `ROADMAP_CURRENT.md` for all future phases.
+The owner approved M1–M8 and subsequently explicitly authorized uploading the seven commits to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`, and running CI without merge or release. M1–M6 are implemented, M7 reconciles the roadmap, M8 is scheduled future work. No Phase 5 implementation, v0.4.0 release, merge or tag was performed. See `APPROVED_CORRECTIONS_2026-09-18.md` for the per-slice change record and `ROADMAP_CURRENT.md` for all future phases.
 
 ## Results actually obtained
 
-Environment: Python **3.12.14**, Node **24.19.0**, uv **0.12.15**. New CI is configured for Python **3.13** and Node **22**; those combinations still require the new run. Frontend and backend installs used their committed dependency locks.
+Local environment: Python **3.12.14**, Node **24.19.0**, uv **0.12.15**. CI #186 actually used Python **3.13.15**, Node **22.23.2**, npm **10.9.8**, uv **0.12.15**, and Chromium **153.0.8010.12** on Ubuntu **24.04.5**. Frontend and backend installs used their committed dependency locks. CI reran the unit, parity, build and PWA checks successfully.
 
 | Check | Result | Evidence/limit |
 |---|---|---|
@@ -22,10 +22,10 @@ Environment: Python **3.12.14**, Node **24.19.0**, uv **0.12.15**. New CI is con
 | Production build / worker syntax | PASS | TypeScript, Vite, `check:sw` |
 | Release metadata | PASS | VERSION, backend/frontend packages and npm lock agree at 0.3.0; API consistency covered |
 | Dependency security | PASS | `npm audit --audit-level=high`: 0 vulnerabilities at execution time |
-| New E2E suite discovery/types | PASS | 6 tests discovered and TypeScript checked; does not establish runtime PASS |
+| New E2E suite discovery/types | PASS | 6 tests discovered and TypeScript checked; runtime evidence is separate below |
 | Live HTTP smoke | PASS | Actual FastAPI + disposable TEST-ONLY SQLite server; health, source metadata, packs and geodesic |
-| New browser runtime | NOT RUN | Prepared Chromium CI suite; push blocked before workflow could run |
-| New Docker/PostGIS/Redis/import/CLI gates | NOT RUN | No local Docker runtime; CI pending push |
+| New browser runtime | PASS, 6 tests | Chromium, real FastAPI routes, production frontend; 27.8 s in CI #186 |
+| New Docker/PostGIS/Redis/import/CLI gates | PASS | Compose build/runtime, real locked sources, search, provenance and exact API/CLI pack-entry comparison in CI #186 |
 | Owner/physical-device visual checks | NOT RUN | Historical owner PASS is not claimed for this revision |
 
 Parity maxima measured by `scripts/check_reference_parity.py`:
@@ -38,19 +38,33 @@ Parity maxima measured by `scripts/check_reference_parity.py`:
 
 These are agreement measurements for the specified cases, not claims of real-world coordinate accuracy. The live HTTP check used `(25.285447, 51.531040)` to `(31.9454, 35.9284)` and obtained **1,692,601.7350098162 m**. TEST-ONLY catalog records were never imported into a production database.
 
-## What the pending CI will prove
+## Remote acceptance evidence
 
-The six browser scenarios cover: first production install and a new offline page with both test servers stopped; off-center marker picking/rotation/back visibility; phone controls and keyboard/persisted settings; immediate globe refresh after installing a region; rejection of stale A/B responses; and WebGL-disabled fallback.
+[Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277), job `105736221437`, completed with **SUCCESS** for snapshot `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. All required steps succeeded; the conditional failure-log step was correctly skipped. No source-code fixes were needed after this run.
 
-The server uses real application routes with a disposable synthetic SQLite catalog. The delayed-response test intercepts timing but forwards the real backend result. The separate production-data job imports locked Natural Earth/OurAirports sources into PostGIS, checks counts/provenance, and compares API/CLI pack entries exactly.
+All six browser scenarios passed: first production install and a new offline page with both test servers stopped; off-center marker picking/rotation/back visibility; phone controls and keyboard/persisted settings; immediate globe refresh after installing a region; rejection of stale A/B responses; and WebGL-disabled fallback.
+
+The browser server uses real application routes with a disposable synthetic SQLite catalog. The delayed-response test intercepts timing but forwards the real backend result. Separate production-data steps imported locked Natural Earth/OurAirports sources into PostGIS, verified source hashes and provenance, and compared API/CLI pack entries exactly. Verified counts: **177 countries, 243 cities, 16 seas, 7 oceans, 12 rivers, 632 mountains and 86,089 airports**. Core-world contained **1,087 entries**; the Qatar region pack contained **25 entries**. English/Arabic search, DOH source classification, Redis and frontend Docker HTTP checks passed.
+
+Browser evidence artifact: `phase4-browser-evidence`, ID `10564377467`, **1,247,624 bytes**, SHA-256 `e656e22b7afb99e7d7773e87daf007da0c75952960a63f20d17855985f321860`. CI retained the Playwright report and screenshots. The local download returned HTTP 403, so **manual screenshot review was NOT RUN**. This does not replace the successful browser assertions or owner/device review. Artifacts have finite retention; their metadata and run are identified here for traceability.
 
 CI #184 at baseline `99a3658bef7eb678df7beed157bd01ed92aaa62b` previously passed, but **does not validate these changes**: [baseline run](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35321527854).
 
-## Push block and next action
+## Upload authorization and commit traceability
 
-Automatic approval review rejected `git push origin feat/phase4-wgs84-reference`, stating that it would send private repository code/tests/docs to GitHub without explicit permission for that destination. The action was not retried or bypassed. Read-only PR inspection confirmed that remote PR #8 still has head `99a3658bef7eb678df7beed157bd01ed92aaa62b` and is open/draft/unmerged.
+An earlier automatic approval review blocked the upload for lack of explicit destination permission. The owner then answered **«نعم اسمح»** to the concrete request to upload these seven commits and run CI without merge or release. After this authorization, the normal Git push lacked CLI credentials. The connected GitHub API uploaded seven commits with **exactly matching Git trees** and advanced the existing branch with `force=false`. The original local commits remain preserved on `local/phase4-approved-preupload`; original SHAs are also recorded in uploaded commit messages. No upload occurred before this permission.
 
-The concrete pending action is a normal non-force push of the local correction/documentation commits to **amralqatawneh-prog/gleason-platform**, branch **feat/phase4-wgs84-reference**. It does not merge or publish a release. After permission, run the new workflow, fix any actual failures and record its exact head/run before Phase 4 acceptance.
+| Scope | Original local commit | Uploaded commit |
+|---|---|---|
+| M1 | `910c900` | `77c10ed` |
+| M2 | `b03b78c` | `f01ce1b` |
+| M3 | `887d388` | `596b213` |
+| M4 | `074731e` | `4b3b455` |
+| M5 | `888e865` | `4c1f121` |
+| M6 | `59ace6b` | `9dfb1e0` |
+| M7/M8 documentation | `ecb3a9e` | `fb4dcab` |
+
+[PR #8](https://github.com/amralqatawneh-prog/gleason-platform/pull/8) remains open, draft and unmerged. The remaining gate is owner/device review of the corrected build and explicit Phase 4 acceptance. The upload permission is not phase acceptance, merge permission or release permission.
 
 ## Manual checklist after the corrected build is available
 
@@ -68,4 +82,4 @@ The concrete pending action is a normal non-force push of the local correction/d
 - Local ECEF inverse rejects inputs within 1 m of the geocentre as undefined. Regional content requires a previously saved pack; offline computation does not supply missing place/astronomy data.
 - No full browser/device matrix or native mobile release is claimed. Current charts/geometry remain the implemented Phase 4 baseline, not a Cesium terrain/3D Tiles engine.
 
-Sources: changed repository source/tests at the local code revision above; pinned package sources; [GeographicLib JS](https://github.com/geographiclib/geographiclib-js), [PROJ Cartesian conversion](https://proj.org/en/stable/operations/conversions/cart.html), [uv lock/sync](https://docs.astral.sh/uv/concepts/projects/sync/). Historical project requirements are mapped in `ROADMAP_CURRENT.md`.
+Sources: changed repository source/tests at the uploaded revision above, CI #186 job logs and artifact metadata, pinned package sources; [GeographicLib JS](https://github.com/geographiclib/geographiclib-js), [PROJ Cartesian conversion](https://proj.org/en/stable/operations/conversions/cart.html), [uv lock/sync](https://docs.astral.sh/uv/concepts/projects/sync/). Historical project requirements are mapped in `ROADMAP_CURRENT.md`.

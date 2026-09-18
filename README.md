@@ -7,7 +7,7 @@ Phase 3 is accepted. The platform now includes the accepted Phase 2 projection f
 - Phase 1 — ACCEPTED ✅
 - Phase 2 — ACCEPTED ✅
 - Phase 3 — ACCEPTED ✅
-- Phase 4 — implemented with approved local corrections; new remote/manual acceptance gates pending.
+- Phase 4 — approved corrections uploaded; CI #186 passed, including browser/Docker/source gates; owner/device review and explicit phase acceptance pending.
 - Phase 5 — NOT STARTED.
 
 Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
