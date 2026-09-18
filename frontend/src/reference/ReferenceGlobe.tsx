@@ -4,7 +4,7 @@ import type { BrowserCapabilities } from '../platform/capabilities';
 import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
-import { geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
+import { draggedYaw, geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
   capabilities: BrowserCapabilities;
@@ -228,7 +228,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
   return <section className="reference-card" data-mode="webgl3d">
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
     <div className="reference-globe-wrap">
-      <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(drag.current.yaw+(e.clientX-drag.current.x)*.008);setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}}/>
+      <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(draggedYaw(drag.current.yaw, e.clientX-drag.current.x));setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}}/>
       <div className="reference-label-layer" aria-hidden="true">
         {projectedLabels.map(({label,screen,fontSizePx})=><span key={label.id} className={`reference-globe-label reference-globe-label-${label.kind}`} style={{left:screen.x,top:screen.y,fontSize:`${fontSizePx}px`}} title={label.provenance}>{label.text}</span>)}
       </div>
