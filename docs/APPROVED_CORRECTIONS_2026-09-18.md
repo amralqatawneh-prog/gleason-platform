@@ -11,7 +11,7 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 | M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
 | M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | IMPLEMENTED; automated checks PASS |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | IMPLEMENTED; automated checks PASS |
-| M6 | Locked installations and meaningful offline/browser/regression acceptance gates | PENDING |
+| M6 | Locked installations and meaningful offline/browser/regression acceptance gates | IMPLEMENTED; local checks PASS; remote CI pending |
 | M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | PENDING |
 | M8 | Professional comparison/research/presentation UX, export 9:16, GPU reuse and performance/context recovery | APPROVED FUTURE BACKLOG; not implemented here |
 
@@ -70,3 +70,13 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - The pack schema remains backward-compatible v1, with an additive `provenanceRevision=2`. Existing packs continue to load; missing source versions/classifications are explicitly unknown in selection/readout, never inferred from category.
 - The geographic inspector displays provenance fields and the source link. A new freehand geographic selection clears stale place identity.
 - Validation: **14/14 focused backend tests PASS**, **40/40 frontend core tests PASS**, production build PASS. Tests compare online/offline identities, preserve derived classifications and reject malformed/mismatched source metadata. Production PostgreSQL/CLI validation follows in the full CI gate.
+
+### M6 — repeatable installations and regression gates (implemented; CI pending)
+
+- Added complete npm/uv dependency locks; Docker/CI use `npm ci` and `uv sync --locked`. Build tools are pinned. Docker ignores host dependencies so Linux/macOS/Windows installations cannot overwrite container dependencies.
+- Recapturing A/B invalidates in-flight results. Pack writes use one IndexedDB read/write transaction, and committed installations refresh the globe immediately. Obsolete async layer loads cannot replace the current layer selection.
+- Added six Chromium acceptance scenarios: first install/cold offline navigation with BOTH HTTP servers stopped; geographic marker rotation/picking/back visibility; mobile keyboard controls/persistence/label legibility; saved-pack reactive refresh; delayed stale geodesic response; WebGL-disabled fallback.
+- Browser fixtures use the real FastAPI routes and a disposable SQLite catalog explicitly labelled TEST-ONLY. Delayed-response interception changes timing, not calculated values. Production PostGIS/source-import gates remain separate and compare API/CLI pack entries exactly.
+- Local validation: locked installs PASS; **49/49 backend tests PASS**, **40/40 core frontend tests PASS**, **2/2 generated PWA tests PASS**, **1,082 + 27 parity cases PASS**, build and worker syntax PASS, E2E discovery/typecheck PASS, npm audit **0 vulnerabilities**.
+- Browser runtime and Docker/source-import results on this revision: **PENDING REMOTE CI**. Do not confuse E2E discovery/typecheck with browser execution.
+- Remaining physical-device/manual checks: NOT RUN. Existing large bundle warning and dependency deprecation warnings are recorded, not hidden.

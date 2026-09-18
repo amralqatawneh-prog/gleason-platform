@@ -11,7 +11,9 @@
     "check:sw": "node --check public/sw.js",
     "cap:sync": "npx cap sync",
     "cap:android": "npx cap open android",
-    "cap:ios": "npx cap open ios"
+    "cap:ios": "npx cap open ios",
+    "test:e2e": "playwright test",
+    "test:pwa": "node --test tests/pwa/*.test.mjs"
   },
   "dependencies": {
     "@capacitor/core": "7.6.9",
@@ -27,6 +29,7 @@
     "@capacitor/android": "7.6.9",
     "@capacitor/cli": "7.6.9",
     "@capacitor/ios": "7.6.9",
+    "@playwright/test": "1.63.0",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "@types/topojson-client": "3.1.5",

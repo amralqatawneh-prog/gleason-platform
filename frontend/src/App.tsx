@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ProjectionMap, type Phase2MapModel } from './map2d/ProjectionMap';
 import type { GeoPoint } from './models/projectionTypes';
 import type { OfflinePlace } from './offline/searchIndex';
-import { refreshCoreSearchPack } from './offline/searchPackStore';
+import { refreshCoreSearchPack, SEARCH_PACKS_CHANGED } from './offline/searchPackStore';
 import { fetchCapabilities } from './api';
 import { type Locale, strings } from './i18n';
 import { detectCapabilities } from './platform/capabilities';
@@ -31,19 +31,26 @@ export default function App() {
   useEffect(()=>{const sync=()=>setOnline(navigator.onLine);addEventListener('online',sync);addEventListener('offline',sync);return()=>{removeEventListener('online',sync);removeEventListener('offline',sync);};},[]);
   useEffect(()=>{fetchCapabilities().then((result)=>setServerState(result?'connected':'offline'));},[online]);
   useEffect(()=>{
-    void loadGlobeLayerVisibility().then(async (layers)=>{
-      setGlobeLayers(layers);
-      if (navigator.onLine) await refreshCoreSearchPack().catch(()=>undefined);
-      return loadGlobePlaces(layers);
-    }).then(setGlobePlaces).catch(()=>setGlobePlaces([]));
+    let mounted=true;
+    void loadGlobeLayerVisibility().then(layers=>{if(mounted)setGlobeLayers(layers);}).catch(()=>undefined);
+    if(navigator.onLine)void refreshCoreSearchPack().catch(()=>undefined);
+    return()=>{mounted=false;};
   },[]);
+  useEffect(()=>{
+    let revision=0;
+    const refresh=()=>{
+      const request=++revision;
+      void loadGlobePlaces(globeLayers).then(places=>{if(request===revision)setGlobePlaces(places);}).catch(()=>{if(request===revision)setGlobePlaces([]);});
+    };
+    refresh();window.addEventListener(SEARCH_PACKS_CHANGED,refresh);
+    return()=>{revision++;window.removeEventListener(SEARCH_PACKS_CHANGED,refresh);};
+  },[globeLayers]);
 
   const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>setSelection({model,point}),[]);
   const locatePlace=useCallback((place:PlaceSelection)=>{setSelectedPlace(place);setSelection({model:'wgs84',point:{latitude:place.latitude,longitude:place.longitude}});},[]);
   const changeGlobeLayers=useCallback((next:GlobeLayerVisibility)=>{
     setGlobeLayers(next);
-    void saveGlobeLayerVisibility(next);
-    void loadGlobePlaces(next).then(setGlobePlaces).catch(()=>setGlobePlaces([]));
+    void saveGlobeLayerVisibility(next).catch(()=>undefined);
   },[]);
   const selectedPlaceName=selectedPlace?(locale==='ar'&&selectedPlace.nameAr?selectedPlace.nameAr:selectedPlace.name):undefined;
   const currentWgs84Point:GeodesicNamedPoint|null=selection?.model==='wgs84'?{

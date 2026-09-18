@@ -26,7 +26,7 @@ uniform float u_pitch;
 uniform float u_sx;
 uniform float u_sy;
 uniform float u_point_size;
-out float v_facing;
+out highp float v_facing;
 void main() {
   float cy = cos(u_yaw);
   float sy = sin(u_yaw);
@@ -45,7 +45,7 @@ void main() {
 const fragmentShaderSource = `#version 300 es
 precision mediump float;
 uniform vec4 u_color;
-in float v_facing;
+in highp float v_facing;
 out vec4 outColor;
 void main() { if (v_facing <= 0.0) discard; outColor = u_color; }
 `;

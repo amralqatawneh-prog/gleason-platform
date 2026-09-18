@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { geodesicInverse, type GeodesicInverseResult, type ReferenceGeoInput } from '../api';
 
 export type GeodesicNamedPoint = ReferenceGeoInput & { label?: string };
@@ -22,6 +22,8 @@ export function GeodesicInspector({ locale, currentPoint }: Props) {
   const [end, setEnd] = useState<GeodesicNamedPoint | null>(null);
   const [result, setResult] = useState<GeodesicInverseResult | null>(null);
   const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle');
+  const requestRevision = useRef(0);
+  useEffect(() => () => { requestRevision.current += 1; }, []);
 
   const canCalculate = Boolean(start && end && state !== 'loading');
   const distance = useMemo(() => {
@@ -34,19 +36,23 @@ export function GeodesicInspector({ locale, currentPoint }: Props) {
 
   async function calculate() {
     if (!start || !end) return;
+    const revision = ++requestRevision.current;
     setState('loading');
     setResult(null);
     try {
       const response = await geodesicInverse(start, end);
+      if (revision !== requestRevision.current) return;
       setResult(response);
       setState('idle');
     } catch {
+      if (revision !== requestRevision.current) return;
       setState('error');
     }
   }
 
   function capture(which: 'start' | 'end') {
     if (!currentPoint) return;
+    requestRevision.current += 1;
     const copy = { ...currentPoint };
     if (which === 'start') setStart(copy); else setEnd(copy);
     setResult(null);

@@ -7,6 +7,7 @@
 - M3: keep layer controls accessible on mobile and preserve legible 3D/2D labels with decluttering.
 - M4: align application version surfaces and separate implemented capabilities from owner acceptance.
 - M5: preserve source/version/record/classification through search, HTTP/CLI packs and selection; retain legacy packs with unknown metadata.
+- M6: lock npm/Python installations, prevent stale results/pack writes, refresh installed features, and add browser acceptance gates.
 - Owner approved M1–M8; Phase 4 acceptance remains pending.
 
 ## [Unreleased] — Phase 4

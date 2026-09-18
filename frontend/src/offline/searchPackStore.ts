@@ -1,4 +1,4 @@
-import { getLocalValue, setLocalValue } from './indexedDb';
+import { getLocalValue, updateLocalValue } from './indexedDb';
 import {
   activeIndexes,
   installRegionPack,
@@ -11,19 +11,22 @@ import {
 } from './searchIndex';
 
 const STORAGE_KEY = 'phase3-search-packs-v1';
+export const SEARCH_PACKS_CHANGED = 'gleason-search-packs-changed';
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api/v1';
-
-function emptyState(): InstalledSearchPacks {
-  return { regions: {} };
-}
 
 export async function loadSearchPackState(): Promise<InstalledSearchPacks> {
   const stored = await getLocalValue<InstalledSearchPacks>(STORAGE_KEY);
-  return stored && stored.regions ? stored : emptyState();
+  return sanitizeState(stored);
 }
 
-async function saveSearchPackState(state: InstalledSearchPacks): Promise<void> {
-  await setLocalValue(STORAGE_KEY, state);
+function sanitizeState(stored: InstalledSearchPacks | undefined): InstalledSearchPacks {
+  return { core: validateOfflineSearchIndex(stored?.core) ? stored.core : undefined,
+    regions: Object.fromEntries(Object.entries(stored?.regions ?? {}).filter(([, pack]) => validateOfflineSearchIndex(pack))) };
+}
+
+async function changeSearchPacks(update: (current: InstalledSearchPacks) => InstalledSearchPacks): Promise<void> {
+  await updateLocalValue<InstalledSearchPacks>(STORAGE_KEY, current => update(sanitizeState(current)));
+  window.dispatchEvent(new Event(SEARCH_PACKS_CHANGED));
 }
 
 async function fetchPack(path: string): Promise<OfflineSearchIndex> {
@@ -36,8 +39,7 @@ async function fetchPack(path: string): Promise<OfflineSearchIndex> {
 
 export async function refreshCoreSearchPack(): Promise<OfflineSearchIndex> {
   const core = await fetchPack('/offline-search/core');
-  const state = await loadSearchPackState();
-  await saveSearchPackState({ ...state, core });
+  await changeSearchPacks(state => ({ ...state, core }));
   return core;
 }
 
@@ -45,8 +47,7 @@ export async function installCountrySearchPack(countryCode: string): Promise<Off
   const code = countryCode.trim().toUpperCase();
   if (!/^[A-Z]{2}$/.test(code)) throw new Error('country code must be two letters');
   const pack = await fetchPack(`/offline-search/country/${encodeURIComponent(code)}`);
-  const state = installRegionPack(await loadSearchPackState(), pack);
-  await saveSearchPackState(state);
+  await changeSearchPacks(state => installRegionPack(state, pack));
   return pack;
 }
 

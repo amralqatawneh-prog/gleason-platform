@@ -1,0 +1,153 @@
+import { test as base, expect, type Page } from '@playwright/test';
+import { createServer } from 'node:http';
+import { readFile, mkdtemp, rm } from 'node:fs/promises';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+
+type Servers = { url: string; stop: () => Promise<void> };
+const test = base.extend<{ servers: Servers }>({
+  servers: async ({}, use) => {
+    const temporary = await mkdtemp(join(tmpdir(), 'gleason-test-only-'));
+    const backend = spawn(resolve('../backend/.venv/bin/python'), [resolve('../scripts/e2e_backend.py'), '--database', join(temporary,'test-only.db')], { stdio: ['ignore','pipe','pipe'] });
+    let logs=''; backend.stderr.on('data', data=>{logs+=data});
+    const dist=resolve('dist');
+    const server=createServer(async(req,res)=>{
+      try {
+        const pathname=new URL(req.url??'/', 'http://localhost').pathname;
+        const file=resolve(dist, '.'+(pathname==='/'?'/index.html':pathname));
+        if(!file.startsWith(dist+'/')){res.writeHead(403).end();return;}
+        const content=await readFile(file);
+        const extension=file.split('.').pop()??'';
+        const types:Record<string,string>={html:'text/html',js:'text/javascript',css:'text/css',json:'application/json',webmanifest:'application/manifest+json',png:'image/png'};
+        res.setHeader('Content-Type',types[extension]??'application/octet-stream');
+        res.setHeader('Cache-Control','no-store');res.end(content);
+      }catch{res.writeHead(404).end();}
+    });
+    server.listen(0,'127.0.0.1');await once(server,'listening');
+    let stopped=false;
+    const stop=async()=>{
+      if(stopped)return;stopped=true;
+      const close=new Promise<void>(done=>server.close(()=>done()));server.closeAllConnections();await close;
+      if(backend.exitCode===null){backend.kill('SIGTERM');await once(backend,'exit');}
+    };
+    try {
+      await expect.poll(async()=>{
+        if(backend.exitCode!==null)throw new Error(logs);
+        try{return (await fetch('http://127.0.0.1:8000/api/v1/health')).status;}catch{return 0;}
+      },{timeout:30000}).toBe(200);
+      const address=server.address();if(!address||typeof address==='string')throw new Error('No test server port');
+      await use({url:`http://127.0.0.1:${address.port}`,stop});
+    }finally{await stop();await rm(temporary,{recursive:true,force:true});}
+  },
+});
+
+async function english(page:Page,url:string){await page.goto(url);await page.getByRole('button',{name:'English',exact:true}).click();}
+async function locate(page:Page,name:string){
+  await page.getByRole('textbox',{name:'Search query'}).fill(name);
+  await page.getByRole('button',{name:'Search',exact:true}).click();
+  const result=page.locator('.search-result').filter({has:page.getByText(name,{exact:true})});
+  await result.getByRole('button',{name:'Locate on WGS84'}).click();
+  await expect(page.locator('.place-provenance')).toContainText(name);
+}
+const captureA=(page:Page)=>page.getByRole('button',{name:'Use current point as start'}).click();
+const captureB=(page:Page)=>page.getByRole('button',{name:'Use current point as end'}).click();
+const calculate=(page:Page)=>page.getByRole('button',{name:'Calculate distance & bearings'}).click();
+
+test('one production install supports cold navigation and calculations with both servers stopped',async({page,context,servers})=>{
+  await english(page,servers.url);
+  await locate(page,'TEST Doha');
+  await page.evaluate(async()=>{await navigator.serviceWorker.ready;});
+  await expect.poll(()=>page.evaluate(()=>Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await expect.poll(()=>page.locator('.globe-layer-controls small').textContent()).toContain('3');
+  const precached=await page.evaluate(async()=>{const keys=await caches.keys();const cache=await caches.open(keys.find(k=>k.startsWith('gleason-shell-'))!);return (await cache.keys()).map(r=>r.url);});
+  expect(precached.some(url=>url.endsWith('.js'))).toBe(true);
+  expect(precached.some(url=>url.endsWith('.css'))).toBe(true);
+  await context.setOffline(true);await servers.stop();
+  const offline=await context.newPage();await page.close();
+  await english(offline,servers.url);
+  await locate(offline,'TEST Doha');await captureA(offline);
+  await expect(offline.locator('.place-provenance')).toContainText('TEST_ONLY_SYNTHETIC_POINT');
+  await expect(offline.locator('.place-provenance')).toContainText('test-v1');
+  await locate(offline,'TEST Amman');await captureB(offline);await calculate(offline);
+  await expect(offline.locator('.geodesic-result')).toContainText('1692.602 km');
+  await expect(offline.locator('.geodesic-provenance')).toContainText('geographiclib-geodesic (browser)');
+  await offline.getByText('ECEF coordinates',{exact:true}).click();
+  await expect(offline.locator('.reference-readout details')).toContainText('EPSG:4978');
+  await offline.screenshot({path:'test-results/offline-reference.png',fullPage:true});
+});
+
+test('selected marker follows geography, remains pickable off-center and hides behind the globe',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  await expect(page.locator('.reference-card')).toHaveAttribute('data-mode','webgl3d');
+  const canvas=page.locator('canvas.reference-globe');await canvas.scrollIntoViewIfNeeded();
+  const bounds=(await canvas.boundingBox())!;
+  const marker=page.locator('.reference-focus-dot');const before=(await marker.boundingBox())!;
+  const x=bounds.x+bounds.width*.25,y=bounds.y+bounds.height/2;
+  await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+60,y,{steps:12});await page.mouse.up();
+  await expect.poll(async()=>Math.abs((await marker.boundingBox())!.x-before.x)).toBeGreaterThan(20);
+  const moved=(await marker.boundingBox())!;
+  await page.mouse.click(moved.x+moved.width/2,moved.y+moved.height/2);
+  await expect.poll(async()=>Number((await page.locator('.reference-readout').textContent())!.match(/Lat ([\d.-]+)/)![1])).toBeCloseTo(25.285447,2);
+  await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+Math.PI/.008,y,{steps:30});await page.mouse.up();
+  await expect(marker).toHaveCount(0);
+});
+
+test('mobile layer controls work with keyboard, persist, and use readable labels',async({page,servers})=>{
+  await page.setViewportSize({width:390,height:844});await english(page,servers.url);
+  const panel=page.locator('.globe-layer-controls');await expect(panel).toBeVisible();
+  const cities=page.getByRole('checkbox',{name:'Cities',exact:true});await cities.focus();await page.keyboard.press('Space');await expect(cities).not.toBeChecked();
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+  await expect.poll(()=>page.locator('.reference-globe-label').count()).toBeGreaterThan(0);
+  const sizes=await page.locator('.reference-globe-label').evaluateAll(nodes=>nodes.map(n=>parseFloat(getComputedStyle(n).fontSize)));
+  expect(Math.min(...sizes)).toBeGreaterThanOrEqual(12);
+  await page.screenshot({path:'test-results/mobile-layers.png',fullPage:true});
+  await page.reload();await page.getByRole('button',{name:'English',exact:true}).click();await expect(cities).not.toBeChecked();
+  await panel.locator('summary').click();await expect(cities).not.toBeVisible();
+  await panel.locator('summary').focus();await page.keyboard.press('Enter');await expect(cities).toBeVisible();
+});
+
+test('a newly saved region refreshes globe data immediately without reloading',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  await page.getByRole('checkbox',{name:'Saved-pack airports'}).check();
+  await expect(page.locator('.globe-layer-controls small')).toContainText('3');
+  await page.getByRole('button',{name:'Save QA offline'}).click();
+  await expect(page.locator('.phase3-search')).toContainText('QA saved for offline use');
+  await expect(page.locator('.globe-layer-controls small')).toContainText('4');
+});
+
+test('recapturing B invalidates an in-flight result for the previous pair',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');await captureA(page);
+  await locate(page,'TEST Amman');await captureB(page);
+  let release!:()=>void,started!:()=>void;
+  const hold=new Promise<void>(resolve=>{release=resolve});const began=new Promise<void>(resolve=>{started=resolve});
+  let calls=0;
+  await page.route('**/reference/wgs84/geodesic-inverse',async route=>{
+    if(calls++===0){started();await hold;}
+    await route.fulfill({response:await route.fetch()});
+  });
+  await calculate(page);await began;
+  await locate(page,'TEST Doha');await captureB(page);
+  const completed=page.waitForResponse(response=>response.url().endsWith('/geodesic-inverse'));
+  release();await completed;
+  await expect(page.locator('.geodesic-result')).toHaveCount(0);
+  await calculate(page);await expect(page.locator('.geodesic-result')).toContainText('0.000 km');
+  await expect(page.locator('.geodesic-provenance')).toContainText('pyproj');
+});
+
+test('WebGL-disabled fallback remains selectable and readable',async({page,servers})=>{
+  await page.addInitScript(()=>{
+    const original=HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext=function(type,...args){
+      if(String(type).startsWith('webgl'))return null;
+      return original.apply(this,[type,...args] as Parameters<typeof original>);
+    } as typeof original;
+  });
+  await english(page,servers.url);await expect(page.locator('.reference-card')).toHaveAttribute('data-mode','fallback2d');
+  const svg=page.locator('.reference-fallback svg');await svg.scrollIntoViewIfNeeded();const box=(await svg.boundingBox())!;
+  await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
+  await expect(page.locator('.reference-readout')).toContainText('Lat 0.000000°');
+  await expect(page.locator('.reference-readout')).toContainText('Lon 0.000000°');
+  await expect.poll(()=>page.locator('.reference-map-label').count()).toBeGreaterThan(0);
+});
