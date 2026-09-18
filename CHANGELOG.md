@@ -1,5 +1,10 @@
 # Changelog
 
+## Approved Phase 4 corrections — unreleased (2026-09-18)
+
+- M1: correct geodetic WGS84 picking, geographic markers, rear visibility and fallback letterboxing; retain inverted drag.
+- Owner approved M1–M8; Phase 4 acceptance remains pending.
+
 ## [Unreleased] — Phase 4
 ### Started
 - Phase 4 authorized by owner on 2026-09-17.

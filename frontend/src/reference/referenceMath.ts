@@ -30,86 +30,82 @@ export function draggedYaw(initialYaw: number, horizontalDeltaPx: number, sensit
   return initialYaw - horizontalDeltaPx * sensitivity;
 }
 
+// The renderer uses x/equator, y/polar, z/equator; ECEF uses z/polar.
+export const WGS84_POLAR_RATIO = 6356752.314245179 / 6378137;
+export const GLOBE_CLIP_SCALE = 0.78;
+
 export function geoPointToViewAngles(point: ReferenceGeoPoint): { yaw: number; pitch: number } {
+  const [x, y, z] = latLonToEllipsoid(point);
   return {
     yaw: ((normalizeLongitude(point.longitude) - 90) * Math.PI) / 180,
-    pitch: (clampLatitude(point.latitude) * Math.PI) / 180,
+    // Aim at the surface position, not its geodetic normal.
+    pitch: Math.atan2(y, Math.hypot(x, z)),
   };
 }
 
+/** Geodetic latitude on the ellipsoid, not parametric/spherical latitude. */
 export function latLonToEllipsoid(
   point: ReferenceGeoPoint,
   equatorialRadius = 1,
-  polarRadius = 6356752.314245179 / 6378137,
+  polarRadius = WGS84_POLAR_RATIO,
 ): [number, number, number] {
-  const lat = (point.latitude * Math.PI) / 180;
-  const lon = (point.longitude * Math.PI) / 180;
-  const cosLat = Math.cos(lat);
-  return [
-    equatorialRadius * cosLat * Math.cos(lon),
-    polarRadius * Math.sin(lat),
-    equatorialRadius * cosLat * Math.sin(lon),
-  ];
+  const lat = point.latitude * Math.PI / 180;
+  const lon = point.longitude * Math.PI / 180;
+  const e2 = 1 - (polarRadius / equatorialRadius) ** 2;
+  const n = equatorialRadius / Math.sqrt(1 - e2 * Math.sin(lat) ** 2);
+  return [n * Math.cos(lat) * Math.cos(lon), n * (1 - e2) * Math.sin(lat), n * Math.cos(lat) * Math.sin(lon)];
+}
+
+type Vector3 = [number, number, number];
+function rotate([x, y, z]: Vector3, yaw: number, pitch: number): Vector3 {
+  const x1 = Math.cos(yaw) * x + Math.sin(yaw) * z;
+  const z1 = -Math.sin(yaw) * x + Math.cos(yaw) * z;
+  return [x1, Math.cos(pitch) * y - Math.sin(pitch) * z1, Math.sin(pitch) * y + Math.cos(pitch) * z1];
+}
+function unrotate([x, y, z]: Vector3, yaw: number, pitch: number): Vector3 {
+  const y1 = Math.cos(pitch) * y + Math.sin(pitch) * z;
+  const z1 = -Math.sin(pitch) * y + Math.cos(pitch) * z;
+  return [Math.cos(yaw) * x - Math.sin(yaw) * z1, y1, Math.sin(yaw) * x + Math.cos(yaw) * z1];
 }
 
 export function projectGeoToScreen(
-  point: ReferenceGeoPoint,
-  width: number,
-  height: number,
-  yawRad: number,
-  pitchRad: number,
+  point: ReferenceGeoPoint, width: number, height: number, yawRad: number, pitchRad: number,
 ): ScreenProjection | null {
-  if (width <= 0 || height <= 0) return null;
-  const [x0, y0, z0] = latLonToEllipsoid(point);
-  const cy = Math.cos(yawRad);
-  const sy = Math.sin(yawRad);
-  const x1 = cy * x0 + sy * z0;
-  const z1 = -sy * x0 + cy * z0;
-  const cp = Math.cos(pitchRad);
-  const sp = Math.sin(pitchRad);
-  const y2 = cp * y0 - sp * z1;
-  const z2 = sp * y0 + cp * z1;
-  const aspect = width / height;
-  const sx = aspect >= 1 ? 0.78 / aspect : 0.78;
-  const syScale = aspect >= 1 ? 0.78 : 0.78 * aspect;
-  const clipX = -x1 * sx;
-  const clipY = y2 * syScale;
+  if (![width, height, yawRad, pitchRad, point.latitude, point.longitude].every(Number.isFinite) || width <= 0 || height <= 0) return null;
+  const body = latLonToEllipsoid(point);
+  const [x, y] = rotate(body, yawRad, pitchRad);
+  const normal: Vector3 = [body[0], body[1] / WGS84_POLAR_RATIO ** 2, body[2]];
+  const depth = rotate(normal, yawRad, pitchRad)[2] / Math.hypot(...normal);
+  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE / 2;
+  return { x: width / 2 - x * scale, y: height / 2 - y * scale, visible: depth > 0, depth };
+}
+
+/** Orthographic ray/ellipsoid intersection using the exact rendering transform. */
+export function screenPointToGeo(
+  x: number, y: number, width: number, height: number, yawRad: number, pitchRad: number,
+): ReferenceGeoPoint | null {
+  if (![x, y, width, height, yawRad, pitchRad].every(Number.isFinite) || width <= 0 || height <= 0) return null;
+  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE / 2;
+  const origin = unrotate([-(x - width / 2) / scale, -(y - height / 2) / scale, 0], yawRad, pitchRad);
+  const direction = unrotate([0, 0, 1], yawRad, pitchRad);
+  const dot = (a: Vector3, b: Vector3) => a[0] * b[0] + a[1] * b[1] / WGS84_POLAR_RATIO ** 2 + a[2] * b[2];
+  const a = dot(direction, direction), b = 2 * dot(origin, direction), c = dot(origin, origin) - 1;
+  const discriminant = b * b - 4 * a * c;
+  if (discriminant < -1e-14) return null;
+  const t = (-b + Math.sqrt(Math.max(0, discriminant))) / (2 * a);
+  const body = origin.map((value, i) => value + t * direction[i]);
   return {
-    x: (clipX * 0.5 + 0.5) * width,
-    y: (0.5 - clipY * 0.5) * height,
-    visible: z2 > 0,
-    depth: z2,
+    latitude: Math.atan2(body[1] / WGS84_POLAR_RATIO ** 2, Math.hypot(body[0], body[2])) * 180 / Math.PI,
+    longitude: normalizeLongitude(Math.atan2(body[2], body[0]) * 180 / Math.PI),
   };
 }
 
-export function screenPointToGeo(
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  yawRad: number,
-  pitchRad: number,
-): ReferenceGeoPoint | null {
-  if (width <= 0 || height <= 0) return null;
-  const scale = Math.min(width, height) * 0.42;
-  const nx = -(x - width / 2) / scale;
-  const ny = -(y - height / 2) / scale;
-  const r2 = nx * nx + ny * ny;
-  if (r2 > 1) return null;
-  const nz = Math.sqrt(Math.max(0, 1 - r2));
-
-  const cp = Math.cos(-pitchRad);
-  const sp = Math.sin(-pitchRad);
-  const py = ny * cp - nz * sp;
-  const pz = ny * sp + nz * cp;
-
-  const cy = Math.cos(-yawRad);
-  const sy = Math.sin(-yawRad);
-  const px = nx * cy + pz * sy;
-  const pzz = -nx * sy + pz * cy;
-
-  return {
-    latitude: clampLatitude((Math.asin(Math.max(-1, Math.min(1, py))) * 180) / Math.PI),
-    longitude: normalizeLongitude((Math.atan2(pzz, px) * 180) / Math.PI),
-  };
+/** SVG xMidYMid meet: reject letterboxing instead of stretching coordinates. */
+export function fallbackScreenPointToGeo(x: number, y: number, width: number, height: number): ReferenceGeoPoint | null {
+  if (![x, y, width, height].every(Number.isFinite) || width <= 0 || height <= 0) return null;
+  const scale = Math.min(width / 360, height / 180);
+  const mapX = (x - (width - 360 * scale) / 2) / scale;
+  const mapY = (y - (height - 180 * scale) / 2) / scale;
+  if (mapX < 0 || mapX > 360 || mapY < 0 || mapY > 180) return null;
+  return { latitude: 90 - mapY, longitude: mapX - 180 };
 }

@@ -4,7 +4,7 @@ import type { BrowserCapabilities } from '../platform/capabilities';
 import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
-import { draggedYaw, geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
+import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, latLonToEllipsoid, fallbackScreenPointToGeo, draggedYaw, geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
   capabilities: BrowserCapabilities;
@@ -25,6 +25,7 @@ uniform float u_pitch;
 uniform float u_sx;
 uniform float u_sy;
 uniform float u_point_size;
+out float v_facing;
 void main() {
   float cy = cos(u_yaw);
   float sy = sin(u_yaw);
@@ -32,7 +33,10 @@ void main() {
   float cp = cos(u_pitch);
   float sp = sin(u_pitch);
   p = vec3(p.x, cp * p.y - sp * p.z, sp * p.y + cp * p.z);
-  gl_Position = vec4(-p.x * u_sx, p.y * u_sy, -p.z * 0.78, 1.0);
+  vec3 n = vec3(a_position.x, a_position.y / ${WGS84_POLAR_RATIO ** 2}, a_position.z);
+  float nz = -sy * n.x + cy * n.z;
+  v_facing = sp * n.y + cp * nz;
+  gl_Position = vec4(-p.x * u_sx, p.y * u_sy, -p.z * ${GLOBE_CLIP_SCALE}, 1.0);
   gl_PointSize = u_point_size;
 }
 `;
@@ -40,17 +44,13 @@ void main() {
 const fragmentShaderSource = `#version 300 es
 precision mediump float;
 uniform vec4 u_color;
+in float v_facing;
 out vec4 outColor;
-void main() { outColor = u_color; }
+void main() { if (v_facing <= 0.0) discard; outColor = u_color; }
 `;
 
-const POLAR_RATIO = 6356752.314245179 / 6378137;
-
 function pushEllipsoid(target: number[], lat: number, lon: number): void {
-  const phi = lat * Math.PI / 180;
-  const lam = lon * Math.PI / 180;
-  const c = Math.cos(phi);
-  target.push(c * Math.cos(lam), POLAR_RATIO * Math.sin(phi), c * Math.sin(lam));
+  target.push(...latLonToEllipsoid({ latitude: lat, longitude: lon }));
 }
 
 function buildGrid(): Float32Array {
@@ -194,8 +194,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
       const aspect = canvas.width / canvas.height;
       gl.uniform1f(yawUniform, yaw);
       gl.uniform1f(pitchUniform, pitch);
-      gl.uniform1f(sxUniform, aspect >= 1 ? 0.78 / aspect : 0.78);
-      gl.uniform1f(syUniform, aspect >= 1 ? 0.78 : 0.78 * aspect);
+      gl.uniform1f(sxUniform, aspect >= 1 ? GLOBE_CLIP_SCALE / aspect : GLOBE_CLIP_SCALE);
+      gl.uniform1f(syUniform, aspect >= 1 ? GLOBE_CLIP_SCALE : GLOBE_CLIP_SCALE * aspect);
       draw(gridBuffer, grid, gl.LINES, [0.20, 0.43, 0.58, 0.34]);
       if (layers?.countries !== false) draw(countryBuffer, countryVertices, gl.LINES, [0.86, 0.91, 0.82, 0.98]);
       if (placeVertices.length) draw(placeBuffer, placeVertices, gl.POINTS, [0.98, 0.72, 0.34, 0.98], Math.max(3, 3 * dpr));
@@ -206,35 +206,37 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
     return () => { observer.disconnect(); gl.deleteBuffer(gridBuffer); gl.deleteBuffer(countryBuffer); gl.deleteBuffer(placeBuffer); gl.deleteProgram(program); gl.deleteShader(vs); gl.deleteShader(fs); };
   }, [mode, yaw, pitch, countryVertices, placeVertices, layers?.countries]);
 
+  const marker = projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch);
+  const selectedLabel = focusPoint && Math.abs(selected.latitude - focusPoint.latitude) < 1e-9 && Math.abs(selected.longitude - focusPoint.longitude) < 1e-9 ? focusLabel : undefined;
   const choose = (point: ReferenceGeoPoint) => { setSelected(point); onPoint?.(point); };
 
   if (mode === 'fallback2d') {
     const fallbackLabels = labels.slice(0, 80);
     return <section className="reference-card" data-mode="fallback2d">
       <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
-      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); choose({ latitude: 90 - ((event.clientY - rect.top) / rect.height) * 180, longitude: ((event.clientX - rect.left) / rect.width) * 360 - 180 }); }}>
+      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const point = fallbackScreenPointToGeo(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height); if (point) choose(point); }}>
         <rect width="360" height="180" rx="8"/>
         {[-120,-60,0,60,120].map((x)=><line key={`v${x}`} x1={x+180} x2={x+180} y1="0" y2="180"/>)}
         {[-60,-30,0,30,60].map((y)=><line key={`h${y}`} x1="0" x2="360" y1={90-y} y2={90-y}/>)}
         {layers?.countries !== false && countryPaths.map((d, index)=><path key={index} d={d} className="reference-country-line"/>)}
         {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r="1.3" className={`reference-place-dot reference-place-${place.category}`}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
         {fallbackLabels.map((label)=><text key={label.id} x={label.longitude+180} y={90-label.latitude} className={`reference-map-label reference-map-label-${label.kind}`}><title>{label.provenance}</title>{label.text}</text>)}
-        {focusPoint&&<circle cx={focusPoint.longitude+180} cy={90-focusPoint.latitude} r="4" className="reference-focus-marker"/>}
+        {<circle cx={selected.longitude+180} cy={90-selected.latitude} r="4" className="reference-focus-marker"/>}
       </svg></div>
-      <ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={focusLabel} details={layerPlaces.length}/>
+      <ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={selectedLabel} details={layerPlaces.length}/>
     </section>;
   }
 
   return <section className="reference-card" data-mode="webgl3d">
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
     <div className="reference-globe-wrap">
-      <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(draggedYaw(drag.current.yaw, e.clientX-drag.current.x));setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}}/>
+      <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(draggedYaw(drag.current.yaw, e.clientX-drag.current.x));setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}} onPointerCancel={()=>{drag.current=null;}} onLostPointerCapture={()=>{drag.current=null;}}/>
       <div className="reference-label-layer" aria-hidden="true">
         {projectedLabels.map(({label,screen,fontSizePx})=><span key={label.id} className={`reference-globe-label reference-globe-label-${label.kind}`} style={{left:screen.x,top:screen.y,fontSize:`${fontSizePx}px`}} title={label.provenance}>{label.text}</span>)}
       </div>
-      {focusPoint&&<span className="reference-focus-dot" aria-label="selected Phase 3 place"/>}
+      {marker?.visible&&<span className="reference-focus-dot" style={{left:marker.x,top:marker.y}} aria-label={locale==='ar'?'النقطة المحددة':'Selected point'}/>}
     </div>
-    <ReferenceReadout locale={locale} point={selected} mode="WebGL2 3D" label={focusLabel} details={layerPlaces.length}/>
+    <ReferenceReadout locale={locale} point={selected} mode="WebGL2 3D" label={selectedLabel} details={layerPlaces.length}/>
   </section>;
 }
 

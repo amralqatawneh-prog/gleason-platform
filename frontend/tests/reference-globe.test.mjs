@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   clampLatitude,
   draggedYaw,
+  fallbackScreenPointToGeo,
   geoPointToViewAngles,
   latLonToEllipsoid,
   normalizeLongitude,
@@ -81,4 +82,60 @@ test('horizontal drag rotates the globe opposite to pointer movement', () => {
   const initialYaw = 0.5;
   assert.ok(draggedYaw(initialYaw, 20) < initialYaw);
   assert.ok(draggedYaw(initialYaw, -20) > initialYaw);
+});
+
+test('mid-latitude rendering uses geodetic WGS84 ECEF, not parametric latitude', () => {
+  // EPSG:4979 → EPSG:4978 / PROJ WGS84 at 45N, 0E, height 0m.
+  const [x, y, z] = latLonToEllipsoid({ latitude: 45, longitude: 0 });
+  assert.ok(Math.abs(x * 6378137 - 4517590.878848932) < 1e-6);
+  assert.ok(Math.abs(y * 6378137 - 4487348.408865919) < 1e-6);
+  assert.equal(z, 0);
+});
+
+test('off-center selection recovers visible geographic points across rotations and aspect ratios', () => {
+  let checked = 0;
+  for (const [width, height] of [[400,400],[1024,380],[320,540],[357.25,291.5]]) {
+    for (const [yaw,pitch] of [[0,0],[-.55,.28],[2.6,1.1],[-2.2,-1.2]]) {
+      for (const latitude of [-85,-60,-25,0,25,60,85]) {
+        for (let longitude = -180; longitude < 180; longitude += 20) {
+          const screen = projectGeoToScreen({latitude,longitude},width,height,yaw,pitch);
+          if (!screen.visible || screen.depth < .01) continue;
+          const actual = screenPointToGeo(screen.x,screen.y,width,height,yaw,pitch);
+          assert.ok(actual);
+          assert.ok(Math.abs(actual.latitude-latitude)<1e-8);
+          assert.ok(Math.abs(normalizeLongitude(actual.longitude-longitude))<1e-8);
+          checked++;
+        }
+      }
+    }
+  }
+  assert.ok(checked > 900);
+  const screen = projectGeoToScreen({latitude:0,longitude:120},400,400,0,0);
+  assert.ok(Math.abs(screen.x-278)<1e-10);
+  assert.ok(Math.abs(screenPointToGeo(278,200,400,400,0,0).longitude-120)<1e-10);
+});
+
+test('picking rejects the old invisible outer ring and invalid viewports', () => {
+  assert.equal(screenPointToGeo(365,200,400,400,0,0),null);
+  assert.equal(screenPointToGeo(200,44,400,400,0,0),null); // polar radius < equatorial radius
+  assert.equal(screenPointToGeo(200,200,0,400,0,0),null);
+  assert.equal(screenPointToGeo(NaN,200,400,400,0,0),null);
+});
+
+test('geographic marker moves with rotation and is hidden on the back', () => {
+  const point={latitude:35,longitude:120}, view=geoPointToViewAngles(point);
+  const center=projectGeoToScreen(point,400,400,view.yaw,view.pitch);
+  const moved=projectGeoToScreen(point,400,400,view.yaw+.6,view.pitch);
+  const back=projectGeoToScreen(point,400,400,view.yaw+Math.PI,0);
+  assert.ok(Math.abs(center.x-200)<1e-9 && Math.abs(center.y-200)<1e-9);
+  assert.ok(Math.abs(moved.x-center.x)>30);
+  assert.equal(back.visible,false);
+});
+
+test('fallback respects SVG letterboxing and rejects clicks in margins', () => {
+  assert.deepEqual(fallbackScreenPointToGeo(400,200,800,400),{latitude:0,longitude:0});
+  assert.deepEqual(fallbackScreenPointToGeo(200,300,400,600),{latitude:0,longitude:0});
+  assert.equal(fallbackScreenPointToGeo(200,50,400,600),null);
+  assert.equal(fallbackScreenPointToGeo(10,100,800,200),null);
+  assert.deepEqual(fallbackScreenPointToGeo(580,10,800,200),{latitude:81,longitude:162});
 });

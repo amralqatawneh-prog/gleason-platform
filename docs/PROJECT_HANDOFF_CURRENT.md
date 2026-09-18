@@ -63,7 +63,7 @@ The owner explicitly requires:
   - clear Git commit,
   - test report,
   - documentation update.
-- Manual checks that are not performed are `WAIVED BY OWNER`, never PASS.
+- Manual checks that are not performed are `NOT RUN`. Use `WAIVED BY OWNER` only when the owner explicitly waives that particular check; never infer a waiver or PASS.
 - Phase 5 is forbidden until explicit Phase 4 acceptance.
 
 ## Gleason source rules and verified historical basis
@@ -157,7 +157,14 @@ Owner manual Phase 3 acceptance passed.
 ## Phase 4 — WGS84 Reference Model
 
 Overall Phase 4 status:
-**READY FOR OWNER ACCEPTANCE — technical slices P4.1 through P4.7 are complete; Phase 4 itself is NOT yet accepted until the owner explicitly accepts it.**
+**APPROVED CORRECTIONS IN PROGRESS — historical P4.1–P4.7 completion is recorded below. The 2026-09-18 audit identified corrections M1–M6, approved by the owner. Phase 4 itself is NOT yet accepted.**
+
+## Owner approval — 2026-09-18
+
+The owner approved all eight audit proposals: «نعم موافق، وموافق على المقترحات».
+This authorizes M1–M6 implementation, M7 roadmap reconciliation and M8 future backlog planning. It does not constitute Phase 4 acceptance, release/merge authorization or permission to start Phase 5.
+
+See `docs/APPROVED_CORRECTIONS_2026-09-18.md` for scope, progress and validation. Previous manual PASS records below refer to the historical implementation, not to the corrected revision.
 
 ### P4.1 — COMPLETE ✅
 
@@ -350,7 +357,7 @@ Technical state:
 - P4.7 COMPLETE ✅
 
 Overall:
-- Phase 4: **READY FOR OWNER ACCEPTANCE**
+- Phase 4: **APPROVED CORRECTIONS IN PROGRESS** (M1–M6)
 - Phase 4 is **NOT YET ACCEPTED** until the owner explicitly says they accept Phase 4.
 - Phase 5: **NOT STARTED**
 
@@ -358,9 +365,9 @@ Overall:
 
 The next permitted sequence is:
 
-1. Update Phase 4 documentation/changelog to record P4.7 final PASS and the inverted drag interaction.
-2. Run one final documentation-only CI if documentation is changed.
-3. Ask the owner for explicit **Phase 4 acceptance**.
+1. Complete and validate the approved M1–M6 corrections, one slice at a time; preserve the inverted drag interaction.
+2. Reconcile the roadmap (M7), record M8 as future work, update reports and run acceptance CI on the resulting revision.
+3. Present the corrected implementation and any outstanding manual checks, then request explicit **Phase 4 acceptance**.
 4. Only after explicit acceptance:
    - finalize release metadata to v0.4.0,
    - align `VERSION`, backend package version, frontend package version, changelog,
