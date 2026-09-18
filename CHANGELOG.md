@@ -8,6 +8,8 @@
 - M4: align application version surfaces and separate implemented capabilities from owner acceptance.
 - M5: preserve source/version/record/classification through search, HTTP/CLI packs and selection; retain legacy packs with unknown metadata.
 - M6: lock npm/Python installations, prevent stale results/pack writes, refresh installed features, and add browser acceptance gates.
+- M7/M8: reconcile phases 0–22 and Phase 5/6 scope, record actual renderer and retain approved future UX/performance requirements.
+- Verification: 49 backend + 40 frontend core + 2 PWA tests and numerical parity pass locally; new remote gates pending explicit push permission.
 - Owner approved M1–M8; Phase 4 acceptance remains pending.
 
 ## [Unreleased] — Phase 4

@@ -1,5 +1,7 @@
 # Phase 4 Validation / Release Hardening Report
 
+> Historical P4.7 report. The subsequent 2026-09-18 approved corrections have separate evidence in `PHASE_4_CORRECTIONS_TEST_REPORT.md`; prior manual/CI PASS does not cover the new code. Overall Phase 4 acceptance remains pending.
+
 ## Status
 
 **P4.7 COMPLETE — technical hardening and manual regression checks passed. Phase 4 awaits explicit owner acceptance.**

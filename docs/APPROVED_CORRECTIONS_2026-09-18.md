@@ -11,8 +11,8 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 | M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
 | M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | IMPLEMENTED; automated checks PASS |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | IMPLEMENTED; automated checks PASS |
-| M6 | Locked installations and meaningful offline/browser/regression acceptance gates | IMPLEMENTED; local checks PASS; remote CI pending |
-| M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | PENDING |
+| M6 | Locked installations and meaningful offline/browser/regression acceptance gates | IMPLEMENTED; local checks PASS; remote CI BLOCKED pending push permission |
+| M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | COMPLETE; see ROADMAP_CURRENT.md |
 | M8 | Professional comparison/research/presentation UX, export 9:16, GPU reuse and performance/context recovery | APPROVED FUTURE BACKLOG; not implemented here |
 
 ## Validation record
@@ -78,5 +78,16 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - Added six Chromium acceptance scenarios: first install/cold offline navigation with BOTH HTTP servers stopped; geographic marker rotation/picking/back visibility; mobile keyboard controls/persistence/label legibility; saved-pack reactive refresh; delayed stale geodesic response; WebGL-disabled fallback.
 - Browser fixtures use the real FastAPI routes and a disposable SQLite catalog explicitly labelled TEST-ONLY. Delayed-response interception changes timing, not calculated values. Production PostGIS/source-import gates remain separate and compare API/CLI pack entries exactly.
 - Local validation: locked installs PASS; **49/49 backend tests PASS**, **40/40 core frontend tests PASS**, **2/2 generated PWA tests PASS**, **1,082 + 27 parity cases PASS**, build and worker syntax PASS, E2E discovery/typecheck PASS, npm audit **0 vulnerabilities**.
-- Browser runtime and Docker/source-import results on this revision: **PENDING REMOTE CI**. Do not confuse E2E discovery/typecheck with browser execution.
+- Browser runtime and Docker/source-import results on this revision: **NOT RUN — PUSH BLOCKED BY AUTOMATIC APPROVAL REVIEW**. Do not confuse E2E discovery/typecheck with browser execution.
 - Remaining physical-device/manual checks: NOT RUN. Existing large bundle warning and dependency deprecation warnings are recorded, not hidden.
+
+### M7/M8 — roadmap reconciled, future enhancements retained
+
+- `ROADMAP_CURRENT.md` is the unified 0–22 roadmap. It defines all nine Phase 5 slices and keeps the comprehensive measurement engine in Phase 6.
+- ADR-014 records the current WebGL2/SVG renderer and the evaluation required before any Cesium migration. Future work includes comparison layouts, Research/Presentation and 9:16 export, semantic badges, GPU reuse, context recovery and measured performance.
+- Historical Original Mode, verified scan/control points, city-level detail, planets/zodiac definitions and separate heavens/atmosphere representations are explicitly retained with prerequisites and source/assumption rules.
+- Documentation implementation: 100% of approved planning scope. This is not completion or execution approval for future phases.
+
+### Delivery status
+
+M1–M6 implementation is complete locally with the checks above. New CI/browser/production-Docker execution remains unverified. A normal push was rejected by automatic approval review for lack of explicit authorization to send repository code/tests/docs to the GitHub destination. No alternative upload was attempted. The owner must authorize that concrete push before remote validation can proceed. See `PHASE_4_CORRECTIONS_TEST_REPORT.md` for the test matrix and exact action.

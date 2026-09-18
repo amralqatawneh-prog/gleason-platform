@@ -10,8 +10,10 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`
 - Current implementation branch: `feat/phase4-wgs84-reference`
-- Current tested head: `0005c030e5545e43a1a5c759e3adbcad603ff99e`
-- Latest CI on that head: `Release Acceptance Gates` run #177 — SUCCESS after retry of a transient Docker Hub network failure.
+- Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
+- Local correction code head: `59ace6b` (M1–M6); later roadmap commits are documentation only.
+- Baseline CI: `Release Acceptance Gates` #184 — SUCCESS. New correction CI has NOT RUN; normal push was blocked by automatic approval review pending explicit permission.
+- Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
 - Phase 5 has NOT started.
 
 ## Project architecture agreed with owner
@@ -157,7 +159,7 @@ Owner manual Phase 3 acceptance passed.
 ## Phase 4 — WGS84 Reference Model
 
 Overall Phase 4 status:
-**APPROVED CORRECTIONS IN PROGRESS — historical P4.1–P4.7 completion is recorded below. The 2026-09-18 audit identified corrections M1–M6, approved by the owner. Phase 4 itself is NOT yet accepted.**
+**APPROVED CORRECTIONS IMPLEMENTED LOCALLY — M1–M6 local checks PASS; new remote browser/Docker gates and owner review remain pending. Phase 4 itself is NOT accepted.**
 
 ## Owner approval — 2026-09-18
 
@@ -245,7 +247,7 @@ No Phase 5 synchronization was introduced.
 
 WGS84 Geodesic Inspector.
 
-Uses backend WGS84 geodesic inverse, not a local approximation.
+Historical P4.5 used backend WGS84 geodesic inverse. Approved M2 adds an independent GeographicLib JS offline engine, tested against backend PROJ; it is not a spherical approximation.
 
 Delivered:
 - capture A/B,
@@ -326,8 +328,8 @@ Added/verified:
 - real search regression,
 - offline pack generation.
 
-PWA cache namespace rotated to:
-`gleason-shell-v0.4.0-rc1`
+Historical P4.7 cache namespace: `gleason-shell-v0.4.0-rc1`.
+Approved M2 replaces it with `gleason-shell-v{accepted app version}-{content hash}` and precaches compiled assets.
 
 Final interaction request from owner:
 - horizontal globe drag direction was inverted.
@@ -339,7 +341,7 @@ Final interaction request from owner:
 - Automated regression test added.
 - Owner manual test: PASS.
 
-Latest CI:
+Historical P4.7 closure CI:
 - run #177
 - final conclusion: SUCCESS
 - initial attempt failed only because Docker Hub token/image metadata requests reset/EOF; retry succeeded.
@@ -347,7 +349,7 @@ Latest CI:
 
 ## Current acceptance state
 
-Technical state:
+Historical slice state (new correction evidence is separate):
 - P4.1 COMPLETE ✅
 - P4.2 COMPLETE ✅
 - P4.3 COMPLETE ✅
@@ -357,7 +359,7 @@ Technical state:
 - P4.7 COMPLETE ✅
 
 Overall:
-- Phase 4: **APPROVED CORRECTIONS IN PROGRESS** (M1–M6)
+- Phase 4: **CORRECTIONS IMPLEMENTED LOCALLY; REMOTE/MANUAL GATES PENDING** (M1–M6)
 - Phase 4 is **NOT YET ACCEPTED** until the owner explicitly says they accept Phase 4.
 - Phase 5: **NOT STARTED**
 
@@ -365,8 +367,8 @@ Overall:
 
 The next permitted sequence is:
 
-1. Complete and validate the approved M1–M6 corrections, one slice at a time; preserve the inverted drag interaction.
-2. Reconcile the roadmap (M7), record M8 as future work, update reports and run acceptance CI on the resulting revision.
+1. Obtain explicit permission for the normal push blocked by automatic approval review: local correction/documentation commits to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`. Code and documentation are prepared and committed locally.
+2. Run the new browser/Docker/production-source CI gates on the pushed revision, resolve actual failures, and record the exact head/run. M7 roadmap is reconciled and M8 remains approved future work.
 3. Present the corrected implementation and any outstanding manual checks, then request explicit **Phase 4 acceptance**.
 4. Only after explicit acceptance:
    - finalize release metadata to v0.4.0,
@@ -377,6 +379,8 @@ The next permitted sequence is:
 5. Only after Phase 4 is accepted and release metadata is closed may **Phase 5** begin.
 
 ## Phase 5 boundary / future agreed direction
+
+Current Phase 5 slices, the Phase 5/6 measurement boundary, all phases through 22 and M8 backlog are in `docs/ROADMAP_CURRENT.md`. ADR-014 records the current WebGL2 renderer instead of the originally planned Cesium choice.
 
 Phase 5 is the future synchronization/comparison phase.
 

@@ -1801,6 +1801,8 @@ Copernicus DEM GLO-30/GLO-90 هو DSM، أي أنه يمثل سطح الأرض �
 
 ## 41. Roadmap
 
+**تحديث معتمد 2026-09-18 (م7):** الخريطة الحالية وحالة القبول وحدود Phase 5/6 في [`docs/ROADMAP_CURRENT.md`](docs/ROADMAP_CURRENT.md). القائمة أدناه أساس التخطيط التاريخي، ولا تعني أن المرحلة 0 ما تزال الحالية. المرحلة الرابعة تستخدم عارض WebGL2 مخصصًا؛ يسجل ADR-014 الفرق عن اختيار Cesium الأصلي.
+
 ### Phase 0 — Current — Architecture Revision 0.2.0
 
 - Three-model architecture: Gleason Historical + AE + WGS84.
@@ -2024,6 +2026,14 @@ Copernicus DEM GLO-30/GLO-90 هو DSM، أي أنه يمثل سطح الأرض �
 **Decision:** CesiumJS.  
 **Reason:** high-precision WGS84 globe + time-dynamic geospatial visualization.
 
+**Current implementation note (2026-09-18):** This original choice is superseded for the delivered Phase 4 renderer by ADR-014. Cesium is not installed or implemented in the current reference view.
+
+### ADR-014 — Phase 4 renderer reconciliation (approved M7)
+
+**Decision:** Retain the implemented custom WebGL2/SVG renderer for the approved Phase 4 corrections. Keep numerical providers independent and make no Cesium/terrain/3D Tiles capability claims. Evaluate renderer migration before advanced terrain/time-dynamic scale requires it.
+
+**Scope and criteria:** See `docs/ROADMAP_CURRENT.md`. This records the actual implementation and approved correction boundary; it does not authorize Phase 5 or replace source/calculation semantics.
+
 ### ADR-004 — API framework
 
 **Decision:** FastAPI.  
@@ -2120,4 +2130,3 @@ source_sha256 -> 03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe6
 ### Existing data/science references retained from Architecture Revision 0.1.x
 
 Natural Earth, OpenStreetMap, PostGIS, Skyfield, Astropy, IANA tzdb, NASA eclipse catalogs, OpenTopography/Copernicus DEM, OpenSky and licensed submarine-cable providers remain governed by the Data Sources Register and provider-specific licensing/usage review before production.
-

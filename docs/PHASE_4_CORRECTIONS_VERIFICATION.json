@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-18",
+  "code_revision": "59ace6b",
+  "owner_approved_proposals": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
+  "phase_4_accepted": false,
+  "phase_5_started": false,
+  "backend_tests": {
+    "pass": 49,
+    "fail": 0
+  },
+  "frontend_core_tests": {
+    "pass": 40,
+    "fail": 0
+  },
+  "production_pwa_tests": {
+    "pass": 2,
+    "fail": 0,
+    "kind": "generated assets and synthetic service-worker harness"
+  },
+  "parity": {
+    "geodesic_cases": 1082,
+    "ecef_roundtrips": 27,
+    "status": "PASS",
+    "max_distance_difference_m": 3.725290298461914e-09,
+    "max_bearing_difference_deg": 2.5011104298755527e-12,
+    "max_ecef_difference_m": 0.0,
+    "max_inverse_lat_difference_deg": 7.986500349943526e-12,
+    "max_inverse_height_difference_m": 8.903443813323975e-07
+  },
+  "production_build": "PASS",
+  "service_worker_syntax": "PASS",
+  "metadata_consistency": "PASS",
+  "npm_audit_vulnerabilities": 0,
+  "live_http_smoke": {
+    "status": "PASS",
+    "catalog": "TEST-ONLY SQLite",
+    "distance_m": 1692601.7350098162
+  },
+  "e2e": {
+    "defined": 6,
+    "discovery_and_typecheck": "PASS",
+    "runtime": "NOT RUN"
+  },
+  "new_remote_ci": "NOT RUN — git push rejected by automatic approval review; explicit destination permission required",
+  "new_docker_source_import_checks": "NOT RUN",
+  "new_owner_manual_checks": "NOT RUN",
+  "accepted_release": "0.3.0",
+  "remote_baseline": "99a3658bef7eb678df7beed157bd01ed92aaa62b"
+}
