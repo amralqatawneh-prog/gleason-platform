@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   clampLatitude,
+  draggedYaw,
   geoPointToViewAngles,
   latLonToEllipsoid,
   normalizeLongitude,
@@ -73,4 +74,11 @@ test('canonical Phase 3 coordinate can be focused at WGS84 view center', () => {
 
 test('screen points outside globe return null', () => {
   assert.equal(screenPointToGeo(0, 0, 400, 400, 0, 0), null);
+});
+
+
+test('horizontal drag rotates the globe opposite to pointer movement', () => {
+  const initialYaw = 0.5;
+  assert.ok(draggedYaw(initialYaw, 20) < initialYaw);
+  assert.ok(draggedYaw(initialYaw, -20) > initialYaw);
 });
