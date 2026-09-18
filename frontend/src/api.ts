@@ -15,6 +15,7 @@ export interface PlaceSearchResult {
   latitude: number;
   longitude: number;
   source_record_id: string;
+  coordinate_classification?: string | null;
   source: {
     source_id: string;
     name: string;

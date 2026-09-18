@@ -29,6 +29,7 @@
     "src/models/gleason.ts",
     "src/models/ae.ts",
     "src/georeferencing/affine.ts",
-    "src/reference/offlineWgs84.ts"
+    "src/reference/offlineWgs84.ts",
+    "src/search/placeSelection.ts"
   ]
 }

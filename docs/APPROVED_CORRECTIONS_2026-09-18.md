@@ -10,7 +10,7 @@ This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 
 | M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | IMPLEMENTED; automated checks PASS |
 | M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
 | M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | IMPLEMENTED; automated checks PASS |
-| M5 | Preserve source identity/version/record/classification through search, packs and selection | PENDING |
+| M5 | Preserve source identity/version/record/classification through search, packs and selection | IMPLEMENTED; automated checks PASS |
 | M6 | Locked installations and meaningful offline/browser/regression acceptance gates | PENDING |
 | M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | PENDING |
 | M8 | Professional comparison/research/presentation UX, export 9:16, GPU reuse and performance/context recovery | APPROVED FUTURE BACKLOG; not implemented here |
@@ -63,3 +63,10 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - Capabilities correctly identify implemented Phase 3/4 features and separately expose `accepted_phase=3`, `phase=4`, `phase_status=awaiting-owner-acceptance`. Astronomy/synchronization remain false.
 - Removed stale Phase 2/P4.6 progress language from the main interface. Independent model versions are unchanged. No v0.4.0 release, tag or merge was performed.
 - Validation: **8/8 API tests PASS**, metadata consistency PASS, production build PASS.
+
+### M5 — provenance across online/offline paths (implemented)
+
+- Search responses preserve `coordinate_classification` from database quality metadata. Both HTTP packs and the production CLI use one serializer for source id/name/version/license/URL, source record id and coordinate classification.
+- The pack schema remains backward-compatible v1, with an additive `provenanceRevision=2`. Existing packs continue to load; missing source versions/classifications are explicitly unknown in selection/readout, never inferred from category.
+- The geographic inspector displays provenance fields and the source link. A new freehand geographic selection clears stale place identity.
+- Validation: **14/14 focused backend tests PASS**, **40/40 frontend core tests PASS**, production build PASS. Tests compare online/offline identities, preserve derived classifications and reject malformed/mismatched source metadata. Production PostgreSQL/CLI validation follows in the full CI gate.

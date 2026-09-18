@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { searchPlaces, type PlaceCategory, type PlaceSearchResult } from '../api';
+import { searchPlaces, type PlaceCategory } from '../api';
 import { installCountrySearchPack, refreshCoreSearchPack, searchCachedPlaces } from '../offline/searchPackStore';
-import type { OfflinePlace } from '../offline/searchIndex';
+import { onlineResult, offlineResult, type PlaceSelection } from './placeSelection';
+export type { PlaceSelection } from './placeSelection';
 
 const categories: Array<{ value: '' | PlaceCategory; ar: string; en: string }> = [
   { value: '', ar: 'كل الأنواع', en: 'All types' },
@@ -13,46 +14,6 @@ const categories: Array<{ value: '' | PlaceCategory; ar: string; en: string }> =
   { value: 'mountain', ar: 'جبال', en: 'Mountains' },
   { value: 'airport', ar: 'مطارات', en: 'Airports' },
 ];
-
-export interface PlaceSelection {
-  id: string;
-  category: PlaceCategory;
-  name: string;
-  nameAr?: string;
-  countryCode?: string;
-  latitude: number;
-  longitude: number;
-  sourceLabel: string;
-  offline: boolean;
-}
-
-function onlineResult(result: PlaceSearchResult): PlaceSelection {
-  return {
-    id: result.id,
-    category: result.category,
-    name: result.name,
-    nameAr: result.name_ar ?? undefined,
-    countryCode: result.country_code ?? undefined,
-    latitude: result.latitude,
-    longitude: result.longitude,
-    sourceLabel: `${result.source.name}${result.source.version ? ` ${result.source.version}` : ''}`,
-    offline: false,
-  };
-}
-
-function offlineResult(result: OfflinePlace): PlaceSelection {
-  return {
-    id: result.id,
-    category: result.category,
-    name: result.name,
-    nameAr: result.nameAr,
-    countryCode: result.countryCode,
-    latitude: result.latitude,
-    longitude: result.longitude,
-    sourceLabel: result.sourceId,
-    offline: true,
-  };
-}
 
 type Props = {
   locale: 'ar' | 'en';
@@ -106,7 +67,7 @@ export function PlaceSearch({ locale, onSelectPlace, selectedPlaceId }: Props) {
   }
 
   return <section className="phase-card phase3-search">
-    <span className="eyebrow">Phase 3 · Unified Search</span>
+    
     <h2>{locale === 'ar' ? 'البحث الجغرافي الموحد' : 'Unified geographic search'}</h2>
     <form onSubmit={submit} className="search-form">
       <input
