@@ -10,6 +10,35 @@
 
 ---
 
+## Current implementation note — 2026-09-19
+
+This file is the **accepted Phase 0 architecture baseline** and intentionally
+retains historical design language. It is not the current execution-status
+document.
+
+Current authoritative execution/status sources are:
+
+- `README.md`
+- `docs/PROJECT_HANDOFF_CURRENT.md`
+- `docs/ROADMAP_CURRENT.md`
+- `docs/PHASE_5_PLAN.md`
+
+Current state at this reconciliation: phases 0–4 accepted; Phase 5 in progress;
+P5.1–P5.7 closed; P5.8 next and not started; accepted app version 0.4.0.
+
+Important implemented deviations already recorded by later ADRs/documentation:
+- the delivered Phase 4 WGS84 renderer is a custom WebGL2/SVG implementation,
+  not CesiumJS; ADR-014 governs the current renderer choice;
+- the original broad `ExperimentState`, route/time/layer synchronization and
+  later astronomy concepts remain roadmap architecture unless explicitly
+  implemented in a closed slice;
+- P5.7 only reserves unavailable future-service contracts for time/shared-layer
+  synchronization/routes; it does not implement those engines.
+
+Historical “Current”, “Next Gate”, or release labels later in this Phase 0
+document describe the architecture plan at the time of writing and must not
+override the current handoff/roadmap.
+
 ## 1. Executive Summary
 
 هذا المشروع سيُبنى كمنصة Web مستقلة الواجهة عن المنطق الحسابي ومصادر البيانات. الهدف المركزي هو جعل كل نتيجة قابلة للتتبع إلى:
