@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.6 navigation (2026-09-19)
+
+- Owner instructed «أكمل» after P5.5 closure. P5.6 is the only active slice.
+- Reconcile already-present navigation commits with the canonical documentation instead of duplicating implementation.
+- Deliver independent camera navigation for Gleason/AE/WGS84: zoom controls, wheel, touch/pinch, zoom-to-area, rotation/view-direction where meaningful, reset, fit-full and focus-selected.
+- Preserve canonical geographic selection during camera navigation; keep zoom scales independent across models.
+- WGS84 rendering/picking is zoom-aware; fallback declares unsupported 3D rotation/tilt instead of pretending support.
+- Final audited implementation head `378f0a8ed6710195cb1e48e0ebcd4518116a5d0d` passed CI #329 with 0 npm vulnerabilities, 71 frontend core tests, 2 PWA tests, 14 Chromium scenarios and all release gates.
+- Owner manual verification remains NOT RUN; P5.6 is not yet closed. P5.7 and Phase 6 remain NOT STARTED.
+
+
 ## [Unreleased] — P5.5 owner acceptance closure (2026-09-19)
 
 - Owner reported «نجحت جميع اختبارات P5.5». Record manual result PASS — REPORTED BY OWNER.
