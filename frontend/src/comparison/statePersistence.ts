@@ -120,8 +120,10 @@ function findInstalledPlace(selection:Extract<GeographicSelection,{kind:'place'}
   for(const index of activeIndexes(packs)){
     const entry=index.entries.find(item=>item.id===selection.place.id);
     if(!entry) continue;
+    if(entry.category!==selection.place.category) continue;
     if(entry.sourceId!==selection.place.sourceId || entry.sourceRecordId!==selection.place.sourceRecordId) continue;
     if(entry.latitude!==selection.point.latitude || entry.longitude!==selection.point.longitude) continue;
+    if(selection.place.sourceVersion!==null && (entry.source?.version??null)!==selection.place.sourceVersion) continue;
     return entry;
   }
   return null;
