@@ -8,9 +8,9 @@ Phase 4 is accepted by the owner. The platform includes independent Gleason/AE p
 - Phase 2 — ACCEPTED ✅
 - Phase 3 — ACCEPTED ✅
 - Phase 4 — ACCEPTED BY OWNER on 2026-09-18; all manual checks reported PASS; automated browser/Docker/source evidence recorded.
-- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 and Arabic city correction are closed; P5.2 closed after CI #198 and owner testing; P5.3 closed after CI #204 and owner testing; P5.4 Basic Model Laboratory closed after CI #236 and owner-reported functional/clarity PASS. P5.5 Comparability Contract is CLOSED after CI #266/#271 and owner-reported manual PASS. P5.6 Optional Geographic Focus / Navigation is now technically green after CI #329 and awaits owner manual verification. P5.7 is not started. Phase 5 as a whole is not accepted.
+- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 and Arabic city correction are closed; P5.2 closed after CI #198 and owner testing; P5.3 closed after CI #204 and owner testing; P5.4 Basic Model Laboratory closed after CI #236 and owner-reported functional/clarity PASS. P5.5 Comparability Contract is CLOSED after CI #266/#271 and owner-reported manual PASS. P5.6 Optional Geographic Focus / Navigation is CLOSED after CI #329/#340 and owner-reported manual PASS. P5.7 is next but NOT STARTED. Phase 5 as a whole is not accepted.
 
-Latest closed slice: [P5.5 Comparability Contract](docs/PHASE_5_P5_5_REPORT.md). Current slice: [P5.6 Optional Geographic Focus / Navigation](docs/PHASE_5_P5_6_REPORT.md), technically green and awaiting owner manual verification. See the [Phase 5 plan](docs/PHASE_5_PLAN.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
+Latest closed slice: [P5.6 Optional Geographic Focus / Navigation](docs/PHASE_5_P5_6_REPORT.md). Next ordered slice is P5.7 Homogeneous Differences and future time/layer/route contracts, not started. See the [Phase 5 plan](docs/PHASE_5_PLAN.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
 
 Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
 Owner acceptance: [docs/PHASE_4_ACCEPTANCE.md](docs/PHASE_4_ACCEPTANCE.md).
