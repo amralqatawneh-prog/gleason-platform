@@ -321,3 +321,38 @@ test('P5.4 model laboratory explains meaning before optional technical details',
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P5.5 comparability contract rejects incompatible model quantities without normalization',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const panel=page.locator('.model-comparability');
+  await expect(panel).toBeVisible();
+  await expect(panel.locator('.model-comparison-card')).toHaveCount(3);
+  await expect(panel).toContainText('Similar numbers');
+  await expect(panel).toContainText('same unit');
+  await expect(panel.locator('[data-comparison-status="comparable"]')).toHaveCount(0);
+
+  const gleasonAe=panel.locator('[data-comparison-pair="gleason-ae"]');
+  await expect(gleasonAe).toHaveAttribute('data-comparison-status','not-comparable');
+  await expect(gleasonAe).toHaveAttribute('data-conversion-applied','false');
+  await expect(gleasonAe).toHaveAttribute('data-reasons',/different-units/);
+  await expect(gleasonAe).toHaveAttribute('data-reasons',/undefined-cross-model-scale/);
+  await expect(gleasonAe).toContainText('normalized-radius');
+  await expect(gleasonAe).toContainText('metres or kilometres');
+
+  const aeWgs=panel.locator('[data-comparison-pair="ae-wgs84"]');
+  await expect(aeWgs).toHaveAttribute('data-comparison-status','not-comparable');
+  await expect(aeWgs).toHaveAttribute('data-conversion-applied','false');
+  await expect(aeWgs).toHaveAttribute('data-reasons',/different-meaning/);
+  await expect(aeWgs).toContainText('planar coordinates are not the same quantity as 3D ECEF coordinates');
+
+  await expect(panel).toContainText('No conversion or normalization was applied between models.');
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(panel).toContainText('عقد قابلية المقارنة');
+  await expect(panel).toContainText('لا يكفي تشابه الأرقام');
+  await expect(panel).toContainText('لا توجد قاعدة مقياس موثقة');
+  await expect(panel).toContainText('لم يُطبّق أي تحويل أو تطبيع بين النماذج.');
+
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
