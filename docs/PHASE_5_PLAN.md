@@ -5,6 +5,25 @@ This supersedes the previous Phase 5 hold. Phase 4 stays accepted at v0.4.0.
 Base commit: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draft PR #9. No merge/tag/release authorization is implied.
 
+## Current execution snapshot — 2026-09-19
+
+- P5.1–P5.7: **CLOSED** after recorded CI and owner-reported manual PASS.
+- Latest owner-tested/documented baseline before the current GitHub documentation
+  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
+- CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
+  core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
+  Docker/PostGIS/Redis, locked-source and search gates.
+- P5.8 Versioned Local State Persistence: **NEXT / NOT STARTED**.
+- P5.9: **PENDING / NOT STARTED**.
+- Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
+- Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
+- Accepted application version remains **0.4.0**; draft PR #9 remains unmerged.
+- This documentation synchronization does not itself authorize P5.8.
+
+Historical dated subsections below are chronological evidence. Any older “next”,
+“pending”, or “not started” statement is superseded by this current snapshot and
+the latest acceptance-closure subsection.
+
 ## Execution and acceptance
 
 Implement one slice at a time, record changed files/functions, actual test evidence,
@@ -12,7 +31,7 @@ manual checklist, limitations and acceptance criteria before moving on. Phase 5
 acceptance requires its own owner decision; do not infer acceptance from the start
 instruction. Never carry historical CI/manual PASS over to a new revision.
 
-Canonical scope: `ROADMAP_CURRENT.md`. Phase 6 measurement/navigation labs and
+Canonical scope: `ROADMAP_CURRENT.md`. Phase 6 route/measurement laboratories and
 later astronomy/time services are excluded. Backend reference calculations remain
 authoritative. Shared state uses geographic degrees, never screen coordinates.
 Do not normalize model outputs to make them agree. Historical source evidence,
@@ -192,8 +211,7 @@ P5.7 rules:
 - route drawing, distance, ruler and area remain Phase 6 and are not implemented
   by P5.7.
 
-Implementation/report: `PHASE_5_P5_7_REPORT.md`. P5.8 and Phase 6 remain
-NOT STARTED. No merge, tag or release is authorized.
+Implementation/report: `PHASE_5_P5_7_REPORT.md`. P5.7 is now CLOSED after owner-reported PASS. P5.8 and Phase 6 remain NOT STARTED. No merge, tag or release is authorized.
 
 
 ## P5.7 acceptance closure — 2026-09-19
