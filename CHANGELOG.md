@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P5.7 automated verification (2026-09-19)
+
+- P5.7 implementation/documentation head `6b21fbf78494335ca5cbec4c4c75a634b475cfac` passed Release Acceptance Gates #383.
+- CI reports 0 npm vulnerabilities, 78 frontend core tests, 2 PWA tests and 15 Chromium scenarios PASS, plus production build/parity/Docker/PostGIS/Redis/source/search gates.
+- Homogeneous differences additionally fail closed when adapter domains or output structures differ.
+- Owner manual P5.7 verification remains NOT RUN; P5.7 is not closed. P5.8 and Phase 6 are not started.
+
+
 ## [Unreleased] — Phase 5 / P5.7 homogeneous differences and future contracts (2026-09-19)
 
 - Owner instructed «أكمل» after P5.6 closure. Start P5.7 only.
