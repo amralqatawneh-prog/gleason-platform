@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.8 versioned local state persistence (2026-09-19)
+
+- Owner explicitly instructed «أبدأ P5.8».
+- Create `feat/phase5-p5-8-state-persistence` from current `main`.
+- Add schema-v1 IndexedDB persistence for the canonical Phase 5 geographic selection.
+- Restore free points only after strict coordinate/model validation.
+- Restore saved place identity only from an unchanged installed offline-pack record; otherwise explicitly degrade to coordinate-only WGS84 state.
+- Reject malformed/unsupported saved state and never fabricate ellipsoidal height or provenance.
+- Hydration is not a user selection event and does not increment the selection revision.
+- Add core and browser coverage for offline restore and malformed-state rejection.
+- P5.9 and Phase 6 remain NOT STARTED. Automated/owner P5.8 PASS is not claimed yet.
+
+
 ## [Unreleased] — PR #9 merged into main (2026-09-19)
 
 - Owner explicitly authorized merging PR #9 into `main`.
