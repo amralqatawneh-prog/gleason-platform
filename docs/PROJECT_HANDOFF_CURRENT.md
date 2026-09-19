@@ -373,7 +373,7 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.4 closed; P5.5 Comparability Contract IN PROGRESS**. P5.6 is not started. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.5 closed; P5.6 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
@@ -551,5 +551,23 @@ The successful run reported 0 npm vulnerabilities, 67 frontend core tests,
 2 PWA tests and 12 Chromium scenarios, with all parity/build/Docker/PostGIS/
 Redis/source/search gates green.
 
-P5.5 remains **IN PROGRESS / awaiting owner manual verification**. P5.6 is not
-started. No merge, tag or release.
+P5.5 is **CLOSED** after owner-reported PASS. P5.6 is next and remains NOT STARTED. No merge, tag or release.
+
+
+## P5.5 acceptance closure — 2026-09-19
+
+The owner reported «نجحت جميع اختبارات P5.5» after completing the delivered
+manual checklist. Record manual result as **PASS — REPORTED BY OWNER**.
+
+P5.5 final evidence:
+- implementation/documentation head
+  `1bf01cda0a1b4273b14f7d1c06a844021e575648` — CI #266 SUCCESS;
+- later documentation head
+  `4c9e2eb6d955331345ae73f2029b2cd0c4764664` — CI #271 SUCCESS;
+- owner manual checklist PASS.
+
+P5.5 Comparability Contract is now **CLOSED**. P5.6 Optional Geographic Focus /
+Navigation is the next ordered slice and remains **NOT STARTED** until the owner
+instructs continuation. Full Phase 5 acceptance remains pending. Accepted app
+version remains 0.4.0. Draft PR #9 remains open/unmerged; no merge, tag or
+release.
