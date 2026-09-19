@@ -108,9 +108,7 @@ The Phase 6 measurement boundary in
 
 ## Verification state
 
-Automated PASS is not claimed until the exact uploaded implementation revision
-finishes the Release Acceptance Gates. Owner manual P5.7 verification is
-**NOT RUN** at this point.
+Automated verification is recorded below. The owner completed the delivered P5.7 manual checklist and reported «نجحت جميع اختبارات P5.7». Manual result: **PASS — REPORTED BY OWNER**. Device/browser/local checkout SHA were not supplied.
 
 ## Owner manual checklist after CI
 
@@ -159,5 +157,26 @@ The 78 core tests include the P5.7 homogeneous-difference rules, cross-model
 numeric blocking, explicit future-service unavailability, and the extra
 fail-closed domain-mismatch guard.
 
-P5.7 is **TECHNICALLY GREEN / awaiting owner manual verification**. It is not
-closed yet. P5.8 and Phase 6 remain NOT STARTED.
+P5.7 automated gates are green. The owner subsequently reported the delivered manual checklist PASS; the acceptance closure below supersedes the earlier pending state.
+
+
+## P5.7 acceptance closure — 2026-09-19
+
+The owner reported «نجحت جميع اختبارات P5.7» after completing the delivered
+manual checklist. Manual result: **PASS — REPORTED BY OWNER**. Device/browser
+and local checkout SHA were not supplied.
+
+Automated evidence:
+- implementation/documentation head
+  `6b21fbf78494335ca5cbec4c4c75a634b475cfac` — CI #383 SUCCESS;
+- later documentation head
+  `c3d97aac01a4b72706b2479001f35fed3bd830a1` — CI #387 SUCCESS.
+
+P5.7 Homogeneous Differences and Future Service Contracts is now **CLOSED**.
+P5.8 Versioned Local State Persistence is the next ordered slice and remains
+**NOT STARTED** until explicit owner continuation. Phase 6 route/ruler/area
+measurement remains NOT STARTED.
+
+Full Phase 5 acceptance remains pending. Accepted application version remains
+0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release is implied or
+authorized.
