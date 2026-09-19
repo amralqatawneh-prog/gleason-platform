@@ -539,7 +539,7 @@ test('P5.8 persists shared selection with versioned local restore semantics',asy
         get.onsuccess=()=>{
           const state=get.result as {core?:{entries?:Array<{id?:string}>}};
           db.close();
-          resolve(Boolean(state?.core?.entries?.some(entry=>entry.id==='test-city-doha')));
+          resolve(Boolean(state?.core?.entries?.some(entry=>entry.id==='test-doha')));
         };
       };
     });
