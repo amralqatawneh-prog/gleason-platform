@@ -106,7 +106,7 @@ on earlier attempts. The successful run found 0 vulnerabilities and completed
 62 core tests, 2 PWA tests, 11 Chromium scenarios and all remaining release
 acceptance gates.
 
-P5.5 Comparability Contract is **CLOSED** after CI #266/#271 SUCCESS and owner-reported manual PASS. The owner then instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is **IN PROGRESS / technically green, awaiting owner manual verification** after CI #329 SUCCESS. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
+P5.5 Comparability Contract is **CLOSED** after CI #266/#271 SUCCESS and owner-reported manual PASS. The owner then instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is **CLOSED** after CI #329/#340 SUCCESS and owner-reported manual PASS. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
 
 
 ## P5.5 start — 2026-09-19
@@ -155,5 +155,21 @@ Final audited implementation head
 scenarios, production build, parity, Docker/PostGIS/Redis and source/search gates
 all PASS.
 
-P5.6 is technically green but remains **OPEN / awaiting owner manual
-verification**. P5.7 and Phase 6 remain NOT STARTED.
+P5.6 is **CLOSED** after owner-reported manual PASS. P5.7 is next and remains NOT STARTED; Phase 6 remains NOT STARTED.
+
+
+## P5.6 acceptance closure — 2026-09-19
+
+The owner reported «نجحت كل الاختبارات» after completing the delivered P5.6
+manual checklist. Manual result: **PASS — REPORTED BY OWNER**.
+
+Automated evidence:
+- P5.6 implementation head
+  `378f0a8ed6710195cb1e48e0ebcd4518116a5d0d` — CI #329 SUCCESS;
+- later documented branch head
+  `3de1169c0f1534b9f0417dda81de8176f8f99b2c` — CI #340 SUCCESS.
+
+P5.6 is **CLOSED**. P5.7 Homogeneous Differences and future time/layer/route
+contracts is next and remains **NOT STARTED** until the owner explicitly
+instructs continuation. Phase 6 remains NOT STARTED. Full Phase 5 acceptance
+remains pending. No merge, tag or release.
