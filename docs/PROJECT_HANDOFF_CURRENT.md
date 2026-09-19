@@ -9,8 +9,10 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current implementation branch: `feat/phase5-shared-state`.
-- Draft PR: **#9**, open/draft/unmerged. No merge, tag or release is authorized.
+- Current branch: `main`.
+- PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19.
+- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
+- No tag or GitHub Release has been authorized.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.4.0**.
 - Implementation phase: **5**; accepted phase: **4**; phase status: **in_progress**.
@@ -411,7 +413,7 @@ Overall:
    remain out of scope until the approved sequence reaches Phase 6.
 6. Preserve accepted version `0.4.0` until a later acceptance/version decision;
    do not infer a release from development commits.
-7. Keep PR #9 draft/unmerged unless separate merge authorization is given.
+7. PR #9 is already merged into `main`; do not create a tag or GitHub Release without separate authorization.
 8. Continue to use locked source manifests and never fabricate historical scan
    control points, coordinates, ellipsoidal height, scale conversions, or
    provenance.
@@ -686,3 +688,15 @@ P5.9 and Phase 6 routes/ruler/polygon area remain NOT STARTED.
 
 Full Phase 5 acceptance remains pending. Accepted application version remains
 0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release.
+
+
+## PR #9 merge update — 2026-09-19
+
+The owner explicitly authorized: «افق على دمج PR #9 إلى main».
+
+PR #9 was marked ready and merged into `main` with merge commit
+`97f043174b07cef9884075b1c37a4e4394f6f8bb`.
+
+The merge carries the documented Phase 5 work through P5.7 into the default
+branch. P5.8 remains NOT STARTED. Full Phase 5 acceptance remains pending.
+No tag, GitHub Release or deployment was created by this merge.
