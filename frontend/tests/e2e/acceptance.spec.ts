@@ -356,3 +356,131 @@ test('P5.5 comparability contract rejects incompatible model quantities without 
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P5.6 navigation stays camera-local and preserves geographic selection',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const shell=page.locator('.app-shell');
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  const gleason=page.locator('.projection-card[data-model="gleason"]');
+  const ae=page.locator('.projection-card[data-model="ae"]');
+  const gToolbar=gleason.locator('.navigation-toolbar');
+  const aToolbar=ae.locator('.navigation-toolbar');
+  const gZoom0=Number(await gleason.getAttribute('data-view-zoom'));
+  const aZoom0=await ae.getAttribute('data-view-zoom');
+  const globe=page.locator('.reference-card');
+  const globeZoom0=await globe.getAttribute('data-view-zoom');
+  const globeYaw0=await globe.getAttribute('data-view-yaw');
+
+  await gToolbar.getByRole('button',{name:'Zoom in',exact:true}).click();
+  await expect.poll(async()=>Number(await gleason.getAttribute('data-view-zoom'))).toBeGreaterThan(gZoom0);
+  await expect(ae).toHaveAttribute('data-view-zoom',aZoom0!);
+  await expect(globe).toHaveAttribute('data-view-zoom',globeZoom0!);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  const rotation0=Number(await gleason.getAttribute('data-view-rotation'));
+  await gToolbar.getByRole('button',{name:'Rotate right',exact:true}).click();
+  await expect.poll(async()=>Number(await gleason.getAttribute('data-view-rotation'))).not.toBe(rotation0);
+  await expect(globe).toHaveAttribute('data-view-yaw',globeYaw0!);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  await gToolbar.getByRole('button',{name:'Focus selected',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  const gMap=gleason.locator('.projection-map');await gMap.scrollIntoViewIfNeeded();
+  const gBox=(await gMap.boundingBox())!;
+  await gToolbar.getByRole('button',{name:'Zoom to area',exact:true}).click();
+  await expect(gleason).toHaveAttribute('data-area-mode','true');
+  const areaZoom0=Number(await gleason.getAttribute('data-view-zoom'));
+  await page.mouse.move(gBox.x+gBox.width*.3,gBox.y+gBox.height*.3);
+  await page.mouse.down();
+  await page.mouse.move(gBox.x+gBox.width*.7,gBox.y+gBox.height*.7,{steps:12});
+  await page.mouse.up();
+  await expect.poll(async()=>Number(await gleason.getAttribute('data-view-zoom'))).toBeGreaterThan(areaZoom0);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  await gToolbar.getByRole('button',{name:'Zoom to area',exact:true}).click();
+  await expect(gleason).toHaveAttribute('data-area-mode','false');
+
+  const wheelZoom0=Number(await ae.getAttribute('data-view-zoom'));
+  const aMap=ae.locator('.projection-map');await aMap.scrollIntoViewIfNeeded();
+  const aBox=(await aMap.boundingBox())!;
+  await page.mouse.move(aBox.x+aBox.width/2,aBox.y+aBox.height/2);
+  await page.mouse.wheel(0,-700);
+  await expect.poll(async()=>Number(await ae.getAttribute('data-view-zoom'))).toBeGreaterThan(wheelZoom0);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  const refToolbar=globe.locator('.reference-navigation-toolbar');
+  const refZoom0=Number(await globe.getAttribute('data-view-zoom'));
+  await refToolbar.getByRole('button',{name:'Zoom in',exact:true}).click();
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeGreaterThan(refZoom0);
+  const yaw0=Number(await globe.getAttribute('data-view-yaw'));
+  await refToolbar.getByRole('button',{name:'Rotate right',exact:true}).click();
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-yaw'))).not.toBe(yaw0);
+  const pitch0=Number(await globe.getAttribute('data-view-pitch'));
+  await refToolbar.getByRole('button',{name:'Tilt up',exact:true}).click();
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-pitch'))).toBeGreaterThan(pitch0);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  await refToolbar.getByRole('button',{name:'Focus selected',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  const canvas=globe.locator('canvas.reference-globe');await canvas.scrollIntoViewIfNeeded();
+  const marker=globe.locator('.reference-focus-dot');await expect(marker).toBeVisible();
+  const markerBox=(await marker.boundingBox())!;
+  await page.mouse.click(markerBox.x+markerBox.width/2,markerBox.y+markerBox.height/2);
+  await expect(shell).toHaveAttribute('data-selection-revision','2');
+  await expect.poll(async()=>Number(await globe.getAttribute('data-selected-latitude'))).toBeCloseTo(25.285447,3);
+
+  const beforeAreaRevision=await shell.getAttribute('data-selection-revision');
+  const canvasBox=(await canvas.boundingBox())!;
+  await refToolbar.getByRole('button',{name:'Zoom to area',exact:true}).click();
+  await expect(globe).toHaveAttribute('data-area-mode','true');
+  const refAreaZoom0=Number(await globe.getAttribute('data-view-zoom'));
+  await page.mouse.move(canvasBox.x+canvasBox.width*.38,canvasBox.y+canvasBox.height*.38);
+  await page.mouse.down();
+  await page.mouse.move(canvasBox.x+canvasBox.width*.62,canvasBox.y+canvasBox.height*.62,{steps:10});
+  await page.mouse.up();
+  await expect(globe).toHaveAttribute('data-area-mode','false');
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeGreaterThan(refAreaZoom0);
+  await expect(shell).toHaveAttribute('data-selection-revision',beforeAreaRevision!);
+
+  const refWheel0=Number(await globe.getAttribute('data-view-zoom'));
+  await page.mouse.move(canvasBox.x+canvasBox.width/2,canvasBox.y+canvasBox.height/2);
+  await page.mouse.wheel(0,-500);
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeGreaterThan(refWheel0);
+  await expect(shell).toHaveAttribute('data-selection-revision',beforeAreaRevision!);
+
+  await gToolbar.getByRole('button',{name:'Fit full model',exact:true}).focus();
+  await page.keyboard.press('Enter');
+  await expect(shell).toHaveAttribute('data-selection-revision',beforeAreaRevision!);
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(gleason.locator('.navigation-toolbar').getByRole('button',{name:'تكبير إلى منطقة',exact:true})).toBeVisible();
+  await expect(globe.locator('.reference-navigation-toolbar').getByRole('button',{name:'التركيز على المحدد',exact:true})).toBeVisible();
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
+
+test('P5.6 WGS84 fallback exposes zoom/focus while declaring 3D rotation unavailable',async({page,servers})=>{
+  await page.addInitScript(()=>{
+    const original=HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext=function(type,...args){
+      if(String(type).startsWith('webgl'))return null;
+      return original.apply(this,[type,...args] as Parameters<typeof original>);
+    } as typeof original;
+  });
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const shell=page.locator('.app-shell');
+  const globe=page.locator('.reference-card[data-mode="fallback2d"]');
+  const toolbar=globe.locator('.reference-navigation-toolbar');
+  await expect(toolbar.getByRole('button',{name:'Rotate left',exact:true})).toBeDisabled();
+  await expect(toolbar.getByRole('button',{name:'Tilt up',exact:true})).toBeDisabled();
+  const zoom0=Number(await globe.getAttribute('data-view-zoom'));
+  await toolbar.getByRole('button',{name:'Zoom in',exact:true}).click();
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeGreaterThan(zoom0);
+  await toolbar.getByRole('button',{name:'Focus selected',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  await toolbar.getByRole('button',{name:'Fit full model',exact:true}).click();
+  await expect(globe).toHaveAttribute('data-view-zoom','1.0000');
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+});
