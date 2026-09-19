@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is now IN PROGRESS / technically green after CI #329, awaiting owner manual verification. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
+- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is now CLOSED after CI #329/#340 and owner-reported manual PASS. P5.7 is next / NOT STARTED. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -373,7 +373,7 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.5 closed; P5.6 navigation technically green / awaiting owner manual verification**. P5.7 is not started. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.6 closed; P5.7 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
@@ -603,5 +603,26 @@ Exact audited implementation head:
 acceptance scenarios, production build, WGS84 parity, Docker/PostGIS/Redis and
 locked-source/search gates all PASS.
 
-P5.6 status: **IN PROGRESS / TECHNICALLY GREEN / OWNER MANUAL VERIFICATION NOT
-RUN**. P5.7 and Phase 6 remain NOT STARTED. No merge, tag or release.
+P5.6 status: **CLOSED / OWNER MANUAL PASS**. P5.7 and Phase 6 remain NOT STARTED. No merge, tag or release.
+
+
+## P5.6 acceptance closure — 2026-09-19
+
+The owner reported «نجحت كل الاختبارات» after completing the delivered P5.6
+manual navigation checklist. Record manual result as **PASS — REPORTED BY
+OWNER**.
+
+P5.6 final evidence:
+- implementation head
+  `378f0a8ed6710195cb1e48e0ebcd4518116a5d0d` — CI #329 SUCCESS;
+- documented branch head
+  `3de1169c0f1534b9f0417dda81de8176f8f99b2c` — CI #340 SUCCESS;
+- owner manual checklist PASS.
+
+P5.6 Optional Geographic Focus / Navigation is now **CLOSED**. P5.7 Homogeneous
+Differences and future time/layer/route contracts is the next ordered slice and
+remains **NOT STARTED** until explicit owner continuation. Phase 6
+routes/ruler/polygon area remains NOT STARTED.
+
+Full Phase 5 acceptance remains pending. Accepted application version remains
+0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release.
