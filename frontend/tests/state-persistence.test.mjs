@@ -73,7 +73,8 @@ test('P5.8 degrades an unverifiable saved place to coordinate-only state explici
 test('P5.8 refuses stale place identity when installed source record or coordinates changed',()=>{
   const staleRecord={...offlineEntry,sourceRecordId:'different-record'};
   const changedPoint={...offlineEntry,latitude:26};
-  for(const entry of [staleRecord,changedPoint]){
+  const changedVersion={...offlineEntry,source:{...offlineEntry.source,version:'test-v2'}};
+  for(const entry of [staleRecord,changedPoint,changedVersion]){
     const state={core:{...packs.core,entries:[entry]},regions:{}};
     const restored=restorePhase5State(encodePhase5State(place()),state);
     assert.equal(restored.status,'restored-point-only');
