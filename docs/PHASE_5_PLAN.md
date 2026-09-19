@@ -13,7 +13,7 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
 - CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
   core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
   Docker/PostGIS/Redis, locked-source and search gates.
-- P5.8 Versioned Local State Persistence: **NEXT / NOT STARTED**.
+- P5.8 Versioned Local State Persistence: **IN PROGRESS** by explicit owner instruction «أبدأ P5.8».
 - P5.9: **PENDING / NOT STARTED**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
 - Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
@@ -51,7 +51,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is next and remains NOT STARTED; P5.9 remains pending.
+P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is now IN PROGRESS; P5.9 remains pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -240,3 +240,30 @@ This changes the repository integration state only:
 - P5.9 remains NOT STARTED;
 - full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED;
 - no tag, GitHub Release or deployment is authorized by the merge.
+
+
+## P5.8 start — 2026-09-19
+
+The owner explicitly instructed «أبدأ P5.8» after PR #9 was merged into `main`.
+
+P5.8 is the only active slice. It defines versioned persistence for the Phase 5
+shared geographic selection state using the existing IndexedDB key/value store.
+
+Required rules:
+- schema/version must be explicit;
+- startup hydration must happen before persistence writes can overwrite saved
+  state;
+- free-point restore must preserve only valid WGS84 geographic data;
+- a saved place identity may be restored only from an unchanged installed
+  offline pack record;
+- if place identity is unavailable or changed, restore coordinate-only state
+  explicitly rather than inventing identity;
+- malformed/unsupported state is discarded safely;
+- missing ellipsoidal height remains missing and is never replaced with 0;
+- restoration is not a new user selection event and must not increment the
+  selection revision;
+- P5.8 does not persist routes, experiments, future services or Phase 6
+  measurement state.
+
+Implementation/report: `PHASE_5_P5_8_REPORT.md`. P5.9 and Phase 6 remain NOT
+STARTED. Accepted application version remains 0.4.0.
