@@ -120,6 +120,23 @@ function fallbackPath(ring: readonly [number, number][]): string {
   return path.trim();
 }
 
+function clampFallbackCenter(center:ReferenceGeoPoint,zoom:number):ReferenceGeoPoint{
+  const z=clampReferenceZoom(zoom),halfW=180/z,halfH=90/z;
+  const lonLimit=Math.max(0,180-halfW),latLimit=Math.max(0,90-halfH);
+  return {latitude:Math.max(-latLimit,Math.min(latLimit,center.latitude)),longitude:Math.max(-lonLimit,Math.min(lonLimit,normalizeLongitude(center.longitude)))};
+}
+function pointerDistance(points:Map<number,{x:number;y:number}>):number{
+  const values=[...points.values()];if(values.length<2)return 0;
+  return Math.hypot(values[0].x-values[1].x,values[0].y-values[1].y);
+}
+function svgClientToGeo(svg:SVGSVGElement,clientX:number,clientY:number):ReferenceGeoPoint|null{
+  const matrix=svg.getScreenCTM();if(!matrix)return null;
+  const point=svg.createSVGPoint();point.x=clientX;point.y=clientY;
+  const local=point.matrixTransform(matrix.inverse());
+  if(local.x<0||local.x>360||local.y<0||local.y>180)return null;
+  return {latitude:90-local.y,longitude:normalizeLongitude(local.x-180)};
+}
+
 export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, selectionPoint, selectionLabel, layers, layerPlaces = [] }: Props) {
   const mode = useMemo(() => referenceViewMode(capabilities), [capabilities]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
