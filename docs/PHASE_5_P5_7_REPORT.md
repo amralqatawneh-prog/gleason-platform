@@ -27,7 +27,7 @@ component difference:
 only after a `ComparabilityDecision` is `comparable`.
 
 The result retains the already-declared comparison unit and records
-`conversionApplied: false`. No normalization or unit conversion is introduced.
+`conversionApplied: false`. P5.7 additionally requires the two adapter domains and output structures to match before producing any delta. No normalization or unit conversion is introduced.
 
 Examples covered by the contract:
 
@@ -39,6 +39,7 @@ Examples covered by the contract:
 - AE ↔ WGS84 ECEF: blocked even though both may use metre text, because the
   quantity meaning and coordinate space differ.
 - Any non-comparable or unavailable pair produces no numeric values.
+- Even if a future descriptor accidentally passes P5.5, a different adapter domain or output structure is fail-closed in P5.7 and produces no numeric values.
 
 The current Model Laboratory compares the three different model outputs for one
 canonical geographic selection. Those three cross-model pairs are heterogeneous,
