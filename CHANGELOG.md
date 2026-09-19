@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.8 versioned local state persistence (2026-09-19)
+
+- Owner explicitly instructed «أبدأ P5.8».
+- Start new branch `feat/phase5-p5.8-state-persistence` from current `main` baseline `4ea148a24eb28433dade35f79e46886afe4ce867` (CI #427 SUCCESS).
+- Add a versioned IndexedDB contract for the canonical shared geographic selection.
+- Free points preserve model/lat/lon and optional ellipsoidal height exactly; unknown height remains unknown.
+- Named places persist only a minimal source identity locator and restore only from matching installed local search-pack records.
+- Unsupported/malformed state and missing local place evidence fail closed without fabricated identity.
+- Restore does not increment user-action revision; camera-only navigation does not trigger persistence writes.
+- Add core/browser persistence coverage and `docs/PHASE_5_P5_8_REPORT.md`.
+- P5.8 acceptance is not yet claimed. P5.9 and Phase 6 remain NOT STARTED.
+
+
 ## [Unreleased] — PR #9 merged into main (2026-09-19)
 
 - Owner explicitly authorized merging PR #9 into `main`.
