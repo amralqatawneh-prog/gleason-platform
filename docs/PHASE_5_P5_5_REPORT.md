@@ -102,3 +102,39 @@ Observed results on that exact revision:
 
 P5.5 is technically green. Owner manual verification remains **NOT RUN** at this
 point, so P5.5 is not yet closed and P5.6 must not start.
+
+
+## P5.5 acceptance closure — 2026-09-19
+
+After CI #266 and CI #271 were green, the owner performed the delivered manual
+P5.5 checklist and reported:
+
+> «نجحت جميع اختبارات P5.5»
+
+Manual result: **PASS — REPORTED BY OWNER**. Device/browser/local checkout SHA
+were not supplied.
+
+The owner confirmation covers the delivered P5.5 acceptance points:
+- the comparability section appears with the three model pairs;
+- Gleason ↔ AE is rejected as a direct comparison and no
+  `normalized-radius` → metre/kilometre conversion is fabricated;
+- AE ↔ WGS84 is rejected despite both using metre units because their quantity
+  meanings/coordinate spaces differ;
+- no numeric cross-model difference is shown in P5.5;
+- Arabic/English and phone-sized presentation remain readable.
+
+Final automated evidence before owner acceptance:
+- implementation/documentation head
+  `1bf01cda0a1b4273b14f7d1c06a844021e575648` — CI #266 SUCCESS;
+- later documentation head
+  `4c9e2eb6d955331345ae73f2029b2cd0c4764664` — CI #271 SUCCESS.
+
+### Final P5.5 status
+
+**CLOSED / ACCEPTED FOR THIS SLICE — automated gates PASS and owner manual
+checks PASS.**
+
+P5.6 is the next ordered slice but remains **NOT STARTED** by this closure.
+Full Phase 5 acceptance remains pending. Accepted application version remains
+0.4.0. Draft PR #9 remains open/unmerged; no merge, tag or release is implied or
+authorized.
