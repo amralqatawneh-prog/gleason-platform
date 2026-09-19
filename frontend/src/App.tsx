@@ -15,7 +15,8 @@ import { SourceViewer } from './source/SourceViewer';
 import { RELEASE_NAME } from './shared/version';
 import { INITIAL_SELECTION_STATE, selectionReducer } from './comparison/selectionState';
 import { ModelLaboratory } from './comparison/ModelLaboratory';
-import { loadPhase5State, savePhase5State, type Phase5RestoreStatus } from './comparison/statePersistence';
+import { type Phase5RestoreStatus } from './comparison/statePersistence';
+import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
 
 export default function App() {
   const [locale,setLocale]=useState<Locale>('ar');
