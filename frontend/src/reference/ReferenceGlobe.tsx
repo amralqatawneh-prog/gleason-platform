@@ -22,6 +22,7 @@ type Props = {
 type DragState = { pointerId:number; x: number; y: number; yaw: number; pitch: number } | null;
 type BoxZoomState={pointerId:number;startX:number;startY:number;currentX:number;currentY:number}|null;
 type PinchState={distance:number;zoom:number}|null;
+type FallbackDragState={pointerId:number;x:number;y:number;center:ReferenceGeoPoint}|null;
 const DEFAULT_YAW=-0.55,DEFAULT_PITCH=0.28;
 
 const vertexShaderSource = `#version 300 es
@@ -134,6 +135,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const drag = useRef<DragState>(null);
   const pointers=useRef(new Map<number,{x:number;y:number}>());
   const pinch=useRef<PinchState>(null);
+  const fallbackDrag=useRef<FallbackDragState>(null);
   const surfaceVertices = useMemo(() => buildEllipsoidSurface(), []);
   const countryVertices = useMemo(() => buildCountries(), []);
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
