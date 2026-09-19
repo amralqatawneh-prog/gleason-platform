@@ -373,12 +373,12 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.4 closed; P5.5 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.4 closed; P5.5 Comparability Contract IN PROGRESS**. P5.6 is not started. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
 1. Preserve closed evidence for P5.1–P5.4 and continue one slice at a time under `PHASE_5_PLAN.md`.
-2. P5.4 closed on 2026-09-19 after the owner's final clarity report «القسم اصبح واضحا، اكمل التوثيق» and CI #236 SUCCESS on implementation head `29fa6190185ec7901c14f586ad26213337190272`. P5.5 Comparability Contract is the next ordered slice but is NOT STARTED until the owner instructs continuation. Full Phase 5 acceptance remains pending.
+2. P5.4 closed on 2026-09-19 after the owner's final clarity report «القسم اصبح واضحا، اكمل التوثيق» and CI #236 SUCCESS on implementation head `29fa6190185ec7901c14f586ad26213337190272`. The owner has now instructed continuation («أكمل»). P5.5 Comparability Contract is the active slice; P5.6 remains NOT STARTED. Full Phase 5 acceptance remains pending.
 3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
 4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, then confirmed the Arabic city correction PASS and authorized P5.2; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
 5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
@@ -520,3 +520,23 @@ Docker/PostGIS/Redis, locked-source and search gates.
 P5.4 is **CLOSED**. P5.5 Comparability Contract is next and **NOT STARTED**.
 Full Phase 5 acceptance remains pending. Accepted application version remains
 0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release.
+
+
+## P5.5 start — 2026-09-19
+
+Following P5.4 closure, the owner instructed «أكمل». P5.5 Comparability Contract
+is now active. Its scope is limited to deciding whether quantities are
+structurally comparable, with explicit reasons for rejection or unavailable
+output.
+
+Non-negotiable P5.5 rules:
+- matching numeric appearance is not evidence of comparability;
+- matching unit text alone is not sufficient;
+- quantity meaning/dimensionality and coordinate/reference space must match;
+- Gleason `normalized-radius` is never silently converted to metre/kilometre;
+- missing output remains missing rather than receiving fabricated inputs;
+- no numeric difference is computed in P5.5; that belongs to P5.7 after a valid
+  comparability decision.
+
+Report: `docs/PHASE_5_P5_5_REPORT.md`. P5.6 and Phase 6 are not started. Draft
+PR #9 remains unmerged; no tag or release.
