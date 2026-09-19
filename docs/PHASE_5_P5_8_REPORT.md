@@ -167,3 +167,38 @@ Release Acceptance Gates.
 P5.9 remains NOT STARTED. Phase 6 remains NOT STARTED. Full Phase 5 acceptance
 remains pending. Accepted application version remains 0.4.0. No tag or GitHub
 Release is authorized by P5.8.
+
+
+## Automated verification — CI #439
+
+Exact implementation head:
+
+`3e4dd65500591c43b5fd95f3b3f259d519a6c0ef`
+
+[Release Acceptance Gates #439 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35468911842)
+
+Observed on that exact revision:
+
+- npm security gate: **0 vulnerabilities**;
+- frontend core tests: **86 PASS**;
+- PWA tests: **2 PASS**;
+- Chromium acceptance scenarios: **16 PASS**;
+- production TypeScript/Vite build: **PASS**;
+- WGS84 browser/backend parity: **PASS**;
+- Docker/PostGIS/Redis: **PASS**;
+- locked production-source import/checksums: **PASS**;
+- online/offline search and Arabic city gates: **PASS**.
+
+The successful browser suite includes a cold/offline P5.8 restore from installed
+search packs and malformed persisted-state rejection.
+
+Earlier P5.8 CI attempts exposed and corrected two test/integration issues before
+this green revision:
+- core test/runtime separation for the pure persistence codec versus IndexedDB
+  runtime adapter;
+- the browser malformed-state assertion now accounts for the app's default
+  Arabic locale after a full reload. Locale itself is intentionally outside the
+  P5.8 shared geographic-state contract.
+
+P5.8 is **TECHNICALLY GREEN / awaiting owner manual verification**. It is not
+closed yet. P5.9 and Phase 6 remain NOT STARTED.
