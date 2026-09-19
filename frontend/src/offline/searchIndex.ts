@@ -1,5 +1,13 @@
 export type PlaceCategory = 'country' | 'city' | 'sea' | 'ocean' | 'river' | 'mountain' | 'airport';
 
+export interface OfflinePlaceSource {
+  sourceId: string;
+  name: string;
+  version: string | null;
+  license: string;
+  sourceUrl: string;
+}
+
 export interface OfflinePlace {
   id: string;
   category: PlaceCategory;
@@ -12,10 +20,14 @@ export interface OfflinePlace {
   longitude: number;
   sourceId: string;
   sourceRecordId: string;
+  // Additive v1 extension. Missing legacy values remain unknown, never inferred.
+  coordinateClassification?: string | null;
+  source?: OfflinePlaceSource;
 }
 
 export interface OfflineSearchIndex {
   schemaVersion: 1;
+  provenanceRevision?: 2;
   id: string;
   version: string;
   generatedAt: string;
@@ -38,10 +50,16 @@ export function validateOfflineSearchIndex(value: unknown): value is OfflineSear
   if (!value || typeof value !== 'object') return false;
   const candidate = value as Partial<OfflineSearchIndex>;
   if (candidate.schemaVersion !== 1 || !candidate.id || !candidate.version || !candidate.generatedAt) return false;
+  if (candidate.provenanceRevision !== undefined && candidate.provenanceRevision !== 2) return false;
   if (!Array.isArray(candidate.sourceIds) || !Array.isArray(candidate.entries)) return false;
   return candidate.entries.every((entry) => {
     if (!entry || typeof entry !== 'object') return false;
-    return Boolean(entry.id && entry.name && entry.sourceId && entry.sourceRecordId) &&
+    const source = entry.source;
+    if (source !== undefined && (!source || source.sourceId !== entry.sourceId ||
+      ![source.name, source.license, source.sourceUrl].every(value => typeof value === 'string' && value.length > 0) ||
+      (source.version !== null && typeof source.version !== 'string'))) return false;
+    if (entry.coordinateClassification != null && typeof entry.coordinateClassification !== 'string') return false;
+    return [entry.id, entry.name, entry.sourceId, entry.sourceRecordId].every(value => typeof value === 'string' && value.length > 0) &&
       CATEGORIES.includes(entry.category) &&
       Array.isArray(entry.aliases) && entry.aliases.every((alias) => typeof alias === 'string') &&
       validCoordinate(entry.latitude, entry.longitude);

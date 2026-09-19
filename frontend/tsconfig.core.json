@@ -1,4 +1,43 @@
 {
-  "compilerOptions":{"target":"ES2022","module":"ES2022","moduleResolution":"Bundler","strict":true,"esModuleInterop":true,"allowSyntheticDefaultImports":true,"outDir":".phase1-test-build","rootDir":"src","lib":["ES2022","DOM"]},
-  "include":["src/offline/packManifest.ts","src/offline/coreWorldPack.ts","src/offline/searchIndex.ts","src/platform/capabilities.ts","src/shared/version.ts","src/models/projectionTypes.ts","src/models/gleason.ts","src/models/ae.ts","src/georeferencing/affine.ts"]
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": ".phase1-test-build",
+    "rootDir": "src",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "types": [
+      "vite/client"
+    ]
+  },
+  "include": [
+    "src/offline/packManifest.ts",
+    "src/offline/coreWorldPack.ts",
+    "src/offline/searchIndex.ts",
+    "src/platform/capabilities.ts",
+    "src/reference/referenceMath.ts",
+    "src/reference/globeLabels.ts",
+    "src/reference/globeLayers.ts",
+    "src/shared/version.ts",
+    "src/models/projectionTypes.ts",
+    "src/models/gleason.ts",
+    "src/models/ae.ts",
+    "src/georeferencing/affine.ts",
+    "src/reference/offlineWgs84.ts",
+    "src/search/placeSelection.ts",
+    "src/comparison/geographicSelection.ts",
+    "src/comparison/adapters/*.ts",
+    "src/comparison/selectionState.ts",
+    "src/comparison/modelLaboratory.ts",
+    "src/comparison/comparability.ts",
+    "src/comparison/futureServices.ts",
+    "src/comparison/homogeneousDifference.ts",
+    "src/reference/ellipsoidSurface.ts"
+  ]
 }

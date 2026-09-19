@@ -1,0 +1,167 @@
+{
+  "date": "2026-09-18",
+  "code_revision": "9dfb1e0bada56768e1a7429ed5f9eec24c130f3b",
+  "owner_approved_proposals": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
+  "phase_4_accepted": true,
+  "phase_5_started": false,
+  "backend_tests": {
+    "pass": 49,
+    "fail": 0
+  },
+  "frontend_core_tests": {
+    "pass": 40,
+    "fail": 0
+  },
+  "production_pwa_tests": {
+    "pass": 2,
+    "fail": 0,
+    "kind": "generated assets and synthetic service-worker harness"
+  },
+  "parity": {
+    "geodesic_cases": 1082,
+    "ecef_roundtrips": 27,
+    "status": "PASS",
+    "max_distance_difference_m": 3.725290298461914e-09,
+    "max_bearing_difference_deg": 2.5011104298755527e-12,
+    "max_ecef_difference_m": 0.0,
+    "max_inverse_lat_difference_deg": 7.986500349943526e-12,
+    "max_inverse_height_difference_m": 8.903443813323975e-07
+  },
+  "production_build": "PASS",
+  "service_worker_syntax": "PASS",
+  "metadata_consistency": "PASS",
+  "npm_audit_vulnerabilities": 0,
+  "live_http_smoke": {
+    "status": "PASS",
+    "catalog": "TEST-ONLY SQLite",
+    "distance_m": 1692601.7350098162
+  },
+  "e2e": {
+    "defined": 6,
+    "discovery_and_typecheck": "PASS",
+    "runtime": "PASS",
+    "pass": 6,
+    "fail": 0,
+    "duration_seconds": 27.8,
+    "catalog": "TEST-ONLY disposable SQLite through real FastAPI routes",
+    "run_id": 35387031277
+  },
+  "new_remote_ci": {
+    "status": "PASS",
+    "run_number": 186,
+    "run_id": 35387031277,
+    "job_id": 105736221437,
+    "head_sha": "fb4dcab447ddbb94924df46576ab9f52f64e6c22",
+    "url": "https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277",
+    "required_steps": "all succeeded; conditional failure-log step skipped"
+  },
+  "new_docker_source_import_checks": {
+    "status": "PASS",
+    "run_id": 35387031277,
+    "source_hashes": "PASS",
+    "postgis": "PASS",
+    "redis": "PASS",
+    "frontend_http": "PASS",
+    "search_english_arabic": "PASS",
+    "api_cli_pack_entries": "MATCH",
+    "category_counts": {
+      "country": 177,
+      "city": 243,
+      "sea": 16,
+      "ocean": 7,
+      "river": 12,
+      "mountain": 632,
+      "airport": 86089
+    },
+    "core_pack_entries": 1087,
+    "qatar_pack_entries": 25
+  },
+  "new_owner_manual_checks": "PASS — REPORTED BY OWNER",
+  "accepted_release": "0.4.0",
+  "remote_baseline": "99a3658bef7eb678df7beed157bd01ed92aaa62b",
+  "validated_snapshot": "fb4dcab447ddbb94924df46576ab9f52f64e6c22",
+  "environments": {
+    "local": {
+      "python": "3.12.14",
+      "node": "24.19.0",
+      "uv": "0.12.15"
+    },
+    "ci_186": {
+      "python": "3.13.15",
+      "node": "22.23.2",
+      "npm": "10.9.8",
+      "uv": "0.12.15",
+      "chromium": "153.0.8010.12",
+      "os": "Ubuntu 24.04.5"
+    }
+  },
+  "upload": {
+    "permission": "explicit owner response: نعم اسمح",
+    "date": "2026-09-18",
+    "repository": "amralqatawneh-prog/gleason-platform",
+    "branch": "feat/phase4-wgs84-reference",
+    "correction_commits": 7,
+    "method": "GitHub Git Data API after CLI credentials unavailable",
+    "force": false,
+    "all_commit_trees_match_local": true,
+    "merged": false,
+    "release_created": false
+  },
+  "browser_artifact": {
+    "id": 10564377467,
+    "name": "phase4-browser-evidence",
+    "size_bytes": 1247624,
+    "sha256": "e656e22b7afb99e7d7773e87daf007da0c75952960a63f20d17855985f321860",
+    "manual_screenshot_review": "NOT RUN — artifact download returned HTTP 403"
+  },
+  "last_updated": "2026-09-19",
+  "phase_5_authorized": false,
+  "phase_5_status": "NOT STARTED — ON HOLD UNTIL EXPLICIT OWNER START INSTRUCTION",
+  "github_release_published": false,
+  "owner_acceptance": {
+    "date": "2026-09-18",
+    "decision": "ACCEPTED",
+    "statement": "قمت بالاختبار ونجحت كل الاختبارات، يمكنك اعتماد المرحلة الرابعة، وتوثيق ذلك، ولا تبدأ بالمرحلة الخامسة حتى اخبرك",
+    "manual_result_source": "owner report in conversation",
+    "delivered_build_sha": "a0a8e299d3be4b35ce74f710a1f8fc32f00e8939",
+    "owner_local_sha": null,
+    "device_browser_details": null,
+    "record": "docs/PHASE_4_ACCEPTANCE.md"
+  },
+  "last_pre_acceptance_ci": {
+    "status": "PASS",
+    "run_number": 188,
+    "run_id": 35388167995,
+    "job_id": 105739916038,
+    "head_sha": "a0a8e299d3be4b35ce74f710a1f8fc32f00e8939",
+    "url": "https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995",
+    "e2e_pass": 6,
+    "e2e_duration_seconds": 29.3
+  },
+  "evidence_scope": "Correction numerical/runtime results retain their recorded snapshots. Acceptance commit changes version/state metadata and is validated by its own PR CI check.",
+  "acceptance_metadata_local_checks": {
+    "date": "2026-09-19",
+    "locked_backend_install": "PASS",
+    "api_tests": {
+      "pass": 8,
+      "fail": 0
+    },
+    "production_build": "PASS",
+    "pwa_tests": {
+      "pass": 2,
+      "fail": 0
+    },
+    "service_worker_syntax": "PASS",
+    "release_metadata": "PASS",
+    "uv_lock_check_offline": "PASS"
+  }
+}

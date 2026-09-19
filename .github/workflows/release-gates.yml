@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0, feat/phase3-data-search]
+    branches: [main, phase2-v0.2.0, feat/phase3-data-search, feat/phase4-wgs84-reference, feat/phase5-shared-state]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 3 tests + npm build + Docker runtime
+    name: structure + Phase 5 regression + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -34,12 +34,22 @@ jobs:
           test -s docs/PHASE_3_PLAN.md
           test -s docs/PHASE_3_REPORT.md
           test -s docs/PHASE_3_ACCEPTANCE.md
+          test -s backend/app/providers/reference/wgs84.py
+          test -s backend/app/api/reference_routes.py
+          test -s backend/tests/test_phase4_wgs84_reference.py
+          test -s backend/tests/test_phase4_reference_api.py
+          test -s frontend/src/reference/ReferenceGlobe.tsx
+          test -s frontend/src/reference/GeodesicInspector.tsx
+          test -s frontend/src/reference/globeLayers.ts
+          test -s frontend/src/reference/globeLabels.ts
+          test -s docs/PHASE_4_PLAN.md
+          test -s docs/PHASE_4_P4_6_REPORT.md
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
-          grep -q '^0.3.0$' VERSION
+          python scripts/check_release_metadata.py
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md
           grep -q 'do not invent centroids' scripts/import_phase3_places.py
@@ -51,24 +61,48 @@ jobs:
         run: python scripts/fetch_phase3_sources.py --output-dir /tmp/phase3-data | tee /tmp/phase3-source-hashes.json
       - name: Backend tests
         working-directory: backend
-        run: python -m pip install --upgrade pip && pip install -e '.[dev]' && pytest -q
+        run: pip install uv==0.12.15 && uv sync --locked --extra dev && uv run --locked --extra dev pytest -q
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Frontend dependency security gate
         working-directory: frontend
         run: npm audit --audit-level=high
       - name: Frontend core tests
         working-directory: frontend
         run: npm run test:core
+      - name: Independent browser WGS84 parity against backend PROJ
+        run: backend/.venv/bin/python scripts/check_reference_parity.py
+      - name: Validate service worker syntax
+        working-directory: frontend
+        run: npm run check:sw
       - name: npm production build
         working-directory: frontend
         run: npm run build
       - name: Verify production PWA and offline pack
         working-directory: frontend
-        run: test -s dist/index.html && test -s dist/sw.js && test -s dist/offline-packs/core-world-v1.json
+        run: |
+          test -s dist/index.html
+          test -s dist/sw.js
+          test -s dist/offline-packs/core-world-v1.json
+          node --test tests/pwa/*.test.mjs
+      - name: Install Chromium for acceptance tests
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+      - name: Browser offline, selection, mobile and stale-result gates
+        working-directory: frontend
+        run: npm run test:e2e
+      - name: Upload browser acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase4-browser-evidence
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+          if-no-files-found: ignore
       - name: Validate Docker Compose
         run: docker compose config
       - name: Build and start Docker stack
@@ -83,6 +117,17 @@ jobs:
           jq -e 'length==2 and any(.[];.model_id=="gleason-historical") and any(.[];.model_id=="ae-north-pole")' /tmp/models.json
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/projections/gleason-historical/forward -H 'content-type: application/json' -d '{"latitude":0,"longitude":90}' >/tmp/g.json
           jq -e '.output.x>0.499999 and .output.x<0.500001' /tmp/g.json
+      - name: Verify Phase 4 WGS84 reference API
+        run: |
+          set -euo pipefail
+          curl --fail --silent http://127.0.0.1:8000/api/v1/models/reference/wgs84 >/tmp/wgs84-meta.json
+          jq -e '.model_id=="wgs84-reference" and .model_version=="WGS84-0.4.0" and .geographic_crs=="EPSG:4979" and .ecef_crs=="EPSG:4978" and .semantic_type=="REFERENCE_RESULT"' /tmp/wgs84-meta.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":0,"ellipsoidal_height_m":0}' >/tmp/ecef.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and .operation=="geodetic_to_ecef" and (.output.x_m>6378136.999 and .output.x_m<6378137.001) and (.output.y_m|fabs)<0.001 and (.output.z_m|fabs)<0.001' /tmp/ecef.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodesic-inverse -H 'content-type: application/json' -d '{"start":{"latitude":0,"longitude":179,"ellipsoidal_height_m":0},"end":{"latitude":0,"longitude":-179,"ellipsoidal_height_m":0}}' >/tmp/anti.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and (.output.distance_m>222638.98 and .output.distance_m<222638.99) and (.output.initial_bearing_deg==90)' /tmp/anti.json
+          status="$(curl --silent --output /tmp/invalid-reference.json --write-out '%{http_code}' -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":181,"ellipsoidal_height_m":0}')"
+          test "$status" = "422"
       - name: Verify Phase 3 PostGIS catalog schema
         run: |
           test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"
@@ -102,6 +147,8 @@ jobs:
             --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
             --data-dir /tmp/phase3-data \
             --lock /tmp/phase3repo/data/sources/phase3-source-lock.json
+      - name: Verify existing-database city refresh is safe to repeat
+        run: bash scripts/update_city_search.sh
       - name: Measure real Phase 3 catalog coverage and provenance
         run: |
           set -euo pipefail
@@ -128,6 +175,7 @@ jobs:
           jq -e '.count>=1 and any(.results[]; .name=="Arctic Ocean")' /tmp/ocean-search-ar.json
           curl --fail --silent 'http://127.0.0.1:8000/api/v1/search?q=DOH&category=airport' >/tmp/airport-search.json
           jq -e '.count>=1 and any(.results[]; .source.source_id=="ourairports-airports")' /tmp/airport-search.json
+          jq -e 'all(.results[]; .coordinate_classification=="SOURCE_POINT" and (.source.version|length)>0 and (.source_record_id|length)>0)' /tmp/airport-search.json
       - name: Build real offline search core and region pack
         run: |
           set -euo pipefail
@@ -145,6 +193,13 @@ jobs:
           docker cp "$BACKEND_ID":/tmp/phase3-packs/. /tmp/phase3-packs/
           jq -e '.schemaVersion==1 and .id=="search-core-world-v1" and (.entries|length)==1087 and all(.entries[];.category!="airport")' /tmp/phase3-packs/search-core-world-v1.json
           jq -e '.schemaVersion==1 and .id=="region-qa-v1" and (.entries|length)>1 and all(.entries[];.countryCode=="QA")' /tmp/phase3-packs/region-qa-v1.json
+          jq -e '.provenanceRevision==2 and all(.entries[]; (.coordinateClassification|length)>0 and (.source.version|length)>0 and .source.sourceId==.sourceId)' /tmp/phase3-packs/search-core-world-v1.json
+          curl --fail --silent 'http://127.0.0.1:8000/api/v1/offline-search/core' >/tmp/api-core-pack.json
+          jq -S '.entries|sort_by(.id)' /tmp/api-core-pack.json >/tmp/api-entries.json
+          jq -S '.entries|sort_by(.id)' /tmp/phase3-packs/search-core-world-v1.json >/tmp/cli-entries.json
+          diff -u /tmp/api-entries.json /tmp/cli-entries.json
+      - name: Verify real Arabic city search online and offline
+        run: node scripts/check_arabic_city_search.mjs
       - name: Upload Phase 3 offline search pack evidence
         uses: actions/upload-artifact@v4
         with:

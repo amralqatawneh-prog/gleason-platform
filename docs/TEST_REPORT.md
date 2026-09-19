@@ -1,5 +1,7 @@
 # TEST REPORT — Phase 1 / v0.1.0
 
+> Historical Phase 1 evidence. Current approved Phase 4 correction results are in `PHASE_4_CORRECTIONS_TEST_REPORT.md`. Do not apply this historical phase status or counts to the current branch.
+
 **Date:** 2026-09-09  
 **Environment:** Python 3.13.5, Node 22.16.0, npm 10.9.2, Git 2.47.3  
 **Automated verification:** 16/16 checks passed  

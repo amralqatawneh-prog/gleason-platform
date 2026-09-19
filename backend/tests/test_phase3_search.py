@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 
 from app.domain.places import PlaceCategory
 from app.services.place_search import search_places
+from app.services.offline_search_packs import build_offline_search_pack
 
 
 FIXTURES = [
@@ -32,7 +33,7 @@ def fixture_engine():
                 name_ar TEXT, aliases TEXT NOT NULL DEFAULT '[]', country_code TEXT,
                 region_code TEXT, latitude REAL NOT NULL, longitude REAL NOT NULL,
                 source_id TEXT NOT NULL, source_record_id TEXT NOT NULL,
-                search_text TEXT NOT NULL
+                search_text TEXT NOT NULL, quality TEXT NOT NULL DEFAULT '{}'
             )
         """))
         connection.execute(
@@ -88,3 +89,32 @@ def test_empty_catalog_is_safe() -> None:
     result = search_places(engine, "Doha")
     assert result.count == 0
     assert result.backend == "sqlite"
+
+
+def test_search_and_offline_pack_preserve_source_and_coordinate_classification() -> None:
+    engine = fixture_engine()
+    with engine.begin() as connection:
+        connection.execute(text("UPDATE places SET quality = :quality WHERE id = :id"),
+                           {"quality": '{"coordinate_classification":"DERIVED_CENTROID"}', "id": "test-country"})
+    online = search_places(engine, "Testland").results[0]
+    pack = build_offline_search_pack(engine, pack_id="test-pack", version="test-only")
+    entry = next(item for item in pack["entries"] if item["id"] == online.id)
+    assert online.coordinate_classification == entry["coordinateClassification"] == "DERIVED_CENTROID"
+    assert online.source.source_id == entry["sourceId"] == entry["source"]["sourceId"]
+    assert online.source_record_id == entry["sourceRecordId"] == "c1"
+    assert online.source.version == entry["source"]["version"] == "1"
+    assert online.source.license == entry["source"]["license"] == "TEST-ONLY"
+    assert online.source.source_url == entry["source"]["sourceUrl"] == "fixture://phase3"
+    assert pack["provenanceRevision"] == 2
+    # A missing classification must remain unknown, even when the category is known.
+    unknown = next(item for item in pack["entries"] if item["id"] == "test-city")
+    assert unknown["coordinateClassification"] is None
+    assert search_places(engine, "Test City").results[0].coordinate_classification is None
+
+
+def test_pack_serializer_used_by_cli_handles_jsonb_and_legacy_quality() -> None:
+    from app.services.place_provenance import coordinate_classification
+    assert coordinate_classification({"coordinate_classification": "SOURCE_POINT"}) == "SOURCE_POINT"
+    assert coordinate_classification('{"coordinate_classification":"DERIVED_REPRESENTATIVE_POINT"}') == "DERIVED_REPRESENTATIVE_POINT"
+    for value in [None, "broken", "[]", {}, {"coordinate_classification": 12}]:
+        assert coordinate_classification(value) is None

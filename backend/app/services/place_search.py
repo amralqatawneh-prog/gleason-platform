@@ -6,6 +6,7 @@ from sqlalchemy import inspect, text
 from sqlalchemy.engine import Engine
 
 from ..domain.places import PlaceCategory, PlaceSearchResult, PlaceSource, SearchResponse
+from .place_provenance import coordinate_classification
 
 
 def _clean_query(value: str) -> str:
@@ -87,7 +88,7 @@ def search_places(
             SELECT
                 p.id, p.category::text AS category, p.name, p.name_ar,
                 p.country_code, p.region_code, p.latitude, p.longitude,
-                p.source_record_id,
+                p.source_record_id, p.quality,
                 s.source_id, s.name AS source_name, s.version AS source_version,
                 s.license AS source_license, s.source_url,
                 CASE
@@ -125,7 +126,7 @@ def search_places(
             SELECT
                 p.id, p.category, p.name, p.name_ar,
                 p.country_code, p.region_code, p.latitude, p.longitude,
-                p.source_record_id,
+                p.source_record_id, p.quality,
                 s.source_id, s.name AS source_name, s.version AS source_version,
                 s.license AS source_license, s.source_url,
                 CASE
@@ -156,6 +157,7 @@ def search_places(
             latitude=row["latitude"],
             longitude=row["longitude"],
             source_record_id=row["source_record_id"],
+            coordinate_classification=coordinate_classification(row["quality"]),
             source=PlaceSource(
                 source_id=row["source_id"],
                 name=row["source_name"],

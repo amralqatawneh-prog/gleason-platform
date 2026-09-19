@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from sqlalchemy import create_engine, text
+from app.services.place_provenance import offline_place_entry
 
 CATEGORIES = ("country", "city", "sea", "ocean", "river", "mountain", "airport")
 
@@ -44,52 +45,32 @@ def main() -> int:
 
     clauses = ["1=1"]
     params: dict[str, object] = {}
-    _add_list_clause(clauses, params, "country_code", [value.upper() for value in args.country], "country")
-    _add_list_clause(clauses, params, "region_code", args.region_code, "region")
-    _add_list_clause(clauses, params, "category::text", args.category, "category")
-    _add_list_clause(clauses, params, "category::text", args.exclude_category, "exclude_category", negate=True)
+    _add_list_clause(clauses, params, "p.country_code", [value.upper() for value in args.country], "country")
+    _add_list_clause(clauses, params, "p.region_code", args.region_code, "region")
+    _add_list_clause(clauses, params, "p.category::text", args.category, "category")
+    _add_list_clause(clauses, params, "p.category::text", args.exclude_category, "exclude_category", negate=True)
 
     sql = text(
         f"""
-        SELECT id, category::text AS category, name, name_ar, aliases,
-               country_code, region_code, latitude, longitude,
-               source_id, source_record_id, quality
-        FROM places
+        SELECT p.id, p.category::text AS category, p.name, p.name_ar, p.aliases,
+               p.country_code, p.region_code, p.latitude, p.longitude,
+               p.source_id, p.source_record_id, p.quality,
+               s.name AS source_name, s.version AS source_version, s.license AS source_license, s.source_url
+        FROM places p JOIN place_sources s ON s.source_id = p.source_id
         WHERE {' AND '.join(clauses)}
-        ORDER BY category, name, id
+        ORDER BY p.category, p.name, p.id
         """
     )
     with engine.connect() as connection:
         rows = connection.execute(sql, params).mappings().all()
 
-    entries = []
-    source_ids: set[str] = set()
-    coordinate_classes: set[str] = set()
-    for row in rows:
-        source_ids.add(row["source_id"])
-        quality = row["quality"] or {}
-        classification = quality.get("coordinate_classification")
-        if classification:
-            coordinate_classes.add(classification)
-        entries.append(
-            {
-                "id": row["id"],
-                "category": row["category"],
-                "name": row["name"],
-                **({"nameAr": row["name_ar"]} if row["name_ar"] else {}),
-                "aliases": row["aliases"] or [],
-                **({"countryCode": row["country_code"]} if row["country_code"] else {}),
-                **({"regionCode": row["region_code"]} if row["region_code"] else {}),
-                "latitude": row["latitude"],
-                "longitude": row["longitude"],
-                "sourceId": row["source_id"],
-                "sourceRecordId": row["source_record_id"],
-                **({"coordinateClassification": classification} if classification else {}),
-            }
-        )
+    entries = [offline_place_entry(row) for row in rows]
+    source_ids = {row["source_id"] for row in rows}
+    coordinate_classes = {entry["coordinateClassification"] for entry in entries if entry["coordinateClassification"]}
 
     payload = {
         "schemaVersion": 1,
+        "provenanceRevision": 2,
         "id": args.id,
         "version": args.version,
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),

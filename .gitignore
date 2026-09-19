@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+*.egg-info/
+*.tsbuildinfo
+frontend/playwright-report/
+frontend/test-results/
 backend/.coverage
 backend/htmlcov/
 backend/data/*.db

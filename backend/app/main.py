@@ -10,6 +10,7 @@ from .database import DatabaseManager
 from .errors import install_error_handlers
 from .logging_config import configure_logging
 from .middleware import install_middleware
+from .version import APP_VERSION
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -25,7 +26,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="Gleason Comparison Platform API",
-        version="0.1.0",
+        version=APP_VERSION,
         debug=settings.debug,
         lifespan=lifespan,
     )
@@ -37,7 +38,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.get("/", include_in_schema=False)
     def root() -> dict[str, str]:
-        return {"name": "Gleason Comparison Platform API", "version": "0.1.0"}
+        return {"name": "Gleason Comparison Platform API", "version": APP_VERSION}
 
     return app
 

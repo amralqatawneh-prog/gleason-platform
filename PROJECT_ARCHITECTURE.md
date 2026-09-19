@@ -10,6 +10,35 @@
 
 ---
 
+## Current implementation note — 2026-09-19
+
+This file is the **accepted Phase 0 architecture baseline** and intentionally
+retains historical design language. It is not the current execution-status
+document.
+
+Current authoritative execution/status sources are:
+
+- `README.md`
+- `docs/PROJECT_HANDOFF_CURRENT.md`
+- `docs/ROADMAP_CURRENT.md`
+- `docs/PHASE_5_PLAN.md`
+
+Current state at this reconciliation: phases 0–4 accepted; Phase 5 in progress;
+P5.1–P5.7 closed; P5.8 next and not started; accepted app version 0.4.0.
+
+Important implemented deviations already recorded by later ADRs/documentation:
+- the delivered Phase 4 WGS84 renderer is a custom WebGL2/SVG implementation,
+  not CesiumJS; ADR-014 governs the current renderer choice;
+- the original broad `ExperimentState`, route/time/layer synchronization and
+  later astronomy concepts remain roadmap architecture unless explicitly
+  implemented in a closed slice;
+- P5.7 only reserves unavailable future-service contracts for time/shared-layer
+  synchronization/routes; it does not implement those engines.
+
+Historical “Current”, “Next Gate”, or release labels later in this Phase 0
+document describe the architecture plan at the time of writing and must not
+override the current handoff/roadmap.
+
 ## 1. Executive Summary
 
 هذا المشروع سيُبنى كمنصة Web مستقلة الواجهة عن المنطق الحسابي ومصادر البيانات. الهدف المركزي هو جعل كل نتيجة قابلة للتتبع إلى:
@@ -1801,6 +1830,8 @@ Copernicus DEM GLO-30/GLO-90 هو DSM، أي أنه يمثل سطح الأرض �
 
 ## 41. Roadmap
 
+**تحديث معتمد 2026-09-18 (م7):** الخريطة الحالية وحالة القبول وحدود Phase 5/6 في [`docs/ROADMAP_CURRENT.md`](docs/ROADMAP_CURRENT.md). القائمة أدناه أساس التخطيط التاريخي، ولا تعني أن المرحلة 0 ما تزال الحالية. المرحلة الرابعة تستخدم عارض WebGL2 مخصصًا؛ يسجل ADR-014 الفرق عن اختيار Cesium الأصلي.
+
 ### Phase 0 — Current — Architecture Revision 0.2.0
 
 - Three-model architecture: Gleason Historical + AE + WGS84.
@@ -2024,6 +2055,14 @@ Copernicus DEM GLO-30/GLO-90 هو DSM، أي أنه يمثل سطح الأرض �
 **Decision:** CesiumJS.  
 **Reason:** high-precision WGS84 globe + time-dynamic geospatial visualization.
 
+**Current implementation note (2026-09-18):** This original choice is superseded for the delivered Phase 4 renderer by ADR-014. Cesium is not installed or implemented in the current reference view.
+
+### ADR-014 — Phase 4 renderer reconciliation (approved M7)
+
+**Decision:** Retain the implemented custom WebGL2/SVG renderer for the approved Phase 4 corrections. Keep numerical providers independent and make no Cesium/terrain/3D Tiles capability claims. Evaluate renderer migration before advanced terrain/time-dynamic scale requires it.
+
+**Scope and criteria:** See `docs/ROADMAP_CURRENT.md`. This records the actual implementation and approved correction boundary; it does not authorize Phase 5 or replace source/calculation semantics.
+
 ### ADR-004 — API framework
 
 **Decision:** FastAPI.  
@@ -2120,4 +2159,3 @@ source_sha256 -> 03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe6
 ### Existing data/science references retained from Architecture Revision 0.1.x
 
 Natural Earth, OpenStreetMap, PostGIS, Skyfield, Astropy, IANA tzdb, NASA eclipse catalogs, OpenTopography/Copernicus DEM, OpenSky and licensed submarine-cable providers remain governed by the Data Sources Register and provider-specific licensing/usage review before production.
-

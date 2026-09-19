@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { searchPlaces, type PlaceCategory, type PlaceSearchResult } from '../api';
+import { searchPlaces, type PlaceCategory } from '../api';
 import { installCountrySearchPack, refreshCoreSearchPack, searchCachedPlaces } from '../offline/searchPackStore';
-import type { OfflinePlace } from '../offline/searchIndex';
+import { onlineResult, offlineResult, type PlaceSelection } from './placeSelection';
+export type { PlaceSelection } from './placeSelection';
 
 const categories: Array<{ value: '' | PlaceCategory; ar: string; en: string }> = [
   { value: '', ar: 'كل الأنواع', en: 'All types' },
@@ -14,50 +15,16 @@ const categories: Array<{ value: '' | PlaceCategory; ar: string; en: string }> =
   { value: 'airport', ar: 'مطارات', en: 'Airports' },
 ];
 
-interface DisplayResult {
-  id: string;
-  category: PlaceCategory;
-  name: string;
-  nameAr?: string;
-  countryCode?: string;
-  latitude: number;
-  longitude: number;
-  sourceLabel: string;
-  offline: boolean;
-}
+type Props = {
+  locale: 'ar' | 'en';
+  onSelectPlace?: (place: PlaceSelection) => void;
+  selectedPlaceId?: string;
+};
 
-function onlineResult(result: PlaceSearchResult): DisplayResult {
-  return {
-    id: result.id,
-    category: result.category,
-    name: result.name,
-    nameAr: result.name_ar ?? undefined,
-    countryCode: result.country_code ?? undefined,
-    latitude: result.latitude,
-    longitude: result.longitude,
-    sourceLabel: `${result.source.name}${result.source.version ? ` ${result.source.version}` : ''}`,
-    offline: false,
-  };
-}
-
-function offlineResult(result: OfflinePlace): DisplayResult {
-  return {
-    id: result.id,
-    category: result.category,
-    name: result.name,
-    nameAr: result.nameAr,
-    countryCode: result.countryCode,
-    latitude: result.latitude,
-    longitude: result.longitude,
-    sourceLabel: result.sourceId,
-    offline: true,
-  };
-}
-
-export function PlaceSearch({ locale }: { locale: 'ar' | 'en' }) {
+export function PlaceSearch({ locale, onSelectPlace, selectedPlaceId }: Props) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<'' | PlaceCategory>('');
-  const [results, setResults] = useState<DisplayResult[]>([]);
+  const [results, setResults] = useState<PlaceSelection[]>([]);
   const [state, setState] = useState<'idle' | 'loading' | 'offline' | 'error'>('idle');
   const [packMessage, setPackMessage] = useState('');
 
@@ -100,7 +67,7 @@ export function PlaceSearch({ locale }: { locale: 'ar' | 'en' }) {
   }
 
   return <section className="phase-card phase3-search">
-    <span className="eyebrow">Phase 3 · Unified Search</span>
+    
     <h2>{locale === 'ar' ? 'البحث الجغرافي الموحد' : 'Unified geographic search'}</h2>
     <form onSubmit={submit} className="search-form">
       <input
@@ -119,16 +86,21 @@ export function PlaceSearch({ locale }: { locale: 'ar' | 'en' }) {
     {state === 'idle' && query.trim() && results.length === 0 && <p className="muted">{locale === 'ar' ? 'لا توجد نتائج في البيانات المستوردة حاليًا.' : 'No results in the currently imported datasets.'}</p>}
     {packMessage && <p className="muted">{packMessage}</p>}
     <div className="search-results">
-      {results.map((result) => <article key={result.id} className="search-result">
+      {results.map((result) => <article key={result.id} className={`search-result ${selectedPlaceId === result.id ? 'selected' : ''}`}>
         <div>
           <strong>{locale === 'ar' && result.nameAr ? result.nameAr : result.name}</strong>
           <span className="evidence-badge">{result.category}</span>
           {result.offline && <span className="evidence-badge">OFFLINE</span>}
         </div>
         <small>{result.latitude.toFixed(5)}, {result.longitude.toFixed(5)} · {result.sourceLabel}</small>
-        {!result.offline && result.countryCode && <button className="secondary" type="button" onClick={() => void saveCountry(result.countryCode!)}>
-          {locale === 'ar' ? `حفظ ${result.countryCode} دون اتصال` : `Save ${result.countryCode} offline`}
-        </button>}
+        <div className="search-result__actions">
+          {onSelectPlace && <button className="secondary" type="button" onClick={() => onSelectPlace(result)}>
+            {locale === 'ar' ? 'اعرض على النماذج' : 'Locate on models'}
+          </button>}
+          {!result.offline && result.countryCode && <button className="secondary" type="button" onClick={() => void saveCountry(result.countryCode!)}>
+            {locale === 'ar' ? `حفظ ${result.countryCode} دون اتصال` : `Save ${result.countryCode} offline`}
+          </button>}
+        </div>
       </article>)}
     </div>
   </section>;

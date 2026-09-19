@@ -33,6 +33,7 @@ class PlaceSearchResult(BaseModel):
     latitude: float = Field(ge=-90.0, le=90.0)
     longitude: float = Field(ge=-180.0, le=180.0)
     source_record_id: str
+    coordinate_classification: str | None = None
     source: PlaceSource
     score: float = Field(ge=0.0)
 
