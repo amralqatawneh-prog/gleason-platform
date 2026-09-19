@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P5.4 usability clarification (2026-09-19)
+
+- Owner functional checks passed, but the Model Laboratory was too technical to understand; P5.4 remains open pending clarity retest.
+- Add plain-language model meaning before raw technical metadata: explain Gleason normalized coordinates, AE planar coordinates, WGS84 ECEF, and why missing ellipsoidal height blocks ECEF.
+- Move model/version/evidence/domain/source/limitations into collapsed technical details without changing any calculation or adapter contract.
+- Extend browser acceptance coverage for bilingual explanations, collapsed details and mobile overflow.
+
+
 ## [Unreleased] — Phase 5 / P5.4 Model Laboratory (2026-09-19)
 
 - Owner instructed «ابدأ» after P5.3 closure. Add a bilingual read-only Model Laboratory for the shared geographic selection.
