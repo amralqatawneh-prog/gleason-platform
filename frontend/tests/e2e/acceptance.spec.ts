@@ -274,3 +274,30 @@ test('shared selection retains search provenance and clears it on each model fre
   await expect(page.locator('.inspector')).toContainText('المفتش الجغرافي');
   await expect(page.locator('.place-provenance')).toHaveCount(0);
 });
+
+
+test('P5.4 model laboratory exposes independent outputs and explicit unsupported height',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const lab=page.locator('.model-laboratory');await expect(lab).toBeVisible();
+  await expect(lab.locator('.model-lab-card')).toHaveCount(3);
+  const gleason=lab.locator('.model-lab-card[data-model="gleason"]');
+  const ae=lab.locator('.model-lab-card[data-model="ae"]');
+  const wgs84=lab.locator('.model-lab-card[data-model="wgs84"]');
+  await expect(gleason).toHaveAttribute('data-status','available');
+  await expect(gleason).toContainText('GH-0.2.0');
+  await expect(gleason).toContainText('normalized-radius');
+  await expect(gleason).toContainText('COMPUTED_RESULT');
+  await expect(gleason).toContainText('DERIVED');
+  await expect(gleason).toContainText('gleason-1893-upload-v1');
+  await expect(ae).toHaveAttribute('data-status','available');
+  await expect(ae).toContainText('AE-0.2.0');
+  await expect(ae).toContainText('REFERENCE_RESULT');
+  await expect(wgs84).toHaveAttribute('data-status','unavailable');
+  await expect(wgs84).toContainText('WGS84-0.4.0');
+  await expect(wgs84).toContainText('height-required');
+  await expect(lab).toContainText('Ellipsoidal height: Unknown');
+  await expect(lab).toContainText('P5.4 does not compare these values numerically');
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(lab).toContainText('مختبر النماذج');
+  await expect(lab).toContainText('الارتفاع الإهليلجي: غير معروف');
+});
