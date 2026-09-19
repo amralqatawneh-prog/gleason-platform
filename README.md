@@ -14,12 +14,13 @@ model engines:
 > Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on `main` after
 > **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
 > after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
-> State Persistence is next and NOT STARTED.** Phase 6 measurement/routing is
+> State Persistence is **IN PROGRESS** by explicit owner instruction.** Phase 6 measurement/routing is
 > also NOT STARTED.
 
 ## Current verified development baseline
 
-- Branch: `main`
+- Current P5.8 branch: `feat/phase5-p5.8-state-persistence`
+- Base branch: `main`
 - PR **#9**: **MERGED** into `main`
 - Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`
 - Latest owner-tested/documented baseline before this documentation
@@ -55,7 +56,7 @@ change numerical engines, source datasets or accepted application version. See
 | P5.5 | CLOSED ✅ | Explicit comparability contract |
 | P5.6 | CLOSED ✅ | Independent zoom/focus/rotation/navigation |
 | P5.7 | CLOSED ✅ | Homogeneous-difference gate + unavailable future-service contracts |
-| P5.8 | NOT STARTED ⏳ | Versioned local state persistence |
+| P5.8 | IN PROGRESS 🛠️ | Versioned local state persistence |
 | P5.9 | PENDING ⏳ | Phase 5 regression and owner acceptance package |
 | Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
 
@@ -83,7 +84,7 @@ README, `docs/PROJECT_HANDOFF_CURRENT.md`, and `docs/PHASE_5_PLAN.md`.
 
 ## Explicitly not implemented yet
 
-- P5.8 persistence/restoration of the shared Phase 5 state.
+- P5.8 is being implemented now; it is not yet accepted.
 - P5.9 final Phase 5 regression/acceptance package.
 - Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
 - Road/flight routing without a dedicated data provider.
@@ -128,14 +129,14 @@ conversion are allowed.
 - Backend WGS84 reference calculations remain the numerical acceptance
   authority; client-side implementations are independently parity-tested.
 
-## Run the current main branch
+## Run the current P5.8 development branch
 
 ### Git / Docker
 
 ```bash
 git fetch origin
-git switch main
-git pull --ff-only origin main
+git switch feat/phase5-p5.8-state-persistence
+git pull --ff-only origin feat/phase5-p5.8-state-persistence
 docker compose up --build -d
 docker compose ps
 ```
@@ -215,4 +216,16 @@ analytic reconstruction used by the software.
 
 PR #9 was explicitly authorized by the owner and has been **merged into `main`**.
 This merge does **not** authorize a tag, GitHub Release, deployment, Phase 5 final
-acceptance, or starting P5.8. Those remain separate project steps.
+acceptance, or starting P5.8 final acceptance, P5.9, tag, release and deployment remain separate project steps.
+
+
+## P5.8 persistence boundary
+
+P5.8 persists only the canonical shared geographic selection in a versioned
+IndexedDB contract. Named-place restore is allowed only by resolving the stored
+identity against already installed/sanitized local search packs. Free points
+preserve optional ellipsoidal height exactly; unknown height never becomes 0 m.
+Camera state, routes, future-service operations and Model Laboratory results are
+not persisted by this slice.
+
+Current report: `docs/PHASE_5_P5_8_REPORT.md`.
