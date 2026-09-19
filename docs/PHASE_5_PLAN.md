@@ -106,7 +106,7 @@ on earlier attempts. The successful run found 0 vulnerabilities and completed
 62 core tests, 2 PWA tests, 11 Chromium scenarios and all remaining release
 acceptance gates.
 
-P5.5 is the next ordered slice. The owner has now instructed «أكمل», so P5.5 Comparability Contract is **IN PROGRESS**. P5.6 remains NOT STARTED. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
+P5.5 Comparability Contract is **CLOSED** after CI #266/#271 SUCCESS and owner-reported manual PASS. P5.6 is the next ordered slice and remains NOT STARTED. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
 
 
 ## P5.5 start — 2026-09-19
@@ -117,5 +117,20 @@ quantity meaning/dimensionality, coordinate space, units or scale basis are not
 compatible, and it must distinguish structural incompatibility from missing
 output. No normalization or unit conversion is allowed to force agreement.
 
-Implementation/report: `PHASE_5_P5_5_REPORT.md`. P5.6 and Phase 6 remain
-NOT STARTED. No merge, tag or release is authorized.
+Implementation/report: `PHASE_5_P5_5_REPORT.md`. P5.5 is now closed after owner-reported PASS. P5.6 and Phase 6 remain NOT STARTED. No merge, tag or release is authorized.
+
+
+## P5.5 acceptance closure — 2026-09-19
+
+The owner reported «نجحت جميع اختبارات P5.5» after the delivered manual
+checklist. Manual result: **PASS — REPORTED BY OWNER**.
+
+Automated evidence:
+- CI #266 SUCCESS on implementation/documentation head
+  `1bf01cda0a1b4273b14f7d1c06a844021e575648`;
+- CI #271 SUCCESS on later documentation head
+  `4c9e2eb6d955331345ae73f2029b2cd0c4764664`.
+
+P5.5 is **CLOSED**. P5.6 Optional Geographic Focus / Navigation is next and
+remains **NOT STARTED** until the owner explicitly instructs continuation. Full
+Phase 5 acceptance remains pending. No merge, tag or release.
