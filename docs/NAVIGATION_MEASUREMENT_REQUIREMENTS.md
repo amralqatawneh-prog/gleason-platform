@@ -2,7 +2,7 @@
 
 Status: P5.6 navigation implementation is CLOSED after CI #329/#340 and owner-reported manual PASS. Phase 6 measurement requirements remain future / NOT STARTED.
 Source: owner message following successful P5.3 retest and later continuation instructions.
-Sequential execution remains enforced: close P5.6 manually before P5.7; Phase 6 paths/ruler/area do not start from this delivery.
+Sequential execution remains enforced: P5.6 is closed; P5.7 now reserves the versioned route-service boundary only. Phase 6 paths/ruler/area do not start from P5.7.
 
 ## P5.6 — navigation on all three views
 
@@ -61,6 +61,13 @@ higher-resolution country dataset.
 6. Validate reference cases, reversed ordering, repeated points, degenerate inputs,
    poles/antimeridian, edits and all three renderings, plus online/offline parity.
    If a view cannot represent a supported path safely, report its limitation.
+
+### P5.7 route-contract status — 2026-09-19
+
+P5.7 now declares a versioned route-service boundary with status `unavailable`
+and no available operations. This is deliberately a fail-closed contract, not a
+route engine. The UI states that route drawing, path semantics, distance, ruler
+and area remain Phase 6 work.
 
 P5.7 only prepares versioned route contracts; it does not deliver this measurement
 engine. Long-term saved routes/experiments belong to Phase 17; final tool styling,
