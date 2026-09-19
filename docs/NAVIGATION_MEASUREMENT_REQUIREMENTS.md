@@ -1,6 +1,6 @@
 # Navigation and measurement requirements — 2026-09-19
 
-Status: P5.6 navigation implementation is delivered and technically green after CI #329; owner manual verification is pending. Phase 6 measurement requirements remain future / NOT STARTED.
+Status: P5.6 navigation implementation is CLOSED after CI #329/#340 and owner-reported manual PASS. Phase 6 measurement requirements remain future / NOT STARTED.
 Source: owner message following successful P5.3 retest and later continuation instructions.
 Sequential execution remains enforced: close P5.6 manually before P5.7; Phase 6 paths/ruler/area do not start from this delivery.
 
@@ -32,7 +32,7 @@ Implemented on all three views with independent cameras/scales:
 
 Exact audited code head `378f0a8ed6710195cb1e48e0ebcd4518116a5d0d`
 passed CI #329 with 71 frontend core tests, 2 PWA tests and 14 Chromium
-scenarios plus full release gates. Manual owner verification remains NOT RUN.
+scenarios plus full release gates. Owner manual verification is PASS — REPORTED BY OWNER («نجحت كل الاختبارات»).
 See `PHASE_5_P5_6_REPORT.md`.
 
 The requirement that zoom not add source detail remains unchanged. Current
