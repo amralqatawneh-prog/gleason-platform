@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased] — P5.8 automated verification (2026-09-19)
+
+- P5.8 implementation head `3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` passed Release Acceptance Gates #439.
+- CI reports 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests and 16 Chromium scenarios PASS, plus build/parity/Docker/PostGIS/Redis/source/search gates.
+- P5.8 remains open pending owner manual verification. P5.9 and Phase 6 remain NOT STARTED.
+
+
 ## [Unreleased] — Phase 5 / P5.8 versioned local state persistence (2026-09-19)
 
 - Owner explicitly instructed «أبدأ P5.8».
