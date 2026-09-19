@@ -515,3 +515,63 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P5.8 restores installed-pack identity offline and discards malformed state',async({page,context,servers})=>{
+  await english(page,servers.url);
+  await locate(page,'TEST Doha');
+  const shell=page.locator('.app-shell');
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
+  await expect.poll(()=>page.evaluate(async()=>{
+    const db=await new Promise<IDBDatabase>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onsuccess=()=>resolve(request.result);
+      request.onerror=()=>reject(request.error);
+    });
+    try{
+      return await new Promise<string|null>((resolve,reject)=>{
+        const tx=db.transaction('key-value','readonly');
+        const req=tx.objectStore('key-value').get('phase5-shared-state-v1');
+        req.onsuccess=()=>resolve(req.result?.selection?.kind??null);
+        req.onerror=()=>reject(req.error);
+      });
+    }finally{db.close();}
+  })).toBe('place');
+
+  await page.evaluate(async()=>{await navigator.serviceWorker.ready;});
+  await expect.poll(()=>page.evaluate(()=>Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await context.setOffline(true);
+  await servers.stop();
+
+  const restored=await context.newPage();
+  await page.close();
+  await english(restored,servers.url);
+  const restoredShell=restored.locator('.app-shell');
+  await expect(restoredShell).toHaveAttribute('data-persistence-status','restored-place');
+  await expect(restoredShell).toHaveAttribute('data-selection-revision','0');
+  await expect(restored.locator('.place-provenance')).toContainText('TEST Doha');
+  await expect(restored.locator('.place-provenance')).toContainText('TEST_ONLY_SYNTHETIC_POINT');
+  await expect(restored.locator('.persistence-status')).toContainText('Place restored from an installed local pack.');
+  await expect(restored.locator('.reference-focus-dot')).toBeVisible();
+
+  await restored.evaluate(async()=>{
+    const db=await new Promise<IDBDatabase>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onsuccess=()=>resolve(request.result);
+      request.onerror=()=>reject(request.error);
+    });
+    try{
+      await new Promise<void>((resolve,reject)=>{
+        const tx=db.transaction('key-value','readwrite');
+        tx.objectStore('key-value').put({schemaVersion:1,selection:{kind:'place'}},'phase5-shared-state-v1');
+        tx.oncomplete=()=>resolve();
+        tx.onerror=()=>reject(tx.error);
+      });
+    }finally{db.close();}
+  });
+  await restored.reload();
+  await expect(restored.locator('.app-shell')).toHaveAttribute('data-persistence-status','discarded-invalid');
+  await expect(restored.locator('.place-provenance')).toHaveCount(0);
+  await expect(restored.locator('.persistence-status')).toContainText('Malformed or invalid local state was ignored.');
+});
