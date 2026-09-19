@@ -30,6 +30,7 @@
     "src/models/ae.ts",
     "src/georeferencing/affine.ts",
     "src/reference/offlineWgs84.ts",
-    "src/search/placeSelection.ts"
+    "src/search/placeSelection.ts",
+    "src/comparison/geographicSelection.ts"
   ]
 }

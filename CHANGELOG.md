@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.1 (2026-09-19)
+
+- Owner explicitly started Phase 5: «ابدأ المرحله الخامسة», superseding the earlier hold. Phase 4 remains accepted; no Phase 5 acceptance is implied.
+- Added a versioned typed WGS84 geographic selection with optional ellipsoidal height and immutable source/place identity. Free picks clear all previous place metadata, including on Gleason/AE maps.
+- Replaced separate React point/place states with one selection; focus application no longer emits a fake user pick. Reject invalid geographic domains without silent normalization.
+- Fixed stale Phase 4 acceptance text in the footer. Capabilities report implementation phase 5, accepted phase 4 and in_progress, with cross-model synchronization still false.
+- Added seven contract tests and a browser regression for search-to-free-point transitions across all three models. See `docs/PHASE_5_P5_1_REPORT.md` for actual results.
+- No new dependencies, release/tag, merge or remote upload. P5.2–P5.9 remain pending; package version remains the last accepted 0.4.0.
+
 ## [0.4.0] — accepted application version (2026-09-18)
 
 - Owner reported all corrected-build manual tests PASS and explicitly accepted Phase 4. Recorded the exact decision and evidence in `docs/PHASE_4_ACCEPTANCE.md`.

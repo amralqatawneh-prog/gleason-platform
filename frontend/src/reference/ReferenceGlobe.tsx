@@ -146,7 +146,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
     const view = geoPointToViewAngles(focusPoint);
     setYaw(view.yaw);
     setPitch(view.pitch);
-    onPoint?.(focusPoint);
+    // Applying parent state is not a user pick; do not echo it as a free-point event.
   }, [focusPoint?.latitude, focusPoint?.longitude]);
 
   useEffect(() => {

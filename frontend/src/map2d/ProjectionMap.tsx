@@ -41,7 +41,7 @@ export function ProjectionMap({ model, locale, onPoint }: Props) {
         let point: GeoPoint;
         if (model === 'gleason') point = gleasonInverse({ x: event.coordinate[0], y: event.coordinate[1], units: GLEASON_UNITS });
         else { const [longitude, latitude] = transform(event.coordinate, AE_CODE, 'EPSG:4326'); point = { latitude, longitude }; }
-        if (Number.isFinite(point.latitude) && Number.isFinite(point.longitude)) onPoint(model, point);
+        if (Number.isFinite(point.latitude) && Number.isFinite(point.longitude) && Math.abs(point.latitude) <= 90 && Math.abs(point.longitude) <= 180) onPoint(model, point);
       } catch { /* outside historical circumference */ }
     });
     return () => map.setTarget(undefined);

@@ -151,3 +151,29 @@ test('WebGL-disabled fallback remains selectable and readable',async({page,serve
   await expect(page.locator('.reference-readout')).toContainText('Lon 0.000000°');
   await expect.poll(()=>page.locator('.reference-map-label').count()).toBeGreaterThan(0);
 });
+
+test('shared selection retains search provenance and clears it on each model free pick',async({page,servers})=>{
+  await english(page,servers.url);
+  for (const [index,model] of ['gleason','ae'].entries()) {
+    await locate(page,'TEST Doha');
+    await expect(page.locator('.place-provenance')).toContainText('test-v1');
+    const map=page.locator('.projection-map').nth(index);
+    await map.scrollIntoViewIfNeeded();
+    const box=(await map.boundingBox())!;
+    await page.mouse.click(box.x+box.width/2+20,box.y+box.height/2+20);
+    await expect(page.locator('.inspector .metric').first()).toContainText(model);
+    await expect(page.locator('.place-provenance')).toHaveCount(0);
+    await expect(page.locator('.search-result.selected')).toHaveCount(0);
+    await expect(page.getByRole('button',{name:'Use current point as start'})).toBeDisabled();
+  }
+  await locate(page,'TEST Doha');
+  const globe=page.locator('canvas.reference-globe');await globe.scrollIntoViewIfNeeded();
+  const box=(await globe.boundingBox())!;
+  await page.mouse.click(box.x+box.width/2+30,box.y+box.height/2);
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+  await expect(page.locator('.inspector .metric').first()).toContainText('wgs84');
+  await expect(page.getByRole('button',{name:'Use current point as start'})).toBeEnabled();
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(page.locator('.inspector')).toContainText('المفتش الجغرافي');
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+});

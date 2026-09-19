@@ -1,7 +1,7 @@
 name: Release Acceptance Gates
 on:
   push:
-    branches: [main, phase2-v0.2.0, feat/phase3-data-search, feat/phase4-wgs84-reference]
+    branches: [main, phase2-v0.2.0, feat/phase3-data-search, feat/phase4-wgs84-reference, feat/phase5-shared-state]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 jobs:
   acceptance:
-    name: structure + Phase 4 validation + npm build + Docker runtime
+    name: structure + Phase 5 regression + npm build + Docker runtime
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:

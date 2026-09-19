@@ -4,19 +4,19 @@ _Last updated: 2026-09-19_
 
 ## Purpose
 
-This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, current Phase 4 state, validation evidence, known boundaries, and the next permitted steps.
+This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, current Phase 5 state, validation evidence, known boundaries, and the next permitted steps.
 
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`
-- Current implementation branch: `feat/phase4-wgs84-reference`
+- Current implementation branch: `feat/phase5-shared-state` (local), based on accepted Phase 4 commit `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`. The Phase 4 remote branch and draft PR #8 remain unchanged.
 - Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
 - Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Build supplied for final owner review: `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939`, validated by [CI #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995). Acceptance closure updates application metadata to 0.4.0 and acceptance state only; no Phase 5 code is included.
 - Validated correction snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) — SUCCESS, including six browser tests and Docker/production-source gates. Baseline #184 is historical evidence only.
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **NOT STARTED — ON HOLD UNTIL THE OWNER EXPLICITLY INSTRUCTS STARTING IT**, even after Phase 4 acceptance or later merge/release.
+- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 is the first slice; see `PHASE_5_PLAN.md` and `PHASE_5_P5_1_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -68,7 +68,7 @@ The owner explicitly requires:
   - test report,
   - documentation update.
 - Manual checks that are not performed are `NOT RUN`. Use `WAIVED BY OWNER` only when the owner explicitly waives that particular check; never infer a waiver or PASS.
-- Phase 4 is accepted. Phase 5 remains forbidden until a separate explicit owner instruction to start it; do not treat phase acceptance or future merge/release permission as that instruction.
+- Phase 4 is accepted. The explicit 2026-09-19 instruction starts Phase 5; continue one slice at a time. It does not authorize Phase 6, PR merges, tags or releases.
 
 ## Gleason source rules and verified historical basis
 
@@ -172,13 +172,13 @@ The owner subsequently answered «نعم اسمح» to the specific request to u
 
 See `docs/APPROVED_CORRECTIONS_2026-09-18.md` for scope, progress and validation. Previous manual PASS records below refer to the historical implementation, not to the corrected revision.
 
-### Final Phase 4 acceptance and Phase 5 hold
+### Historical Phase 4 acceptance and Phase 5 hold (superseded by explicit start)
 
 The owner subsequently stated:
 
 > قمت بالاختبار ونجحت كل الاختبارات، يمكنك اعتماد المرحلة الرابعة، وتوثيق ذلك، ولا تبدأ بالمرحلة الخامسة حتى اخبرك
 
-This is explicit Phase 4 acceptance after owner-reported successful testing. Record manual results as **PASS — REPORTED BY OWNER**; device/browser details were not supplied. The authoritative record is `docs/PHASE_4_ACCEPTANCE.md`. Phase 5 remains **NOT STARTED / ON HOLD** until a new explicit owner start instruction. No merge, tag or GitHub Release is implied by this acceptance.
+This is explicit Phase 4 acceptance after owner-reported successful testing. Record manual results as **PASS — REPORTED BY OWNER**; device/browser details were not supplied. The authoritative record is `docs/PHASE_4_ACCEPTANCE.md`. Phase 5 was **NOT STARTED / ON HOLD** at acceptance; the owner explicitly lifted this hold on 2026-09-19: «ابدأ المرحله الخامسة». No merge, tag or GitHub Release is implied by this acceptance.
 
 ### P4.1 — COMPLETE ✅
 
@@ -373,22 +373,23 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **NOT STARTED — ON HOLD BY EXPLICIT OWNER INSTRUCTION**.
+- Phase 5: **IN PROGRESS — P5.1 shared geographic state**, authorized 2026-09-19; no Phase 5 owner acceptance yet.
 
 ## Required next steps
 
-1. Preserve the explicit acceptance record, v0.4.0 metadata/locks and CI evidence for the acceptance commit on the current Phase 4 branch. Earlier CI #186/#188 results belong to their recorded snapshots; use the acceptance commit's own GitHub check for its validation result.
-2. No further owner acceptance is required for Phase 4. M7 roadmap is reconciled; M8 remains approved future work.
-3. Merge, tag or publish a release only when separately authorized. Current upload/acceptance instructions do not authorize those actions.
-4. **Wait for the owner to explicitly instruct starting Phase 5. Do not implement P5.1 or any subsequent slice in the meantime.** This hold remains effective independently of any later merge/release decision.
+1. Follow `PHASE_5_PLAN.md`, implementing and verifying one slice at a time. P5.1 establishes a single typed geographic selection; its evidence and owner checklist are in `PHASE_5_P5_1_REPORT.md`.
+2. Next planned slice: P5.2 independent adapters with explicit units/domains. Cross-model display synchronization remains unavailable until its own slice.
+3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
+4. The new local Phase 5 branch is not uploaded. Previous upload permission named the Phase 4 branch; merge/tag/release remain unauthorized. Do not claim remote CI for local changes.
+5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
 
 ## Phase 5 boundary / future agreed direction
 
 Current Phase 5 slices, the Phase 5/6 measurement boundary, all phases through 22 and M8 backlog are in `docs/ROADMAP_CURRENT.md`. ADR-014 records the current WebGL2 renderer instead of the originally planned Cesium choice.
 
-Phase 5 is the future synchronization/comparison phase.
+Phase 5 is the current synchronization/comparison phase; the owner has explicitly authorized its start.
 
-When authorized, synchronization must:
+Synchronization must:
 - use canonical WGS84 geographic coordinates as shared state,
 - never synchronize by pixel position,
 - keep Gleason Historical, AE Visualization, and WGS84 Reference engines independent,
@@ -396,11 +397,11 @@ When authorized, synchronization must:
 - never normalize outputs merely to make models agree,
 - make model differences visible rather than hiding them.
 
-Phase 4 acceptance is complete. Do not implement Phase 5 until a separate owner instruction explicitly starts it.
+Phase 4 acceptance is complete. The 2026-09-19 start instruction now authorizes Phase 5, but not Phase 6.
 
 ## Local Windows / Git Bash workflow
 
-Standard update/rebuild:
+The following commands retrieve the accepted Phase 4 remote build only. Phase 5 currently exists on a local development branch and is not available through this remote update:
 
 ```bash
 git switch feat/phase4-wgs84-reference
