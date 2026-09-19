@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] — P5.3 owner acceptance and tool scheduling (2026-09-19)
+
+- Owner reports all retests PASS after CI #204 visual correction; P5.3 closed. Phase 5 acceptance remains pending, P5.4 next.
+- Record requested navigation controls in P5.6 and multi-stop routes/ruler/polygon area in Phase 6; no new tool implementation in this documentation change.
+- Details: `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md`. No new tests claimed; accepted version remains 0.4.0.
+
 ## [Unreleased] — P5.3 visual corrections (2026-09-19)
 
 - Owner reports correct synchronized readings but missing map markers. Set OpenLayers rendering targets to physical LTR coordinates independently of UI locale; add real marker-viewport checks in Arabic/English interfaces and searches.

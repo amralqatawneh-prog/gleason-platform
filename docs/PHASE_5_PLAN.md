@@ -62,4 +62,21 @@ This is not an assertion of 1/9 of total effort: slices have different sizes.
 - `frontend/src/models/projectionTypes.ts`, `reference/referenceMath.ts`: existing geographic inputs.
 - No new historical claims, external datasets or dependencies are introduced.
 
-P5.3 review update (2026-09-19): owner reports correct shared readings but missing projection markers and requests a non-hollow globe. Current correction is documented in `PHASE_5_P5_3_VISUAL_FIX.md`: isolate OpenLayers pixel layout from RTL and add an opaque ellipsoid surface. P5.3 is not accepted; P5.4 has not started. Satellite imagery/terrain are not included.
+P5.3 review update (2026-09-19): owner reports correct shared readings but missing projection markers and requests a non-hollow globe. Current correction is documented in `PHASE_5_P5_3_VISUAL_FIX.md`: isolate OpenLayers pixel layout from RTL and add an opaque ellipsoid surface. At that review P5.3 was not accepted; the later acceptance closure below supersedes this status. Satellite imagery/terrain are not included.
+
+## P5.3 acceptance closure — 2026-09-19
+
+Owner reported «نجحت الاختبارات كلها» after the marker/opaque-surface correction.
+Manual result: **PASS — REPORTED BY OWNER**; device/browser/local checkout SHA
+were not supplied. P5.3 is closed, including both reported visual issues.
+Implementation evidence: commit `3ca3989868b6bcc42e8f1aae8d09f035b1c7a98e`,
+[CI #204 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35441426643),
+including 58 core tests and 10 Chromium scenarios. This is evidence for that
+implementation revision, not a claim of a new test run for this documentation.
+P5.4 remains the next implementation slice. Full Phase 5 acceptance is pending;
+accepted application version stays 0.4.0. No merge, tag or release.
+
+The owner also requested navigation controls, multi-stop paths and distance/area
+measurement, then instructed «اكمل». Scheduling and acceptance requirements are
+recorded in `NAVIGATION_MEASUREMENT_REQUIREMENTS.md`; those tools are not yet
+implemented by this documentation update.

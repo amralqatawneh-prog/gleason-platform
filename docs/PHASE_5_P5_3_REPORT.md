@@ -84,4 +84,21 @@ the existing geographic selection/adapters, OpenLayers integration and WGS84
 renderer source listed above. No new source dataset, dependency or historical
 claim is introduced.
 
-Owner review identified a visual defect despite CI #202 success: correct readings but missing projection markers, plus a request for a solid globe. See `PHASE_5_P5_3_VISUAL_FIX.md` for the correction, stronger visual checks and future imagery/terrain boundary. Do not mark P5.3 accepted.
+Owner review identified a visual defect despite CI #202 success: correct readings but missing projection markers, plus a request for a solid globe. See `PHASE_5_P5_3_VISUAL_FIX.md` for the correction, stronger visual checks and future imagery/terrain boundary. This review was pending until the later acceptance closure below.
+
+## P5.3 acceptance closure — 2026-09-19
+
+Owner reported «نجحت الاختبارات كلها» after the marker/opaque-surface correction.
+Manual result: **PASS — REPORTED BY OWNER**; device/browser/local checkout SHA
+were not supplied. P5.3 is closed, including both reported visual issues.
+Implementation evidence: commit `3ca3989868b6bcc42e8f1aae8d09f035b1c7a98e`,
+[CI #204 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35441426643),
+including 58 core tests and 10 Chromium scenarios. This is evidence for that
+implementation revision, not a claim of a new test run for this documentation.
+P5.4 remains the next implementation slice. Full Phase 5 acceptance is pending;
+accepted application version stays 0.4.0. No merge, tag or release.
+
+The owner also requested navigation controls, multi-stop paths and distance/area
+measurement, then instructed «اكمل». Scheduling and acceptance requirements are
+recorded in `NAVIGATION_MEASUREMENT_REQUIREMENTS.md`; those tools are not yet
+implemented by this documentation update.
