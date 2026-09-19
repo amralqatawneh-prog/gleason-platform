@@ -189,6 +189,20 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     // Applying parent state is navigation only; do not echo it as a free-point event.
   }, [focusPoint,mode]);
 
+  useEffect(()=>{
+    const target=mode==='webgl3d'?canvasRef.current:fallbackRef.current;
+    if(!target)return;
+    // Native non-passive listener keeps wheel zoom local to the view and works
+    // consistently across WebGL canvas/SVG fallback instead of scrolling the page.
+    const handleWheel=(event:WheelEvent)=>{
+      event.preventDefault();
+      event.stopPropagation();
+      setZoom(current=>clampReferenceZoom(current*(event.deltaY<0?1.18:1/1.18)));
+    };
+    target.addEventListener('wheel',handleWheel,{passive:false});
+    return()=>target.removeEventListener('wheel',handleWheel);
+  },[mode]);
+
   useEffect(() => {
     if (mode !== 'webgl3d') return;
     const canvas = canvasRef.current;
@@ -287,7 +301,6 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       setYaw(view.yaw);setPitch(view.pitch);setZoom(current=>clampReferenceZoom(Math.max(current,1.8)));
     }
   };
-  const wheelZoom=(deltaY:number)=>zoomBy(deltaY<0?1.18:1/1.18);
   const boxStyle=boxZoom?{
     left:Math.min(boxZoom.startX,boxZoom.currentX),
     top:Math.min(boxZoom.startY,boxZoom.currentY),
@@ -362,7 +375,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
         onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
         onRotateLeft={()=>{}} onRotateRight={()=>{}} onPitchUp={()=>{}} onPitchDown={()=>{}} onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
       <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback">
-        <div className="reference-fallback-map-wrap" onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}>
+        <div className="reference-fallback-map-wrap">
           <svg ref={fallbackRef} tabIndex={0} viewBox={viewX+' '+viewY+' '+viewWidth+' '+viewHeight}
             onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
             onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;fallbackDrag.current=null;setBoxZoom(null);}}
@@ -438,7 +451,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       onRotateLeft={()=>setYaw(current=>current-Math.PI/12)} onRotateRight={()=>setYaw(current=>current+Math.PI/12)}
       onPitchUp={()=>setPitch(current=>Math.min(1.25,current+Math.PI/18))} onPitchDown={()=>setPitch(current=>Math.max(-1.25,current-Math.PI/18))}
       onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
-    <div className="reference-globe-wrap" onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}>
+    <div className="reference-globe-wrap">
       <canvas ref={canvasRef} tabIndex={0} className={'reference-globe'+(areaMode?' zoom-area-mode':'')}
         onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
         onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;drag.current=null;setBoxZoom(null);}}
