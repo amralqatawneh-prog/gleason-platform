@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.5 Comparability Contract (2026-09-19)
+
+- Owner instructed «أكمل» after P5.4 closure. Start P5.5 only.
+- Add a typed comparability contract requiring compatible quantity meaning, coordinate space, unit, scale basis and availability; decisions are comparable/not-comparable/unavailable with explicit reasons.
+- Never convert or normalize Gleason normalized-radius into metres/kilometres. AE plane metres and WGS84 ECEF metres remain structurally different quantities despite sharing the metre unit.
+- Add a bilingual Model Laboratory comparability panel plus core/browser regression tests. No numeric differences, routes, measurement engine, navigation tools or new dependencies.
+- Automated/owner PASS is not claimed until the exact P5.5 revision is tested.
+
+
 ## [Unreleased] — P5.4 owner acceptance closure (2026-09-19)
 
 - Owner reported the refined Model Laboratory is now clear: «القسم اصبح واضحا، اكمل التوثيق». Record manual clarity PASS — REPORTED BY OWNER, following the earlier functional PASS.
