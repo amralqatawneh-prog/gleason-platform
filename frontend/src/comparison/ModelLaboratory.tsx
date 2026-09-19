@@ -2,13 +2,15 @@ import { useMemo } from 'react';
 import type { GeographicSelection } from './geographicSelection';
 import { inspectSelection, type LaboratoryEntry } from './modelLaboratory';
 import { laboratoryComparability, type ComparabilityDecision, type ComparabilityReasonCode } from './comparability';
+import { laboratoryDifferences, type HomogeneousDifference } from './homogeneousDifference';
+import { FUTURE_SERVICE_CONTRACTS, type FutureServiceContract, type FutureServiceKind } from './futureServices';
 
 type Props = { locale: 'ar' | 'en'; selection: GeographicSelection | null };
 
 const copy = {
   ar: {
     title:'مختبر النماذج',
-    subtitle:'P5.4–P5.5 · نفس النقطة الجغرافية في ثلاثة أنظمة مستقلة مع عقد صريح لقابلية المقارنة',
+    subtitle:'P5.4–P5.7 · تمثيل مستقل، قابلية مقارنة، وفروق محكومة بالعقد',
     introTitle:'نفس النقطة الجغرافية ← ثلاث طرق مستقلة لتمثيلها',
     introBody:'هذه القيم تصف موقع النقطة داخل نظام كل نموذج. هي ليست مسافة بين مدينتين، ولا يحوّل البرنامج نموذجًا إلى آخر.',
     empty:'اختر مكانًا أو نقطة جغرافية لعرض نتائج النماذج الثلاثة.',
@@ -26,11 +28,19 @@ const copy = {
     notComparable:'غير قابلة للمقارنة مباشرة',
     comparisonUnavailable:'المقارنة غير متاحة حاليًا',
     noConversion:'لم يُطبّق أي تحويل أو تطبيع بين النماذج.',
-    compareBoundary:'P5.5 يقرر صلاحية المقارنة فقط ولا يحسب فرقًا عدديًا. عرض الفروق للكميات المتجانسة يبقى ضمن P5.7.',
+    differenceTitle:'الفرق العددي',
+    differenceBlocked:'لا يُعرض فرق عددي لأن الكميتين غير متجانستين وفق عقد P5.5.',
+    differenceAvailable:'فرق متجانس مسموح',
+    differenceRule:'يحسب P5.7 الفرق الموقّع (اليمين − اليسار) فقط بعد نجاح عقد القابلية، ومن دون أي تحويل للوحدات.',
+    futureTitle:'عقود الخدمات المستقبلية',
+    futureIntro:'هذه العقود تحجز حدودًا versioned فقط. حالة Unavailable تعني أن الخدمة نفسها لم تُنفذ بعد.',
+    futureUnavailable:'غير متاح',
+    plannedPhase:'المرحلة المخططة',
+    compareBoundary:'الأزواج الثلاثة الحالية غير متجانسة، لذلك لا يعرض P5.7 أي فرق رقمي بينها. هذا مقصود وليس نقصًا في الحساب.',
   },
   en: {
     title:'Model Laboratory',
-    subtitle:'P5.4–P5.5 · The same geographic point in three independent systems with an explicit comparability contract',
+    subtitle:'P5.4–P5.7 · Independent representation, comparability and contract-gated differences',
     introTitle:'One geographic point → three independent representations',
     introBody:'These values describe where the point sits inside each model system. They are not distances between cities, and the app does not convert one model into another.',
     empty:'Select a place or geographic point to inspect all three models.',
@@ -48,7 +58,15 @@ const copy = {
     notComparable:'Not directly comparable',
     comparisonUnavailable:'Comparison currently unavailable',
     noConversion:'No conversion or normalization was applied between models.',
-    compareBoundary:'P5.5 decides whether comparison is valid; it does not calculate numeric differences. Homogeneous difference display remains P5.7.',
+    differenceTitle:'Numeric difference',
+    differenceBlocked:'No numeric difference is shown because the quantities are not homogeneous under the P5.5 contract.',
+    differenceAvailable:'Allowed homogeneous difference',
+    differenceRule:'P5.7 computes signed right − left differences only after comparability passes, with no unit conversion.',
+    futureTitle:'Future service contracts',
+    futureIntro:'These versioned contracts reserve boundaries only. Unavailable means the service itself is not implemented yet.',
+    futureUnavailable:'Unavailable',
+    plannedPhase:'Planned phase',
+    compareBoundary:'All three current cross-model pairs are heterogeneous, so P5.7 intentionally shows no numeric cross-model difference.',
   },
 } as const;
 
@@ -107,9 +125,10 @@ export function ModelLaboratory({ locale, selection }:Props) {
   const t=copy[locale];
   const entries=useMemo(()=>inspectSelection(selection),[selection]);
   const comparisons=useMemo(()=>laboratoryComparability(entries),[entries]);
+  const differences=useMemo(()=>laboratoryDifferences(entries,comparisons),[entries,comparisons]);
   return <section className="model-laboratory" aria-labelledby="model-laboratory-title">
     <div className="section-heading model-laboratory__heading">
-      <div><h2 id="model-laboratory-title">{t.title}</h2><p>{t.subtitle}</p></div><span className="evidence-badge">P5.4–P5.5</span>
+      <div><h2 id="model-laboratory-title">{t.title}</h2><p>{t.subtitle}</p></div><span className="evidence-badge">P5.4–P5.7</span>
     </div>
     {!selection ? <p className="muted model-laboratory__empty">{t.empty}</p> : <>
       <div className="model-lab-intro">
@@ -124,7 +143,8 @@ export function ModelLaboratory({ locale, selection }:Props) {
         <span>{t.place}: {selection.place?`${selection.place.id} · ${selection.place.sourceId} · ${selection.place.sourceVersion??t.unknown}`:t.none}</span>
       </div>
       <div className="model-lab-grid">{entries.map(entry=><ModelCard key={entry.key} entry={entry} locale={locale} t={t}/>)}</div>
-      <ComparabilityPanel decisions={comparisons} locale={locale} t={t}/>
+      <ComparabilityPanel decisions={comparisons} differences={differences} locale={locale} t={t}/>
+      <FutureServicesPanel contracts={FUTURE_SERVICE_CONTRACTS} locale={locale} t={t}/>
       <p className="model-lab-boundary">{t.compareBoundary}</p>
     </>}
   </section>;
@@ -196,15 +216,16 @@ function comparisonReason(reason:ComparabilityReasonCode,locale:'ar'|'en'):strin
   return (locale==='ar'?ar:en)[reason];
 }
 
-function ComparabilityPanel({decisions,locale,t}:{decisions:readonly Readonly<ComparabilityDecision>[];locale:'ar'|'en';t:typeof copy.ar|typeof copy.en}) {
+function ComparabilityPanel({decisions,differences,locale,t}:{decisions:readonly Readonly<ComparabilityDecision>[];differences:readonly Readonly<HomogeneousDifference>[];locale:'ar'|'en';t:typeof copy.ar|typeof copy.en}) {
   return <section className="model-comparability" aria-labelledby="model-comparability-title">
     <div className="model-comparability__head">
       <div><h3 id="model-comparability-title">{t.compareTitle}</h3><p>{t.compareIntro}</p></div>
       <span className="evidence-badge">P5.5</span>
     </div>
     <div className="model-comparability__grid">
-      {decisions.map(decision=>{
+      {decisions.map((decision,index)=>{
         const pair=`${decision.left.key}-${decision.right.key}`;
+        const difference=differences[index];
         const statusLabel=decision.status==='comparable'?t.comparable:decision.status==='unavailable'?t.comparisonUnavailable:t.notComparable;
         return <article
           key={pair}
@@ -224,7 +245,50 @@ function ComparabilityPanel({decisions,locale,t}:{decisions:readonly Readonly<Co
             <span>{decision.right.meaning} · {decision.right.units}</span>
           </div>
           <ul>{decision.reasons.map(reason=><li key={reason}>{comparisonReason(reason,locale)}</li>)}</ul>
+          <div className="model-comparison-difference" data-difference-status={difference?.status??'blocked'}>
+            <strong>{t.differenceTitle}</strong>
+            {difference?.status==='available'
+              ? <div dir="ltr">{difference.values.map(value=><span key={value.label}>Δ{value.label} {format(value.delta)} {difference.unit}</span>)}</div>
+              : <span>{t.differenceBlocked}</span>}
+          </div>
           <small>{t.noConversion}</small>
+        </article>;
+      })}
+    </div>
+  </section>;
+}
+
+
+function futureServiceText(kind:FutureServiceKind,locale:'ar'|'en') {
+  const ar:Record<FutureServiceKind,{title:string;body:string}>={
+    time:{title:'خدمة الزمن/الفلك',body:'العقد محجوز فقط؛ لا يوجد في المرحلة الخامسة محرك فلكي أو خط زمني. التنفيذ المخطط في المراحل 9–10.'},
+    'layer-sync':{title:'مزامنة الطبقات بين النماذج',body:'الطبقات المحلية الموجودة داخل بعض العروض لا تعني وجود خدمة طبقات مشتركة بين النماذج. النظام المتقدم مخطط للمرحلة 16.'},
+    route:{title:'خدمة المسارات والقياس',body:'تم حجز حد عقد versioned فقط. رسم المسارات والمسافة والمسطرة والمساحة ليست منفذة هنا وتبقى للمرحلة 6.'},
+  };
+  const en:Record<FutureServiceKind,{title:string;body:string}>={
+    time:{title:'Time / astronomy service',body:'Only the contract boundary is reserved; Phase 5 has no astronomy engine or timeline. Implementation is planned for phases 9–10.'},
+    'layer-sync':{title:'Cross-model layer synchronization',body:'Existing view-local layers do not constitute a shared cross-model layer service. The advanced layer system is planned for phase 16.'},
+    route:{title:'Route and measurement service',body:'Only a versioned contract boundary is reserved. Route drawing, distance, ruler and area are not implemented here and remain in phase 6.'},
+  };
+  return (locale==='ar'?ar:en)[kind];
+}
+
+function FutureServicesPanel({contracts,locale,t}:{contracts:readonly Readonly<FutureServiceContract>[];locale:'ar'|'en';t:typeof copy.ar|typeof copy.en}) {
+  return <section className="future-contracts" aria-labelledby="future-contracts-title">
+    <div className="future-contracts__head">
+      <div><h3 id="future-contracts-title">{t.futureTitle}</h3><p>{t.futureIntro}</p></div>
+      <span className="evidence-badge">P5.7</span>
+    </div>
+    <div className="future-contracts__grid">
+      {contracts.map(contract=>{
+        const text=futureServiceText(contract.kind,locale);
+        return <article className="future-contract-card" key={contract.kind} data-future-service={contract.kind} data-service-status={contract.status}>
+          <div className="future-contract-card__top">
+            <strong>{text.title}</strong>
+            <span>{t.futureUnavailable}</span>
+          </div>
+          <p>{text.body}</p>
+          <small>{t.plannedPhase}: {contract.plannedPhase} · contract v{contract.contractVersion}</small>
         </article>;
       })}
     </div>
