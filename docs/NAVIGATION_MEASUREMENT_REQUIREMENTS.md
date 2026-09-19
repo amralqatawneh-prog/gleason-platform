@@ -2,7 +2,7 @@
 
 Status: P5.6 navigation implementation is CLOSED after CI #329/#340 and owner-reported manual PASS. Phase 6 measurement requirements remain future / NOT STARTED.
 Source: owner message following successful P5.3 retest and later continuation instructions.
-Sequential execution remains enforced: P5.6 is closed; P5.7 now reserves the versioned route-service boundary only. Phase 6 paths/ruler/area do not start from P5.7.
+Sequential execution remains enforced: P5.6 and P5.7 are closed; P5.8 is next and NOT STARTED. Phase 6 paths/ruler/area do not start from P5.7 or from this documentation synchronization.
 
 ## P5.6 — navigation on all three views
 
@@ -62,10 +62,10 @@ higher-resolution country dataset.
    poles/antimeridian, edits and all three renderings, plus online/offline parity.
    If a view cannot represent a supported path safely, report its limitation.
 
-### P5.7 route-contract status — 2026-09-19
+### P5.7 route-contract status — CLOSED 2026-09-19
 
-P5.7 now declares a versioned route-service boundary with status `unavailable`
-and no available operations. This is deliberately a fail-closed contract, not a
+P5.7 declares a versioned route-service boundary with status `unavailable`
+and no available operations. The owner reported all P5.7 manual tests PASS; CI #383/#387 are recorded in `PHASE_5_P5_7_REPORT.md`. This is deliberately a fail-closed contract, not a
 route engine. The UI states that route drawing, path semantics, distance, ruler
 and area remain Phase 6 work.
 
@@ -84,3 +84,14 @@ presentation mode and exports to Phase 18. Core usability is not deferred to 18.
 
 No new external source, library choice or numerical algorithm is claimed here;
 implementation will verify primary documentation for the selected algorithms.
+
+
+## Current boundary after P5.7 closure
+
+- P5.6 navigation: **CLOSED**.
+- P5.7 route contract only: **CLOSED**.
+- P5.8 state persistence: **NEXT / NOT STARTED**.
+- P5.9 Phase 5 regression/acceptance package: **NOT STARTED**.
+- Phase 6 route drawing, ordered multi-stop state, ruler, distance, perimeter and area: **NOT STARTED**.
+
+The route contract being present in code must never be interpreted as a route or measurement engine. `availableOperations` remains empty until the approved later implementation replaces that unavailable boundary.
