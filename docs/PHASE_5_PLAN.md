@@ -106,7 +106,7 @@ on earlier attempts. The successful run found 0 vulnerabilities and completed
 62 core tests, 2 PWA tests, 11 Chromium scenarios and all remaining release
 acceptance gates.
 
-P5.5 Comparability Contract is **CLOSED** after CI #266/#271 SUCCESS and owner-reported manual PASS. P5.6 is the next ordered slice and remains NOT STARTED. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
+P5.5 Comparability Contract is **CLOSED** after CI #266/#271 SUCCESS and owner-reported manual PASS. The owner then instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is **IN PROGRESS / technically green, awaiting owner manual verification** after CI #329 SUCCESS. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
 
 
 ## P5.5 start — 2026-09-19
@@ -131,6 +131,29 @@ Automated evidence:
 - CI #271 SUCCESS on later documentation head
   `4c9e2eb6d955331345ae73f2029b2cd0c4764664`.
 
-P5.5 is **CLOSED**. P5.6 Optional Geographic Focus / Navigation is next and
-remains **NOT STARTED** until the owner explicitly instructs continuation. Full
-Phase 5 acceptance remains pending. No merge, tag or release.
+P5.5 is **CLOSED**. The owner subsequently instructed «أكمل», authorizing P5.6. P5.6 Optional Geographic Focus / Navigation is now **IN PROGRESS / awaiting owner manual verification**. Full Phase 5 acceptance remains pending. No merge, tag or release.
+
+
+## P5.6 start and automated verification — 2026-09-19
+
+After P5.5 closure the owner explicitly instructed «أكمل», authorizing P5.6 only.
+At the start audit, P5.6 navigation commits were already present on the working
+branch while the handoff/plan still described the slice as NOT STARTED. The
+repository state was therefore reconciled and reviewed instead of duplicating
+the implementation.
+
+Delivered scope is documented in `PHASE_5_P5_6_REPORT.md`: independent
+Gleason/AE/WGS84 navigation with zoom controls, wheel/pinch support, explicit
+zoom-to-area, rotation/view-direction controls where meaningful, reset, fit-full
+and optional focus-selected. Camera navigation preserves the canonical
+geographic selection and numeric zoom values are never equated across models.
+
+Final audited implementation head
+`378f0a8ed6710195cb1e48e0ebcd4518116a5d0d` passed
+[CI #329](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35462318226):
+0 npm vulnerabilities, 71 frontend core tests, 2 PWA tests, 14 Chromium
+scenarios, production build, parity, Docker/PostGIS/Redis and source/search gates
+all PASS.
+
+P5.6 is technically green but remains **OPEN / awaiting owner manual
+verification**. P5.7 and Phase 6 remain NOT STARTED.
