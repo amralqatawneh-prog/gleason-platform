@@ -6,7 +6,7 @@ import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { localGeodeticToEcef } from './offlineWgs84';
-import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, latLonToEllipsoid, fallbackScreenPointToGeo, draggedYaw, geoPointToViewAngles, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
+import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, fallbackScreenPointToGeo, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
   capabilities: BrowserCapabilities;
@@ -19,7 +19,10 @@ type Props = {
   layerPlaces?: OfflinePlace[];
 };
 
-type DragState = { x: number; y: number; yaw: number; pitch: number } | null;
+type DragState = { pointerId:number; x: number; y: number; yaw: number; pitch: number } | null;
+type BoxZoomState={pointerId:number;startX:number;startY:number;currentX:number;currentY:number}|null;
+type PinchState={distance:number;zoom:number}|null;
+const DEFAULT_YAW=-0.55,DEFAULT_PITCH=0.28;
 
 const vertexShaderSource = `#version 300 es
 in vec3 a_position;
@@ -120,11 +123,17 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const mode = useMemo(() => referenceViewMode(capabilities), [capabilities]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fallbackRef = useRef<SVGSVGElement | null>(null);
-  const [yaw, setYaw] = useState(-0.55);
-  const [pitch, setPitch] = useState(0.28);
+  const [yaw, setYaw] = useState(DEFAULT_YAW);
+  const [pitch, setPitch] = useState(DEFAULT_PITCH);
+  const [zoom,setZoom]=useState(1);
+  const [areaMode,setAreaMode]=useState(false);
+  const [boxZoom,setBoxZoom]=useState<BoxZoomState>(null);
+  const [fallbackCenter,setFallbackCenter]=useState<ReferenceGeoPoint>({latitude:0,longitude:0});
   const selected = selectionPoint ?? { latitude: 25.2854, longitude: 51.531 };
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const drag = useRef<DragState>(null);
+  const pointers=useRef(new Map<number,{x:number;y:number}>());
+  const pinch=useRef<PinchState>(null);
   const surfaceVertices = useMemo(() => buildEllipsoidSurface(), []);
   const countryVertices = useMemo(() => buildCountries(), []);
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
@@ -132,13 +141,13 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const labels = useMemo(() => layers ? buildGlobeLabels(layerPlaces, layers, locale) : [], [layerPlaces, layers, locale]);
   const projectedLabels = useMemo(() => declutterProjectedLabels(
     labels.flatMap((label) => {
-      const screen = projectGeoToScreen(label, viewport.width, viewport.height, yaw, pitch);
+      const screen = projectGeoToScreen(label, viewport.width, viewport.height, yaw, pitch, zoom);
       return screen ? [{ label, screen }] : [];
     }),
     viewport.width,
     viewport.height,
     52,
-  ), [labels, viewport, yaw, pitch]);
+  ), [labels, viewport, yaw, pitch, zoom]);
 
   useEffect(() => {
     if (mode !== 'fallback2d' || !fallbackRef.current) return;
