@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.3 (2026-09-19)
+
+- Owner instructed continuation after successful P5.2 tests. One reducer now drives search and all model picks; each selection increments once, with no render-to-selection callback.
+- Added geographic selection overlays/readouts to Gleason/AE; WGS84 consumes the common point. Preserve independent cameras and search focus behavior. Canonical points from any map can feed explicitly WGS84 A/B capture.
+- Added reducer tests and an eighth browser scenario; expanded cold-offline and fallback checks. Local 49 backend, 57 core and 2 PWA tests/build PASS; final remote evidence is on PR #9.
+- P5.4 laboratory UI remains pending. See `docs/PHASE_5_P5_3_REPORT.md`.
+
 ## [Unreleased] — P5.2 verification closure (2026-09-19)
 
 - Owner reported «نجحت جميع الاختبارات» for the three delivered P5.2 checks. Recorded PASS — REPORTED BY OWNER; device/browser/local SHA not supplied.

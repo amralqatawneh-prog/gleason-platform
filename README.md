@@ -8,9 +8,9 @@ Phase 4 is accepted by the owner. The platform includes independent Gleason/AE p
 - Phase 2 — ACCEPTED ✅
 - Phase 3 — ACCEPTED ✅
 - Phase 4 — ACCEPTED BY OWNER on 2026-09-18; all manual checks reported PASS; automated browser/Docker/source evidence recorded.
-- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. P5.1 shared geographic state is the first slice; Phase 5 is not accepted. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 automated gates passed in CI #192; P5.1 and Arabic city correction passed owner testing; P5.2 independent adapters passed CI #198 and all delivered owner tests; P5.3 is next and not started.
+- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. P5.1 shared geographic state is the first slice; Phase 5 is not accepted. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 automated gates passed in CI #192; P5.1 and Arabic city correction passed owner testing; P5.2 independent adapters passed CI #198 and all delivered owner tests; P5.3 synchronizes selection/markers across models; its verification is the current work.
 
-Latest closed slice: [Phase 5 plan](docs/PHASE_5_PLAN.md) and [P5.2 report](docs/PHASE_5_P5_2_REPORT.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
+Current slice: [Phase 5 plan](docs/PHASE_5_PLAN.md) and [P5.3 report](docs/PHASE_5_P5_3_REPORT.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
 
 Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
 Owner acceptance: [docs/PHASE_4_ACCEPTANCE.md](docs/PHASE_4_ACCEPTANCE.md).
@@ -38,7 +38,7 @@ Correction evidence: [docs/PHASE_4_CORRECTIONS_TEST_REPORT.md](docs/PHASE_4_CORR
 - Historical Source Viewer and affine georeferencing engine.
 - Arabic/English responsive PWA foundation.
 
-The maps remain intentionally unsynchronized; cross-model synchronization is Phase 5. The historical provider does not claim that Gleason printed the analytic equation used by the software. `DOCUMENTED`, `DERIVED`, `DISPLAY_CONVENTION`, and `REFERENCE` remain separate.
+The maps now share geographic selection and markers; their cameras and projection units remain independent. The historical provider does not claim that Gleason printed the analytic equation used by the software. `DOCUMENTED`, `DERIVED`, `DISPLAY_CONVENTION`, and `REFERENCE` remain separate.
 
 ## Historical scan
 The georeferencing engine exists, but no verified distributable standalone historical map scan is embedded. No control points are invented.

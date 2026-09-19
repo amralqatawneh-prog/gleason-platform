@@ -95,7 +95,7 @@ export function PlaceSearch({ locale, onSelectPlace, selectedPlaceId }: Props) {
         <small>{result.latitude.toFixed(5)}, {result.longitude.toFixed(5)} · {result.sourceLabel}</small>
         <div className="search-result__actions">
           {onSelectPlace && <button className="secondary" type="button" onClick={() => onSelectPlace(result)}>
-            {locale === 'ar' ? 'اعرض على WGS84' : 'Locate on WGS84'}
+            {locale === 'ar' ? 'اعرض على النماذج' : 'Locate on models'}
           </button>}
           {!result.offline && result.countryCode && <button className="secondary" type="button" onClick={() => void saveCountry(result.countryCode!)}>
             {locale === 'ar' ? `حفظ ${result.countryCode} دون اتصال` : `Save ${result.countryCode} offline`}

@@ -25,7 +25,7 @@ def platform_capabilities() -> dict[str, object]:
         "wgs84_offline_math": True,
         "place_search": True,
         "regional_search_packs": True,
-        "cross_model_synchronization": False,
+        "cross_model_synchronization": True,
         "astronomy_engine": False,
         "live_flights": False,
     }

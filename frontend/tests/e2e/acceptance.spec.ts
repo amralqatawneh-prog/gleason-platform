@@ -48,7 +48,7 @@ async function locate(page:Page,name:string){
   await page.getByRole('textbox',{name:'Search query'}).fill(name);
   await page.getByRole('button',{name:'Search',exact:true}).click();
   const result=page.locator('.search-result').filter({has:page.getByText(name,{exact:true})});
-  await result.getByRole('button',{name:'Locate on WGS84'}).click();
+  await result.getByRole('button',{name:'Locate on models'}).click();
   await expect(page.locator('.place-provenance')).toContainText(name);
 }
 const captureA=(page:Page)=>page.getByRole('button',{name:'Use current point as start'}).click();
@@ -68,6 +68,8 @@ test('one production install supports cold navigation and calculations with both
   const offline=await context.newPage();await page.close();
   await english(offline,servers.url);
   await locate(offline,'TEST Doha');await captureA(offline);
+  await expect(offline.locator('.projection-selection-readout')).toHaveCount(2);
+  await expect(offline.locator('.projection-selection-readout').first()).toContainText('25.285447');
   await expect(offline.locator('.place-provenance')).toContainText('TEST_ONLY_SYNTHETIC_POINT');
   await expect(offline.locator('.place-provenance')).toContainText('test-v1');
   await locate(offline,'TEST Amman');await captureB(offline);await calculate(offline);
@@ -149,7 +151,58 @@ test('WebGL-disabled fallback remains selectable and readable',async({page,serve
   await page.mouse.click(box.x+box.width/2,box.y+box.height/2);
   await expect(page.locator('.reference-readout')).toContainText('Lat 0.000000°');
   await expect(page.locator('.reference-readout')).toContainText('Lon 0.000000°');
+  await expect(page.locator('.projection-selection-readout').first()).toContainText('Lat 0.000000°');
+  await expect(page.locator('.projection-selection-readout').last()).toContainText('Lon 0.000000°');
   await expect.poll(()=>page.locator('.reference-map-label').count()).toBeGreaterThan(0);
+});
+
+test('search and all model picks synchronize markers once while cameras and language changes do not select',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const shell=page.locator('.app-shell');
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  const cards=page.locator('.projection-card');
+  await expect(cards).toHaveCount(2);
+  for(const card of await cards.all()){
+    await expect(card).toHaveAttribute('data-selected-latitude','25.285447');
+    await expect(card.locator('.projection-selection-readout')).toContainText('TEST Doha');
+    await expect(card.locator('.projection-selection-marker')).toBeVisible();
+  }
+  const yaw=await page.locator('.reference-card').getAttribute('data-view-yaw');
+  const pitch=await page.locator('.reference-card').getAttribute('data-view-pitch');
+  let revision=1;
+  for(const model of ['gleason','ae']){
+    const card=page.locator(`.projection-card[data-model="${model}"]`);
+    const map=card.locator('.projection-map');await map.scrollIntoViewIfNeeded();
+    const box=(await map.boundingBox())!;
+    const click={x:box.x+box.width/2+30,y:box.y+box.height/2+25};
+    await page.mouse.click(click.x,click.y);
+    await expect(shell).toHaveAttribute('data-selection-revision',String(++revision));
+    await expect(page.locator('.place-provenance')).toHaveCount(0);
+    await expect(page.locator('.reference-card')).toHaveAttribute('data-view-yaw',yaw!);
+    await expect(page.locator('.reference-card')).toHaveAttribute('data-view-pitch',pitch!);
+    const lat=await card.getAttribute('data-selected-latitude');
+    const lon=await card.getAttribute('data-selected-longitude');
+    for(const view of await page.locator('.projection-card, .reference-card').all()){
+      await expect(view).toHaveAttribute('data-selected-latitude',lat!);
+      await expect(view).toHaveAttribute('data-selected-longitude',lon!);
+    }
+    // Marker is actually projected onto the clicked geographic point, not only a text update.
+    await expect.poll(async()=>{const marker=(await card.locator('.projection-selection-marker').boundingBox())!;return Math.hypot(marker.x+marker.width/2-click.x,marker.y+marker.height/2-click.y)}).toBeLessThan(2);
+  }
+  const canvas=page.locator('canvas.reference-globe');await canvas.scrollIntoViewIfNeeded();
+  const box=(await canvas.boundingBox())!;
+  await page.mouse.click(box.x+box.width/2+20,box.y+box.height/2);
+  await expect(shell).toHaveAttribute('data-selection-revision',String(++revision));
+  const lat=await page.locator('.reference-card').getAttribute('data-selected-latitude');
+  for(const card of await cards.all())await expect(card).toHaveAttribute('data-selected-latitude',lat!);
+  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();
+  await page.mouse.move(box.x+box.width/2+70,box.y+box.height/2,{steps:10});await page.mouse.up();
+  await expect(shell).toHaveAttribute('data-selection-revision',String(revision));
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await page.setViewportSize({width:390,height:844});
+  await expect(shell).toHaveAttribute('data-selection-revision',String(revision));
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+  for(const card of await cards.all())await expect(card).toHaveAttribute('data-selected-latitude',lat!);
 });
 
 test('shared selection retains search provenance and clears it on each model free pick',async({page,servers})=>{
@@ -164,7 +217,7 @@ test('shared selection retains search provenance and clears it on each model fre
     await expect(page.locator('.inspector .metric').first()).toContainText(model);
     await expect(page.locator('.place-provenance')).toHaveCount(0);
     await expect(page.locator('.search-result.selected')).toHaveCount(0);
-    await expect(page.getByRole('button',{name:'Use current point as start'})).toBeDisabled();
+    await expect(page.getByRole('button',{name:'Use current point as start'})).toBeEnabled();
   }
   await locate(page,'TEST Doha');
   const globe=page.locator('canvas.reference-globe');await globe.scrollIntoViewIfNeeded();

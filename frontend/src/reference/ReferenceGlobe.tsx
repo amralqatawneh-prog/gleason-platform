@@ -12,7 +12,8 @@ type Props = {
   locale: 'ar' | 'en';
   onPoint?: (point: ReferenceGeoPoint) => void;
   focusPoint?: ReferenceGeoPoint | null;
-  focusLabel?: string;
+  selectionPoint: ReferenceGeoPoint | null;
+  selectionLabel?: string;
   layers?: GlobeLayerVisibility;
   layerPlaces?: OfflinePlace[];
 };
@@ -108,13 +109,13 @@ function fallbackPath(ring: readonly [number, number][]): string {
   return path.trim();
 }
 
-export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focusLabel, layers, layerPlaces = [] }: Props) {
+export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, selectionPoint, selectionLabel, layers, layerPlaces = [] }: Props) {
   const mode = useMemo(() => referenceViewMode(capabilities), [capabilities]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fallbackRef = useRef<SVGSVGElement | null>(null);
   const [yaw, setYaw] = useState(-0.55);
   const [pitch, setPitch] = useState(0.28);
-  const [selected, setSelected] = useState<ReferenceGeoPoint>({ latitude: 25.2854, longitude: 51.531 });
+  const selected = selectionPoint ?? { latitude: 25.2854, longitude: 51.531 };
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const drag = useRef<DragState>(null);
   const countryVertices = useMemo(() => buildCountries(), []);
@@ -142,12 +143,11 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
 
   useEffect(() => {
     if (!focusPoint) return;
-    setSelected(focusPoint);
     const view = geoPointToViewAngles(focusPoint);
     setYaw(view.yaw);
     setPitch(view.pitch);
     // Applying parent state is not a user pick; do not echo it as a free-point event.
-  }, [focusPoint?.latitude, focusPoint?.longitude]);
+  }, [focusPoint]);
 
   useEffect(() => {
     if (mode !== 'webgl3d') return;
@@ -217,9 +217,9 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
     return () => { observer.disconnect(); gl.deleteBuffer(gridBuffer); gl.deleteBuffer(countryBuffer); gl.deleteBuffer(placeBuffer); gl.deleteProgram(program); gl.deleteShader(vs); gl.deleteShader(fs); };
   }, [mode, yaw, pitch, countryVertices, placeVertices, layers?.countries]);
 
-  const marker = projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch);
-  const selectedLabel = focusPoint && Math.abs(selected.latitude - focusPoint.latitude) < 1e-9 && Math.abs(selected.longitude - focusPoint.longitude) < 1e-9 ? focusLabel : undefined;
-  const choose = (point: ReferenceGeoPoint) => { setSelected(point); onPoint?.(point); };
+  const marker = selectionPoint ? projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch) : null;
+  const selectedLabel = selectionLabel;
+  const choose = (point: ReferenceGeoPoint) => { onPoint?.(point); };
 
   if (mode === 'fallback2d') {
     const scale = Math.min(viewport.width / 360, viewport.height / 180);
@@ -227,7 +227,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
       x: (viewport.width - 360 * scale) / 2 + (label.longitude + 180) * scale,
       y: (viewport.height - 180 * scale) / 2 + (90 - label.latitude) * scale, visible:true, depth:1,
     }})), viewport.width, viewport.height, 40) : [];
-    return <section className="reference-card" data-mode="fallback2d">
+    return <section className="reference-card" data-mode="fallback2d" data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
       <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
       <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg ref={fallbackRef} viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const point = fallbackScreenPointToGeo(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height); if (point) choose(point); }}>
         <rect width="360" height="180" rx="8"/>
@@ -236,13 +236,13 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
         {layers?.countries !== false && countryPaths.map((d, index)=><path key={index} d={d} className="reference-country-line"/>)}
         {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r="1.3" className={`reference-place-dot reference-place-${place.category}`}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
         {fallbackLabels.map(({label,fontSizePx})=><text key={label.id} x={label.longitude+180} y={90-label.latitude} dominantBaseline="central" style={{fontSize:fontSizePx/scale}} className={`reference-map-label reference-map-label-${label.kind}`}><title>{label.provenance}</title>{label.text}</text>)}
-        {<circle cx={selected.longitude+180} cy={90-selected.latitude} r="4" className="reference-focus-marker"/>}
+        {selectionPoint&&<circle cx={selected.longitude+180} cy={90-selected.latitude} r="4" className="reference-focus-marker"/>}
       </svg></div>
-      <ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={selectedLabel} details={layerPlaces.length}/>
+      {selectionPoint&&<ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={selectedLabel} details={layerPlaces.length}/>}
     </section>;
   }
 
-  return <section className="reference-card" data-mode="webgl3d">
+  return <section className="reference-card" data-mode="webgl3d" data-view-yaw={yaw} data-view-pitch={pitch} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
     <div className="reference-globe-wrap">
       <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(draggedYaw(drag.current.yaw, e.clientX-drag.current.x));setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}} onPointerCancel={()=>{drag.current=null;}} onLostPointerCapture={()=>{drag.current=null;}}/>
@@ -251,7 +251,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, focu
       </div>
       {marker?.visible&&<span className="reference-focus-dot" style={{left:marker.x,top:marker.y}} aria-label={locale==='ar'?'النقطة المحددة':'Selected point'}/>}
     </div>
-    <ReferenceReadout locale={locale} point={selected} mode="WebGL2 3D" label={selectedLabel} details={layerPlaces.length}/>
+    {selectionPoint&&<ReferenceReadout locale={locale} point={selected} mode="WebGL2 3D" label={selectedLabel} details={layerPlaces.length}/>}
   </section>;
 }
 

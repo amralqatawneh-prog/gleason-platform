@@ -32,6 +32,7 @@
     "src/reference/offlineWgs84.ts",
     "src/search/placeSelection.ts",
     "src/comparison/geographicSelection.ts",
-    "src/comparison/adapters/*.ts"
+    "src/comparison/adapters/*.ts",
+    "src/comparison/selectionState.ts"
   ]
 }
