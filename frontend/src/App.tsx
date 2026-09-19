@@ -38,17 +38,47 @@ export default function App() {
   useEffect(()=>{selectionStateRef.current={selection,revision};},[selection,revision]);
   useEffect(()=>{
     let mounted=true;
-    void loadPhase5Selection().then(result=>{
-      if(!mounted)return;
-      if(result.status==='restored'){
-        const current=selectionStateRef.current;
-        if(!userSelectionStartedRef.current && current.revision===0 && current.selection===null){
+    let request=0;
+    let terminal=false;
+    const attemptRestore=()=>{
+      if(!mounted||terminal)return;
+      const current=selectionStateRef.current;
+      if(userSelectionStartedRef.current||current.revision!==0||current.selection!==null){
+        terminal=true;
+        setRestoreStatus('superseded');
+        return;
+      }
+      const attempt=++request;
+      void loadPhase5Selection().then(result=>{
+        if(!mounted||attempt!==request||terminal)return;
+        const latest=selectionStateRef.current;
+        if(userSelectionStartedRef.current||latest.revision!==0||latest.selection!==null){
+          terminal=true;
+          setRestoreStatus('superseded');
+          return;
+        }
+        if(result.status==='restored'){
+          terminal=true;
           dispatchSelection({type:'restore',selection:result.selection});
           setRestoreStatus('restored');
-        }else setRestoreStatus('superseded');
-      }else setRestoreStatus(result.status);
-    }).catch(()=>{if(mounted)setRestoreStatus('error');});
-    return()=>{mounted=false;};
+          return;
+        }
+        setRestoreStatus(result.status);
+        if(result.status!=='missing-local-place')terminal=true;
+      }).catch(()=>{
+        if(!mounted||attempt!==request)return;
+        terminal=true;
+        setRestoreStatus('error');
+      });
+    };
+    const retryAfterPackChange=()=>attemptRestore();
+    attemptRestore();
+    window.addEventListener(SEARCH_PACKS_CHANGED,retryAfterPackChange);
+    return()=>{
+      mounted=false;
+      request++;
+      window.removeEventListener(SEARCH_PACKS_CHANGED,retryAfterPackChange);
+    };
   },[]);
   useEffect(()=>{
     if(revision===0 || !selection)return;
