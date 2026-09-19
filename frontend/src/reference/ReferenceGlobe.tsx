@@ -194,7 +194,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     if(!target)return;
     // Native non-passive listener keeps wheel zoom local to the view and works
     // consistently across WebGL canvas/SVG fallback instead of scrolling the page.
-    const handleWheel=(event:WheelEvent)=>{
+    const handleWheel:EventListener=(rawEvent)=>{
+      const event=rawEvent as WheelEvent;
       event.preventDefault();
       event.stopPropagation();
       setZoom(current=>clampReferenceZoom(current*(event.deltaY<0?1.18:1/1.18)));
