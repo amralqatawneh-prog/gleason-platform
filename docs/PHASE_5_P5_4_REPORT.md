@@ -50,3 +50,35 @@ Automated checks are not claimed PASS before the exact remote revision runs. Own
 Acceptance criterion: the user can understand the origin, meaning, unit, version, evidence and limitations of every displayed model output, and missing or unsupported operations are explicit.
 
 Sources: `PHASE_5_PLAN.md`, `ROADMAP_CURRENT.md`, P5.2 adapter contracts, P5.3 shared selection, `MATHEMATICAL_REFERENCES.md`, and the locked Gleason source registry. No P5.5 comparability claim is made.
+
+
+## UX clarification refinement — 2026-09-19
+
+The owner reported that all delivered P5.4 functional checks passed, but the
+laboratory's visible results were too technical to understand or use. Therefore
+P5.4 was **not closed** at that point: the acceptance criterion requires the
+meaning and limits of each displayed result to be understandable.
+
+The owner approved an in-slice usability refinement. No formulas, adapters,
+model outputs, units or source classifications are changed. The visible cards
+now explain in plain Arabic/English:
+
+- one canonical geographic point is being represented independently by three
+  systems;
+- Gleason X/Y are normalized map coordinates, not metres/kilometres and not an
+  inter-place distance;
+- AE X/Y are planar projection coordinates in metres relative to the projection
+  origin, not an inter-place distance;
+- WGS84 ECEF X/Y/Z are 3D position components when explicit ellipsoidal height
+  exists;
+- when height is missing, WGS84 ECEF remains unavailable and the app states
+  that it did not assume a fictitious 0 m height.
+
+Model/version/unit/semantic/evidence/domain/source/notes/limitations remain
+available under a collapsed «إظهار التفاصيل التقنية / Show technical details»
+section.
+
+Automated regression now verifies the plain-language explanation, the collapsed
+technical section, WGS84 missing-height explanation, bilingual content and
+mobile horizontal overflow. Owner retest of this refined revision is still
+**NOT RUN** until the new CI revision is delivered.
