@@ -82,3 +82,23 @@ separate from temporarily missing output.
 Sources: `ROADMAP_CURRENT.md`, `PHASE_5_PLAN.md`, P5.2 adapter contracts and
 the accepted P5.4 Model Laboratory. No outside dataset or new historical source
 is required.
+
+
+## Automated verification — CI #266
+
+Exact implementation/documentation head:
+`1bf01cda0a1b4273b14f7d1c06a844021e575648`.
+
+[Release Acceptance Gates #266 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35459843476).
+
+Observed results on that exact revision:
+- npm security gate: **0 vulnerabilities**;
+- frontend core tests: **67 PASS**;
+- PWA tests: **2 PASS**;
+- Chromium acceptance scenarios: **12 PASS**;
+- WGS84 browser/backend parity, production build, service-worker/PWA,
+  Docker/PostGIS/Redis, locked production sources, online/offline search and
+  Arabic city search gates: **PASS**.
+
+P5.5 is technically green. Owner manual verification remains **NOT RUN** at this
+point, so P5.5 is not yet closed and P5.6 must not start.
