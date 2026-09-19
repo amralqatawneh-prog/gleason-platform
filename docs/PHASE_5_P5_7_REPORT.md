@@ -136,3 +136,28 @@ cannot be mistaken for implemented functionality.
 
 Sources: `ROADMAP_CURRENT.md`, `PHASE_5_PLAN.md`, accepted P5.5
 comparability contract and `NAVIGATION_MEASUREMENT_REQUIREMENTS.md`.
+
+
+## Automated verification — CI #383
+
+Exact implementation/documentation head:
+`6b21fbf78494335ca5cbec4c4c75a634b475cfac`.
+
+[Release Acceptance Gates #383 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35464215834)
+
+Observed on that exact revision:
+- npm security gate: **0 vulnerabilities**;
+- frontend core tests: **78 PASS**;
+- PWA tests: **2 PASS**;
+- Chromium acceptance scenarios: **15 PASS**;
+- production TypeScript/Vite build: **PASS**;
+- WGS84 browser/backend parity: **PASS**;
+- Docker/PostGIS/Redis, locked production sources, online/offline search and
+  Arabic city gates: **PASS**.
+
+The 78 core tests include the P5.7 homogeneous-difference rules, cross-model
+numeric blocking, explicit future-service unavailability, and the extra
+fail-closed domain-mismatch guard.
+
+P5.7 is **TECHNICALLY GREEN / awaiting owner manual verification**. It is not
+closed yet. P5.8 and Phase 6 remain NOT STARTED.
