@@ -6,7 +6,7 @@ import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { localGeodeticToEcef } from './offlineWgs84';
-import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
+import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, scaleReferenceZoomByPinch, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
   capabilities: BrowserCapabilities;
@@ -326,7 +326,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       if(pointers.current.size>=2){
         const distance=pointerDistance(pointers.current);
         if(!pinch.current)pinch.current={distance,zoom:z};
-        if(pinch.current.distance>0)setZoom(clampReferenceZoom(pinch.current.zoom*distance/pinch.current.distance));
+        if(pinch.current.distance>0)setZoom(scaleReferenceZoomByPinch(pinch.current.zoom,pinch.current.distance,distance));
         return;
       }
       const state=fallbackDrag.current;if(!state||state.pointerId!==e.pointerId)return;
@@ -400,7 +400,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     if(pointers.current.size>=2){
       const distance=pointerDistance(pointers.current);
       if(!pinch.current)pinch.current={distance,zoom};
-      if(pinch.current.distance>0)setZoom(clampReferenceZoom(pinch.current.zoom*distance/pinch.current.distance));
+      if(pinch.current.distance>0)setZoom(scaleReferenceZoomByPinch(pinch.current.zoom,pinch.current.distance,distance));
       return;
     }
     const state=drag.current;if(!state||state.pointerId!==e.pointerId)return;
