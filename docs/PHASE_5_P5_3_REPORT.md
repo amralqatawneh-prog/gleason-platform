@@ -83,3 +83,5 @@ Sources: `PHASE_5_PLAN.md`, `ROADMAP_CURRENT.md`, `PHASE_5_P5_2_REPORT.md`,
 the existing geographic selection/adapters, OpenLayers integration and WGS84
 renderer source listed above. No new source dataset, dependency or historical
 claim is introduced.
+
+Owner review identified a visual defect despite CI #202 success: correct readings but missing projection markers, plus a request for a solid globe. See `PHASE_5_P5_3_VISUAL_FIX.md` for the correction, stronger visual checks and future imagery/terrain boundary. Do not mark P5.3 accepted.

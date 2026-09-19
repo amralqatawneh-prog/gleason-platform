@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] — P5.3 visual corrections (2026-09-19)
+
+- Owner reports correct synchronized readings but missing map markers. Set OpenLayers rendering targets to physical LTR coordinates independently of UI locale; add real marker-viewport checks in Arabic/English interfaces and searches.
+- Add an opaque WGS84 ellipsoid surface with display-only shading beneath existing overlays; no satellite imagery, terrain, or solar lighting claim. Retain picking/drag/provenance behavior.
+- Add mesh validation and WebGL framebuffer evidence; local 58 core/build/2 PWA gates PASS. Remote evidence on PR #9. P5.3 still awaits owner retest; P5.4 not started.
+
 ## [Unreleased] — Phase 5 / P5.3 (2026-09-19)
 
 - Owner instructed continuation after successful P5.2 tests. One reducer now drives search and all model picks; each selection increments once, with no render-to-selection callback.

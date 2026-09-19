@@ -61,3 +61,5 @@ This is not an assertion of 1/9 of total effort: slices have different sizes.
 - `frontend/src/search/placeSelection.ts`: existing online/offline provenance contract.
 - `frontend/src/models/projectionTypes.ts`, `reference/referenceMath.ts`: existing geographic inputs.
 - No new historical claims, external datasets or dependencies are introduced.
+
+P5.3 review update (2026-09-19): owner reports correct shared readings but missing projection markers and requests a non-hollow globe. Current correction is documented in `PHASE_5_P5_3_VISUAL_FIX.md`: isolate OpenLayers pixel layout from RTL and add an opaque ellipsoid surface. P5.3 is not accepted; P5.4 has not started. Satellite imagery/terrain are not included.

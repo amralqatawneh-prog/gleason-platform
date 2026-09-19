@@ -439,3 +439,5 @@ WebGL-disabled Chrome fallback test:
 - Visualization is not a substitute for geodetic computation.
 - Source provenance remains visible and separate from computed/reference provenance.
 - One phase/slice at a time.
+
+P5.3 review update (2026-09-19): owner reports correct shared readings but missing projection markers and requests a non-hollow globe. Current correction is documented in `PHASE_5_P5_3_VISUAL_FIX.md`: isolate OpenLayers pixel layout from RTL and add an opaque ellipsoid surface. P5.3 is not accepted; P5.4 has not started. Satellite imagery/terrain are not included.

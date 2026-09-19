@@ -67,7 +67,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
   const title = model === 'gleason' ? (locale === 'ar' ? 'إعادة بناء جليسون التاريخية' : 'Gleason historical reconstruction') : (locale === 'ar' ? 'الإسقاط السمتي متساوي البعد AE' : 'Azimuthal Equidistant reference');
   return <section className="projection-card" data-model={model} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
     <div className="projection-card__head"><strong>{title}</strong><span>{model === 'gleason' ? 'DERIVED · GH-0.2.0' : 'REFERENCE · AE-0.2.0'}</span></div>
-    <div ref={targetRef} className="projection-map" aria-label={title} />
+    <div ref={targetRef} className="projection-map" dir="ltr" aria-label={title} />
     {selectionPoint&&<div className="projection-selection-readout" dir="ltr"><span>{selectionLabel ?? (locale==='ar'?'نقطة مختارة':'Selected point')}</span> · Lat {selectionPoint.latitude.toFixed(6)}° · Lon {selectionPoint.longitude.toFixed(6)}°</div>}
   </section>;
 }

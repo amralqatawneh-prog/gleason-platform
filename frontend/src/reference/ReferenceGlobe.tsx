@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { OfflinePlace } from '../offline/searchIndex';
 import type { BrowserCapabilities } from '../platform/capabilities';
+import { buildEllipsoidSurface } from './ellipsoidSurface';
 import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
@@ -46,9 +47,15 @@ void main() {
 const fragmentShaderSource = `#version 300 es
 precision mediump float;
 uniform vec4 u_color;
+uniform bool u_surface;
 in highp float v_facing;
 out vec4 outColor;
-void main() { if (v_facing <= 0.0) discard; outColor = u_color; }
+void main() {
+  if (v_facing <= 0.0) discard;
+  // View-relative display shading only; this is not a solar day/night model.
+  float shade = u_surface ? 0.55 + 0.45 * clamp(v_facing, 0.0, 1.0) : 1.0;
+  outColor = vec4(u_color.rgb * shade, u_color.a);
+}
 `;
 
 function pushEllipsoid(target: number[], lat: number, lon: number): void {
@@ -118,6 +125,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const selected = selectionPoint ?? { latitude: 25.2854, longitude: 51.531 };
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const drag = useRef<DragState>(null);
+  const surfaceVertices = useMemo(() => buildEllipsoidSurface(), []);
   const countryVertices = useMemo(() => buildCountries(), []);
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
   const countryPaths = useMemo(() => countryBoundaryRings().map(fallbackPath), []);
@@ -169,6 +177,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     const syUniform = gl.getUniformLocation(program, 'u_sy');
     const colorUniform = gl.getUniformLocation(program, 'u_color');
     const pointSizeUniform = gl.getUniformLocation(program, 'u_point_size');
+    const surfaceUniform = gl.getUniformLocation(program, 'u_surface');
+    const surfaceBuffer = gl.createBuffer();
     const gridBuffer = gl.createBuffer();
     const countryBuffer = gl.createBuffer();
     const placeBuffer = gl.createBuffer();
@@ -178,7 +188,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
     };
-    upload(gridBuffer, grid); upload(countryBuffer, countryVertices); upload(placeBuffer, placeVertices);
+    upload(surfaceBuffer, surfaceVertices); upload(gridBuffer, grid); upload(countryBuffer, countryVertices); upload(placeBuffer, placeVertices);
     gl.enableVertexAttribArray(position);
 
     const draw = (buffer: WebGLBuffer | null, data: Float32Array, modeValue: number, color: [number, number, number, number], pointSize = 1) => {
@@ -207,6 +217,12 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       gl.uniform1f(pitchUniform, pitch);
       gl.uniform1f(sxUniform, aspect >= 1 ? GLOBE_CLIP_SCALE / aspect : GLOBE_CLIP_SCALE);
       gl.uniform1f(syUniform, aspect >= 1 ? GLOBE_CLIP_SCALE : GLOBE_CLIP_SCALE * aspect);
+      gl.uniform1i(surfaceUniform, 1);
+      gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1, 1);
+      draw(surfaceBuffer, surfaceVertices, gl.TRIANGLES, [0.055, 0.25, 0.39, 1]);
+      gl.disable(gl.POLYGON_OFFSET_FILL); gl.uniform1i(surfaceUniform, 0);
+      // Overlay chords stay visible above the tessellated shell; shader-facing rejection still hides the rear.
+      gl.disable(gl.DEPTH_TEST);
       draw(gridBuffer, grid, gl.LINES, [0.20, 0.43, 0.58, 0.34]);
       if (layers?.countries !== false) draw(countryBuffer, countryVertices, gl.LINES, [0.86, 0.91, 0.82, 0.98]);
       if (placeVertices.length) draw(placeBuffer, placeVertices, gl.POINTS, [0.98, 0.72, 0.34, 0.98], Math.max(3, 3 * dpr));
@@ -214,8 +230,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
 
     render();
     const observer = new ResizeObserver(render); observer.observe(canvas);
-    return () => { observer.disconnect(); gl.deleteBuffer(gridBuffer); gl.deleteBuffer(countryBuffer); gl.deleteBuffer(placeBuffer); gl.deleteProgram(program); gl.deleteShader(vs); gl.deleteShader(fs); };
-  }, [mode, yaw, pitch, countryVertices, placeVertices, layers?.countries]);
+    return () => { observer.disconnect(); gl.deleteBuffer(surfaceBuffer); gl.deleteBuffer(gridBuffer); gl.deleteBuffer(countryBuffer); gl.deleteBuffer(placeBuffer); gl.deleteProgram(program); gl.deleteShader(vs); gl.deleteShader(fs); };
+  }, [mode, yaw, pitch, surfaceVertices, countryVertices, placeVertices, layers?.countries]);
 
   const marker = selectionPoint ? projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch) : null;
   const selectedLabel = selectionLabel;

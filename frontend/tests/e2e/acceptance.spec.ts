@@ -55,6 +55,50 @@ const captureA=(page:Page)=>page.getByRole('button',{name:'Use current point as 
 const captureB=(page:Page)=>page.getByRole('button',{name:'Use current point as end'}).click();
 const calculate=(page:Page)=>page.getByRole('button',{name:'Calculate distance & bearings'}).click();
 
+test('projection markers stay inside map viewports for Arabic and English search in RTL and LTR',async({page,servers})=>{
+  await page.goto(servers.url);
+  for(const locale of ['ar','en']){
+    if(locale==='en')await page.getByRole('button',{name:'English',exact:true}).click();
+    for(const query of ['TEST Doha','اختبار الدوحة']){
+      await page.getByRole('textbox',{name:locale==='ar'?'نص البحث':'Search query'}).fill(query);
+      await page.getByRole('button',{name:locale==='ar'?'بحث':'Search',exact:true}).click();
+      await page.getByRole('button',{name:locale==='ar'?'اعرض على النماذج':'Locate on models',exact:true}).click();
+      for(const card of await page.locator('.projection-card').all()){
+        const map=card.locator('.projection-map');await map.scrollIntoViewIfNeeded();
+        await expect(card).toHaveAttribute('data-selected-latitude','25.285447');
+        await expect.poll(async()=>{
+          const m=await map.boundingBox(),p=await card.locator('.projection-selection-marker').boundingBox();
+          return Boolean(m&&p&&p.x>=m.x&&p.y>=m.y&&p.x+p.width<=m.x+m.width&&p.y+p.height<=m.y+m.height);
+        }).toBe(true);
+        await expect(card.locator('.projection-selection-marker')).toBeInViewport();
+      }
+    }
+  }
+});
+
+test('WGS84 renders an opaque shaded ellipsoid surface before overlays',async({page,servers})=>{
+  await page.addInitScript(()=>{
+    const draw=WebGL2RenderingContext.prototype.drawArrays;
+    WebGL2RenderingContext.prototype.drawArrays=function(mode,first,count){
+      draw.call(this,mode,first,count);
+      if(mode===this.TRIANGLES && count>1000){
+        const pixel=new Uint8Array(4);
+        this.readPixels(Math.floor(this.drawingBufferWidth*.53),Math.floor(this.drawingBufferHeight*.54),1,1,this.RGBA,this.UNSIGNED_BYTE,pixel);
+        (window as unknown as {surfacePixel:number[]}).surfacePixel=Array.from(pixel);
+      }
+    };
+  });
+  await english(page,servers.url);
+  await expect(page.locator('.reference-card')).toHaveAttribute('data-mode','webgl3d');
+  await expect.poll(()=>page.evaluate(()=>{
+    const p=(window as unknown as {surfacePixel?:number[]}).surfacePixel;
+    return Boolean(p&&p[3]===255&&p[1]>35&&p[2]>60);
+  })).toBe(true);
+  await locate(page,'TEST Doha');
+  await expect(page.locator('.reference-focus-dot')).toBeVisible();
+  await page.screenshot({path:'test-results/opaque-globe-and-markers.png',fullPage:true});
+});
+
 test('one production install supports cold navigation and calculations with both servers stopped',async({page,context,servers})=>{
   await english(page,servers.url);
   await locate(page,'TEST Doha');

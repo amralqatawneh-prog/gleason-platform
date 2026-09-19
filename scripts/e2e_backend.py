@@ -30,11 +30,12 @@ with engine.begin() as db:
         ("test-country", "country", "TEST country", "QA", 25.3, 51.2),
         ("test-airport", "airport", "TEST airport", "QA", 25.273, 51.608),
     ]:
+        arabic_name = "اختبار الدوحة" if record == "test-doha" else None
         db.execute(text("""INSERT INTO places VALUES (
-            :id,:category,:name,NULL,'[]',:country,NULL,:lat,:lon,
+            :id,:category,:name,:name_ar,'[]',:country,NULL,:lat,:lon,
             'TEST_ONLY_E2E',:id,:search,:quality)"""),
-            dict(id=record, category=category, name=name, country=country, lat=lat, lon=lon,
-                 search=name.lower(), quality=json.dumps({"coordinate_classification": "TEST_ONLY_SYNTHETIC_POINT"})))
+            dict(id=record, category=category, name=name, name_ar=arabic_name, country=country, lat=lat, lon=lon,
+                 search=f"{name} {arabic_name or ''}".lower(), quality=json.dumps({"coordinate_classification": "TEST_ONLY_SYNTHETIC_POINT"})))
 engine.dispose()
 app = create_app(Settings(env="test", database_url=url, cors_origins=["*"]))
 uvicorn.run(app, host="127.0.0.1", port=args.port, log_level="warning")
