@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 and the Arabic city correction are closed after owner-reported successful testing (2026-09-19). P5.2 independent adapters are closed following CI #198 and owner-reported success of all delivered tests; see `PHASE_5_P5_2_REPORT.md`. P5.3 is closed after CI #204 and owner-reported successful retest. P5.4 Basic Model Laboratory is closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is next but NOT STARTED; P5.5–P5.9 remain pending.
+P5.1 through P5.6 are closed after their recorded automated and owner checks. The owner has now instructed «أكمل» for P5.7 Homogeneous Differences and future time/layer/route contracts. P5.7 is IN PROGRESS; P5.8–P5.9 remain pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -169,7 +169,28 @@ Automated evidence:
 - later documented branch head
   `3de1169c0f1534b9f0417dda81de8176f8f99b2c` — CI #340 SUCCESS.
 
-P5.6 is **CLOSED**. P5.7 Homogeneous Differences and future time/layer/route
-contracts is next and remains **NOT STARTED** until the owner explicitly
-instructs continuation. Phase 6 remains NOT STARTED. Full Phase 5 acceptance
+P5.6 is **CLOSED**. The owner subsequently instructed «أكمل», authorizing P5.7 Homogeneous Differences and future time/layer/route contracts. P5.7 is now **IN PROGRESS**. P5.8 and Phase 6 remain NOT STARTED. Full Phase 5 acceptance
 remains pending. No merge, tag or release.
+
+
+## P5.7 start — 2026-09-19
+
+After P5.6 closure, the owner explicitly instructed «أكمل». P5.7 is now the only
+active slice.
+
+P5.7 rules:
+- numeric differences may be produced only after the P5.5 comparability contract
+  returns `comparable`;
+- the difference is signed `right - left` and stays in the already-declared
+  unit; no conversion or normalization is introduced;
+- the three current cross-model pairs are heterogeneous, so the Model Laboratory
+  intentionally shows no numeric Δ values for them;
+- time/astronomy, shared cross-model layer synchronization and route/measurement
+  receive versioned future-service boundaries that are explicitly unavailable;
+- existing local view layers remain existing local layers; declaring the future
+  shared layer service unavailable does not remove them;
+- route drawing, distance, ruler and area remain Phase 6 and are not implemented
+  by P5.7.
+
+Implementation/report: `PHASE_5_P5_7_REPORT.md`. P5.8 and Phase 6 remain
+NOT STARTED. No merge, tag or release is authorized.
