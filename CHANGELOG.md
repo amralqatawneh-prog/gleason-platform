@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — P5.7 owner acceptance closure (2026-09-19)
+
+- Owner reported «نجحت جميع اختبارات P5.7». Record manual result PASS — REPORTED BY OWNER.
+- P5.7 closes with CI #383 and CI #387 SUCCESS.
+- Homogeneous numeric differences remain gated by P5.5 plus matching adapter domain/output structure; incompatible cross-model pairs expose no numeric delta.
+- Future time/layer/route service contracts remain explicitly unavailable; no later engine is implied.
+- P5.8 Versioned Local State Persistence is next but NOT STARTED. Phase 6 route/ruler/area remains NOT STARTED.
+- Full Phase 5 remains in progress; no merge, tag or release. Accepted app version remains 0.4.0.
+
+
 ## [Unreleased] — P5.7 automated verification (2026-09-19)
 
 - P5.7 implementation/documentation head `6b21fbf78494335ca5cbec4c4c75a634b475cfac` passed Release Acceptance Gates #383.
