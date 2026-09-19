@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is now CLOSED after CI #329/#340 and owner-reported manual PASS. P5.7 is next / NOT STARTED. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
+- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is CLOSED after CI #329/#340 and owner-reported manual PASS. The owner has now instructed «أكمل» and P5.7 Homogeneous Differences / future service contracts is IN PROGRESS. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -373,7 +373,7 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.6 closed; P5.7 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.6 closed; P5.7 Homogeneous Differences / future service contracts IN PROGRESS**. P5.8 is not started. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
@@ -626,3 +626,26 @@ routes/ruler/polygon area remains NOT STARTED.
 
 Full Phase 5 acceptance remains pending. Accepted application version remains
 0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release.
+
+
+## P5.7 start — 2026-09-19
+
+After P5.6 closure, the owner instructed «أكمل». P5.7 is the active slice.
+
+P5.7 implementation boundary:
+- signed numeric differences are allowed only when the accepted P5.5 contract
+  says the two quantities are comparable;
+- the difference stays in the declared compatible unit and never invents a
+  conversion or scale;
+- current Gleason↔AE, Gleason↔WGS84 and AE↔WGS84 laboratory pairs are
+  heterogeneous and therefore expose no numeric delta;
+- versioned contracts are reserved for time/astronomy, shared cross-model layer
+  synchronization and route/measurement services, each explicitly unavailable;
+- existing per-view layers are not removed by declaring future shared layer sync
+  unavailable;
+- route drawing, distance, ruler and area remain Phase 6;
+- P5.8 persistence is not started.
+
+Report: `docs/PHASE_5_P5_7_REPORT.md`. Full Phase 5 acceptance remains pending.
+Accepted app version remains 0.4.0. Draft PR #9 remains open/unmerged. No merge,
+tag or release.
