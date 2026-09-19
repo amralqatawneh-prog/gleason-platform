@@ -5,14 +5,14 @@ import GeoJSON from 'ol/format/GeoJSON.js';
 import CircleGeometry from 'ol/geom/Circle.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import Map from 'ol/Map.js';
-import { transform } from 'ol/proj.js';
 import VectorSource from 'ol/source/Vector.js';
 import Fill from 'ol/style/Fill.js';
 import Stroke from 'ol/style/Stroke.js';
 import Style from 'ol/style/Style.js';
 import View from 'ol/View.js';
 import { aeForward, AE_CODE } from '../models/ae';
-import { GLEASON_UNITS, gleasonInverse } from '../models/gleason';
+import { gleasonAdapter } from '../comparison/adapters/gleasonAdapter';
+import { aeAdapter } from '../comparison/adapters/aeAdapter';
 import type { GeoPoint } from '../models/projectionTypes';
 import { GLEASON_CODE, registerPhase2Projections } from './registerProjections';
 import { worldCountriesGeoJson } from './worldData';
@@ -38,9 +38,10 @@ export function ProjectionMap({ model, locale, onPoint }: Props) {
     view.fit([-radius, -radius, radius, radius], { size: map.getSize(), padding: [22,22,22,22], maxZoom: 4 });
     map.on('singleclick', (event) => {
       try {
-        let point: GeoPoint;
-        if (model === 'gleason') point = gleasonInverse({ x: event.coordinate[0], y: event.coordinate[1], units: GLEASON_UNITS });
-        else { const [longitude, latitude] = transform(event.coordinate, AE_CODE, 'EPSG:4326'); point = { latitude, longitude }; }
+        const adapter = model === 'gleason' ? gleasonAdapter : aeAdapter;
+        const point = adapter.inverse({ kind: 'plane', modelId: adapter.metadata.modelId,
+          modelVersion: adapter.metadata.modelVersion, units: adapter.metadata.units,
+          x: event.coordinate[0], y: event.coordinate[1] }).value;
         if (Number.isFinite(point.latitude) && Number.isFinite(point.longitude) && Math.abs(point.latitude) <= 90 && Math.abs(point.longitude) <= 180) onPoint(model, point);
       } catch { /* outside historical circumference */ }
     });

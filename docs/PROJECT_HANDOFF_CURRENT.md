@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 is the first slice; see `PHASE_5_PLAN.md` and `PHASE_5_P5_1_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
+- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 and the Arabic city fix passed owner testing. P5.2 is the current slice; see `PHASE_5_PLAN.md` and `PHASE_5_P5_2_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -373,14 +373,14 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 shared geographic state**, authorized 2026-09-19; no Phase 5 owner acceptance yet.
+- Phase 5: **IN PROGRESS — P5.2 independent adapters**, authorized 2026-09-19; no Phase 5 owner acceptance yet.
 
 ## Required next steps
 
 1. Follow `PHASE_5_PLAN.md`, implementing and verifying one slice at a time. P5.1 establishes a single typed geographic selection; its evidence and owner checklist are in `PHASE_5_P5_1_REPORT.md`.
-2. Next planned slice: P5.2 independent adapters with explicit units/domains. Cross-model display synchronization remains unavailable until its own slice.
+2. Current delivery: P5.2 independent adapters with explicit units/domains; see `PHASE_5_P5_2_REPORT.md`. Next: P5.3 search/pick/marker synchronization after this slice's verification; no synchronization implementation is claimed yet.
 3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
-4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, and reported missing Arabic city search; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
+4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, then confirmed the Arabic city correction PASS and authorized P5.2; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
 5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
 
 ## Phase 5 boundary / future agreed direction

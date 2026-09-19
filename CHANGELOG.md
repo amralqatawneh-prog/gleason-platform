@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.2 (2026-09-19)
+
+- Owner confirmed Arabic city retest PASS and authorized the next slice.
+- Added independent typed Gleason/AE/WGS84 adapters with model/version/kind/unit checks, domain validation, explicit height and polar conventions, immutable evidence metadata and forward/inverse operations. Gleason/AE map picks now use their respective adapter.
+- Eight new tests cover 147 round trips, independent anchors, invalid inputs, cross-model misuse, height/poles and metadata isolation. Local 55 core tests, build and 2 PWA tests PASS; exact remote results are on draft PR #9.
+- P5.3 synchronization and P5.4 laboratory UI remain pending; no merge, release or new dependency. See `docs/PHASE_5_P5_2_REPORT.md`.
+
 ## [Unreleased] — Arabic city search correction
 
 - Owner reported all three delivered P5.1 checks PASS, plus an Arabic city search defect. The pinned simplified Natural Earth city source omitted multilingual names. Switch to the full 110m city dataset at the same source commit; preserve 243 canonical IDs and coordinates, import NAME_AR and update the source checksum/URL.

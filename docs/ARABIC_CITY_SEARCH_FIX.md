@@ -54,9 +54,8 @@ The English and Arabic results must select the same ID and coordinates.
 - `scripts/check_arabic_city_search.mjs` verifies all 243 Arabic names in the real
   API core pack, online English/Arabic matching for Doha/Amman/Cairo, and the
   **actual frontend offline search function**, including identity and coordinate parity.
-- Remote CI for the correction is pending at preparation time; use the checks on
-  PR #9 for the exact correction commit. Earlier P5.1 CI does not verify this fix.
-- Owner manual retest of the corrected city data: NOT RUN.
+- Remote PASS: [CI #196](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35427425056) on `6622f05819609a5b7df20dd5a05999b8fbd51b34`, including repeated database refresh and real Arabic online/offline parity.
+- Owner manual retest: PASS — REPORTED BY OWNER on 2026-09-19. Exact statement: «تم الاختبار ونجح وظهرت اسماء المدن باللغة العربية عند البحث عليها، يمكنك الاستمرار الان الى الخطوة القادمة». The defect is closed; owner authorized P5.2.
 
 ## Limits and sources
 
