@@ -573,5 +573,9 @@ test('P5.8 restores installed-pack identity offline and discards malformed state
   await restored.reload();
   await expect(restored.locator('.app-shell')).toHaveAttribute('data-persistence-status','discarded-invalid');
   await expect(restored.locator('.place-provenance')).toHaveCount(0);
+  // Locale is intentionally not part of P5.8 shared-state persistence, so a
+  // full reload returns to the app default Arabic locale. Switch explicitly
+  // before asserting the English explanation.
+  await restored.getByRole('button',{name:'English',exact:true}).click();
   await expect(restored.locator('.persistence-status')).toContainText('Malformed or invalid local state was ignored.');
 });
