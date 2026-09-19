@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 and the Arabic city fix passed owner testing. P5.2 is closed after CI #198 and owner-reported manual PASS; P5.3 is closed after CI #204 and owner-reported success of the visual correction retest; P5.4 Basic Model Laboratory is now in progress by the owner's explicit «ابدأ» instruction; see `PHASE_5_PLAN.md` and `PHASE_5_P5_2_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
+- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is next but NOT STARTED. See `PHASE_5_PLAN.md` and `PHASE_5_P5_4_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -373,12 +373,12 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1/P5.2 closed; P5.3 selection/marker synchronization**, authorized 2026-09-19; no Phase 5 owner acceptance yet.
+- Phase 5: **IN PROGRESS — P5.1 through P5.4 closed; P5.5 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
-1. Follow `PHASE_5_PLAN.md`, implementing and verifying one slice at a time. P5.1 establishes a single typed geographic selection; its evidence and owner checklist are in `PHASE_5_P5_1_REPORT.md`.
-2. P5.2 closed on 2026-09-19: owner stated «نجحت جميع الاختبارات» after CI #198 PASS. See `PHASE_5_P5_2_REPORT.md`. Owner then instructed «اكمل». Current delivery: P5.3 search/pick/marker synchronization; see `PHASE_5_P5_3_REPORT.md`. P5.4 is next and has not started. Full Phase 5 acceptance remains pending.
+1. Preserve closed evidence for P5.1–P5.4 and continue one slice at a time under `PHASE_5_PLAN.md`.
+2. P5.4 closed on 2026-09-19 after the owner's final clarity report «القسم اصبح واضحا، اكمل التوثيق» and CI #236 SUCCESS on implementation head `29fa6190185ec7901c14f586ad26213337190272`. P5.5 Comparability Contract is the next ordered slice but is NOT STARTED until the owner instructs continuation. Full Phase 5 acceptance remains pending.
 3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
 4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, then confirmed the Arabic city correction PASS and authorized P5.2; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
 5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
@@ -492,3 +492,31 @@ not fabricate 0 m.
 
 Next action: validate the refined branch by CI, then ask the owner to retest
 understanding/clarity. Do not begin P5.5 until P5.4 is explicitly closed.
+
+
+## P5.4 acceptance closure — 2026-09-19
+
+The initial P5.4 functional manual checklist passed, but the owner reported that
+the technical-first Model Laboratory output was not understandable enough to be
+useful. The owner approved a same-slice UX refinement that added plain-language
+meaning for Gleason, AE and WGS84 while retaining technical model/version/unit/
+source/limitation details under an expandable control. No calculation, adapter
+contract, dependency or dataset changed.
+
+After retesting the refinement, the owner reported «القسم اصبح واضحا، اكمل
+التوثيق». Final manual result: **PASS — REPORTED BY OWNER**.
+
+Exact refined implementation head:
+`29fa6190185ec7901c14f586ad26213337190272`.
+
+Automated evidence:
+[Release Acceptance Gates #236 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35458166222),
+successful on attempt 6 after transient npm registry 400 errors had blocked the
+audit endpoint on earlier attempts. The successful attempt found 0 npm
+vulnerabilities, ran 62 frontend core tests, 2 PWA tests and 11 Chromium
+acceptance scenarios, and completed numerical parity, production build,
+Docker/PostGIS/Redis, locked-source and search gates.
+
+P5.4 is **CLOSED**. P5.5 Comparability Contract is next and **NOT STARTED**.
+Full Phase 5 acceptance remains pending. Accepted application version remains
+0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release.
