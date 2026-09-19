@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.7 homogeneous differences and future contracts (2026-09-19)
+
+- Owner instructed «أكمل» after P5.6 closure. Start P5.7 only.
+- Add signed homogeneous differences (`right - left`) only after the P5.5 comparability contract passes; incompatible pairs expose no numeric delta.
+- Keep Gleason differences in `normalized-radius` and AE/WGS84 compatible differences in their declared units; no normalization or unit conversion is introduced.
+- Add versioned future-service boundaries for time/astronomy, cross-model layer synchronization and route/measurement. All are explicitly unavailable in Phase 5.
+- Existing per-view layers remain available; only the future shared layer-sync service is unavailable.
+- Route drawing, distance, ruler and area remain Phase 6; P5.8 persistence is not started.
+- Add core/browser regression coverage and `docs/PHASE_5_P5_7_REPORT.md`. Automated/owner PASS is not claimed until verification completes.
+
+
 ## [Unreleased] — P5.6 owner acceptance closure (2026-09-19)
 
 - Owner reported «نجحت كل الاختبارات». Record manual result PASS — REPORTED BY OWNER.
