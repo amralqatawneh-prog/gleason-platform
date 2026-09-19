@@ -472,3 +472,23 @@ comparability, P5.6 navigation tools or Phase 6 measurement tools.
 Implementation/report: `docs/PHASE_5_P5_4_REPORT.md`. P5.3 remains accepted;
 the accepted application version remains 0.4.0; no merge, tag or release is
 authorized by this instruction.
+
+
+## P5.4 usability refinement — 2026-09-19
+
+The owner reported all initial P5.4 functional tests PASS, but also reported
+that the Model Laboratory's results were not understandable or useful in their
+technical-first presentation. This means the functional mechanics passed while
+the P5.4 comprehension acceptance criterion remained unmet, so P5.4 is still
+open.
+
+The owner approved a same-slice UX correction. The laboratory now leads with a
+plain-language explanation of what each model result means and explicitly states
+that the displayed X/Y(/Z) values are model coordinates rather than a generic
+distance between places. Existing technical provenance is retained under a
+collapsed advanced-details control. Calculations and P5.2 adapter contracts are
+unchanged. WGS84 still refuses ECEF when ellipsoidal height is missing and does
+not fabricate 0 m.
+
+Next action: validate the refined branch by CI, then ask the owner to retest
+understanding/clarity. Do not begin P5.5 until P5.4 is explicitly closed.
