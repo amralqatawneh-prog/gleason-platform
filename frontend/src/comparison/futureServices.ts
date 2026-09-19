@@ -9,7 +9,7 @@ export interface FutureServiceContract {
   readonly status: FutureServiceStatus;
   readonly plannedPhase: string;
   readonly currentBoundary: string;
-  readonly availableOperations: readonly [];
+  readonly availableOperations: readonly never[];
 }
 
 export class FutureServiceUnavailableError extends Error {
