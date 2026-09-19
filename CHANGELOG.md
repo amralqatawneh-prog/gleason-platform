@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P5.5 owner acceptance closure (2026-09-19)
+
+- Owner reported «نجحت جميع اختبارات P5.5». Record manual result PASS — REPORTED BY OWNER.
+- P5.5 closes with CI #266 and CI #271 SUCCESS; the contract rejects incompatible model quantities without fabricated normalization or unit conversion.
+- P5.6 Optional Geographic Focus / Navigation is next but NOT STARTED.
+- Full Phase 5 remains in progress; no merge, tag or release. Accepted app version remains 0.4.0.
+
+
 ## [Unreleased] — P5.5 automated verification (2026-09-19)
 
 - P5.5 implementation head `1bf01cda0a1b4273b14f7d1c06a844021e575648` passed Release Acceptance Gates #266.
