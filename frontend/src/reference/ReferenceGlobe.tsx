@@ -462,3 +462,36 @@ function ReferenceReadout({locale,point,mode,label,details}:{locale:'ar'|'en';po
     </details>
   </div>;
 }
+
+
+function ReferenceNavigationToolbar({locale,mode,zoom,areaMode,hasSelection,onZoomIn,onZoomOut,onArea,onRotateLeft,onRotateRight,onPitchUp,onPitchDown,onReset,onFit,onFocus}:{
+  locale:'ar'|'en';mode:'webgl3d'|'fallback2d';zoom:number;areaMode:boolean;hasSelection:boolean;
+  onZoomIn:()=>void;onZoomOut:()=>void;onArea:()=>void;onRotateLeft:()=>void;onRotateRight:()=>void;
+  onPitchUp:()=>void;onPitchDown:()=>void;onReset:()=>void;onFit:()=>void;onFocus:()=>void;
+}){
+  const ar=locale==='ar',threeD=mode==='webgl3d';
+  const labels=ar?{
+    nav:'أدوات تنقل WGS84',zoomIn:'تقريب',zoomOut:'تبعيد',area:'تكبير إلى منطقة',
+    left:'تدوير يسار',right:'تدوير يمين',up:'إمالة لأعلى',down:'إمالة لأسفل',
+    reset:'إعادة اتجاه العرض',fit:'إظهار النموذج كاملًا',focus:'التركيز على المحدد',
+    unavailable:'التدوير والإمالة غير مدعومين في العرض الاحتياطي ثنائي الأبعاد'
+  }:{
+    nav:'WGS84 navigation',zoomIn:'Zoom in',zoomOut:'Zoom out',area:'Zoom to area',
+    left:'Rotate left',right:'Rotate right',up:'Tilt up',down:'Tilt down',
+    reset:'Reset view direction',fit:'Fit full model',focus:'Focus selected',
+    unavailable:'Rotation and tilt are unavailable in the 2D fallback'
+  };
+  return <nav className="navigation-toolbar reference-navigation-toolbar" aria-label={labels.nav}>
+    <button type="button" onClick={onZoomIn} aria-label={labels.zoomIn} title={labels.zoomIn}>＋</button>
+    <button type="button" onClick={onZoomOut} aria-label={labels.zoomOut} title={labels.zoomOut}>－</button>
+    <button type="button" className={areaMode?'active':''} aria-pressed={areaMode} onClick={onArea} aria-label={labels.area} title={labels.area}>▭</button>
+    <button type="button" disabled={!threeD} onClick={onRotateLeft} aria-label={labels.left} title={threeD?labels.left:labels.unavailable}>↺</button>
+    <button type="button" disabled={!threeD} onClick={onRotateRight} aria-label={labels.right} title={threeD?labels.right:labels.unavailable}>↻</button>
+    <button type="button" disabled={!threeD} onClick={onPitchUp} aria-label={labels.up} title={threeD?labels.up:labels.unavailable}>↑</button>
+    <button type="button" disabled={!threeD} onClick={onPitchDown} aria-label={labels.down} title={threeD?labels.down:labels.unavailable}>↓</button>
+    <button type="button" disabled={!threeD} onClick={onReset} aria-label={labels.reset} title={threeD?labels.reset:labels.unavailable}>0°</button>
+    <button type="button" onClick={onFit} aria-label={labels.fit} title={labels.fit}>⌂</button>
+    <button type="button" disabled={!hasSelection} onClick={onFocus} aria-label={labels.focus} title={labels.focus}>◎</button>
+    <span className="navigation-readout" dir="ltr">z {zoom.toFixed(2)}</span>
+  </nav>;
+}
