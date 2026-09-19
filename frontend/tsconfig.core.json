@@ -35,6 +35,7 @@
     "src/comparison/adapters/*.ts",
     "src/comparison/selectionState.ts",
     "src/comparison/modelLaboratory.ts",
+    "src/comparison/comparability.ts",
     "src/reference/ellipsoidSurface.ts"
   ]
 }
