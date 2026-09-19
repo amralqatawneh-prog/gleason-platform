@@ -13,7 +13,7 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
 - CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
   core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
   Docker/PostGIS/Redis, locked-source and search gates.
-- P5.8 Versioned Local State Persistence: **NEXT / NOT STARTED**.
+- P5.8 Versioned Local State Persistence: **IN PROGRESS** by explicit owner instruction «أبدأ P5.8».
 - P5.9: **PENDING / NOT STARTED**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
 - Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
@@ -51,7 +51,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is next and remains NOT STARTED; P5.9 remains pending.
+P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is now IN PROGRESS; P5.9 remains pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -240,3 +240,21 @@ This changes the repository integration state only:
 - P5.9 remains NOT STARTED;
 - full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED;
 - no tag, GitHub Release or deployment is authorized by the merge.
+
+
+## P5.8 start — 2026-09-19
+
+The owner explicitly instructed «أبدأ P5.8». P5.8 is the only active slice.
+
+Approved implementation boundary:
+- persist the canonical shared geographic selection in a versioned local schema;
+- restore named places only from matching installed local search-pack records;
+- restore free points without inventing missing ellipsoidal height;
+- safely ignore unsupported/malformed state;
+- restoration does not count as a user selection revision;
+- user actions save; camera-only navigation does not;
+- do not persist route/time/shared-layer future services, camera state or Phase 6
+  measurement state.
+
+Report: `PHASE_5_P5_8_REPORT.md`.
+P5.9 and Phase 6 remain NOT STARTED.

@@ -69,9 +69,9 @@ P5.1–P5.7 are closed. Their offline-relevant behavior includes:
 - comparability/difference contracts that do not invent unavailable data;
 - future time/shared-layer/route services explicitly unavailable.
 
-### P5.8 boundary — not started
+### P5.8 boundary — in progress
 
-P5.8 **Versioned Local State Persistence** is the next slice and is NOT STARTED.
+P5.8 **Versioned Local State Persistence** is IN PROGRESS by explicit owner instruction.
 
 It is distinct from the existing Phase 4 layer-visibility persistence. P5.8 must
 define and test the persisted **Phase 5 shared state contract**, including:
@@ -83,8 +83,7 @@ define and test the persisted **Phase 5 shared state contract**, including:
 - no conversion of missing ellipsoidal height to zero;
 - no restoration of unavailable future-service operations as if implemented.
 
-This document does not claim P5.8 functionality before that slice is authorized,
-implemented and accepted.
+P5.8 has now been authorized and is under implementation. Acceptance is not claimed until its exact revision passes automated gates and owner manual verification.
 
 ## Browser evidence
 
@@ -107,3 +106,14 @@ Offline packs and cached data must keep:
 
 Do not invent missing records or silently replace a requested source with a
 different dataset.
+
+
+### P5.8 implemented contract direction
+
+The active implementation stores the canonical shared selection under a dedicated
+v1 key. Place selections store identity locators only and are reconstructed from
+installed/sanitized local search packs. Free points preserve optional ellipsoidal
+height exactly. Unsupported/malformed state is ignored safely.
+
+P5.8 intentionally does not persist camera state, route state, future-service
+operations, or Phase 6 measurement state.
