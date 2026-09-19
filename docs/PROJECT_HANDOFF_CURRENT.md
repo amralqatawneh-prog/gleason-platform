@@ -24,8 +24,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
   import, online/offline search and Arabic city gates.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
   after their recorded automated evidence and owner-reported manual PASS.
-- **P5.8 Versioned Local State Persistence is NEXT / NOT STARTED.**
+- **P5.8 Versioned Local State Persistence is IN PROGRESS** by explicit owner instruction «أبدأ P5.8».
 - P5.9 and Phase 6 routes/ruler/distance/area are NOT STARTED.
+- Current P5.8 branch: `feat/phase5-p5.8-state-persistence`, based on `main` head `4ea148a24eb28433dade35f79e46886afe4ce867` (CI #427 SUCCESS).
 - Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
@@ -700,3 +701,27 @@ PR #9 was marked ready and merged into `main` with merge commit
 The merge carries the documented Phase 5 work through P5.7 into the default
 branch. P5.8 remains NOT STARTED. Full Phase 5 acceptance remains pending.
 No tag, GitHub Release or deployment was created by this merge.
+
+
+## P5.8 start — 2026-09-19
+
+The owner explicitly instructed «أبدأ P5.8».
+
+P5.8 is now the only active slice on
+`feat/phase5-p5.8-state-persistence`, based on the merged/current `main`
+baseline `4ea148a24eb28433dade35f79e46886afe4ce867` whose Release Acceptance
+Gates #427 passed.
+
+P5.8 persists only the canonical shared selection:
+- free points persist model/lat/lon and optional ellipsoidal height exactly;
+- place selections persist a minimal identity locator, not stale display/source
+  metadata;
+- place restore must resolve against installed sanitized local search packs;
+- missing local evidence means no restore, not fabricated identity;
+- unsupported/malformed schema fails closed;
+- restore leaves the user-action revision unchanged;
+- P5.7 unavailable future services, cameras and Phase 6 measurement state are not
+  persisted.
+
+Report: `docs/PHASE_5_P5_8_REPORT.md`.
+P5.9 and Phase 6 remain NOT STARTED. No tag or GitHub Release.
