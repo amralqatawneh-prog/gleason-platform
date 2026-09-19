@@ -17,7 +17,7 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
 - P5.9: **PENDING / NOT STARTED**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
 - Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
-- Accepted application version remains **0.4.0**; draft PR #9 remains unmerged.
+- Accepted application version remains **0.4.0**; PR #9 is merged into `main`. No tag or GitHub Release has been created.
 - This documentation synchronization does not itself authorize P5.8.
 
 Historical dated subsections below are chronological evidence. Any older “next”,
@@ -226,3 +226,17 @@ Automated evidence:
 P5.7 is **CLOSED**. P5.8 Versioned Local State Persistence is next and remains
 **NOT STARTED** until explicit owner continuation. P5.9 and Phase 6 remain NOT
 STARTED. Full Phase 5 acceptance remains pending. No merge, tag or release.
+
+
+## PR #9 merge status — 2026-09-19
+
+After P5.7 closure and the GitHub documentation reconciliation, the owner
+explicitly authorized merging PR #9 into `main`. The merge completed at
+`97f043174b07cef9884075b1c37a4e4394f6f8bb`.
+
+This changes the repository integration state only:
+- P5.1–P5.7 remain CLOSED;
+- P5.8 remains NEXT / NOT STARTED;
+- P5.9 remains NOT STARTED;
+- full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED;
+- no tag, GitHub Release or deployment is authorized by the merge.
