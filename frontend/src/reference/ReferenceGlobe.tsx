@@ -268,36 +268,186 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const marker = selectionPoint ? projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch, zoom) : null;
   const selectedLabel = selectionLabel;
   const choose = (point: ReferenceGeoPoint) => { onPoint?.(point); };
+  const zoomBy=(factor:number)=>setZoom(current=>clampReferenceZoom(current*factor));
+  const fitFull=()=>{
+    setAreaMode(false);setBoxZoom(null);setZoom(1);
+    if(mode==='fallback2d')setFallbackCenter({latitude:0,longitude:0});
+  };
+  const resetOrientation=()=>{
+    if(mode==='webgl3d'){setYaw(DEFAULT_YAW);setPitch(DEFAULT_PITCH);}
+  };
+  const focusSelected=()=>{
+    if(!selectionPoint)return;
+    setAreaMode(false);setBoxZoom(null);
+    if(mode==='fallback2d'){
+      const nextZoom=clampReferenceZoom(Math.max(zoom,2));
+      setZoom(nextZoom);setFallbackCenter(clampFallbackCenter(selectionPoint,nextZoom));
+    }else{
+      const view=geoPointToViewAngles(selectionPoint);
+      setYaw(view.yaw);setPitch(view.pitch);setZoom(current=>clampReferenceZoom(Math.max(current,1.8)));
+    }
+  };
+  const wheelZoom=(deltaY:number)=>zoomBy(deltaY<0?1.18:1/1.18);
+  const boxStyle=boxZoom?{
+    left:Math.min(boxZoom.startX,boxZoom.currentX),
+    top:Math.min(boxZoom.startY,boxZoom.currentY),
+    width:Math.abs(boxZoom.currentX-boxZoom.startX),
+    height:Math.abs(boxZoom.currentY-boxZoom.startY),
+  }:null;
 
   if (mode === 'fallback2d') {
-    const scale = Math.min(viewport.width / 360, viewport.height / 180);
-    const fallbackLabels = scale > 0 ? declutterProjectedLabels(labels.map(label => ({ label, screen: {
-      x: (viewport.width - 360 * scale) / 2 + (label.longitude + 180) * scale,
-      y: (viewport.height - 180 * scale) / 2 + (90 - label.latitude) * scale, visible:true, depth:1,
-    }})), viewport.width, viewport.height, 40) : [];
-    return <section className="reference-card" data-mode="fallback2d" data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
-      <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
-      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback"><svg ref={fallbackRef} viewBox="0 0 360 180" onClick={(event) => { const rect = event.currentTarget.getBoundingClientRect(); const point = fallbackScreenPointToGeo(event.clientX - rect.left, event.clientY - rect.top, rect.width, rect.height); if (point) choose(point); }}>
-        <rect width="360" height="180" rx="8"/>
-        {[-120,-60,0,60,120].map((x)=><line key={`v${x}`} x1={x+180} x2={x+180} y1="0" y2="180"/>)}
-        {[-60,-30,0,30,60].map((y)=><line key={`h${y}`} x1="0" x2="360" y1={90-y} y2={90-y}/>)}
-        {layers?.countries !== false && countryPaths.map((d, index)=><path key={index} d={d} className="reference-country-line"/>)}
-        {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r="1.3" className={`reference-place-dot reference-place-${place.category}`}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
-        {fallbackLabels.map(({label,fontSizePx})=><text key={label.id} x={label.longitude+180} y={90-label.latitude} dominantBaseline="central" style={{fontSize:fontSizePx/scale}} className={`reference-map-label reference-map-label-${label.kind}`}><title>{label.provenance}</title>{label.text}</text>)}
-        {selectionPoint&&<circle cx={selected.longitude+180} cy={90-selected.latitude} r="4" className="reference-focus-marker"/>}
-      </svg></div>
+    const z=clampReferenceZoom(zoom);
+    const center=clampFallbackCenter(fallbackCenter,z);
+    const viewWidth=360/z,viewHeight=180/z;
+    const viewX=center.longitude+180-viewWidth/2,viewY=90-center.latitude-viewHeight/2;
+    const scale=Math.min(viewport.width/viewWidth,viewport.height/viewHeight);
+    const offsetX=(viewport.width-viewWidth*scale)/2,offsetY=(viewport.height-viewHeight*scale)/2;
+    const fallbackLabels=scale>0?declutterProjectedLabels(labels.flatMap(label=>{
+      const px=offsetX+(label.longitude+180-viewX)*scale,py=offsetY+(90-label.latitude-viewY)*scale;
+      if(px<0||px>viewport.width||py<0||py>viewport.height)return [];
+      return [{label,screen:{x:px,y:py,visible:true,depth:1}}];
+    }),viewport.width,viewport.height,40):[];
+
+    const pointerDown=(e:React.PointerEvent<SVGSVGElement>)=>{
+      const rect=e.currentTarget.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+      e.currentTarget.setPointerCapture(e.pointerId);
+      if(areaMode){setBoxZoom({pointerId:e.pointerId,startX:x,startY:y,currentX:x,currentY:y});return;}
+      pointers.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+      if(pointers.current.size===1)fallbackDrag.current={pointerId:e.pointerId,x:e.clientX,y:e.clientY,center};
+      else if(pointers.current.size===2){pinch.current={distance:pointerDistance(pointers.current),zoom:z};fallbackDrag.current=null;}
+    };
+    const pointerMove=(e:React.PointerEvent<SVGSVGElement>)=>{
+      const rect=e.currentTarget.getBoundingClientRect();
+      if(areaMode&&boxZoom?.pointerId===e.pointerId){
+        setBoxZoom({...boxZoom,currentX:e.clientX-rect.left,currentY:e.clientY-rect.top});return;
+      }
+      if(!pointers.current.has(e.pointerId))return;
+      pointers.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+      if(pointers.current.size>=2){
+        const distance=pointerDistance(pointers.current);
+        if(!pinch.current)pinch.current={distance,zoom:z};
+        if(pinch.current.distance>0)setZoom(clampReferenceZoom(pinch.current.zoom*distance/pinch.current.distance));
+        return;
+      }
+      const state=fallbackDrag.current;if(!state||state.pointerId!==e.pointerId)return;
+      const dx=e.clientX-state.x,dy=e.clientY-state.y;
+      const next={latitude:state.center.latitude+dy/Math.max(1,rect.height)*viewHeight,longitude:state.center.longitude-dx/Math.max(1,rect.width)*viewWidth};
+      setFallbackCenter(clampFallbackCenter(next,z));
+    };
+    const pointerUp=(e:React.PointerEvent<SVGSVGElement>)=>{
+      const rect=e.currentTarget.getBoundingClientRect();
+      if(areaMode&&boxZoom?.pointerId===e.pointerId){
+        const currentX=e.clientX-rect.left,currentY=e.clientY-rect.top;
+        const width=Math.abs(currentX-boxZoom.startX),height=Math.abs(currentY-boxZoom.startY);
+        const mid=svgClientToGeo(e.currentTarget,(e.clientX+rect.left+boxZoom.startX)/2,(e.clientY+rect.top+boxZoom.startY)/2);
+        if(width>12&&height>12&&mid){
+          const nextZoom=clampReferenceZoom(z*Math.min(rect.width/width,rect.height/height)*0.75);
+          setZoom(nextZoom);setFallbackCenter(clampFallbackCenter(mid,nextZoom));
+        }
+        setBoxZoom(null);setAreaMode(false);
+        if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
+        return;
+      }
+      const state=fallbackDrag.current&&fallbackDrag.current.pointerId===e.pointerId?fallbackDrag.current:null;
+      const wasPinch=pointers.current.size>1||pinch.current!==null;
+      pointers.current.delete(e.pointerId);if(pointers.current.size<2)pinch.current=null;
+      fallbackDrag.current=null;
+      if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
+      if(wasPinch||!state||Math.hypot(e.clientX-state.x,e.clientY-state.y)>5)return;
+      const point=svgClientToGeo(e.currentTarget,e.clientX,e.clientY);if(point)choose(point);
+    };
+    return <section className="reference-card" data-mode="fallback2d" data-view-zoom={z.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
+      <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979 · north-up</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
+      <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={z} areaMode={areaMode} hasSelection={!!selectionPoint}
+        onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
+        onRotateLeft={()=>{}} onRotateRight={()=>{}} onPitchUp={()=>{}} onPitchDown={()=>{}} onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
+      <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback">
+        <div className="reference-fallback-map-wrap">
+          <svg ref={fallbackRef} viewBox={viewX+' '+viewY+' '+viewWidth+' '+viewHeight} onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}
+            onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
+            onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;fallbackDrag.current=null;setBoxZoom(null);}}
+            onLostPointerCapture={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;fallbackDrag.current=null;}}>
+            <rect width="360" height="180" rx="8"/>
+            {[-120,-60,0,60,120].map((x)=><line key={'v'+x} x1={x+180} x2={x+180} y1="0" y2="180"/>)}
+            {[-60,-30,0,30,60].map((y)=><line key={'h'+y} x1="0" x2="360" y1={90-y} y2={90-y}/>)}
+            {layers?.countries !== false && countryPaths.map((d, index)=><path key={index} d={d} className="reference-country-line"/>)}
+            {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r={Math.max(.4,1.3/Math.max(1,z))} className={'reference-place-dot reference-place-'+place.category}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
+            {fallbackLabels.map(({label,fontSizePx})=><text key={label.id} x={label.longitude+180} y={90-label.latitude} dominantBaseline="central" style={{fontSize:fontSizePx/scale}} className={'reference-map-label reference-map-label-'+label.kind}><title>{label.provenance}</title>{label.text}</text>)}
+            {selectionPoint&&<circle cx={selected.longitude+180} cy={90-selected.latitude} r={Math.max(.8,4/Math.max(1,z))} className="reference-focus-marker"/>}
+          </svg>
+          {boxStyle&&<span className="navigation-zoom-box" style={boxStyle}/>}
+        </div>
+      </div>
       {selectionPoint&&<ReferenceReadout locale={locale} point={selected} mode="2D fallback" label={selectedLabel} details={layerPlaces.length}/>}
     </section>;
   }
 
-  return <section className="reference-card" data-mode="webgl3d" data-view-yaw={yaw} data-view-pitch={pitch} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
+  const pointerDown=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+    const rect=e.currentTarget.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    if(areaMode){setBoxZoom({pointerId:e.pointerId,startX:x,startY:y,currentX:x,currentY:y});return;}
+    pointers.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pointers.current.size===1)drag.current={pointerId:e.pointerId,x:e.clientX,y:e.clientY,yaw,pitch};
+    else if(pointers.current.size===2){pinch.current={distance:pointerDistance(pointers.current),zoom};drag.current=null;}
+  };
+  const pointerMove=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+    const rect=e.currentTarget.getBoundingClientRect();
+    if(areaMode&&boxZoom?.pointerId===e.pointerId){
+      setBoxZoom({...boxZoom,currentX:e.clientX-rect.left,currentY:e.clientY-rect.top});return;
+    }
+    if(!pointers.current.has(e.pointerId))return;
+    pointers.current.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pointers.current.size>=2){
+      const distance=pointerDistance(pointers.current);
+      if(!pinch.current)pinch.current={distance,zoom};
+      if(pinch.current.distance>0)setZoom(clampReferenceZoom(pinch.current.zoom*distance/pinch.current.distance));
+      return;
+    }
+    const state=drag.current;if(!state||state.pointerId!==e.pointerId)return;
+    setYaw(draggedYaw(state.yaw,e.clientX-state.x));
+    setPitch(Math.max(-1.25,Math.min(1.25,state.pitch+(e.clientY-state.y)*.008)));
+  };
+  const pointerUp=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+    const rect=e.currentTarget.getBoundingClientRect();
+    if(areaMode&&boxZoom?.pointerId===e.pointerId){
+      const currentX=e.clientX-rect.left,currentY=e.clientY-rect.top;
+      const width=Math.abs(currentX-boxZoom.startX),height=Math.abs(currentY-boxZoom.startY);
+      const centerX=(currentX+boxZoom.startX)/2,centerY=(currentY+boxZoom.startY)/2;
+      const point=screenPointToGeo(centerX,centerY,rect.width,rect.height,yaw,pitch,zoom);
+      if(width>12&&height>12&&point){
+        const view=geoPointToViewAngles(point);setYaw(view.yaw);setPitch(view.pitch);
+        setZoom(clampReferenceZoom(zoom*Math.min(rect.width/width,rect.height/height)*0.7));
+      }
+      setBoxZoom(null);setAreaMode(false);
+      if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
+      return;
+    }
+    const state=drag.current&&drag.current.pointerId===e.pointerId?drag.current:null;
+    const wasPinch=pointers.current.size>1||pinch.current!==null;
+    pointers.current.delete(e.pointerId);if(pointers.current.size<2)pinch.current=null;
+    drag.current=null;
+    if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);
+    if(wasPinch||!state||Math.hypot(e.clientX-state.x,e.clientY-state.y)>5)return;
+    const point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch,zoom);if(point)choose(point);
+  };
+
+  return <section className="reference-card" data-mode="webgl3d" data-view-yaw={yaw} data-view-pitch={pitch} data-view-zoom={zoom.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}>
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
+    <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={zoom} areaMode={areaMode} hasSelection={!!selectionPoint}
+      onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
+      onRotateLeft={()=>setYaw(current=>current-Math.PI/12)} onRotateRight={()=>setYaw(current=>current+Math.PI/12)}
+      onPitchUp={()=>setPitch(current=>Math.min(1.25,current+Math.PI/18))} onPitchDown={()=>setPitch(current=>Math.max(-1.25,current-Math.PI/18))}
+      onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
     <div className="reference-globe-wrap">
-      <canvas ref={canvasRef} className="reference-globe" onPointerDown={(e)=>{drag.current={x:e.clientX,y:e.clientY,yaw,pitch};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={(e)=>{if(!drag.current)return;setYaw(draggedYaw(drag.current.yaw, e.clientX-drag.current.x));setPitch(Math.max(-1.25,Math.min(1.25,drag.current.pitch+(e.clientY-drag.current.y)*.008)));}} onPointerUp={(e)=>{const start=drag.current;drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);if(!start)return;if(Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;const rect=e.currentTarget.getBoundingClientRect(),point=screenPointToGeo(e.clientX-rect.left,e.clientY-rect.top,rect.width,rect.height,yaw,pitch);if(point)choose(point);}} onPointerCancel={()=>{drag.current=null;}} onLostPointerCapture={()=>{drag.current=null;}}/>
+      <canvas ref={canvasRef} className={'reference-globe'+(areaMode?' zoom-area-mode':'')} onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}
+        onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
+        onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;drag.current=null;setBoxZoom(null);}}
+        onLostPointerCapture={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;drag.current=null;}}/>
       <div className="reference-label-layer" aria-hidden="true">
-        {projectedLabels.map(({label,screen,fontSizePx})=><span key={label.id} className={`reference-globe-label reference-globe-label-${label.kind}`} style={{left:screen.x,top:screen.y,fontSize:`${fontSizePx}px`}} title={label.provenance}>{label.text}</span>)}
+        {projectedLabels.map(({label,screen,fontSizePx})=><span key={label.id} className={'reference-globe-label reference-globe-label-'+label.kind} style={{left:screen.x,top:screen.y,fontSize:fontSizePx+'px'}} title={label.provenance}>{label.text}</span>)}
       </div>
       {marker?.visible&&<span className="reference-focus-dot" style={{left:marker.x,top:marker.y}} aria-label={locale==='ar'?'النقطة المحددة':'Selected point'}/>}
+      {boxStyle&&<span className="navigation-zoom-box" style={boxStyle}/>}
     </div>
     {selectionPoint&&<ReferenceReadout locale={locale} point={selected} mode="WebGL2 3D" label={selectedLabel} details={layerPlaces.length}/>}
   </section>;
