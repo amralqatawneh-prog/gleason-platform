@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — GitHub documentation and metadata reconciliation (2026-09-19)
+
+- Owner requested a comprehensive GitHub/documentation refresh before P5.8.
+- Refresh `README.md`, current handoff, roadmap, Phase 5 plan, navigation/measurement boundary, dependency register, offline architecture, security baseline and repository-structure policy through the accepted P5.7 state.
+- Add `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` with the 186-file tracked snapshot, current-vs-historical documentation classification, version/capability verification, locked source checksums and Phase 5 status.
+- Mark `PROJECT_ARCHITECTURE.md` explicitly as the accepted historical Phase 0 architecture baseline and point current execution status to the current handoff/roadmap.
+- Preserve historical reports/verification artifacts rather than rewriting old status statements as if they were current.
+- Production source manifests, dependency versions, numerical engines, database data and app version are unchanged.
+- Baseline before this documentation-only reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`, Release Acceptance Gates #397 SUCCESS.
+- P5.8 and Phase 6 remain NOT STARTED. No merge, tag or release.
+
+
 ## [Unreleased] — P5.7 owner acceptance closure (2026-09-19)
 
 - Owner reported «نجحت جميع اختبارات P5.7». Record manual result PASS — REPORTED BY OWNER.
