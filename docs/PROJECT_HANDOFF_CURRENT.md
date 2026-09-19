@@ -24,7 +24,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
   import, online/offline search and Arabic city gates.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
   after their recorded automated evidence and owner-reported manual PASS.
-- **P5.8 Versioned Local State Persistence is NEXT / NOT STARTED.**
+- **P5.8 Versioned Local State Persistence is IN PROGRESS** by explicit owner instruction «أبدأ P5.8».
 - P5.9 and Phase 6 routes/ruler/distance/area are NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -402,8 +402,7 @@ Overall:
 ## Required next steps
 
 1. Keep P5.1–P5.7 closed unless a concrete regression or source error is found.
-2. Do **not** start P5.8 from this documentation synchronization. P5.8 starts only
-   after the owner explicitly instructs continuation.
+2. P5.8 is now explicitly authorized and IN PROGRESS. Do not start P5.9 before P5.8 is technically closed and owner-tested.
 3. When authorized, P5.8 must implement versioned local state persistence:
    offline restore from installed/local packs, safe handling of invalid/old
    state, and no invented place identity or missing values.
@@ -700,3 +699,28 @@ PR #9 was marked ready and merged into `main` with merge commit
 The merge carries the documented Phase 5 work through P5.7 into the default
 branch. P5.8 remains NOT STARTED. Full Phase 5 acceptance remains pending.
 No tag, GitHub Release or deployment was created by this merge.
+
+
+## P5.8 start — 2026-09-19
+
+The owner explicitly instructed «أبدأ P5.8».
+
+A new working branch was created from the current `main` baseline:
+
+`feat/phase5-p5-8-state-persistence`
+
+P5.8 scope is limited to versioned local persistence/restoration of the Phase 5
+shared geographic selection state. It uses the existing IndexedDB key/value
+store and does not change source datasets, projection engines or database
+schema.
+
+Saved place identity is trusted only when an unchanged canonical record is
+available in installed offline search packs. Otherwise the valid geographic
+coordinate is restored as a free point with an explicit degraded-status result.
+Malformed/unsupported state is discarded. Missing ellipsoidal height is never
+coerced to zero.
+
+Report: `docs/PHASE_5_P5_8_REPORT.md`.
+
+P5.9 and Phase 6 remain NOT STARTED. Full Phase 5 acceptance remains pending.
+Accepted app version remains 0.4.0. No tag or GitHub Release.
