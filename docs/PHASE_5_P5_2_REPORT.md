@@ -58,13 +58,22 @@ explicit height, independent numerical anchors, domain/model/version/unit
 rejection, polar conventions and immutable metadata. Geographic tolerance
 1e-7 degrees; ECEF height round-trip tolerance 1e-4 metres in tested cases.
 
-CI for this revision must additionally pass the existing independent PROJ parity,
-backend, browser, Docker and real-source Arabic city gates. At report preparation,
-remote CI is pending; the final check on draft PR #9 is authoritative for its
-exact head. Historical city-fix CI #196 does not validate P5.2.
+Implementation `ce73919d92758d8683fcb2b25ae64c7714b06e72` passed
+[CI #198](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35428141118),
+including backend, 55 frontend core tests, 2 PWA tests, all 7 Chromium scenarios
+(31.8 seconds), independent PROJ parity, Docker and real-source Arabic city gates.
+This evidence belongs to that implementation commit; later documentation changes
+have separate checks.
 
-P5.2 coding scope: 100% implemented. Automated verification is local PASS with
-remote CI pending at preparation. Owner manual regression on P5.2: NOT RUN.
+P5.2 is CLOSED after automated PASS and owner-reported manual PASS on 2026-09-19.
+Exact owner statement: **«نجحت جميع الاختبارات»**. This refers to the three
+manual checks delivered with P5.2: Gleason/AE picks, Arabic search and WGS84
+selection/distance, and offline selection/search. Record **PASS — REPORTED BY
+OWNER**; device/browser details and local SHA were not supplied. Do not infer
+an exhaustive device matrix or acceptance of the entire Phase 5.
+
+P5.2 coding and delivered verification scope: 100% complete. P5.3 is next and
+has not started; no merge/tag/release is implied by this test report.
 No global percentage is inferred from the number of slices.
 
 ## Update and manual regression

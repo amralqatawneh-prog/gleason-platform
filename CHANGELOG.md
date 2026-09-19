@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased] — P5.2 verification closure (2026-09-19)
+
+- Owner reported «نجحت جميع الاختبارات» for the three delivered P5.2 checks. Recorded PASS — REPORTED BY OWNER; device/browser/local SHA not supplied.
+- Closed P5.2 with implementation CI #198 on `ce73919`; full Phase 5 acceptance remains pending. P5.3 is next and not started. Documentation-only closure; no merge, tag or release.
+
 ## [Unreleased] — Phase 5 / P5.2 (2026-09-19)
 
 - Owner confirmed Arabic city retest PASS and authorized the next slice.
