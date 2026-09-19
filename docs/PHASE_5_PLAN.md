@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.6 are closed after their recorded automated and owner checks. The owner has now instructed «أكمل» for P5.7 Homogeneous Differences and future time/layer/route contracts. P5.7 is IN PROGRESS; P5.8–P5.9 remain pending.
+P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is next and remains NOT STARTED; P5.9 remains pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -194,3 +194,17 @@ P5.7 rules:
 
 Implementation/report: `PHASE_5_P5_7_REPORT.md`. P5.8 and Phase 6 remain
 NOT STARTED. No merge, tag or release is authorized.
+
+
+## P5.7 acceptance closure — 2026-09-19
+
+The owner reported «نجحت جميع اختبارات P5.7» after completing the delivered
+manual checklist. Manual result: **PASS — REPORTED BY OWNER**.
+
+Automated evidence:
+- `6b21fbf78494335ca5cbec4c4c75a634b475cfac` — CI #383 SUCCESS;
+- `c3d97aac01a4b72706b2479001f35fed3bd830a1` — CI #387 SUCCESS.
+
+P5.7 is **CLOSED**. P5.8 Versioned Local State Persistence is next and remains
+**NOT STARTED** until explicit owner continuation. P5.9 and Phase 6 remain NOT
+STARTED. Full Phase 5 acceptance remains pending. No merge, tag or release.
