@@ -484,3 +484,34 @@ test('P5.6 WGS84 fallback exposes zoom/focus while declaring 3D rotation unavail
   await expect(globe).toHaveAttribute('data-view-zoom','1.0000');
   await expect(shell).toHaveAttribute('data-selection-revision','1');
 });
+
+
+test('P5.7 blocks heterogeneous differences and exposes future services as unavailable',async({page,servers})=>{
+  await english(page,servers.url);await locate(page,'TEST Doha');
+  const lab=page.locator('.model-laboratory');
+  const comparison=lab.locator('.model-comparability');
+  const differenceBlocks=comparison.locator('.model-comparison-difference');
+  await expect(differenceBlocks).toHaveCount(3);
+  await expect(comparison.locator('[data-difference-status="available"]')).toHaveCount(0);
+  await expect(comparison.locator('[data-difference-status="blocked"]')).toHaveCount(3);
+  await expect(comparison).toContainText('No numeric difference is shown because the quantities are not homogeneous');
+  await expect(lab).toContainText('intentionally shows no numeric cross-model difference');
+
+  const future=lab.locator('.future-contracts');
+  await expect(future).toBeVisible();
+  await expect(future.locator('.future-contract-card')).toHaveCount(3);
+  await expect(future.locator('[data-service-status="unavailable"]')).toHaveCount(3);
+  await expect(future.locator('[data-future-service="time"]')).toContainText('phases 9–10');
+  await expect(future.locator('[data-future-service="layer-sync"]')).toContainText('phase 16');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('phase 6');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('distance, ruler and area are not implemented here');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(comparison).toContainText('لا يُعرض فرق عددي لأن الكميتين غير متجانستين');
+  await expect(future).toContainText('عقود الخدمات المستقبلية');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('رسم المسارات والمسافة والمسطرة والمساحة ليست منفذة هنا');
+  await expect(future.locator('[data-service-status="unavailable"]')).toHaveCount(3);
+
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
