@@ -515,3 +515,106 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P5.8 persists shared selection with versioned local restore semantics',async({page,servers})=>{
+  await english(page,servers.url);
+  const shell=page.locator('.app-shell');
+  await expect(shell).toHaveAttribute('data-persistence-restore','empty');
+
+  await locate(page,'TEST Doha');
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  await expect.poll(()=>shell.getAttribute('data-persistence-save')).toBe('saved');
+
+  // P5.8 place restore is allowed only from an already installed local search pack.
+  await expect.poll(()=>page.evaluate(async()=>{
+    return await new Promise<boolean>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onerror=()=>reject(request.error);
+      request.onsuccess=()=>{
+        const db=request.result;
+        const tx=db.transaction('key-value','readonly');
+        const get=tx.objectStore('key-value').get('phase3-search-packs-v1');
+        get.onerror=()=>{db.close();reject(get.error);};
+        get.onsuccess=()=>{
+          const state=get.result as {core?:{entries?:Array<{id?:string}>}};
+          db.close();
+          resolve(Boolean(state?.core?.entries?.some(entry=>entry.id==='test-city-doha')));
+        };
+      };
+    });
+  })).toBe(true);
+
+  await page.reload();
+  await page.getByRole('button',{name:'English',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-persistence-restore','restored');
+  await expect(shell).toHaveAttribute('data-selection-revision','0');
+  await expect(page.locator('.place-provenance')).toContainText('TEST Doha');
+  await expect(page.locator('.place-provenance')).toContainText('OFFLINE canonical record');
+  await expect(page.locator('.phase5-persistence')).toContainText('Selection restored from trusted local state.');
+  await expect(page.locator('.phase5-persistence')).toContainText('Only the shared selection is persisted');
+
+  // Unsupported versions are ignored, not migrated by guessing.
+  await page.evaluate(async()=>{
+    await new Promise<void>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onerror=()=>reject(request.error);
+      request.onsuccess=()=>{
+        const db=request.result;
+        const tx=db.transaction('key-value','readwrite');
+        tx.objectStore('key-value').put({
+          contract:'phase5-shared-selection',
+          schemaVersion:99,
+          savedAt:'2026-09-19T20:00:00Z',
+          selection:null,
+        },'phase5-shared-selection-v1');
+        tx.oncomplete=()=>{db.close();resolve();};
+        tx.onerror=()=>{db.close();reject(tx.error);};
+      };
+    });
+  });
+  await page.reload();
+  await page.getByRole('button',{name:'English',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-persistence-restore','unsupported-version');
+  await expect(shell).toHaveAttribute('data-selection-revision','0');
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+  await expect(page.locator('.phase5-persistence')).toContainText('unsupported schema version');
+
+  // A structurally valid place locator still fails closed when no installed local record matches.
+  await page.evaluate(async()=>{
+    await new Promise<void>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onerror=()=>reject(request.error);
+      request.onsuccess=()=>{
+        const db=request.result;
+        const tx=db.transaction('key-value','readwrite');
+        tx.objectStore('key-value').put({
+          contract:'phase5-shared-selection',
+          schemaVersion:1,
+          savedAt:'2026-09-19T20:00:00Z',
+          selection:{
+            kind:'place',
+            locator:{
+              id:'missing-place',
+              sourceId:'missing-source',
+              sourceRecordId:'missing-record',
+              sourceVersion:'missing-version',
+            },
+          },
+        },'phase5-shared-selection-v1');
+        tx.oncomplete=()=>{db.close();resolve();};
+        tx.onerror=()=>{db.close();reject(tx.error);};
+      };
+    });
+  });
+  await page.reload();
+  await page.getByRole('button',{name:'English',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-persistence-restore','missing-local-place');
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+  await expect(page.locator('.phase5-persistence')).toContainText('absent from installed local packs');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(page.locator('.phase5-persistence')).toContainText('الحالة المحلية P5.8');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
