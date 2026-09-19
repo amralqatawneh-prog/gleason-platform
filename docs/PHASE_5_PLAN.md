@@ -106,6 +106,16 @@ on earlier attempts. The successful run found 0 vulnerabilities and completed
 62 core tests, 2 PWA tests, 11 Chromium scenarios and all remaining release
 acceptance gates.
 
-P5.5 is the next ordered slice and remains **NOT STARTED** until the owner
-instructs continuation. Full Phase 5 acceptance remains pending; no merge/tag/
-release is authorized.
+P5.5 is the next ordered slice. The owner has now instructed «أكمل», so P5.5 Comparability Contract is **IN PROGRESS**. P5.6 remains NOT STARTED. Full Phase 5 acceptance remains pending; no merge/tag/release is authorized.
+
+
+## P5.5 start — 2026-09-19
+
+After P5.4 closure, the owner explicitly instructed «أكمل». P5.5 Comparability
+Contract is now the only active slice. It must reject direct comparison when
+quantity meaning/dimensionality, coordinate space, units or scale basis are not
+compatible, and it must distinguish structural incompatibility from missing
+output. No normalization or unit conversion is allowed to force agreement.
+
+Implementation/report: `PHASE_5_P5_5_REPORT.md`. P5.6 and Phase 6 remain
+NOT STARTED. No merge, tag or release is authorized.
