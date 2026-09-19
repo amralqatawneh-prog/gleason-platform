@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import type { GeographicSelection } from './geographicSelection';
 import { inspectSelection, type LaboratoryEntry } from './modelLaboratory';
+import { laboratoryComparability, type ComparabilityDecision, type ComparabilityReasonCode } from './comparability';
 
 type Props = { locale: 'ar' | 'en'; selection: GeographicSelection | null };
 
 const copy = {
   ar: {
     title:'مختبر النماذج',
-    subtitle:'P5.4 · نفس النقطة الجغرافية في ثلاثة أنظمة مستقلة',
+    subtitle:'P5.4–P5.5 · نفس النقطة الجغرافية في ثلاثة أنظمة مستقلة مع عقد صريح لقابلية المقارنة',
     introTitle:'نفس النقطة الجغرافية ← ثلاث طرق مستقلة لتمثيلها',
     introBody:'هذه القيم تصف موقع النقطة داخل نظام كل نموذج. هي ليست مسافة بين مدينتين، ولا يحوّل البرنامج نموذجًا إلى آخر.',
     empty:'اختر مكانًا أو نقطة جغرافية لعرض نتائج النماذج الثلاثة.',
@@ -19,11 +20,17 @@ const copy = {
     technical:'إظهار التفاصيل التقنية',
     hideMeaning:'ما معنى هذه النتيجة؟',
     distanceWarning:'هذه الأرقام لا تمثل مسافة بين مكانين.',
-    compareBoundary:'المختبر يشرح كل نموذج منفردًا فقط. المقارنة الرقمية بين النماذج ستُعرّف بقواعد مستقلة في P5.5.',
+    compareTitle:'عقد قابلية المقارنة',
+    compareIntro:'لا يكفي تشابه الأرقام أو حتى تشابه الوحدة لكي تصبح نتيجتان قابلتين للمقارنة. يجب أن يتطابق معنى الكمية ونظام الإحداثيات والوحدة والمقياس.',
+    comparable:'قابلة للمقارنة مباشرة',
+    notComparable:'غير قابلة للمقارنة مباشرة',
+    comparisonUnavailable:'المقارنة غير متاحة حاليًا',
+    noConversion:'لم يُطبّق أي تحويل أو تطبيع بين النماذج.',
+    compareBoundary:'P5.5 يقرر صلاحية المقارنة فقط ولا يحسب فرقًا عدديًا. عرض الفروق للكميات المتجانسة يبقى ضمن P5.7.',
   },
   en: {
     title:'Model Laboratory',
-    subtitle:'P5.4 · The same geographic point in three independent systems',
+    subtitle:'P5.4–P5.5 · The same geographic point in three independent systems with an explicit comparability contract',
     introTitle:'One geographic point → three independent representations',
     introBody:'These values describe where the point sits inside each model system. They are not distances between cities, and the app does not convert one model into another.',
     empty:'Select a place or geographic point to inspect all three models.',
@@ -35,7 +42,13 @@ const copy = {
     technical:'Show technical details',
     hideMeaning:'What does this result mean?',
     distanceWarning:'These numbers are not a distance between two places.',
-    compareBoundary:'The laboratory explains each model independently. Cross-model numeric comparability will be defined separately in P5.5.',
+    compareTitle:'Comparability contract',
+    compareIntro:'Similar numbers — or even the same unit — do not make two results comparable. Quantity meaning, coordinate space, unit and scale must be compatible.',
+    comparable:'Directly comparable',
+    notComparable:'Not directly comparable',
+    comparisonUnavailable:'Comparison currently unavailable',
+    noConversion:'No conversion or normalization was applied between models.',
+    compareBoundary:'P5.5 decides whether comparison is valid; it does not calculate numeric differences. Homogeneous difference display remains P5.7.',
   },
 } as const;
 
@@ -93,9 +106,10 @@ function meaning(entry:LaboratoryEntry, locale:'ar'|'en') {
 export function ModelLaboratory({ locale, selection }:Props) {
   const t=copy[locale];
   const entries=useMemo(()=>inspectSelection(selection),[selection]);
+  const comparisons=useMemo(()=>laboratoryComparability(entries),[entries]);
   return <section className="model-laboratory" aria-labelledby="model-laboratory-title">
     <div className="section-heading model-laboratory__heading">
-      <div><h2 id="model-laboratory-title">{t.title}</h2><p>{t.subtitle}</p></div><span className="evidence-badge">P5.4</span>
+      <div><h2 id="model-laboratory-title">{t.title}</h2><p>{t.subtitle}</p></div><span className="evidence-badge">P5.4–P5.5</span>
     </div>
     {!selection ? <p className="muted model-laboratory__empty">{t.empty}</p> : <>
       <div className="model-lab-intro">
@@ -110,6 +124,7 @@ export function ModelLaboratory({ locale, selection }:Props) {
         <span>{t.place}: {selection.place?`${selection.place.id} · ${selection.place.sourceId} · ${selection.place.sourceVersion??t.unknown}`:t.none}</span>
       </div>
       <div className="model-lab-grid">{entries.map(entry=><ModelCard key={entry.key} entry={entry} locale={locale} t={t}/>)}</div>
+      <ComparabilityPanel decisions={comparisons} locale={locale} t={t}/>
       <p className="model-lab-boundary">{t.compareBoundary}</p>
     </>}
   </section>;
@@ -160,4 +175,58 @@ function ModelCard({entry,locale,t}:{entry:LaboratoryEntry;locale:'ar'|'en';t:ty
       <section><strong>{t.limitations}</strong><ul>{entry.metadata.limitations.map((limit,index)=><li key={index}>{limit}</li>)}</ul></section>
     </details>
   </article>;
+}
+
+
+function comparisonReason(reason:ComparabilityReasonCode,locale:'ar'|'en'):string {
+  const ar:Record<ComparabilityReasonCode,string>={
+    'missing-output':'إحدى النتيجتين غير متاحة للمدخل الحالي.',
+    'different-meaning':'نوع الكمية مختلف؛ الإحداثيات المستوية ليست هي إحداثيات ECEF ثلاثية الأبعاد.',
+    'different-coordinate-space':'كل نتيجة معرفة داخل نظام إحداثيات/مرجع مختلف، لذلك لا يجوز طرح المركبات أو مساواتها مباشرة.',
+    'different-units':'الوحدات مختلفة بين النتيجتين.',
+    'undefined-cross-model-scale':'لا توجد قاعدة مقياس موثقة لتحويل normalized-radius بين هذا النموذج ونظام الأمتار؛ لا يُفترض تحويل إلى متر أو كيلومتر.',
+  };
+  const en:Record<ComparabilityReasonCode,string>={
+    'missing-output':'One result is unavailable for the current input.',
+    'different-meaning':'The quantity meaning differs: planar coordinates are not the same quantity as 3D ECEF coordinates.',
+    'different-coordinate-space':'Each result is defined in a different coordinate/reference space, so components cannot be subtracted or equated directly.',
+    'different-units':'The result units differ.',
+    'undefined-cross-model-scale':'There is no declared scale basis for converting normalized-radius across this model boundary into metres or kilometres.',
+  };
+  return (locale==='ar'?ar:en)[reason];
+}
+
+function ComparabilityPanel({decisions,locale,t}:{decisions:readonly Readonly<ComparabilityDecision>[];locale:'ar'|'en';t:typeof copy.ar|typeof copy.en}) {
+  return <section className="model-comparability" aria-labelledby="model-comparability-title">
+    <div className="model-comparability__head">
+      <div><h3 id="model-comparability-title">{t.compareTitle}</h3><p>{t.compareIntro}</p></div>
+      <span className="evidence-badge">P5.5</span>
+    </div>
+    <div className="model-comparability__grid">
+      {decisions.map(decision=>{
+        const pair=`${decision.left.key}-${decision.right.key}`;
+        const statusLabel=decision.status==='comparable'?t.comparable:decision.status==='unavailable'?t.comparisonUnavailable:t.notComparable;
+        return <article
+          key={pair}
+          className="model-comparison-card"
+          data-comparison-pair={pair}
+          data-comparison-status={decision.status}
+          data-reasons={decision.reasons.join(',')}
+          data-conversion-applied="false"
+        >
+          <div className="model-comparison-card__top">
+            <strong>{decision.left.key.toUpperCase()} ↔ {decision.right.key.toUpperCase()}</strong>
+            <span className={`model-comparison-status ${decision.status}`}>{statusLabel}</span>
+          </div>
+          <div className="model-comparison-signature" dir="ltr">
+            <span>{decision.left.meaning} · {decision.left.units}</span>
+            <span>↔</span>
+            <span>{decision.right.meaning} · {decision.right.units}</span>
+          </div>
+          <ul>{decision.reasons.map(reason=><li key={reason}>{comparisonReason(reason,locale)}</li>)}</ul>
+          <small>{t.noConversion}</small>
+        </article>;
+      })}
+    </div>
+  </section>;
 }
