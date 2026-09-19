@@ -724,3 +724,18 @@ Report: `docs/PHASE_5_P5_8_REPORT.md`.
 
 P5.9 and Phase 6 remain NOT STARTED. Full Phase 5 acceptance remains pending.
 Accepted app version remains 0.4.0. No tag or GitHub Release.
+
+
+## P5.8 automated verification — 2026-09-19
+
+P5.8 implementation head
+`3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` passed
+[CI #439](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35468911842).
+
+Evidence: 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests and 16
+Chromium scenarios PASS, plus production build, WGS84 parity,
+Docker/PostGIS/Redis, locked-source import and online/offline/Arabic search
+gates.
+
+P5.8 status: **IN PROGRESS / TECHNICALLY GREEN / awaiting owner manual
+verification**. P5.9 and Phase 6 remain NOT STARTED. No tag or GitHub Release.
