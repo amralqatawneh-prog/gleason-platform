@@ -12,9 +12,9 @@ rewriting historical evidence as if it were produced today.
 
 Repository: `amralqatawneh-prog/gleason-platform`
 
-Working branch: `feat/phase5-shared-state`
+Current branch: `main`
 
-Draft PR: #9
+PR #9: **MERGED** into `main` after explicit owner authorization
 
 Accepted application version: **0.4.0**
 
@@ -56,7 +56,7 @@ Observed evidence:
 | P5.9 Phase 5 regression/acceptance package | NOT STARTED |
 | Full Phase 5 | IN PROGRESS / NOT YET ACCEPTED |
 | Phase 6 routes/ruler/distance/area | NOT STARTED |
-| PR #9 | OPEN / DRAFT / UNMERGED |
+| PR #9 | MERGED into `main` |
 | tag / GitHub Release | NOT CREATED |
 
 This documentation synchronization does **not** authorize P5.8, Phase 6, merge,
@@ -263,10 +263,12 @@ No workflow relaxation was introduced in this audit.
 ## GitHub pull request metadata
 
 PR #9 was originally titled/described around P5.1–P5.3 and therefore no longer
-matched the branch. This synchronization updates the PR metadata to describe
-P5.1–P5.7 as closed and P5.8 as next/not started while keeping the PR **draft**.
+matched the branch. The synchronization updated its metadata to describe P5.1–P5.7
+as closed and P5.8 as next/not started. The owner subsequently explicitly
+authorized merge, and PR #9 was merged into `main` at
+`97f043174b07cef9884075b1c37a4e4394f6f8bb`.
 
-Updating PR metadata does not authorize merge.
+The merge did not create a tag, GitHub Release or deployment.
 
 ## What was intentionally not changed
 
@@ -281,7 +283,7 @@ Updating PR metadata does not authorize merge.
 - No accepted phase.
 - No P5.8 implementation.
 - No Phase 6 measurement implementation.
-- No merge/tag/release.
+- PR #9 merge completed; no tag/release/deployment.
 
 ## Next permitted project step
 
@@ -289,3 +291,14 @@ The next ordered slice is **P5.8 — Versioned Local State Persistence**.
 
 It remains **NOT STARTED** until the owner explicitly instructs continuation
 after this documentation/GitHub synchronization.
+
+
+## Post-audit merge update
+
+After this documentation audit, the owner explicitly authorized merging PR #9 to
+`main`. The merge completed successfully:
+
+`97f043174b07cef9884075b1c37a4e4394f6f8bb`
+
+The default branch now contains the v0.4.0 README and all documented work through
+P5.7. P5.8 remains NOT STARTED. No tag or GitHub Release was created.
