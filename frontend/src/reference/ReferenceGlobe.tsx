@@ -362,8 +362,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
         onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
         onRotateLeft={()=>{}} onRotateRight={()=>{}} onPitchUp={()=>{}} onPitchDown={()=>{}} onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
       <div className="reference-fallback" role="img" aria-label="WGS84 2D fallback">
-        <div className="reference-fallback-map-wrap">
-          <svg ref={fallbackRef} tabIndex={0} viewBox={viewX+' '+viewY+' '+viewWidth+' '+viewHeight} onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}
+        <div className="reference-fallback-map-wrap" onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}>
+          <svg ref={fallbackRef} tabIndex={0} viewBox={viewX+' '+viewY+' '+viewWidth+' '+viewHeight}
             onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
             onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;fallbackDrag.current=null;setBoxZoom(null);}}
             onLostPointerCapture={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;fallbackDrag.current=null;}}>
@@ -438,8 +438,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       onRotateLeft={()=>setYaw(current=>current-Math.PI/12)} onRotateRight={()=>setYaw(current=>current+Math.PI/12)}
       onPitchUp={()=>setPitch(current=>Math.min(1.25,current+Math.PI/18))} onPitchDown={()=>setPitch(current=>Math.max(-1.25,current-Math.PI/18))}
       onReset={resetOrientation} onFit={fitFull} onFocus={focusSelected}/>
-    <div className="reference-globe-wrap">
-      <canvas ref={canvasRef} tabIndex={0} className={'reference-globe'+(areaMode?' zoom-area-mode':'')} onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}
+    <div className="reference-globe-wrap" onWheel={(e)=>{e.preventDefault();wheelZoom(e.deltaY);}}>
+      <canvas ref={canvasRef} tabIndex={0} className={'reference-globe'+(areaMode?' zoom-area-mode':'')}
         onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp}
         onPointerCancel={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;drag.current=null;setBoxZoom(null);}}
         onLostPointerCapture={(e)=>{pointers.current.delete(e.pointerId);pinch.current=null;drag.current=null;}}/>
