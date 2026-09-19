@@ -82,3 +82,40 @@ Automated regression now verifies the plain-language explanation, the collapsed
 technical section, WGS84 missing-height explanation, bilingual content and
 mobile horizontal overflow. Owner retest of this refined revision is still
 **NOT RUN** until the new CI revision is delivered.
+
+
+## P5.4 acceptance closure — 2026-09-19
+
+The owner first reported that all delivered functional checks passed, then
+identified a usability acceptance issue: the raw Model Laboratory output was
+technically correct but not understandable enough to be useful. The owner
+approved an in-slice clarification refinement. After receiving that refinement,
+the owner reported:
+
+> «القسم اصبح واضحا، اكمل التوثيق»
+
+Manual clarity result: **PASS — REPORTED BY OWNER**. Device/browser/local
+checkout SHA were not supplied. This owner result closes the comprehension
+acceptance issue that kept P5.4 open after the first functional retest.
+
+Automated evidence for the refined implementation is exact head
+`29fa6190185ec7901c14f586ad26213337190272`:
+[Release Acceptance Gates #236 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35458166222),
+successful on run attempt 6 after earlier attempts on the same SHA were blocked
+at `npm audit --audit-level=high` by an npm registry `400 Bad Request`.
+The successful attempt reported `found 0 vulnerabilities`, 62 frontend core
+tests, 2 PWA tests and 11 Chromium acceptance scenarios, and completed the
+remaining parity/build/Docker/PostGIS/Redis/locked-source/search gates.
+
+No dependency, calculation, adapter contract or dataset was changed by the UX
+clarification. The refinement changes presentation and acceptance coverage only.
+
+### Final P5.4 status
+
+**CLOSED / ACCEPTED FOR THIS SLICE — automated gates PASS and owner manual
+functional/clarity checks PASS.**
+
+P5.5 Comparability Contract is the next ordered slice, but it is **NOT STARTED**
+by this documentation closure. Full Phase 5 acceptance remains pending.
+Accepted application version remains 0.4.0. Draft PR #9 remains open/unmerged;
+no merge, tag or release is implied or authorized by this closure.
