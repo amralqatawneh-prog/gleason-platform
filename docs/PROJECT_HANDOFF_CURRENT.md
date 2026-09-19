@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 and the Arabic city fix passed owner testing. P5.2 is closed after CI #198 and owner-reported manual PASS; P5.3 is closed after CI #204 and owner-reported success of the visual correction retest; P5.4 is next; see `PHASE_5_PLAN.md` and `PHASE_5_P5_2_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
+- Phase 5: **STARTED by explicit owner instruction on 2026-09-19: «ابدأ المرحله الخامسة»**. The previous hold is lifted for Phase 5 implementation. P5.1 and the Arabic city fix passed owner testing. P5.2 is closed after CI #198 and owner-reported manual PASS; P5.3 is closed after CI #204 and owner-reported success of the visual correction retest; P5.4 Basic Model Laboratory is now in progress by the owner's explicit «ابدأ» instruction; see `PHASE_5_PLAN.md` and `PHASE_5_P5_2_REPORT.md`. Phase 4 remains accepted; Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -451,10 +451,24 @@ Implementation evidence: commit `3ca3989868b6bcc42e8f1aae8d09f035b1c7a98e`,
 [CI #204 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35441426643),
 including 58 core tests and 10 Chromium scenarios. This is evidence for that
 implementation revision, not a claim of a new test run for this documentation.
-P5.4 remains the next implementation slice. Full Phase 5 acceptance is pending;
+P5.4 was the next implementation slice at this closure point; it is now in progress under the later owner start instruction. Full Phase 5 acceptance is pending;
 accepted application version stays 0.4.0. No merge, tag or release.
 
 The owner also requested navigation controls, multi-stop paths and distance/area
 measurement, then instructed «اكمل». Scheduling and acceptance requirements are
 recorded in `NAVIGATION_MEASUREMENT_REQUIREMENTS.md`; those tools are not yet
 implemented by this documentation update.
+
+
+## P5.4 start update — 2026-09-19
+
+After reviewing the current project handoff, the owner explicitly instructed
+«ابدأ». P5.4 Basic Model Laboratory is now the active slice. It exposes each
+adapter's same canonical geographic input, model/version, output, units,
+semantic/evidence classification, source, notes and limitations, while reporting
+missing/unsupported operations explicitly. It does not implement P5.5 numeric
+comparability, P5.6 navigation tools or Phase 6 measurement tools.
+
+Implementation/report: `docs/PHASE_5_P5_4_REPORT.md`. P5.3 remains accepted;
+the accepted application version remains 0.4.0; no merge, tag or release is
+authorized by this instruction.
