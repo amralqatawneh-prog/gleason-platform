@@ -1,6 +1,13 @@
 # Changelog
 
-## Approved Phase 4 corrections — unreleased (2026-09-18)
+## [0.4.0] — accepted application version (2026-09-18)
+
+- Owner reported all corrected-build manual tests PASS and explicitly accepted Phase 4. Recorded the exact decision and evidence in `docs/PHASE_4_ACCEPTANCE.md`.
+- Aligned VERSION, backend/frontend package metadata and dependency locks to 0.4.0; capabilities now report `accepted_phase=4` and `phase_status=accepted` while synchronization/astronomy remain unavailable.
+- Phase 5 remains NOT STARTED and ON HOLD until an explicit owner instruction to start it. Phase 4 acceptance does not lift this hold.
+- No PR merge, tag or GitHub Release was created by acceptance. CI #188 on `a0a8e29` validates the build supplied for owner review; the acceptance commit has its own CI check.
+
+### Approved Phase 4 corrections
 
 - M1: correct geodetic WGS84 picking, geographic markers, rear visibility and fallback letterboxing; retain inverted drag.
 - M2: independent offline WGS84 geodesics/ECEF, backend parity gate, compiled-asset precache with content versioning.
@@ -10,10 +17,10 @@
 - M6: lock npm/Python installations, prevent stale results/pack writes, refresh installed features, and add browser acceptance gates.
 - M7/M8: reconcile phases 0–22 and Phase 5/6 scope, record actual renderer and retain approved future UX/performance requirements.
 - Verification: 49 backend + 40 frontend core + 2 PWA tests and numerical parity pass locally and in CI #186; all six Chromium scenarios and Docker/PostGIS/Redis/production-source/API-CLI parity gates pass on uploaded snapshot `fb4dcab`.
-- Owner explicitly authorized upload and CI without merge or release; seven exact-content commits uploaded to the existing Phase 4 branch. PR #8 remains draft and unmerged; device/manual review remains NOT RUN.
-- Owner approved M1–M8; Phase 4 acceptance remains pending.
+- Owner explicitly authorized upload and CI without merge or release; seven exact-content commits uploaded to the existing Phase 4 branch. PR #8 remains draft and unmerged; owner subsequently reported manual review PASS.
+- Owner approved M1–M8 and subsequently accepted Phase 4. M8 remains planned future scope.
 
-## [Unreleased] — Phase 4
+### Phase 4 implementation history
 ### Started
 - Phase 4 authorized by owner on 2026-09-17.
 - Added `docs/PHASE_4_PLAN.md` defining the WGS84 Reference Model scope, provenance rules, delivery slices, acceptance gates, and explicit Phase 5 boundary.
@@ -30,7 +37,7 @@
 - Added and locked inverse horizontal globe drag behavior: pointer right rotates the globe left; pointer left rotates the globe right.
 - GitHub Actions run #177 passed after retrying a transient Docker Hub authorization/network failure; all code/test/build/PWA gates had passed before the transient failure.
 - Owner manual regression checks passed, including the final drag-direction change.
-- P4.7 is technically complete; Phase 5 remains excluded pending explicit owner acceptance of Phase 4.
+- P4.7 was technically complete before the later acceptance recorded above. Phase 5 remains excluded under the owner's explicit hold.
 
 ### P4.6
 - Added persistent WGS84 globe layer controls backed by IndexedDB.

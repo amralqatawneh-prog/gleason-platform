@@ -1,6 +1,6 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-18_
+_Last updated: 2026-09-19_
 
 ## Purpose
 
@@ -11,11 +11,12 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Repository: `amralqatawneh-prog/gleason-platform`
 - Current implementation branch: `feat/phase4-wgs84-reference`
 - Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
-- Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6); later roadmap/evidence commits are documentation only.
+- Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Build supplied for final owner review: `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939`, validated by [CI #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995). Acceptance closure updates application metadata to 0.4.0 and acceptance state only; no Phase 5 code is included.
 - Validated correction snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) — SUCCESS, including six browser tests and Docker/production-source gates. Baseline #184 is historical evidence only.
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
+- Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5 has NOT started.
+- Phase 5: **NOT STARTED — ON HOLD UNTIL THE OWNER EXPLICITLY INSTRUCTS STARTING IT**, even after Phase 4 acceptance or later merge/release.
 
 ## Project architecture agreed with owner
 
@@ -67,7 +68,7 @@ The owner explicitly requires:
   - test report,
   - documentation update.
 - Manual checks that are not performed are `NOT RUN`. Use `WAIVED BY OWNER` only when the owner explicitly waives that particular check; never infer a waiver or PASS.
-- Phase 5 is forbidden until explicit Phase 4 acceptance.
+- Phase 4 is accepted. Phase 5 remains forbidden until a separate explicit owner instruction to start it; do not treat phase acceptance or future merge/release permission as that instruction.
 
 ## Gleason source rules and verified historical basis
 
@@ -160,7 +161,7 @@ Owner manual Phase 3 acceptance passed.
 ## Phase 4 — WGS84 Reference Model
 
 Overall Phase 4 status:
-**APPROVED CORRECTIONS UPLOADED AND AUTOMATICALLY VERIFIED — M1–M6 local and remote CI checks PASS. Corrected-build owner/device review remains NOT RUN. Phase 4 itself is NOT accepted.**
+**ACCEPTED BY OWNER — P4.1–P4.7 and corrections M1–M6 complete. Automated gates PASS; the owner reported all corrected-build manual checks PASS and explicitly accepted Phase 4 on 2026-09-18. Application version: v0.4.0.**
 
 ## Owner approval — 2026-09-18
 
@@ -170,6 +171,14 @@ This authorizes M1–M6 implementation, M7 roadmap reconciliation and M8 future 
 The owner subsequently answered «نعم اسمح» to the specific request to upload the seven commits to this repository/branch and run CI without merge or release. This upload is complete. See the correction report for the original/uploaded commit mapping and exact CI evidence.
 
 See `docs/APPROVED_CORRECTIONS_2026-09-18.md` for scope, progress and validation. Previous manual PASS records below refer to the historical implementation, not to the corrected revision.
+
+### Final Phase 4 acceptance and Phase 5 hold
+
+The owner subsequently stated:
+
+> قمت بالاختبار ونجحت كل الاختبارات، يمكنك اعتماد المرحلة الرابعة، وتوثيق ذلك، ولا تبدأ بالمرحلة الخامسة حتى اخبرك
+
+This is explicit Phase 4 acceptance after owner-reported successful testing. Record manual results as **PASS — REPORTED BY OWNER**; device/browser details were not supplied. The authoritative record is `docs/PHASE_4_ACCEPTANCE.md`. Phase 5 remains **NOT STARTED / ON HOLD** until a new explicit owner start instruction. No merge, tag or GitHub Release is implied by this acceptance.
 
 ### P4.1 — COMPLETE ✅
 
@@ -362,23 +371,16 @@ Historical slice state (new correction evidence is separate):
 - P4.7 COMPLETE ✅
 
 Overall:
-- Phase 4: **CORRECTIONS UPLOADED; AUTOMATED GATES PASS; OWNER/DEVICE REVIEW PENDING** (M1–M6)
-- Phase 4 is **NOT YET ACCEPTED** until the owner explicitly says they accept Phase 4.
-- Phase 5: **NOT STARTED**
+- Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
+- Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
+- Phase 5: **NOT STARTED — ON HOLD BY EXPLICIT OWNER INSTRUCTION**.
 
 ## Required next steps
 
-The next permitted sequence is:
-
-1. Rebuild the uploaded correction branch and perform the owner/device checklist in `PHASE_4_CORRECTIONS_TEST_REPORT.md`: geographic selection/marker, inverted drag, mobile layers/labels, pack provenance, offline reopen and A/B results. Record PASS/FAIL/NOT RUN without inferring a waiver. CI #186 already passed the automated browser/Docker/source gates.
-2. Present the corrected implementation and any outstanding manual checks for explicit **Phase 4 acceptance**. M7 roadmap is reconciled and M8 remains approved future work.
-3. Only after explicit acceptance:
-   - finalize release metadata to v0.4.0,
-   - align `VERSION`, backend package version, frontend package version, changelog,
-   - create acceptance/release documentation,
-   - merge the Phase 4 PR/branch only when authorized according to repository workflow,
-   - optionally create/tag v0.4.0 only if actually performed and verified.
-4. Only after Phase 4 is accepted and release metadata is closed may **Phase 5** begin. Current upload authorization does not authorize merge or release.
+1. Preserve the explicit acceptance record, v0.4.0 metadata/locks and CI evidence for the acceptance commit on the current Phase 4 branch. Earlier CI #186/#188 results belong to their recorded snapshots; use the acceptance commit's own GitHub check for its validation result.
+2. No further owner acceptance is required for Phase 4. M7 roadmap is reconciled; M8 remains approved future work.
+3. Merge, tag or publish a release only when separately authorized. Current upload/acceptance instructions do not authorize those actions.
+4. **Wait for the owner to explicitly instruct starting Phase 5. Do not implement P5.1 or any subsequent slice in the meantime.** This hold remains effective independently of any later merge/release decision.
 
 ## Phase 5 boundary / future agreed direction
 
@@ -394,7 +396,7 @@ When authorized, synchronization must:
 - never normalize outputs merely to make models agree,
 - make model differences visible rather than hiding them.
 
-Do not implement Phase 5 until owner acceptance of Phase 4.
+Phase 4 acceptance is complete. Do not implement Phase 5 until a separate owner instruction explicitly starts it.
 
 ## Local Windows / Git Bash workflow
 

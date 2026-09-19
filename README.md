@@ -1,16 +1,17 @@
-# Gleason Comparison Platform — v0.3.0
+# Gleason Comparison Platform — v0.4.0
 
-Phase 3 is accepted. The platform now includes the accepted Phase 2 projection foundation plus a PostGIS-backed spatial catalog, unified English/Arabic place search, and deterministic offline-search packs.
+Phase 4 is accepted by the owner. The platform includes independent Gleason/AE projection foundations, a PostGIS-backed catalog and offline search, plus the WGS84 reference globe, geodesic/ECEF calculations and offline operation. Application version 0.4.0 does not imply a published GitHub Release.
 
 ## Current phase status
 - Phase 0 — ACCEPTED ✅
 - Phase 1 — ACCEPTED ✅
 - Phase 2 — ACCEPTED ✅
 - Phase 3 — ACCEPTED ✅
-- Phase 4 — approved corrections uploaded; CI #186 passed, including browser/Docker/source gates; owner/device review and explicit phase acceptance pending.
-- Phase 5 — NOT STARTED.
+- Phase 4 — ACCEPTED BY OWNER on 2026-09-18; all manual checks reported PASS; automated browser/Docker/source evidence recorded.
+- Phase 5 — NOT STARTED; ON HOLD until the owner explicitly instructs starting it.
 
 Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
+Owner acceptance: [docs/PHASE_4_ACCEPTANCE.md](docs/PHASE_4_ACCEPTANCE.md).
 Approved roadmap: [docs/ROADMAP_CURRENT.md](docs/ROADMAP_CURRENT.md).
 Correction evidence: [docs/PHASE_4_CORRECTIONS_TEST_REPORT.md](docs/PHASE_4_CORRECTIONS_TEST_REPORT.md).
 

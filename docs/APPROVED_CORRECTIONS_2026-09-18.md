@@ -2,14 +2,14 @@
 
 Owner decision: «نعم موافق، وموافق على المقترحات» — all eight proposals approved.
 
-This is approval of corrections and planning, **not Phase 4 acceptance**. Phase 5 remains NOT STARTED. Historical acceptance evidence remains historical; manual checks on the changed build must be recorded separately.
+The initial decision approved corrections and planning. The owner subsequently reported all corrected-build tests PASS and explicitly accepted Phase 4; see `PHASE_4_ACCEPTANCE.md`. Application version is now v0.4.0. **Phase 5 remains NOT STARTED and ON HOLD until the owner explicitly instructs starting it.** Per-slice test counts below preserve their historical execution points.
 
 | ID | Approved scope | Execution/status |
 |---|---|---|
 | M1 | Geodetic ellipsoid rendering/picking; correct geographic marker; reject outside clicks | IMPLEMENTED; automated checks PASS |
 | M2 | Offline WGS84 geodesics and coordinate conversion; PROJ parity; complete versioned PWA precache | IMPLEMENTED; automated checks PASS |
 | M3 | Accessible mobile layer controls and legible, decluttered labels | IMPLEMENTED; automated checks PASS |
-| M4 | Consistent application version/capabilities; retain v0.3.0 accepted release until Phase 4 acceptance | IMPLEMENTED; automated checks PASS |
+| M4 | Consistent application version/capabilities; v0.4.0 finalized after explicit Phase 4 acceptance | IMPLEMENTED; automated checks and owner acceptance recorded |
 | M5 | Preserve source identity/version/record/classification through search, packs and selection | IMPLEMENTED; automated checks PASS |
 | M6 | Locked installations and meaningful offline/browser/regression acceptance gates | IMPLEMENTED; local and remote CI #186 PASS, including six browser tests and Docker/source gates |
 | M7 | One roadmap through Phase 22; precise Phase 5/6 boundary; documented renderer decision | COMPLETE; see ROADMAP_CURRENT.md |
@@ -25,7 +25,7 @@ Each completed slice below will state the checks actually run, evidence, limitat
 - Use WGS84 ellipsoidal mathematics; do not substitute spherical distance approximations.
 - Backend PROJ results remain the acceptance reference for independently reproducible offline calculations.
 - Preserve existing Phase 3 packs; unknown legacy provenance stays explicitly unknown.
-- Do not merge, tag v0.4.0, or begin Phase 5 before explicit Phase 4 acceptance.
+- Phase 4 acceptance is complete; merge/tag/release requires authorization, and Phase 5 requires a separate explicit owner start instruction.
 
 ### M1 — geographic picking and marker (implemented)
 
@@ -34,7 +34,7 @@ Each completed slice below will state the checks actually run, evidence, limitat
 - SVG fallback accounts for letterboxing; outside clicks are ignored. Pointer cancellation cannot leave a stuck drag.
 - Preserved the owner-approved inverted horizontal drag.
 - Validation: **32/32 frontend core tests PASS**, production build PASS. New tests cover more than 900 visible point projections across rotations/aspect ratios, an independent PROJ mid-latitude ECEF anchor, the old off-center error, the invisible outer ring, marker movement/back visibility and fallback margins.
-- Manual visual check on the changed revision: **NOT RUN**. Required later with corrected build.
+- Corrected-build manual checklist subsequently **PASS — REPORTED BY OWNER**; exact statement in `PHASE_4_ACCEPTANCE.md`.
 - Remaining build warning: existing bundle exceeds 500 kB; performance work is tracked under M8.
 
 ### M2 — independent offline WGS84 and complete precache (implemented)
@@ -45,7 +45,7 @@ Each completed slice below will state the checks actually run, evidence, limitat
 - Build generates a precache manifest containing all compiled JS/CSS and shell assets. Cache names use the accepted application version plus a content hash. Installation is atomic; updates wait for existing clients to close; only this application's old shell caches are removed.
 - Validation: **36/36 core tests PASS**, **2/2 generated-PWA tests PASS**, production build PASS. Worker tests use a clearly synthetic in-memory cache/network harness; actual browser/server-stop checks follow in M6.
 - `scripts/check_reference_parity.py`: **1,082 geodesics + 27 ECEF round trips PASS** against installed pyproj 3.8.0. Maximum differences: distance 3.73e-9 m; bearing 2.51e-12 degrees; forward ECEF 0 m; inverse height 8.91e-7 m.
-- Physical-device offline/manual visual checks on changed revision: **NOT RUN**.
+- Corrected-build offline/manual checklist subsequently **PASS — REPORTED BY OWNER**; device details were not supplied, so no full device matrix is claimed.
 
 Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/geographiclib-js), [PROJ Cartesian conversion](https://proj.org/en/stable/operations/conversions/cart.html), and pinned package source in the dependency lockfile. Backend provider remains the parity authority.
 
@@ -54,13 +54,13 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - Removed the rule that hid the layer panel on narrow screens. Native expandable controls remain available to keyboard and touch users, with 44 px minimum targets.
 - Labels retain a 12 CSS px minimum; continent names remain larger than country names. Priority-based decluttering reduces density and excludes clipped labels instead of shrinking them to unreadable sizes.
 - Applied the same legibility/decluttering policy to the SVG fallback, accounting for its actual display scale.
-- Validation: **37/37 core tests PASS**, production build PASS. Mobile browser interaction checks are included in M6; physical-device visual checks: **NOT RUN**.
+- Validation: **37/37 core tests PASS**, production build PASS. Mobile browser interaction checks passed in M6; the owner subsequently reported all manual checklist tests PASS without providing a per-device matrix.
 
 ### M4 — release identity and capability truth (implemented)
 
 - API root, health, OpenAPI and capabilities obtain the application version from backend package metadata; the UI obtains it from frontend package metadata at build time.
 - CI compares VERSION, both packages and npm lock metadata; it no longer hardcodes the accepted v0.3.0 value as a permanent future gate.
-- Capabilities correctly identify implemented Phase 3/4 features and separately expose `accepted_phase=3`, `phase=4`, `phase_status=awaiting-owner-acceptance`. Astronomy/synchronization remain false.
+- Before acceptance, capabilities exposed `accepted_phase=3`, `phase=4`, `phase_status=awaiting-owner-acceptance`. Following the explicit decision they expose `accepted_phase=4`, `phase=4`, `phase_status=accepted`. Astronomy/synchronization remain false; Phase 5 is on hold.
 - Removed stale Phase 2/P4.6 progress language from the main interface. Independent model versions are unchanged. No v0.4.0 release, tag or merge was performed.
 - Validation: **8/8 API tests PASS**, metadata consistency PASS, production build PASS.
 
@@ -79,7 +79,7 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 - Browser fixtures use the real FastAPI routes and a disposable SQLite catalog explicitly labelled TEST-ONLY. Delayed-response interception changes timing, not calculated values. Production PostGIS/source-import gates remain separate and compare API/CLI pack entries exactly.
 - Local validation: locked installs PASS; **49/49 backend tests PASS**, **40/40 core frontend tests PASS**, **2/2 generated PWA tests PASS**, **1,082 + 27 parity cases PASS**, build and worker syntax PASS, E2E discovery/typecheck PASS, npm audit **0 vulnerabilities**.
 - Remote validation: **CI #186 SUCCESS** on uploaded snapshot `fb4dcab447ddbb94924df46576ab9f52f64e6c22`; all **6/6 browser scenarios PASS**, Docker/PostGIS/Redis PASS, locked production imports/search/provenance PASS and API/CLI pack entries match. CI used Python 3.13.15 and Node 22.23.2 and repeated the unit/parity/build/PWA checks. See `PHASE_4_CORRECTIONS_TEST_REPORT.md` for exact evidence.
-- Remaining physical-device/manual checks: NOT RUN. Existing large bundle warning and dependency deprecation warnings are recorded, not hidden.
+- Owner subsequently reported all manual checks PASS and accepted Phase 4. No additional browser/device coverage is inferred. Existing large bundle warning and dependency deprecation warnings remain documented.
 
 ### M7/M8 — roadmap reconciled, future enhancements retained
 
@@ -90,4 +90,4 @@ Technical sources: [GeographicLib JavaScript](https://github.com/geographiclib/g
 
 ### Delivery status
 
-M1–M6 implementation and automated local/remote validation are complete. After the initial permission block, the owner explicitly authorized upload and CI with «نعم اسمح». Seven commits were uploaded to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`, with identical trees and a non-force branch update; PR #8 remains draft and unmerged. [CI #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) passed. Owner/device checks remain NOT RUN, and Phase 4 acceptance remains pending. Manual screenshot review was also NOT RUN because downloading the CI artifact returned HTTP 403; automated browser results are confirmed by job logs. See `PHASE_4_CORRECTIONS_TEST_REPORT.md` for the matrix, commit mapping and manual checklist.
+M1–M6 implementation and automated local/remote validation are complete. After the initial permission block, the owner explicitly authorized upload and CI with «نعم اسمح». Seven commits were uploaded to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`, with identical trees and a non-force branch update; PR #8 remains draft and unmerged. [CI #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) and [CI #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995) passed. The owner then reported all manual tests PASS and explicitly accepted Phase 4; see `PHASE_4_ACCEPTANCE.md`. Assistant-side screenshot review was NOT RUN because downloading the CI artifact returned HTTP 403; this historical limitation does not negate the owner's subsequent acceptance. Phase 5 remains ON HOLD until a new explicit owner start instruction.

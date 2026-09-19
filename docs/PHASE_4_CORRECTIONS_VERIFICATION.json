@@ -11,7 +11,7 @@
     "M7",
     "M8"
   ],
-  "phase_4_accepted": false,
+  "phase_4_accepted": true,
   "phase_5_started": false,
   "backend_tests": {
     "pass": 49,
@@ -85,8 +85,8 @@
     "core_pack_entries": 1087,
     "qatar_pack_entries": 25
   },
-  "new_owner_manual_checks": "NOT RUN",
-  "accepted_release": "0.3.0",
+  "new_owner_manual_checks": "PASS — REPORTED BY OWNER",
+  "accepted_release": "0.4.0",
   "remote_baseline": "99a3658bef7eb678df7beed157bd01ed92aaa62b",
   "validated_snapshot": "fb4dcab447ddbb94924df46576ab9f52f64e6c22",
   "environments": {
@@ -122,5 +122,46 @@
     "size_bytes": 1247624,
     "sha256": "e656e22b7afb99e7d7773e87daf007da0c75952960a63f20d17855985f321860",
     "manual_screenshot_review": "NOT RUN — artifact download returned HTTP 403"
+  },
+  "last_updated": "2026-09-19",
+  "phase_5_authorized": false,
+  "phase_5_status": "NOT STARTED — ON HOLD UNTIL EXPLICIT OWNER START INSTRUCTION",
+  "github_release_published": false,
+  "owner_acceptance": {
+    "date": "2026-09-18",
+    "decision": "ACCEPTED",
+    "statement": "قمت بالاختبار ونجحت كل الاختبارات، يمكنك اعتماد المرحلة الرابعة، وتوثيق ذلك، ولا تبدأ بالمرحلة الخامسة حتى اخبرك",
+    "manual_result_source": "owner report in conversation",
+    "delivered_build_sha": "a0a8e299d3be4b35ce74f710a1f8fc32f00e8939",
+    "owner_local_sha": null,
+    "device_browser_details": null,
+    "record": "docs/PHASE_4_ACCEPTANCE.md"
+  },
+  "last_pre_acceptance_ci": {
+    "status": "PASS",
+    "run_number": 188,
+    "run_id": 35388167995,
+    "job_id": 105739916038,
+    "head_sha": "a0a8e299d3be4b35ce74f710a1f8fc32f00e8939",
+    "url": "https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995",
+    "e2e_pass": 6,
+    "e2e_duration_seconds": 29.3
+  },
+  "evidence_scope": "Correction numerical/runtime results retain their recorded snapshots. Acceptance commit changes version/state metadata and is validated by its own PR CI check.",
+  "acceptance_metadata_local_checks": {
+    "date": "2026-09-19",
+    "locked_backend_install": "PASS",
+    "api_tests": {
+      "pass": 8,
+      "fail": 0
+    },
+    "production_build": "PASS",
+    "pwa_tests": {
+      "pass": 2,
+      "fail": 0
+    },
+    "service_worker_syntax": "PASS",
+    "release_metadata": "PASS",
+    "uv_lock_check_offline": "PASS"
   }
 }

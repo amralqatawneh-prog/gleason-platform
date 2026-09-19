@@ -42,8 +42,8 @@ def test_capabilities_distinguish_implemented_features_from_phase_acceptance(tmp
     assert payload["wgs84_offline_math"] is True
     assert payload["release"] == f"v{APP_VERSION}"
     assert payload["phase"] == 4
-    assert payload["accepted_phase"] == 3
-    assert payload["phase_status"] == "awaiting-owner-acceptance"
+    assert payload["accepted_phase"] == 4
+    assert payload["phase_status"] == "accepted"
     assert payload["cross_model_synchronization"] is False
     assert payload["astronomy_engine"] is False
 

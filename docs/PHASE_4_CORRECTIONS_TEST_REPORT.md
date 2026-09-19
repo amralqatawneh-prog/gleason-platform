@@ -1,12 +1,14 @@
 # Phase 4 approved corrections — verification report
 
-Date: 2026-09-18. Uploaded code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Validated snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`, which adds M7/M8 documentation. Subsequent evidence/handoff changes are documentation only.
+Correction evidence date: 2026-09-18. Acceptance documentation updated: 2026-09-19. Uploaded correction code: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Validated snapshots: `fb4dcab447ddbb94924df46576ab9f52f64e6c22` (CI #186) and `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939` (CI #188). Acceptance closure then updates application metadata/state to v0.4.0.
 
-**Status: implemented, uploaded and automatically verified. Release Acceptance Gates #186 passed, including all six browser tests and Docker/production-source gates. Owner/device review remains NOT RUN; Phase 4 is not accepted.**
+**Status: PHASE 4 ACCEPTED BY OWNER. Automated correction gates passed; the owner subsequently reported all manual tests PASS and explicitly authorized acceptance. Application version: v0.4.0. Phase 5 is NOT STARTED and ON HOLD until a separate owner start instruction.**
 
 ## Approval and scope
 
 The owner approved M1–M8 and subsequently explicitly authorized uploading the seven commits to `amralqatawneh-prog/gleason-platform`, branch `feat/phase4-wgs84-reference`, and running CI without merge or release. M1–M6 are implemented, M7 reconciles the roadmap, M8 is scheduled future work. No Phase 5 implementation, v0.4.0 release, merge or tag was performed. See `APPROVED_CORRECTIONS_2026-09-18.md` for the per-slice change record and `ROADMAP_CURRENT.md` for all future phases.
+
+The later explicit acceptance and exact owner statement are recorded in `PHASE_4_ACCEPTANCE.md`. Manual results below are **PASS — REPORTED BY OWNER**, not new assistant-observed tests. Device/browser versions were not supplied. Setting application metadata to 0.4.0 does not publish a GitHub Release.
 
 ## Results actually obtained
 
@@ -20,13 +22,13 @@ Local environment: Python **3.12.14**, Node **24.19.0**, uv **0.12.15**. CI #186
 | WGS84 browser/backend parity | PASS | 1,082 geodesics and 27 geodetic/ECEF round trips |
 | Generated production PWA | PASS, 2 tests | Real emitted asset manifest; synthetic cache/network worker harness, **not browser execution** |
 | Production build / worker syntax | PASS | TypeScript, Vite, `check:sw` |
-| Release metadata | PASS | VERSION, backend/frontend packages and npm lock agree at 0.3.0; API consistency covered |
+| Release metadata at correction CI | PASS | The recorded #186/#188 snapshots agreed at 0.3.0. The acceptance commit aligns all package/lock metadata to 0.4.0 and has its own CI check |
 | Dependency security | PASS | `npm audit --audit-level=high`: 0 vulnerabilities at execution time |
 | New E2E suite discovery/types | PASS | 6 tests discovered and TypeScript checked; runtime evidence is separate below |
 | Live HTTP smoke | PASS | Actual FastAPI + disposable TEST-ONLY SQLite server; health, source metadata, packs and geodesic |
 | New browser runtime | PASS, 6 tests | Chromium, real FastAPI routes, production frontend; 27.8 s in CI #186 |
 | New Docker/PostGIS/Redis/import/CLI gates | PASS | Compose build/runtime, real locked sources, search, provenance and exact API/CLI pack-entry comparison in CI #186 |
-| Owner/physical-device visual checks | NOT RUN | Historical owner PASS is not claimed for this revision |
+| Owner manual checklist on supplied corrected build | PASS — REPORTED BY OWNER | Exact acceptance statement in `PHASE_4_ACCEPTANCE.md`; no extra per-device matrix inferred |
 
 Parity maxima measured by `scripts/check_reference_parity.py`:
 
@@ -41,6 +43,8 @@ These are agreement measurements for the specified cases, not claims of real-wor
 ## Remote acceptance evidence
 
 [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277), job `105736221437`, completed with **SUCCESS** for snapshot `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. All required steps succeeded; the conditional failure-log step was correctly skipped. No source-code fixes were needed after this run.
+
+[Release Acceptance Gates #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995), job `105739916038`, also completed with **SUCCESS** on the later documentation snapshot `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939`, supplied to the owner for review. All six browser tests passed again (29.3 s), as did the remaining required gates. These runs precede the acceptance metadata change; their results remain tied to these exact commits.
 
 All six browser scenarios passed: first production install and a new offline page with both test servers stopped; off-center marker picking/rotation/back visibility; phone controls and keyboard/persisted settings; immediate globe refresh after installing a region; rejection of stale A/B responses; and WebGL-disabled fallback.
 
@@ -64,9 +68,11 @@ An earlier automatic approval review blocked the upload for lack of explicit des
 | M6 | `59ace6b` | `9dfb1e0` |
 | M7/M8 documentation | `ecb3a9e` | `fb4dcab` |
 
-[PR #8](https://github.com/amralqatawneh-prog/gleason-platform/pull/8) remains open, draft and unmerged. The remaining gate is owner/device review of the corrected build and explicit Phase 4 acceptance. The upload permission is not phase acceptance, merge permission or release permission.
+[PR #8](https://github.com/amralqatawneh-prog/gleason-platform/pull/8) remains open, draft and unmerged. Owner review and explicit Phase 4 acceptance have now been completed by the later statement in `PHASE_4_ACCEPTANCE.md`. Merge/release was not authorized by the upload or acceptance instructions. Phase 5 remains explicitly ON HOLD.
 
-## Manual checklist after the corrected build is available
+## Supplied manual checklist — owner reports PASS
+
+The owner reported that all tests succeeded and accepted Phase 4. The checklist below preserves the requested procedures; its result is owner-reported PASS as a whole. Per-device observations were not separately supplied and are not invented.
 
 1. Search for a known place, select it, rotate the globe and verify that its marker moves with geography and hides on the back. Select several off-center points and verify coordinates. Retain right-drag → left-rotation behaviour.
 2. At phone width, expand/collapse the layer panel; toggle cities/airports with touch and keyboard; confirm readable labels and persisted settings after reopening.

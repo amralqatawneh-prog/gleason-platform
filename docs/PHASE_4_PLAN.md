@@ -1,6 +1,6 @@
 # Phase 4 Delivery Plan — v0.4.0
 
-**Current update — 2026-09-18:** v0.4.0 is the target release, not an accepted release. Owner-approved M1–M6 corrections are uploaded and CI #186 passed, including six browser tests and Docker/production-source gates. Owner/device review and explicit Phase 4 acceptance remain pending. See `APPROVED_CORRECTIONS_2026-09-18.md` and `PHASE_4_CORRECTIONS_TEST_REPORT.md`. Historical manual slice completion below does not certify the changed build. M7/M8 roadmap: `ROADMAP_CURRENT.md`.
+**Acceptance update:** The owner reported all corrected-build tests PASS and explicitly accepted Phase 4 on 2026-09-18. Application metadata is v0.4.0; no GitHub Release/tag or merge is implied. See `PHASE_4_ACCEPTANCE.md` and `PHASE_4_CORRECTIONS_TEST_REPORT.md`. CI #186/#188 cover the recorded pre-acceptance snapshots; historical slice evidence remains historical. **Phase 5 is NOT STARTED and ON HOLD until a new explicit owner instruction to start it.** M7/M8 roadmap: `ROADMAP_CURRENT.md`.
 
 ## Scope from accepted architecture
 
@@ -183,11 +183,11 @@ Phase 4 may be proposed for owner acceptance only when all of the following are 
 11. Docker/PostGIS/Redis runtime remains healthy.
 12. High-severity dependency security gate remains green.
 13. Owner manual checks pass on desktop and responsive/mobile-size layouts.
-14. Owner explicitly accepts Phase 4 before any Phase 5 work begins.
+14. Owner explicitly accepts Phase 4. A separate owner instruction is required to start Phase 5 under the subsequent hold.
 
 ## Manual owner acceptance checklist
 
-At minimum the owner will verify:
+The checklist supplied to the owner was the following. The owner subsequently reported all tests PASS; see `PHASE_4_ACCEPTANCE.md` for the statement and evidence limits:
 
 1. WGS84 globe/reference view opens and is usable on desktop.
 2. Responsive/mobile-size layout remains usable.
@@ -198,12 +198,12 @@ At minimum the owner will verify:
 
 ## Phase boundary
 
-Phase 5 synchronization/comparison work is forbidden on the Phase 4 implementation branch unless the owner explicitly changes the accepted roadmap.
+Phase 5 synchronization/comparison work is NOT STARTED and ON HOLD on every branch until the owner explicitly instructs starting it. Phase 4 acceptance or future merge/release permission does not lift that hold.
 
 ## Status
 
-**READY FOR OWNER ACCEPTANCE — P4.1 through P4.7 complete. Phase 4 is not accepted until the owner explicitly accepts it.**
+**ACCEPTED BY OWNER — P4.1 through P4.7 and approved M1–M6 corrections complete; owner reported all manual tests PASS. Phase 5 remains ON HOLD.**
 
 Implementation branch: `feat/phase4-wgs84-reference`.
 
-Release target after acceptance: `v0.4.0`.
+Accepted application version: `v0.4.0`; GitHub Release/tag not created.

@@ -1,6 +1,6 @@
 # Phase 4 Validation / Release Hardening Report
 
-> Historical P4.7 report. The subsequent 2026-09-18 approved corrections have separate evidence in `PHASE_4_CORRECTIONS_TEST_REPORT.md`; prior manual/CI PASS does not cover the new code. Overall Phase 4 acceptance remains pending.
+> Historical P4.7 report. Subsequent corrections have separate evidence in `PHASE_4_CORRECTIONS_TEST_REPORT.md`. The owner later reported all corrected-build tests PASS and accepted Phase 4; current decision: `PHASE_4_ACCEPTANCE.md`. Phase 5 is ON HOLD until a separate owner start instruction. The pre-acceptance statements below are historical, not the current project status.
 
 ## Status
 
