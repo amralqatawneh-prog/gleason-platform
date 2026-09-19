@@ -102,6 +102,8 @@ test('WGS84 renders an opaque shaded ellipsoid surface before overlays',async({p
 test('one production install supports cold navigation and calculations with both servers stopped',async({page,context,servers})=>{
   await english(page,servers.url);
   await locate(page,'TEST Doha');
+  const onlineShell=page.locator('.app-shell');
+  await expect.poll(()=>onlineShell.getAttribute('data-persistence-save')).toBe('saved');
   await page.evaluate(async()=>{await navigator.serviceWorker.ready;});
   await expect.poll(()=>page.evaluate(()=>Boolean(navigator.serviceWorker.controller))).toBe(true);
   await expect.poll(()=>page.locator('.globe-layer-controls small').textContent()).toContain('3');
@@ -111,6 +113,12 @@ test('one production install supports cold navigation and calculations with both
   await context.setOffline(true);await servers.stop();
   const offline=await context.newPage();await page.close();
   await english(offline,servers.url);
+  const offlineShell=offline.locator('.app-shell');
+  await expect(offlineShell).toHaveAttribute('data-persistence-restore','restored');
+  await expect(offlineShell).toHaveAttribute('data-selection-revision','0');
+  await expect(offline.locator('.place-provenance')).toContainText('TEST Doha');
+  await expect(offline.locator('.place-provenance')).toContainText('OFFLINE canonical record');
+  await expect(offline.locator('.phase5-persistence')).toContainText('Selection restored from trusted local state.');
   await locate(offline,'TEST Doha');await captureA(offline);
   await expect(offline.locator('.projection-selection-readout')).toHaveCount(2);
   await expect(offline.locator('.projection-selection-readout').first()).toContainText('25.285447');
