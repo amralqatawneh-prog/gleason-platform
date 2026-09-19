@@ -1,49 +1,156 @@
 # Gleason Comparison Platform — v0.4.0
 
-Phase 4 is accepted by the owner. The platform includes independent Gleason/AE projection foundations, a PostGIS-backed catalog and offline search, plus the WGS84 reference globe, geodesic/ECEF calculations and offline operation. Application version 0.4.0 does not imply a published GitHub Release.
+Offline-first bilingual geospatial comparison platform with three independent
+model engines:
 
-## Current phase status
-- Phase 0 — ACCEPTED ✅
-- Phase 1 — ACCEPTED ✅
-- Phase 2 — ACCEPTED ✅
-- Phase 3 — ACCEPTED ✅
-- Phase 4 — ACCEPTED BY OWNER on 2026-09-18; all manual checks reported PASS; automated browser/Docker/source evidence recorded.
-- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 and Arabic city correction are closed; P5.2 closed after CI #198 and owner testing; P5.3 closed after CI #204 and owner testing; P5.4 Basic Model Laboratory closed after CI #236 and owner-reported functional/clarity PASS. P5.5 Comparability Contract is CLOSED after CI #266/#271 and owner-reported manual PASS. P5.6 Optional Geographic Focus / Navigation is CLOSED after CI #329/#340 and owner-reported manual PASS. P5.7 Homogeneous Differences and future time/layer/route contracts is CLOSED after CI #383/#387 and owner-reported manual PASS. P5.8 Versioned Local State Persistence is next but NOT STARTED. Phase 5 as a whole is not accepted.
+- **Gleason Historical** — source-grounded historical reconstruction with
+  explicit evidence classifications.
+- **AE Visualization** — independent north-polar Azimuthal Equidistant model.
+- **WGS84 Reference** — modern geodetic reference globe/2D fallback with
+  authoritative backend reference calculations.
 
-Latest closed slice: [P5.7 Homogeneous Differences and future contracts](docs/PHASE_5_P5_7_REPORT.md). Next ordered slice is P5.8 Versioned Local State Persistence, not started. See the [Phase 5 plan](docs/PHASE_5_PLAN.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
+> **Current development status — 2026-09-19**
+>
+> Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on
+> `feat/phase5-shared-state` / draft PR #9. Slices **P5.1–P5.7 are CLOSED**
+> after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
+> State Persistence is next and NOT STARTED.** Phase 6 measurement/routing is
+> also NOT STARTED.
 
-Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
-Owner acceptance: [docs/PHASE_4_ACCEPTANCE.md](docs/PHASE_4_ACCEPTANCE.md).
-Approved roadmap: [docs/ROADMAP_CURRENT.md](docs/ROADMAP_CURRENT.md).
-Correction evidence: [docs/PHASE_4_CORRECTIONS_TEST_REPORT.md](docs/PHASE_4_CORRECTIONS_TEST_REPORT.md).
+## Current verified development baseline
 
-## Layout
-`backend/` FastAPI providers/tests · `frontend/` React/OpenLayers/PWA · `data/sources/` source registry/locks · `database/` PostGIS bootstrap · `docs/` reports/references.
+- Branch: `feat/phase5-shared-state`
+- Draft PR: **#9**
+- Latest owner-tested/documented baseline before this documentation
+  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`
+- Release Acceptance Gates **#397 — SUCCESS**
+- CI #397: **0 npm vulnerabilities · 78 frontend core tests · 2 PWA tests ·
+  15 Chromium scenarios**, plus production build, WGS84 parity,
+  Docker/PostGIS/Redis, locked-source import, online/offline search and Arabic
+  city gates.
+- Accepted application version: **0.4.0**
+- Implementation phase: **5**
+- Accepted phase: **4**
+- Phase status: **in_progress**
+- No merge, tag or GitHub Release has been authorized for Phase 5.
 
-## v0.3.0
-- PostGIS/pg_trgm place catalog for countries, cities, seas, oceans, rivers, mountains, and airports.
-- Locked Natural Earth and OurAirports production imports with SHA-256 verification.
-- Explicit coordinate provenance classifications; no invented production centroids.
-- Unified English/Arabic search API and frontend.
-- Deterministic core-world and country offline-search packs.
-- Direct offline-search regression tests.
-- Enforced `npm audit --audit-level=high` CI gate.
-- Phase 2 projection regressions retained in release gates.
+The documentation-only GitHub synchronization requested after P5.7 does not
+change numerical engines, source datasets or accepted application version. See
+`docs/GITHUB_SYNC_AUDIT_2026-09-19.md` for the repository/documentation audit.
 
-## Phase 2 projection foundation retained
-- Gleason Historical `GH-0.2.0` with explicit provenance.
-- Independent north-polar AE `AE-0.2.0`.
-- Forward/inverse APIs.
-- Interactive OpenLayers maps with click-to-coordinate inverse transform.
-- Historical Source Viewer and affine georeferencing engine.
-- Arabic/English responsive PWA foundation.
+## Phase status
 
-The maps now share geographic selection and markers; their cameras and projection units remain independent. The historical provider does not claim that Gleason printed the analytic equation used by the software. `DOCUMENTED`, `DERIVED`, `DISPLAY_CONVENTION`, and `REFERENCE` remain separate.
+| Phase / slice | Status | Evidence / boundary |
+|---|---|---|
+| Phase 0 | ACCEPTED ✅ | Product framing, source policy, architecture |
+| Phase 1 | ACCEPTED ✅ | Foundation / PWA / Docker / CI |
+| Phase 2 | ACCEPTED ✅ | Gleason + independent AE foundation |
+| Phase 3 | ACCEPTED ✅ | PostGIS place catalog, locked sources, online/offline search |
+| Phase 4 | ACCEPTED ✅ | WGS84 reference model, accepted 2026-09-18 at v0.4.0 |
+| P5.1 | CLOSED ✅ | Versioned canonical geographic selection |
+| P5.2 | CLOSED ✅ | Independent Gleason / AE / WGS84 adapters |
+| P5.3 | CLOSED ✅ | Shared search/pick/marker synchronization |
+| P5.4 | CLOSED ✅ | Model Laboratory with readable provenance/limitations |
+| P5.5 | CLOSED ✅ | Explicit comparability contract |
+| P5.6 | CLOSED ✅ | Independent zoom/focus/rotation/navigation |
+| P5.7 | CLOSED ✅ | Homogeneous-difference gate + unavailable future-service contracts |
+| P5.8 | NOT STARTED ⏳ | Versioned local state persistence |
+| P5.9 | PENDING ⏳ | Phase 5 regression and owner acceptance package |
+| Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
 
-## Historical scan
-The georeferencing engine exists, but no verified distributable standalone historical map scan is embedded. No control points are invented.
+Phase 5 as a whole is **not yet accepted**. Historical reports retain the status
+that was true when each report was written; current status is defined by this
+README, `docs/PROJECT_HANDOFF_CURRENT.md`, and `docs/PHASE_5_PLAN.md`.
 
-## Backend
+## Implemented Phase 5 capabilities
+
+- One typed canonical WGS84 geographic selection shared by all three model
+  views; free-point picks never inherit stale place identity.
+- Independent adapters with explicit model/version/domain/unit/provenance.
+- Search/pick/marker synchronization without pixel-coordinate coupling.
+- Model Laboratory explaining the same geographic point in all three systems.
+- Comparability rules that reject unlike meanings/spaces/scales instead of
+  forcing normalization.
+- Independent cameras and navigation controls on Gleason, AE and WGS84:
+  zoom, wheel/pinch support, zoom-to-area, rotation/view-direction where
+  meaningful, reset, fit-full and focus-selected.
+- Homogeneous numeric differences only after a valid comparability decision;
+  current cross-model pairs expose no fabricated numeric delta.
+- Versioned future-service contracts for time/astronomy, shared layer
+  synchronization and routes; all are explicitly **Unavailable** until their
+  planned phases.
+
+## Explicitly not implemented yet
+
+- P5.8 persistence/restoration of the shared Phase 5 state.
+- P5.9 final Phase 5 regression/acceptance package.
+- Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
+- Road/flight routing without a dedicated data provider.
+- Astronomy/time engine or timeline.
+- Shared cross-model layer-state service.
+- Automatic conversion of Gleason `normalized-radius` to metres/kilometres.
+- Verified distributable standalone historical Gleason scan/control points.
+
+## Source and data status
+
+Production source data remain locked; this documentation synchronization does
+not replace or mutate them.
+
+| Source | Locked version / revision | Status |
+|---|---|---|
+| Gleason primary source | `gleason-1893-upload-v1`, 432 PDF pages, SHA-256 `03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60` | Historical source record |
+| Natural Earth | 5.1.2, commit `f1890d9f152c896d250a77557a5751a93d494776` | Locked |
+| OurAirports | 2026-09-17, commit `634f91708ba8830b75e4f7905afce3cd4e49144e` | Locked |
+
+Current locked catalog expectations: **177 countries · 243 cities · 16 seas ·
+7 oceans · 12 rivers · 632 mountains · 86,089 airports**.
+
+Authoritative manifests:
+
+- `data/sources/gleason-book.yaml`
+- `data/sources/phase3-source-lock.json`
+- `data/sources/phase3-place-sources.yaml`
+
+No fabricated coordinates, scan control points or undocumented historical scale
+conversion are allowed.
+
+## Architecture rules
+
+- Shared state is **geographic**, never screen pixels.
+- Gleason Historical, AE Visualization and WGS84 Reference stay numerically
+  independent.
+- Do not normalize outputs merely to make models agree.
+- Keep `SOURCE_TEXT`, `SOURCE_CLAIM`, `COMPUTED_RESULT` and
+  `REFERENCE_RESULT` distinct.
+- Missing input/data stays missing; do not silently invent height, identity,
+  scale or provenance.
+- Backend WGS84 reference calculations remain the numerical acceptance
+  authority; client-side implementations are independently parity-tested.
+
+## Run the current development branch
+
+### Git / Docker
+
+```bash
+git remote set-branches --add origin feat/phase5-shared-state
+git fetch origin
+git switch feat/phase5-shared-state
+git pull --ff-only origin feat/phase5-shared-state
+docker compose up --build -d
+docker compose ps
+```
+
+Open:
+
+```text
+http://127.0.0.1:8080
+```
+
+Do **not** run `docker compose down -v` unless you intentionally want to erase
+local Docker volumes/data.
+
+### Backend
+
 ```bash
 cd backend
 pip install uv==0.12.15
@@ -52,33 +159,60 @@ uv run --locked --extra dev pytest -q
 uv run --locked uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Frontend
+### Frontend
+
 ```bash
 cd frontend
 npm ci
 npm audit --audit-level=high
 npm run test:core
+npm run test:pwa
 npm run build
-npm run dev
+npm run test:e2e
 ```
 
-## Docker
-```bash
-cp .env.example .env
-docker compose up --build
-```
+## Production data workflow
 
-## Phase 3 production data
-The locked source files are fetched explicitly; a plain Docker startup does not automatically import the full production datasets.
+A normal Docker startup does not automatically replace/import the complete
+locked production datasets.
 
 ```bash
 python scripts/fetch_phase3_sources.py --output-dir .phase3-data
 ```
 
-On Windows, if `python` is an older interpreter but the Python launcher points to a modern one, use:
+On Windows, when the Python launcher is the reliable interpreter:
 
 ```bash
 py -3 scripts/fetch_phase3_sources.py --output-dir .phase3-data
 ```
 
-See `docs/PHASE_3_REPORT.md` for the accepted Phase 3 implementation, validation evidence, manual acceptance record, and local developer notes. See also `docs/PHASE_2_REPORT.md`, `docs/MATHEMATICAL_REFERENCES.md`, and `docs/DEPENDENCIES.md`.
+Use the existing update/import scripts documented in Phase 3 and the Arabic city
+correction report. Never delete Docker volumes merely to refresh source data.
+
+## Documentation map
+
+Current source-of-truth documents:
+
+- `docs/PROJECT_HANDOFF_CURRENT.md` — canonical continuity handoff.
+- `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
+- `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
+- `docs/PHASE_5_P5_7_REPORT.md` — latest closed Phase 5 slice.
+- `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — P5.6/Phase 6 boundary.
+- `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
+- `CHANGELOG.md` — chronological implementation/acceptance history.
+
+Historical phase reports under `docs/` are evidence artifacts and are
+intentionally not rewritten to pretend they were authored at the current state.
+
+## Historical scan limitation
+
+The affine/georeferencing engine is implemented, but no verified distributable
+standalone historical map scan is embedded and `control_points` remains empty.
+Do not fabricate control points or claim that the source printed the modern
+analytic reconstruction used by the software.
+
+## Release / merge boundary
+
+The current work remains on draft PR #9. Updating branch documentation and PR
+metadata does **not** authorize merge, tag, release, deployment or starting
+P5.8. Those require their normal explicit project step.
