@@ -159,7 +159,7 @@ Those remain in Phase 6 as recorded in
 
 ## Owner manual checklist
 
-Manual verification is **NOT RUN** until the owner tests this build.
+The owner completed the delivered manual checklist and reported: «نجحت كل الاختبارات». Record manual result as **PASS — REPORTED BY OWNER**. Device/browser/local checkout SHA were not supplied.
 
 1. Search for Doha or another city. On Gleason, use +/−, mouse wheel, rotate
    left/right, reset, fit full model and focus selected. The selected point must
@@ -186,8 +186,33 @@ picks a point, and keep inverse picking geographically correct after navigation.
 
 ## Status
 
-**TECHNICALLY GREEN / AWAITING OWNER MANUAL VERIFICATION.**
+**CLOSED / ACCEPTED FOR THIS SLICE — automated gates PASS and owner manual checks PASS.**
 
 P5.7 remains NOT STARTED. Full Phase 5 acceptance remains pending. Accepted
 application version remains 0.4.0. Draft PR #9 remains open/unmerged. No merge,
 tag or release is authorized.
+
+
+## P5.6 acceptance closure — 2026-09-19
+
+After the technically green P5.6 build and the delivered manual checklist, the
+owner reported:
+
+> «نجحت كل الاختبارات»
+
+Manual result: **PASS — REPORTED BY OWNER**. Device/browser/local checkout SHA
+were not supplied.
+
+Final automated evidence before owner acceptance:
+- audited implementation head
+  `378f0a8ed6710195cb1e48e0ebcd4518116a5d0d` — CI #329 SUCCESS;
+- documented branch head
+  `3de1169c0f1534b9f0417dda81de8176f8f99b2c` — CI #340 SUCCESS.
+
+P5.6 is now **CLOSED**. P5.7 Homogeneous Differences and future time/layer/route
+contracts is the next ordered slice and remains **NOT STARTED** until the owner
+explicitly instructs continuation. Phase 6 routes/ruler/area remain NOT STARTED.
+
+Full Phase 5 acceptance remains pending. Accepted application version remains
+0.4.0. Draft PR #9 remains open/unmerged. No merge, tag or release is implied or
+authorized.
