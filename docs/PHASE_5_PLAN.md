@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-Only P5.1 is implemented in the first delivery; its automated gates passed in CI #192, with owner manual checks still NOT RUN. The subsequent slices are pending.
+Only P5.1 is implemented in the first delivery; its automated gates passed in CI #192, with three delivered owner checks reported PASS; Arabic city search requires a separate data correction. The subsequent slices are pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions

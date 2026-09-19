@@ -47,21 +47,24 @@ def main() -> int:
     parser.add_argument("--database-url", required=True)
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--lock", type=Path, default=ROOT / "data/sources/phase3-source-lock.json")
+    parser.add_argument("--only-cities", action="store_true", help="Refresh only city records; preserve all other catalog data")
     args = parser.parse_args()
 
     lock = json.loads(args.lock.read_text(encoding="utf-8"))
     sources = {entry["id"]: entry for entry in lock["sources"]}
 
+    run_import(args.database_url, args.data_dir, sources["natural-earth-cities-110m"], [
+        "--mode", "natural-earth-geojson", "--category", "city",
+        "--name-field", "NAME", "--name-ar-field", "NAME_AR", "--id-field", "NE_ID", "--country-field", "ISO_A2",
+        "--region-field", "ADM1NAME", "--coordinate-mode", "point",
+    ])
+    if args.only_cities:
+        return 0
     run_import(args.database_url, args.data_dir, sources["natural-earth-countries-110m"], [
         "--mode", "natural-earth-geojson", "--category", "country",
         "--name-field", "NAME", "--name-ar-field", "NAME_AR", "--id-field", "NE_ID",
         "--country-field", "ISO_A2", "--coordinate-mode", "source-fields",
         "--latitude-field", "LABEL_Y", "--longitude-field", "LABEL_X",
-    ])
-    run_import(args.database_url, args.data_dir, sources["natural-earth-cities-110m"], [
-        "--mode", "natural-earth-geojson", "--category", "city",
-        "--name-field", "name", "--id-field", "ne_id", "--country-field", "iso_a2",
-        "--region-field", "adm1name", "--coordinate-mode", "point",
     ])
     for category in ("ocean", "sea"):
         run_import(args.database_url, args.data_dir, sources["natural-earth-marine-110m"], [

@@ -147,6 +147,8 @@ jobs:
             --database-url 'postgresql+psycopg://gleason:gleason_dev_only@db:5432/gleason' \
             --data-dir /tmp/phase3-data \
             --lock /tmp/phase3repo/data/sources/phase3-source-lock.json
+      - name: Verify existing-database city refresh is safe to repeat
+        run: bash scripts/update_city_search.sh
       - name: Measure real Phase 3 catalog coverage and provenance
         run: |
           set -euo pipefail
@@ -196,6 +198,8 @@ jobs:
           jq -S '.entries|sort_by(.id)' /tmp/api-core-pack.json >/tmp/api-entries.json
           jq -S '.entries|sort_by(.id)' /tmp/phase3-packs/search-core-world-v1.json >/tmp/cli-entries.json
           diff -u /tmp/api-entries.json /tmp/cli-entries.json
+      - name: Verify real Arabic city search online and offline
+        run: node scripts/check_arabic_city_search.mjs
       - name: Upload Phase 3 offline search pack evidence
         uses: actions/upload-artifact@v4
         with:

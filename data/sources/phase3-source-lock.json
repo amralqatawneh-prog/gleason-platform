@@ -18,9 +18,9 @@
       "version": "5.1.2",
       "commit": "f1890d9f152c896d250a77557a5751a93d494776",
       "license": "Public Domain",
-      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_populated_places_simple.geojson",
-      "sha256": "0dbd25c9ad8bd797ddf164b067f563be5c16be2c002254eb594862377963f9dc",
-      "filename": "ne_110m_populated_places_simple.geojson"
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/geojson/ne_110m_populated_places.geojson",
+      "sha256": "a86028b083182b68c7620fc6e1a8a47ee547cb9cd2fb62ccbb78bea786440899",
+      "filename": "ne_110m_populated_places.geojson"
     },
     {
       "id": "natural-earth-marine-110m",

@@ -2,7 +2,7 @@
 
 Date: 2026-09-19. Owner start instruction: **«ابدأ المرحله الخامسة»**.
 Branch: `feat/phase5-shared-state`, based on accepted Phase 4 `1e46b8c`.
-Status: implementation and automated verification COMPLETE. Owner manual checks remain NOT RUN. Phase 5 is not accepted.
+Status: implementation and automated verification COMPLETE. Owner reported all three delivered manual checks PASS on 2026-09-19, and separately reported Arabic city search failure; see ARABIC_CITY_SEARCH_FIX.md. Phase 5 is not accepted.
 
 Uploaded implementation: `e64d2234246d876c208c4d1cda87672a6945d4be`, identical tree `a421e855bd64751164b33198a72ae9ae312c24d5` to local `224746cadb7add21ca38848c6484074e6afb6c86`. Owner explicitly authorized upload and CI on 2026-09-19: «نعم اسمح بذلك».
 
@@ -53,7 +53,7 @@ projection maps still do not share markers/cameras; that is P5.3/P5.6.
 | Service worker syntax | PASS |
 | Release metadata consistency | PASS — package metadata remains accepted 0.4.0 |
 | Chromium browser suite | PASS in CI #192 — all 7 scenarios, 33.7 seconds. Local execution remains unavailable after Chromium CDN timeouts; remote execution resolves the verification blocker |
-| Owner manual checks | NOT RUN on this revision |
+| Owner manual checks | PASS — REPORTED BY OWNER for the three delivered checks. Separate Arabic city search issue remains under correction; broader manual checklist below is not implied PASS |
 | Remote CI / Docker production-source gates | PASS in CI #192 — Docker stack, projection/reference APIs, PostGIS catalog, locked real imports, search, API/CLI offline packs, Redis and frontend HTTP |
 | Independent WGS84 numerical parity / npm security | PASS in CI #192; npm reported zero vulnerabilities |
 
@@ -77,7 +77,7 @@ docker compose ps
 Open `http://127.0.0.1:8080`. Let the online PWA update install, close all old app
 tabs/windows, then reopen. Do not remove Docker volumes.
 
-Manual results below are **NOT RUN**, and are not inherited from Phase 4:
+The owner reported PASS for the three delivered checks (search/source, free picks on all models, language/offline checks). Additional checks below were not individually reported and remain NOT RUN. Arabic city data coverage is tracked separately in `ARABIC_CITY_SEARCH_FIX.md`:
 
 1. Search an imported place. Check its name, ID, source/version, classification
    and coordinate values remain visible after WGS84 focuses it.
@@ -109,7 +109,7 @@ npm run test:e2e
 ## Completion and next boundary
 
 P5.1 coding scope and automated gates: 100% complete. Owner manual acceptance is
-separate and remains NOT RUN; no Phase 5 acceptance is inferred. Eight subsequent
+separate: three delivered checks PASS — REPORTED BY OWNER, with the newly reported Arabic city search issue tracked separately; no Phase 5 acceptance is inferred. Eight subsequent
 slices remain pending; no overall project effort percentage is inferred.
 Next planned slice: P5.2 independent model adapters with explicit units and domains.
 No P5.2 code is included in this upload. Persistence belongs to P5.8; current selection

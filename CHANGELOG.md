@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased] — Arabic city search correction
+
+- Owner reported all three delivered P5.1 checks PASS, plus an Arabic city search defect. The pinned simplified Natural Earth city source omitted multilingual names. Switch to the full 110m city dataset at the same source commit; preserve 243 canonical IDs and coordinates, import NAME_AR and update the source checksum/URL.
+- Added a city-only upsert and Docker/Git Bash refresh script for existing databases; no volume deletion. Added real-source online/actual frontend offline search parity checks and repeated-update coverage in CI.
+- See `docs/ARABIC_CITY_SEARCH_FIX.md` for evidence, update steps and limitations.
+
 ## [Unreleased] — Phase 5 / P5.1 (2026-09-19)
 
 - Owner explicitly started Phase 5: «ابدأ المرحله الخامسة», superseding the earlier hold. Phase 4 remains accepted; no Phase 5 acceptance is implied.

@@ -380,7 +380,7 @@ Overall:
 1. Follow `PHASE_5_PLAN.md`, implementing and verifying one slice at a time. P5.1 establishes a single typed geographic selection; its evidence and owner checklist are in `PHASE_5_P5_1_REPORT.md`.
 2. Next planned slice: P5.2 independent adapters with explicit units/domains. Cross-model display synchronization remains unavailable until its own slice.
 3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
-4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner manual P5.1 checks are NOT RUN; merge/tag/release remain unauthorized.
+4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, and reported missing Arabic city search; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
 5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
 
 ## Phase 5 boundary / future agreed direction
