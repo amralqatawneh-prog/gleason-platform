@@ -554,6 +554,24 @@ test('P5.8 persists shared selection with versioned local restore semantics',asy
   await expect(page.locator('.phase5-persistence')).toContainText('Selection restored from trusted local state.');
   await expect(page.locator('.phase5-persistence')).toContainText('Only the shared selection is persisted');
 
+  // A free-point selection restores without stale place provenance or fabricated height.
+  const gleason=page.locator('.projection-card[data-model="gleason"]');
+  const map=gleason.locator('.projection-map');
+  await map.scrollIntoViewIfNeeded();
+  const mapBox=(await map.boundingBox())!;
+  await page.mouse.click(mapBox.x+mapBox.width/2+25,mapBox.y+mapBox.height/2+18);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+  await expect.poll(()=>shell.getAttribute('data-persistence-save')).toBe('saved');
+  await page.reload();
+  await page.getByRole('button',{name:'English',exact:true}).click();
+  await expect(shell).toHaveAttribute('data-persistence-restore','restored');
+  await expect(shell).toHaveAttribute('data-selection-revision','0');
+  await expect(page.locator('.place-provenance')).toHaveCount(0);
+  await expect(page.locator('.inspector .metric').first()).toContainText('gleason');
+  await expect(page.locator('.model-lab-card[data-model="wgs84"]')).toHaveAttribute('data-status','unavailable');
+  await expect(page.locator('.model-lab-card[data-model="wgs84"]')).toContainText('height-required');
+
   // Unsupported versions are ignored, not migrated by guessing.
   await page.evaluate(async()=>{
     await new Promise<void>((resolve,reject)=>{
