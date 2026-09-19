@@ -23,6 +23,7 @@ export default function App() {
   const [serverState,setServerState]=useState<'checking'|'connected'|'offline'>('checking');
   const [{selection,revision},dispatchSelection]=useReducer(selectionReducer,INITIAL_SELECTION_STATE);
   const selectionStateRef=useRef({selection,revision});
+  const userSelectionStartedRef=useRef(false);
   const [restoreStatus,setRestoreStatus]=useState<'loading'|'empty'|'restored'|'missing-local-place'|'unsupported-version'|'invalid'|'superseded'|'error'>('loading');
   const [saveStatus,setSaveStatus]=useState<'idle'|'saving'|'saved'|'error'>('idle');
   const selectedPlace=selection?.place??null;
@@ -41,7 +42,7 @@ export default function App() {
       if(!mounted)return;
       if(result.status==='restored'){
         const current=selectionStateRef.current;
-        if(current.revision===0 && current.selection===null){
+        if(!userSelectionStartedRef.current && current.revision===0 && current.selection===null){
           dispatchSelection({type:'restore',selection:result.selection});
           setRestoreStatus('restored');
         }else setRestoreStatus('superseded');
@@ -74,8 +75,18 @@ export default function App() {
     return()=>{revision++;window.removeEventListener(SEARCH_PACKS_CHANGED,refresh);};
   },[globeLayers]);
 
-  const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>dispatchSelection({type:'point',model,point}),[]);
-  const locatePlace=useCallback((place:PlaceSelection)=>{dispatchSelection({type:'place',place});},[]);
+  const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>{
+    userSelectionStartedRef.current=true;
+    dispatchSelection({type:'point',model,point});
+  },[]);
+  const handleReferencePoint=useCallback((point:GeoPoint)=>{
+    userSelectionStartedRef.current=true;
+    dispatchSelection({type:'point',model:'wgs84',point});
+  },[]);
+  const locatePlace=useCallback((place:PlaceSelection)=>{
+    userSelectionStartedRef.current=true;
+    dispatchSelection({type:'place',place});
+  },[]);
   const changeGlobeLayers=useCallback((next:GlobeLayerVisibility)=>{
     setGlobeLayers(next);
     void saveGlobeLayerVisibility(next).catch(()=>undefined);
@@ -97,7 +108,7 @@ export default function App() {
         <section className="phase-card"><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div><div className="model-key"><span className="dot reference"/>WGS84 Reference <small>REFERENCE_RESULT</small></div></section>
       </aside>
       <main className="phase2-main">
-        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>dispatchSelection({type:'point',model:'wgs84',point})}/></section>
+        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={handleReferencePoint}/></section>
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/></div><SourceViewer locale={locale}/>
