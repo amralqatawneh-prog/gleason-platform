@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import type { OfflinePlace } from '../offline/searchIndex';
 import type { BrowserCapabilities } from '../platform/capabilities';
 import { buildEllipsoidSurface } from './ellipsoidSurface';
@@ -6,7 +6,7 @@ import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { localGeodeticToEcef } from './offlineWgs84';
-import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, fallbackScreenPointToGeo, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
+import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
   capabilities: BrowserCapabilities;
@@ -308,7 +308,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       return [{label,screen:{x:px,y:py,visible:true,depth:1}}];
     }),viewport.width,viewport.height,40):[];
 
-    const pointerDown=(e:React.PointerEvent<SVGSVGElement>)=>{
+    const pointerDown=(e:ReactPointerEvent<SVGSVGElement>)=>{
       const rect=e.currentTarget.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
       e.currentTarget.setPointerCapture(e.pointerId);
       if(areaMode){setBoxZoom({pointerId:e.pointerId,startX:x,startY:y,currentX:x,currentY:y});return;}
@@ -316,7 +316,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       if(pointers.current.size===1)fallbackDrag.current={pointerId:e.pointerId,x:e.clientX,y:e.clientY,center};
       else if(pointers.current.size===2){pinch.current={distance:pointerDistance(pointers.current),zoom:z};fallbackDrag.current=null;}
     };
-    const pointerMove=(e:React.PointerEvent<SVGSVGElement>)=>{
+    const pointerMove=(e:ReactPointerEvent<SVGSVGElement>)=>{
       const rect=e.currentTarget.getBoundingClientRect();
       if(areaMode&&boxZoom?.pointerId===e.pointerId){
         setBoxZoom({...boxZoom,currentX:e.clientX-rect.left,currentY:e.clientY-rect.top});return;
@@ -334,7 +334,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       const next={latitude:state.center.latitude+dy/Math.max(1,rect.height)*viewHeight,longitude:state.center.longitude-dx/Math.max(1,rect.width)*viewWidth};
       setFallbackCenter(clampFallbackCenter(next,z));
     };
-    const pointerUp=(e:React.PointerEvent<SVGSVGElement>)=>{
+    const pointerUp=(e:ReactPointerEvent<SVGSVGElement>)=>{
       const rect=e.currentTarget.getBoundingClientRect();
       if(areaMode&&boxZoom?.pointerId===e.pointerId){
         const currentX=e.clientX-rect.left,currentY=e.clientY-rect.top;
@@ -382,7 +382,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     </section>;
   }
 
-  const pointerDown=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+  const pointerDown=(e:ReactPointerEvent<HTMLCanvasElement>)=>{
     const rect=e.currentTarget.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
     e.currentTarget.setPointerCapture(e.pointerId);
     if(areaMode){setBoxZoom({pointerId:e.pointerId,startX:x,startY:y,currentX:x,currentY:y});return;}
@@ -390,7 +390,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     if(pointers.current.size===1)drag.current={pointerId:e.pointerId,x:e.clientX,y:e.clientY,yaw,pitch};
     else if(pointers.current.size===2){pinch.current={distance:pointerDistance(pointers.current),zoom};drag.current=null;}
   };
-  const pointerMove=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+  const pointerMove=(e:ReactPointerEvent<HTMLCanvasElement>)=>{
     const rect=e.currentTarget.getBoundingClientRect();
     if(areaMode&&boxZoom?.pointerId===e.pointerId){
       setBoxZoom({...boxZoom,currentX:e.clientX-rect.left,currentY:e.clientY-rect.top});return;
@@ -407,7 +407,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     setYaw(draggedYaw(state.yaw,e.clientX-state.x));
     setPitch(Math.max(-1.25,Math.min(1.25,state.pitch+(e.clientY-state.y)*.008)));
   };
-  const pointerUp=(e:React.PointerEvent<HTMLCanvasElement>)=>{
+  const pointerUp=(e:ReactPointerEvent<HTMLCanvasElement>)=>{
     const rect=e.currentTarget.getBoundingClientRect();
     if(areaMode&&boxZoom?.pointerId===e.pointerId){
       const currentX=e.clientX-rect.left,currentY=e.clientY-rect.top;
