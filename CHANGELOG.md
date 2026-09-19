@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P5.4 owner acceptance closure (2026-09-19)
+
+- Owner reported the refined Model Laboratory is now clear: «القسم اصبح واضحا، اكمل التوثيق». Record manual clarity PASS — REPORTED BY OWNER, following the earlier functional PASS.
+- Refined implementation head `29fa6190185ec7901c14f586ad26213337190272` passed Release Acceptance Gates #236 on attempt 6 after transient npm audit registry 400 errors on earlier attempts; successful audit found 0 vulnerabilities.
+- CI #236 completed 62 frontend core tests, 2 PWA tests, 11 Chromium scenarios, parity/build/Docker/PostGIS/Redis/source/search gates.
+- P5.4 is CLOSED. P5.5 Comparability Contract is next but NOT STARTED. No merge, tag or release; accepted app version remains 0.4.0.
+
+
 ## [Unreleased] — P5.4 usability clarification (2026-09-19)
 
 - Owner functional checks passed, but the Model Laboratory was too technical to understand; P5.4 remains open pending clarity retest.
