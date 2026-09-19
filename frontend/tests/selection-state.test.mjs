@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { INITIAL_SELECTION_STATE, selectionReducer } from '../.phase1-test-build/comparison/selectionState.js';
+import { selectFreePoint } from '../.phase1-test-build/comparison/geographicSelection.js';
 import { offlineResult } from '../.phase1-test-build/search/placeSelection.js';
 
 test('each user action advances one canonical selection revision without stale place metadata',()=>{
