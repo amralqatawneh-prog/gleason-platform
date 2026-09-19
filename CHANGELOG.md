@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — PR #9 merged into main (2026-09-19)
+
+- Owner explicitly authorized merging PR #9 into `main`.
+- PR #9 merged successfully at `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
+- The default branch now contains the Phase 5 work through closed P5.7 plus the reconciled README/current documentation.
+- P5.8 remains NEXT / NOT STARTED; P5.9 and Phase 6 remain NOT STARTED.
+- Accepted application version remains 0.4.0 and full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED.
+- No tag, GitHub Release or deployment was created.
+
+
 ## [Unreleased] — GitHub documentation and metadata reconciliation (2026-09-19)
 
 - Owner requested a comprehensive GitHub/documentation refresh before P5.8.
