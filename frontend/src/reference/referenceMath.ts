@@ -41,6 +41,13 @@ export function clampReferenceZoom(zoom: number): number {
   return Math.max(REFERENCE_MIN_ZOOM, Math.min(REFERENCE_MAX_ZOOM, zoom));
 }
 
+export function scaleReferenceZoomByPinch(initialZoom:number,initialDistance:number,currentDistance:number):number {
+  if (![initialZoom,initialDistance,currentDistance].every(Number.isFinite) || initialDistance <= 0 || currentDistance <= 0) {
+    return clampReferenceZoom(initialZoom);
+  }
+  return clampReferenceZoom(initialZoom * currentDistance / initialDistance);
+}
+
 export function geoPointToViewAngles(point: ReferenceGeoPoint): { yaw: number; pitch: number } {
   const [x, y, z] = latLonToEllipsoid(point);
   return {
