@@ -10,6 +10,7 @@ import {
   normalizeLongitude,
   projectGeoToScreen,
   referenceViewMode,
+  scaleReferenceZoomByPinch,
   screenPointToGeo,
 } from '../.phase1-test-build/reference/referenceMath.js';
 
@@ -161,4 +162,31 @@ test('reference zoom is bounded and invalid values fall back safely',()=>{
   assert.equal(clampReferenceZoom(Number.NaN),1);
   assert.equal(screenPointToGeo(200,200,400,400,0,0,0),null);
   assert.equal(projectGeoToScreen({latitude:0,longitude:0},400,400,0,0,0),null);
+});
+
+
+test('pinch zoom uses bounded distance ratios',()=>{
+  assert.equal(scaleReferenceZoomByPinch(1,100,150),1.5);
+  assert.equal(scaleReferenceZoomByPinch(4,100,200),5);
+  assert.equal(scaleReferenceZoomByPinch(1,100,20),.7);
+  assert.equal(scaleReferenceZoomByPinch(2,0,120),2);
+});
+
+test('zoom-aware picking remains correct near poles and antimeridian',()=>{
+  for(const point of [
+    {latitude:89.5,longitude:179.9},
+    {latitude:89.5,longitude:-179.9},
+    {latitude:-89.5,longitude:179.9},
+    {latitude:-89.5,longitude:-179.9},
+  ]){
+    const view=geoPointToViewAngles(point);
+    for(const zoom of [.7,1,2.5,5]){
+      const screen=projectGeoToScreen(point,720,420,view.yaw,view.pitch,zoom);
+      assert.ok(screen&&screen.visible);
+      const actual=screenPointToGeo(screen.x,screen.y,720,420,view.yaw,view.pitch,zoom);
+      assert.ok(actual);
+      assert.ok(Math.abs(actual.latitude-point.latitude)<1e-7);
+      assert.ok(Math.abs(normalizeLongitude(actual.longitude-point.longitude))<1e-7);
+    }
+  }
 });
