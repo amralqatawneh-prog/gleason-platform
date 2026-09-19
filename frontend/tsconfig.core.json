@@ -36,6 +36,8 @@
     "src/comparison/selectionState.ts",
     "src/comparison/modelLaboratory.ts",
     "src/comparison/comparability.ts",
+    "src/comparison/futureServices.ts",
+    "src/comparison/homogeneousDifference.ts",
     "src/reference/ellipsoidSurface.ts"
   ]
 }
