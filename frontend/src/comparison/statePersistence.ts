@@ -1,7 +1,5 @@
-import { getLocalValue, setLocalValue } from '../offline/indexedDb.js';
 import { activeIndexes, type InstalledSearchPacks, type OfflinePlace } from '../offline/searchIndex.js';
-import { loadSearchPackState } from '../offline/searchPackStore.js';
-import { offlineResult, type PlaceSelection } from '../search/placeSelection.js';
+import type { PlaceSelection } from '../search/placeSelection.js';
 import {
   selectFreePoint,
   selectPlace,
@@ -146,7 +144,26 @@ export function restorePhase5State(value:unknown,packs:InstalledSearchPacks):Rea
 
   const installed=findInstalledPlace(selection,packs);
   if(installed){
-    const restored=selectPlace(offlineResult(installed));
+    const restored=selectPlace({
+      id:installed.id,
+      category:installed.category,
+      name:installed.name,
+      nameAr:installed.nameAr,
+      countryCode:installed.countryCode,
+      latitude:installed.latitude,
+      longitude:installed.longitude,
+      sourceId:installed.sourceId,
+      sourceRecordId:installed.sourceRecordId,
+      sourceVersion:installed.source?.version??null,
+      sourceUrl:installed.source?.sourceUrl??null,
+      sourceLicense:installed.source?.license??null,
+      coordinateClassification:installed.coordinateClassification??null,
+      sourceLabel:installed.source
+        ? `${installed.source.name}${installed.source.version?` ${installed.source.version}`:''}`
+        : installed.sourceId,
+      provenanceStatus:installed.source?.version&&installed.coordinateClassification?'complete':'legacy-or-incomplete',
+      offline:true,
+    });
     return Object.freeze({status:'restored-place',selection:restored,reason:null});
   }
 
@@ -158,16 +175,4 @@ export function restorePhase5State(value:unknown,packs:InstalledSearchPacks):Rea
     selection:pointOnly,
     reason:'saved place identity was not found unchanged in installed offline packs',
   });
-}
-
-export async function loadPhase5State():Promise<Readonly<Phase5RestoreResult>> {
-  const [stored,packs]=await Promise.all([
-    getLocalValue<unknown>(PHASE5_STATE_STORAGE_KEY),
-    loadSearchPackState(),
-  ]);
-  return restorePhase5State(stored,packs);
-}
-
-export async function savePhase5State(selection:GeographicSelection|null):Promise<void> {
-  await setLocalValue(PHASE5_STATE_STORAGE_KEY,encodePhase5State(selection));
 }
