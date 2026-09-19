@@ -553,6 +553,22 @@ test('P5.8 persists shared selection with versioned local restore semantics',asy
     });
   })).toBe(true);
 
+  // Remove the local search pack before reload. Online startup will refresh it,
+  // emit SEARCH_PACKS_CHANGED, and P5.8 must retry against the newly installed local pack.
+  await page.evaluate(async()=>{
+    await new Promise<void>((resolve,reject)=>{
+      const request=indexedDB.open('gleason-platform',1);
+      request.onerror=()=>reject(request.error);
+      request.onsuccess=()=>{
+        const db=request.result;
+        const tx=db.transaction('key-value','readwrite');
+        tx.objectStore('key-value').delete('phase3-search-packs-v1');
+        tx.oncomplete=()=>{db.close();resolve();};
+        tx.onerror=()=>{db.close();reject(tx.error);};
+      };
+    });
+  });
+
   await page.reload();
   await page.getByRole('button',{name:'English',exact:true}).click();
   await expect(shell).toHaveAttribute('data-persistence-restore','restored');
