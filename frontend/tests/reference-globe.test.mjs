@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   clampLatitude,
+  clampReferenceZoom,
   draggedYaw,
   fallbackScreenPointToGeo,
   geoPointToViewAngles,
@@ -138,4 +139,26 @@ test('fallback respects SVG letterboxing and rejects clicks in margins', () => {
   assert.equal(fallbackScreenPointToGeo(200,50,400,600),null);
   assert.equal(fallbackScreenPointToGeo(10,100,800,200),null);
   assert.deepEqual(fallbackScreenPointToGeo(580,10,800,200),{latitude:81,longitude:162});
+});
+
+
+test('zoom-aware projection and inverse picking stay reciprocal',()=>{
+  const point={latitude:32.5,longitude:44.25},view=geoPointToViewAngles(point);
+  for(const zoom of [.7,1,1.8,3.5,5]){
+    const screen=projectGeoToScreen(point,640,420,view.yaw+.35,view.pitch-.2,zoom);
+    assert.ok(screen&&screen.visible);
+    const actual=screenPointToGeo(screen.x,screen.y,640,420,view.yaw+.35,view.pitch-.2,zoom);
+    assert.ok(actual);
+    assert.ok(Math.abs(actual.latitude-point.latitude)<1e-8);
+    assert.ok(Math.abs(normalizeLongitude(actual.longitude-point.longitude))<1e-8);
+  }
+});
+
+test('reference zoom is bounded and invalid values fall back safely',()=>{
+  assert.equal(clampReferenceZoom(.1),.7);
+  assert.equal(clampReferenceZoom(9),5);
+  assert.equal(clampReferenceZoom(2.25),2.25);
+  assert.equal(clampReferenceZoom(Number.NaN),1);
+  assert.equal(screenPointToGeo(200,200,400,400,0,0,0),null);
+  assert.equal(projectGeoToScreen({latitude:0,longitude:0},400,400,0,0,0),null);
 });
