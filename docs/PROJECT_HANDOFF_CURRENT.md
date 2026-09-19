@@ -8,15 +8,37 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 ## Repository and working branch
 
-- Repository: `amralqatawneh-prog/gleason-platform`
-- Current implementation branch: `feat/phase5-shared-state` (uploaded, draft PR #9), based on accepted Phase 4 commit `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`. The Phase 4 remote branch and draft PR #8 remain unchanged.
-- Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
-- Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Build supplied for final owner review: `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939`, validated by [CI #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995). Acceptance closure updates application metadata to 0.4.0 and acceptance state only; no Phase 5 code is included.
-- Validated correction snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) — SUCCESS, including six browser tests and Docker/production-source gates. Baseline #184 is historical evidence only.
-- Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
-- Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
-- Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is CLOSED after CI #329/#340 and owner-reported manual PASS. The owner has now instructed «أكمل» and P5.7 Homogeneous Differences / future service contracts is CLOSED after CI #383/#387 and owner-reported manual PASS. P5.8 Versioned Local State Persistence is next / NOT STARTED. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
+- Repository: `amralqatawneh-prog/gleason-platform`.
+- Current implementation branch: `feat/phase5-shared-state`.
+- Draft PR: **#9**, open/draft/unmerged. No merge, tag or release is authorized.
+- Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
+- Accepted application version: **v0.4.0**.
+- Implementation phase: **5**; accepted phase: **4**; phase status: **in_progress**.
+- Latest owner-tested/documented development baseline before the current GitHub documentation reconciliation:
+  `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
+- [Release Acceptance Gates #397](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35465278537) — **SUCCESS** on that baseline:
+  0 npm vulnerabilities, 78 frontend core tests, 2 PWA tests, 15 Chromium
+  scenarios, production build, WGS84 parity, Docker/PostGIS/Redis, locked-source
+  import, online/offline search and Arabic city gates.
+- Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
+  after their recorded automated evidence and owner-reported manual PASS.
+- **P5.8 Versioned Local State Persistence is NEXT / NOT STARTED.**
+- P5.9 and Phase 6 routes/ruler/distance/area are NOT STARTED.
+- Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
+- Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
+- Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
+- GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
+
+Historical Phase 4 commits, PR #8, CI runs and correction evidence remain below as
+chronological evidence. They do not override this current snapshot.
+
+## Documentation chronology note
+
+This file contains historical phase/slice evidence below. Statements such as
+“next”, “pending”, or “not started” inside an older dated subsection describe
+the project **at that historical moment**. The current snapshot above and the
+latest dated acceptance closure take precedence for current execution status.
+Historical reports are preserved rather than rewritten.
 
 ## Project architecture agreed with owner
 
@@ -377,27 +399,22 @@ Overall:
 
 ## Required next steps
 
-1. Preserve closed evidence for P5.1–P5.4 and continue one slice at a time under `PHASE_5_PLAN.md`.
-2. P5.4 closed on 2026-09-19 after the owner's final clarity report «القسم اصبح واضحا، اكمل التوثيق» and CI #236 SUCCESS on implementation head `29fa6190185ec7901c14f586ad26213337190272`. The owner has now instructed continuation («أكمل»). P5.5 Comparability Contract is the active slice; P5.6 remains NOT STARTED. Full Phase 5 acceptance remains pending.
-3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
-4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner reported all three delivered P5.1 checks PASS, then confirmed the Arabic city correction PASS and authorized P5.2; see `ARABIC_CITY_SEARCH_FIX.md`; merge/tag/release remain unauthorized.
-5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
-
-## Phase 5 boundary / future agreed direction
-
-Current Phase 5 slices, the Phase 5/6 measurement boundary, all phases through 22 and M8 backlog are in `docs/ROADMAP_CURRENT.md`. ADR-014 records the current WebGL2 renderer instead of the originally planned Cesium choice.
-
-Phase 5 is the current synchronization/comparison phase; the owner has explicitly authorized its start.
-
-Synchronization must:
-- use canonical WGS84 geographic coordinates as shared state,
-- never synchronize by pixel position,
-- keep Gleason Historical, AE Visualization, and WGS84 Reference engines independent,
-- preserve source/provenance semantics,
-- never normalize outputs merely to make models agree,
-- make model differences visible rather than hiding them.
-
-Phase 4 acceptance is complete. The 2026-09-19 start instruction now authorizes Phase 5, but not Phase 6.
+1. Keep P5.1–P5.7 closed unless a concrete regression or source error is found.
+2. Do **not** start P5.8 from this documentation synchronization. P5.8 starts only
+   after the owner explicitly instructs continuation.
+3. When authorized, P5.8 must implement versioned local state persistence:
+   offline restore from installed/local packs, safe handling of invalid/old
+   state, and no invented place identity or missing values.
+4. After P5.8 acceptance, P5.9 prepares the full Phase 5 regression and owner
+   acceptance package.
+5. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area
+   remain out of scope until the approved sequence reaches Phase 6.
+6. Preserve accepted version `0.4.0` until a later acceptance/version decision;
+   do not infer a release from development commits.
+7. Keep PR #9 draft/unmerged unless separate merge authorization is given.
+8. Continue to use locked source manifests and never fabricate historical scan
+   control points, coordinates, ellipsoidal height, scale conversions, or
+   provenance.
 
 ## Local Windows / Git Bash workflow
 
