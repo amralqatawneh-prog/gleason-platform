@@ -446,8 +446,8 @@ test('P5.6 navigation stays camera-local and preserves geographic selection',asy
 
   const refWheel0=Number(await globe.getAttribute('data-view-zoom'));
   await page.mouse.move(canvasBox.x+canvasBox.width/2,canvasBox.y+canvasBox.height/2);
-  await page.mouse.wheel(0,-500);
-  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeGreaterThan(refWheel0);
+  await page.mouse.wheel(0,500);
+  await expect.poll(async()=>Number(await globe.getAttribute('data-view-zoom'))).toBeLessThan(refWheel0);
   await expect(shell).toHaveAttribute('data-selection-revision',beforeAreaRevision!);
 
   await gToolbar.getByRole('button',{name:'Fit full model',exact:true}).focus();
