@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 and the Arabic city correction are closed after owner-reported successful testing (2026-09-19). P5.2 independent adapters are closed following CI #198 and owner-reported success of all delivered tests; see `PHASE_5_P5_2_REPORT.md`. P5.3 is closed after CI #204 and owner-reported successful retest. The owner has now instructed «ابدأ» for the next slice: P5.4 Basic Model Laboratory is the current delivery. P5.5–P5.9 remain pending.
+P5.1 and the Arabic city correction are closed after owner-reported successful testing (2026-09-19). P5.2 independent adapters are closed following CI #198 and owner-reported success of all delivered tests; see `PHASE_5_P5_2_REPORT.md`. P5.3 is closed after CI #204 and owner-reported successful retest. P5.4 Basic Model Laboratory is closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is next but NOT STARTED; P5.5–P5.9 remain pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -87,3 +87,25 @@ implemented by this documentation update.
 The owner explicitly instructed «ابدأ» after review of the current handoff.
 P5.4 is now the only active implementation slice. Its implementation/report is
 `PHASE_5_P5_4_REPORT.md`. P5.5 is not authorized by this start instruction.
+
+
+## P5.4 acceptance closure — 2026-09-19
+
+P5.4 is closed. The initial functional checklist passed, but the owner found the
+technical-first results insufficiently understandable. An approved same-slice UX
+refinement added plain-language meaning while preserving all model calculations,
+units, source evidence and adapter contracts under expandable technical details.
+
+Owner final clarification result: **PASS — REPORTED BY OWNER** («القسم اصبح
+واضحا، اكمل التوثيق»).
+
+Implementation head `29fa6190185ec7901c14f586ad26213337190272` passed
+[CI #236](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35458166222)
+on attempt 6 after transient npm-registry 400 responses blocked the audit gate
+on earlier attempts. The successful run found 0 vulnerabilities and completed
+62 core tests, 2 PWA tests, 11 Chromium scenarios and all remaining release
+acceptance gates.
+
+P5.5 is the next ordered slice and remains **NOT STARTED** until the owner
+instructs continuation. Full Phase 5 acceptance remains pending; no merge/tag/
+release is authorized.
