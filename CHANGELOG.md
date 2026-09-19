@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.4 Model Laboratory (2026-09-19)
+
+- Owner instructed «ابدأ» after P5.3 closure. Add a bilingual read-only Model Laboratory for the shared geographic selection.
+- Show independent Gleason/AE/WGS84 model versions, inputs, outputs, units, semantic/evidence classifications, source records, domains, notes and limitations.
+- Missing WGS84 ellipsoidal height is explicitly unavailable (`height-required`); no 0 m value is fabricated. Numeric comparability remains P5.5.
+- Add core/browser tests and `docs/PHASE_5_P5_4_REPORT.md`. Automated/owner acceptance is not claimed until the new revision is tested.
+
+
 ## [Unreleased] — P5.3 owner acceptance and tool scheduling (2026-09-19)
 
 - Owner reports all retests PASS after CI #204 visual correction; P5.3 closed. Phase 5 acceptance remains pending, P5.4 next.
