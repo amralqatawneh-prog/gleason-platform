@@ -2,6 +2,11 @@ import type { LaboratoryEntry, LaboratoryValue } from './modelLaboratory.js';
 import type { ComparabilityDecision, ComparabilityReasonCode, QuantityUnit } from './comparability.js';
 
 export type DifferenceStatus = 'available' | 'blocked';
+export type DifferenceBlockReason =
+  | ComparabilityReasonCode
+  | 'different-domain'
+  | 'different-output-structure'
+  | 'descriptor-entry-mismatch';
 
 export interface ComponentDifference {
   readonly label: LaboratoryValue['label'];
@@ -17,8 +22,24 @@ export interface HomogeneousDifference {
   readonly rightKey: string;
   readonly unit: QuantityUnit | null;
   readonly values: readonly ComponentDifference[];
-  readonly reasons: readonly ComparabilityReasonCode[];
+  readonly reasons: readonly DifferenceBlockReason[];
   readonly conversionApplied: false;
+}
+
+function blocked(
+  leftKey:string,
+  rightKey:string,
+  reasons:readonly DifferenceBlockReason[],
+):Readonly<HomogeneousDifference> {
+  return Object.freeze({
+    status:'blocked',
+    leftKey,
+    rightKey,
+    unit:null,
+    values:Object.freeze([]),
+    reasons:Object.freeze([...reasons]),
+    conversionApplied:false as const,
+  });
 }
 
 function outputLabels(entry: LaboratoryEntry): readonly LaboratoryValue['label'][] {
@@ -30,22 +51,17 @@ export function computeHomogeneousDifference(
   left: LaboratoryEntry,
   right: LaboratoryEntry,
 ): Readonly<HomogeneousDifference> {
-  if (
-    decision.status !== 'comparable'
-    || !left.output
-    || !right.output
-    || decision.left.key !== left.key
-    || decision.right.key !== right.key
-  ) {
-    return Object.freeze({
-      status: 'blocked',
-      leftKey: left.key,
-      rightKey: right.key,
-      unit: null,
-      values: Object.freeze([]),
-      reasons: decision.reasons,
-      conversionApplied: false as const,
-    });
+  if (decision.left.key !== left.key || decision.right.key !== right.key) {
+    return blocked(left.key,right.key,['descriptor-entry-mismatch']);
+  }
+  if (decision.status !== 'comparable') {
+    return blocked(left.key,right.key,decision.reasons);
+  }
+  if (!left.output || !right.output) {
+    return blocked(left.key,right.key,['missing-output']);
+  }
+  if (left.metadata.domain !== right.metadata.domain) {
+    return blocked(left.key,right.key,['different-domain']);
   }
 
   const leftLabels=outputLabels(left);
@@ -55,7 +71,7 @@ export function computeHomogeneousDifference(
     || leftLabels.length !== rightLabels.length
     || leftLabels.some((label,index)=>label!==rightLabels[index])
   ) {
-    throw new Error('Comparable quantities must expose the same output structure before a difference is computed.');
+    return blocked(left.key,right.key,['different-output-structure']);
   }
 
   const values=left.output.values.map((leftValue,index)=>{
@@ -87,17 +103,7 @@ export function laboratoryDifferences(
   return Object.freeze(decisions.map(decision=>{
     const left=byKey.get(decision.left.key);
     const right=byKey.get(decision.right.key);
-    if(!left||!right) {
-      return Object.freeze({
-        status:'blocked' as const,
-        leftKey:decision.left.key,
-        rightKey:decision.right.key,
-        unit:null,
-        values:Object.freeze([]),
-        reasons:Object.freeze(['missing-output'] as ComparabilityReasonCode[]),
-        conversionApplied:false as const,
-      });
-    }
+    if(!left||!right) return blocked(decision.left.key,decision.right.key,['missing-output']);
     return computeHomogeneousDifference(decision,left,right);
   }));
 }
