@@ -276,28 +276,48 @@ test('shared selection retains search provenance and clears it on each model fre
 });
 
 
-test('P5.4 model laboratory exposes independent outputs and explicit unsupported height',async({page,servers})=>{
+test('P5.4 model laboratory explains meaning before optional technical details',async({page,servers})=>{
   await english(page,servers.url);await locate(page,'TEST Doha');
   const lab=page.locator('.model-laboratory');await expect(lab).toBeVisible();
   await expect(lab.locator('.model-lab-card')).toHaveCount(3);
+  await expect(lab).toContainText('One geographic point → three independent representations');
+  await expect(lab).toContainText('They are not distances between cities');
+
   const gleason=lab.locator('.model-lab-card[data-model="gleason"]');
   const ae=lab.locator('.model-lab-card[data-model="ae"]');
   const wgs84=lab.locator('.model-lab-card[data-model="wgs84"]');
+
   await expect(gleason).toHaveAttribute('data-status','available');
-  await expect(gleason).toContainText('GH-0.2.0');
-  await expect(gleason).toContainText('normalized-radius');
-  await expect(gleason).toContainText('COMPUTED_RESULT');
-  await expect(gleason).toContainText('DERIVED');
-  await expect(gleason).toContainText('gleason-1893-upload-v1');
+  await expect(gleason.locator('.model-lab-meaning')).toContainText('Point position in the Gleason model');
+  await expect(gleason.locator('.model-lab-meaning')).toContainText('not metres or kilometres');
+  await expect(gleason.locator('.model-lab-result')).toContainText('normalized-radius');
+
   await expect(ae).toHaveAttribute('data-status','available');
-  await expect(ae).toContainText('AE-0.2.0');
-  await expect(ae).toContainText('REFERENCE_RESULT');
+  await expect(ae.locator('.model-lab-meaning')).toContainText('Azimuthal Equidistant projection');
+  await expect(ae.locator('.model-lab-meaning')).toContainText('not a distance to another city');
+  await expect(ae.locator('.model-lab-result')).toContainText('metre');
+
   await expect(wgs84).toHaveAttribute('data-status','unavailable');
-  await expect(wgs84).toContainText('WGS84-0.4.0');
-  await expect(wgs84).toContainText('height-required');
+  await expect(wgs84.locator('.model-lab-meaning')).toContainText('three-dimensional coordinates are unavailable');
+  await expect(wgs84.locator('.model-lab-meaning')).toContainText('did not silently assume a 0 m height');
+  await expect(wgs84.locator('.model-lab-result')).toContainText('height-required');
+
+  const technical=gleason.locator('details.model-lab-technical');
+  await expect(technical).not.toHaveAttribute('open','');
+  await technical.locator('summary').click();
+  await expect(technical).toHaveAttribute('open','');
+  await expect(technical).toContainText('GH-0.2.0');
+  await expect(technical).toContainText('COMPUTED_RESULT');
+  await expect(technical).toContainText('DERIVED');
+  await expect(technical).toContainText('gleason-1893-upload-v1');
+
   await expect(lab).toContainText('Ellipsoidal height: Unknown');
-  await expect(lab).toContainText('P5.4 does not compare these values numerically');
   await page.getByRole('button',{name:'العربية',exact:true}).click();
-  await expect(lab).toContainText('مختبر النماذج');
-  await expect(lab).toContainText('الارتفاع الإهليلجي: غير معروف');
+  await expect(lab).toContainText('نفس النقطة الجغرافية ← ثلاث طرق مستقلة لتمثيلها');
+  await expect(gleason.locator('.model-lab-meaning')).toContainText('موقع النقطة على نموذج Gleason');
+  await expect(wgs84.locator('.model-lab-meaning')).toContainText('لم يفترض البرنامج ارتفاعًا وهميًا يساوي 0 متر');
+  await expect(lab).toContainText('إظهار التفاصيل التقنية');
+
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
