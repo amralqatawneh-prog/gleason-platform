@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 and the Arabic city correction are closed after owner-reported successful testing (2026-09-19). P5.2 independent adapters are closed following CI #198 and owner-reported success of all delivered tests; see `PHASE_5_P5_2_REPORT.md`. The owner then instructed «اكمل»: P5.3 selection/marker synchronization is the current delivery; see `PHASE_5_P5_3_REPORT.md`. P5.4–P5.9 remain pending.
+P5.1 and the Arabic city correction are closed after owner-reported successful testing (2026-09-19). P5.2 independent adapters are closed following CI #198 and owner-reported success of all delivered tests; see `PHASE_5_P5_2_REPORT.md`. P5.3 is closed after CI #204 and owner-reported successful retest. The owner has now instructed «ابدأ» for the next slice: P5.4 Basic Model Laboratory is the current delivery. P5.5–P5.9 remain pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -80,3 +80,10 @@ The owner also requested navigation controls, multi-stop paths and distance/area
 measurement, then instructed «اكمل». Scheduling and acceptance requirements are
 recorded in `NAVIGATION_MEASUREMENT_REQUIREMENTS.md`; those tools are not yet
 implemented by this documentation update.
+
+
+## P5.4 start — 2026-09-19
+
+The owner explicitly instructed «ابدأ» after review of the current handoff.
+P5.4 is now the only active implementation slice. Its implementation/report is
+`PHASE_5_P5_4_REPORT.md`. P5.5 is not authorized by this start instruction.
