@@ -69,9 +69,9 @@ P5.1–P5.7 are closed. Their offline-relevant behavior includes:
 - comparability/difference contracts that do not invent unavailable data;
 - future time/shared-layer/route services explicitly unavailable.
 
-### P5.8 boundary — not started
+### P5.8 boundary — in progress
 
-P5.8 **Versioned Local State Persistence** is the next slice and is NOT STARTED.
+P5.8 **Versioned Local State Persistence** is now IN PROGRESS by explicit owner instruction.
 
 It is distinct from the existing Phase 4 layer-visibility persistence. P5.8 must
 define and test the persisted **Phase 5 shared state contract**, including:
@@ -107,3 +107,30 @@ Offline packs and cached data must keep:
 
 Do not invent missing records or silently replace a requested source with a
 different dataset.
+
+
+### P5.8 implementation status — 2026-09-19
+
+P5.8 uses the existing `gleason-platform` IndexedDB database and `key-value`
+store with a dedicated key:
+
+`phase5-shared-state-v1`
+
+The persisted contract is schema version 1 and currently contains only the
+canonical Phase 5 geographic selection or null.
+
+Restore policy:
+- strict decode/validation before use;
+- place identity is reconstructed only from an unchanged record in installed
+  local search packs;
+- unverifiable place identity degrades explicitly to coordinate-only WGS84
+  free-point state;
+- unsupported/malformed state is discarded;
+- hydration occurs before writes are enabled;
+- hydration does not increment the user-selection revision.
+
+Existing Phase 4 globe-layer visibility and Phase 3 search-pack persistence stay
+separate keys/contracts.
+
+P5.8 does not implement saved experiments, routes, notebooks or future-service
+state. Those remain later roadmap work.
