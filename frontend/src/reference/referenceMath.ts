@@ -33,6 +33,13 @@ export function draggedYaw(initialYaw: number, horizontalDeltaPx: number, sensit
 // The renderer uses x/equator, y/polar, z/equator; ECEF uses z/polar.
 export const WGS84_POLAR_RATIO = 6356752.314245179 / 6378137;
 export const GLOBE_CLIP_SCALE = 0.78;
+export const REFERENCE_MIN_ZOOM = 0.7;
+export const REFERENCE_MAX_ZOOM = 5;
+
+export function clampReferenceZoom(zoom: number): number {
+  if (!Number.isFinite(zoom)) return 1;
+  return Math.max(REFERENCE_MIN_ZOOM, Math.min(REFERENCE_MAX_ZOOM, zoom));
+}
 
 export function geoPointToViewAngles(point: ReferenceGeoPoint): { yaw: number; pitch: number } {
   const [x, y, z] = latLonToEllipsoid(point);
@@ -69,23 +76,23 @@ function unrotate([x, y, z]: Vector3, yaw: number, pitch: number): Vector3 {
 }
 
 export function projectGeoToScreen(
-  point: ReferenceGeoPoint, width: number, height: number, yawRad: number, pitchRad: number,
+  point: ReferenceGeoPoint, width: number, height: number, yawRad: number, pitchRad: number, zoom = 1,
 ): ScreenProjection | null {
-  if (![width, height, yawRad, pitchRad, point.latitude, point.longitude].every(Number.isFinite) || width <= 0 || height <= 0) return null;
+  if (![width, height, yawRad, pitchRad, zoom, point.latitude, point.longitude].every(Number.isFinite) || width <= 0 || height <= 0 || zoom <= 0) return null;
   const body = latLonToEllipsoid(point);
   const [x, y] = rotate(body, yawRad, pitchRad);
   const normal: Vector3 = [body[0], body[1] / WGS84_POLAR_RATIO ** 2, body[2]];
   const depth = rotate(normal, yawRad, pitchRad)[2] / Math.hypot(...normal);
-  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE / 2;
+  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE * zoom / 2;
   return { x: width / 2 - x * scale, y: height / 2 - y * scale, visible: depth > 0, depth };
 }
 
 /** Orthographic ray/ellipsoid intersection using the exact rendering transform. */
 export function screenPointToGeo(
-  x: number, y: number, width: number, height: number, yawRad: number, pitchRad: number,
+  x: number, y: number, width: number, height: number, yawRad: number, pitchRad: number, zoom = 1,
 ): ReferenceGeoPoint | null {
-  if (![x, y, width, height, yawRad, pitchRad].every(Number.isFinite) || width <= 0 || height <= 0) return null;
-  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE / 2;
+  if (![x, y, width, height, yawRad, pitchRad, zoom].every(Number.isFinite) || width <= 0 || height <= 0 || zoom <= 0) return null;
+  const scale = Math.min(width, height) * GLOBE_CLIP_SCALE * zoom / 2;
   const origin = unrotate([-(x - width / 2) / scale, -(y - height / 2) / scale, 0], yawRad, pitchRad);
   const direction = unrotate([0, 0, 1], yawRad, pitchRad);
   const dot = (a: Vector3, b: Vector3) => a[0] * b[0] + a[1] * b[1] / WGS84_POLAR_RATIO ** 2 + a[2] * b[2];
