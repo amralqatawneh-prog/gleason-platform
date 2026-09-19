@@ -2,7 +2,11 @@
 
 Date: 2026-09-19. Owner start instruction: **«ابدأ المرحله الخامسة»**.
 Branch: `feat/phase5-shared-state`, based on accepted Phase 4 `1e46b8c`.
-Status: implementation complete; browser verification pending. Phase 5 is not accepted.
+Status: implementation and automated verification COMPLETE. Owner manual checks remain NOT RUN. Phase 5 is not accepted.
+
+Uploaded implementation: `e64d2234246d876c208c4d1cda87672a6945d4be`, identical tree `a421e855bd64751164b33198a72ae9ae312c24d5` to local `224746cadb7add21ca38848c6484074e6afb6c86`. Owner explicitly authorized upload and CI on 2026-09-19: «نعم اسمح بذلك».
+
+[CI #192](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35414383012) — SUCCESS on that implementation snapshot; job `105819999431`. [PR #9](https://github.com/amralqatawneh-prog/gleason-platform/pull/9) is draft/open/unmerged. Its diff includes the unmerged Phase 4 baseline (PR #8); no merge or release was performed. Later documentation commits have their own checks; this run is evidence for the exact implementation SHA above.
 
 ## Implemented behavior
 
@@ -40,7 +44,7 @@ projection maps still do not share markers/cameras; that is P5.3/P5.6.
 
 ## Verification
 
-| Check | Actual local result |
+| Check | Actual result |
 |---|---|
 | Backend pytest | PASS — 49 tests |
 | Frontend core | PASS — 47 tests (40 existing + 7 new) |
@@ -48,20 +52,24 @@ projection maps still do not share markers/cameras; that is P5.3/P5.6.
 | Production PWA tests | PASS — 2 tests |
 | Service worker syntax | PASS |
 | Release metadata consistency | PASS — package metadata remains accepted 0.4.0 |
-| Chromium browser suite | Initial attempt BLOCKED before scenarios: required Chromium executable missing; installation attempted but CDN downloads repeatedly timed out (30 seconds per request); browser verification remains BLOCKED |
+| Chromium browser suite | PASS in CI #192 — all 7 scenarios, 33.7 seconds. Local execution remains unavailable after Chromium CDN timeouts; remote execution resolves the verification blocker |
 | Owner manual checks | NOT RUN on this revision |
-| Remote CI / Docker production-source gates | NOT RUN on this local branch; Phase 4 CI #190 is historical evidence only |
+| Remote CI / Docker production-source gates | PASS in CI #192 — Docker stack, projection/reference APIs, PostGIS catalog, locked real imports, search, API/CLI offline packs, Redis and frontend HTTP |
+| Independent WGS84 numerical parity / npm security | PASS in CI #192; npm reported zero vulnerabilities |
 
 Existing warnings: large JS bundle (793.16 kB, 251.36 kB gzip), FastAPI/httpx
 and anyio deprecations. No third-party dependency or lockfile changes.
 
 ## Reproduction and owner checklist
 
-This branch currently exists locally; `git pull` on the Phase 4 branch does not
-retrieve it. After the branch is available in a checkout:
+The new branch is available on GitHub. Use an explicit fetch refspec, including
+in checkouts originally configured to fetch only the Phase 4 branch:
 
 ```bash
+git remote set-branches --add origin feat/phase5-shared-state
+git fetch origin
 git switch feat/phase5-shared-state
+git pull --ff-only origin feat/phase5-shared-state
 docker compose up --build -d
 docker compose ps
 ```
@@ -100,11 +108,11 @@ npm run test:e2e
 
 ## Completion and next boundary
 
-P5.1 coding scope: 100% implemented; verification/owner acceptance is separate
-and not claimed complete while the browser gate is outstanding. Eight subsequent
+P5.1 coding scope and automated gates: 100% complete. Owner manual acceptance is
+separate and remains NOT RUN; no Phase 5 acceptance is inferred. Eight subsequent
 slices remain pending; no overall project effort percentage is inferred.
-Next: P5.2 independent model adapters with explicit units and domains, after
-closing this slice's validation. Persistence belongs to P5.8; current selection
+Next planned slice: P5.2 independent model adapters with explicit units and domains.
+No P5.2 code is included in this upload. Persistence belongs to P5.8; current selection
 is in memory and is intentionally not restored on reload yet.
 
 No new historical source interpretation, production data, measurement engine,

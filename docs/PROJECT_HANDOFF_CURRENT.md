@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`
-- Current implementation branch: `feat/phase5-shared-state` (local), based on accepted Phase 4 commit `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`. The Phase 4 remote branch and draft PR #8 remain unchanged.
+- Current implementation branch: `feat/phase5-shared-state` (uploaded, draft PR #9), based on accepted Phase 4 commit `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`. The Phase 4 remote branch and draft PR #8 remain unchanged.
 - Audited remote baseline: `99a3658bef7eb678df7beed157bd01ed92aaa62b`.
 - Uploaded correction code revision: `9dfb1e0bada56768e1a7429ed5f9eec24c130f3b` (M1–M6). Build supplied for final owner review: `a0a8e299d3be4b35ce74f710a1f8fc32f00e8939`, validated by [CI #188](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35388167995). Acceptance closure updates application metadata to 0.4.0 and acceptance state only; no Phase 5 code is included.
 - Validated correction snapshot: `fb4dcab447ddbb94924df46576ab9f52f64e6c22`. [Release Acceptance Gates #186](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35387031277) — SUCCESS, including six browser tests and Docker/production-source gates. Baseline #184 is historical evidence only.
@@ -380,7 +380,7 @@ Overall:
 1. Follow `PHASE_5_PLAN.md`, implementing and verifying one slice at a time. P5.1 establishes a single typed geographic selection; its evidence and owner checklist are in `PHASE_5_P5_1_REPORT.md`.
 2. Next planned slice: P5.2 independent adapters with explicit units/domains. Cross-model display synchronization remains unavailable until its own slice.
 3. Preserve Phase 4 acceptance and its successful CI #190 on `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`: https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35412122803. This historical CI does not validate Phase 5 changes.
-4. The new local Phase 5 branch is not uploaded. Previous upload permission named the Phase 4 branch; merge/tag/release remain unauthorized. Do not claim remote CI for local changes.
+4. Owner explicitly authorized Phase 5 upload and CI: «نعم اسمح بذلك». Implementation `e64d2234246d876c208c4d1cda87672a6945d4be` passed CI #192 (run `35414383012`), including all seven Chromium scenarios and Docker/source gates. PR #9 remains draft/open/unmerged. Owner manual P5.1 checks are NOT RUN; merge/tag/release remain unauthorized.
 5. Accepted application version remains 0.4.0; current changes are unreleased Phase 5 development. Capabilities distinguish implementation phase 5 from accepted phase 4.
 
 ## Phase 5 boundary / future agreed direction
@@ -401,11 +401,13 @@ Phase 4 acceptance is complete. The 2026-09-19 start instruction now authorizes 
 
 ## Local Windows / Git Bash workflow
 
-The following commands retrieve the accepted Phase 4 remote build only. Phase 5 currently exists on a local development branch and is not available through this remote update:
+The following commands retrieve the Phase 5 development branch, including for a checkout previously configured to fetch only Phase 4:
 
 ```bash
-git switch feat/phase4-wgs84-reference
-git pull --ff-only
+git remote set-branches --add origin feat/phase5-shared-state
+git fetch origin
+git switch feat/phase5-shared-state
+git pull --ff-only origin feat/phase5-shared-state
 docker compose up --build -d
 docker compose ps
 ```

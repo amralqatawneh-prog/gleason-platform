@@ -3,7 +3,7 @@
 Started: 2026-09-19, by explicit owner instruction: **«ابدأ المرحله الخامسة»**.
 This supersedes the previous Phase 5 hold. Phase 4 stays accepted at v0.4.0.
 Base commit: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
-Working branch: `feat/phase5-shared-state` (local). No merge/tag/release authorization is implied.
+Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draft PR #9. No merge/tag/release authorization is implied.
 
 ## Execution and acceptance
 
@@ -32,7 +32,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-Only P5.1 is implemented in the first delivery. The subsequent slices are pending.
+Only P5.1 is implemented in the first delivery; its automated gates passed in CI #192, with owner manual checks still NOT RUN. The subsequent slices are pending.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions

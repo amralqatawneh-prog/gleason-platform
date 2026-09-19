@@ -7,7 +7,7 @@
 - Replaced separate React point/place states with one selection; focus application no longer emits a fake user pick. Reject invalid geographic domains without silent normalization.
 - Fixed stale Phase 4 acceptance text in the footer. Capabilities report implementation phase 5, accepted phase 4 and in_progress, with cross-model synchronization still false.
 - Added seven contract tests and a browser regression for search-to-free-point transitions across all three models. See `docs/PHASE_5_P5_1_REPORT.md` for actual results.
-- No new dependencies, release/tag, merge or remote upload. P5.2–P5.9 remain pending; package version remains the last accepted 0.4.0.
+- Owner authorized upload and CI; implementation `e64d223` passed CI #192 including all seven Chromium scenarios (33.7s), Docker/PostGIS/Redis/production-source gates and numerical parity. Draft PR #9 is open and unmerged. No new dependencies, release/tag or merge. P5.2–P5.9 remain pending; package version remains the last accepted 0.4.0.
 
 ## [0.4.0] — accepted application version (2026-09-18)
 
