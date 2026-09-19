@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] — P5.6 owner acceptance closure (2026-09-19)
+
+- Owner reported «نجحت كل الاختبارات». Record manual result PASS — REPORTED BY OWNER.
+- P5.6 closes with CI #329 and CI #340 SUCCESS.
+- Independent navigation/focus/zoom/rotation behavior remains accepted for this slice; canonical geographic selection is preserved by navigation.
+- P5.7 is next but NOT STARTED. Phase 6 routes/ruler/area remain NOT STARTED.
+- Full Phase 5 remains in progress; no merge, tag or release. Accepted app version remains 0.4.0.
+
+
 ## [Unreleased] — Phase 5 / P5.6 navigation (2026-09-19)
 
 - Owner instructed «أكمل» after P5.5 closure. P5.6 is the only active slice.
