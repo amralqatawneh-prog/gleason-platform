@@ -160,11 +160,15 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
 
   useEffect(() => {
     if (!focusPoint) return;
-    const view = geoPointToViewAngles(focusPoint);
-    setYaw(view.yaw);
-    setPitch(view.pitch);
-    // Applying parent state is not a user pick; do not echo it as a free-point event.
-  }, [focusPoint]);
+    if(mode==='fallback2d'){
+      setFallbackCenter({latitude:focusPoint.latitude,longitude:normalizeLongitude(focusPoint.longitude)});
+    }else{
+      const view = geoPointToViewAngles(focusPoint);
+      setYaw(view.yaw);
+      setPitch(view.pitch);
+    }
+    // Applying parent state is navigation only; do not echo it as a free-point event.
+  }, [focusPoint,mode]);
 
   useEffect(() => {
     if (mode !== 'webgl3d') return;
@@ -224,8 +228,8 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       const aspect = canvas.width / canvas.height;
       gl.uniform1f(yawUniform, yaw);
       gl.uniform1f(pitchUniform, pitch);
-      gl.uniform1f(sxUniform, aspect >= 1 ? GLOBE_CLIP_SCALE / aspect : GLOBE_CLIP_SCALE);
-      gl.uniform1f(syUniform, aspect >= 1 ? GLOBE_CLIP_SCALE : GLOBE_CLIP_SCALE * aspect);
+      gl.uniform1f(sxUniform, (aspect >= 1 ? GLOBE_CLIP_SCALE / aspect : GLOBE_CLIP_SCALE) * zoom);
+      gl.uniform1f(syUniform, (aspect >= 1 ? GLOBE_CLIP_SCALE : GLOBE_CLIP_SCALE * aspect) * zoom);
       gl.uniform1i(surfaceUniform, 1);
       gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1, 1);
       draw(surfaceBuffer, surfaceVertices, gl.TRIANGLES, [0.055, 0.25, 0.39, 1]);
@@ -240,9 +244,9 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     render();
     const observer = new ResizeObserver(render); observer.observe(canvas);
     return () => { observer.disconnect(); gl.deleteBuffer(surfaceBuffer); gl.deleteBuffer(gridBuffer); gl.deleteBuffer(countryBuffer); gl.deleteBuffer(placeBuffer); gl.deleteProgram(program); gl.deleteShader(vs); gl.deleteShader(fs); };
-  }, [mode, yaw, pitch, surfaceVertices, countryVertices, placeVertices, layers?.countries]);
+  }, [mode, yaw, pitch, zoom, surfaceVertices, countryVertices, placeVertices, layers?.countries]);
 
-  const marker = selectionPoint ? projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch) : null;
+  const marker = selectionPoint ? projectGeoToScreen(selected, viewport.width, viewport.height, yaw, pitch, zoom) : null;
   const selectedLabel = selectionLabel;
   const choose = (point: ReferenceGeoPoint) => { onPoint?.(point); };
 
