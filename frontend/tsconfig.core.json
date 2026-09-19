@@ -34,6 +34,7 @@
     "src/comparison/geographicSelection.ts",
     "src/comparison/adapters/*.ts",
     "src/comparison/selectionState.ts",
+    "src/comparison/modelLaboratory.ts",
     "src/reference/ellipsoidSurface.ts"
   ]
 }
