@@ -16,7 +16,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Upload explicitly authorized by the owner on 2026-09-18 and completed with a non-force branch update. PR #8 remains open/draft/unmerged; no release or tag was created.
 - Phase 4: **ACCEPTED BY OWNER on 2026-09-18**; all owner manual checks reported PASS. Accepted application version: **v0.4.0**. Acceptance source: `docs/PHASE_4_ACCEPTANCE.md`.
 - Current evidence: `docs/PHASE_4_CORRECTIONS_TEST_REPORT.md`. Canonical future scope: `docs/ROADMAP_CURRENT.md`.
-- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is next but NOT STARTED. See `PHASE_5_PLAN.md` and `PHASE_5_P5_4_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
+- Phase 5: **IN PROGRESS**, explicitly started by owner on 2026-09-19. P5.1 and the Arabic city correction are closed; P5.2 closed after CI #198 and owner PASS; P5.3 closed after CI #204 and owner PASS; P5.4 Basic Model Laboratory is now closed after refined implementation CI #236 SUCCESS and owner-reported functional/clarity PASS. P5.5 Comparability Contract is closed after CI #266/#271 and owner manual PASS. The owner subsequently instructed «أكمل» and P5.6 Optional Geographic Focus / Navigation is now IN PROGRESS / technically green after CI #329, awaiting owner manual verification. See `PHASE_5_PLAN.md` and `PHASE_5_P5_6_REPORT.md`. Phase 4 remains accepted; full Phase 5 is not accepted.
 
 ## Project architecture agreed with owner
 
@@ -373,7 +373,7 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.5 closed; P5.6 next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.5 closed; P5.6 navigation technically green / awaiting owner manual verification**. P5.7 is not started. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
@@ -571,3 +571,37 @@ Navigation is the next ordered slice and remains **NOT STARTED** until the owner
 instructs continuation. Full Phase 5 acceptance remains pending. Accepted app
 version remains 0.4.0. Draft PR #9 remains open/unmerged; no merge, tag or
 release.
+
+
+## P5.6 implementation reconciliation and CI — 2026-09-19
+
+After P5.5 closure, the owner instructed «أكمل». P5.6 is therefore authorized.
+During the start audit, navigation code/tests were already present on the branch
+while the canonical documentation still said P5.6 was NOT STARTED. The
+repository was reviewed as-is, the remaining WGS84 wheel regression/build typing
+issues were corrected, and the actual implementation state was reconciled in
+`docs/PHASE_5_P5_6_REPORT.md`.
+
+Delivered P5.6 behavior:
+- independent zoom/wheel/touch navigation on Gleason and AE;
+- zoom-to-area rectangle, rotation, reset, fit-full and focus-selected on both
+  2D model views;
+- WGS84 bounded zoom, wheel, pinch, yaw/pitch controls, rectangle zoom, reset,
+  fit-full and focus-selected;
+- 2D WGS84 fallback supports zoom/pinch/pan/area/focus while 3D rotation/tilt
+  controls are explicitly disabled;
+- camera navigation does not increment or replace canonical geographic
+  selection;
+- zoom/picking math remains reciprocal after WGS84 zoom/rotation and is covered
+  near poles and the antimeridian.
+
+Exact audited implementation head:
+`378f0a8ed6710195cb1e48e0ebcd4518116a5d0d`.
+
+[Release Acceptance Gates #329 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35462318226):
+0 npm vulnerabilities, 71 frontend core tests, 2 PWA tests, 14 Chromium
+acceptance scenarios, production build, WGS84 parity, Docker/PostGIS/Redis and
+locked-source/search gates all PASS.
+
+P5.6 status: **IN PROGRESS / TECHNICALLY GREEN / OWNER MANUAL VERIFICATION NOT
+RUN**. P5.7 and Phase 6 remain NOT STARTED. No merge, tag or release.
