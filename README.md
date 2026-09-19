@@ -11,16 +11,17 @@ model engines:
 
 > **Current development status — 2026-09-19**
 >
-> Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on
-> `feat/phase5-shared-state` / draft PR #9. Slices **P5.1–P5.7 are CLOSED**
+> Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on `main` after
+> **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
 > after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
 > State Persistence is next and NOT STARTED.** Phase 6 measurement/routing is
 > also NOT STARTED.
 
 ## Current verified development baseline
 
-- Branch: `feat/phase5-shared-state`
-- Draft PR: **#9**
+- Branch: `main`
+- PR **#9**: **MERGED** into `main`
+- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`
 - Latest owner-tested/documented baseline before this documentation
   reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`
 - Release Acceptance Gates **#397 — SUCCESS**
@@ -32,7 +33,7 @@ model engines:
 - Implementation phase: **5**
 - Accepted phase: **4**
 - Phase status: **in_progress**
-- No merge, tag or GitHub Release has been authorized for Phase 5.
+- PR #9 has been merged with explicit owner authorization. No tag or GitHub Release has been authorized.
 
 The documentation-only GitHub synchronization requested after P5.7 does not
 change numerical engines, source datasets or accepted application version. See
@@ -127,15 +128,14 @@ conversion are allowed.
 - Backend WGS84 reference calculations remain the numerical acceptance
   authority; client-side implementations are independently parity-tested.
 
-## Run the current development branch
+## Run the current main branch
 
 ### Git / Docker
 
 ```bash
-git remote set-branches --add origin feat/phase5-shared-state
 git fetch origin
-git switch feat/phase5-shared-state
-git pull --ff-only origin feat/phase5-shared-state
+git switch main
+git pull --ff-only origin main
 docker compose up --build -d
 docker compose ps
 ```
@@ -213,6 +213,6 @@ analytic reconstruction used by the software.
 
 ## Release / merge boundary
 
-The current work remains on draft PR #9. Updating branch documentation and PR
-metadata does **not** authorize merge, tag, release, deployment or starting
-P5.8. Those require their normal explicit project step.
+PR #9 was explicitly authorized by the owner and has been **merged into `main`**.
+This merge does **not** authorize a tag, GitHub Release, deployment, Phase 5 final
+acceptance, or starting P5.8. Those remain separate project steps.
