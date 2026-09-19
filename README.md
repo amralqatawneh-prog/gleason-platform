@@ -8,9 +8,9 @@ Phase 4 is accepted by the owner. The platform includes independent Gleason/AE p
 - Phase 2 — ACCEPTED ✅
 - Phase 3 — ACCEPTED ✅
 - Phase 4 — ACCEPTED BY OWNER on 2026-09-18; all manual checks reported PASS; automated browser/Docker/source evidence recorded.
-- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. P5.1 shared geographic state is the first slice; Phase 5 is not accepted. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 automated gates passed in CI #192; P5.1 and Arabic city correction passed owner testing; P5.2 independent adapters passed CI #198 and all delivered owner tests; P5.3 is closed after owner retest; P5.4 Basic Model Laboratory is the current implementation slice.
+- Phase 5 — IN PROGRESS, explicitly started by owner on 2026-09-19. Development branch: `feat/phase5-shared-state` (uploaded, draft PR #9). P5.1 and Arabic city correction are closed; P5.2 closed after CI #198 and owner testing; P5.3 closed after CI #204 and owner testing; P5.4 Basic Model Laboratory closed after CI #236 and owner-reported functional/clarity PASS. P5.5 Comparability Contract is next but NOT STARTED. Phase 5 as a whole is not accepted.
 
-Current slice: [Phase 5 plan](docs/PHASE_5_PLAN.md) and [P5.4 report](docs/PHASE_5_P5_4_REPORT.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
+Latest closed slice: [P5.4 Model Laboratory](docs/PHASE_5_P5_4_REPORT.md). Next ordered slice is P5.5 Comparability Contract, not started. See the [Phase 5 plan](docs/PHASE_5_PLAN.md). Package version 0.4.0 is the last accepted version; Phase 5 changes are unreleased.
 
 Current handoff: [docs/PROJECT_HANDOFF_CURRENT.md](docs/PROJECT_HANDOFF_CURRENT.md).
 Owner acceptance: [docs/PHASE_4_ACCEPTANCE.md](docs/PHASE_4_ACCEPTANCE.md).
