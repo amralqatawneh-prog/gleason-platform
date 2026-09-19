@@ -74,3 +74,18 @@ test('future service guards fail closed instead of pretending implementation',()
     assert.throws(()=>requireFutureServiceAvailable(kind),FutureServiceUnavailableError);
   }
 });
+
+
+test('matching P5.5 descriptors still cannot bypass a P5.7 domain mismatch',()=>{
+  const base=inspectSelection(selectFreePoint('ae',{latitude:25,longitude:50})).find(entry=>entry.key==='ae');
+  const altered=Object.freeze({
+    ...inspectSelection(selectFreePoint('ae',{latitude:26,longitude:51})).find(entry=>entry.key==='ae'),
+    metadata:Object.freeze({...base.metadata,domain:'synthetic-other-domain'}),
+  });
+  const decision=evaluateComparability(describeLaboratoryEntry(base),describeLaboratoryEntry(altered));
+  assert.equal(decision.status,'comparable');
+  const difference=computeHomogeneousDifference(decision,base,altered);
+  assert.equal(difference.status,'blocked');
+  assert.deepEqual(difference.values,[]);
+  assert.deepEqual(difference.reasons,['different-domain']);
+});
