@@ -148,7 +148,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
       <button type="button" disabled={!selectionPoint} onClick={focusSelected} aria-label={labels.focus} title={labels.focus}>◎</button>
       <span className="navigation-readout" dir="ltr">z {nav.zoom.toFixed(2)} · θ {(nav.rotation*180/Math.PI).toFixed(1)}°</span>
     </nav>
-    <div ref={targetRef} className={'projection-map'+(zoomAreaActive?' zoom-area-mode':'')} dir="ltr" aria-label={title} />
+    <div ref={targetRef} className={'projection-map'+(zoomAreaActive?' zoom-area-mode':'')} dir="ltr" tabIndex={0} aria-label={title} />
     {selectionPoint&&<div className="projection-selection-readout" dir="ltr"><span>{selectionLabel ?? (locale==='ar'?'نقطة مختارة':'Selected point')}</span> · Lat {selectionPoint.latitude.toFixed(6)}° · Lon {selectionPoint.longitude.toFixed(6)}°</div>}
   </section>;
 }
