@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased] — P5.5 automated verification (2026-09-19)
+
+- P5.5 implementation head `1bf01cda0a1b4273b14f7d1c06a844021e575648` passed Release Acceptance Gates #266.
+- CI reports 0 npm vulnerabilities, 67 frontend core tests, 2 PWA tests and 12 Chromium scenarios PASS, plus parity/build/Docker/PostGIS/Redis/locked-source/search gates.
+- Owner manual P5.5 verification remains NOT RUN; P5.5 is not closed and P5.6 is not started.
+
+
 ## [Unreleased] — Phase 5 / P5.5 Comparability Contract (2026-09-19)
 
 - Owner instructed «أكمل» after P5.4 closure. Start P5.5 only.
