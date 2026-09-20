@@ -23,12 +23,15 @@ model engines:
 - P5.9 PR **#12**: open/draft/unmerged
 - Final pre-acceptance implementation/documentation head:
   `cf1f3ad45b6a8da1cf7f608d8da94f275641c676`
-- Release Acceptance Gates **#455 — SUCCESS**
-- Earlier corrected implementation run **#451 — SUCCESS**
-- CI #451/#455 cover the Phase 5 acceptance-package gate, 0 npm vulnerabilities,
-  86 frontend core tests, 2 PWA tests, 17 Chromium scenarios, production build,
-  WGS84 parity, Docker/PostGIS/Redis, locked-source import and online/offline/
-  Arabic search gates.
+- Pre-acceptance gates: **#451 SUCCESS** and **#455 SUCCESS**
+- Accepted v0.5.0 metadata head:
+  `e011857b05aed18dbf2ece679ae97bd152e95f74`
+- Acceptance-metadata gate: **#481 SUCCESS**
+- CI #481 confirms VERSION/package/lock consistency at 0.5.0, the Phase 5
+  acceptance-package gate, 0 npm vulnerabilities, 86 frontend core tests,
+  2 PWA tests, 17 Chromium scenarios, production build, WGS84 parity,
+  Docker/PostGIS/Redis, locked-source import and online/offline/Arabic search
+  gates.
 - Accepted application version: **0.5.0**
 - Implementation phase: **5**
 - Accepted phase: **5**
