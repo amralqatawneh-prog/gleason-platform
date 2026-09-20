@@ -11,7 +11,9 @@
 - Add backend/core/browser tests for reference radial geometry, antimeridian projected chord, repeated points, reverse routes, invalid input and live recalculation.
 - CI #652 failed at the acceptance-package checker before implementation gates because a historical P6.3 current-slice assertion had not been separated from the new current P6.4 state.
 - Corrected implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
-- P6.5/P6.7 remain NOT STARTED; owner manual P6.4 verification remains NOT RUN; PR #21 remains draft/unmerged; no merge/tag/release/deployment authorization is implied.
+- Current documentation/state head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
+- Owner reported all six P6.4 manual checks **6/6 PASS — REPORTED BY OWNER** on 2026-09-21.
+- P6.4 is **CLOSED**; P6.5/P6.7 remain **NOT STARTED**; PR #21 remains draft/unmerged; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #19 merge reconciliation (2026-09-20)
 
