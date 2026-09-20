@@ -75,7 +75,7 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **REFINEMENT IN PROGRESS — base owner manual 6/6 PASS + offline fallback PASS; targeted route-guide retest pending**.
+Status: **AWAITING TARGETED OWNER RETEST — base manual 6/6 PASS + offline fallback PASS; route-guide CI #587 SUCCESS**.
 
 Start baseline:
 - `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
@@ -87,7 +87,11 @@ Start baseline:
 - owner manual verification: **6/6 PASS — REPORTED BY OWNER**
 - backend-stop browser-local fallback: **PASS — REPORTED BY OWNER**
 - pre-refinement documentation CI #572: **SUCCESS**
-- active owner-requested refinement: visual-only route line + A/B/C markers on WGS84/Gleason/AE; P6.7 remains NOT STARTED
+- owner-requested refinement: visual-only route line + A/B/C markers on WGS84/Gleason/AE
+- route-guide refinement head: `483b123277f62e219937298b4fb7ca104809d420`
+- route-guide Release Acceptance Gates #587: **SUCCESS**
+- targeted route-guide owner retest: **NOT RUN**
+- P6.7 remains NOT STARTED
 
 Deliver:
 - WGS84 geodesic segment and open-polyline distance;
