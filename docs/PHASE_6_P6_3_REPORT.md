@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **REFINEMENT IN PROGRESS — BASE MANUAL PASS 6/6 + OFFLINE FALLBACK PASS REPORTED BY OWNER**
+Status: **AWAITING TARGETED OWNER RETEST — ROUTE-GUIDE CI #587 SUCCESS**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -283,6 +283,20 @@ This refinement stays inside P6.3 as **display-only route guidance**:
 The line is explicitly labeled **visual-only** in the UI and data attributes.
 A targeted owner retest is required after the refinement passes CI.
 
+### Route-guide automated verification
+
+Refinement head:
+`483b123277f62e219937298b4fb7ca104809d420`
+
+Release Acceptance Gates **#587 — SUCCESS** on that exact head.
+
+The successful workflow includes frontend core coverage for the display-only
+route-guide geometry, the existing WGS84 parity gates, production build,
+**20/20 Chromium acceptance tests**, Docker runtime, source/data regression,
+PostGIS/search checks and the existing P6.3 route-distance API smoke test.
+
+Current refinement state: **AWAITING TARGETED OWNER RETEST**.
+
 ## Closure criteria
 
 P6.3 may be marked CLOSED only after:
@@ -290,7 +304,7 @@ P6.3 may be marked CLOSED only after:
 - complete Release Acceptance Gates succeed on the implementation head — **DONE: #565 SUCCESS**;
 - documentation is updated with the exact successful head/run — **DONE**;
 - the original owner manual checklist PASS — **DONE: 6/6 PASS + offline fallback PASS reported**;
-- the visual route-guide refinement passes the complete automated gates — **PENDING**;
+- the visual route-guide refinement passes the complete automated gates — **DONE: #587 SUCCESS**;
 - the owner performs the targeted route-guide retest — **PENDING / NOT RUN**;
 - a final closure-documentation head passes the complete gates again — **PENDING**.
 
