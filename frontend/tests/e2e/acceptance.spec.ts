@@ -630,3 +630,55 @@ test('P5.9 phase regression covers polar and antimeridian selections with visibl
   await expect(page.locator('.future-contracts')).toContainText('غير متاح');
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P6.2 ordered route state supports edit/undo/clear and remains transient across reload',async({page,servers})=>{
+  await english(page,servers.url);
+  const panel=page.locator('.ordered-route-panel');
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveAttribute('data-route-point-count','0');
+  await expect(panel).toHaveAttribute('data-route-persistent','false');
+  await expect(panel.locator('.ordered-route-segments')).toHaveAttribute('data-has-numeric-measurement','false');
+
+  await locate(page,'TEST Doha');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  await expect(panel).toHaveAttribute('data-route-point-count','2');
+  await expect(panel).toHaveAttribute('data-route-segment-count','1');
+  await expect(panel.locator('.ordered-route-point')).toHaveCount(2);
+  await expect(panel.locator('.ordered-route-point').nth(0)).toContainText('TEST Doha');
+  await expect(panel.locator('.ordered-route-point').nth(1)).toContainText('TEST Amman');
+  await expect(panel.locator('.ordered-route-segment')).toHaveText('A → B');
+  await expect(panel).toContainText('Segment identity only — P6.2 exposes no numeric distance.');
+
+  await panel.getByRole('button',{name:'Move A down',exact:true}).click();
+  await expect(panel.locator('.ordered-route-point').nth(0)).toContainText('TEST Amman');
+  await expect(panel.locator('.ordered-route-point').nth(1)).toContainText('TEST Doha');
+
+  await panel.getByRole('button',{name:'Undo',exact:true}).click();
+  await expect(panel.locator('.ordered-route-point').nth(0)).toContainText('TEST Doha');
+  await expect(panel.locator('.ordered-route-point').nth(1)).toContainText('TEST Amman');
+
+  await panel.getByRole('button',{name:'Remove B',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-route-point-count','1');
+  await panel.getByRole('button',{name:'Undo',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-route-point-count','2');
+
+  await panel.getByRole('button',{name:'Clear route',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-route-point-count','0');
+  await panel.getByRole('button',{name:'Undo',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-route-point-count','2');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(panel).toContainText('المسار المرتب');
+  await expect(panel).toContainText('لا توجد مسافة عددية في P6.2.');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+
+  await page.reload();
+  const restoredPanel=page.locator('.ordered-route-panel');
+  await expect(restoredPanel).toHaveAttribute('data-route-point-count','0');
+  await expect(restoredPanel).toHaveAttribute('data-route-persistent','false');
+});
