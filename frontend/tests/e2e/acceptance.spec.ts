@@ -504,12 +504,13 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await expect(future.locator('[data-future-service="time"]')).toContainText('phases 9–10');
   await expect(future.locator('[data-future-service="layer-sync"]')).toContainText('phase 16');
   await expect(future.locator('[data-future-service="route"]')).toContainText('phase 6');
-  await expect(future.locator('[data-future-service="route"]')).toContainText('distance, ruler and area are not implemented here');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('P6.3 implements WGS84 geodesic ruler/distance');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('route drawing/provider paths');
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(comparison).toContainText('لا يُعرض فرق عددي لأن الكميتين غير متجانستين');
   await expect(future).toContainText('عقود الخدمات المستقبلية');
-  await expect(future.locator('[data-future-service="route"]')).toContainText('رسم المسارات والمسافة والمسطرة والمساحة ليست منفذة هنا');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('P6.3');
   await expect(future.locator('[data-service-status="unavailable"]')).toHaveCount(3);
 
   await page.setViewportSize({width:390,height:844});
@@ -692,7 +693,7 @@ test('P6.2 ordered route state supports edit/undo/clear and remains transient ac
   await expect(panel.locator('.ordered-route-point').nth(0)).toContainText('TEST Doha');
   await expect(panel.locator('.ordered-route-point').nth(1)).toContainText('TEST Amman');
   await expect(panel.locator('.ordered-route-segment')).toHaveText('A → B');
-  await expect(panel).toContainText('Segment identity only — P6.2 exposes no numeric distance.');
+  await expect(panel).toContainText('P6.2 keeps segment identity only');
 
   await panel.getByRole('button',{name:'Move A down',exact:true}).click();
   await expect(panel.locator('.ordered-route-point').nth(0)).toContainText('TEST Amman');
@@ -722,4 +723,47 @@ test('P6.2 ordered route state supports edit/undo/clear and remains transient ac
   const restoredPanel=page.locator('.ordered-route-panel');
   await expect(restoredPanel).toHaveAttribute('data-route-point-count','0');
   await expect(restoredPanel).toHaveAttribute('data-route-persistent','false');
+});
+
+
+test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explicit identity',async({page,servers})=>{
+  await english(page,servers.url);
+  const panel=page.locator('.ordered-route-panel');
+  const ruler=page.locator('.wgs84-route-distance-panel');
+
+  await expect(ruler).toHaveAttribute('data-measurement-status','idle');
+  await expect(ruler).toHaveAttribute('data-measurement-method','wgs84-geodesic');
+  await expect(ruler).toHaveAttribute('data-measurement-unit','metre');
+
+  await locate(page,'TEST Doha');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  await expect(ruler).toHaveAttribute('data-measurement-status','ready');
+  await expect(ruler).toHaveAttribute('data-route-segment-count','1');
+  await expect(ruler.locator('.wgs84-route-distance-segment')).toHaveCount(1);
+  await expect(ruler).toContainText('wgs84-geodesic');
+  await expect(ruler).toContainText('open-polyline');
+  await expect(ruler).toContainText('wgs84-ellipsoid');
+  await expect(ruler.locator('.wgs84-route-distance-provenance')).toContainText(/pyproj|geographiclib-geodesic/);
+  const twoPointTotal=Number(await ruler.getAttribute('data-route-distance-m'));
+  expect(twoPointTotal).toBeGreaterThan(0);
+
+  await locate(page,'TEST North East Edge');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+  await expect(ruler).toHaveAttribute('data-measurement-status','ready');
+  await expect(ruler).toHaveAttribute('data-route-segment-count','2');
+  await expect(ruler.locator('.wgs84-route-distance-segment')).toHaveCount(2);
+  const threePointTotal=Number(await ruler.getAttribute('data-route-distance-m'));
+  expect(threePointTotal).toBeGreaterThan(twoPointTotal);
+
+  await panel.getByRole('button',{name:'Move C up',exact:true}).click();
+  await expect(ruler).toHaveAttribute('data-measurement-status','ready');
+  await expect(ruler).toHaveAttribute('data-route-segment-count','2');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(ruler).toContainText('مسطرة ومسافة WGS84');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
