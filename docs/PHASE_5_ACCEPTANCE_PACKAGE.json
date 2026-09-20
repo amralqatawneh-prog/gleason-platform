@@ -261,7 +261,7 @@
       "baseline_ci_conclusion": "success",
       "branch": "feat/phase6-p6-3-wgs84-distance",
       "scope": "WGS84 geodesic distance for adjacent ordered route segments and open-polyline total only",
-      "manual_status": "not_run"
+      "manual_status": "pass-reported-by-owner"
     },
     "p6_3_automated": {
       "implementation_head": "06f2397f63648d879d6271064f3297608a59c333",
@@ -275,7 +275,27 @@
       "browser_acceptance_tests_passed": 20,
       "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
     },
-    "p6_3_status": "awaiting-owner-manual-verification"
+    "p6_3_status": "refinement-in-progress",
+    "p6_3_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-20",
+      "checklist_items_passed": 6,
+      "tested_head": "a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9",
+      "pre_manual_ci_run": 572,
+      "pre_manual_ci_conclusion": "success",
+      "offline_backend_fallback": "pass-reported-by-owner",
+      "offline_fallback_detail": "Owner stopped backend, measured two points successfully with browser-local GeographicLib, then restarted backend."
+    },
+    "p6_3_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "Add a line on the map between the added points to clarify the route.",
+      "decision": "requested-by-owner-after-manual-pass",
+      "status": "in_progress",
+      "scope": "Display-only ordered route guide on WGS84, Gleason and AE views with A/B/C labels; no numeric or provider-route semantic change.",
+      "computation_identity": "visual-only",
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "not_run"
+    }
   },
   "post_pr16_merge_reconciliation": {
     "date": "2026-09-20",
