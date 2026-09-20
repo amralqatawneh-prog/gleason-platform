@@ -51,12 +51,12 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.1", "previous Phase 6 slice must be P6.1")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.1 must remain closed")
-require(phase6_start.get("current_slice") == "P6.2", "current Phase 6 slice must be P6.2")
-require(phase6_start.get("current_slice_status") == "closed", "P6.2 must be closed")
-require(phase6_start.get("next_slice") == "P6.3", "next Phase 6 slice must be P6.3")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.3 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.2", "previous Phase 6 slice must be P6.2")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.2 must remain closed")
+require(phase6_start.get("current_slice") == "P6.3", "current Phase 6 slice must be P6.3")
+require(phase6_start.get("current_slice_status") == "in_progress", "P6.3 must be in_progress")
+require(phase6_start.get("next_slice") == "P6.4", "next Phase 6 slice must be P6.4")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
 p6_2_start = phase6_start.get("p6_2_start", {})
 require(p6_2_start.get("decision") == "continued-by-owner", "P6.2 owner continuation evidence missing")
 require(
@@ -194,10 +194,31 @@ require(
     merge_boundary.get("pr17_post_merge_main_ci_conclusion") == "success",
     "PR #17 post-merge CI #558 must remain success",
 )
+require(merge_boundary.get("pr18") == "merged", "PR #18 current status must be merged")
+require(
+    merge_boundary.get("pr18_merge_commit")
+    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "PR #18 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr18_final_head")
+    == "04119500ec3d4895478d76ae5c878fa30fa44354",
+    "PR #18 final head drifted",
+)
+require(merge_boundary.get("pr18_pre_merge_ci_run") == 560, "PR #18 pre-merge CI must be #560")
+require(
+    merge_boundary.get("pr18_pre_merge_ci_conclusion") == "success",
+    "PR #18 pre-merge CI #560 must remain success",
+)
+require(merge_boundary.get("pr18_post_merge_main_ci_run") == 561, "PR #18 post-merge CI must be #561")
+require(
+    merge_boundary.get("pr18_post_merge_main_ci_conclusion") == "success",
+    "PR #18 post-merge CI #561 must remain success",
+)
 require(
     merge_boundary.get("current_integration_baseline")
-    == "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
-    "current integration baseline must be the PR #17 merge commit",
+    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "current integration baseline must be the PR #18 merge commit",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
@@ -221,6 +242,16 @@ require(
 require(post_pr17_sync.get("baseline_ci_run") == 558, "post-PR17 GitHub sync baseline CI must be #558")
 require(post_pr17_sync.get("baseline_ci_conclusion") == "success", "post-PR17 GitHub sync baseline CI #558 must remain success")
 require(post_pr17_sync.get("p6_3_status") == "not_started", "P6.3 must remain not_started during post-PR17 sync")
+p6_3_start = phase6_start.get("p6_3_start", {})
+require(p6_3_start.get("decision") == "started-by-owner", "P6.3 explicit owner start evidence missing")
+require(
+    p6_3_start.get("baseline_commit") == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "P6.3 baseline commit drifted",
+)
+require(p6_3_start.get("baseline_ci_run") == 561, "P6.3 baseline CI must be #561")
+require(p6_3_start.get("baseline_ci_conclusion") == "success", "P6.3 baseline CI #561 must remain success")
+require(p6_3_start.get("branch") == "feat/phase6-p6-3-wgs84-distance", "P6.3 branch drifted")
+require(p6_3_start.get("manual_status") == "not_run", "P6.3 manual status must remain not_run until owner testing")
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
@@ -390,11 +421,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.1",
+            "phase6_previous_slice": "P6.2",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.2",
-            "phase6_current_slice_status": "closed",
-            "phase6_next_slice": "P6.3",
+            "phase6_current_slice": "P6.3",
+            "phase6_current_slice_status": "in_progress",
+            "phase6_next_slice": "P6.4",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
