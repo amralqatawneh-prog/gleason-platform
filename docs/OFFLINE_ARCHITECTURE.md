@@ -1,6 +1,6 @@
-# Offline Architecture — current through P5.7
+# Offline Architecture — current through P5.9
 
-_Last reconciled: 2026-09-19. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-20. Accepted application version: v0.4.0._
 
 ## Core rule
 
@@ -60,7 +60,7 @@ normalized.
 
 ## Phase 5 status
 
-P5.1–P5.7 are closed. Their offline-relevant behavior includes:
+P5.1–P5.9 are closed. Their offline-relevant behavior includes:
 
 - canonical shared geographic selection while the app is running;
 - offline-capable model calculations already supported by each adapter;
@@ -83,8 +83,6 @@ define and test the persisted **Phase 5 shared state contract**, including:
 - no conversion of missing ellipsoidal height to zero;
 - no restoration of unavailable future-service operations as if implemented.
 
-This document does not claim P5.8 functionality before that slice is authorized,
-implemented and accepted.
 
 ## Browser evidence
 
@@ -146,4 +144,4 @@ an unchanged installed offline-pack record; otherwise only the verified
 coordinate is restored. Malformed/unsupported state is discarded and missing
 ellipsoidal height remains unknown.
 
-P5.9 is next and not started.
+P5.9 is now CLOSED after the owner reported PASS on all ten manual regression checks. The offline check passed after the app had been installed/cached; supported local search/calculations remained available according to installed packs, and unavailable data remained unavailable rather than fabricated. Full Phase 5 acceptance is still pending a separate explicit owner decision.
