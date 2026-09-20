@@ -252,6 +252,18 @@ require(p6_3_start.get("baseline_ci_run") == 561, "P6.3 baseline CI must be #561
 require(p6_3_start.get("baseline_ci_conclusion") == "success", "P6.3 baseline CI #561 must remain success")
 require(p6_3_start.get("branch") == "feat/phase6-p6-3-wgs84-distance", "P6.3 branch drifted")
 require(p6_3_start.get("manual_status") == "not_run", "P6.3 manual status must remain not_run until owner testing")
+p6_3_automated = phase6_start.get("p6_3_automated", {})
+require(
+    p6_3_automated.get("implementation_head") == "06f2397f63648d879d6271064f3297608a59c333",
+    "P6.3 automated implementation head drifted",
+)
+require(p6_3_automated.get("ci_run") == 565, "P6.3 automated CI must be #565")
+require(p6_3_automated.get("ci_conclusion") == "success", "P6.3 automated CI #565 must remain success")
+require(p6_3_automated.get("browser_acceptance_tests_passed") == 20, "P6.3 browser acceptance count must be 20")
+require(
+    phase6_start.get("p6_3_status") == "awaiting-owner-manual-verification",
+    "P6.3 must await explicit owner manual verification",
+)
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
