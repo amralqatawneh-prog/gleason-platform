@@ -45,6 +45,7 @@ jobs:
           test -s docs/PHASE_4_PLAN.md
           test -s docs/PHASE_4_P4_6_REPORT.md
           test -s docs/PHASE_5_ACCEPTANCE_PACKAGE.json
+          test -s docs/PHASE_5_ACCEPTANCE.md
           test -s docs/PHASE_5_P5_9_REPORT.md
           test -s scripts/check_phase5_acceptance_package.py
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
