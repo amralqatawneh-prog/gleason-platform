@@ -262,7 +262,20 @@
       "branch": "feat/phase6-p6-3-wgs84-distance",
       "scope": "WGS84 geodesic distance for adjacent ordered route segments and open-polyline total only",
       "manual_status": "not_run"
-    }
+    },
+    "p6_3_automated": {
+      "implementation_head": "06f2397f63648d879d6271064f3297608a59c333",
+      "ci_run": 565,
+      "ci_conclusion": "success",
+      "prior_failed_ci_runs": [
+        562,
+        564
+      ],
+      "prior_failure_scope": "stale browser text expectations only; corrected before final success",
+      "browser_acceptance_tests_passed": 20,
+      "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
+    },
+    "p6_3_status": "awaiting-owner-manual-verification"
   },
   "post_pr16_merge_reconciliation": {
     "date": "2026-09-20",
