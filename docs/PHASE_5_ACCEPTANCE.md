@@ -71,10 +71,30 @@ The following are **not** authorized or implied by this acceptance:
 - verified distributable historical Gleason scan/control points;
 - automatic conversion of Gleason normalized-radius into metres/kilometres.
 
-PR #13 remains open/draft and unmerged until separately authorized.
+At the time of this acceptance decision, PR #13 remained open/draft and
+unmerged until separately authorized. That separate authorization was later
+given and the merge is recorded in the post-merge status below.
 
 ## Post-decision verification rule
 
 The metadata changes that promote the accepted application version from 0.4.0 to
 0.5.0 must pass the repository Release Acceptance Gates before merge. CI PASS is
 never inferred merely from the owner decision.
+
+This rule was fulfilled: the final accepted PR #13 head
+`9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed Release Acceptance Gates
+**#514 — SUCCESS** before merge.
+
+## Post-merge status reconciliation — 2026-09-20
+
+After a separate owner merge authorization:
+
+- PR #13 was **MERGED** into `main`.
+- Merge commit: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Release Acceptance Gates **#515 — SUCCESS** on that post-merge `main` commit.
+- Phase 5 remains **ACCEPTED BY OWNER — v0.5.0**.
+- Phase 6 remains **NOT STARTED**.
+- No tag or GitHub Release exists; deployment remains separately authorized.
+
+This later merge does not retroactively change the acceptance-time boundary above;
+it records the subsequent separately authorized repository action.
