@@ -31,7 +31,7 @@ model engines:
 
 - Current integration baseline: `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` (PR #23 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
-- Post-PR23 documentation reconciliation branch: `docs/post-pr23-merge-reconciliation`; **IN PROGRESS**; P6.5 remains **NOT STARTED**
+- Post-PR23 documentation reconciliation: **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**; PR #24 remains **OPEN / UNMERGED** pending separate owner merge authorization; P6.5 remains **NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
