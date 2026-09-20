@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — P5.9 owner manual closure (2026-09-20)
+
+- Owner completed the P5.9 manual regression checklist and reported all **10/10** checks successful.
+- Record P5.9 manual result as **PASS — REPORTED BY OWNER** and close P5.9.
+- Clean pre-closure head `4a5181c6fc8e4ed19f08f2281644cd40ee0282e0` had Release Acceptance Gates #487 SUCCESS.
+- Full Phase 5 remains **NOT YET ACCEPTED** pending a separate explicit owner decision.
+- Accepted application version remains **0.4.0**; accepted phase remains **4**; implementation phase remains **5 / in_progress**.
+- PR #13 remains open/draft and unmerged. Phase 6 remains NOT STARTED. No tag, GitHub Release or deployment is authorized.
+
+
 ## [Unreleased] — P5.9 clean integration reconciliation (2026-09-20)
 
 - Owner authorized integration while P5.9 was active.
