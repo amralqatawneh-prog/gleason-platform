@@ -89,3 +89,13 @@ test('matching P5.5 descriptors still cannot bypass a P5.7 domain mismatch',()=>
   assert.deepEqual(difference.values,[]);
   assert.deepEqual(difference.reasons,['different-domain']);
 });
+
+
+test('P6.3 keeps the future route-provider contract unavailable while exposing WGS84 measurement separately',()=>{
+  const route=futureServiceContract('route');
+  assert.equal(route.status,'unavailable');
+  assert.deepEqual(route.availableOperations,[]);
+  assert.match(route.currentBoundary,/P6\.3 implements WGS84 geodesic ruler\/distance/);
+  assert.match(route.currentBoundary,/route drawing\/provider paths/);
+  assert.match(route.currentBoundary,/AE\/Gleason distances/);
+});
