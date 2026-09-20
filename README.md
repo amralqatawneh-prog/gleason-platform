@@ -46,6 +46,7 @@ model engines:
 - PR #17 is **MERGED** at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
 - PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**.
 - PR #19 is **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**. No tag, GitHub Release or deployment has been created.
+- Post-PR19 documentation reconciliation verification head `813d2268d74dd0b7ff1a1336b461e6281b71d392` passed Release Acceptance Gates **#644 — SUCCESS**; reconciliation is CLOSED.
 
 ## Phase status
 
