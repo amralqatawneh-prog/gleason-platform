@@ -1,6 +1,6 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-19_
+_Last updated: 2026-09-20_
 
 ## Purpose
 
@@ -22,11 +22,10 @@ This document is the canonical continuity handoff for the Gleason Platform proje
   0 npm vulnerabilities, 78 frontend core tests, 2 PWA tests, 15 Chromium
   scenarios, production build, WGS84 parity, Docker/PostGIS/Redis, locked-source
   import, online/offline search and Arabic city gates.
-- Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
-  after their recorded automated evidence and owner-reported manual PASS.
-- **P5.8 Versioned Local State Persistence is CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- **P5.9 Phase 5 Regression and Owner Acceptance Package is IN PROGRESS** by explicit owner instruction «ابدأ». Phase 6 routes/ruler/distance/area remains NOT STARTED.
-- Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
+- Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
+- **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
+- **Full Phase 5 is still NOT YET ACCEPTED** and requires a separate explicit owner acceptance decision. Phase 6 routes/ruler/distance/area remains NOT STARTED.
+- Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
 - GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
@@ -397,25 +396,18 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.7 closed; P5.8 Versioned Local State Persistence next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.9 CLOSED; awaiting separate full Phase 5 owner acceptance**. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
-1. Keep P5.1–P5.7 closed unless a concrete regression or source error is found.
-2. P5.8 is now explicitly authorized and IN PROGRESS. Do not start P5.9 before P5.8 is technically closed and owner-tested.
-3. When authorized, P5.8 must implement versioned local state persistence:
-   offline restore from installed/local packs, safe handling of invalid/old
-   state, and no invented place identity or missing values.
-4. After P5.8 acceptance, P5.9 prepares the full Phase 5 regression and owner
-   acceptance package.
-5. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area
-   remain out of scope until the approved sequence reaches Phase 6.
-6. Preserve accepted version `0.4.0` until a later acceptance/version decision;
-   do not infer a release from development commits.
-7. PR #9 is already merged into `main`; do not create a tag or GitHub Release without separate authorization.
-8. Continue to use locked source manifests and never fabricate historical scan
-   control points, coordinates, ellipsoidal height, scale conversions, or
-   provenance.
+1. Keep P5.1–P5.9 closed unless a concrete regression or source error is found.
+2. Obtain a **separate explicit owner decision** to accept Phase 5 as a whole. P5.9 PASS alone does not imply that acceptance.
+3. If Phase 5 is explicitly accepted, update accepted phase/version metadata and acceptance documentation consistently, then run fresh release gates.
+4. PR #13 remains unmerged; merge authorization is separate from Phase 5 acceptance unless the owner explicitly combines those instructions.
+5. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area remain NOT STARTED until Phase 5 is accepted and the owner explicitly starts Phase 6.
+6. Preserve accepted version `0.4.0` until the separate Phase 5 acceptance/version decision; do not infer a release from development commits.
+7. Do not create a tag, GitHub Release or deployment without separate authorization.
+8. Continue to use locked source manifests and never fabricate historical scan control points, coordinates, ellipsoidal height, scale conversions, or provenance.
 
 ## Local Windows / Git Bash workflow
 
@@ -836,3 +828,18 @@ Current truth:
 - accepted app version 0.4.0;
 - accepted phase 4;
 - Phase 6 NOT STARTED.
+
+
+## P5.9 owner manual closure — 2026-09-20
+
+The owner completed the ten-item P5.9 manual regression checklist in sequence and
+reported every item successful. Manual result: **PASS — REPORTED BY OWNER
+(10/10 checks)**.
+
+The exact owner-tested pre-closure branch head was
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0`, which had Release Acceptance Gates
+#487 SUCCESS before the manual run. P5.9 is therefore **CLOSED**.
+
+This is not full Phase 5 acceptance. Accepted application version remains
+**v0.4.0**, accepted phase remains **4**, implementation phase remains **5 /
+in_progress**, PR #13 remains unmerged, and Phase 6 remains **NOT STARTED**.
