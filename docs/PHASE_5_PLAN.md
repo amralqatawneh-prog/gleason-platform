@@ -310,3 +310,15 @@ Acceptance package: `PHASE_5_ACCEPTANCE_PACKAGE.json`.
 P5.9 manual PASS and full Phase 5 owner acceptance are separate decisions.
 Phase 6 remains NOT STARTED. No merge, tag, GitHub Release or deployment is
 authorized by starting P5.9.
+
+
+## P5.9 automated verification — 2026-09-20
+
+Implementation head
+`802a46ac3a1adce95fa9730e135ec5e377567631` passed CI #451 with the complete
+release gate: Phase 5 package consistency, 0 npm vulnerabilities, 86 core tests,
+2 PWA tests, 17 Chromium scenarios, build/parity/Docker/PostGIS/Redis and locked
+source/search checks.
+
+P5.9 is technically green and awaits owner manual regression. It is not closed.
+Full Phase 5 acceptance remains a separate explicit owner decision.
