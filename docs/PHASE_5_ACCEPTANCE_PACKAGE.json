@@ -2,7 +2,7 @@
   "schema_version": 1,
   "phase": 5,
   "package_slice": "P5.9",
-  "status": "in_progress",
+  "status": "closed",
   "generated_date": "2026-09-20",
   "accepted_application_version_before_phase5_decision": "0.4.0",
   "accepted_phase_before_phase5_decision": 4,
@@ -64,9 +64,9 @@
     },
     {
       "id": "P5.9",
-      "status": "in_progress",
+      "status": "closed",
       "report": "docs/PHASE_5_P5_9_REPORT.md",
-      "owner_manual": "pending"
+      "owner_manual": "pass-reported-by-owner"
     }
   ],
   "required_regression_gates": [
@@ -129,6 +129,13 @@
     "tag": "not_created",
     "github_release": "not_created",
     "pr11_merge_commit": "7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4",
-    "superseded_pr12": "do-not-merge-unverified-acceptance-state"
+    "superseded_pr12": "do-not-merge-unverified-acceptance-state",
+    "pr13": "open-draft-awaiting-separate-phase5-owner-acceptance-and-merge-authorization"
+  },
+  "p5_9_owner_manual": {
+    "result": "pass-reported-by-owner",
+    "date": "2026-09-20",
+    "checklist_items_passed": 10,
+    "note": "All ten P5.9 manual regression checks were reported PASS by the owner in sequence."
   }
 }
