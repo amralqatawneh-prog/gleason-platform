@@ -17,12 +17,15 @@ import { INITIAL_SELECTION_STATE, selectionReducer } from './comparison/selectio
 import { ModelLaboratory } from './comparison/ModelLaboratory';
 import { type Phase5RestoreStatus } from './comparison/statePersistence';
 import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
+import { OrderedRoutePanel } from './measurement/OrderedRoutePanel';
+import { INITIAL_ORDERED_ROUTE_STATE, orderedRouteReducer } from './measurement/routeState';
 
 export default function App() {
   const [locale,setLocale]=useState<Locale>('ar');
   const [online,setOnline]=useState(navigator.onLine);
   const [serverState,setServerState]=useState<'checking'|'connected'|'offline'>('checking');
   const [{selection,revision},dispatchSelection]=useReducer(selectionReducer,INITIAL_SELECTION_STATE);
+  const [routeState,dispatchRoute]=useReducer(orderedRouteReducer,INITIAL_ORDERED_ROUTE_STATE);
   const [persistenceStatus,setPersistenceStatus]=useState<Phase5RestoreStatus|'loading'|'save-error'>('loading');
   const [persistenceReady,setPersistenceReady]=useState(false);
   const selectedPlace=selection?.place??null;
@@ -96,6 +99,7 @@ export default function App() {
       <main className="phase2-main">
         <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>dispatchSelection({type:'point',model:'wgs84',point})}/></section>
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
+        <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/></div><SourceViewer locale={locale}/>
       </main>
