@@ -6,6 +6,8 @@
 - Baseline: PR #15 merged to `main @ 143532248f707380b980e787051e7decc3c91086`; post-merge Release Acceptance Gates #530 SUCCESS.
 - Add transient ordered route-point state A→B→C… built only from explicit P6.1 geographic endpoints.
 - Add stable in-session point IDs, derived segment IDs, add/remove/reorder, undo and clear.
+- Owner-requested refinement: add an explicit direct-map route-point mode for short picks on Gleason, AE and WGS84.
+- Make the multi-point capability explicit in the UI; P6.2 supports up to 50 transient points rather than only A/B/C.
 - Reject country records as implicit point endpoints; no centroid/capital/boundary guess is introduced.
 - Keep route state transient: it is not stored in the P5.8 IndexedDB shared-selection record.
 - Add bilingual responsive Ordered Route panel and browser/core tests.
