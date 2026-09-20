@@ -268,7 +268,7 @@ function futureServiceText(kind:FutureServiceKind,locale:'ar'|'en') {
   const en:Record<FutureServiceKind,{title:string;body:string}>={
     time:{title:'Time / astronomy service',body:'Only the contract boundary is reserved; Phase 5 has no astronomy engine or timeline. Implementation is planned for phases 9–10.'},
     'layer-sync':{title:'Cross-model layer synchronization',body:'Existing view-local layers do not constitute a shared cross-model layer service. The advanced layer system is planned for phase 16.'},
-    route:{title:'Route and measurement service',body:'P6.2 adds transient ordered route-point state in a separate panel. Route drawing, distance, ruler and area are not implemented here and remain later Phase 6 work.'},
+    route:{title:'Route and measurement service',body:'P6.2 adds transient ordered route-point state in a separate panel. Route drawing, distance, ruler and area are not implemented here and remain later phase 6 work.'},
   };
   return (locale==='ar'?ar:en)[kind];
 }
