@@ -13,26 +13,30 @@ model engines:
 >
 > Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9.
 > Phase 6 was explicitly started by the owner on 2026-09-20. **P6.1 Measurement
-> Semantics Contract is CLOSED** after CI #519/#520 SUCCESS and **5/5 manual
-> checks PASS — REPORTED BY OWNER**. P6.2 remains **NOT STARTED**. Accepted phase
-> remains **5** and accepted application version remains **v0.5.0** until a
+> Semantics Contract is CLOSED** after CI #519/#520/#529 SUCCESS and **5/5 manual
+> checks PASS — REPORTED BY OWNER**. PR #15 is merged and post-merge CI #530
+> succeeded. **P6.2 Ordered Route State is CLOSED** after CI #532/#546 and
+> **6/6 manual checks PASS — REPORTED BY OWNER**, plus the direct-map refinement
+> retest PASS. Accepted phase remains
+> **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
-- Accepted integration baseline: `main @ 3e5afcd9b95766bd18af59df88c9154f51567e8c` (PR #14 merge)
-- Release Acceptance Gates **#517 — SUCCESS** on that exact post-merge baseline
-- Active development branch: `feat/phase6-p6-1-measurement-semantics`
+- Current integration baseline: `main @ 143532248f707380b980e787051e7decc3c91086` (PR #15 merge)
+- Release Acceptance Gates **#530 — SUCCESS** on that exact post-merge baseline
+- Active development branch: `feat/phase6-p6-2-ordered-route-state`
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.1 — Measurement Semantics Contract**
-- P6.1 verification: **CI #519/#520 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
-- Next slice: **P6.2 — Ordered Route State — NOT STARTED**
-- No tag, GitHub Release, deployment or PR #15 merge is authorized by P6.1 closure.
+- Latest closed slice: **P6.2 — Ordered Route State**
+- P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
+- P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
+- Next slice: **P6.3 — WGS84 Ruler / Distance — NOT STARTED**
+- PR #16 remains unmerged; no tag, GitHub Release or deployment is authorized by P6.2 closure.
 
 ## Phase status
 
@@ -53,8 +57,9 @@ model engines:
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
 | P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
-| P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520 · owner 5/5 PASS |
-| P6.2–P6.10 | NOT STARTED ⏳ | Ordered routes, model measurements, polygon area, laboratories, regression |
+| P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
+| P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
+| P6.3–P6.10 | NOT STARTED ⏳ | Model measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -116,13 +121,13 @@ decision is recorded in `docs/PHASE_5_ACCEPTANCE.md`.
 
 ## Phase 6 current scope
 
-P6.1 introduces a versioned semantics contract for explicit measurement
-endpoints, method identity, units, scale basis and cross-model visualization
-identity. The route future-service remains fail-closed and exposes no operations.
+P6.1 provides the closed measurement-semantics contract. P6.2 adds transient
+ordered geographic route-point state with explicit point/segment identity and
+editing controls. The route measurement/provider service remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- P6.2+ ordered route drawing/state, ruler, numeric distance, perimeter or area.
+- Route drawing/provider paths and numeric ruler/distance/perimeter/area calculations (P6.3+).
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
 - Shared cross-model layer-state service.
@@ -234,7 +239,7 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.1 boundary.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.2 boundary.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — post-merge documentation reconciliation.
@@ -258,4 +263,4 @@ Release Acceptance Gates **#514**, and the resulting `main` merge commit passed
 Release Acceptance Gates **#515**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-The owner has now explicitly started Phase 6; P6.1 is the only active slice.
+The owner has started Phase 6; P6.1 is closed and P6.2 is the active slice.

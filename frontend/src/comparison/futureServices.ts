@@ -41,7 +41,7 @@ export const FUTURE_SERVICE_CONTRACTS: readonly Readonly<FutureServiceContract>[
     contractVersion:FUTURE_SERVICE_CONTRACT_VERSION,
     status:'unavailable',
     plannedPhase:'6',
-    currentBoundary:'P6.1 defines measurement semantics only; route state, drawing, distance, ruler, perimeter and area engines remain unavailable until their later Phase 6 slices.',
+    currentBoundary:'P6.2 implements transient ordered geographic route state only; route drawing/provider paths and numeric distance, ruler, perimeter and area engines remain unavailable until later Phase 6 slices.',
     availableOperations:Object.freeze([]),
   }),
 ]);

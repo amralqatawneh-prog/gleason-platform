@@ -60,13 +60,16 @@ Acceptance gates:
 
 ## P6.2 — Ordered Route State
 
-Status: **NOT STARTED**.
+Status: **CLOSED — CI #532/#546 SUCCESS; OWNER MANUAL PASS 6/6 + REFINEMENT PASS REPORTED**.
 
 Deliver transient ordered route state A → B → C → … with:
 - add/remove/reorder;
 - clear/undo;
 - explicit point IDs;
 - segment identity;
+- explicit direct-map add mode for short picks on Gleason / AE / WGS84;
+- support for more than three points, with a temporary P6.2 cap of 50 points;
+- normal map selection behavior preserved while direct-map add mode is off;
 - no automatic country centroid/boundary choice;
 - no durable Phase 17 experiment persistence yet.
 
@@ -178,8 +181,9 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-P6.1 is closed. P6.2 — Ordered Route State remains **NOT STARTED**.
+P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
+**CLOSED** on `feat/phase6-p6-2-ordered-route-state`.
 
-The next implementation action is to start P6.2 from the closed P6.1 contract,
-without adding numeric distance/area calculations that belong to P6.3–P6.6.
-PR #15 remains unmerged until separately authorized.
+P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**. PR #16 remains
+unmerged until separately authorized. No numeric P6.3 work starts automatically
+from P6.2 closure.

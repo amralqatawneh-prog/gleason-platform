@@ -116,9 +116,9 @@ test('P6.1 rendering on another model preserves the original computation identit
   assert.equal(rendered.interpretationRule, 'preserve-computation-identity');
 });
 
-test('P6.1 does not accidentally enable the route service', () => {
+test('P6.2 ordered state does not accidentally enable the route measurement service', () => {
   const route = futureServiceContract('route');
   assert.equal(route.status, 'unavailable');
   assert.deepEqual(route.availableOperations, []);
-  assert.match(route.currentBoundary, /P6\.1/);
+  assert.match(route.currentBoundary, /P6\.2/);
 });
