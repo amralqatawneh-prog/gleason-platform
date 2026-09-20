@@ -28,7 +28,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
-- Current reconciliation branch: `docs/post-pr21-merge-reconciliation`; no P6.5 functional branch has been started.
+- Post-PR21 reconciliation: **PR #22**; no P6.5 functional branch has been started.
 - Latest closed slice: **P6.4 — AE Native Measurement**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
