@@ -1,7 +1,7 @@
 # Phase 6 / P6.1 Report — Measurement Semantics Contract
 
 Date: 2026-09-20  
-Status: **TECHNICALLY GREEN / AWAITING OWNER MANUAL VERIFICATION**
+Status: **CLOSED — OWNER MANUAL PASS 5/5 REPORTED**
 
 ## Authorization and baseline
 
@@ -203,9 +203,10 @@ Passed:
 
 ## Manual verification
 
-Status: **NOT RUN**.
+Status: **PASS — REPORTED BY OWNER (5/5)**.
 
-Manual checks required before P6.1 closure:
+The owner executed the five P6.1 manual checks sequentially and reported each
+one PASS:
 
 1. Open `/api/v1/capabilities` and confirm:
    - phase = 6
@@ -239,10 +240,27 @@ Manual checks required before P6.1 closure:
 - No Phase 6 acceptance/version promotion yet.
 - No tag, GitHub Release, deployment or PR merge authorization.
 
-## Closure rule
+## Closure decision
 
-P6.1 remains **IN PROGRESS** until:
-1. the final documentation head is green in CI; and
-2. the owner reports the manual checklist result.
+P6.1 is **CLOSED**.
 
-P6.2 must not start before P6.1 is closed.
+Closure evidence:
+1. implementation head `bc20c15eba65bed19cda932fce2a641e6dfbd96d`
+   passed Release Acceptance Gates #519;
+2. report/documentation head `98bb0af1dd50b55d0b81d4168cc15a69e43cc1ae`
+   passed Release Acceptance Gates #520;
+3. owner manual checklist: **5/5 PASS — REPORTED BY OWNER**.
+
+P6.2 remains **NOT STARTED**. Closing P6.1 does not authorize PR #15 merge,
+a tag, GitHub Release, deployment, or Phase 6 acceptance.
+
+
+## Owner manual result record — 2026-09-20
+
+- Test 1: PASS — capabilities show Phase 6 in progress while accepted phase remains 5; measurement semantics are available and measurement/route/area engines remain unavailable.
+- Test 2: PASS — no premature route/ruler/area tool is exposed.
+- Test 3: PASS — route future-service remains Unavailable with the P6.1 semantics-only boundary.
+- Test 4: PASS — place/free-point selection, Arabic/English switching and navigation remain operational.
+- Test 5: PASS — no new Gleason metres/kilometres conversion is displayed.
+
+Result: **5/5 PASS — REPORTED BY OWNER**.
