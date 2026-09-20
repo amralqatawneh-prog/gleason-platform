@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance only. Route drawing/provider paths, AE/Gleason numeric distance, perimeter and area remain unavailable."
+      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance and P6.4 is implementing AE projected-plane open-polyline distance. Provider-backed road/flight paths, Gleason native distance, perimeter and area remain unavailable."
     },
     {
       "id": "camera-states-independent",
@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "current_integration_baseline": "35fda15508973340669220a20ee1c5bf6bbaa39a",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -168,7 +168,21 @@
     "pr18_pre_merge_ci_run": 560,
     "pr18_pre_merge_ci_conclusion": "success",
     "pr18_post_merge_main_ci_run": 561,
-    "pr18_post_merge_main_ci_conclusion": "success"
+    "pr18_post_merge_main_ci_conclusion": "success",
+    "pr19": "merged",
+    "pr19_merge_commit": "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "pr19_final_head": "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+    "pr19_pre_merge_ci_run": 642,
+    "pr19_pre_merge_ci_conclusion": "success",
+    "pr19_post_merge_main_ci_run": 643,
+    "pr19_post_merge_main_ci_conclusion": "success",
+    "pr20": "merged",
+    "pr20_merge_commit": "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "pr20_final_head": "9b4e3693e95d05778930eb04dd0e526326e03fc6",
+    "pr20_pre_merge_ci_run": 650,
+    "pr20_pre_merge_ci_conclusion": "success",
+    "pr20_post_merge_main_ci_run": 651,
+    "pr20_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -204,18 +218,18 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.3",
+    "current_slice": "P6.4",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
     "current_slice_status": "closed",
-    "next_slice": "P6.4",
+    "next_slice": "P6.5",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
       "checklist_items_passed": 5
     },
-    "previous_slice": "P6.2",
+    "previous_slice": "P6.3",
     "previous_slice_status": "closed",
     "p6_2_start": {
       "date": "2026-09-20",
@@ -355,6 +369,37 @@
       "merge_commit": "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
       "post_merge_ci_run": 643,
       "post_merge_ci_conclusion": "success"
+    },
+    "p6_4_start": {
+      "date": "2026-09-20",
+      "owner_statement": "أبدأ P6.4",
+      "decision": "started-by-owner",
+      "baseline_commit": "35fda15508973340669220a20ee1c5bf6bbaa39a",
+      "baseline_ci_run": 651,
+      "baseline_ci_conclusion": "success",
+      "branch": "feat/phase6-p6-4-ae-native-measurement",
+      "scope": "AE native projected-plane distance for adjacent ordered route segments and open-polyline total only",
+      "status": "closed",
+      "owner_manual_status": "pass-reported-by-owner"
+    },
+    "p6_4_status": "closed",
+    "p6_4_automated": {
+      "implementation_head": "bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476",
+      "ci_run": 653,
+      "ci_conclusion": "success",
+      "prior_failed_ci_runs": [
+        652
+      ],
+      "prior_failure_scope": "stale acceptance-package checker still asserted the historical P6.3 current-slice state; implementation tests had not run before that gate failed",
+      "note": "P6.4 implementation head passed the complete Release Acceptance Gates after separating current P6.4 state from historical P6.3 closure checks."
+    },
+    "p6_4_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "59d19a96c6a7af443429d8ba7585386d4f491dee",
+      "pre_manual_ci_run": 661,
+      "pre_manual_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {

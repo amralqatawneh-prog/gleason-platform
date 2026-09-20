@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.4 AE Native Measurement (2026-09-20)
+
+- Owner explicitly instructed **«أبدأ P6.4»**.
+- Start from verified `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a`; post-PR20 Release Acceptance Gates **#651 — SUCCESS**.
+- Add AE projected-plane adjacent-segment and open-polyline distance with method identity `ae-projected-plane`, unit `metre`, scale basis `ae-projected-plane-si-metre`.
+- Backend uses the existing north-polar AE pyproj/PROJ provider; browser/offline uses the existing proj4 definition.
+- Keep AE projected-plane metres semantically separate from WGS84 geodesic metres; expose distortion limitations explicitly.
+- Add a separate bilingual live AE measurement panel bound to P6.2 ordered route state.
+- Add backend/core/browser tests for reference radial geometry, antimeridian projected chord, repeated points, reverse routes, invalid input and live recalculation.
+- CI #652 failed at the acceptance-package checker before implementation gates because a historical P6.3 current-slice assertion had not been separated from the new current P6.4 state.
+- Corrected implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
+- Current documentation/state head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
+- Owner reported all six P6.4 manual checks **6/6 PASS — REPORTED BY OWNER** on 2026-09-21.
+- P6.4 is **CLOSED**; P6.5/P6.7 remain **NOT STARTED**; PR #21 remains draft/unmerged; no merge/tag/release/deployment authorization is implied.
+
 ## [Unreleased] — Post-PR #19 merge reconciliation (2026-09-20)
 
 - PR #19 was separately authorized and merged into `main`.

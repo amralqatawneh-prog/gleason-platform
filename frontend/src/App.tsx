@@ -18,6 +18,7 @@ import { selectFreePoint, type SelectionModel } from './comparison/geographicSel
 import { ModelLaboratory } from './comparison/ModelLaboratory';
 import { type Phase5RestoreStatus } from './comparison/statePersistence';
 import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
+import { AERouteDistancePanel } from './measurement/AERouteDistancePanel';
 import { OrderedRoutePanel } from './measurement/OrderedRoutePanel';
 import { INITIAL_ORDERED_ROUTE_STATE, orderedRouteReducer } from './measurement/routeState';
 import { Wgs84RouteDistancePanel } from './measurement/Wgs84RouteDistancePanel';
@@ -112,6 +113,7 @@ export default function App() {
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
         <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute} mapAddMode={routePickMode} onMapAddModeChange={setRoutePickMode}/>
         <Wgs84RouteDistancePanel locale={locale} state={routeState}/>
+        <AERouteDistancePanel locale={locale} state={routeState}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/></div><SourceViewer locale={locale}/>
       </main>

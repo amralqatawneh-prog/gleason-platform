@@ -1,6 +1,12 @@
 /// <reference types="vite/client" />
 import { localGeodesicInverse, validateGeo } from './reference/offlineWgs84';
 import {
+  localAERouteDistance,
+  validateAERouteDistancePoints,
+  type AERouteDistancePoint,
+  type AERouteDistanceResult,
+} from './measurement/aeRouteDistance';
+import {
   localWgs84RouteDistance,
   validateWgs84RouteDistancePoints,
   type Wgs84RouteDistancePoint,
@@ -127,4 +133,29 @@ export async function wgs84RouteDistance(
   }
 }
 
-export type { Wgs84RouteDistancePoint, Wgs84RouteDistanceResult };
+export async function aeRouteDistance(
+  pointsInput: readonly AERouteDistancePoint[],
+  routeId = 'transient-route',
+): Promise<AERouteDistanceResult> {
+  const points = validateAERouteDistancePoints(pointsInput);
+  if (!navigator.onLine) return localAERouteDistance(points, routeId);
+  try {
+    const response = await fetch(`${API_BASE}/measurement/ae/route-distance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ route_id: routeId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`AE route distance failed: ${response.status}`);
+    return await response.json() as AERouteDistanceResult;
+  } catch {
+    return localAERouteDistance(points, routeId);
+  }
+}
+
+export type {
+  AERouteDistancePoint,
+  AERouteDistanceResult,
+  Wgs84RouteDistancePoint,
+  Wgs84RouteDistanceResult,
+};

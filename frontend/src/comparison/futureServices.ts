@@ -41,7 +41,7 @@ export const FUTURE_SERVICE_CONTRACTS: readonly Readonly<FutureServiceContract>[
     contractVersion:FUTURE_SERVICE_CONTRACT_VERSION,
     status:'unavailable',
     plannedPhase:'6',
-    currentBoundary:'P6.3 implements WGS84 geodesic ruler/distance in the measurement engine. This future route-provider contract remains unavailable for route drawing/provider paths, AE/Gleason distances, perimeter and area.',
+    currentBoundary:'P6.3 implements WGS84 geodesic distance and P6.4 implements AE projected-plane distance in the measurement engine. This future route-provider contract remains unavailable for provider-backed road/flight paths, Gleason distance, perimeter and area.',
     availableOperations:Object.freeze([]),
   }),
 ]);

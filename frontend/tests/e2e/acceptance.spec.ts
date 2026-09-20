@@ -742,7 +742,7 @@ test('P6.2 ordered route state supports edit/undo/clear and remains transient ac
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(panel).toContainText('المسار المرتب');
-  await expect(panel).toContainText('تظهر مسافة WGS84 العددية في لوحة P6.3 المنفصلة.');
+  await expect(panel).toContainText('تظهر مسافتا WGS84 وAE العدديتان في لوحتي P6.3 وP6.4 المنفصلتين.');
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 
@@ -813,6 +813,60 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(ruler).toContainText('مسطرة ومسافة WGS84');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
+
+
+test('P6.4 AE projected-plane ruler stays live and semantically distinct from WGS84',async({page,servers})=>{
+  await english(page,servers.url);
+  const route=page.locator('.ordered-route-panel');
+  const ae=page.locator('.ae-route-distance-panel');
+  const wgs84=page.locator('.wgs84-route-distance-panel');
+
+  await expect(ae).toHaveAttribute('data-measurement-status','idle');
+  await expect(ae).toHaveAttribute('data-measurement-method','ae-projected-plane');
+  await expect(ae).toHaveAttribute('data-measurement-unit','metre');
+  await expect(ae).toHaveAttribute('data-measurement-scale-basis','ae-projected-plane-si-metre');
+  await expect(ae).toHaveAttribute('data-segment-geometry','straight-projected-chord');
+
+  await locate(page,'TEST Doha');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  await expect(ae).toHaveAttribute('data-measurement-status','ready');
+  await expect(wgs84).toHaveAttribute('data-measurement-status','ready');
+  await expect(ae).toHaveAttribute('data-route-segment-count','1');
+  await expect(ae.locator('.ae-route-distance-segment')).toHaveCount(1);
+  await expect(ae).toContainText('ae-projected-plane');
+  await expect(ae).toContainText('straight-projected-chord');
+  await expect(ae).toContainText('ae-projected-plane-si-metre');
+  await expect(ae.locator('[data-ae-distortion="explicit"]')).toContainText('not WGS84 geodesic distance');
+  await expect(ae.locator('.ae-route-distance-provenance')).toContainText(/pyproj|proj4/);
+
+  const aeTotal=Number(await ae.getAttribute('data-route-distance-m'));
+  const wgsTotal=Number(await wgs84.getAttribute('data-route-distance-m'));
+  expect(aeTotal).toBeGreaterThan(0);
+  expect(wgsTotal).toBeGreaterThan(0);
+  expect(Math.abs(aeTotal-wgsTotal)).toBeGreaterThan(1);
+
+  await locate(page,'TEST North East Edge');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await expect(ae).toHaveAttribute('data-measurement-status','ready');
+  await expect(ae).toHaveAttribute('data-route-segment-count','2');
+  await expect(ae.locator('.ae-route-distance-segment')).toHaveCount(2);
+
+  await route.getByRole('button',{name:'Move C up',exact:true}).click();
+  await expect(ae.locator('.ae-route-distance-segment').first()).toHaveAttribute(
+    'data-route-segment-id',
+    'route-segment:route-point-1->route-point-3',
+  );
+  await expect(ae).toHaveAttribute('data-measurement-status','ready');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(ae).toContainText('مسافة AE على المستوى المسقط');
+  await expect(ae).toContainText('هذه ليست مسافة WGS84 الجيوديسية');
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
