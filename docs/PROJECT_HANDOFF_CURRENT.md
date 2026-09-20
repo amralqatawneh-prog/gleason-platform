@@ -9,10 +9,10 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current branch: `main`.
+- Current integration base: `main`; active P5.9 branch: `feat/phase5-p5-9-acceptance-clean`.
 - PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19.
 - Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
-- No tag or GitHub Release has been authorized.
+- PR #11 (P5.8) is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. No tag or GitHub Release has been authorized.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.4.0**.
 - Implementation phase: **5**; accepted phase: **4**; phase status: **in_progress**.
@@ -812,3 +812,27 @@ owner manual regression**.
 
 Full Phase 5 is still NOT YET ACCEPTED. Owner manual P5.9 PASS and owner Phase 5
 acceptance remain separate pending decisions. Phase 6 remains NOT STARTED.
+
+
+## P5.9 clean-branch reconciliation — 2026-09-20
+
+P5.8 PR #11 is merged into `main` at
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`.
+
+P5.9 continues on:
+`feat/phase5-p5-9-acceptance-clean`.
+
+The clean branch intentionally stops at the last verified pre-owner-acceptance
+state. CI #451 passed the P5.9 implementation/regression package with 86 core,
+2 PWA and 17 Chromium scenarios plus the full release suite.
+
+A superseded PR #12 branch contains unverified owner-acceptance/version claims
+and must not be used as acceptance evidence or merged.
+
+Current truth:
+- P5.1–P5.8 CLOSED;
+- P5.9 TECHNICALLY GREEN / awaiting owner manual regression;
+- Phase 5 NOT YET ACCEPTED;
+- accepted app version 0.4.0;
+- accepted phase 4;
+- Phase 6 NOT STARTED.
