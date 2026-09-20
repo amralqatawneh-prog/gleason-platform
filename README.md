@@ -31,7 +31,7 @@ model engines:
 
 - Current integration baseline: `main @ 11b571f08f72732b509f049f1a2ab1be92292938` (PR #21 merge)
 - Release Acceptance Gates **#669 — SUCCESS** on that exact post-merge baseline
-- Current reconciliation branch: `docs/post-pr21-merge-reconciliation`; **P6.5 remains NOT STARTED**
+- Post-PR21 reconciliation: **PR #22**; **P6.5 remains NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
