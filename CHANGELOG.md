@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] — Post-PR #19 merge reconciliation (2026-09-20)
+
+- PR #19 was separately authorized and merged into `main`.
+- Final PR head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed pre-merge Release Acceptance Gates **#642 — SUCCESS**.
+- Merge commit / current integration baseline: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
+- Post-merge `main` passed Release Acceptance Gates **#643 — SUCCESS**.
+- Reconcile README, current handoff, Phase 6 plan, P6.3 report, acceptance package and checker to the post-merge truth.
+- P6.3 remains **CLOSED**; P6.4 and P6.7 remain **NOT STARTED**.
+- Accepted phase remains **5** and accepted application version remains **v0.5.0**.
+- No tag, GitHub Release or deployment is created by this documentation reconciliation.
+
 ## [Unreleased] — Phase 6 / P6.3 WGS84 Ruler / Distance (2026-09-20)
 
 - Owner explicitly instructed **«ابدأ في الخطوة P6.3»**.
@@ -27,8 +38,10 @@
 - Pan/great-circle implementation/documentation head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed Release Acceptance Gates **#627 — SUCCESS**.
 - Pan/great-circle targeted retest: **6/6 PASS — REPORTED BY OWNER**.
 - Pre-closure head `746e71b261747132bec49f33348cd42870092643` passed Release Acceptance Gates **#635 — SUCCESS**.
-- P6.3 is now **CLOSED**; P6.4 remains **NOT STARTED**; PR #19 remains unmerged pending separate owner authorization.
-- P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
+- Final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
+- PR #19 was separately authorized and **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
+- Post-merge Release Acceptance Gates **#643 — SUCCESS**.
+- P6.3 remains **CLOSED**; P6.4 and P6.7 remain **NOT STARTED**; no tag, GitHub Release or deployment was created.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
 
