@@ -10,26 +10,28 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration base: `main`.
-- PR **#13**: **MERGED** into `main` with separate owner authorization on 2026-09-20.
-- PR #13 merge commit / current accepted main baseline:
-  `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
-- Final accepted PR #13 head:
-  `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`.
-- [Release Acceptance Gates #514](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35499260543) — **SUCCESS** on that exact pre-merge head.
-- [Release Acceptance Gates #515](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35499481965) — **SUCCESS** on the post-merge `main` commit.
+- PR **#14**: **MERGED** into `main` with explicit owner authorization on 2026-09-20.
+- Current accepted integration baseline:
+  `3e5afcd9b95766bd18af59df88c9154f51567e8c`.
+- [Release Acceptance Gates #517](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35502140120) — **SUCCESS** on that exact post-merge `main` baseline.
+- PR **#13**: **MERGED** at `913ec67c195ac5971e0f63d9acfe94dba8de60bf`; its final accepted head `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed CI #514 and its post-merge `main` passed CI #515.
 - PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19 at `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
 - PR #11 (P5.8): **MERGED** into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`.
 - PR #12: **CLOSED / SUPERSEDED / NOT MERGED**.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
-- Implementation phase: **5**; accepted phase: **5**; phase status: **accepted**.
-- No tag, GitHub Release or deployment has been created by the PR #13 merge.
+- Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
+- Active development branch: `feat/phase6-p6-1-measurement-semantics`.
+- Current slice: **P6.1 — Measurement Semantics Contract**.
+- No tag, GitHub Release or deployment is authorized by the Phase 6 start.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
-- **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20. Phase 6 routes/ruler/distance/area remains NOT STARTED and requires a separate start instruction.
+- **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
+- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 is active; P6.2+ remain NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
+- Canonical Phase 6 plan: `docs/PHASE_6_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
 - GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
 
@@ -69,6 +71,19 @@ Semantic separation:
 - `SOURCE_CLAIM`
 - `COMPUTED_RESULT`
 - `REFERENCE_RESULT`
+
+## Phase 6 start — 2026-09-20
+
+The owner explicitly instructed: **«ابدأ بتنفيذ Phase 6»**.
+
+Execution begins from `main @ 3e5afcd9b95766bd18af59df88c9154f51567e8c`
+after Release Acceptance Gates #517 SUCCESS. The accepted application version
+remains v0.5.0 and accepted phase remains 5 while implementation phase becomes
+6 / in_progress.
+
+P6.1 is semantics-only: it defines explicit endpoints, method/model/unit/scale
+identity and cross-model visualization identity. It does not enable route
+drawing, numeric ruler/distance/perimeter/area, or durable route persistence.
 
 ## Governance and execution rules
 
