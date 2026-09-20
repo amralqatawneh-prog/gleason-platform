@@ -1,8 +1,8 @@
 # Navigation and measurement requirements — 2026-09-20
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. The owner explicitly started Phase 6 on 2026-09-20; **P6.1 Measurement Semantics Contract is IN PROGRESS**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. The owner explicitly started Phase 6 on 2026-09-20; **P6.1 Measurement Semantics Contract is CLOSED** after CI #519/#520 and owner manual PASS 5/5.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
-Sequential execution remains enforced: P6.1 defines semantics only; ordered route state, route drawing, numeric ruler/distance/perimeter/area remain later Phase 6 slices.
+Sequential execution remains enforced: P6.1 defines the closed semantics baseline; ordered route state, route drawing, numeric ruler/distance/perimeter/area remain later Phase 6 slices.
 
 ## P5.6 — navigation on all three views
 
@@ -94,9 +94,10 @@ implementation will verify primary documentation for the selected algorithms.
 - P5.9 Phase 5 regression package: **CLOSED — owner manual PASS (10/10), reported by owner**.
 - Full Phase 5 acceptance: **ACCEPTED BY OWNER — v0.5.0**.
 - Phase 6: **IN PROGRESS**.
-- P6.1 Measurement Semantics Contract: **IN PROGRESS**.
+- P6.1 Measurement Semantics Contract: **CLOSED — CI #519/#520; owner manual PASS 5/5**.
 - P6.2 ordered route state and all numeric route/ruler/perimeter/area operations: **NOT STARTED**.
 
-The route service remains unavailable during P6.1. A semantics contract must never
-be interpreted as a numeric route/measurement engine. `availableOperations`
-remains empty until a later Phase 6 slice explicitly implements and validates an operation.
+The route service remains unavailable after P6.1 closure. A semantics contract
+must never be interpreted as a numeric route/measurement engine.
+`availableOperations` remains empty until a later Phase 6 slice explicitly
+implements and validates an operation.
