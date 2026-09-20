@@ -1,6 +1,6 @@
-# Security and Supply-Chain Baseline — current through P5.7
+# Security and Supply-Chain Baseline — current through P5.9
 
-_Last reconciled: 2026-09-19. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-20. Accepted application version: v0.4.0._
 
 ## Application security rules
 
@@ -51,8 +51,8 @@ security/integrity policy also prohibits fabricating them.
 
 ## Current automated evidence
 
-Release Acceptance Gates #397 on
-`e710075531dbdbc2fdd2ed62dde07f22786e320f` completed successfully and
+Release Acceptance Gates #487 on the clean P5.9 owner-tested pre-closure head
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0` completed successfully and
 reported:
 
 - npm security audit: **0 vulnerabilities**;
@@ -62,8 +62,7 @@ reported:
 - locked production-source verification/import: PASS;
 - Docker/PostGIS/Redis runtime gates: PASS.
 
-This evidence applies to that exact revision. Any dependency/source/security
-change requires fresh evidence.
+This evidence applies to that exact revision. P5.9 manual regression then passed 10/10 checks as reported by the owner. Any dependency/source/security change requires fresh evidence; closure-documentation commits must also pass their own CI before merge.
 
 ## Future security work
 
