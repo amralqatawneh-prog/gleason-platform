@@ -31,7 +31,7 @@ model engines:
 
 - Current integration baseline: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` (PR #22 merge)
 - PR #22 post-merge documentation reconciliation is **MERGED**; its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge
-- Active planning branch: `docs/roadmap-architecture-amendment-2026-09-21`; **P6.5 remains NOT STARTED**
+- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; **CLOSED / VERIFIED on CI #673; PR #23 OPEN / UNMERGED; P6.5 remains NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -78,7 +78,7 @@ model engines:
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
 | P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
-| Roadmap Architecture Amendment 2026-09-21 | IN PROGRESS 📝 | Owner-approved future requirements; documentation/architecture only; no P6.5 implementation |
+| Roadmap Architecture Amendment 2026-09-21 | CLOSED ✅ | Owner-approved requirements formalized; verification head `cb4b4681bd359e29b08542856b7bff144a239796`; CI #673 SUCCESS; PR #23 awaiting separate merge authorization |
 | P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
