@@ -575,7 +575,7 @@
   "post_pr23_merge_reconciliation": {
     "date": "2026-09-21",
     "scope": "current-status documentation/state reconciliation after separately authorized PR #23 merge",
-    "status": "in_progress",
+    "status": "closed",
     "branch": "docs/post-pr23-merge-reconciliation",
     "baseline_commit": "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
     "baseline_evidence": "PR #23 exact final head passed Release Acceptance Gates #676 before merge; no independently verified post-merge push-run number recorded",
@@ -591,6 +591,11 @@
     "tag": "not_created",
     "github_release": "not_created",
     "deployment": "not_created",
-    "pr": 24
+    "pr": 24,
+    "verification_head": "89b634d49eb802c17f9978fee7065ca958c3b592",
+    "verification_ci_run": 679,
+    "verification_ci_conclusion": "success",
+    "merge_status": "open-unmerged",
+    "merge_authorization": "pending-separate-owner-instruction"
   }
 }
