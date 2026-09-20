@@ -789,3 +789,26 @@ Machine package: `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
 Full Phase 5 acceptance remains pending and requires an explicit owner decision
 after P5.9 regression testing. Accepted application version remains 0.4.0 and
 accepted phase remains 4 until that decision. No tag or GitHub Release.
+
+
+## P5.9 automated verification — 2026-09-20
+
+P5.9 implementation head
+`802a46ac3a1adce95fa9730e135ec5e377567631` passed
+[CI #451](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35485918516).
+
+Evidence:
+- Phase 5 package consistency gate PASS;
+- 0 npm vulnerabilities;
+- 86 frontend core tests PASS;
+- 2 PWA tests PASS;
+- 17 Chromium scenarios PASS;
+- production build, WGS84 parity, Docker/PostGIS/Redis, locked sources,
+  online/offline search and Arabic search gates PASS.
+
+The new P5.9 browser regression explicitly covers polar/antimeridian points and
+source visibility. P5.9 status is **IN PROGRESS / TECHNICALLY GREEN / awaiting
+owner manual regression**.
+
+Full Phase 5 is still NOT YET ACCEPTED. Owner manual P5.9 PASS and owner Phase 5
+acceptance remain separate pending decisions. Phase 6 remains NOT STARTED.
