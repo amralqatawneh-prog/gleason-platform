@@ -51,7 +51,19 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("current_slice") == "P6.1", "current Phase 6 slice must be P6.1")
+require(phase6_start.get("current_slice") == "P6.1", "latest Phase 6 slice must be P6.1")
+require(phase6_start.get("current_slice_status") == "closed", "P6.1 must be closed")
+require(phase6_start.get("next_slice") == "P6.2", "next Phase 6 slice must be P6.2")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.2 must remain not_started")
+p6_1_manual = phase6_start.get("p6_1_owner_manual", {})
+require(
+    p6_1_manual.get("result") == "pass-reported-by-owner",
+    "P6.1 owner manual result must be recorded",
+)
+require(
+    p6_1_manual.get("checklist_items_passed") == 5,
+    "P6.1 must record all five owner manual checks as passed",
+)
 require(data.get("phase5_owner_acceptance") == "accepted", "Phase 5 owner acceptance must be accepted")
 require(
     data.get("accepted_application_version_after_phase5_decision") == "0.5.0",
@@ -238,7 +250,10 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_current_slice": "P6.1",
+            "phase6_latest_slice": "P6.1",
+            "phase6_latest_slice_status": "closed",
+            "phase6_next_slice": "P6.2",
+            "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
     )
