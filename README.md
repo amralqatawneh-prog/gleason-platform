@@ -14,22 +14,25 @@ model engines:
 > Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9,
 > including **10/10 P5.9 manual regression checks PASS — REPORTED BY OWNER**.
 > Phase 6 measurement/routing remains **NOT STARTED** and requires a separate
-> explicit start instruction. PR #13 remains open/draft and unmerged.
+> explicit start instruction. PR #13 is **MERGED** into `main` at
+> `913ec67c195ac5971e0f63d9acfe94dba8de60bf`; post-merge Release Acceptance
+> Gates **#515 — SUCCESS**.
 
 ## Current verified development baseline
 
 - Integration base: `main`
-- Active acceptance PR: **#13**, branch `feat/phase5-p5-9-acceptance-clean`, still **open/draft/unmerged**
-- P5.8 PR #11 is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`
-- P5.9 closure-documentation head: `235a462762b2aab46a641a56bd3d9c8050578f63`
-- Release Acceptance Gates **#495 — SUCCESS** on that closure-documentation head
+- PR #13: **MERGED** into `main`
+- Merge commit: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`
+- Final accepted PR head: `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`
+- Release Acceptance Gates **#514 — SUCCESS** on that exact pre-merge PR head
+- Release Acceptance Gates **#515 — SUCCESS** on the post-merge `main` commit
 - Accepted application version: **0.5.0**
 - Implementation phase: **5**
 - Accepted phase: **5**
 - Phase status: **accepted**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
-- Current v0.5.0 metadata promotion requires fresh CI on the exact PR head before merge.
-- No tag, GitHub Release, deployment or Phase 6 start has been authorized.
+- Phase 6: **NOT STARTED**
+- No tag, GitHub Release or deployment has been created/authorized by this merge.
 
 ## Phase status
 
@@ -226,6 +229,7 @@ Current source-of-truth documents:
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — P5.6/Phase 6 boundary.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
+- `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — post-merge documentation reconciliation.
 - `CHANGELOG.md` — chronological implementation/acceptance history.
 
 Historical phase reports under `docs/` are evidence artifacts and are
@@ -240,6 +244,10 @@ analytic reconstruction used by the software.
 
 ## Release / merge boundary
 
-PR #9 was explicitly authorized by the owner and has been **merged into `main`**.
-This merge does **not** authorize a tag, GitHub Release, deployment, Phase 5 final
-acceptance, or starting P5.8. Those remain separate project steps.
+PR #13 was separately authorized and has been **merged into `main`** at
+`913ec67c195ac5971e0f63d9acfe94dba8de60bf`. The accepted PR head passed
+Release Acceptance Gates **#514**, and the resulting `main` merge commit passed
+Release Acceptance Gates **#515**.
+
+No tag or GitHub Release exists, deployment remains a separate authorization,
+and Phase 6 remains **NOT STARTED** until the owner explicitly starts it.

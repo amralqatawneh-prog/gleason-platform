@@ -51,8 +51,8 @@ security/integrity policy also prohibits fabricating them.
 
 ## Current automated evidence
 
-Release Acceptance Gates #495 on the P5.9 closure-documentation head
-`235a462762b2aab46a641a56bd3d9c8050578f63` completed successfully and
+Release Acceptance Gates #515 on the accepted post-merge `main` commit
+`913ec67c195ac5971e0f63d9acfe94dba8de60bf` completed successfully and
 reported:
 
 - npm security audit: **0 vulnerabilities**;
@@ -62,7 +62,9 @@ reported:
 - locked production-source verification/import: PASS;
 - Docker/PostGIS/Redis runtime gates: PASS.
 
-This evidence applies to that exact revision. The owner subsequently accepted Phase 5 as a whole. The v0.5.0 metadata promotion requires fresh CI on its own exact revision before merge; no PASS is inferred from the acceptance statement alone.
+This evidence applies to that exact post-merge revision. The final pre-merge PR
+head also passed Release Acceptance Gates #514. Phase 5 acceptance remains
+v0.5.0; any later dependency/source/security change requires fresh evidence.
 
 ## Future security work
 

@@ -285,5 +285,18 @@ That later decision accepts Phase 5 as a whole and advances the accepted applica
 version to **v0.5.0**, accepted phase to **5**, and phase status to **accepted**.
 
 This later whole-phase decision does not alter the historical P5.9 test evidence
-above. PR #13 remains unmerged; Phase 6 remains NOT STARTED; no tag, GitHub
-Release or deployment is authorized.
+above. At that acceptance moment PR #13 remained unmerged; Phase 6 remained NOT
+STARTED, and no tag, GitHub Release or deployment was authorized.
+
+## Post-PR #13 merge reconciliation — 2026-09-20
+
+After a separate owner authorization, PR #13 was **MERGED** into `main` at
+`913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+
+The final pre-merge accepted head
+`9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed Release Acceptance Gates
+**#514 — SUCCESS**, and the resulting `main` merge commit passed Release
+Acceptance Gates **#515 — SUCCESS**.
+
+Phase 5 remains accepted at v0.5.0. Phase 6 remains NOT STARTED. No tag, GitHub
+Release or deployment has been created by this merge.

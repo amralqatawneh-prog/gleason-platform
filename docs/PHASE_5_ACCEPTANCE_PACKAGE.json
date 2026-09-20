@@ -130,8 +130,16 @@
     "github_release": "not_created",
     "pr11_merge_commit": "7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4",
     "superseded_pr12": "do-not-merge-unverified-acceptance-state",
-    "pr13": "open-draft-phase5-accepted-awaiting-separate-merge-authorization",
-    "deployment": "not_created"
+    "pr13": "merged",
+    "deployment": "not_created",
+    "pr13_at_phase5_owner_acceptance": "open-draft-phase5-accepted-awaiting-separate-merge-authorization",
+    "pr13_merge_commit": "913ec67c195ac5971e0f63d9acfe94dba8de60bf",
+    "final_pre_merge_head": "9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c",
+    "pre_merge_ci_run": 514,
+    "pre_merge_ci_conclusion": "success",
+    "post_merge_main_ci_run": 515,
+    "post_merge_main_ci_conclusion": "success",
+    "post_merge_main_commit": "913ec67c195ac5971e0f63d9acfe94dba8de60bf"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -147,5 +155,15 @@
     "statement": "أعتمد المرحلة الخامسة",
     "decision": "accepted-by-owner",
     "scope": "Phase 5 as a whole after P5.1–P5.9 closure"
+  },
+  "post_merge_reconciliation": {
+    "date": "2026-09-20",
+    "scope": "documentation-state reconciliation after separately authorized PR #13 merge",
+    "phase5_status": "accepted",
+    "accepted_application_version": "0.5.0",
+    "phase6_status": "not_started",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created"
   }
 }

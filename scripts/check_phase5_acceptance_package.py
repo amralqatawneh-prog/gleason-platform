@@ -47,6 +47,40 @@ require(
     "explicit owner Phase 5 acceptance evidence missing",
 )
 
+merge_boundary = data.get("merge_release_boundary", {})
+require(merge_boundary.get("pr13") == "merged", "PR #13 current status must be merged")
+require(
+    merge_boundary.get("pr13_at_phase5_owner_acceptance")
+    == "open-draft-phase5-accepted-awaiting-separate-merge-authorization",
+    "PR #13 acceptance-time status must remain preserved",
+)
+require(
+    merge_boundary.get("pr13_merge_commit")
+    == "913ec67c195ac5971e0f63d9acfe94dba8de60bf",
+    "PR #13 merge commit drifted",
+)
+require(merge_boundary.get("pre_merge_ci_run") == 514, "pre-merge CI run must be #514")
+require(
+    merge_boundary.get("pre_merge_ci_conclusion") == "success",
+    "pre-merge CI #514 must remain success",
+)
+require(merge_boundary.get("post_merge_main_ci_run") == 515, "post-merge CI run must be #515")
+require(
+    merge_boundary.get("post_merge_main_ci_conclusion") == "success",
+    "post-merge CI #515 must remain success",
+)
+require(
+    merge_boundary.get("post_merge_main_commit")
+    == "913ec67c195ac5971e0f63d9acfe94dba8de60bf",
+    "post-merge main commit drifted",
+)
+require(merge_boundary.get("tag") == "not_created", "tag must remain not_created")
+require(
+    merge_boundary.get("github_release") == "not_created",
+    "GitHub Release must remain not_created",
+)
+require(merge_boundary.get("deployment") == "not_created", "deployment must remain not_created")
+
 slices = data.get("slices", [])
 require(
     [item.get("id") for item in slices] == [f"P5.{i}" for i in range(1, 10)],
