@@ -51,10 +51,20 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("current_slice") == "P6.1", "latest Phase 6 slice must be P6.1")
-require(phase6_start.get("current_slice_status") == "closed", "P6.1 must be closed")
-require(phase6_start.get("next_slice") == "P6.2", "next Phase 6 slice must be P6.2")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.2 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.1", "previous Phase 6 slice must be P6.1")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.1 must remain closed")
+require(phase6_start.get("current_slice") == "P6.2", "current Phase 6 slice must be P6.2")
+require(phase6_start.get("current_slice_status") == "in_progress", "P6.2 must be in_progress")
+require(phase6_start.get("next_slice") == "P6.3", "next Phase 6 slice must be P6.3")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.3 must remain not_started")
+p6_2_start = phase6_start.get("p6_2_start", {})
+require(p6_2_start.get("decision") == "continued-by-owner", "P6.2 owner continuation evidence missing")
+require(
+    p6_2_start.get("baseline_commit") == "143532248f707380b980e787051e7decc3c91086",
+    "P6.2 baseline commit drifted",
+)
+require(p6_2_start.get("baseline_ci_run") == 530, "P6.2 baseline CI must be #530")
+require(p6_2_start.get("baseline_ci_conclusion") == "success", "P6.2 baseline CI #530 must remain success")
 p6_1_manual = phase6_start.get("p6_1_owner_manual", {})
 require(
     p6_1_manual.get("result") == "pass-reported-by-owner",
@@ -105,6 +115,22 @@ require(
     merge_boundary.get("post_merge_main_commit")
     == "913ec67c195ac5971e0f63d9acfe94dba8de60bf",
     "post-merge main commit drifted",
+)
+require(merge_boundary.get("pr15") == "merged", "PR #15 current status must be merged")
+require(
+    merge_boundary.get("pr15_merge_commit")
+    == "143532248f707380b980e787051e7decc3c91086",
+    "PR #15 merge commit drifted",
+)
+require(merge_boundary.get("pr15_pre_merge_ci_run") == 529, "PR #15 pre-merge CI must be #529")
+require(
+    merge_boundary.get("pr15_pre_merge_ci_conclusion") == "success",
+    "PR #15 pre-merge CI #529 must remain success",
+)
+require(merge_boundary.get("pr15_post_merge_main_ci_run") == 530, "PR #15 post-merge CI must be #530")
+require(
+    merge_boundary.get("pr15_post_merge_main_ci_conclusion") == "success",
+    "PR #15 post-merge CI #530 must remain success",
 )
 require(merge_boundary.get("tag") == "not_created", "tag must remain not_created")
 require(
@@ -250,9 +276,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_latest_slice": "P6.1",
-            "phase6_latest_slice_status": "closed",
-            "phase6_next_slice": "P6.2",
+            "phase6_previous_slice": "P6.1",
+            "phase6_previous_slice_status": "closed",
+            "phase6_current_slice": "P6.2",
+            "phase6_current_slice_status": "in_progress",
+            "phase6_next_slice": "P6.3",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
