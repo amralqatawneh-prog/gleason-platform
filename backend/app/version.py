@@ -9,6 +9,6 @@ except PackageNotFoundError:
     # Source-only tooling; installed/Docker distributions use package metadata.
     APP_VERSION = tomllib.loads((Path(__file__).parents[1] / "pyproject.toml").read_text())["project"]["version"]
 
-IMPLEMENTATION_PHASE = 5
+IMPLEMENTATION_PHASE = 6
 ACCEPTED_PHASE = 5
-PHASE_STATUS = "accepted"
+PHASE_STATUS = "in_progress"
