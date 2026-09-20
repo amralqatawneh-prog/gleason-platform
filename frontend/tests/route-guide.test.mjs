@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildRouteGuideSegments,
+  buildStraightProjectedRouteSegments,
   ROUTE_GUIDE_STEPS_PER_SEGMENT,
 } from '../.phase1-test-build/measurement/routeGuide.js';
 
@@ -41,4 +42,28 @@ test('P6.3 route guide is display-only geometry and does not add distance or mod
 test('P6.3 visual route guide returns no line for fewer than two points',()=>{
   assert.deepEqual(buildRouteGuideSegments([]),[]);
   assert.deepEqual(buildRouteGuideSegments([point(0,0)]),[]);
+});
+
+
+test('P6.3 flat-model route guide uses exactly two projected endpoints per segment',()=>{
+  const project=p=>[p.longitude*10,p.latitude*20];
+  const segments=buildStraightProjectedRouteSegments([
+    point(10,20),
+    point(30,40),
+    point(-5,80),
+  ],project);
+  assert.equal(segments.length,2);
+  assert.deepEqual(segments[0].coordinates,[[200,200],[400,600]]);
+  assert.deepEqual(segments[1].coordinates,[[400,600],[800,-100]]);
+  assert.equal(segments[0].coordinates.length,2);
+  assert.equal(segments[1].coordinates.length,2);
+});
+
+test('P6.3 straight projected route guide inserts no intermediate curve samples',()=>{
+  const segments=buildStraightProjectedRouteSegments([
+    point(0,179),
+    point(0,-179),
+  ],p=>[p.longitude,p.latitude]);
+  assert.equal(segments.length,1);
+  assert.deepEqual(segments[0].coordinates,[[179,0],[-179,0]]);
 });
