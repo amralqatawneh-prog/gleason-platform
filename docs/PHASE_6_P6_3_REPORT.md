@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **AWAITING PAN + GREAT-CIRCLE OWNER RETEST — CI #627 SUCCESS**
+Status: **CLOSED — OWNER VERIFIED + FINAL CLOSURE GATES PENDING ON THIS HEAD**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -395,3 +395,29 @@ Verified automatically:
 - production build, Chromium acceptance, Docker, PostGIS and search regressions are green.
 
 Current state: **AWAITING TARGETED OWNER RETEST**.
+
+
+## Final owner verification and closure
+
+The owner reported the final Pan/Great Circle targeted checklist **6/6 PASS**.
+
+Verified manually by the owner:
+- mouse pan on both flat models;
+- touch pan on both flat models;
+- area-zoom correctly takes over the drag gesture and pan resumes afterward;
+- WGS84 Great Circle visualization;
+- multi-point Great Circle behavior while Gleason/AE remain straight;
+- numeric `wgs84-geodesic` distance remains unchanged.
+
+The retest was performed after Release Acceptance Gates **#635 — SUCCESS** on
+head `746e71b261747132bec49f33348cd42870092643`.
+
+P6.3 is now marked **CLOSED** in the acceptance package. This closure-documentation
+head must pass the complete Release Acceptance Gates before the closure is
+considered fully verified for merge readiness.
+
+Boundaries remain unchanged:
+- PR #19 remains unmerged;
+- P6.4 remains NOT STARTED;
+- P6.7 remains NOT STARTED;
+- no tag, GitHub Release or deployment is authorized.
