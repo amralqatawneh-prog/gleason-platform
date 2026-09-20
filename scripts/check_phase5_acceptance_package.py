@@ -428,7 +428,7 @@ require(
     post_pr19.get("scope") == "current-status documentation reconciliation after separately authorized PR #19 merge",
     "post-PR19 reconciliation scope drifted",
 )
-require(post_pr19.get("status") == "in_progress", "post-PR19 reconciliation must be in_progress until verification")
+require(post_pr19.get("status") == "closed", "post-PR19 reconciliation must be closed after verification")
 require(
     post_pr19.get("baseline_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
     "post-PR19 reconciliation baseline drifted",
@@ -447,6 +447,15 @@ require(post_pr19.get("accepted_application_version") == "0.5.0", "accepted app 
 require(post_pr19.get("tag") == "not_created", "post-PR19 reconciliation must not create a tag")
 require(post_pr19.get("github_release") == "not_created", "post-PR19 reconciliation must not create a GitHub Release")
 require(post_pr19.get("deployment") == "not_created", "post-PR19 reconciliation must not deploy")
+require(
+    post_pr19.get("verification_head") == "813d2268d74dd0b7ff1a1336b461e6281b71d392",
+    "post-PR19 reconciliation verification head drifted",
+)
+require(post_pr19.get("verification_ci_run") == 644, "post-PR19 reconciliation verification CI must be #644")
+require(
+    post_pr19.get("verification_ci_conclusion") == "success",
+    "post-PR19 reconciliation verification CI #644 must remain success",
+)
 
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
