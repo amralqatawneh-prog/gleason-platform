@@ -11,6 +11,7 @@ from ..domain.measurement import (
     MeasurementProvenance,
     MeasurementResult,
 )
+from ..domain.projections import GeoPoint
 from ..providers.projections import AzimuthalEquidistantProvider
 
 
@@ -24,12 +25,7 @@ def ae_route_distance(route_id: str, points: list[AERoutePoint]) -> MeasurementR
     distances: list[float] = []
 
     projected = [
-        _provider.forward(
-            __import__("app.domain.projections", fromlist=["GeoPoint"]).GeoPoint(
-                latitude=point.latitude,
-                longitude=point.longitude,
-            )
-        )
+        _provider.forward(GeoPoint(latitude=point.latitude, longitude=point.longitude))
         for point in points
     ]
 
