@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
-import { ProjectionMap, type Phase2MapModel } from './map2d/ProjectionMap';
+import { ProjectionMap } from './map2d/ProjectionMap';
 import type { GeoPoint } from './models/projectionTypes';
 import type { OfflinePlace } from './offline/searchIndex';
 import { refreshCoreSearchPack, SEARCH_PACKS_CHANGED } from './offline/searchPackStore';
