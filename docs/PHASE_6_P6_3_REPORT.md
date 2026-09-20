@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **AWAITING TARGETED OWNER RETEST — ROUTE-GUIDE CI #587 SUCCESS**
+Status: **STRAIGHT-LINE REFINEMENT IN PROGRESS — PRIOR ROUTE-GUIDE RETEST 5/5 PASS REPORTED BY OWNER**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -295,7 +295,35 @@ route-guide geometry, the existing WGS84 parity gates, production build,
 **20/20 Chromium acceptance tests**, Docker runtime, source/data regression,
 PostGIS/search checks and the existing P6.3 route-distance API smoke test.
 
-Current refinement state: **AWAITING TARGETED OWNER RETEST**.
+Current route-guide refinement result: **PASS — REPORTED BY OWNER (5/5)**.
+
+The owner also repeated the backend-stop test and confirmed that:
+- the route line remained visible with the backend stopped;
+- two-point browser-local measurement remained operational;
+- the backend was restarted afterward.
+
+The retested head was
+`df9227a831e4b90940cea70dde902f64684a0bf4`, after Release Acceptance Gates
+**#595 — SUCCESS**.
+
+### Second owner-requested refinement — exact straight line on flat models
+
+After the successful route-guide retest, the owner requested that the drawn
+route on the two flat views (Gleason Historical and AE) be **perfectly straight**
+rather than visually curved.
+
+Implementation rule:
+- for each adjacent A → B pair, project A and B into the target flat model;
+- create one OpenLayers `LineString` containing **exactly those two projected
+  endpoints**;
+- insert no intermediate geographic samples;
+- therefore each displayed segment is an exact straight chord in that projected
+  plane;
+- WGS84 WebGL/fallback visualization remains unchanged;
+- numeric distance remains `wgs84-geodesic`;
+- this remains visual-only and does not start P6.7.
+
+Current straight-line refinement state: **IN PROGRESS — automated verification pending**.
 
 ## Closure criteria
 
