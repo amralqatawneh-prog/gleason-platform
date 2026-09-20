@@ -127,7 +127,8 @@
     "pr11": "open-draft-unmerged",
     "p5_9_branch": "feat/phase5-p5-9-acceptance",
     "tag": "not_created",
-    "github_release": "not_created"
+    "github_release": "not_created",
+    "pr12": "open-draft-unmerged"
   },
   "accepted_application_version": "0.5.0",
   "accepted_phase": 5,
