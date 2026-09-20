@@ -10,6 +10,7 @@
 - P6.1/P6.2 remain CLOSED; P6.3 remains NOT STARTED.
 - Accepted phase remains 5 and accepted application version remains v0.5.0.
 - No tag, GitHub Release or deployment is created by this state synchronization.
+- Initial synchronization head `2314a247560d463ef03cd6438ea932da37813d73` passed Release Acceptance Gates **#559 — SUCCESS**; synchronization state is CLOSED.
 
 ## [Unreleased] — Post-PR #16 documentation reconciliation (2026-09-20)
 
