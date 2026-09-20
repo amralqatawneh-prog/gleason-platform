@@ -31,7 +31,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#22** Post-PR21 reconciliation: **MERGED**; final head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge.
 - Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED**. Initial verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed CI **#673**, and exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed CI **#676**.
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
-- Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; documentation/state-only work; no P6.5 functional branch has been started.
+- Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**. PR #24 remains OPEN / UNMERGED pending separate owner merge authorization; no P6.5 functional branch has been started.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
 - Post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - Latest closed slice: **P6.4 — AE Native Measurement**.
