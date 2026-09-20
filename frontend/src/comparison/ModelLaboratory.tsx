@@ -263,12 +263,12 @@ function futureServiceText(kind:FutureServiceKind,locale:'ar'|'en') {
   const ar:Record<FutureServiceKind,{title:string;body:string}>={
     time:{title:'خدمة الزمن/الفلك',body:'العقد محجوز فقط؛ لا يوجد في المرحلة الخامسة محرك فلكي أو خط زمني. التنفيذ المخطط في المراحل 9–10.'},
     'layer-sync':{title:'مزامنة الطبقات بين النماذج',body:'الطبقات المحلية الموجودة داخل بعض العروض لا تعني وجود خدمة طبقات مشتركة بين النماذج. النظام المتقدم مخطط للمرحلة 16.'},
-    route:{title:'خدمة المسارات والقياس',body:'تم حجز حد عقد versioned فقط. رسم المسارات والمسافة والمسطرة والمساحة ليست منفذة هنا وتبقى للمرحلة 6.'},
+    route:{title:'خدمة المسارات والقياس',body:'تضيف P6.2 حالة مرتبة مؤقتة لنقاط المسار في لوحة مستقلة. رسم المسارات والمسافة والمسطرة والمساحة ليست منفذة هنا وتبقى لشرائح لاحقة من المرحلة 6.'},
   };
   const en:Record<FutureServiceKind,{title:string;body:string}>={
     time:{title:'Time / astronomy service',body:'Only the contract boundary is reserved; Phase 5 has no astronomy engine or timeline. Implementation is planned for phases 9–10.'},
     'layer-sync':{title:'Cross-model layer synchronization',body:'Existing view-local layers do not constitute a shared cross-model layer service. The advanced layer system is planned for phase 16.'},
-    route:{title:'Route and measurement service',body:'Only a versioned contract boundary is reserved. Route drawing, distance, ruler and area are not implemented here and remain in phase 6.'},
+    route:{title:'Route and measurement service',body:'P6.2 adds transient ordered route-point state in a separate panel. Route drawing, distance, ruler and area are not implemented here and remain later Phase 6 work.'},
   };
   return (locale==='ar'?ar:en)[kind];
 }
