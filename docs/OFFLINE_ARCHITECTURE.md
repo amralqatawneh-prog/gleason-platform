@@ -69,9 +69,9 @@ P5.1–P5.7 are closed. Their offline-relevant behavior includes:
 - comparability/difference contracts that do not invent unavailable data;
 - future time/shared-layer/route services explicitly unavailable.
 
-### P5.8 boundary — in progress
+### P5.8 boundary — closed
 
-P5.8 **Versioned Local State Persistence** is now IN PROGRESS by explicit owner instruction.
+P5.8 **Versioned Local State Persistence** is CLOSED after CI #439/#442 and owner-reported manual PASS.
 
 It is distinct from the existing Phase 4 layer-visibility persistence. P5.8 must
 define and test the persisted **Phase 5 shared state contract**, including:
@@ -134,3 +134,16 @@ separate keys/contracts.
 
 P5.8 does not implement saved experiments, routes, notebooks or future-service
 state. Those remain later roadmap work.
+
+
+### P5.8 acceptance — 2026-09-20
+
+Owner manual result: **PASS — REPORTED BY OWNER**.
+
+The accepted P5.8 offline persistence contract is the schema-v1 shared geographic
+selection stored at `phase5-shared-state-v1`. Place identity restores only from
+an unchanged installed offline-pack record; otherwise only the verified
+coordinate is restored. Malformed/unsupported state is discarded and missing
+ellipsoidal height remains unknown.
+
+P5.9 is next and not started.
