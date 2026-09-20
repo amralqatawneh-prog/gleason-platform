@@ -75,7 +75,7 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **PAN + GREAT-CIRCLE REFINEMENT IN PROGRESS — base manual 6/6 PASS; route-guide 5/5 PASS; straight-line 4/4 PASS**.
+Status: **AWAITING PAN + GREAT-CIRCLE OWNER RETEST — base manual 6/6 PASS; route-guide 5/5 PASS; straight-line 4/4 PASS; CI #627 SUCCESS**.
 
 Start baseline:
 - `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
@@ -223,3 +223,9 @@ P6.3 current same-slice refinement:
 - numeric WGS84 geodesic unchanged;
 - no observed-flight-track claim;
 - P6.7 remains NOT STARTED.
+
+
+P6.3 pan/great-circle verification:
+- head `f67a69c78547330f273fc65bf3de4bb7379a09bf`
+- Release Acceptance Gates #627: **SUCCESS**
+- targeted owner retest: **NOT RUN**
