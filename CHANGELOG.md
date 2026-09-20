@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P5.9 automated verification (2026-09-20)
+
+- P5.9 implementation head `802a46ac3a1adce95fa9730e135ec5e377567631` passed Release Acceptance Gates #451.
+- CI reports acceptance-package gate PASS, 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests and 17 Chromium scenarios PASS, plus production build/parity/Docker/PostGIS/Redis/source/search gates.
+- The new browser regression covers ±89.5° / ±179.9°, provenance visibility, model evidence, unavailable future services, bilingual/mobile behavior and no heterogeneous cross-model delta leakage.
+- P5.9 remains open pending owner manual regression. Full Phase 5 remains unaccepted pending a separate explicit owner decision.
+
+
 ## [Unreleased] — Phase 5 / P5.9 regression and acceptance package (2026-09-20)
 
 - Owner explicitly instructed «ابدأ» after P5.8 closure.
