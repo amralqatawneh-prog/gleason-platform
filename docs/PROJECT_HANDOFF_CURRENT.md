@@ -921,3 +921,17 @@ This is the current status update after the historical acceptance sections above
 - No tag or GitHub Release exists; deployment remains separately authorized.
 - Historical statements that PR #13 was unmerged are retained as dated evidence
   of the state at the time they were written and do not override this snapshot.
+
+
+## P6.3 latest owner refinement — 2026-09-20
+
+Owner reported the straight-line retest **4/4 PASS** on the current P6.3 branch.
+The next same-slice refinement is now in progress:
+
+- Gleason + AE: explicit free pan using mouse drag or touch;
+- WGS84: display-only spherical Great Circle reference between adjacent route
+  points;
+- numeric WGS84 distance remains the existing ellipsoidal geodesic result;
+- Great Circle visualization must not be represented as observed flight data;
+- P6.4 and P6.7 remain NOT STARTED;
+- PR #19 remains unmerged.
