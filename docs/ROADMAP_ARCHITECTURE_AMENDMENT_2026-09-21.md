@@ -1,6 +1,6 @@
 # Roadmap & Architecture Amendment — New Requirements 2026-09-21
 
-Status: **OWNER-APPROVED REQUIREMENTS / DOCUMENTATION IMPLEMENTATION IN PROGRESS**
+Status: **CLOSED / VERIFIED — PR #23 OPEN / UNMERGED**
 
 Owner approval date: 2026-09-21  
 Baseline: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`  
@@ -390,7 +390,21 @@ Deliver the final validated versions of:
 Phase 21 must verify that guides match executable behavior; it must not invent
 documentation retroactively for undocumented historical code.
 
-## 11. Immediate execution order after this amendment
+## 11. Verification and closure
+
+- PR: **#23**
+- verification head: `cb4b4681bd359e29b08542856b7bff144a239796`
+- Release Acceptance Gates: **#673 — SUCCESS**
+- scope verification: documentation/architecture/governance only; no P6.5 functional implementation
+- P6.5 status: **NOT STARTED**
+- accepted phase: **5**
+- accepted application version: **v0.5.0**
+- PR #23 remains **OPEN / UNMERGED** until separate owner merge authorization.
+
+This closure-state update creates a new PR head, so that exact final head must pass
+the full Release Acceptance Gates before the PR is considered merge-ready.
+
+## 12. Immediate execution order after this amendment
 
 1. Close and merge this documentation/architecture amendment only after CI and
    separate owner merge authorization.
