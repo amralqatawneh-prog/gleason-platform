@@ -54,7 +54,46 @@ require((ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.5.0", "root
 frontend_pkg = json.loads((ROOT / "frontend" / "package.json").read_text(encoding="utf-8"))
 require(frontend_pkg.get("version") == "0.5.0", "frontend version drifted")
 backend_pyproject = (ROOT / "backend" / "pyproject.toml").read_text(encoding="utf-8")
-require(re.search(r'^version\s*=\s*"0\.4\.0"\s*$', backend_pyproject, re.M) is not None, "backend version drifted")
+require(re.search(r'^version\s*=\s*"0\.5\.0"\s*
+
+version_py = (ROOT / "backend" / "app" / "version.py").read_text(encoding="utf-8")
+require("IMPLEMENTATION_PHASE = 5" in version_py, "implementation phase metadata drifted")
+require("ACCEPTED_PHASE = 5" in version_py, "accepted phase metadata drifted")
+require('PHASE_STATUS = "accepted"' in version_py, "phase status must be accepted")
+
+capabilities = (ROOT / "backend" / "app" / "services" / "capabilities.py").read_text(encoding="utf-8")
+require('"cross_model_synchronization": True' in capabilities, "cross-model synchronization capability missing")
+require('"astronomy_engine": False' in capabilities, "astronomy engine must remain unavailable")
+require('"live_flights": False' in capabilities, "live flights must remain unavailable")
+
+future = (ROOT / "frontend" / "src" / "comparison" / "futureServices.ts").read_text(encoding="utf-8")
+require("status:'unavailable'" in future, "future services must fail closed as unavailable")
+require("availableOperations:Object.freeze([])" in future, "future services must expose no operations")
+
+historical = (ROOT / "data" / "sources" / "gleason-book.yaml").read_text(encoding="utf-8")
+require("control_points: []" in historical, "historical control points must remain empty")
+require("standalone_historical_scan: not_embedded" in historical, "historical standalone scan must remain not embedded")
+
+e2e = (ROOT / "frontend" / "tests" / "e2e" / "acceptance.spec.ts").read_text(encoding="utf-8")
+for marker in [
+    "P5.4 model laboratory",
+    "P5.5 comparability contract",
+    "P5.6 navigation",
+    "P5.7 blocks heterogeneous differences",
+    "P5.8 restores installed-pack identity offline",
+    "P5.9 phase regression covers polar and antimeridian selections",
+]:
+    require(marker in e2e, f"browser regression marker missing: {marker}")
+
+print(json.dumps({
+    "phase": 5,
+    "slice": "P5.9",
+    "status": "accepted",
+    "closed_slices": [item["id"] for item in slices],
+    "required_regression_gates": sorted(required_gates),
+    "known_limitations": sorted(limitation_ids),
+}, ensure_ascii=False))
+, backend_pyproject, re.M) is not None, "backend version drifted")
 
 version_py = (ROOT / "backend" / "app" / "version.py").read_text(encoding="utf-8")
 require("IMPLEMENTATION_PHASE = 5" in version_py, "implementation phase metadata drifted")
