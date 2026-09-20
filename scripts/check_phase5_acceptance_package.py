@@ -328,7 +328,7 @@ require(
 )
 require(p6_4_merge.get("post_merge_ci_run") == 669, "P6.4 post-merge CI must be #669")
 post_pr21 = data.get("post_pr21_merge_reconciliation", {})
-require(post_pr21.get("status") == "in_progress", "post-PR21 reconciliation must be in_progress before closure verification")
+require(post_pr21.get("status") == "closed", "post-PR21 reconciliation must be closed after verification")
 require(
     post_pr21.get("baseline_commit") == "11b571f08f72732b509f049f1a2ab1be92292938",
     "post-PR21 reconciliation baseline drifted",
@@ -337,6 +337,20 @@ require(post_pr21.get("baseline_ci_run") == 669, "post-PR21 reconciliation basel
 require(post_pr21.get("baseline_ci_conclusion") == "success", "post-PR21 baseline CI #669 must remain success")
 require(post_pr21.get("p6_4_status") == "closed", "P6.4 must remain closed during reconciliation")
 require(post_pr21.get("p6_5_status") == "not_started", "P6.5 must remain not_started during reconciliation")
+require(post_pr21.get("pr") == 22, "post-PR21 reconciliation PR must be #22")
+require(
+    post_pr21.get("verification_head") == "ae23478c53b51520d708ddfabff90a5867a03152",
+    "post-PR21 reconciliation verification head drifted",
+)
+require(post_pr21.get("verification_ci_run") == 670, "post-PR21 reconciliation verification CI must be #670")
+require(
+    post_pr21.get("verification_ci_conclusion") == "success",
+    "post-PR21 reconciliation verification CI #670 must remain success",
+)
+require(
+    post_pr21.get("merge_authorization") == "explicit-owner-instruction",
+    "post-PR21 reconciliation merge authorization evidence missing",
+)
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
     post_pr17_sync.get("status") == "closed",
