@@ -1,4 +1,4 @@
-# Dependency Register — current through Phase 5 / accepted app v0.4.0
+# Dependency Register — current through accepted Phase 5 / app v0.5.0
 
 _Last reconciled: 2026-09-19 after P5.7 closure._
 
