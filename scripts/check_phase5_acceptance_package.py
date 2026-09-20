@@ -51,12 +51,32 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.2", "previous Phase 6 slice must be P6.2")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.2 must remain closed")
-require(phase6_start.get("current_slice") == "P6.3", "current Phase 6 slice must be P6.3")
-require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice status must be closed")
-require(phase6_start.get("next_slice") == "P6.4", "next Phase 6 slice must be P6.4")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.3", "previous Phase 6 slice must be P6.3")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.3 must remain closed")
+require(phase6_start.get("current_slice") == "P6.4", "current Phase 6 slice must be P6.4")
+require(phase6_start.get("current_slice_status") == "in_progress", "P6.4 current slice status must be in_progress")
+require(phase6_start.get("next_slice") == "P6.5", "next Phase 6 slice must be P6.5")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.5 must remain not_started")
+p6_4_start = phase6_start.get("p6_4_start", {})
+require(p6_4_start.get("decision") == "started-by-owner", "P6.4 owner start evidence missing")
+require(
+    p6_4_start.get("baseline_commit") == "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "P6.4 baseline commit drifted",
+)
+require(p6_4_start.get("baseline_ci_run") == 651, "P6.4 baseline CI must be #651")
+require(p6_4_start.get("baseline_ci_conclusion") == "success", "P6.4 baseline CI #651 must remain success")
+require(
+    p6_4_start.get("branch") == "feat/phase6-p6-4-ae-native-measurement",
+    "P6.4 branch evidence drifted",
+)
+require(
+    p6_4_start.get("scope") == "AE native projected-plane distance for adjacent ordered route segments and open-polyline total only",
+    "P6.4 scope drifted",
+)
+require(p6_4_start.get("status") == "in_progress", "P6.4 must be in_progress")
+require(p6_4_start.get("owner_manual_status") == "not_run", "P6.4 owner manual must remain not_run until reported")
+require(phase6_start.get("p6_4_status") == "in_progress", "P6.4 status must be in_progress")
+
 p6_2_start = phase6_start.get("p6_2_start", {})
 require(p6_2_start.get("decision") == "continued-by-owner", "P6.2 owner continuation evidence missing")
 require(
@@ -626,11 +646,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.2",
+            "phase6_previous_slice": "P6.3",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.3",
-            "phase6_current_slice_status": "closed",
-            "phase6_next_slice": "P6.4",
+            "phase6_current_slice": "P6.4",
+            "phase6_current_slice_status": "in_progress",
+            "phase6_next_slice": "P6.5",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
