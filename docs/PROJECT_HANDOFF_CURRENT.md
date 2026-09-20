@@ -14,7 +14,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
 - No tag or GitHub Release has been authorized.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
-- Accepted application version: **v0.4.0**.
+- Accepted application version: **v0.5.0**.
 - Implementation phase: **5**; accepted phase: **4**; phase status: **in_progress**.
 - Latest owner-tested/documented development baseline before the current GitHub documentation reconciliation:
   `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
@@ -25,7 +25,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
   after their recorded automated evidence and owner-reported manual PASS.
 - **P5.8 Versioned Local State Persistence is CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- **P5.9 Phase 5 Regression and Owner Acceptance Package is IN PROGRESS** by explicit owner instruction «ابدأ». Phase 6 routes/ruler/distance/area remains NOT STARTED.
+- **P5.9 is CLOSED and Phase 5 is ACCEPTED BY OWNER at v0.5.0.** Phase 6 routes/ruler/distance/area remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
@@ -812,3 +812,27 @@ owner manual regression**.
 
 Full Phase 5 is still NOT YET ACCEPTED. Owner manual P5.9 PASS and owner Phase 5
 acceptance remain separate pending decisions. Phase 6 remains NOT STARTED.
+
+
+## Phase 5 acceptance closure — 2026-09-20
+
+The owner reported «نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة».
+
+Record:
+- P5.9 manual regression: **PASS — REPORTED BY OWNER**;
+- P5.9: CLOSED;
+- Phase 5: **COMPLETE AND ACCEPTED BY OWNER**;
+- accepted application version: **v0.5.0**;
+- implementation phase: 5;
+- accepted phase: 5;
+- phase status: accepted.
+
+Final pre-acceptance automated evidence:
+- CI #451 SUCCESS — `802a46ac3a1adce95fa9730e135ec5e377567631`;
+- CI #455 SUCCESS — `cf1f3ad45b6a8da1cf7f608d8da94f275641c676`.
+
+Canonical acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
+Machine-readable package: `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+Phase 6 is **NOT STARTED**. Do not begin it without an explicit owner instruction.
+PR #11 and PR #12 remain open/unmerged. No tag, GitHub Release or deployment.
