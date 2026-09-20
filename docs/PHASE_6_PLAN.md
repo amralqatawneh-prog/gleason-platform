@@ -60,7 +60,7 @@ Acceptance gates:
 
 ## P6.2 — Ordered Route State
 
-Status: **IN PROGRESS**.
+Status: **CLOSED — CI #532/#546 SUCCESS; OWNER MANUAL PASS 6/6 + REFINEMENT PASS REPORTED**.
 
 Deliver transient ordered route state A → B → C → … with:
 - add/remove/reorder;
@@ -182,7 +182,8 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 ## Current next action
 
 P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
-**IN PROGRESS** on `feat/phase6-p6-2-ordered-route-state`.
+**CLOSED** on `feat/phase6-p6-2-ordered-route-state`.
 
-P6.2 may add transient A→B→C route-point state, editing and segment identity,
-but must not add numeric route/ruler/perimeter/area calculations from P6.3–P6.6.
+P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**. PR #16 remains
+unmerged until separately authorized. No numeric P6.3 work starts automatically
+from P6.2 closure.
