@@ -18,22 +18,21 @@ data = json.loads(PACKAGE.read_text(encoding="utf-8"))
 require(data.get("schema_version") == 1, "schema_version must be 1")
 require(data.get("phase") == 5, "phase must be 5")
 require(data.get("package_slice") == "P5.9", "package_slice must be P5.9")
-require(data.get("status") == "in_progress", "P5.9 package must remain in_progress before owner phase acceptance")
+require(data.get("status") == "closed", "P5.9 package must be closed after owner manual regression")
 require(data.get("accepted_application_version_before_phase5_decision") == "0.4.0", "accepted app version baseline must remain 0.4.0")
 require(data.get("accepted_phase_before_phase5_decision") == 4, "accepted phase must remain 4 before owner Phase 5 acceptance")
 require(data.get("implementation_phase") == 5, "implementation phase must be 5")
 require(data.get("phase6_status") == "not_started", "Phase 6 must remain not_started")
-require(data.get("phase5_owner_acceptance") == "pending", "Phase 5 owner acceptance must remain pending during P5.9 execution")
+require(data.get("phase5_owner_acceptance") == "pending", "Full Phase 5 owner acceptance must remain pending until a separate explicit owner decision")
 
 slices = data.get("slices", [])
 require([item.get("id") for item in slices] == [f"P5.{i}" for i in range(1, 10)], "slices must list P5.1 through P5.9 in order")
-for item in slices[:8]:
+for item in slices:
     require(item.get("status") == "closed", f"{item.get('id')} must be closed")
     require(item.get("owner_manual") == "pass-reported-by-owner", f"{item.get('id')} owner manual evidence missing")
     require((ROOT / item["report"]).is_file(), f"missing report {item['report']}")
-require(slices[8].get("status") == "in_progress", "P5.9 must be in_progress")
-require(slices[8].get("owner_manual") == "pending", "P5.9 owner manual must be pending")
-require((ROOT / slices[8]["report"]).is_file(), "P5.9 report must exist")
+require(data.get("p5_9_owner_manual", {}).get("result") == "pass-reported-by-owner", "P5.9 owner manual result must be recorded")
+require(data.get("p5_9_owner_manual", {}).get("checklist_items_passed") == 10, "P5.9 must record all ten owner manual checks as passed")
 
 required_gates = {
     "browser","offline","arabic-english","mobile","poles","antimeridian",
@@ -87,8 +86,8 @@ for marker in [
 print(json.dumps({
     "phase": 5,
     "slice": "P5.9",
-    "status": "in_progress",
-    "closed_slices": [item["id"] for item in slices[:8]],
+    "status": "closed",
+    "closed_slices": [item["id"] for item in slices],
     "required_regression_gates": sorted(required_gates),
     "known_limitations": sorted(limitation_ids),
 }, ensure_ascii=False))
