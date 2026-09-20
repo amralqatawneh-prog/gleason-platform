@@ -290,7 +290,7 @@
       "date": "2026-09-20",
       "owner_request": "Add a line on the map between the added points to clarify the route.",
       "decision": "requested-by-owner-after-manual-pass",
-      "status": "awaiting-owner-retest",
+      "status": "closed",
       "scope": "Display-only ordered route guide on WGS84, Gleason and AE views with A/B/C labels; no numeric or provider-route semantic change.",
       "computation_identity": "visual-only",
       "p6_7_status_remains": "not_started",
@@ -303,13 +303,14 @@
       "offline_backend_fallback_retest": "pass-reported-by-owner",
       "retested_head": "df9227a831e4b90940cea70dde902f64684a0bf4",
       "pre_retest_ci_run": 595,
-      "pre_retest_ci_conclusion": "success"
+      "pre_retest_ci_conclusion": "success",
+      "result": "closed-by-owner-verification"
     },
     "p6_3_straight_line_refinement": {
       "date": "2026-09-20",
       "owner_request": "On the two flat Gleason-style views, make the drawn route line perfectly straight instead of curved.",
       "decision": "requested-by-owner-after-route-guide-retest-pass",
-      "status": "awaiting-owner-retest",
+      "status": "closed",
       "scope": "Use exactly one projected straight segment between each adjacent route-point pair on Gleason and AE; keep WGS84 visualization unchanged.",
       "geometry_semantics": "straight-projected-segment",
       "computation_identity": "visual-only",
@@ -321,13 +322,14 @@
       "targeted_manual_items_passed": 4,
       "retested_head": "12b4e1639f742052a376e9aa392dafa7855708e1",
       "pre_retest_ci_run": 614,
-      "pre_retest_ci_conclusion": "success"
+      "pre_retest_ci_conclusion": "success",
+      "result": "closed-by-owner-verification"
     },
     "p6_3_pan_great_circle_refinement": {
       "date": "2026-09-20",
       "owner_request": "Enable free mouse/touch panning on both flat models and make the WGS84 curved route follow a Great Circle reference.",
       "decision": "requested-by-owner-after-straight-line-retest-pass",
-      "status": "awaiting-owner-retest",
+      "status": "closed",
       "flat_navigation_scope": "Explicit drag pan in all directions on Gleason and AE using mouse or touch; area-zoom temporarily disables pan.",
       "wgs84_visual_scope": "Display-only spherical great-circle reference between adjacent ordered points.",
       "wgs84_numeric_identity": "wgs84-geodesic",
@@ -342,6 +344,17 @@
       "pre_retest_ci_run": 635,
       "pre_retest_ci_conclusion": "success",
       "result": "closed-by-owner-verification"
+    },
+    "p6_3_merge": {
+      "date": "2026-09-20",
+      "decision": "merged-by-separate-owner-authorization",
+      "pr": 19,
+      "final_head": "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+      "pre_merge_ci_run": 642,
+      "pre_merge_ci_conclusion": "success",
+      "merge_commit": "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+      "post_merge_ci_run": 643,
+      "post_merge_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -381,5 +394,25 @@
     "verification_head": "2314a247560d463ef03cd6438ea932da37813d73",
     "verification_ci_run": 559,
     "verification_ci_conclusion": "success"
+  },
+  "post_pr19_merge_reconciliation": {
+    "date": "2026-09-20",
+    "scope": "current-status documentation reconciliation after separately authorized PR #19 merge",
+    "status": "in_progress",
+    "baseline_commit": "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "baseline_ci_run": 643,
+    "baseline_ci_conclusion": "success",
+    "pr19_status": "merged",
+    "p6_3_status": "closed",
+    "p6_4_status": "not_started",
+    "p6_7_status": "not_started",
+    "accepted_phase": 5,
+    "accepted_application_version": "0.5.0",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created",
+    "verification_head": null,
+    "verification_ci_run": null,
+    "verification_ci_conclusion": null
   }
 }
