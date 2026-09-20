@@ -44,9 +44,13 @@ higher-resolution country dataset.
 1. Define explicit geographic endpoints: selected cities/capitals/custom points.
    A country name alone is not a unique distance endpoint. Boundary-to-boundary
    distance would be a separate operation, not an implicit alternative.
-2. Ordered multi-stop route state: add/move/remove/reorder points; clear/undo;
-   display each segment and total. Project geographic geometry independently into
-   each view; never measure screen pixels or reuse another engine's coordinates.
+2. Ordered multi-stop route state: add/move/remove/reorder points; clear/undo.
+   P6.2 supports up to 50 transient points and an explicit direct-map add mode:
+   when enabled, a short pick on Gleason, AE or WGS84 appends that geographic
+   point to the ordered route. Normal map picking remains selection-only when the
+   mode is off. Project geographic geometry independently into each view; never
+   measure screen pixels or reuse another engine's coordinates. Numeric segment
+   and total quantities remain later measurement work.
 3. Define path semantics first. A WGS84 geodesic displayed on all views retains
    its WGS84 label; a model-native path is a separate calculation with its own
    method, units and provenance. It is not a road/flight route without such data.
