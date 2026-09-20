@@ -1,0 +1,117 @@
+# Developer Guide
+
+Status: **LIVING DOCUMENT — updated with future slices**
+
+## 1. Purpose
+
+This guide explains how to extend Gleason Comparison Platform without violating
+its model-independence, provenance and fail-closed rules.
+
+The accepted Phase 0 historical architecture remains in `PROJECT_ARCHITECTURE.md`.
+Current execution truth lives in `docs/PROJECT_HANDOFF_CURRENT.md`,
+`docs/ROADMAP_CURRENT.md` and the active phase plan.
+
+## 2. Core architectural invariant
+
+The three engines remain independent:
+
+- Gleason Historical
+- AE Visualization
+- WGS84 Reference
+
+Share only canonical geographic identity when a feature requires cross-view
+coordination. Do not share screen pixels, another model's projected x/y, camera
+state or native numerical output as though it belonged to another model.
+
+## 3. Result identity
+
+Every material numerical result should make these concepts recoverable:
+
+- quantity;
+- computation method;
+- computation model;
+- calculation/reference space;
+- unit;
+- scale basis;
+- semantic class;
+- source/provenance;
+- algorithm/provider version;
+- known limitations.
+
+## 4. Comments and docstrings
+
+Do not comment every line.
+
+Add comments/docstrings when they explain:
+- non-obvious mathematical reasoning;
+- units/CRS/reference frames/time scales;
+- historical-source interpretation;
+- provenance/licensing restrictions;
+- fail-closed boundaries;
+- deliberate implementation trade-offs;
+- difficult edge cases or browser/GPU workarounds.
+
+Prefer expressive names and small typed functions for obvious mechanics. Update or
+remove comments when behavior changes.
+
+## 5. Provider architecture
+
+Future external integrations should normally follow:
+
+`Upstream Provider → Adapter → Normalizer → Provenance/Freshness → Cache/Offline
+Policy → Canonical Layer/Route/Celestial State → Model Adapter → Renderer`.
+
+Never let a normalization adapter erase timestamp, provider identity, license or
+field meaning.
+
+See `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
+
+## 6. Measurement architecture
+
+Current implemented identities:
+- WGS84: `wgs84-geodesic`
+- AE: `ae-projected-plane`
+
+Planned:
+- Gleason: `gleason-native-normalized`
+
+Do not convert Gleason normalized units to SI units without a separately
+documented scale rule/assumption.
+
+The P6.2 ordered polyline is not automatically a road route.
+
+## 7. Astronomy architecture
+
+Future astronomy must distinguish:
+- reference ephemeris results;
+- model-native rules;
+- display-only conventions.
+
+Topocentric results depend on both ObserverContext and TimeContext.
+
+## 8. Testing expectations
+
+A feature is not complete merely because its happy path renders.
+
+Depending on scope, cover:
+- browser + offline;
+- Arabic/English;
+- desktop/mobile/touch;
+- polar/antimeridian edge cases;
+- repeated/invalid input;
+- backend/browser parity;
+- provider unavailable/stale state;
+- missing optional data;
+- persistence/version migration;
+- WebGL fallback;
+- provenance/method/unit labels.
+
+## 9. Documentation done criterion
+
+A future slice that changes user-visible behavior, numerical semantics, provider
+contracts or persistence must update the relevant living guides:
+- this Developer Guide;
+- `docs/USER_GUIDE.md`;
+- `docs/CALCULATION_REFERENCE.md`.
+
+Phase 21 is final consolidation and verification, not deferred first-writing.
