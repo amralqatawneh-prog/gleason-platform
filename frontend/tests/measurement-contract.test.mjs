@@ -76,7 +76,7 @@ test('P6.1 method contracts keep model, method, space, units and scale basis ind
   const ae = measurementMethodContract('ae-projected-plane');
   const gleason = measurementMethodContract('gleason-native-normalized');
 
-  assert.equal(wgs.status, 'contract-only');
+  assert.equal(wgs.status, 'implemented');
   assert.equal(ae.status, 'contract-only');
   assert.equal(gleason.status, 'contract-only');
 
@@ -102,7 +102,7 @@ test('P6.1 computation identity contains semantics but no fabricated numeric res
     ['gleason-native-normalized', 'gleason', 'normalized-radius-unit-squared', 'gleason-normalized-model-radius'],
   );
   assert.equal('value' in distance, false);
-  assert.equal(distance.implementationStatus, 'contract-only');
+  assert.equal(distance.implementationStatus, 'implemented');
 });
 
 test('P6.1 rendering on another model preserves the original computation identity', () => {
