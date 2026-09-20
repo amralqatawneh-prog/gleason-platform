@@ -123,3 +123,31 @@ authorized. Phase 6 remains **NOT STARTED**.
 Canonical continuity: `PROJECT_HANDOFF_CURRENT.md`.  
 Roadmap: `ROADMAP_CURRENT.md`.  
 Machine-readable acceptance package: `PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+
+## Acceptance-metadata validation
+
+After the owner decision, application acceptance metadata was aligned to
+`v0.5.0`, `accepted_phase=5` and `phase_status=accepted`, and the complete
+release suite was run again.
+
+Acceptance-metadata head:
+`e011857b05aed18dbf2ece679ae97bd152e95f74`
+
+Release Acceptance Gates #481:
+https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35491391554
+
+Result: **SUCCESS**.
+
+Observed on the v0.5.0 acceptance metadata:
+- VERSION / frontend package+lock / backend package consistency: PASS;
+- Phase 5 acceptance-package gate: PASS;
+- npm vulnerabilities: 0;
+- frontend core tests: 86 PASS;
+- PWA tests: 2 PASS;
+- Chromium scenarios: 17 PASS;
+- production build, WGS84 parity, Docker/PostGIS/Redis, locked-source import and
+  online/offline/Arabic search gates: PASS.
+
+This validates the accepted metadata itself, not only the pre-acceptance
+implementation revision.
