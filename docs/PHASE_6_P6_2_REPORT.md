@@ -1,7 +1,7 @@
 # Phase 6 / P6.2 Report — Ordered Route State
 
 Date: 2026-09-20  
-Status: **IN PROGRESS — AUTOMATED VERIFICATION PENDING**
+Status: **TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**
 
 ## Authorization and baseline
 
@@ -152,7 +152,44 @@ Browser coverage exercises:
 
 Owner results must be recorded explicitly; no manual PASS is inferred.
 
+## Automated verification
+
+### CI #531 — FAILED, diagnosed and corrected
+
+The first PR run reached the browser suite after all earlier gates passed.
+The new P6.2 browser scenario itself passed. One historical P5.7 assertion
+failed because the updated explanatory copy contained `Phase 6` rather than
+the exact historical lowercase substring `phase 6`.
+
+Correction:
+- preserve the new P6.2 explanation;
+- restore the historical literal `phase 6` wording expected by P5.7;
+- do not weaken or remove the old regression assertion.
+
+### CI #532 — SUCCESS
+
+Exact implementation head:
+`9acd10b6ccbc0ae4f3565200169ff2b2ec8f38fa`
+
+Release Acceptance Gates #532: **SUCCESS**.
+
+Passed:
+- repository/source policy;
+- Phase 5/Phase 6 machine-state checker;
+- locked source hashes;
+- backend tests;
+- dependency security gate;
+- frontend core tests including all P6.2 route-state tests;
+- WGS84 browser/backend parity;
+- production build and PWA;
+- Chromium acceptance including P6.2 add/reorder/remove/undo/clear/reload;
+- Docker Compose/runtime;
+- Phase 2/Phase 4 API regression;
+- PostGIS schema and locked production import;
+- online/offline/Arabic search;
+- Redis and frontend Docker HTTP.
+
 ## Current status
 
-Automated verification has not yet been recorded on this report.
-P6.2 remains **IN PROGRESS**. P6.3 remains **NOT STARTED**.
+P6.2 is **TECHNICALLY GREEN / AWAITING OWNER MANUAL VERIFICATION**.
+P6.3 remains **NOT STARTED**.
