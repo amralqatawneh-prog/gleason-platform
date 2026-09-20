@@ -23,9 +23,9 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8` (PR #17 merge)
-- Release Acceptance Gates **#558 — SUCCESS** on that exact post-merge baseline
-- Current documentation sync branch: `docs/post-pr17-github-sync`; no P6.3 implementation branch has started
+- Current integration baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3` (PR #18 merge)
+- Release Acceptance Gates **#561 — SUCCESS** on that exact post-merge baseline
+- Active development branch: `feat/phase6-p6-3-wgs84-distance`
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -33,11 +33,13 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.2 — Ordered Route State**
+- Active slice: **P6.3 — WGS84 Ruler / Distance — IN PROGRESS**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
-- Next slice: **P6.3 — WGS84 Ruler / Distance — NOT STARTED**
+- P6.3 start baseline: **CI #561 SUCCESS** · owner manual **NOT RUN**
 - PR #16 is **MERGED** at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with CI #554 SUCCESS.
-- PR #17 is **MERGED** into `main` at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge Release Acceptance Gates **#558 — SUCCESS**. No tag, GitHub Release or deployment has been created.
+- PR #17 is **MERGED** at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
+- PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 
 ## Phase status
 
@@ -60,7 +62,8 @@ model engines:
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
-| P6.3–P6.10 | NOT STARTED ⏳ | Model measurements, polygon area, laboratories, regression |
+| P6.3 | IN PROGRESS 🛠️ | WGS84 geodesic segment/open-polyline distance; automated verification pending; owner manual NOT RUN |
+| P6.4–P6.10 | NOT STARTED ⏳ | AE/Gleason measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -128,7 +131,7 @@ editing controls. The route measurement/provider service remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- Route drawing/provider paths and numeric ruler/distance/perimeter/area calculations (P6.3+).
+- Route drawing/provider paths, AE/Gleason numeric measurements, perimeter and area calculations (P6.4+ / P6.6+).
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
 - Shared cross-model layer-state service.
@@ -240,7 +243,8 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.2 boundary.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.3 boundary.
+- `docs/PHASE_6_P6_3_REPORT.md` — active P6.3 implementation/verification report.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR13 reconciliation.
@@ -268,7 +272,9 @@ Release Acceptance Gates **#515**.
 PR #16 was separately authorized and merged at
 `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge CI #554 succeeded.
 PR #17 was subsequently authorized and merged at
-`660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge Release Acceptance Gates **#558 — SUCCESS**.
+`660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge CI #558 succeeded.
+PR #18 then merged at `645a27c5ea92febd78c3bdd823281ff496a742b3`;
+post-merge Release Acceptance Gates **#561 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **NOT STARTED**.
+Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **IN PROGRESS**.
