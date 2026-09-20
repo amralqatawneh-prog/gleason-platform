@@ -55,7 +55,7 @@ model engines:
 | P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
-| P6.2 | IN PROGRESS 🚧 | Transient ordered route state; add/remove/reorder/undo/clear; no numeric route measurement |
+| P6.2 | IN PROGRESS 🚧 | Transient route state up to 50 points; direct map-add on all three models; add/remove/reorder/undo/clear; no numeric route measurement |
 | P6.3–P6.10 | NOT STARTED ⏳ | Model measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
