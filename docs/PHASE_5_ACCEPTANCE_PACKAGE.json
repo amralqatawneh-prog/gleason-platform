@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance only. Route drawing/provider paths, AE/Gleason numeric distance, perimeter and area remain unavailable."
+      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance and P6.4 is implementing AE projected-plane open-polyline distance. Provider-backed road/flight paths, Gleason native distance, perimeter and area remain unavailable."
     },
     {
       "id": "camera-states-independent",
@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "current_integration_baseline": "35fda15508973340669220a20ee1c5bf6bbaa39a",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -168,7 +168,21 @@
     "pr18_pre_merge_ci_run": 560,
     "pr18_pre_merge_ci_conclusion": "success",
     "pr18_post_merge_main_ci_run": 561,
-    "pr18_post_merge_main_ci_conclusion": "success"
+    "pr18_post_merge_main_ci_conclusion": "success",
+    "pr19": "merged",
+    "pr19_merge_commit": "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "pr19_final_head": "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+    "pr19_pre_merge_ci_run": 642,
+    "pr19_pre_merge_ci_conclusion": "success",
+    "pr19_post_merge_main_ci_run": 643,
+    "pr19_post_merge_main_ci_conclusion": "success",
+    "pr20": "merged",
+    "pr20_merge_commit": "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "pr20_final_head": "9b4e3693e95d05778930eb04dd0e526326e03fc6",
+    "pr20_pre_merge_ci_run": 650,
+    "pr20_pre_merge_ci_conclusion": "success",
+    "pr20_post_merge_main_ci_run": 651,
+    "pr20_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
