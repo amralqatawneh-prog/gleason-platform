@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **AWAITING OWNER MANUAL VERIFICATION — AUTOMATED GATES SUCCESS**
+Status: **REFINEMENT IN PROGRESS — BASE MANUAL PASS 6/6 + OFFLINE FALLBACK PASS REPORTED BY OWNER**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -243,22 +243,45 @@ the P5.7/P6.2 UI wording. The numeric P6.3 backend/core/parity checks were alrea
 green; those stale expectations were corrected, and #565 then passed the full
 workflow.
 
-## Manual verification
+## Owner manual verification
 
-Status: **NOT RUN — owner action required**
+Status: **PASS — REPORTED BY OWNER (6/6)**
 
-Owner manual PASS must not be inferred from automated tests.
+The owner reported all six P6.3 manual checks successful:
 
-Planned manual checklist after automated gates succeed:
+1. two-point WGS84 segment and positive total;
+2. third-point / two-segment open-polyline total;
+3. route reorder with recomputation;
+4. repeated coordinates produce exactly 0 m;
+5. WGS84/provenance identity remains explicit and is not relabeled AE/Gleason/road/flight;
+6. Arabic/English, mobile layout and transient-route behavior.
 
-1. Add Doha and Amman; confirm one WGS84 segment and positive total are shown.
-2. Add a third point; confirm two segment values and a larger open-polyline total.
-3. Reorder a point; confirm segment identities/distances recompute.
-4. Add the same geographic coordinates twice; confirm that segment is exactly 0 m.
-5. Verify method/provenance visibly says WGS84 geodesic and identifies pyproj or
-   browser GeographicLib; confirm it is not labeled AE/Gleason/road/flight.
-6. Switch Arabic/English and a mobile-width viewport; confirm the ruler remains
-   readable and the route is still transient after reload.
+The owner additionally stopped the backend and confirmed that a two-point
+measurement succeeded through the browser-local `geographiclib-geodesic`
+fallback, then restarted the backend successfully.
+
+The tested documentation head before this refinement was:
+`a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9`, with Release Acceptance Gates
+**#572 — SUCCESS**.
+
+## Owner-requested visual route-guide refinement
+
+After the 6/6 manual PASS, the owner requested a visible line between the added
+route points for clarity.
+
+This refinement stays inside P6.3 as **display-only route guidance**:
+
+- render the ordered A → B → C … connector on WGS84, Gleason and AE;
+- show A/B/C route-point markers;
+- use the same canonical ordered geographic points already owned by P6.2;
+- keep the numeric result unchanged as `wgs84-geodesic`;
+- do not call the visual line a road route, flight route, provider route,
+  AE-native distance or Gleason-native distance;
+- do not start P6.7; that later slice still owns the fuller same-route rendering
+  laboratory/identity work.
+
+The line is explicitly labeled **visual-only** in the UI and data attributes.
+A targeted owner retest is required after the refinement passes CI.
 
 ## Closure criteria
 
@@ -266,7 +289,9 @@ P6.3 may be marked CLOSED only after:
 
 - complete Release Acceptance Gates succeed on the implementation head — **DONE: #565 SUCCESS**;
 - documentation is updated with the exact successful head/run — **DONE**;
-- the owner reports the manual checklist PASS, or explicitly waives named items — **PENDING / NOT RUN**;
-- a final closure-documentation head passes the complete gates again — **PENDING until owner manual result is recorded**.
+- the original owner manual checklist PASS — **DONE: 6/6 PASS + offline fallback PASS reported**;
+- the visual route-guide refinement passes the complete automated gates — **PENDING**;
+- the owner performs the targeted route-guide retest — **PENDING / NOT RUN**;
+- a final closure-documentation head passes the complete gates again — **PENDING**.
 
 P6.3 closure does not authorize P6.4, merge, tag, GitHub Release or deployment.
