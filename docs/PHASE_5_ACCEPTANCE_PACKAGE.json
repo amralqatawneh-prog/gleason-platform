@@ -124,9 +124,11 @@
   "phase5_owner_acceptance": "pending",
   "merge_release_boundary": {
     "pr9": "merged",
-    "pr11": "open-draft-unmerged",
-    "p5_9_branch": "feat/phase5-p5-9-acceptance",
+    "pr11": "merged",
+    "p5_9_branch": "feat/phase5-p5-9-acceptance-clean",
     "tag": "not_created",
-    "github_release": "not_created"
+    "github_release": "not_created",
+    "pr11_merge_commit": "7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4",
+    "superseded_pr12": "do-not-merge-unverified-acceptance-state"
   }
 }
