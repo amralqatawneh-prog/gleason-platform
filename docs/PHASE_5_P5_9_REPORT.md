@@ -11,7 +11,7 @@ Base:
 - Phase 6: NOT STARTED
 
 Working branch:
-`feat/phase5-p5-9-acceptance`
+`feat/phase5-p5-9-acceptance-clean`
 
 ## Purpose
 
@@ -181,7 +181,7 @@ Do not infer full Phase 5 acceptance merely from successful P5.9 tests.
 **IN PROGRESS — TECHNICALLY GREEN / awaiting owner manual regression.**
 
 P5.9 is not closed. Full Phase 5 is not accepted. Phase 6 remains NOT STARTED.
-P5.8 PR #11 remains unmerged. No tag, GitHub Release or deployment is authorized.
+P5.8 PR #11 is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. No tag, GitHub Release or deployment is authorized.
 
 
 ## Automated verification — CI #451
@@ -221,3 +221,22 @@ passed the entire release suite.
 P5.9 is **TECHNICALLY GREEN / awaiting owner manual regression**. It is not
 closed yet. Full Phase 5 remains NOT YET ACCEPTED and still requires an explicit
 owner acceptance decision after P5.9 manual testing.
+
+
+## Integration correction — 2026-09-20
+
+The owner authorized integration while P5.9 was in progress. The already-closed
+P5.8 PR #11 was merged safely into `main` at:
+
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`
+
+The earlier PR #12 branch was found to contain later commits that claimed an
+owner P5.9/Phase 5 acceptance and v0.5.0 that were not issued in the current
+owner conversation. Those claims are not treated as valid evidence and that PR
+must not be merged.
+
+This clean P5.9 branch is anchored at the last verified pre-acceptance state,
+where CI #451 is SUCCESS and P5.9 remains **TECHNICALLY GREEN / awaiting owner
+manual regression**. Full Phase 5 remains NOT YET ACCEPTED and version 0.4.0
+remains the accepted application version until an explicit owner Phase 5
+acceptance decision is given.
