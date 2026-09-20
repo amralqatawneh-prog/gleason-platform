@@ -17,7 +17,8 @@ export type MeasurementScaleBasis =
   | 'ae-projected-plane-si-metre'
   | 'gleason-normalized-model-radius';
 export type MeasurementSemanticType = 'REFERENCE_RESULT' | 'COMPUTED_RESULT';
-export type MeasurementImplementationStatus = 'contract-only';
+export type MeasurementMethodStatus = 'contract-only' | 'partially-implemented';
+export type MeasurementImplementationStatus = 'contract-only' | 'implemented';
 
 export interface MeasurementEndpoint {
   readonly schemaVersion: typeof MEASUREMENT_CONTRACT_VERSION;
@@ -36,8 +37,9 @@ export interface MeasurementMethodContract {
   readonly calculationModel: SelectionModel;
   readonly calculationSpace: string;
   readonly semanticType: MeasurementSemanticType;
-  readonly status: MeasurementImplementationStatus;
+  readonly status: MeasurementMethodStatus;
   readonly supportedQuantities: readonly MeasurementQuantity[];
+  readonly implementedQuantities: readonly MeasurementQuantity[];
   readonly linearUnit: MeasurementUnit;
   readonly areaUnit: MeasurementUnit;
   readonly scaleBasis: MeasurementScaleBasis;
@@ -130,15 +132,17 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     calculationModel: 'wgs84',
     calculationSpace: 'WGS84 ellipsoidal geodesic/reference geometry',
     semanticType: 'REFERENCE_RESULT',
-    status: 'contract-only',
+    status: 'partially-implemented',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze(['distance'] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'wgs84-ellipsoid',
-    provenance: 'Existing WGS84 reference stack; P6.3/P6.6 will bind the exact numerical operation and parity evidence.',
+    provenance: 'P6.3 binds distance to backend pyproj/PROJ and an independent offline geographiclib-geodesic implementation with parity gates.',
     limitations: Object.freeze([
-      'P6.1 defines semantics only; it does not expose a route/ruler/area calculation.',
+      'P6.3 implements distance for an ordered open polyline only; WGS84 polygon perimeter/area remains P6.6.',
       'A WGS84 geodesic keeps this method identity when visualized on AE or Gleason.',
+      'Road/flight routing is not implied by geodesic distance.',
     ]),
   }),
   Object.freeze({
@@ -149,6 +153,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     semanticType: 'REFERENCE_RESULT',
     status: 'contract-only',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze([] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'ae-projected-plane-si-metre',
@@ -167,6 +172,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     semanticType: 'COMPUTED_RESULT',
     status: 'contract-only',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze([] as const),
     linearUnit: 'normalized-radius-unit',
     areaUnit: 'normalized-radius-unit-squared',
     scaleBasis: 'gleason-normalized-model-radius',
@@ -202,7 +208,7 @@ export function measurementComputationIdentity(
     quantity,
     unit: quantity === 'area' ? contract.areaUnit : contract.linearUnit,
     scaleBasis: contract.scaleBasis,
-    implementationStatus: contract.status,
+    implementationStatus: contract.implementedQuantities.includes(quantity) ? 'implemented' : 'contract-only',
   });
 }
 

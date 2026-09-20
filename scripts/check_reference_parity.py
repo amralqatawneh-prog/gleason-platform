@@ -15,7 +15,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
-from app.domain.reference import WGS84GeodeticPoint  # noqa: E402
+from app.domain.reference import WGS84GeodeticPoint, WGS84RoutePoint  # noqa: E402
 from app.providers.reference.wgs84 import WGS84ReferenceProvider  # noqa: E402
 
 
@@ -31,19 +31,42 @@ def main() -> None:
     for _ in range(1000):
         pairs.append(dict(start=dict(latitude=rng.uniform(-90, 90), longitude=rng.uniform(-180, 180)),
                           end=dict(latitude=rng.uniform(-90, 90), longitude=rng.uniform(-180, 180))))
+    route_coords = [
+        [(0, 0), (0, 1), (0, 2)],
+        [(0, 179), (0, -179)],
+        [(89.9, 0), (89.9, 90), (89.9, 180)],
+        [(25.285447, 51.531040), (25.285447, 51.531040), (31.9539, 35.9106)],
+        [(40.7128, -74.0060), (31.9539, 35.9106), (25.285447, 51.531040)],
+    ]
+    for _ in range(100):
+        route_coords.append([
+            (rng.uniform(-90, 90), rng.uniform(-180, 180))
+            for _point in range(rng.randint(2, 8))
+        ])
+    routes = [
+        [
+            dict(point_id=f"route-point-{index + 1}", latitude=lat, longitude=lon)
+            for index, (lat, lon) in enumerate(route)
+        ]
+        for route in route_coords
+    ]
+
     source = """
       import {localGeodesicInverse, localGeodeticToEcef, localEcefToGeodetic}
         from './frontend/.phase1-test-build/reference/offlineWgs84.js';
+      import {localWgs84RouteDistance}
+        from './frontend/.phase1-test-build/measurement/wgs84RouteDistance.js';
       let input=''; for await (const part of process.stdin) input+=part;
       const data=JSON.parse(input);
       console.log(JSON.stringify({pairs:data.pairs.map(p=>localGeodesicInverse(p.start,p.end)),
+        routes:data.routes.map(points=>localWgs84RouteDistance(points)),
         points:data.points.map(p=>{const forward=localGeodeticToEcef(p);return {forward,back:localEcefToGeodetic(forward.output)}})}));
     """
     run = subprocess.run(["node", "--input-type=module", "-e", source], cwd=ROOT,
-                         input=json.dumps(dict(points=points, pairs=pairs)), text=True, capture_output=True, check=True)
+                         input=json.dumps(dict(points=points, pairs=pairs, routes=routes)), text=True, capture_output=True, check=True)
     actual = json.loads(run.stdout)
     provider = WGS84ReferenceProvider()
-    max_distance = max_bearing = max_ecef = max_lat = max_height = 0.0
+    max_distance = max_route_segment = max_route_total = max_bearing = max_ecef = max_lat = max_height = 0.0
     for inputs, browser in zip(pairs, actual["pairs"], strict=True):
         expected = provider.geodesic_inverse(WGS84GeodeticPoint(**inputs["start"]), WGS84GeodeticPoint(**inputs["end"])).output
         assert browser["semantic_type"] == "REFERENCE_RESULT"
@@ -58,6 +81,24 @@ def main() -> None:
                 difference = abs((output[key] - expected[key] + 180) % 360 - 180)
                 max_bearing = max(max_bearing, difference)
                 assert difference < 1e-8, (inputs, key, difference)
+    for inputs, browser in zip(routes, actual["routes"], strict=True):
+        backend_points = [WGS84RoutePoint(**point) for point in inputs]
+        expected = provider.route_distance("transient-route", backend_points).output
+        output = browser["output"]
+        assert output["method_id"] == "wgs84-geodesic"
+        assert output["unit"] == "metre"
+        assert output["path_semantics"] == "open-polyline"
+        assert output["segment_count"] == expected["segment_count"]
+        assert len(output["segments"]) == len(expected["segments"])
+        for browser_segment, backend_segment in zip(output["segments"], expected["segments"], strict=True):
+            assert browser_segment["segment_id"] == backend_segment["segment_id"]
+            delta = abs(browser_segment["distance_m"] - backend_segment["distance_m"])
+            max_route_segment = max(max_route_segment, delta)
+            assert delta < 1e-5, (inputs, browser_segment, backend_segment)
+        total_delta = abs(output["total_distance_m"] - expected["total_distance_m"])
+        max_route_total = max(max_route_total, total_delta)
+        assert total_delta < 1e-5, (inputs, output["total_distance_m"], expected["total_distance_m"])
+
     for inputs, browser in zip(points, actual["points"], strict=True):
         expected = provider.geodetic_to_ecef(WGS84GeodeticPoint(**inputs)).output
         actual_ecef = browser["forward"]["output"]
@@ -75,9 +116,12 @@ def main() -> None:
         if abs(inputs["latitude"]) < 90:
             assert abs((back["longitude"] - inputs["longitude"] + 180) % 360 - 180) < 1e-8
         assert all(math.isfinite(value) for value in back.values())
-    print(json.dumps(dict(status="PASS", geodesic_cases=len(pairs), ecef_roundtrips=len(points),
-                         max_distance_difference_m=max_distance, max_bearing_difference_deg=max_bearing,
-                         max_ecef_difference_m=max_ecef, max_inverse_lat_difference_deg=max_lat,
+    print(json.dumps(dict(status="PASS", geodesic_cases=len(pairs), route_cases=len(routes),
+                         ecef_roundtrips=len(points), max_distance_difference_m=max_distance,
+                         max_route_segment_difference_m=max_route_segment,
+                         max_route_total_difference_m=max_route_total,
+                         max_bearing_difference_deg=max_bearing, max_ecef_difference_m=max_ecef,
+                         max_inverse_lat_difference_deg=max_lat,
                          max_inverse_height_difference_m=max_height), indent=2))
 
 

@@ -40,6 +40,12 @@ jobs:
           test -s backend/tests/test_phase4_reference_api.py
           test -s frontend/src/reference/ReferenceGlobe.tsx
           test -s frontend/src/reference/GeodesicInspector.tsx
+          test -s frontend/src/measurement/wgs84RouteDistance.ts
+          test -s frontend/src/measurement/Wgs84RouteDistancePanel.tsx
+          test -s frontend/src/measurement/routeGuide.ts
+          test -s frontend/tests/wgs84-route-distance.test.mjs
+          test -s frontend/tests/route-guide.test.mjs
+          test -s backend/tests/test_phase6_wgs84_route_distance.py
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
@@ -47,6 +53,7 @@ jobs:
           test -s docs/PHASE_5_ACCEPTANCE_PACKAGE.json
           test -s docs/PHASE_5_ACCEPTANCE.md
           test -s docs/PHASE_5_P5_9_REPORT.md
+          test -s docs/PHASE_6_P6_3_REPORT.md
           test -s scripts/check_phase5_acceptance_package.py
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
@@ -132,6 +139,8 @@ jobs:
           jq -e '.semantic_type=="REFERENCE_RESULT" and .operation=="geodetic_to_ecef" and (.output.x_m>6378136.999 and .output.x_m<6378137.001) and (.output.y_m|fabs)<0.001 and (.output.z_m|fabs)<0.001' /tmp/ecef.json
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodesic-inverse -H 'content-type: application/json' -d '{"start":{"latitude":0,"longitude":179,"ellipsoidal_height_m":0},"end":{"latitude":0,"longitude":-179,"ellipsoidal_height_m":0}}' >/tmp/anti.json
           jq -e '.semantic_type=="REFERENCE_RESULT" and (.output.distance_m>222638.98 and .output.distance_m<222638.99) and (.output.initial_bearing_deg==90)' /tmp/anti.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"route-point-1","latitude":0,"longitude":0},{"point_id":"route-point-2","latitude":0,"longitude":1},{"point_id":"route-point-3","latitude":0,"longitude":2}]}' >/tmp/wgs84-route.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and .operation=="wgs84_route_distance" and .output.method_id=="wgs84-geodesic" and .output.unit=="metre" and .output.path_semantics=="open-polyline" and .output.segment_count==2 and (.output.total_distance_m>222638.98 and .output.total_distance_m<222638.99) and (.output.segments|length)==2' /tmp/wgs84-route.json
           status="$(curl --silent --output /tmp/invalid-reference.json --write-out '%{http_code}' -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":181,"ellipsoidal_height_m":0}')"
           test "$status" = "422"
       - name: Verify Phase 3 PostGIS catalog schema

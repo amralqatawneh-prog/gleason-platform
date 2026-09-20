@@ -20,6 +20,7 @@ import { type Phase5RestoreStatus } from './comparison/statePersistence';
 import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
 import { OrderedRoutePanel } from './measurement/OrderedRoutePanel';
 import { INITIAL_ORDERED_ROUTE_STATE, orderedRouteReducer } from './measurement/routeState';
+import { Wgs84RouteDistancePanel } from './measurement/Wgs84RouteDistancePanel';
 
 export default function App() {
   const [locale,setLocale]=useState<Locale>('ar');
@@ -92,6 +93,10 @@ export default function App() {
     longitude:selection.point.longitude,
     label:selectedPlaceName,
   }:null;
+  const routeGeoPoints=useMemo(
+    ()=>routeState.points.map(item=>({latitude:item.endpoint.point.latitude,longitude:item.endpoint.point.longitude})),
+    [routeState.points],
+  );
 
   return <div className="app-shell" dir={direction} data-selection-revision={revision} data-persistence-status={persistenceStatus} data-route-map-add-mode={routePickMode?'true':'false'}>
     <header className="topbar"><div className="brand"><span className="brand-mark">◎</span><div><h1>{t.title}</h1><p>{t.subtitle} · {RELEASE_NAME}</p></div></div><div className="top-actions"><span className={`status-dot ${online?'ok':'warn'}`}>{online?t.online:t.offlineNow}</span><span className="status-dot">API: {serverState}</span><button className="secondary" onClick={()=>setLocale(locale==='ar'?'en':'ar')}>{locale==='ar'?'English':'العربية'}</button></div></header>
@@ -103,11 +108,12 @@ export default function App() {
         <section className="phase-card"><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div><div className="model-key"><span className="dot reference"/>WGS84 Reference <small>REFERENCE_RESULT</small></div></section>
       </aside>
       <main className="phase2-main">
-        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>handlePoint('wgs84',point)}/></section>
+        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints} onPoint={(point)=>handlePoint('wgs84',point)}/></section>
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
         <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute} mapAddMode={routePickMode} onMapAddModeChange={setRoutePickMode}/>
+        <Wgs84RouteDistancePanel locale={locale} state={routeState}/>
         <ModelLaboratory locale={locale} selection={selection}/>
-        <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/></div><SourceViewer locale={locale}/>
+        <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/></div><SourceViewer locale={locale}/>
       </main>
       <aside className="inspector"><h2>{locale==='ar'?'المفتش الجغرافي':'Geographic inspector'}</h2>{selection?<dl><Metric label={locale==='ar'?'النموذج':'Model'} value={selection.model}/><Metric label="Latitude" value={selection.point.latitude.toFixed(6)}/><Metric label="Longitude" value={selection.point.longitude.toFixed(6)}/><Metric label={locale==='ar'?'الحالة':'Status'} value={selection.model==='wgs84'?'WGS84 reference selection ✓':'local inverse ✓'}/></dl>:<p className="muted">{locale==='ar'?'انقر داخل العرض المرجعي أو اختر مكانًا من البحث.':'Click the reference view or select a place from search.'}</p>}{selectedPlace&&<div className="notice place-provenance"><strong>{selectedPlaceName}</strong><span>ID: {selectedPlace.id}</span><span>{selectedPlace.category} · {selectedPlace.countryCode??'—'}</span><span>{locale==='ar'?'المصدر':'Source'}: {selectedPlace.sourceLabel}</span><span>{locale==='ar'?'معرّف المصدر':'Source ID'}: {selectedPlace.sourceId}</span><span>{locale==='ar'?'سجل المصدر':'Source record'}: {selectedPlace.sourceRecordId}</span><span>{locale==='ar'?'إصدار المصدر':'Source version'}: {selectedPlace.sourceVersion??(locale==='ar'?'غير معروف':'Unknown')}</span><span>{locale==='ar'?'نوع الإحداثيات':'Coordinate classification'}: {selectedPlace.coordinateClassification??(locale==='ar'?'غير موثّق في الحزمة القديمة':'Unknown in legacy pack')}</span><span>{locale==='ar'?'الترخيص':'License'}: {selectedPlace.sourceLicense??'—'}</span>{selectedPlace.sourceUrl&&/^https?:\/\//i.test(selectedPlace.sourceUrl)&&<a href={selectedPlace.sourceUrl} target="_blank" rel="noreferrer">{locale==='ar'?'رابط المصدر':'Source link'}</a>}<span>{selectedPlace.offline?'OFFLINE canonical record':'ONLINE canonical record'}</span></div>}<div className="notice persistence-status" data-phase5-persistence-status={persistenceStatus}><strong>{locale==='ar'?'حفظ حالة المرحلة الخامسة':'Phase 5 state persistence'}</strong><span>{locale==='ar'
   ? persistenceStatus==='loading'?'جارٍ استعادة الحالة المحلية…'
@@ -127,7 +133,7 @@ export default function App() {
     : persistenceStatus==='save-error'?'The current local state could not be saved.'
     :'No previous saved state.'}</span></div><div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>PLACE SOURCE PROVENANCE ≠ REFERENCE_RESULT</span></div><div className="notice"><strong>{locale==='ar'?'طبقات محلية':'Offline layers'}</strong><span>Natural Earth / Phase 3 cached indexes · {globePlaces.length} features</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.webgl2?'WebGL2 3D':'2D fallback'} · {capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.2 حالة المسار المرتب':'Phase 6 — P6.2 ordered route state'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
+    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.3 مسطرة ومسافة WGS84':'Phase 6 — P6.3 WGS84 ruler / distance'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
   </div>;
 }
 function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}

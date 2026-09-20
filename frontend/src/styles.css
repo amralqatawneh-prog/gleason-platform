@@ -39,3 +39,33 @@
   .ordered-route-point__actions{justify-content:flex-start}
   .ordered-route-actions>button{flex:1 1 auto}
 }
+
+.wgs84-route-distance-panel{padding:18px;border-bottom:1px solid var(--line);background:#081927}
+.wgs84-route-distance-empty{margin:14px 0 0}
+.wgs84-route-distance-result{display:grid;gap:12px;margin-top:14px}
+.wgs84-route-distance-total{display:grid;gap:4px;padding:13px;border:1px solid #365d4b;border-radius:10px;background:#0b1c24}
+.wgs84-route-distance-total>span,.wgs84-route-distance-total>small{color:var(--muted);font-size:10px}
+.wgs84-route-distance-total>strong{font-size:20px;font-variant-numeric:tabular-nums}
+.wgs84-route-distance-meta{display:flex;gap:8px;flex-wrap:wrap}
+.wgs84-route-distance-meta>span{padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0b1825;color:#cbd9e3;font-size:10px;overflow-wrap:anywhere}
+.wgs84-route-distance-segments{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.wgs84-route-distance-segment{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#0b1825;font-size:10px}
+.wgs84-route-distance-segment>span{font-variant-numeric:tabular-nums;color:#b9f6ce}
+.wgs84-route-distance-segment>small{min-width:0;color:var(--muted);overflow-wrap:anywhere;text-align:end}
+.wgs84-route-distance-provenance{margin-top:0}
+.wgs84-route-distance-error{border-color:#6c5639}
+@media(max-width:560px){
+  .wgs84-route-distance-panel{padding:12px 8px}
+  .wgs84-route-distance-segment{grid-template-columns:1fr auto}
+  .wgs84-route-distance-segment>small{grid-column:1/-1;text-align:start}
+}
+
+.reference-route-guide-label-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.reference-route-guide-label{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:22px;height:22px;border:2px solid #f4c95d;border-radius:50%;background:#07111c;color:#fff4c7;font-size:10px;font-weight:800;box-shadow:0 0 0 2px rgba(7,17,28,.7)}
+.reference-route-guide-line{fill:none;stroke:#f4c95d;stroke-width:1.5;stroke-dasharray:5 3;vector-effect:non-scaling-stroke;pointer-events:none}
+.reference-route-guide-point{pointer-events:none}.reference-route-guide-point circle{fill:#07111c;stroke:#f4c95d;stroke-width:1.2;vector-effect:non-scaling-stroke}.reference-route-guide-point text{fill:#fff4c7;stroke:#07111c;stroke-width:.7;paint-order:stroke;font-weight:800}
+.route-guide-notice{border-color:#6c5b2f;background:#18170f}
+
+.projection-map{cursor:grab;touch-action:none}
+.projection-map:active{cursor:grabbing}
+.projection-map.zoom-area-mode,.projection-map.zoom-area-mode:active{cursor:zoom-in!important}

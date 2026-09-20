@@ -12,6 +12,9 @@ from ...domain.reference import (
     ReferenceProvenance,
     ReferenceResult,
     WGS84GeodeticPoint,
+    WGS84RouteDistanceOutput,
+    WGS84RouteDistanceSegment,
+    WGS84RoutePoint,
 )
 
 
@@ -153,6 +156,60 @@ class WGS84ReferenceProvider:
                 algorithm="PROJ CRS transformation EPSG:4978 -> EPSG:4979",
                 units={"input": "metres", "output_angles": "degrees", "output_height": "metres"},
                 notes=["Output height is ellipsoidal height, not orthometric height."],
+            ),
+        )
+
+
+    def route_distance(
+        self,
+        route_id: str,
+        points: list[WGS84RoutePoint],
+    ) -> ReferenceResult:
+        """Compute adjacent WGS84 geodesic segments for an open polyline."""
+
+        segments: list[WGS84RouteDistanceSegment] = []
+        distances: list[float] = []
+        for index, (start, end) in enumerate(zip(points, points[1:])):
+            _azimuth_forward, _azimuth_back, distance_m = self._geod.inv(
+                start.longitude,
+                start.latitude,
+                end.longitude,
+                end.latitude,
+            )
+            distance = 0.0 if math.isclose(distance_m, 0.0, abs_tol=1e-9) else float(distance_m)
+            distances.append(distance)
+            segments.append(
+                WGS84RouteDistanceSegment(
+                    segment_id=f"route-segment:{start.point_id}->{end.point_id}",
+                    index=index,
+                    from_point_id=start.point_id,
+                    to_point_id=end.point_id,
+                    distance_m=distance,
+                )
+            )
+
+        output = WGS84RouteDistanceOutput(
+            segment_count=len(segments),
+            total_distance_m=math.fsum(distances),
+            segments=segments,
+        )
+        return ReferenceResult(
+            operation="wgs84_route_distance",
+            input={
+                "route_id": route_id,
+                "points": [point.model_dump() for point in points],
+            },
+            output=output.model_dump(),
+            provenance=self._provenance(
+                operation="wgs84_route_distance",
+                algorithm="PROJ Geod.inv WGS84 ellipsoidal geodesic per adjacent open-polyline segment",
+                units={"distance": "metres"},
+                notes=[
+                    "P6.3 path semantics are an open polyline: only adjacent ordered points are summed.",
+                    "Surface geodesic distance uses latitude/longitude only; no unknown height is invented.",
+                    "Repeated coordinates are valid and contribute a zero-length segment.",
+                    "This is not a road, flight, AE projected-plane, or Gleason-native route distance.",
+                ],
             ),
         )
 

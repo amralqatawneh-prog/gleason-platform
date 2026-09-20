@@ -10,10 +10,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration base: `main`.
-- PR **#17**: **MERGED** into `main` with explicit owner authorization on 2026-09-20.
-- PR #17 merge commit / current integration baseline:
-  `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`.
-- Release Acceptance Gates **#558 — SUCCESS** on that exact post-merge `main` baseline.
+- PR **#18**: **MERGED** into `main` with explicit owner authorization on 2026-09-20.
+- PR #18 merge commit / current integration baseline:
+  `645a27c5ea92febd78c3bdd823281ff496a742b3`.
+- Release Acceptance Gates **#561 — SUCCESS** on that exact post-merge `main` baseline.
+- PR **#17**: **MERGED** into `main` at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
 - PR **#16**: **MERGED** into `main` at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; CI #554 SUCCESS.
 - PR **#15**: **MERGED** into `main` with explicit owner authorization on 2026-09-20 at `143532248f707380b980e787051e7decc3c91086`; CI #530 SUCCESS.
 - PR **#14**: **MERGED** into `main` at `3e5afcd9b95766bd18af59df88c9154f51567e8c`; CI #517 SUCCESS.
@@ -24,7 +25,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
-- Current documentation sync branch: `docs/post-pr17-github-sync`; P6.3 implementation has not started.
+- Active development branch: `feat/phase6-p6-3-wgs84-distance`.
 - Latest closed slice: **P6.2 — Ordered Route State**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
@@ -32,12 +33,18 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.2 owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
 - P6.2 direct-map / >3-points refinement retest: **PASS — REPORTED BY OWNER**.
 - P6.2 supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
-- P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**.
-- PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created, and P6.3 remains NOT STARTED.
+- P6.3 — WGS84 Ruler / Distance is **AWAITING STRAIGHT-LINE OWNER RETEST**. Base manual checklist is 6/6 PASS; the first route-guide refinement targeted retest is 5/5 PASS; exact straight Gleason/AE segments have now passed automated verification.
+- P6.3 start baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; CI #561 SUCCESS.
+- P6.3 final pre-refinement implementation head: `06f2397f63648d879d6271064f3297608a59c333`; Release Acceptance Gates **#565 — SUCCESS**; **20/20 browser acceptance tests PASS**.
+- P6.3 owner manual verification: **6/6 PASS — REPORTED BY OWNER**; backend-stop browser-local GeographicLib fallback also **PASS — REPORTED BY OWNER**.
+- CI #572: **SUCCESS** on the documentation head tested before the visual refinement.
+- First route-guide refinement head `483b123277f62e219937298b4fb7ca104809d420` passed CI #587; current pre-retest head `df9227a831e4b90940cea70dde902f64684a0bf4` passed CI #595; owner reported targeted route-guide retest 5/5 PASS and repeated backend-stop line/fallback PASS.
+- Current owner-requested refinement: on Gleason and AE only, each adjacent route segment is rendered as one exact straight projected line between the two endpoints, with no intermediate samples. Straight-line head `f837f8af9c56309156540f28cdf5e60456642b69` passed Release Acceptance Gates **#607 — SUCCESS**. WGS84 rendering stays unchanged. This remains visual-only and P6.7 stays NOT STARTED; targeted straight-line owner retest is NOT RUN.
+- PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created. P6.3 remains open only for the owner-requested visual refinement; P6.4 is NOT STARTED.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 and P6.2 are CLOSED; P6.3 remains NOT STARTED.
+- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 and P6.2 are CLOSED; P6.3 is IN PROGRESS; P6.4 remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -46,6 +53,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
 - Post-PR16 reconciliation: `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md`.
 - Post-PR17 GitHub state sync: `docs/POST_PR17_GITHUB_SYNC_2026-09-20.md`.
+- Active P6.3 report: `docs/PHASE_6_P6_3_REPORT.md`.
 
 Historical Phase 4 commits, PR #8, CI runs and correction evidence remain below as
 chronological evidence. They do not override this current snapshot.
@@ -913,3 +921,52 @@ This is the current status update after the historical acceptance sections above
 - No tag or GitHub Release exists; deployment remains separately authorized.
 - Historical statements that PR #13 was unmerged are retained as dated evidence
   of the state at the time they were written and do not override this snapshot.
+
+
+## P6.3 latest owner refinement — 2026-09-20
+
+Owner reported the straight-line retest **4/4 PASS** on the current P6.3 branch.
+The next same-slice refinement is now in progress:
+
+- Gleason + AE: explicit free pan using mouse drag or touch;
+- WGS84: display-only spherical Great Circle reference between adjacent route
+  points;
+- numeric WGS84 distance remains the existing ellipsoidal geodesic result;
+- Great Circle visualization must not be represented as observed flight data;
+- P6.4 and P6.7 remain NOT STARTED;
+- PR #19 remains unmerged.
+
+
+### P6.3 pan + Great Circle automated result
+
+- implementation/documentation head:
+  `f67a69c78547330f273fc65bf3de4bb7379a09bf`
+- Release Acceptance Gates **#627 — SUCCESS**
+- Gleason + AE: explicit free pan by mouse drag or touch input
+- WGS84: display-only spherical Great Circle reference
+- numeric WGS84 identity remains `wgs84-geodesic`
+- observed/live flight-track claim remains false
+- owner targeted retest: **NOT RUN**
+- P6.4/P6.7: NOT STARTED
+- PR #19: unmerged
+
+
+## P6.3 final closure — 2026-09-20
+
+P6.3 is **CLOSED** after:
+- base manual 6/6 PASS;
+- route-guide targeted retest 5/5 PASS;
+- straight-line targeted retest 4/4 PASS;
+- pan + Great Circle targeted retest 6/6 PASS;
+- pre-closure Release Acceptance Gates #635 SUCCESS on
+  `746e71b261747132bec49f33348cd42870092643`.
+
+The final closure-documentation head is subject to one complete Release Acceptance
+Gates run. No merge is implied by closure.
+
+Current boundaries:
+- P6.3 CLOSED;
+- P6.4 NOT STARTED;
+- P6.7 NOT STARTED;
+- PR #19 OPEN / DRAFT / UNMERGED;
+- no tag / GitHub Release / deployment.

@@ -1,5 +1,35 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.3 WGS84 Ruler / Distance (2026-09-20)
+
+- Owner explicitly instructed **«ابدأ في الخطوة P6.3»**.
+- Start from verified `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; post-PR18 Release Acceptance Gates #561 SUCCESS.
+- Add authoritative backend WGS84 open-polyline distance using pyproj/PROJ per adjacent segment.
+- Add independent offline/browser WGS84 distance using `geographiclib-geodesic 2.2.0`.
+- Add live segment and total ruler UI bound to transient P6.2 ordered route state.
+- Preserve method identity `wgs84-geodesic`, contract unit `metre`, scale basis `wgs84-ellipsoid`, semantic type `REFERENCE_RESULT`.
+- Do not fabricate unknown height in P6.3 route inputs.
+- Add backend/API/core/browser/parity coverage for antimeridian, near-polar, repeated, reversed and invalid routes.
+- Keep route drawing/provider paths, AE/Gleason distance, perimeter/area and persistence unavailable for later slices.
+- Final pre-refinement implementation head `06f2397f63648d879d6271064f3297608a59c333` passed Release Acceptance Gates **#565 — SUCCESS**, including **20/20 Chromium acceptance tests** and the Docker P6.3 API smoke test.
+- Owner reported the P6.3 manual checklist **6/6 PASS** and additionally confirmed browser-local GeographicLib distance works after stopping the backend and restarting it afterward.
+- Documentation head `a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9` passed Release Acceptance Gates **#572 — SUCCESS**.
+- Owner-requested same-slice refinement: add a **visual-only** ordered route guide line and A/B/C markers to WGS84, Gleason and AE.
+- The guide does not alter `wgs84-geodesic` computation identity and does not enable provider routes or start P6.7.
+- Route-guide refinement head `483b123277f62e219937298b4fb7ca104809d420` passed Release Acceptance Gates **#587 — SUCCESS** including 20/20 Chromium acceptance tests.
+- Current route-guide documentation head `df9227a831e4b90940cea70dde902f64684a0bf4` passed Release Acceptance Gates **#595 — SUCCESS**.
+- Owner reported targeted route-guide refinement **5/5 PASS** and repeated backend-stop line/browser-local fallback **PASS**.
+- Owner-requested second same-slice refinement: on Gleason and AE, each route segment is now one exact straight projected chord using only the two projected endpoints; WGS84 visualization is unchanged.
+- Straight-line implementation head `f837f8af9c56309156540f28cdf5e60456642b69` passed Release Acceptance Gates **#607 — SUCCESS**.
+- Straight-line refinement retest: **4/4 PASS — REPORTED BY OWNER**.
+- Owner-requested next P6.3 refinement: explicit mouse/touch free pan on Gleason/AE and Great Circle reference rendering on the WGS84 globe.
+- Numeric WGS84 distance remains `wgs84-geodesic`; Great Circle rendering is visual-only and is not observed flight-track data.
+- Pan/great-circle implementation/documentation head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed Release Acceptance Gates **#627 — SUCCESS**.
+- Pan/great-circle targeted retest: **6/6 PASS — REPORTED BY OWNER**.
+- Pre-closure head `746e71b261747132bec49f33348cd42870092643` passed Release Acceptance Gates **#635 — SUCCESS**.
+- P6.3 is now **CLOSED**; P6.4 remains **NOT STARTED**; PR #19 remains unmerged pending separate owner authorization.
+- P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
+
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
 
 - PR #17 was separately authorized and **MERGED** into `main`.

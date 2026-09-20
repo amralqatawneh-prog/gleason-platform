@@ -51,12 +51,12 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.1", "previous Phase 6 slice must be P6.1")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.1 must remain closed")
-require(phase6_start.get("current_slice") == "P6.2", "current Phase 6 slice must be P6.2")
-require(phase6_start.get("current_slice_status") == "closed", "P6.2 must be closed")
-require(phase6_start.get("next_slice") == "P6.3", "next Phase 6 slice must be P6.3")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.3 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.2", "previous Phase 6 slice must be P6.2")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.2 must remain closed")
+require(phase6_start.get("current_slice") == "P6.3", "current Phase 6 slice must be P6.3")
+require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice status must be closed")
+require(phase6_start.get("next_slice") == "P6.4", "next Phase 6 slice must be P6.4")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
 p6_2_start = phase6_start.get("p6_2_start", {})
 require(p6_2_start.get("decision") == "continued-by-owner", "P6.2 owner continuation evidence missing")
 require(
@@ -194,10 +194,31 @@ require(
     merge_boundary.get("pr17_post_merge_main_ci_conclusion") == "success",
     "PR #17 post-merge CI #558 must remain success",
 )
+require(merge_boundary.get("pr18") == "merged", "PR #18 current status must be merged")
+require(
+    merge_boundary.get("pr18_merge_commit")
+    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "PR #18 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr18_final_head")
+    == "04119500ec3d4895478d76ae5c878fa30fa44354",
+    "PR #18 final head drifted",
+)
+require(merge_boundary.get("pr18_pre_merge_ci_run") == 560, "PR #18 pre-merge CI must be #560")
+require(
+    merge_boundary.get("pr18_pre_merge_ci_conclusion") == "success",
+    "PR #18 pre-merge CI #560 must remain success",
+)
+require(merge_boundary.get("pr18_post_merge_main_ci_run") == 561, "PR #18 post-merge CI must be #561")
+require(
+    merge_boundary.get("pr18_post_merge_main_ci_conclusion") == "success",
+    "PR #18 post-merge CI #561 must remain success",
+)
 require(
     merge_boundary.get("current_integration_baseline")
-    == "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
-    "current integration baseline must be the PR #17 merge commit",
+    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "current integration baseline must be the PR #18 merge commit",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
@@ -221,6 +242,165 @@ require(
 require(post_pr17_sync.get("baseline_ci_run") == 558, "post-PR17 GitHub sync baseline CI must be #558")
 require(post_pr17_sync.get("baseline_ci_conclusion") == "success", "post-PR17 GitHub sync baseline CI #558 must remain success")
 require(post_pr17_sync.get("p6_3_status") == "not_started", "P6.3 must remain not_started during post-PR17 sync")
+p6_3_start = phase6_start.get("p6_3_start", {})
+require(p6_3_start.get("decision") == "started-by-owner", "P6.3 explicit owner start evidence missing")
+require(
+    p6_3_start.get("baseline_commit") == "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "P6.3 baseline commit drifted",
+)
+require(p6_3_start.get("baseline_ci_run") == 561, "P6.3 baseline CI must be #561")
+require(p6_3_start.get("baseline_ci_conclusion") == "success", "P6.3 baseline CI #561 must remain success")
+require(p6_3_start.get("branch") == "feat/phase6-p6-3-wgs84-distance", "P6.3 branch drifted")
+require(
+    p6_3_start.get("manual_status") == "pass-reported-by-owner",
+    "P6.3 owner manual result must be recorded",
+)
+p6_3_owner_manual = phase6_start.get("p6_3_owner_manual", {})
+require(p6_3_owner_manual.get("result") == "pass-reported-by-owner", "P6.3 owner manual PASS evidence missing")
+require(p6_3_owner_manual.get("checklist_items_passed") == 6, "P6.3 must record 6/6 owner manual checks")
+require(p6_3_owner_manual.get("pre_manual_ci_run") == 572, "P6.3 manual verification must follow CI #572")
+require(p6_3_owner_manual.get("pre_manual_ci_conclusion") == "success", "P6.3 pre-manual CI #572 must remain success")
+require(
+    p6_3_owner_manual.get("offline_backend_fallback") == "pass-reported-by-owner",
+    "P6.3 offline backend-fallback owner test must be recorded",
+)
+p6_3_automated = phase6_start.get("p6_3_automated", {})
+require(
+    p6_3_automated.get("implementation_head") == "06f2397f63648d879d6271064f3297608a59c333",
+    "P6.3 automated implementation head drifted",
+)
+require(p6_3_automated.get("ci_run") == 565, "P6.3 automated CI must be #565")
+require(p6_3_automated.get("ci_conclusion") == "success", "P6.3 automated CI #565 must remain success")
+require(p6_3_automated.get("browser_acceptance_tests_passed") == 20, "P6.3 browser acceptance count must be 20")
+p6_3_refinement = phase6_start.get("p6_3_refinement", {})
+require(
+    p6_3_refinement.get("decision") == "requested-by-owner-after-manual-pass",
+    "P6.3 route-guide refinement owner request evidence missing",
+)
+require(
+    p6_3_refinement.get("status") == "awaiting-owner-retest",
+    "P6.3 route-guide refinement historical status drifted",
+)
+require(
+    p6_3_refinement.get("automated_head") == "483b123277f62e219937298b4fb7ca104809d420",
+    "P6.3 route-guide automated head drifted",
+)
+require(p6_3_refinement.get("ci_run") == 587, "P6.3 route-guide CI must be #587")
+require(
+    p6_3_refinement.get("ci_conclusion") == "success",
+    "P6.3 route-guide CI #587 must remain success",
+)
+require(
+    p6_3_refinement.get("browser_acceptance_tests_passed") == 20,
+    "P6.3 route-guide browser acceptance count must be 20",
+)
+require(
+    p6_3_refinement.get("computation_identity") == "visual-only",
+    "P6.3 route-guide refinement must remain visual-only",
+)
+require(p6_3_refinement.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(
+    p6_3_refinement.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 route-guide targeted owner retest PASS evidence missing",
+)
+require(p6_3_refinement.get("targeted_manual_items_passed") == 5, "P6.3 route-guide targeted retest must record 5/5")
+require(
+    p6_3_refinement.get("offline_backend_fallback_retest") == "pass-reported-by-owner",
+    "P6.3 route-guide offline fallback retest evidence missing",
+)
+require(p6_3_refinement.get("pre_retest_ci_run") == 595, "P6.3 route-guide owner retest must follow CI #595")
+require(
+    p6_3_refinement.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 route-guide pre-retest CI #595 must remain success",
+)
+p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
+require(
+    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress", "awaiting-pan-great-circle-retest", "closed"},
+    "P6.3 status must remain in the active refinement lifecycle",
+)
+require(
+    p6_3_straight.get("decision") == "requested-by-owner-after-route-guide-retest-pass",
+    "P6.3 straight-line refinement owner request evidence missing",
+)
+require(
+    p6_3_straight.get("status") == "awaiting-owner-retest",
+    "P6.3 straight-line refinement must await owner retest",
+)
+require(
+    p6_3_straight.get("automated_head") == "f837f8af9c56309156540f28cdf5e60456642b69",
+    "P6.3 straight-line automated head drifted",
+)
+require(p6_3_straight.get("ci_run") == 607, "P6.3 straight-line CI must be #607")
+require(
+    p6_3_straight.get("ci_conclusion") == "success",
+    "P6.3 straight-line CI #607 must remain success",
+)
+require(
+    p6_3_straight.get("geometry_semantics") == "straight-projected-segment",
+    "P6.3 flat-model guide must use straight projected segments",
+)
+require(
+    p6_3_straight.get("computation_identity") == "visual-only",
+    "P6.3 straight-line refinement must remain visual-only",
+)
+require(p6_3_straight.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(
+    p6_3_straight.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 straight-line targeted owner retest PASS evidence missing",
+)
+require(p6_3_straight.get("targeted_manual_items_passed") == 4, "P6.3 straight-line targeted retest must record 4/4")
+require(p6_3_straight.get("pre_retest_ci_run") == 614, "P6.3 straight-line owner retest must follow CI #614")
+require(
+    p6_3_straight.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 straight-line pre-retest CI #614 must remain success",
+)
+p6_3_pan_gc = phase6_start.get("p6_3_pan_great_circle_refinement", {})
+require(
+    phase6_start.get("p6_3_status") == "closed",
+    "P6.3 must be closed after final owner retest",
+)
+require(
+    p6_3_pan_gc.get("decision") == "requested-by-owner-after-straight-line-retest-pass",
+    "P6.3 pan/great-circle refinement owner request evidence missing",
+)
+require(
+    p6_3_pan_gc.get("status") == "awaiting-owner-retest",
+    "P6.3 pan/great-circle refinement must await owner retest",
+)
+require(
+    p6_3_pan_gc.get("automated_head") == "f67a69c78547330f273fc65bf3de4bb7379a09bf",
+    "P6.3 pan/great-circle automated head drifted",
+)
+require(p6_3_pan_gc.get("ci_run") == 627, "P6.3 pan/great-circle CI must be #627")
+require(
+    p6_3_pan_gc.get("ci_conclusion") == "success",
+    "P6.3 pan/great-circle CI #627 must remain success",
+)
+require(
+    p6_3_pan_gc.get("wgs84_numeric_identity") == "wgs84-geodesic",
+    "P6.3 numeric WGS84 identity must remain wgs84-geodesic",
+)
+require(p6_3_pan_gc.get("observed_flight_track") is False, "P6.3 must not claim observed flight-track data")
+require(p6_3_pan_gc.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(
+    p6_3_pan_gc.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 pan/great-circle targeted owner retest PASS evidence missing",
+)
+require(p6_3_pan_gc.get("targeted_manual_items_passed") == 6, "P6.3 pan/great-circle targeted retest must record 6/6")
+require(p6_3_pan_gc.get("pre_retest_ci_run") == 635, "P6.3 pan/great-circle owner retest must follow CI #635")
+require(
+    p6_3_pan_gc.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 pan/great-circle pre-retest CI #635 must remain success",
+)
+require(
+    p6_3_pan_gc.get("result") == "closed-by-owner-verification",
+    "P6.3 pan/great-circle refinement closure evidence missing",
+)
+require(phase6_start.get("current_slice") == "P6.3", "Phase 6 current slice must remain P6.3 at closure")
+require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice must be closed")
+require(phase6_start.get("next_slice") == "P6.4", "Phase 6 next slice must remain P6.4")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
+
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
@@ -390,11 +570,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.1",
+            "phase6_previous_slice": "P6.2",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.2",
+            "phase6_current_slice": "P6.3",
             "phase6_current_slice_status": "closed",
-            "phase6_next_slice": "P6.3",
+            "phase6_next_slice": "P6.4",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,

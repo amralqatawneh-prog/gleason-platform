@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "P6.2 provides transient ordered geographic route-point state only; route drawing/provider paths and numeric distance/ruler/perimeter/area engines remain unavailable."
+      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance only. Route drawing/provider paths, AE/Gleason numeric distance, perimeter and area remain unavailable."
     },
     {
       "id": "camera-states-independent",
@@ -154,14 +154,21 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "current_integration_baseline": "645a27c5ea92febd78c3bdd823281ff496a742b3",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
     "pr17_pre_merge_ci_run": 557,
     "pr17_pre_merge_ci_conclusion": "success",
     "pr17_post_merge_main_ci_run": 558,
-    "pr17_post_merge_main_ci_conclusion": "success"
+    "pr17_post_merge_main_ci_conclusion": "success",
+    "pr18": "merged",
+    "pr18_merge_commit": "645a27c5ea92febd78c3bdd823281ff496a742b3",
+    "pr18_final_head": "04119500ec3d4895478d76ae5c878fa30fa44354",
+    "pr18_pre_merge_ci_run": 560,
+    "pr18_pre_merge_ci_conclusion": "success",
+    "pr18_post_merge_main_ci_run": 561,
+    "pr18_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -197,18 +204,18 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.2",
+    "current_slice": "P6.3",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
     "current_slice_status": "closed",
-    "next_slice": "P6.3",
+    "next_slice": "P6.4",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
       "checklist_items_passed": 5
     },
-    "previous_slice": "P6.1",
+    "previous_slice": "P6.2",
     "previous_slice_status": "closed",
     "p6_2_start": {
       "date": "2026-09-20",
@@ -244,6 +251,97 @@
       "merge_commit": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
       "post_merge_ci_run": 554,
       "post_merge_ci_conclusion": "success"
+    },
+    "p6_3_start": {
+      "date": "2026-09-20",
+      "owner_statement": "ابدأ في الخطوة P6.3",
+      "decision": "started-by-owner",
+      "baseline_commit": "645a27c5ea92febd78c3bdd823281ff496a742b3",
+      "baseline_ci_run": 561,
+      "baseline_ci_conclusion": "success",
+      "branch": "feat/phase6-p6-3-wgs84-distance",
+      "scope": "WGS84 geodesic distance for adjacent ordered route segments and open-polyline total only",
+      "manual_status": "pass-reported-by-owner"
+    },
+    "p6_3_automated": {
+      "implementation_head": "06f2397f63648d879d6271064f3297608a59c333",
+      "ci_run": 565,
+      "ci_conclusion": "success",
+      "prior_failed_ci_runs": [
+        562,
+        564
+      ],
+      "prior_failure_scope": "stale browser text expectations only; corrected before final success",
+      "browser_acceptance_tests_passed": 20,
+      "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
+    },
+    "p6_3_status": "closed",
+    "p6_3_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-20",
+      "checklist_items_passed": 6,
+      "tested_head": "a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9",
+      "pre_manual_ci_run": 572,
+      "pre_manual_ci_conclusion": "success",
+      "offline_backend_fallback": "pass-reported-by-owner",
+      "offline_fallback_detail": "Owner stopped backend, measured two points successfully with browser-local GeographicLib, then restarted backend."
+    },
+    "p6_3_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "Add a line on the map between the added points to clarify the route.",
+      "decision": "requested-by-owner-after-manual-pass",
+      "status": "awaiting-owner-retest",
+      "scope": "Display-only ordered route guide on WGS84, Gleason and AE views with A/B/C labels; no numeric or provider-route semantic change.",
+      "computation_identity": "visual-only",
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "pass-reported-by-owner",
+      "automated_head": "483b123277f62e219937298b4fb7ca104809d420",
+      "ci_run": 587,
+      "ci_conclusion": "success",
+      "browser_acceptance_tests_passed": 20,
+      "targeted_manual_items_passed": 5,
+      "offline_backend_fallback_retest": "pass-reported-by-owner",
+      "retested_head": "df9227a831e4b90940cea70dde902f64684a0bf4",
+      "pre_retest_ci_run": 595,
+      "pre_retest_ci_conclusion": "success"
+    },
+    "p6_3_straight_line_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "On the two flat Gleason-style views, make the drawn route line perfectly straight instead of curved.",
+      "decision": "requested-by-owner-after-route-guide-retest-pass",
+      "status": "awaiting-owner-retest",
+      "scope": "Use exactly one projected straight segment between each adjacent route-point pair on Gleason and AE; keep WGS84 visualization unchanged.",
+      "geometry_semantics": "straight-projected-segment",
+      "computation_identity": "visual-only",
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "pass-reported-by-owner",
+      "automated_head": "f837f8af9c56309156540f28cdf5e60456642b69",
+      "ci_run": 607,
+      "ci_conclusion": "success",
+      "targeted_manual_items_passed": 4,
+      "retested_head": "12b4e1639f742052a376e9aa392dafa7855708e1",
+      "pre_retest_ci_run": 614,
+      "pre_retest_ci_conclusion": "success"
+    },
+    "p6_3_pan_great_circle_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "Enable free mouse/touch panning on both flat models and make the WGS84 curved route follow a Great Circle reference.",
+      "decision": "requested-by-owner-after-straight-line-retest-pass",
+      "status": "awaiting-owner-retest",
+      "flat_navigation_scope": "Explicit drag pan in all directions on Gleason and AE using mouse or touch; area-zoom temporarily disables pan.",
+      "wgs84_visual_scope": "Display-only spherical great-circle reference between adjacent ordered points.",
+      "wgs84_numeric_identity": "wgs84-geodesic",
+      "observed_flight_track": false,
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "pass-reported-by-owner",
+      "automated_head": "f67a69c78547330f273fc65bf3de4bb7379a09bf",
+      "ci_run": 627,
+      "ci_conclusion": "success",
+      "targeted_manual_items_passed": 6,
+      "retested_head": "746e71b261747132bec49f33348cd42870092643",
+      "pre_retest_ci_run": 635,
+      "pre_retest_ci_conclusion": "success",
+      "result": "closed-by-owner-verification"
     }
   },
   "post_pr16_merge_reconciliation": {

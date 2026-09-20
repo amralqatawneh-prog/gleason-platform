@@ -75,7 +75,29 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **NOT STARTED**.
+Status: **CLOSED — base manual 6/6 PASS; route-guide 5/5 PASS; straight-line 4/4 PASS; pan/great-circle 6/6 PASS**.
+
+Start baseline:
+- `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
+- Release Acceptance Gates #561: **SUCCESS**
+- branch: `feat/phase6-p6-3-wgs84-distance`
+- final implementation head: `06f2397f63648d879d6271064f3297608a59c333`
+- Release Acceptance Gates #565: **SUCCESS**
+- browser acceptance: **20/20 PASS**
+- owner manual verification: **6/6 PASS — REPORTED BY OWNER**
+- backend-stop browser-local fallback: **PASS — REPORTED BY OWNER**
+- pre-refinement documentation CI #572: **SUCCESS**
+- owner-requested refinement: visual-only route line + A/B/C markers on WGS84/Gleason/AE
+- route-guide refinement head: `483b123277f62e219937298b4fb7ca104809d420`
+- route-guide Release Acceptance Gates #587: **SUCCESS**
+- targeted route-guide owner retest: **5/5 PASS — REPORTED BY OWNER**
+- backend-stop line/fallback retest: **PASS — REPORTED BY OWNER**
+- pre-retest CI #595: **SUCCESS**
+- current refinement: exact straight projected route segments on Gleason/AE, no intermediate samples
+- straight-line implementation head: `f837f8af9c56309156540f28cdf5e60456642b69`
+- straight-line Release Acceptance Gates #607: **SUCCESS**
+- targeted straight-line owner retest: **NOT RUN**
+- P6.7 remains NOT STARTED
 
 Deliver:
 - WGS84 geodesic segment and open-polyline distance;
@@ -186,9 +208,32 @@ P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
 
 PR #16 merged at
 `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with post-merge CI #554 SUCCESS.
-The subsequent documentation reconciliation PR #17 merged to
-`main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8`, and post-merge Release
-Acceptance Gates **#558 — SUCCESS**.
+The subsequent documentation synchronization PR #18 merged to
+`main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`, and post-merge Release
+Acceptance Gates **#561 — SUCCESS**.
 
-P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**. No numeric P6.3 work
-starts automatically from P6.2 closure or from either documentation merge.
+The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 is now
+**IN PROGRESS** on `feat/phase6-p6-3-wgs84-distance`. P6.4 remains
+**NOT STARTED** and does not start automatically from P6.3 implementation.
+
+
+P6.3 current same-slice refinement:
+- mouse/touch free pan for Gleason and AE;
+- WGS84 Great Circle reference rendering;
+- numeric WGS84 geodesic unchanged;
+- no observed-flight-track claim;
+- P6.7 remains NOT STARTED.
+
+
+P6.3 pan/great-circle verification:
+- head `f67a69c78547330f273fc65bf3de4bb7379a09bf`
+- Release Acceptance Gates #627: **SUCCESS**
+- targeted owner retest: **NOT RUN**
+
+
+P6.3 closure:
+- final Pan/Great Circle owner retest: **6/6 PASS — REPORTED BY OWNER**
+- pre-closure CI #635: **SUCCESS**
+- slice state: **CLOSED**
+- P6.4: **NOT STARTED**
+- PR #19 remains unmerged pending separate authorization

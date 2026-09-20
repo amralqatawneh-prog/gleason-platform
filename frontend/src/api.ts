@@ -1,5 +1,11 @@
 /// <reference types="vite/client" />
 import { localGeodesicInverse, validateGeo } from './reference/offlineWgs84';
+import {
+  localWgs84RouteDistance,
+  validateWgs84RouteDistancePoints,
+  type Wgs84RouteDistancePoint,
+  type Wgs84RouteDistanceResult,
+} from './measurement/wgs84RouteDistance';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api/v1';
 
@@ -99,3 +105,26 @@ export async function geodesicInverse(start: ReferenceGeoInput, end: ReferenceGe
     return localGeodesicInverse(start, end);
   }
 }
+
+
+export async function wgs84RouteDistance(
+  pointsInput: readonly Wgs84RouteDistancePoint[],
+  routeId = 'transient-route',
+): Promise<Wgs84RouteDistanceResult> {
+  const points = validateWgs84RouteDistancePoints(pointsInput);
+  if (!navigator.onLine) return localWgs84RouteDistance(points, routeId);
+  try {
+    const response = await fetch(`${API_BASE}/reference/wgs84/route-distance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ route_id: routeId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`WGS84 route distance failed: ${response.status}`);
+    return await response.json() as Wgs84RouteDistanceResult;
+  } catch {
+    return localWgs84RouteDistance(points, routeId);
+  }
+}
+
+export type { Wgs84RouteDistancePoint, Wgs84RouteDistanceResult };
