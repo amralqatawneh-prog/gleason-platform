@@ -39,6 +39,7 @@
     "src/comparison/comparability.ts",
     "src/comparison/futureServices.ts",
     "src/comparison/homogeneousDifference.ts",
+    "src/measurement/*.ts",
     "src/reference/ellipsoidSurface.ts"
   ]
 }
