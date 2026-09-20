@@ -213,8 +213,10 @@ The subsequent documentation synchronization PR #18 merged to
 Acceptance Gates **#561 — SUCCESS**.
 
 The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 is now
-**IN PROGRESS** on `feat/phase6-p6-3-wgs84-distance`. P6.4 remains
-**NOT STARTED** and does not start automatically from P6.3 implementation.
+**CLOSED + MERGED** through PR #19. Final PR head
+`c775aac8a97a6782915782ed2118c3018cfe5a1a` passed CI #642; merge commit
+`4aac199646f3a899b45e241bf8995e8ba7c8f2a0` passed post-merge CI #643.
+P6.4 remains **NOT STARTED** and does not start automatically from P6.3 closure.
 
 
 P6.3 current same-slice refinement:
@@ -228,12 +230,15 @@ P6.3 current same-slice refinement:
 P6.3 pan/great-circle verification:
 - head `f67a69c78547330f273fc65bf3de4bb7379a09bf`
 - Release Acceptance Gates #627: **SUCCESS**
-- targeted owner retest: **NOT RUN**
+- targeted owner retest: **6/6 PASS — REPORTED BY OWNER**
 
 
-P6.3 closure:
+P6.3 closure / merge:
 - final Pan/Great Circle owner retest: **6/6 PASS — REPORTED BY OWNER**
 - pre-closure CI #635: **SUCCESS**
-- slice state: **CLOSED**
+- final closure head CI #642: **SUCCESS**
+- PR #19: **MERGED** by separate owner authorization
+- merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`
+- post-merge `main` CI #643: **SUCCESS**
+- slice state: **CLOSED + MERGED**
 - P6.4: **NOT STARTED**
-- PR #19 remains unmerged pending separate authorization
