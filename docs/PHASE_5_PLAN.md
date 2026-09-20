@@ -14,9 +14,9 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
   core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
   Docker/PostGIS/Redis, locked-source and search gates.
 - P5.8 Versioned Local State Persistence: **CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- P5.9 Phase 5 regression and owner acceptance package: **IN PROGRESS** by explicit owner instruction «ابدأ».
+- P5.9 Phase 5 regression and owner acceptance package: **CLOSED** after CI #451/#455, owner-reported manual PASS, and explicit Phase 5 acceptance.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
-- Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
+- Full Phase 5: **COMPLETE / ACCEPTED BY OWNER at v0.5.0**.
 - Accepted application version remains **0.4.0**; PR #9 is merged into `main`. No tag or GitHub Release has been created.
 - This documentation synchronization does not itself authorize P5.8.
 
@@ -322,3 +322,22 @@ source/search checks.
 
 P5.9 is technically green and awaits owner manual regression. It is not closed.
 Full Phase 5 acceptance remains a separate explicit owner decision.
+
+
+## P5.9 / Phase 5 acceptance closure — 2026-09-20
+
+The owner reported «نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة».
+
+Manual result:
+- P5.9: **PASS — REPORTED BY OWNER**;
+- Phase 5: **ACCEPTED BY OWNER**.
+
+Automated evidence:
+- CI #451 SUCCESS on `802a46ac3a1adce95fa9730e135ec5e377567631`;
+- CI #455 SUCCESS on `cf1f3ad45b6a8da1cf7f608d8da94f275641c676`.
+
+P5.1–P5.9 are now CLOSED. Application acceptance metadata is v0.5.0,
+accepted_phase=5, phase_status=accepted.
+
+Phase 6 is the next roadmap phase but remains **NOT STARTED** until a separate
+owner start instruction. No merge, tag, GitHub Release or deployment is implied.
