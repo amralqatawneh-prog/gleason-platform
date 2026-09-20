@@ -715,7 +715,7 @@ test('P6.2 ordered route state supports edit/undo/clear and remains transient ac
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(panel).toContainText('المسار المرتب');
-  await expect(panel).toContainText('لا توجد مسافة عددية في P6.2.');
+  await expect(panel).toContainText('تظهر مسافة WGS84 العددية في لوحة P6.3 المنفصلة.');
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 
