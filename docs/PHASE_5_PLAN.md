@@ -10,11 +10,14 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
 - P5.1–P5.9: **CLOSED** after recorded automated evidence and owner-reported manual PASS.
 - P5.9 manual regression: **PASS — REPORTED BY OWNER (10/10)**.
 - Closure-documentation head `235a462762b2aab46a641a56bd3d9c8050578f63`: **CI #495 SUCCESS**.
+- Final accepted PR #13 head `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`: **CI #514 SUCCESS**.
+- PR #13: **MERGED** into `main` at `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Post-merge `main`: **CI #515 SUCCESS**.
 - Full Phase 5: **ACCEPTED BY OWNER** by explicit statement «أعتمد المرحلة الخامسة».
 - Accepted application version: **0.5.0**.
 - Implementation phase: **5**; accepted phase: **5**; phase status: **accepted**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
-- PR #13 remains open/draft and unmerged. No tag, GitHub Release or deployment is authorized by the Phase 5 acceptance decision.
+- No tag, GitHub Release or deployment has been created by the PR #13 merge.
 
 Historical dated subsections below are chronological evidence. Any older “next”,
 “pending”, or “not started” statement is superseded by this current snapshot and
@@ -346,3 +349,17 @@ Accepted application version: **v0.5.0**. Accepted phase: **5**. Phase status:
 
 PR #13 remains unmerged, Phase 6 remains NOT STARTED, and no tag, GitHub Release
 or deployment is authorized by this decision.
+
+
+## Post-PR #13 merge status — 2026-09-20
+
+The historical sections above preserve the status that was true when each slice
+was executed. The current integration state is:
+
+- PR #13: **MERGED**.
+- `main` baseline: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Release Acceptance Gates #514: **SUCCESS** on the final PR head.
+- Release Acceptance Gates #515: **SUCCESS** on the resulting `main` commit.
+- Phase 5: **ACCEPTED BY OWNER — v0.5.0**.
+- Phase 6: **NOT STARTED**.
+- tag / GitHub Release / deployment: **NOT CREATED**.
