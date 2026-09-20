@@ -9,13 +9,12 @@ model engines:
 - **WGS84 Reference** — modern geodetic reference globe/2D fallback with
   authoritative backend reference calculations.
 
-> **Current development status — 2026-09-19**
+> **Current development status — 2026-09-20**
 >
-> Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on `main` after
-> **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
-> after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
-> State Persistence is CLOSED. P5.9 final regression/acceptance package is now IN PROGRESS.** Phase 6 measurement/routing is
-> also NOT STARTED.
+> Phase 4 is accepted at **v0.4.0**. Phase 5 remains **IN PROGRESS / awaiting
+> separate owner acceptance**. Slices **P5.1–P5.9 are CLOSED** after automated
+> gates and owner-reported manual PASS. **P5.9 closed on 2026-09-20 after all
+> ten manual regression checks passed.** Phase 6 measurement/routing is NOT STARTED.
 
 ## Current verified development baseline
 
@@ -56,7 +55,7 @@ change numerical engines, source datasets or accepted application version. See
 | P5.6 | CLOSED ✅ | Independent zoom/focus/rotation/navigation |
 | P5.7 | CLOSED ✅ | Homogeneous-difference gate + unavailable future-service contracts |
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
-| P5.9 | IN PROGRESS 🚧 | Phase 5 regression and owner acceptance package |
+| P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
 
 Phase 5 as a whole is **not yet accepted**. Historical reports retain the status
@@ -99,24 +98,25 @@ P5.8 PR #11 is now merged into `main` at
 `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. P5.9 continues on the clean
 branch `feat/phase5-p5-9-acceptance-clean`.
 
-P5.9 is technically green after CI #451 but still awaits owner manual
-regression. Full Phase 5 is not yet accepted; version 0.4.0 remains the accepted
-application version. A superseded PR #12 contains unverified acceptance/version
-claims and must not be merged.
+P5.9 is CLOSED after clean-head CI #487 SUCCESS and all ten owner manual
+regression checks were reported PASS. Full Phase 5 is still not yet accepted;
+version 0.4.0 remains the accepted application version until a separate explicit
+owner Phase 5 acceptance decision. A superseded PR #12 contains unverified
+acceptance/version claims and must not be merged.
 
-### P5.9 current scope
+### P5.9 closure
 
-P5.9 is the final Phase 5 regression and owner-acceptance package. It adds no
-new model engine. It verifies browser/offline/bilingual/mobile/extreme-coordinate
-behavior, source visibility and known limitations, and packages the evidence in
-`docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+P5.9 is the final Phase 5 regression package and is now **CLOSED**. It added no
+new model engine. The owner reported PASS on all ten manual checks covering
+browser/offline/bilingual/mobile behavior, navigation independence, Model
+Laboratory semantics, persistence, WebGL fallback and Phase 6 boundaries.
 
-Full Phase 5 remains unaccepted until the owner gives an explicit Phase 5
-acceptance decision after P5.9 testing.
+The machine-readable evidence remains in
+`docs/PHASE_5_ACCEPTANCE_PACKAGE.json`. Full Phase 5 remains unaccepted until
+the owner gives a separate explicit Phase 5 acceptance decision.
 
 ## Explicitly not implemented yet
 
-- P5.9 final Phase 5 regression/acceptance package.
 - Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
@@ -228,7 +228,7 @@ Current source-of-truth documents:
 - `docs/PROJECT_HANDOFF_CURRENT.md` — canonical continuity handoff.
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
-- `docs/PHASE_5_P5_7_REPORT.md` — latest closed Phase 5 slice.
+- `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — P5.6/Phase 6 boundary.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `CHANGELOG.md` — chronological implementation/acceptance history.
