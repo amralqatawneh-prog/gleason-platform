@@ -8,7 +8,7 @@
 - Phase 6 **IN PROGRESS**؛ الشرائح P6.1 وP6.2 وP6.3 وP6.4 **CLOSED**.
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938` بعد closure head `ced5649c3c2d6e1c8e1d96af35fb0775637719a3` وRelease Acceptance Gates #668؛ وسُجل post-merge Release Acceptance Gates **#669 — SUCCESS**.
 - P6.5 **NOT STARTED**، ولا يوجد Tag أو GitHub Release أو Deployment للمرحلة السادسة.
-- العمل الحالي هو **Post-PR21 Merge Documentation Reconciliation** فقط؛ لا يبدأ P6.5 ضمن هذه المصالحة.
+- **Post-PR21 Merge Documentation Reconciliation** منفذة في PR #22؛ نجح رأس التحقق `ae23478c53b51520d708ddfabff90a5867a03152` في Release Acceptance Gates **#670 — SUCCESS**، ولا تبدأ P6.5 ضمن هذه المصالحة.
 - الأقسام الزمنية الأقدم أدناه تُحفظ كسجل تاريخي ولا تتغلب على هذه الحالة المرجعية الحالية.
 
 ## الوضع الحالي وتسلسل الإغلاق
