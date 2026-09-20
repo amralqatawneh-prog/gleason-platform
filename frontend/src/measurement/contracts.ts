@@ -17,6 +17,7 @@ export type MeasurementScaleBasis =
   | 'ae-projected-plane-si-metre'
   | 'gleason-normalized-model-radius';
 export type MeasurementSemanticType = 'REFERENCE_RESULT' | 'COMPUTED_RESULT';
+export type MeasurementMethodStatus = 'contract-only' | 'partially-implemented';
 export type MeasurementImplementationStatus = 'contract-only' | 'implemented';
 
 export interface MeasurementEndpoint {
@@ -36,8 +37,9 @@ export interface MeasurementMethodContract {
   readonly calculationModel: SelectionModel;
   readonly calculationSpace: string;
   readonly semanticType: MeasurementSemanticType;
-  readonly status: MeasurementImplementationStatus;
+  readonly status: MeasurementMethodStatus;
   readonly supportedQuantities: readonly MeasurementQuantity[];
+  readonly implementedQuantities: readonly MeasurementQuantity[];
   readonly linearUnit: MeasurementUnit;
   readonly areaUnit: MeasurementUnit;
   readonly scaleBasis: MeasurementScaleBasis;
@@ -130,8 +132,9 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     calculationModel: 'wgs84',
     calculationSpace: 'WGS84 ellipsoidal geodesic/reference geometry',
     semanticType: 'REFERENCE_RESULT',
-    status: 'implemented',
+    status: 'partially-implemented',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze(['distance'] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'wgs84-ellipsoid',
@@ -150,6 +153,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     semanticType: 'REFERENCE_RESULT',
     status: 'contract-only',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze([] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'ae-projected-plane-si-metre',
@@ -168,6 +172,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     semanticType: 'COMPUTED_RESULT',
     status: 'contract-only',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
+    implementedQuantities: Object.freeze([] as const),
     linearUnit: 'normalized-radius-unit',
     areaUnit: 'normalized-radius-unit-squared',
     scaleBasis: 'gleason-normalized-model-radius',
@@ -203,7 +208,7 @@ export function measurementComputationIdentity(
     quantity,
     unit: quantity === 'area' ? contract.areaUnit : contract.linearUnit,
     scaleBasis: contract.scaleBasis,
-    implementationStatus: contract.status,
+    implementationStatus: contract.implementedQuantities.includes(quantity) ? 'implemented' : 'contract-only',
   });
 }
 
