@@ -251,7 +251,19 @@ require(
 require(p6_3_start.get("baseline_ci_run") == 561, "P6.3 baseline CI must be #561")
 require(p6_3_start.get("baseline_ci_conclusion") == "success", "P6.3 baseline CI #561 must remain success")
 require(p6_3_start.get("branch") == "feat/phase6-p6-3-wgs84-distance", "P6.3 branch drifted")
-require(p6_3_start.get("manual_status") == "not_run", "P6.3 manual status must remain not_run until owner testing")
+require(
+    p6_3_start.get("manual_status") == "pass-reported-by-owner",
+    "P6.3 owner manual result must be recorded",
+)
+p6_3_owner_manual = phase6_start.get("p6_3_owner_manual", {})
+require(p6_3_owner_manual.get("result") == "pass-reported-by-owner", "P6.3 owner manual PASS evidence missing")
+require(p6_3_owner_manual.get("checklist_items_passed") == 6, "P6.3 must record 6/6 owner manual checks")
+require(p6_3_owner_manual.get("pre_manual_ci_run") == 572, "P6.3 manual verification must follow CI #572")
+require(p6_3_owner_manual.get("pre_manual_ci_conclusion") == "success", "P6.3 pre-manual CI #572 must remain success")
+require(
+    p6_3_owner_manual.get("offline_backend_fallback") == "pass-reported-by-owner",
+    "P6.3 offline backend-fallback owner test must be recorded",
+)
 p6_3_automated = phase6_start.get("p6_3_automated", {})
 require(
     p6_3_automated.get("implementation_head") == "06f2397f63648d879d6271064f3297608a59c333",
@@ -260,10 +272,22 @@ require(
 require(p6_3_automated.get("ci_run") == 565, "P6.3 automated CI must be #565")
 require(p6_3_automated.get("ci_conclusion") == "success", "P6.3 automated CI #565 must remain success")
 require(p6_3_automated.get("browser_acceptance_tests_passed") == 20, "P6.3 browser acceptance count must be 20")
+p6_3_refinement = phase6_start.get("p6_3_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "awaiting-owner-manual-verification",
-    "P6.3 must await explicit owner manual verification",
+    phase6_start.get("p6_3_status") == "refinement-in-progress",
+    "P6.3 must remain refinement-in-progress until route-guide retest",
 )
+require(
+    p6_3_refinement.get("decision") == "requested-by-owner-after-manual-pass",
+    "P6.3 route-guide refinement owner request evidence missing",
+)
+require(p6_3_refinement.get("status") == "in_progress", "P6.3 route-guide refinement must be in_progress")
+require(
+    p6_3_refinement.get("computation_identity") == "visual-only",
+    "P6.3 route-guide refinement must remain visual-only",
+)
+require(p6_3_refinement.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(p6_3_refinement.get("targeted_manual_retest") == "not_run", "P6.3 route-guide targeted retest must remain not_run")
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
