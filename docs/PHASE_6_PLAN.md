@@ -27,7 +27,7 @@ Baseline:
 
 ## P6.1 — Measurement Semantics Contract
 
-Status: **IN PROGRESS**.
+Status: **CLOSED — CI #519/#520 SUCCESS; OWNER MANUAL PASS 5/5 REPORTED**.
 
 Deliver:
 - versioned measurement contract;
@@ -178,5 +178,8 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-Complete P6.1 automated gates, provide the P6.1 manual checklist, record the
-owner-reported result, and close P6.1 before starting P6.2.
+P6.1 is closed. P6.2 — Ordered Route State remains **NOT STARTED**.
+
+The next implementation action is to start P6.2 from the closed P6.1 contract,
+without adding numeric distance/area calculations that belong to P6.3–P6.6.
+PR #15 remains unmerged until separately authorized.
