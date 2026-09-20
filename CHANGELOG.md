@@ -17,7 +17,10 @@
 - Owner-requested same-slice refinement: add a **visual-only** ordered route guide line and A/B/C markers to WGS84, Gleason and AE.
 - The guide does not alter `wgs84-geodesic` computation identity and does not enable provider routes or start P6.7.
 - Route-guide refinement head `483b123277f62e219937298b4fb7ca104809d420` passed Release Acceptance Gates **#587 — SUCCESS** including 20/20 Chromium acceptance tests.
-- Targeted refinement retest remains **NOT RUN**.
+- Current route-guide documentation head `df9227a831e4b90940cea70dde902f64684a0bf4` passed Release Acceptance Gates **#595 — SUCCESS**.
+- Owner reported targeted route-guide refinement **5/5 PASS** and repeated backend-stop line/browser-local fallback **PASS**.
+- Owner-requested second same-slice refinement: on Gleason and AE, each route segment is now one exact straight projected chord using only the two projected endpoints; WGS84 visualization is unchanged.
+- Straight-line refinement retest remains **NOT RUN**.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
