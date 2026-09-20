@@ -315,7 +315,7 @@ require(
 )
 p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
 require(
-    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress", "awaiting-pan-great-circle-retest"},
+    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress", "awaiting-pan-great-circle-retest", "closed"},
     "P6.3 status must remain in the active refinement lifecycle",
 )
 require(
@@ -356,8 +356,8 @@ require(
 )
 p6_3_pan_gc = phase6_start.get("p6_3_pan_great_circle_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "awaiting-pan-great-circle-retest",
-    "P6.3 must await the pan/great-circle targeted owner retest",
+    phase6_start.get("p6_3_status") == "closed",
+    "P6.3 must be closed after final owner retest",
 )
 require(
     p6_3_pan_gc.get("decision") == "requested-by-owner-after-straight-line-retest-pass",
@@ -383,9 +383,26 @@ require(
 require(p6_3_pan_gc.get("observed_flight_track") is False, "P6.3 must not claim observed flight-track data")
 require(p6_3_pan_gc.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
 require(
-    p6_3_pan_gc.get("targeted_manual_retest") == "not_run",
-    "P6.3 pan/great-circle targeted retest must remain not_run",
+    p6_3_pan_gc.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 pan/great-circle targeted owner retest PASS evidence missing",
 )
+require(p6_3_pan_gc.get("targeted_manual_items_passed") == 6, "P6.3 pan/great-circle targeted retest must record 6/6")
+require(p6_3_pan_gc.get("pre_retest_ci_run") == 635, "P6.3 pan/great-circle owner retest must follow CI #635")
+require(
+    p6_3_pan_gc.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 pan/great-circle pre-retest CI #635 must remain success",
+)
+require(
+    p6_3_pan_gc.get("result") == "closed-by-owner-verification",
+    "P6.3 pan/great-circle refinement closure evidence missing",
+)
+current_slice = phase6_start.get("current_slice", {})
+require(current_slice.get("id") == "P6.3", "Phase 6 current slice record must identify P6.3")
+require(current_slice.get("status") == "closed", "P6.3 current slice record must be closed")
+next_slice = phase6_start.get("next_slice", {})
+require(next_slice.get("id") == "P6.4", "Phase 6 next slice record must identify P6.4")
+require(next_slice.get("status") == "not_started", "P6.4 must remain not_started")
+
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
@@ -558,7 +575,7 @@ print(
             "phase6_previous_slice": "P6.2",
             "phase6_previous_slice_status": "closed",
             "phase6_current_slice": "P6.3",
-            "phase6_current_slice_status": "in_progress",
+            "phase6_current_slice_status": "closed",
             "phase6_next_slice": "P6.4",
             "phase6_next_slice_status": "not_started",
         },
