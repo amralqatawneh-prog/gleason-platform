@@ -455,6 +455,7 @@ require(
 )
 post_pr23 = data.get("post_pr23_merge_reconciliation", {})
 require(post_pr23.get("status") == "in_progress", "post-PR23 reconciliation must remain in_progress until verification")
+require(post_pr23.get("pr") == 24, "post-PR23 reconciliation PR must be #24")
 require(
     post_pr23.get("baseline_commit") == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
     "post-PR23 reconciliation baseline drifted",
