@@ -21,7 +21,10 @@
 - Owner reported targeted route-guide refinement **5/5 PASS** and repeated backend-stop line/browser-local fallback **PASS**.
 - Owner-requested second same-slice refinement: on Gleason and AE, each route segment is now one exact straight projected chord using only the two projected endpoints; WGS84 visualization is unchanged.
 - Straight-line implementation head `f837f8af9c56309156540f28cdf5e60456642b69` passed Release Acceptance Gates **#607 — SUCCESS**.
-- Straight-line refinement retest remains **NOT RUN**.
+- Straight-line refinement retest: **4/4 PASS — REPORTED BY OWNER**.
+- Owner-requested next P6.3 refinement: explicit mouse/touch free pan on Gleason/AE and Great Circle reference rendering on the WGS84 globe.
+- Numeric WGS84 distance remains `wgs84-geodesic`; Great Circle rendering is visual-only and is not observed flight-track data.
+- Pan/great-circle targeted retest remains **NOT RUN**.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
