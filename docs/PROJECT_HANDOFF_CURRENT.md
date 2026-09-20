@@ -33,8 +33,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.2 owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
 - P6.2 direct-map / >3-points refinement retest: **PASS — REPORTED BY OWNER**.
 - P6.2 supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
-- P6.3 — WGS84 Ruler / Distance is **IN PROGRESS** after explicit owner instruction **«ابدأ في الخطوة P6.3»**.
-- P6.3 start baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; CI #561 SUCCESS; owner manual verification **NOT RUN**.
+- P6.3 — WGS84 Ruler / Distance is **AWAITING OWNER MANUAL VERIFICATION** after explicit owner instruction **«ابدأ في الخطوة P6.3»**.
+- P6.3 start baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; CI #561 SUCCESS.
+- P6.3 final implementation head: `06f2397f63648d879d6271064f3297608a59c333`; Release Acceptance Gates **#565 — SUCCESS**; **20/20 browser acceptance tests PASS**; owner manual verification **NOT RUN**.
 - PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created, and P6.3 remains NOT STARTED.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
