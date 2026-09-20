@@ -200,5 +200,36 @@ this green revision:
   Arabic locale after a full reload. Locale itself is intentionally outside the
   P5.8 shared geographic-state contract.
 
-P5.8 is **TECHNICALLY GREEN / awaiting owner manual verification**. It is not
-closed yet. P5.9 and Phase 6 remain NOT STARTED.
+P5.8 automated gates are green. The owner subsequently reported «نجحت جميع اختبارات P5.8». The acceptance closure below supersedes the earlier pending state.
+
+
+## P5.8 acceptance closure — 2026-09-20
+
+The owner reported «نجحت جميع اختبارات P5.8» after completing the delivered
+manual checklist. Manual result: **PASS — REPORTED BY OWNER**.
+
+Automated evidence:
+- implementation head
+  `3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` — CI #439 SUCCESS;
+- documentation head
+  `06e01a842ce51c77c721ca7cf2c61a4a819af714` — CI #442 SUCCESS.
+
+P5.8 Versioned Local State Persistence is now **CLOSED**.
+
+Accepted P5.8 behavior includes:
+- schema-v1 IndexedDB persistence of the canonical Phase 5 geographic selection;
+- strict decode and safe rejection of malformed/unsupported state;
+- exact free-point restoration without fabricated ellipsoidal height;
+- place identity restoration only from an unchanged installed offline-pack
+  record;
+- explicit coordinate-only degradation when saved place identity cannot be
+  verified;
+- hydration before writes and without incrementing the user-selection revision.
+
+P5.9 Phase 5 Regression and Owner Acceptance Package is the next ordered slice
+and remains **NOT STARTED** until explicit owner continuation. Phase 6 remains
+NOT STARTED.
+
+Full Phase 5 is still **IN PROGRESS / NOT YET ACCEPTED**. Accepted application
+version remains 0.4.0. Draft PR #11 remains open/unmerged. No tag, GitHub Release
+or deployment is implied or authorized.
