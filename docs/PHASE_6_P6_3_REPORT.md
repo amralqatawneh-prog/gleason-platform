@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **CLOSED — OWNER VERIFIED + FINAL CLOSURE GATES PENDING ON THIS HEAD**
+Status: **CLOSED + MERGED — FINAL CI #642 SUCCESS · POST-MERGE CI #643 SUCCESS**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -412,12 +412,16 @@ Verified manually by the owner:
 The retest was performed after Release Acceptance Gates **#635 — SUCCESS** on
 head `746e71b261747132bec49f33348cd42870092643`.
 
-P6.3 is now marked **CLOSED** in the acceptance package. This closure-documentation
-head must pass the complete Release Acceptance Gates before the closure is
-considered fully verified for merge readiness.
+P6.3 is **CLOSED** in the acceptance package. The final closure head
+`c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates
+**#642 — SUCCESS**.
 
-Boundaries remain unchanged:
-- PR #19 remains unmerged;
+The owner then separately authorized **«قم بدمج PR #19 إلى main»**. PR #19 was
+merged at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`, and post-merge `main`
+passed Release Acceptance Gates **#643 — SUCCESS**.
+
+Current boundaries:
+- P6.3 **CLOSED + MERGED**;
 - P6.4 remains NOT STARTED;
 - P6.7 remains NOT STARTED;
 - no tag, GitHub Release or deployment is authorized.
