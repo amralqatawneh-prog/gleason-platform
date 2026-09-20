@@ -21,7 +21,7 @@ import { aeForward, AE_CODE } from '../models/ae';
 import { gleasonAdapter } from '../comparison/adapters/gleasonAdapter';
 import { aeAdapter } from '../comparison/adapters/aeAdapter';
 import type { GeoPoint } from '../models/projectionTypes';
-import { buildRouteGuideSegments } from '../measurement/routeGuide';
+import { buildStraightProjectedRouteSegments } from '../measurement/routeGuide';
 import { GLEASON_CODE, registerPhase2Projections } from './registerProjections';
 import { worldCountriesGeoJson } from './worldData';
 
@@ -126,14 +126,15 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
     source.clear();
     if (routePoints.length === 0) return;
     const adapter = model === 'gleason' ? gleasonAdapter : aeAdapter;
-    for (const segment of buildRouteGuideSegments(routePoints)) {
-      const coordinates = segment.samples.map(point => {
-        const projected = adapter.forward(point).value;
-        return [projected.x, projected.y];
-      });
-      const feature = new Feature(new LineString(coordinates));
+    const projectedSegments = buildStraightProjectedRouteSegments(routePoints, point => {
+      const projected = adapter.forward(point).value;
+      return [projected.x, projected.y] as const;
+    });
+    for (const segment of projectedSegments) {
+      const feature = new Feature(new LineString(segment.coordinates.map(([x,y]) => [x,y])));
       feature.set('routeRole', 'line');
       feature.set('routeGuideId', segment.segmentId);
+      feature.set('routeGuideGeometry', 'straight-projected-segment');
       source.addFeature(feature);
     }
     routePoints.forEach((point, index) => {
@@ -180,7 +181,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
     reset:'Reset orientation',fit:'Fit full model',focus:'Focus selected',active:'Area zoom mode active'
   };
   return <section className="projection-card" data-model={model} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-    data-route-guide="visual-only" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0, routePoints.length - 1)}
+    data-route-guide="visual-only" data-route-guide-geometry="straight-projected-segments" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0, routePoints.length - 1)}
     data-view-zoom={nav.zoom.toFixed(4)} data-view-rotation={nav.rotation.toFixed(6)} data-view-center-x={nav.centerX.toFixed(6)} data-view-center-y={nav.centerY.toFixed(6)} data-area-mode={zoomAreaActive?'true':'false'}>
     <div className="projection-card__head"><strong>{title}</strong><span>{model === 'gleason' ? 'DERIVED · GH-0.2.0' : 'REFERENCE · AE-0.2.0'}</span></div>
     <nav className="navigation-toolbar" aria-label={locale==='ar'?'أدوات التنقل':'Navigation tools'}>
