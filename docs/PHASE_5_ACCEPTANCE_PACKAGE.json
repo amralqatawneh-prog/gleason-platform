@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "11b571f08f72732b509f049f1a2ab1be92292938",
+    "current_integration_baseline": "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -189,7 +189,12 @@
     "pr21_pre_merge_ci_run": 668,
     "pr21_pre_merge_ci_conclusion": "success",
     "pr21_post_merge_main_ci_run": 669,
-    "pr21_post_merge_main_ci_conclusion": "success"
+    "pr21_post_merge_main_ci_conclusion": "success",
+    "pr22": "merged",
+    "pr22_merge_commit": "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "pr22_final_head": "a76fcff0ac7ad366143645ad722ff5d91183561e",
+    "pr22_pre_merge_ci_run": 671,
+    "pr22_pre_merge_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -499,6 +504,51 @@
     "verification_ci_run": 670,
     "verification_ci_conclusion": "success",
     "merge_authorization": "explicit-owner-instruction",
-    "merge_authorization_statement": "قم بتنفيذ الدمج"
+    "merge_authorization_statement": "قم بتنفيذ الدمج",
+    "final_closure_head": "a76fcff0ac7ad366143645ad722ff5d91183561e",
+    "final_closure_ci_run": 671,
+    "final_closure_ci_conclusion": "success",
+    "pr22_status": "merged",
+    "merge_commit": "ba44ae59410e02ae748b235ed9792c8d4ee31b02"
+  },
+  "roadmap_architecture_amendment_2026_09_21": {
+    "decision": "owner-approved",
+    "status": "in_progress",
+    "date": "2026-09-21",
+    "branch": "docs/roadmap-architecture-amendment-2026-09-21",
+    "baseline_commit": "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "scope": "documentation and architecture planning only; no P6.5 or future functional implementation",
+    "p6_5_status": "not_started",
+    "accepted_phase_remains": 5,
+    "accepted_application_version_remains": "0.5.0",
+    "phase6_status_remains": "in_progress",
+    "approved_requirements": [
+      "solar-and-lunar-analemmas",
+      "continuous-developer-user-calculation-documentation",
+      "observer-current-location-and-virtual-sky-dome",
+      "observer-map-pin",
+      "solar-and-lunar-eclipse-top-and-observer-views",
+      "high-detail-global-streets-cities-buildings",
+      "visual-and-numerical-day-night-twilight-events",
+      "aviation-live-historical-scheduled-metadata-receiver-altitude",
+      "osiris-inspired-provider-architecture",
+      "routeprovider-turn-by-turn-routing"
+    ],
+    "reserved_contracts": [
+      "ObserverContext",
+      "TimeContext",
+      "ExternalLayerProvider",
+      "RouteProvider"
+    ],
+    "living_guides": [
+      "docs/DEVELOPER_GUIDE.md",
+      "docs/USER_GUIDE.md",
+      "docs/CALCULATION_REFERENCE.md"
+    ],
+    "roadmap_document": "docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md",
+    "provider_contract_document": "docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created"
   }
 }
