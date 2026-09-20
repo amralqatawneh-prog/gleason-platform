@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.1 Measurement Semantics Contract (2026-09-20)
+
+- Owner explicitly instructed **«ابدأ بتنفيذ Phase 6»**.
+- Start Phase 6 from `main @ 3e5afcd9b95766bd18af59df88c9154f51567e8c` after Release Acceptance Gates #517 SUCCESS.
+- Accepted application version remains **v0.5.0** and accepted phase remains **5**; implementation phase becomes **6 / in_progress**.
+- Add a versioned measurement semantics contract for explicit endpoints, calculation method/model/space, quantity, units and scale basis.
+- Reject a country record as an implicit point-to-point endpoint; future centroid/boundary semantics must be explicit.
+- Keep WGS84 geodesic, AE projected-plane and Gleason normalized-native methods distinct.
+- Preserve computation identity when a path/result is visualized on another model.
+- Keep route operations fail-closed during P6.1; numeric route/ruler/perimeter/area engines are not implemented yet.
+- No tag, GitHub Release, deployment or merge authorization is implied.
+
 ## [Unreleased] — Post-PR #13 merge documentation reconciliation (2026-09-20)
 
 - PR #13 was separately authorized and **MERGED** into `main`.
