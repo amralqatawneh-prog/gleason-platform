@@ -1,5 +1,35 @@
 # Changelog
 
+## [Unreleased] — P5.8 owner acceptance closure (2026-09-20)
+
+- Owner reported «نجحت جميع اختبارات P5.8». Record manual result PASS — REPORTED BY OWNER.
+- P5.8 closes with CI #439 and CI #442 SUCCESS.
+- Accepted behavior includes versioned IndexedDB persistence, strict restore validation, installed-pack place identity verification, explicit coordinate-only degradation, no fabricated ellipsoidal height, and hydration without synthetic user revision.
+- P5.9 Phase 5 Regression and Owner Acceptance Package is next / NOT STARTED.
+- Full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED. Phase 6 remains NOT STARTED.
+- Draft PR #11 remains open/unmerged. No tag, GitHub Release or deployment.
+
+
+## [Unreleased] — P5.8 automated verification (2026-09-19)
+
+- P5.8 implementation head `3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` passed Release Acceptance Gates #439.
+- CI reports 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests and 16 Chromium scenarios PASS, plus build/parity/Docker/PostGIS/Redis/source/search gates.
+- P5.8 remains open pending owner manual verification. P5.9 and Phase 6 remain NOT STARTED.
+
+
+## [Unreleased] — Phase 5 / P5.8 versioned local state persistence (2026-09-19)
+
+- Owner explicitly instructed «أبدأ P5.8».
+- Create `feat/phase5-p5-8-state-persistence` from current `main`.
+- Add schema-v1 IndexedDB persistence for the canonical Phase 5 geographic selection.
+- Restore free points only after strict coordinate/model validation.
+- Restore saved place identity only from an unchanged installed offline-pack record; otherwise explicitly degrade to coordinate-only WGS84 state.
+- Reject malformed/unsupported saved state and never fabricate ellipsoidal height or provenance.
+- Hydration is not a user selection event and does not increment the selection revision.
+- Add core and browser coverage for offline restore and malformed-state rejection.
+- P5.9 and Phase 6 remain NOT STARTED. Automated/owner P5.8 PASS is not claimed yet.
+
+
 ## [Unreleased] — PR #9 merged into main (2026-09-19)
 
 - Owner explicitly authorized merging PR #9 into `main`.

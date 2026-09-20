@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { INITIAL_SELECTION_STATE, selectionReducer } from '../.phase1-test-build/comparison/selectionState.js';
+import { selectFreePoint } from '../.phase1-test-build/comparison/geographicSelection.js';
 import { offlineResult } from '../.phase1-test-build/search/placeSelection.js';
 
 test('each user action advances one canonical selection revision without stale place metadata',()=>{
@@ -24,4 +25,14 @@ test('latest action wins while invalid geographic events cannot mutate committed
   assert.equal(b.selection.point.latitude,31);assert.equal(a.selection.point.latitude,25);
   assert.throws(()=>selectionReducer(b,{type:'point',model:'wgs84',point:{latitude:91,longitude:0}}),RangeError);
   assert.equal(b.revision,2);assert.equal(b.selection.point.latitude,31);
+});
+
+
+test('restored selection does not increment user revision',()=>{
+  const selected=selectFreePoint('wgs84',{latitude:25.285447,longitude:51.53104});
+  const restored=selectionReducer(INITIAL_SELECTION_STATE,{type:'restore',selection:selected});
+  assert.equal(restored.revision,0);
+  assert.deepEqual(restored.selection,selected);
+  const next=selectionReducer(restored,{type:'point',model:'ae',point:{latitude:26,longitude:52}});
+  assert.equal(next.revision,1);
 });

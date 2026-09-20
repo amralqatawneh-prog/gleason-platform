@@ -34,6 +34,7 @@
     "src/comparison/geographicSelection.ts",
     "src/comparison/adapters/*.ts",
     "src/comparison/selectionState.ts",
+    "src/comparison/statePersistence.ts",
     "src/comparison/modelLaboratory.ts",
     "src/comparison/comparability.ts",
     "src/comparison/futureServices.ts",
