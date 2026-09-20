@@ -10,6 +10,7 @@
 - Reconcile current-state documentation and machine-readable governance records to the post-PR23 truth.
 - Phase 5 remains **ACCEPTED** at **v0.5.0**; Phase 6 remains **IN PROGRESS**; P6.1–P6.4 remain **CLOSED**; P6.5 remains **NOT STARTED**.
 - No tag, GitHub Release or deployment is created by this reconciliation.
+- Reconciliation verification head `89b634d49eb802c17f9978fee7065ca958c3b592` passed Release Acceptance Gates **#679 — SUCCESS**; reconciliation is CLOSED/VERIFIED. PR #24 remains open/unmerged pending separate owner merge authorization.
 
 
 ## [Unreleased] — Roadmap & Architecture Amendment — New Requirements (2026-09-21)
