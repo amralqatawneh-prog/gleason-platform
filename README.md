@@ -18,26 +18,18 @@ model engines:
 
 ## Current verified development baseline
 
-- Branch: `main`
-- PR **#9**: **MERGED** into `main`
-- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`
-- Latest owner-tested/documented baseline before this documentation
-  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`
-- Release Acceptance Gates **#397 — SUCCESS**
-- CI #397: **0 npm vulnerabilities · 78 frontend core tests · 2 PWA tests ·
-  15 Chromium scenarios**, plus production build, WGS84 parity,
-  Docker/PostGIS/Redis, locked-source import, online/offline search and Arabic
-  city gates.
+- Integration base: `main`
+- Active acceptance PR: **#13**, branch `feat/phase5-p5-9-acceptance-clean`, still **open/draft/unmerged**
+- P5.8 PR #11 is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`
+- P5.9 closure-documentation head: `235a462762b2aab46a641a56bd3d9c8050578f63`
+- Release Acceptance Gates **#495 — SUCCESS** on that closure-documentation head
 - Accepted application version: **0.5.0**
 - Implementation phase: **5**
 - Accepted phase: **5**
 - Phase status: **accepted**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
-- PR #9 has been merged with explicit owner authorization. No tag or GitHub Release has been authorized.
-
-The documentation-only GitHub synchronization requested after P5.7 does not
-change numerical engines, source datasets or accepted application version. See
-`docs/GITHUB_SYNC_AUDIT_2026-09-19.md` for the repository/documentation audit.
+- Current v0.5.0 metadata promotion requires fresh CI on the exact PR head before merge.
+- No tag, GitHub Release, deployment or Phase 6 start has been authorized.
 
 ## Phase status
 
