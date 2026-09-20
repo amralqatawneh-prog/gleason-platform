@@ -73,7 +73,7 @@ model engines:
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
-| P6.4 | IN PROGRESS 🛠️ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; automated verification pending |
+| P6.4 | AWAITING OWNER MANUAL ⏳ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; implementation head passed CI #653 SUCCESS |
 | P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
@@ -298,7 +298,7 @@ PR #19 was separately authorized and merged at
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
 Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
-**NOT STARTED**.
+**AWAITING OWNER MANUAL VERIFICATION** after CI #653 SUCCESS.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
@@ -308,7 +308,7 @@ Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
 - Final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed **CI #642 SUCCESS**.
 - PR #19 merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
 - Post-merge Release Acceptance Gates: **#643 SUCCESS**.
-- P6.3 is **CLOSED**; P6.4 remains **NOT STARTED**.
+- P6.3 is **CLOSED**; P6.4 is **AWAITING OWNER MANUAL VERIFICATION**.
 
 
 ### Active P6.4 — AE Native Measurement
