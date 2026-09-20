@@ -84,7 +84,16 @@
     "core_suite": "frontend/tests/*.test.mjs",
     "source_locks": "data/sources/phase3-source-lock.json",
     "historical_source": "data/sources/gleason-book.yaml",
-    "workflow": ".github/workflows/release-gates.yml"
+    "workflow": ".github/workflows/release-gates.yml",
+    "final_acceptance_metadata": {
+      "commit": "e011857b05aed18dbf2ece679ae97bd152e95f74",
+      "ci_run": 481,
+      "conclusion": "success",
+      "frontend_core_tests": 86,
+      "pwa_tests": 2,
+      "chromium_scenarios": 17,
+      "npm_vulnerabilities": 0
+    }
   },
   "known_limitations": [
     {
