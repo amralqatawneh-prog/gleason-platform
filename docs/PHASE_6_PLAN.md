@@ -184,9 +184,11 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
 **CLOSED + MERGED** through PR #16.
 
-PR #16 merged to
-`main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release
-Acceptance Gates **#554 — SUCCESS**.
+PR #16 merged at
+`c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with post-merge CI #554 SUCCESS.
+The subsequent documentation reconciliation PR #17 merged to
+`main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8`, and post-merge Release
+Acceptance Gates **#558 — SUCCESS**.
 
 P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**. No numeric P6.3 work
-starts automatically from P6.2 closure or from the PR #16 merge.
+starts automatically from P6.2 closure or from either documentation merge.
