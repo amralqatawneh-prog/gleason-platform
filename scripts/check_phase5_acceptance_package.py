@@ -215,11 +215,57 @@ require(
     merge_boundary.get("pr18_post_merge_main_ci_conclusion") == "success",
     "PR #18 post-merge CI #561 must remain success",
 )
+require(merge_boundary.get("pr19") == "merged", "PR #19 current status must be merged")
+require(
+    merge_boundary.get("pr19_final_head")
+    == "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+    "PR #19 final head drifted",
+)
+require(
+    merge_boundary.get("pr19_merge_commit")
+    == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "PR #19 merge commit drifted",
+)
+require(merge_boundary.get("pr19_pre_merge_ci_run") == 642, "PR #19 pre-merge CI must be #642")
+require(
+    merge_boundary.get("pr19_pre_merge_ci_conclusion") == "success",
+    "PR #19 pre-merge CI #642 must remain success",
+)
+require(
+    merge_boundary.get("pr19_post_merge_main_ci_run") == 643,
+    "PR #19 post-merge main CI must be #643",
+)
+require(
+    merge_boundary.get("pr19_post_merge_main_ci_conclusion") == "success",
+    "PR #19 post-merge CI #643 must remain success",
+)
 require(
     merge_boundary.get("current_integration_baseline")
-    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
-    "current integration baseline must be the PR #18 merge commit",
+    == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "current integration baseline must be the PR #19 merge commit",
 )
+post_pr19 = data.get("post_pr19_merge_reconciliation", {})
+require(post_pr19.get("decision") == "requested-by-owner", "post-PR19 reconciliation owner request missing")
+require(
+    post_pr19.get("baseline_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "post-PR19 reconciliation baseline commit drifted",
+)
+require(post_pr19.get("baseline_ci_run") == 643, "post-PR19 reconciliation baseline CI must be #643")
+require(
+    post_pr19.get("baseline_ci_conclusion") == "success",
+    "post-PR19 reconciliation baseline CI #643 must remain success",
+)
+require(
+    post_pr19.get("branch") == "docs/phase6-p6-3-post-merge-reconciliation",
+    "post-PR19 reconciliation branch drifted",
+)
+require(post_pr19.get("status") == "in_progress", "post-PR19 reconciliation must remain in_progress until verification")
+require(post_pr19.get("p6_3_status") == "closed", "P6.3 must remain closed during post-PR19 reconciliation")
+require(post_pr19.get("p6_4_status") == "not_started", "P6.4 must remain not_started during post-PR19 reconciliation")
+require(post_pr19.get("tag") == "not_created", "post-PR19 reconciliation must not create a tag")
+require(post_pr19.get("github_release") == "not_created", "post-PR19 reconciliation must not create a GitHub Release")
+require(post_pr19.get("deployment") == "not_created", "post-PR19 reconciliation must not deploy")
+
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
     post_pr17_sync.get("status") == "closed",
@@ -395,6 +441,27 @@ require(
 require(
     p6_3_pan_gc.get("result") == "closed-by-owner-verification",
     "P6.3 pan/great-circle refinement closure evidence missing",
+)
+p6_3_merge = phase6_start.get("p6_3_merge", {})
+require(
+    p6_3_merge.get("decision") == "merged-by-separate-owner-authorization",
+    "P6.3 merge authorization evidence missing",
+)
+require(p6_3_merge.get("pr") == 19, "P6.3 merge record must identify PR #19")
+require(
+    p6_3_merge.get("final_head") == "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+    "P6.3 merge final head drifted",
+)
+require(p6_3_merge.get("pre_merge_ci_run") == 642, "P6.3 pre-merge CI must be #642")
+require(p6_3_merge.get("pre_merge_ci_conclusion") == "success", "P6.3 pre-merge CI #642 must remain success")
+require(
+    p6_3_merge.get("merge_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "P6.3 merge commit drifted",
+)
+require(p6_3_merge.get("post_merge_main_ci_run") == 643, "P6.3 post-merge main CI must be #643")
+require(
+    p6_3_merge.get("post_merge_main_ci_conclusion") == "success",
+    "P6.3 post-merge CI #643 must remain success",
 )
 require(phase6_start.get("current_slice") == "P6.3", "Phase 6 current slice must remain P6.3 at closure")
 require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice must be closed")
