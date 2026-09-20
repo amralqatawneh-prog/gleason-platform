@@ -275,7 +275,7 @@
       "browser_acceptance_tests_passed": 20,
       "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
     },
-    "p6_3_status": "refinement-in-progress",
+    "p6_3_status": "awaiting-refinement-retest",
     "p6_3_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
@@ -290,11 +290,15 @@
       "date": "2026-09-20",
       "owner_request": "Add a line on the map between the added points to clarify the route.",
       "decision": "requested-by-owner-after-manual-pass",
-      "status": "in_progress",
+      "status": "awaiting-owner-retest",
       "scope": "Display-only ordered route guide on WGS84, Gleason and AE views with A/B/C labels; no numeric or provider-route semantic change.",
       "computation_identity": "visual-only",
       "p6_7_status_remains": "not_started",
-      "targeted_manual_retest": "not_run"
+      "targeted_manual_retest": "not_run",
+      "automated_head": "483b123277f62e219937298b4fb7ca104809d420",
+      "ci_run": 587,
+      "ci_conclusion": "success",
+      "browser_acceptance_tests_passed": 20
     }
   },
   "post_pr16_merge_reconciliation": {
