@@ -1,6 +1,6 @@
 # Phase 6 / P6.4 — AE Native Measurement Report
 
-Status: **AWAITING OWNER MANUAL VERIFICATION — CI #653 SUCCESS**
+Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**
 
 Date: 2026-09-20
 
@@ -134,8 +134,14 @@ historical while the current slice is P6.4.
 
 ## Current state
 
-Owner manual verification: **NOT RUN**.
+## Owner manual verification
 
-P6.4 remains open and is **AWAITING OWNER MANUAL VERIFICATION**. It will not be
-marked CLOSED, merged, tagged, released or deployed without the required
-explicit governance steps. P6.5 and P6.7 remain NOT STARTED.
+The owner reported all six P6.4 manual checks successful on 2026-09-21:
+
+- **6/6 PASS — REPORTED BY OWNER**;
+- tested branch head: `59d19a96c6a7af443429d8ba7585386d4f491dee`;
+- pre-manual Release Acceptance Gates **#661 — SUCCESS** on that exact head.
+
+P6.4 is therefore marked **CLOSED**. This closure does not authorize merging
+PR #21, starting P6.5 or P6.7, creating a tag/GitHub Release, or deployment.
+PR #21 remains OPEN / DRAFT / UNMERGED pending separate owner authorization.
