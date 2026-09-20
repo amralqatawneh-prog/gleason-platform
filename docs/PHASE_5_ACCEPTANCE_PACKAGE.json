@@ -513,7 +513,7 @@
   },
   "roadmap_architecture_amendment_2026_09_21": {
     "decision": "owner-approved",
-    "status": "in_progress",
+    "status": "closed",
     "date": "2026-09-21",
     "branch": "docs/roadmap-architecture-amendment-2026-09-21",
     "baseline_commit": "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
@@ -549,6 +549,12 @@
     "provider_contract_document": "docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "pr": 23,
+    "verification_head": "cb4b4681bd359e29b08542856b7bff144a239796",
+    "verification_ci_run": 673,
+    "verification_ci_conclusion": "success",
+    "merge_status": "open-unmerged",
+    "merge_authorization": "pending-separate-owner-instruction"
   }
 }
