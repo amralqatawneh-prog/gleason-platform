@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — Post-PR #21 merge reconciliation (2026-09-21)
+
+- PR #21 was separately authorized and **MERGED** into `main`.
+- Final P6.4 closure head `ced5649c3c2d6e1c8e1d96af35fb0775637719a3` passed pre-merge Release Acceptance Gates **#668 — SUCCESS**.
+- PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
+- Post-merge `main` Release Acceptance Gates **#669 — SUCCESS**.
+- Reconcile current-state documentation and machine-readable governance records to the post-PR21 truth; preserve historical dated statements as historical evidence.
+- P6.4 remains **CLOSED**; P6.5 remains **NOT STARTED**; accepted phase remains **5** and accepted application version remains **v0.5.0**.
+- No Phase 6 tag, GitHub Release or deployment is created by this reconciliation.
+
 ## [Unreleased] — Phase 6 / P6.4 AE Native Measurement (2026-09-20)
 
 - Owner explicitly instructed **«أبدأ P6.4»**.
@@ -13,7 +23,7 @@
 - Corrected implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
 - Current documentation/state head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
 - Owner reported all six P6.4 manual checks **6/6 PASS — REPORTED BY OWNER** on 2026-09-21.
-- P6.4 is **CLOSED**; P6.5/P6.7 remain **NOT STARTED**; PR #21 remains draft/unmerged; no merge/tag/release/deployment authorization is implied.
+- P6.4 is **CLOSED**; P6.5/P6.7 remain **NOT STARTED**. At this closure moment PR #21 remained draft/unmerged; it was subsequently authorized and merged as recorded in the post-PR21 entry above. No tag/release/deployment authorization was implied by closure itself.
 
 ## [Unreleased] — Post-PR #19 merge reconciliation (2026-09-20)
 
