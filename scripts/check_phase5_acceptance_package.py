@@ -56,7 +56,7 @@ require((ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.5.0", "root
 frontend_pkg = json.loads((ROOT / "frontend" / "package.json").read_text(encoding="utf-8"))
 require(frontend_pkg.get("version") == "0.5.0", "frontend version drifted")
 backend_pyproject = (ROOT / "backend" / "pyproject.toml").read_text(encoding="utf-8")
-require(re.search(r'^version\s*=\s*"0\.5\.0"\s*
+require(re.search(r'^version\s*=\s*"0\.5\.0"\s*$', backend_pyproject, re.M) is not None, "backend version drifted")
 
 version_py = (ROOT / "backend" / "app" / "version.py").read_text(encoding="utf-8")
 require("IMPLEMENTATION_PHASE = 5" in version_py, "implementation phase metadata drifted")
