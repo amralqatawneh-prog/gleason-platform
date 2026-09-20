@@ -11,6 +11,7 @@
 - Expand Phases 9–12, 15–16, 19 and 21 with explicit slices and acceptance criteria.
 - No astronomy, aviation, detailed-map, routing-provider or P6.5 functional implementation is introduced by this amendment.
 - Accepted phase remains 5; accepted application version remains v0.5.0; Phase 6 remains IN PROGRESS.
+- Amendment verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed Release Acceptance Gates **#673 — SUCCESS**; amendment state is CLOSED. PR #23 remains open/unmerged pending separate owner merge authorization.
 
 
 ## [Unreleased] — Post-PR #21 merge reconciliation (2026-09-21)
