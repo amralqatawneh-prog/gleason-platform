@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gleason-platform-backend"
-version = "0.4.0"
+version = "0.5.0"
 description = "Geospatial catalog, unified search and WGS84 reference services for the Gleason comparison platform"
 requires-python = ">=3.12"
 dependencies = [
