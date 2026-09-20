@@ -590,6 +590,7 @@
     "phase6_status": "in_progress",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "pr": 24
   }
 }
