@@ -26,6 +26,10 @@ def platform_capabilities() -> dict[str, object]:
         "place_search": True,
         "regional_search_packs": True,
         "cross_model_synchronization": True,
+        "measurement_semantics_contract": True,
+        "measurement_engine": False,
+        "route_engine": False,
+        "area_engine": False,
         "astronomy_engine": False,
         "live_flights": False,
     }

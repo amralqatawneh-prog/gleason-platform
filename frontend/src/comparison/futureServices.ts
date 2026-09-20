@@ -14,7 +14,7 @@ export interface FutureServiceContract {
 
 export class FutureServiceUnavailableError extends Error {
   constructor(readonly contract: FutureServiceContract) {
-    super(`${contract.kind} service is unavailable in Phase 5: ${contract.currentBoundary}`);
+    super(`${contract.kind} service is currently unavailable: ${contract.currentBoundary}`);
     this.name='FutureServiceUnavailableError';
   }
 }
@@ -41,7 +41,7 @@ export const FUTURE_SERVICE_CONTRACTS: readonly Readonly<FutureServiceContract>[
     contractVersion:FUTURE_SERVICE_CONTRACT_VERSION,
     status:'unavailable',
     plannedPhase:'6',
-    currentBoundary:'P5.7 reserves a versioned route-service boundary only; route drawing, path semantics, distance, ruler and area engines are not implemented here.',
+    currentBoundary:'P6.1 defines measurement semantics only; route state, drawing, distance, ruler, perimeter and area engines remain unavailable until their later Phase 6 slices.',
     availableOperations:Object.freeze([]),
   }),
 ]);

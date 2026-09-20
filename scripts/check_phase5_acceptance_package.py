@@ -30,8 +30,40 @@ require(
     data.get("accepted_phase_before_phase5_decision") == 4,
     "pre-Phase 5 accepted phase baseline must remain 4",
 )
-require(data.get("implementation_phase") == 5, "implementation phase must be 5")
-require(data.get("phase6_status") == "not_started", "Phase 6 must remain not_started")
+require(
+    data.get("implementation_phase_at_phase5_acceptance") == 5,
+    "Phase 5 acceptance-time implementation phase must remain 5",
+)
+require(data.get("implementation_phase") == 6, "current implementation phase must be 6")
+require(
+    data.get("phase6_status_at_phase5_acceptance") == "not_started",
+    "Phase 6 must remain not_started at the Phase 5 acceptance moment",
+)
+require(data.get("phase6_status") == "in_progress", "current Phase 6 status must be in_progress")
+phase6_start = data.get("phase6_start", {})
+require(phase6_start.get("decision") == "started-by-owner", "explicit Phase 6 start evidence missing")
+require(
+    phase6_start.get("baseline_commit") == "3e5afcd9b95766bd18af59df88c9154f51567e8c",
+    "Phase 6 baseline commit drifted",
+)
+require(phase6_start.get("baseline_ci_run") == 517, "Phase 6 baseline CI must be #517")
+require(
+    phase6_start.get("baseline_ci_conclusion") == "success",
+    "Phase 6 baseline CI #517 must remain success",
+)
+require(phase6_start.get("current_slice") == "P6.1", "latest Phase 6 slice must be P6.1")
+require(phase6_start.get("current_slice_status") == "closed", "P6.1 must be closed")
+require(phase6_start.get("next_slice") == "P6.2", "next Phase 6 slice must be P6.2")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.2 must remain not_started")
+p6_1_manual = phase6_start.get("p6_1_owner_manual", {})
+require(
+    p6_1_manual.get("result") == "pass-reported-by-owner",
+    "P6.1 owner manual result must be recorded",
+)
+require(
+    p6_1_manual.get("checklist_items_passed") == 5,
+    "P6.1 must record all five owner manual checks as passed",
+)
 require(data.get("phase5_owner_acceptance") == "accepted", "Phase 5 owner acceptance must be accepted")
 require(
     data.get("accepted_application_version_after_phase5_decision") == "0.5.0",
@@ -162,9 +194,9 @@ require(
 )
 
 version_py = (ROOT / "backend" / "app" / "version.py").read_text(encoding="utf-8")
-require("IMPLEMENTATION_PHASE = 5" in version_py, "implementation phase metadata drifted")
-require("ACCEPTED_PHASE = 5" in version_py, "accepted phase metadata must be 5")
-require('PHASE_STATUS = "accepted"' in version_py, "phase status metadata must be accepted")
+require("IMPLEMENTATION_PHASE = 6" in version_py, "current implementation phase metadata must be 6")
+require("ACCEPTED_PHASE = 5" in version_py, "accepted phase metadata must remain 5")
+require('PHASE_STATUS = "in_progress"' in version_py, "Phase 6 status metadata must be in_progress")
 
 capabilities = (ROOT / "backend" / "app" / "services" / "capabilities.py").read_text(
     encoding="utf-8"
@@ -216,7 +248,12 @@ print(
             "known_limitations": sorted(limitation_ids),
             "accepted_application_version": "0.5.0",
             "accepted_phase": 5,
-            "phase6_status": "not_started",
+            "implementation_phase": 6,
+            "phase6_status": "in_progress",
+            "phase6_latest_slice": "P6.1",
+            "phase6_latest_slice_status": "closed",
+            "phase6_next_slice": "P6.2",
+            "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
     )
