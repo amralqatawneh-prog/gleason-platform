@@ -204,11 +204,17 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.3",
+    "current_slice": {
+      "id": "P6.3",
+      "status": "closed"
+    },
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
     "current_slice_status": "in_progress",
-    "next_slice": "P6.4",
+    "next_slice": {
+      "id": "P6.4",
+      "status": "not_started"
+    },
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
@@ -275,7 +281,7 @@
       "browser_acceptance_tests_passed": 20,
       "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
     },
-    "p6_3_status": "awaiting-pan-great-circle-retest",
+    "p6_3_status": "closed",
     "p6_3_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
@@ -333,10 +339,15 @@
       "wgs84_numeric_identity": "wgs84-geodesic",
       "observed_flight_track": false,
       "p6_7_status_remains": "not_started",
-      "targeted_manual_retest": "not_run",
+      "targeted_manual_retest": "pass-reported-by-owner",
       "automated_head": "f67a69c78547330f273fc65bf3de4bb7379a09bf",
       "ci_run": 627,
-      "ci_conclusion": "success"
+      "ci_conclusion": "success",
+      "targeted_manual_items_passed": 6,
+      "retested_head": "746e71b261747132bec49f33348cd42870092643",
+      "pre_retest_ci_run": 635,
+      "pre_retest_ci_conclusion": "success",
+      "result": "closed-by-owner-verification"
     }
   },
   "post_pr16_merge_reconciliation": {
