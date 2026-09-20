@@ -1,6 +1,6 @@
 # Offline Architecture — current through P5.9
 
-_Last reconciled: 2026-09-20. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-20. Accepted application version: v0.5.0._
 
 ## Core rule
 
@@ -144,4 +144,4 @@ an unchanged installed offline-pack record; otherwise only the verified
 coordinate is restored. Malformed/unsupported state is discarded and missing
 ellipsoidal height remains unknown.
 
-P5.9 is now CLOSED after the owner reported PASS on all ten manual regression checks. The offline check passed after the app had been installed/cached; supported local search/calculations remained available according to installed packs, and unavailable data remained unavailable rather than fabricated. Full Phase 5 acceptance is still pending a separate explicit owner decision.
+P5.9 is now CLOSED after the owner reported PASS on all ten manual regression checks. The offline check passed after the app had been installed/cached; supported local search/calculations remained available according to installed packs, and unavailable data remained unavailable rather than fabricated. Phase 5 is now ACCEPTED BY OWNER at v0.5.0. Phase 6 remains NOT STARTED.
