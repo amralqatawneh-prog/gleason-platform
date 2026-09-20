@@ -984,6 +984,8 @@ Current integration truth after the separately authorized PR #19 merge:
 - pre-merge Release Acceptance Gates: **#642 — SUCCESS**;
 - merge commit on `main`: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
 - post-merge Release Acceptance Gates: **#643 — SUCCESS**;
+- documentation reconciliation head: `813d2268d74dd0b7ff1a1336b461e6281b71d392`;
+- documentation reconciliation Release Acceptance Gates: **#644 — SUCCESS**;
 - P6.3: **CLOSED**;
 - P6.4: **NOT STARTED**;
 - P6.7: **NOT STARTED**;
