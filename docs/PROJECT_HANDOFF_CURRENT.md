@@ -935,3 +935,17 @@ The next same-slice refinement is now in progress:
 - Great Circle visualization must not be represented as observed flight data;
 - P6.4 and P6.7 remain NOT STARTED;
 - PR #19 remains unmerged.
+
+
+### P6.3 pan + Great Circle automated result
+
+- implementation/documentation head:
+  `f67a69c78547330f273fc65bf3de4bb7379a09bf`
+- Release Acceptance Gates **#627 — SUCCESS**
+- Gleason + AE: explicit free pan by mouse drag or touch input
+- WGS84: display-only spherical Great Circle reference
+- numeric WGS84 identity remains `wgs84-geodesic`
+- observed/live flight-track claim remains false
+- owner targeted retest: **NOT RUN**
+- P6.4/P6.7: NOT STARTED
+- PR #19: unmerged
