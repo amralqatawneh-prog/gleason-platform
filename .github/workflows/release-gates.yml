@@ -42,7 +42,9 @@ jobs:
           test -s frontend/src/reference/GeodesicInspector.tsx
           test -s frontend/src/measurement/wgs84RouteDistance.ts
           test -s frontend/src/measurement/Wgs84RouteDistancePanel.tsx
+          test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
+          test -s frontend/tests/route-guide.test.mjs
           test -s backend/tests/test_phase6_wgs84_route_distance.py
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
