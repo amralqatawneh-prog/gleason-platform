@@ -23,9 +23,9 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` (PR #16 merge)
-- Release Acceptance Gates **#554 — SUCCESS** on that exact post-merge baseline
-- Documentation reconciliation branch: `docs/post-pr16-merge-reconciliation`; no P6.3 implementation branch has started
+- Current integration baseline: `main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8` (PR #17 merge)
+- Release Acceptance Gates **#558 — SUCCESS** on that exact post-merge baseline
+- Current documentation sync branch: `docs/post-pr17-github-sync`; no P6.3 implementation branch has started
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -36,7 +36,8 @@ model engines:
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - Next slice: **P6.3 — WGS84 Ruler / Distance — NOT STARTED**
-- PR #16 is **MERGED** into `main` at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release Acceptance Gates **#554 — SUCCESS**. No tag, GitHub Release or deployment has been created.
+- PR #16 is **MERGED** at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with CI #554 SUCCESS.
+- PR #17 is **MERGED** into `main` at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge Release Acceptance Gates **#558 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 
 ## Phase status
 
@@ -243,7 +244,8 @@ Current source-of-truth documents:
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR13 reconciliation.
-- `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR16 reconciliation.
+- `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md` — closed post-PR16 reconciliation.
+- `docs/POST_PR17_GITHUB_SYNC_2026-09-20.md` — current post-PR17 GitHub state sync.
 - `CHANGELOG.md` — chronological implementation/acceptance history.
 
 Historical phase reports under `docs/` are evidence artifacts and are
@@ -263,8 +265,10 @@ PR #13 was separately authorized and has been **merged into `main`** at
 Release Acceptance Gates **#514**, and the resulting `main` merge commit passed
 Release Acceptance Gates **#515**.
 
-PR #16 was separately authorized and is **merged into `main`** at
-`c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release Acceptance Gates **#554 — SUCCESS**.
+PR #16 was separately authorized and merged at
+`c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge CI #554 succeeded.
+PR #17 was subsequently authorized and merged at
+`660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge Release Acceptance Gates **#558 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
 Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **NOT STARTED**.
