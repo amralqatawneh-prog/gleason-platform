@@ -5,24 +5,25 @@ This supersedes the previous Phase 5 hold. Phase 4 stays accepted at v0.4.0.
 Base commit: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draft PR #9. No merge/tag/release authorization is implied.
 
-## Current execution snapshot — 2026-09-19
+## Current acceptance snapshot — 2026-09-20
 
-- P5.1–P5.7: **CLOSED** after recorded CI and owner-reported manual PASS.
-- Latest owner-tested/documented baseline before the current GitHub documentation
-  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
-- CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
-  core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
-  Docker/PostGIS/Redis, locked-source and search gates.
-- P5.8 Versioned Local State Persistence: **CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- P5.9 Phase 5 regression and owner acceptance package: **CLOSED** after CI #451/#455, owner-reported manual PASS, and explicit Phase 5 acceptance.
+- P5.1–P5.9: **CLOSED** after recorded automated and owner checks.
+- P5.9 final pre-acceptance evidence:
+  - `802a46ac3a1adce95fa9730e135ec5e377567631` — CI #451 SUCCESS;
+  - `cf1f3ad45b6a8da1cf7f608d8da94f275641c676` — CI #455 SUCCESS.
+- P5.9 manual result: **PASS — REPORTED BY OWNER**.
+- Full Phase 5: **COMPLETE / ACCEPTED BY OWNER**.
+- Accepted application version: **v0.5.0**.
+- Implementation phase: **5**.
+- Accepted phase: **5**.
+- Phase status: **accepted**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
-- Full Phase 5: **COMPLETE / ACCEPTED BY OWNER at v0.5.0**.
-- Accepted application version remains **0.4.0**; PR #9 is merged into `main`. No tag or GitHub Release has been created.
-- This documentation synchronization does not itself authorize P5.8.
+- PR #11/#12 remain unmerged. No tag or GitHub Release has been created.
 
-Historical dated subsections below are chronological evidence. Any older “next”,
-“pending”, or “not started” statement is superseded by this current snapshot and
-the latest acceptance-closure subsection.
+Canonical Phase 5 acceptance: `PHASE_5_ACCEPTANCE.md`.
+
+Historical dated subsections below remain chronological evidence and do not
+override this current snapshot.
 
 ## Execution and acceptance
 
