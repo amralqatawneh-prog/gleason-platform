@@ -274,14 +274,30 @@ require(p6_3_automated.get("ci_conclusion") == "success", "P6.3 automated CI #56
 require(p6_3_automated.get("browser_acceptance_tests_passed") == 20, "P6.3 browser acceptance count must be 20")
 p6_3_refinement = phase6_start.get("p6_3_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "refinement-in-progress",
-    "P6.3 must remain refinement-in-progress until route-guide retest",
+    phase6_start.get("p6_3_status") == "awaiting-refinement-retest",
+    "P6.3 must await the targeted route-guide owner retest",
 )
 require(
     p6_3_refinement.get("decision") == "requested-by-owner-after-manual-pass",
     "P6.3 route-guide refinement owner request evidence missing",
 )
-require(p6_3_refinement.get("status") == "in_progress", "P6.3 route-guide refinement must be in_progress")
+require(
+    p6_3_refinement.get("status") == "awaiting-owner-retest",
+    "P6.3 route-guide refinement must await owner retest",
+)
+require(
+    p6_3_refinement.get("automated_head") == "483b123277f62e219937298b4fb7ca104809d420",
+    "P6.3 route-guide automated head drifted",
+)
+require(p6_3_refinement.get("ci_run") == 587, "P6.3 route-guide CI must be #587")
+require(
+    p6_3_refinement.get("ci_conclusion") == "success",
+    "P6.3 route-guide CI #587 must remain success",
+)
+require(
+    p6_3_refinement.get("browser_acceptance_tests_passed") == 20,
+    "P6.3 route-guide browser acceptance count must be 20",
+)
 require(
     p6_3_refinement.get("computation_identity") == "visual-only",
     "P6.3 route-guide refinement must remain visual-only",
