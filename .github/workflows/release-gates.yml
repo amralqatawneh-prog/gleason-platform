@@ -44,6 +44,7 @@ jobs:
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
           test -s docs/PHASE_4_P4_6_REPORT.md
+          test -s docs/PHASE_5_ACCEPTANCE.md
           test -s docs/PHASE_5_ACCEPTANCE_PACKAGE.json
           test -s docs/PHASE_5_P5_9_REPORT.md
           test -s scripts/check_phase5_acceptance_package.py
@@ -103,7 +104,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: phase4-browser-evidence
+          name: phase5-browser-evidence
           path: |
             frontend/playwright-report
             frontend/test-results
