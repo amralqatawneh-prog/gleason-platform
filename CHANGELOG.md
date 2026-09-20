@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Phase 5 owner acceptance — v0.5.0 (2026-09-20)
+
+- Owner reported «نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة».
+- P5.9 manual regression: PASS — REPORTED BY OWNER.
+- P5.9 CLOSED; Phase 5 COMPLETE AND ACCEPTED BY OWNER.
+- Final pre-acceptance automated evidence: CI #451 and CI #455 SUCCESS.
+- Align application VERSION, frontend/backend package metadata and lockfiles to 0.5.0.
+- Set implementation_phase=5, accepted_phase=5 and phase_status=accepted.
+- Add `docs/PHASE_5_ACCEPTANCE.md` and convert the machine-readable acceptance package from pending/in_progress to accepted.
+- Independent model versions and locked production datasets remain unchanged.
+- Phase 6 remains NOT STARTED. PR #11/#12 remain unmerged. No tag, GitHub Release or deployment.
+
+
 ## [Unreleased] — P5.9 automated verification (2026-09-20)
 
 - P5.9 implementation head `802a46ac3a1adce95fa9730e135ec5e377567631` passed Release Acceptance Gates #451.
