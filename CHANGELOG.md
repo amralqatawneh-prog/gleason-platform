@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] — Post-PR #16 documentation reconciliation (2026-09-20)
+
+- Reconcile current-status documentation with the separately authorized PR #16 merge.
+- Current integration baseline is `main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`.
+- PR #16 is MERGED; post-merge Release Acceptance Gates #554 succeeded.
+- P6.1 and P6.2 remain CLOSED; P6.3 remains NOT STARTED.
+- Accepted phase remains 5 and accepted application version remains v0.5.0.
+- No tag, GitHub Release or deployment is created by this documentation-only reconciliation.
+- Historical reports retain the status that was true when they were written.
+- Reconciliation verification is pending on `docs/post-pr16-merge-reconciliation`.
+
 ## [Unreleased] — Phase 6 / P6.2 Ordered Route State (2026-09-20)
 
 - Continue Phase 6 after the owner instructed **«اكمل»**.
@@ -15,7 +26,7 @@
 - P6.2 final implementation/refinement head `1d37a70f376fbe8a8974274dac48c04e2fa36807` passed Release Acceptance Gates #546.
 - Owner reported the original P6.2 manual checklist **6/6 PASS** and the direct-map / >3-points refinement retest **PASS**.
 - P6.2 is **CLOSED**; P6.3 remains **NOT STARTED**.
-- PR #16 remains unmerged. Accepted phase remains 5 and accepted application version remains v0.5.0; no tag, GitHub Release or deployment.
+- PR #16 was subsequently authorized and **MERGED** into `main` at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release Acceptance Gates #554 succeeded. Accepted phase remains 5 and accepted application version remains v0.5.0; no tag, GitHub Release or deployment.
 
 ## [Unreleased] — Phase 6 / P6.1 Measurement Semantics Contract (2026-09-20)
 
