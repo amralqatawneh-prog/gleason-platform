@@ -1,7 +1,7 @@
 # Phase 6 / P6.2 Report — Ordered Route State
 
 Date: 2026-09-20  
-Status: **TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**
+Status: **CLOSED — OWNER MANUAL PASS 6/6 + REFINEMENT PASS REPORTED**
 
 ## Authorization and baseline
 
@@ -148,14 +148,18 @@ Browser coverage exercises:
 
 ## Manual checklist after automated gates are green
 
-Owner progress before the direct-map refinement:
+Owner manual result:
 - test 1: **PASS — REPORTED BY OWNER**;
 - test 2: **PASS — REPORTED BY OWNER**;
-- test 3: **PASS — REPORTED BY OWNER**.
+- test 3: **PASS — REPORTED BY OWNER**;
+- owner-requested direct-map / >3-points refinement retest:
+  **PASS — REPORTED BY OWNER**;
+- test 4: **PASS — REPORTED BY OWNER**;
+- test 5: **PASS — REPORTED BY OWNER**;
+- test 6: **PASS — REPORTED BY OWNER**.
 
-Owner then requested direct map-point addition and explicit support for more
-than three points. Those refinements are now implemented and require a targeted
-retest before proceeding with the remaining checklist.
+Original checklist result: **6/6 PASS — REPORTED BY OWNER**.
+The additional refinement retest also passed.
 
 1. Confirm `/api/v1/capabilities` reports
    `ordered_route_state=true`, `ordered_route_persistence=false`, while
@@ -208,11 +212,28 @@ Passed:
 - online/offline/Arabic search;
 - Redis and frontend Docker HTTP.
 
+### CI #546 — SUCCESS after owner-requested refinement
+
+Exact refinement head:
+`1d37a70f376fbe8a8974274dac48c04e2fa36807`
+
+Release Acceptance Gates #546: **SUCCESS**.
+
+This run verifies the added direct-map route-point mode, support for more than
+three points, the explicit 50-point transient cap, and the full historical
+regression suite without enabling numeric route/distance/area engines.
+
 ## Current status
 
-P6.2 remains **IN PROGRESS** while the owner-requested direct-map refinement is
-reverified. Tests 1–3 were reported PASS before the refinement; tests 4–6 remain
-pending, and the new direct-map/more-than-three-points behavior requires a
-targeted owner retest after the final green CI.
+P6.2 is **CLOSED**.
 
-P6.3 remains **NOT STARTED**.
+Closure evidence:
+- baseline after PR #15 merge: CI #530 SUCCESS;
+- initial implementation: CI #532 SUCCESS;
+- owner-requested refinement head: CI #546 SUCCESS;
+- original manual checklist: **6/6 PASS — REPORTED BY OWNER**;
+- direct-map / more-than-three-points refinement retest:
+  **PASS — REPORTED BY OWNER**.
+
+P6.3 remains **NOT STARTED**. Closing P6.2 does not authorize PR #16 merge,
+Phase 6 acceptance, a tag, GitHub Release, or deployment.
