@@ -75,7 +75,7 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **AWAITING STRAIGHT-LINE OWNER RETEST — base manual 6/6 PASS; first route-guide retest 5/5 PASS; CI #607 SUCCESS**.
+Status: **PAN + GREAT-CIRCLE REFINEMENT IN PROGRESS — base manual 6/6 PASS; route-guide 5/5 PASS; straight-line 4/4 PASS**.
 
 Start baseline:
 - `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
@@ -215,3 +215,11 @@ Acceptance Gates **#561 — SUCCESS**.
 The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 is now
 **IN PROGRESS** on `feat/phase6-p6-3-wgs84-distance`. P6.4 remains
 **NOT STARTED** and does not start automatically from P6.3 implementation.
+
+
+P6.3 current same-slice refinement:
+- mouse/touch free pan for Gleason and AE;
+- WGS84 Great Circle reference rendering;
+- numeric WGS84 geodesic unchanged;
+- no observed-flight-track claim;
+- P6.7 remains NOT STARTED.
