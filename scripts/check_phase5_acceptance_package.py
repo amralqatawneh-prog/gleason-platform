@@ -54,7 +54,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.2", "previous Phase 6 slice must be P6.2")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.2 must remain closed")
 require(phase6_start.get("current_slice") == "P6.3", "current Phase 6 slice must be P6.3")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.3 must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice status must be closed")
 require(phase6_start.get("next_slice") == "P6.4", "next Phase 6 slice must be P6.4")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
 p6_2_start = phase6_start.get("p6_2_start", {})
@@ -396,12 +396,10 @@ require(
     p6_3_pan_gc.get("result") == "closed-by-owner-verification",
     "P6.3 pan/great-circle refinement closure evidence missing",
 )
-current_slice = phase6_start.get("current_slice", {})
-require(current_slice.get("id") == "P6.3", "Phase 6 current slice record must identify P6.3")
-require(current_slice.get("status") == "closed", "P6.3 current slice record must be closed")
-next_slice = phase6_start.get("next_slice", {})
-require(next_slice.get("id") == "P6.4", "Phase 6 next slice record must identify P6.4")
-require(next_slice.get("status") == "not_started", "P6.4 must remain not_started")
+require(phase6_start.get("current_slice") == "P6.3", "Phase 6 current slice must remain P6.3 at closure")
+require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice must be closed")
+require(phase6_start.get("next_slice") == "P6.4", "Phase 6 next slice must remain P6.4")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
 
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
