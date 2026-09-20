@@ -59,3 +59,9 @@
   .wgs84-route-distance-segment{grid-template-columns:1fr auto}
   .wgs84-route-distance-segment>small{grid-column:1/-1;text-align:start}
 }
+
+.reference-route-guide-label-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.reference-route-guide-label{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:22px;height:22px;border:2px solid #f4c95d;border-radius:50%;background:#07111c;color:#fff4c7;font-size:10px;font-weight:800;box-shadow:0 0 0 2px rgba(7,17,28,.7)}
+.reference-route-guide-line{fill:none;stroke:#f4c95d;stroke-width:1.5;stroke-dasharray:5 3;vector-effect:non-scaling-stroke;pointer-events:none}
+.reference-route-guide-point{pointer-events:none}.reference-route-guide-point circle{fill:#07111c;stroke:#f4c95d;stroke-width:1.2;vector-effect:non-scaling-stroke}.reference-route-guide-point text{fill:#fff4c7;stroke:#07111c;stroke-width:.7;paint-order:stroke;font-weight:800}
+.route-guide-notice{border-color:#6c5b2f;background:#18170f}
