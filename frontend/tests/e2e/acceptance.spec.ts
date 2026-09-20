@@ -390,6 +390,20 @@ test('P5.6 navigation stays camera-local and preserves geographic selection',asy
 
   const gMap=gleason.locator('.projection-map');await gMap.scrollIntoViewIfNeeded();
   const gBox=(await gMap.boundingBox())!;
+  await expect(gleason).toHaveAttribute('data-pan-enabled','true');
+  await expect(gleason).toHaveAttribute('data-pan-inputs','mouse-touch');
+  const gCenterX0=Number(await gleason.getAttribute('data-view-center-x'));
+  const gCenterY0=Number(await gleason.getAttribute('data-view-center-y'));
+  await page.mouse.move(gBox.x+gBox.width*.5,gBox.y+gBox.height*.5);
+  await page.mouse.down();
+  await page.mouse.move(gBox.x+gBox.width*.63,gBox.y+gBox.height*.37,{steps:10});
+  await page.mouse.up();
+  await expect.poll(async()=>[
+    Number(await gleason.getAttribute('data-view-center-x')),
+    Number(await gleason.getAttribute('data-view-center-y')),
+  ]).not.toEqual([gCenterX0,gCenterY0]);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
+
   await gToolbar.getByRole('button',{name:'Zoom to area',exact:true}).click();
   await expect(gleason).toHaveAttribute('data-area-mode','true');
   const areaZoom0=Number(await gleason.getAttribute('data-view-zoom'));
@@ -405,6 +419,19 @@ test('P5.6 navigation stays camera-local and preserves geographic selection',asy
   const wheelZoom0=Number(await ae.getAttribute('data-view-zoom'));
   const aMap=ae.locator('.projection-map');await aMap.scrollIntoViewIfNeeded();
   const aBox=(await aMap.boundingBox())!;
+  await expect(ae).toHaveAttribute('data-pan-enabled','true');
+  await expect(ae).toHaveAttribute('data-pan-inputs','mouse-touch');
+  const aCenterX0=Number(await ae.getAttribute('data-view-center-x'));
+  const aCenterY0=Number(await ae.getAttribute('data-view-center-y'));
+  await page.mouse.move(aBox.x+aBox.width*.5,aBox.y+aBox.height*.5);
+  await page.mouse.down();
+  await page.mouse.move(aBox.x+aBox.width*.38,aBox.y+aBox.height*.62,{steps:10});
+  await page.mouse.up();
+  await expect.poll(async()=>[
+    Number(await ae.getAttribute('data-view-center-x')),
+    Number(await ae.getAttribute('data-view-center-y')),
+  ]).not.toEqual([aCenterX0,aCenterY0]);
+  await expect(shell).toHaveAttribute('data-selection-revision','1');
   await page.mouse.move(aBox.x+aBox.width/2,aBox.y+aBox.height/2);
   await page.mouse.wheel(0,-700);
   await expect.poll(async()=>Number(await ae.getAttribute('data-view-zoom'))).toBeGreaterThan(wheelZoom0);
@@ -750,8 +777,13 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
   }
   for(const flat of await page.locator('.projection-card').all()){
     await expect(flat).toHaveAttribute('data-route-guide-geometry','straight-projected-segments');
+    await expect(flat).toHaveAttribute('data-pan-inputs','mouse-touch');
   }
-  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('visual guide');
+  const globeGuide=page.locator('.reference-card');
+  await expect(globeGuide).toHaveAttribute('data-route-guide-geometry','great-circle-reference');
+  await expect(globeGuide).toHaveAttribute('data-flight-track','false');
+  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('Great Circle');
+  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('not an observed flight track');
   await expect(ruler).toContainText('wgs84-geodesic');
   await expect(ruler).toContainText('open-polyline');
   await expect(ruler).toContainText('wgs84-ellipsoid');
