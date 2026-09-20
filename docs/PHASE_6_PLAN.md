@@ -75,7 +75,7 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **STRAIGHT-LINE REFINEMENT IN PROGRESS — base manual 6/6 PASS; first route-guide retest 5/5 PASS; automated verification pending**.
+Status: **AWAITING STRAIGHT-LINE OWNER RETEST — base manual 6/6 PASS; first route-guide retest 5/5 PASS; CI #607 SUCCESS**.
 
 Start baseline:
 - `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
@@ -94,6 +94,9 @@ Start baseline:
 - backend-stop line/fallback retest: **PASS — REPORTED BY OWNER**
 - pre-retest CI #595: **SUCCESS**
 - current refinement: exact straight projected route segments on Gleason/AE, no intermediate samples
+- straight-line implementation head: `f837f8af9c56309156540f28cdf5e60456642b69`
+- straight-line Release Acceptance Gates #607: **SUCCESS**
+- targeted straight-line owner retest: **NOT RUN**
 - P6.7 remains NOT STARTED
 
 Deliver:
