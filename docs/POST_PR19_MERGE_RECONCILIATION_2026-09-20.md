@@ -1,6 +1,6 @@
 # Post-PR #19 Merge Reconciliation — 2026-09-20
 
-Status: **IN PROGRESS — documentation verification pending**
+Status: **CLOSED — documentation verification complete**
 
 ## Purpose
 
@@ -65,8 +65,12 @@ remain evidence of the state that existed when they were written.
 
 ## Verification boundary
 
-This reconciliation is not CLOSED until this documentation branch passes the
-complete Release Acceptance Gates and the exact successful verification head/run
-are recorded here and in the machine-readable acceptance package.
+Verification evidence:
 
-No merge of this documentation PR is authorized by creating or verifying it.
+- reconciliation verification head: `813d2268d74dd0b7ff1a1336b461e6281b71d392`;
+- Release Acceptance Gates **#644 — SUCCESS**;
+- machine-readable reconciliation status: **CLOSED**.
+
+A final closure-state CI run is required on the documentation head that records
+this evidence. No merge of this documentation PR is authorized by creating or
+verifying it.
