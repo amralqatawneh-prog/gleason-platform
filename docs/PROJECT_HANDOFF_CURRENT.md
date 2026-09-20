@@ -1018,3 +1018,37 @@ the existing proj4 AE definition. WGS84 geodesic identity remains separate.
 P6.5 and P6.7 remain **NOT STARTED**. Owner manual P6.4 verification is
 **NOT RUN**. No merge, tag, GitHub Release or deployment is implied by starting
 the slice.
+
+
+## P6.4 — AE Native Measurement — current state
+
+Owner explicitly started P6.4 on 2026-09-20.
+
+Verified baseline:
+- `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a`;
+- PR #20 MERGED;
+- post-merge Release Acceptance Gates #651 SUCCESS.
+
+Current implementation:
+- adjacent ordered route points are projected through the independent north-polar AE provider;
+- each adjacent segment is measured as a straight Euclidean chord in projected x/y metres;
+- open-polyline total is the sum of those projected segments;
+- method identity remains `ae-projected-plane`;
+- scale basis remains `ae-projected-plane-si-metre`;
+- backend authority: pyproj/PROJ;
+- independent browser/offline implementation: proj4 2.22.0;
+- explicit distortion notice: AE radial distances from the north-pole center are preserved, arbitrary pairwise surface distances are not;
+- provider-backed road/flight routes remain unavailable;
+- WGS84 geodesic and AE projected-plane results remain semantically separate.
+
+Automated evidence:
+- implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476`;
+- Release Acceptance Gates #653: **SUCCESS**;
+- CI #652 was a checker-only failure caused by a stale historical P6.3 current-slice assertion.
+
+Current governance state:
+- P6.4: **AWAITING OWNER MANUAL VERIFICATION**;
+- P6.5: NOT STARTED;
+- P6.7: NOT STARTED;
+- PR #21: OPEN / DRAFT / UNMERGED;
+- no tag / GitHub Release / deployment.
