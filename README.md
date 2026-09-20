@@ -93,6 +93,17 @@ service state.
 
 P5.8 acceptance: owner-reported PASS after CI #439/#442 SUCCESS.
 
+### P5.9 clean integration note
+
+P5.8 PR #11 is now merged into `main` at
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. P5.9 continues on the clean
+branch `feat/phase5-p5-9-acceptance-clean`.
+
+P5.9 is technically green after CI #451 but still awaits owner manual
+regression. Full Phase 5 is not yet accepted; version 0.4.0 remains the accepted
+application version. A superseded PR #12 contains unverified acceptance/version
+claims and must not be merged.
+
 ### P5.9 current scope
 
 P5.9 is the final Phase 5 regression and owner-acceptance package. It adds no
