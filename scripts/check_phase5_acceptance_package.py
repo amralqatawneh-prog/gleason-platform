@@ -54,7 +54,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.1", "previous Phase 6 slice must be P6.1")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.1 must remain closed")
 require(phase6_start.get("current_slice") == "P6.2", "current Phase 6 slice must be P6.2")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.2 must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.2 must be closed")
 require(phase6_start.get("next_slice") == "P6.3", "next Phase 6 slice must be P6.3")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.3 must remain not_started")
 p6_2_start = phase6_start.get("p6_2_start", {})
@@ -67,11 +67,24 @@ require(p6_2_start.get("baseline_ci_run") == 530, "P6.2 baseline CI must be #530
 require(p6_2_start.get("baseline_ci_conclusion") == "success", "P6.2 baseline CI #530 must remain success")
 p6_2_automated = phase6_start.get("p6_2_automated", {})
 require(
-    p6_2_automated.get("implementation_head") == "9acd10b6ccbc0ae4f3565200169ff2b2ec8f38fa",
+    p6_2_automated.get("implementation_head") == "1d37a70f376fbe8a8974274dac48c04e2fa36807",
     "P6.2 implementation head evidence drifted",
 )
-require(p6_2_automated.get("ci_run") == 532, "P6.2 automated CI must be #532")
-require(p6_2_automated.get("ci_conclusion") == "success", "P6.2 automated CI #532 must remain success")
+require(p6_2_automated.get("ci_run") == 546, "P6.2 automated CI must be #546")
+require(p6_2_automated.get("ci_conclusion") == "success", "P6.2 automated CI #546 must remain success")
+p6_2_manual = phase6_start.get("p6_2_owner_manual", {})
+require(
+    p6_2_manual.get("result") == "pass-reported-by-owner",
+    "P6.2 owner manual result must be recorded",
+)
+require(
+    p6_2_manual.get("checklist_items_passed") == 6,
+    "P6.2 must record all six owner manual checks as passed",
+)
+require(
+    p6_2_manual.get("refinement_retest") == "pass-reported-by-owner",
+    "P6.2 direct-map refinement retest must be recorded as passed",
+)
 p6_1_manual = phase6_start.get("p6_1_owner_manual", {})
 require(
     p6_1_manual.get("result") == "pass-reported-by-owner",
@@ -286,7 +299,7 @@ print(
             "phase6_previous_slice": "P6.1",
             "phase6_previous_slice_status": "closed",
             "phase6_current_slice": "P6.2",
-            "phase6_current_slice_status": "in_progress",
+            "phase6_current_slice_status": "closed",
             "phase6_next_slice": "P6.3",
             "phase6_next_slice_status": "not_started",
         },
