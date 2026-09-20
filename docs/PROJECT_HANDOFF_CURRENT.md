@@ -23,17 +23,19 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
 - Active development branch: `feat/phase6-p6-2-ordered-route-state`.
-- Latest closed slice: **P6.1 — Measurement Semantics Contract**.
+- Latest closed slice: **P6.2 — Ordered Route State**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
-- Current slice: **P6.2 — Ordered Route State — IN PROGRESS**.
-- P6.2 currently supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
-- P6.3+ remain NOT STARTED.
-- No tag, GitHub Release or deployment is authorized by P6.2 work.
+- P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
+- P6.2 owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
+- P6.2 direct-map / >3-points refinement retest: **PASS — REPORTED BY OWNER**.
+- P6.2 supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
+- P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**.
+- PR #16 remains unmerged; no tag, GitHub Release or deployment is authorized by P6.2 closure.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 is CLOSED; owner then instructed «اكمل», starting P6.2 only.
+- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 and P6.2 are CLOSED; P6.3 remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
