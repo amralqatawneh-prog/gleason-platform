@@ -2,7 +2,7 @@
   "schema_version": 1,
   "phase": 5,
   "package_slice": "P5.9",
-  "status": "closed",
+  "status": "accepted",
   "generated_date": "2026-09-20",
   "accepted_application_version_before_phase5_decision": "0.4.0",
   "accepted_phase_before_phase5_decision": 4,
@@ -121,7 +121,7 @@
     }
   ],
   "phase6_status": "not_started",
-  "phase5_owner_acceptance": "pending",
+  "phase5_owner_acceptance": "accepted",
   "merge_release_boundary": {
     "pr9": "merged",
     "pr11": "merged",
@@ -130,12 +130,22 @@
     "github_release": "not_created",
     "pr11_merge_commit": "7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4",
     "superseded_pr12": "do-not-merge-unverified-acceptance-state",
-    "pr13": "open-draft-awaiting-separate-phase5-owner-acceptance-and-merge-authorization"
+    "pr13": "open-draft-phase5-accepted-awaiting-separate-merge-authorization",
+    "deployment": "not_created"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
     "date": "2026-09-20",
     "checklist_items_passed": 10,
     "note": "All ten P5.9 manual regression checks were reported PASS by the owner in sequence."
+  },
+  "accepted_application_version_after_phase5_decision": "0.5.0",
+  "accepted_phase_after_phase5_decision": 5,
+  "phase5_status": "accepted",
+  "phase5_owner_acceptance_evidence": {
+    "date": "2026-09-20",
+    "statement": "أعتمد المرحلة الخامسة",
+    "decision": "accepted-by-owner",
+    "scope": "Phase 5 as a whole after P5.1–P5.9 closure"
   }
 }
