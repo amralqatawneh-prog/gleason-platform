@@ -116,7 +116,14 @@ Deliver:
 
 ## P6.4 — AE Native Measurement
 
-Status: **NOT STARTED**.
+Status: **IN PROGRESS**.
+
+Start evidence:
+- owner instruction: **«أبدأ P6.4»**;
+- baseline: `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a`;
+- post-PR20 Release Acceptance Gates **#651 — SUCCESS**;
+- branch: `feat/phase6-p6-4-ae-native-measurement`;
+- owner manual verification: **NOT RUN**.
 
 Deliver:
 - projected-plane segment/polyline measurement;
@@ -232,6 +239,10 @@ P6.3 final evidence:
 - PR #19 merge commit on `main`: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
 - post-merge Release Acceptance Gates **#643 — SUCCESS**.
 
-Current next permitted slice is **P6.4 — AE Native Measurement**, but it remains
-**NOT STARTED** until a separate explicit owner instruction. P6.7 also remains
-**NOT STARTED**. No tag, GitHub Release or deployment is implied by the merge.
+The owner subsequently gave the explicit instruction **«أبدأ P6.4»**. P6.4 is
+now **IN PROGRESS** from the verified post-PR20 baseline
+`35fda15508973340669220a20ee1c5bf6bbaa39a` / CI **#651 SUCCESS**.
+
+P6.4 implements AE projected-plane adjacent-segment/open-polyline distance with
+explicit distortion and method identity. P6.5 and P6.7 remain **NOT STARTED**.
+No tag, GitHub Release or deployment is implied.
