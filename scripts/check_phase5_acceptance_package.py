@@ -54,7 +54,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.3", "previous Phase 6 slice must be P6.3")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.3 must remain closed")
 require(phase6_start.get("current_slice") == "P6.4", "current Phase 6 slice must be P6.4")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.4 current slice status must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.4 current slice status must be closed")
 require(phase6_start.get("next_slice") == "P6.5", "next Phase 6 slice must be P6.5")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.5 must remain not_started")
 p6_4_start = phase6_start.get("p6_4_start", {})
@@ -73,9 +73,12 @@ require(
     p6_4_start.get("scope") == "AE native projected-plane distance for adjacent ordered route segments and open-polyline total only",
     "P6.4 scope drifted",
 )
-require(p6_4_start.get("status") == "awaiting-owner-manual", "P6.4 must await owner manual verification after automated success")
-require(p6_4_start.get("owner_manual_status") == "not_run", "P6.4 owner manual must remain not_run until reported")
-require(phase6_start.get("p6_4_status") == "awaiting-owner-manual", "P6.4 status must await owner manual verification")
+require(p6_4_start.get("status") == "closed", "P6.4 start record must be closed after owner verification")
+require(
+    p6_4_start.get("owner_manual_status") == "pass-reported-by-owner",
+    "P6.4 owner manual status must record owner-reported PASS",
+)
+require(phase6_start.get("p6_4_status") == "closed", "P6.4 status must be closed after owner verification")
 p6_4_automated = phase6_start.get("p6_4_automated", {})
 require(
     p6_4_automated.get("implementation_head") == "bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476",
@@ -90,6 +93,22 @@ require(
     p6_4_automated.get("prior_failed_ci_runs") == [652],
     "P6.4 prior checker-only failure evidence drifted",
 )
+p6_4_manual = phase6_start.get("p6_4_owner_manual", {})
+require(
+    p6_4_manual.get("result") == "pass-reported-by-owner",
+    "P6.4 owner manual PASS evidence missing",
+)
+require(p6_4_manual.get("checklist_items_passed") == 6, "P6.4 must record all six owner manual checks as passed")
+require(
+    p6_4_manual.get("tested_head") == "59d19a96c6a7af443429d8ba7585386d4f491dee",
+    "P6.4 owner-tested head drifted",
+)
+require(p6_4_manual.get("pre_manual_ci_run") == 661, "P6.4 owner manual verification must follow CI #661")
+require(
+    p6_4_manual.get("pre_manual_ci_conclusion") == "success",
+    "P6.4 pre-manual CI #661 must remain success",
+)
+
 
 
 p6_2_start = phase6_start.get("p6_2_start", {})
@@ -687,7 +706,7 @@ print(
             "phase6_previous_slice": "P6.3",
             "phase6_previous_slice_status": "closed",
             "phase6_current_slice": "P6.4",
-            "phase6_current_slice_status": "in_progress",
+            "phase6_current_slice_status": "closed",
             "phase6_next_slice": "P6.5",
             "phase6_next_slice_status": "not_started",
         },
