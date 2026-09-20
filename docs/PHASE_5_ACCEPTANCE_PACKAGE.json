@@ -275,7 +275,7 @@
       "browser_acceptance_tests_passed": 20,
       "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
     },
-    "p6_3_status": "awaiting-refinement-retest",
+    "p6_3_status": "straight-line-refinement-in-progress",
     "p6_3_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
@@ -294,11 +294,27 @@
       "scope": "Display-only ordered route guide on WGS84, Gleason and AE views with A/B/C labels; no numeric or provider-route semantic change.",
       "computation_identity": "visual-only",
       "p6_7_status_remains": "not_started",
-      "targeted_manual_retest": "not_run",
+      "targeted_manual_retest": "pass-reported-by-owner",
       "automated_head": "483b123277f62e219937298b4fb7ca104809d420",
       "ci_run": 587,
       "ci_conclusion": "success",
-      "browser_acceptance_tests_passed": 20
+      "browser_acceptance_tests_passed": 20,
+      "targeted_manual_items_passed": 5,
+      "offline_backend_fallback_retest": "pass-reported-by-owner",
+      "retested_head": "df9227a831e4b90940cea70dde902f64684a0bf4",
+      "pre_retest_ci_run": 595,
+      "pre_retest_ci_conclusion": "success"
+    },
+    "p6_3_straight_line_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "On the two flat Gleason-style views, make the drawn route line perfectly straight instead of curved.",
+      "decision": "requested-by-owner-after-route-guide-retest-pass",
+      "status": "in_progress",
+      "scope": "Use exactly one projected straight segment between each adjacent route-point pair on Gleason and AE; keep WGS84 visualization unchanged.",
+      "geometry_semantics": "straight-projected-segment",
+      "computation_identity": "visual-only",
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "not_run"
     }
   },
   "post_pr16_merge_reconciliation": {
