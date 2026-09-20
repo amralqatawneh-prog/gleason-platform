@@ -152,6 +152,48 @@ require(
     merge_boundary.get("pr15_post_merge_main_ci_conclusion") == "success",
     "PR #15 post-merge CI #530 must remain success",
 )
+require(merge_boundary.get("pr16") == "merged", "PR #16 current status must be merged")
+require(
+    merge_boundary.get("pr16_merge_commit")
+    == "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+    "PR #16 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr16_final_head")
+    == "a8a5d2bba7680491c131da239a2c583b5f31727c",
+    "PR #16 final head drifted",
+)
+require(merge_boundary.get("pr16_pre_merge_ci_run") == 553, "PR #16 pre-merge CI must be #553")
+require(
+    merge_boundary.get("pr16_pre_merge_ci_conclusion") == "success",
+    "PR #16 pre-merge CI #553 must remain success",
+)
+require(merge_boundary.get("pr16_post_merge_main_ci_run") == 554, "PR #16 post-merge CI must be #554")
+require(
+    merge_boundary.get("pr16_post_merge_main_ci_conclusion") == "success",
+    "PR #16 post-merge CI #554 must remain success",
+)
+require(
+    merge_boundary.get("current_integration_baseline")
+    == "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+    "current integration baseline must be the PR #16 merge commit",
+)
+p6_2_merge = phase6_start.get("p6_2_merge", {})
+require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
+require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
+require(p6_2_merge.get("post_merge_ci_run") == 554, "P6.2 post-merge CI must be #554")
+require(p6_2_merge.get("post_merge_ci_conclusion") == "success", "P6.2 post-merge CI #554 must remain success")
+reconciliation = data.get("post_pr16_merge_reconciliation", {})
+require(
+    reconciliation.get("status") in {"verification_pending", "closed"},
+    "post-PR16 reconciliation status must be verification_pending or closed",
+)
+require(
+    reconciliation.get("baseline_commit") == "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+    "post-PR16 reconciliation baseline drifted",
+)
+require(reconciliation.get("baseline_ci_run") == 554, "post-PR16 reconciliation baseline CI must be #554")
+require(reconciliation.get("p6_3_status") == "not_started", "P6.3 must remain not_started during reconciliation")
 require(merge_boundary.get("tag") == "not_created", "tag must remain not_created")
 require(
     merge_boundary.get("github_release") == "not_created",
