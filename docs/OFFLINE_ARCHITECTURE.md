@@ -1,6 +1,6 @@
-# Offline Architecture — current through P5.7
+# Offline Architecture — current through accepted Phase 5
 
-_Last reconciled: 2026-09-19. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-19. Accepted application version: v0.5.0._
 
 ## Core rule
 
@@ -60,7 +60,7 @@ normalized.
 
 ## Phase 5 status
 
-P5.1–P5.7 are closed. Their offline-relevant behavior includes:
+P5.1–P5.9 are closed and Phase 5 is accepted. Their offline-relevant behavior includes:
 
 - canonical shared geographic selection while the app is running;
 - offline-capable model calculations already supported by each adapter;
