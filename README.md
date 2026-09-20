@@ -12,10 +12,11 @@ model engines:
 > **Current development status — 2026-09-20**
 >
 > Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9.
-> Phase 6 was explicitly started by the owner on 2026-09-20 and is now
-> **IN PROGRESS — P6.1 Measurement Semantics Contract**. Accepted phase remains
-> **5** and accepted application version remains **v0.5.0** until a separate
-> Phase 6 acceptance decision.
+> Phase 6 was explicitly started by the owner on 2026-09-20. **P6.1 Measurement
+> Semantics Contract is CLOSED** after CI #519/#520 SUCCESS and **5/5 manual
+> checks PASS — REPORTED BY OWNER**. P6.2 remains **NOT STARTED**. Accepted phase
+> remains **5** and accepted application version remains **v0.5.0** until a
+> separate Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
@@ -28,8 +29,10 @@ model engines:
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Current slice: **P6.1 — Measurement Semantics Contract**
-- No tag, GitHub Release or deployment is authorized by the Phase 6 start.
+- Latest closed slice: **P6.1 — Measurement Semantics Contract**
+- P6.1 verification: **CI #519/#520 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
+- Next slice: **P6.2 — Ordered Route State — NOT STARTED**
+- No tag, GitHub Release, deployment or PR #15 merge is authorized by P6.1 closure.
 
 ## Phase status
 
@@ -50,7 +53,7 @@ model engines:
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
 | P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
-| P6.1 | IN PROGRESS 🚧 | Measurement semantics only; no numeric route/ruler/area engine yet |
+| P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520 · owner 5/5 PASS |
 | P6.2–P6.10 | NOT STARTED ⏳ | Ordered routes, model measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
