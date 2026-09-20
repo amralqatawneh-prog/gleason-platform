@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "Route/ruler/distance/area engine is not implemented in Phase 5; Phase 6 remains not started."
+      "boundary": "Route/ruler/distance/area engine was not implemented in Phase 5; P6.1 is now closed as semantics-only and route/measurement operations remain unavailable until later Phase 6 slices."
     },
     {
       "id": "camera-states-independent",
@@ -177,6 +177,14 @@
     "baseline_ci_conclusion": "success",
     "current_slice": "P6.1",
     "accepted_application_version_remains": "0.5.0",
-    "accepted_phase_remains": 5
+    "accepted_phase_remains": 5,
+    "current_slice_status": "closed",
+    "next_slice": "P6.2",
+    "next_slice_status": "not_started",
+    "p6_1_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-20",
+      "checklist_items_passed": 5
+    }
   }
 }
