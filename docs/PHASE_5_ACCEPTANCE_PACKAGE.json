@@ -267,7 +267,7 @@
   "post_pr17_github_sync": {
     "date": "2026-09-20",
     "scope": "GitHub current-state synchronization after separately authorized PR #17 merge",
-    "status": "verification_pending",
+    "status": "closed",
     "baseline_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "baseline_ci_run": 558,
     "baseline_ci_conclusion": "success",
@@ -279,6 +279,9 @@
     "accepted_application_version": "0.5.0",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "verification_head": "2314a247560d463ef03cd6438ea932da37813d73",
+    "verification_ci_run": 559,
+    "verification_ci_conclusion": "success"
   }
 }
