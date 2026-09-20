@@ -315,7 +315,7 @@ require(
 )
 p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
 require(
-    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress"},
+    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress", "awaiting-pan-great-circle-retest"},
     "P6.3 status must remain in the active refinement lifecycle",
 )
 require(
