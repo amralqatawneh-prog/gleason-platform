@@ -73,9 +73,24 @@ require(
     p6_4_start.get("scope") == "AE native projected-plane distance for adjacent ordered route segments and open-polyline total only",
     "P6.4 scope drifted",
 )
-require(p6_4_start.get("status") == "in_progress", "P6.4 must be in_progress")
+require(p6_4_start.get("status") == "awaiting-owner-manual", "P6.4 must await owner manual verification after automated success")
 require(p6_4_start.get("owner_manual_status") == "not_run", "P6.4 owner manual must remain not_run until reported")
-require(phase6_start.get("p6_4_status") == "in_progress", "P6.4 status must be in_progress")
+require(phase6_start.get("p6_4_status") == "awaiting-owner-manual", "P6.4 status must await owner manual verification")
+p6_4_automated = phase6_start.get("p6_4_automated", {})
+require(
+    p6_4_automated.get("implementation_head") == "bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476",
+    "P6.4 implementation head evidence drifted",
+)
+require(p6_4_automated.get("ci_run") == 653, "P6.4 automated CI must be #653")
+require(
+    p6_4_automated.get("ci_conclusion") == "success",
+    "P6.4 automated CI #653 must remain success",
+)
+require(
+    p6_4_automated.get("prior_failed_ci_runs") == [652],
+    "P6.4 prior checker-only failure evidence drifted",
+)
+
 
 p6_2_start = phase6_start.get("p6_2_start", {})
 require(p6_2_start.get("decision") == "continued-by-owner", "P6.2 owner continuation evidence missing")
