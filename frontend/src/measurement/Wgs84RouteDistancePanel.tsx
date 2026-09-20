@@ -94,6 +94,13 @@ export function Wgs84RouteDistancePanel({ locale, state }: Props) {
         <small dir="ltr">{(result.output.total_distance_m / 1000).toFixed(3)} km · display conversion only</small>
       </div>
 
+      <div className="notice route-guide-notice" data-route-guide-semantics="visual-only">
+        <strong>{locale === 'ar' ? 'خط المسار على الخرائط' : 'Route line on maps'}</strong>
+        <span>{locale === 'ar'
+          ? 'الخط الذهبي المتقطع وعلامات A/B/C دليل بصري لربط نقاط المسار المرتبة فقط. لا يغيّر حساب WGS84 ولا يُعد طريقًا أو مسار طيران أو قياسًا أصليًا لـAE/Gleason.'
+          : 'The dashed gold line and A/B/C markers are a visual guide connecting the ordered route points only. They do not change the WGS84 calculation and are not a road/flight route or an AE/Gleason native measurement.'}</span>
+      </div>
+
       <div className="wgs84-route-distance-meta">
         <span><b>{locale === 'ar' ? 'الطريقة' : 'Method'}:</b> {result.output.method_id}</span>
         <span><b>{locale === 'ar' ? 'وحدة العقد' : 'Contract unit'}:</b> {result.output.unit}</span>
