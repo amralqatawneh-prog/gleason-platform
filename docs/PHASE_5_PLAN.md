@@ -13,8 +13,8 @@ Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draf
 - CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
   core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
   Docker/PostGIS/Redis, locked-source and search gates.
-- P5.8 Versioned Local State Persistence: **IN PROGRESS** by explicit owner instruction «أبدأ P5.8».
-- P5.9: **PENDING / NOT STARTED**.
+- P5.8 Versioned Local State Persistence: **CLOSED** after CI #439/#442 and owner-reported manual PASS.
+- P5.9 Phase 5 regression and owner acceptance package: **NEXT / NOT STARTED**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
 - Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
 - Accepted application version remains **0.4.0**; PR #9 is merged into `main`. No tag or GitHub Release has been created.
@@ -51,7 +51,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.7 are closed after their recorded automated and owner checks. P5.8 Versioned Local State Persistence is now IN PROGRESS; P5.9 remains pending.
+P5.1 through P5.8 are closed after their recorded automated and owner checks. P5.9 Phase 5 regression and owner acceptance package is next and remains NOT STARTED.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -267,3 +267,18 @@ Required rules:
 
 Implementation/report: `PHASE_5_P5_8_REPORT.md`. P5.9 and Phase 6 remain NOT
 STARTED. Accepted application version remains 0.4.0.
+
+
+## P5.8 acceptance closure — 2026-09-20
+
+The owner reported «نجحت جميع اختبارات P5.8». Manual result:
+**PASS — REPORTED BY OWNER**.
+
+Automated evidence:
+- `3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` — CI #439 SUCCESS;
+- `06e01a842ce51c77c721ca7cf2c61a4a819af714` — CI #442 SUCCESS.
+
+P5.8 is **CLOSED**. P5.9 is the next ordered slice and remains **NOT STARTED**
+until explicit owner continuation. Phase 6 remains NOT STARTED. Full Phase 5 is
+still IN PROGRESS / NOT YET ACCEPTED. Draft PR #11 remains unmerged. No tag,
+GitHub Release or deployment.
