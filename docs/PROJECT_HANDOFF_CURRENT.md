@@ -385,37 +385,36 @@ Historical P4.7 closure CI:
 
 ## Current acceptance state
 
-Historical slice state (new correction evidence is separate):
-- P4.1 COMPLETE ✅
-- P4.2 COMPLETE ✅
-- P4.3 COMPLETE ✅
-- P4.4 COMPLETE ✅
-- P4.5 COMPLETE ✅
-- P4.6 COMPLETE ✅
-- P4.7 COMPLETE ✅
+Overall current state:
+- Phases 0–4: ACCEPTED.
+- P5.1–P5.9: CLOSED.
+- Phase 5: **COMPLETE AND ACCEPTED BY OWNER**.
+- Accepted application version: **v0.5.0**.
+- Implementation phase: **5**.
+- Accepted phase: **5**.
+- Phase status: **accepted**.
+- Final pre-acceptance automated evidence: CI #451 and CI #455 SUCCESS.
+- Owner statement: «نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة».
+- Phase 6: **NOT STARTED**.
+- PR #11 and PR #12: open/draft/unmerged.
+- No tag, GitHub Release or deployment.
 
-Overall:
-- Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
-- Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.7 closed; P5.8 Versioned Local State Persistence next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+Canonical acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
+Machine-readable acceptance package: `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
 
 ## Required next steps
 
-1. Keep P5.1–P5.7 closed unless a concrete regression or source error is found.
-2. P5.8 is now explicitly authorized and IN PROGRESS. Do not start P5.9 before P5.8 is technically closed and owner-tested.
-3. When authorized, P5.8 must implement versioned local state persistence:
-   offline restore from installed/local packs, safe handling of invalid/old
-   state, and no invented place identity or missing values.
-4. After P5.8 acceptance, P5.9 prepares the full Phase 5 regression and owner
-   acceptance package.
-5. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area
-   remain out of scope until the approved sequence reaches Phase 6.
-6. Preserve accepted version `0.4.0` until a later acceptance/version decision;
-   do not infer a release from development commits.
-7. PR #9 is already merged into `main`; do not create a tag or GitHub Release without separate authorization.
-8. Continue to use locked source manifests and never fabricate historical scan
-   control points, coordinates, ellipsoidal height, scale conversions, or
-   provenance.
+1. Keep Phase 5 closed unless a concrete regression/source defect is found.
+2. Do **not** begin Phase 6 automatically. It requires an explicit owner start
+   instruction.
+3. PR #11/#12 integration into `main` is a separate decision from Phase 5
+   acceptance.
+4. Tag/GitHub Release/deployment remain separately authorized operations.
+5. Preserve all accepted Phase 5 boundaries: independent engines, visible
+   provenance, no fabricated height/identity/scale, unavailable future services,
+   and no Phase 6 measurement tools until that phase begins.
+6. When Phase 6 is explicitly authorized, start from the accepted v0.5.0
+   Phase 5 baseline and follow `ROADMAP_CURRENT.md` / measurement requirements.
 
 ## Local Windows / Git Bash workflow
 
