@@ -16,6 +16,7 @@
 - Documentation head `a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9` passed Release Acceptance Gates **#572 — SUCCESS**.
 - Owner-requested same-slice refinement: add a **visual-only** ordered route guide line and A/B/C markers to WGS84, Gleason and AE.
 - The guide does not alter `wgs84-geodesic` computation identity and does not enable provider routes or start P6.7.
+- Route-guide refinement head `483b123277f62e219937298b4fb7ca104809d420` passed Release Acceptance Gates **#587 — SUCCESS** including 20/20 Chromium acceptance tests.
 - Targeted refinement retest remains **NOT RUN**.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
