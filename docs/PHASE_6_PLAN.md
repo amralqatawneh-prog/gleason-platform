@@ -127,7 +127,11 @@ Start / automated evidence:
 - Release Acceptance Gates **#653 — SUCCESS**;
 - owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
 - owner-tested head: `59d19a96c6a7af443429d8ba7585386d4f491dee`;
-- pre-manual Release Acceptance Gates **#661 — SUCCESS**.
+- pre-manual Release Acceptance Gates **#661 — SUCCESS**;
+- final closure head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`;
+- final pre-merge Release Acceptance Gates **#668 — SUCCESS**;
+- PR #21 merge commit on `main`: `11b571f08f72732b509f049f1a2ab1be92292938`;
+- post-merge Release Acceptance Gates **#669 — SUCCESS**.
 
 Deliver:
 - projected-plane segment/polyline measurement;
@@ -252,5 +256,10 @@ passed Release Acceptance Gates **#653 — SUCCESS**. The current documentation
 head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed **#661 — SUCCESS**,
 after which the owner reported all six manual tests **6/6 PASS**.
 
-P6.4 is **CLOSED**. P6.5 and P6.7 remain **NOT STARTED**. PR #21 remains
-OPEN / DRAFT / UNMERGED. No tag, GitHub Release or deployment is implied.
+P6.4 is **CLOSED + MERGED** through PR #21. The current integration baseline is
+`main @ 11b571f08f72732b509f049f1a2ab1be92292938`, with post-merge Release
+Acceptance Gates **#669 — SUCCESS**. P6.5 and P6.7 remain **NOT STARTED**.
+The post-PR21 documentation reconciliation is tracked in PR #22; its verification
+head `ae23478c53b51520d708ddfabff90a5867a03152` passed Release Acceptance Gates
+**#670 — SUCCESS**. It does not start P6.5. No tag, GitHub Release or deployment
+is implied.

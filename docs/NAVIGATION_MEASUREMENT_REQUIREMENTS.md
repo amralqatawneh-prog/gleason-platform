@@ -1,8 +1,8 @@
 # Navigation and measurement requirements — 2026-09-20
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2 are CLOSED**. PR #18 is merged at `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3` and post-merge CI #561 succeeded. **P6.3 WGS84 Ruler / Distance is IN PROGRESS** after explicit owner instruction.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. PR #21 is merged at `main @ 11b571f08f72732b509f049f1a2ab1be92292938`; its final P6.4 closure head passed Release Acceptance Gates #668 and the recorded post-merge `main` gates are **#669 — SUCCESS**. **P6.5 remains NOT STARTED**.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
-Sequential execution remains enforced: P6.1 defines the closed semantics baseline; ordered route state, route drawing, numeric ruler/distance/perimeter/area remain later Phase 6 slices.
+Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; Gleason native distance remains P6.5 and polygon perimeter/area remains P6.6.
 
 ## P5.6 — navigation on all three views
 
@@ -100,10 +100,13 @@ implementation will verify primary documentation for the selected algorithms.
 - Phase 6: **IN PROGRESS**.
 - P6.1 Measurement Semantics Contract: **CLOSED — CI #519/#520/#529; owner manual PASS 5/5**.
 - P6.2 ordered route state: **CLOSED + MERGED**.
-- P6.3 WGS84 geodesic segment/open-polyline distance: **IN PROGRESS**.
-- P6.4+ AE/Gleason measurement and P6.6 polygon/perimeter/area operations: **NOT STARTED**.
+- P6.3 WGS84 geodesic segment/open-polyline distance: **CLOSED + MERGED** through PR #19.
+- P6.4 AE projected-plane segment/open-polyline distance: **CLOSED + MERGED** through PR #21.
+- P6.5 Gleason native normalized measurement: **NOT STARTED**.
+- P6.6 polygon/perimeter/area operations: **NOT STARTED**.
 
-P6.2 continues to own transient ordered route state. P6.3 adds WGS84 geodesic
-numeric measurement through the measurement engine only. The separate future
-route-provider contract remains fail-closed for route drawing/provider paths,
-AE/Gleason distances, perimeter and area.
+P6.2 continues to own transient ordered route state. P6.3 and P6.4 expose separate
+numeric measurement identities and do not enable provider-backed road/flight paths.
+The separate future route-provider contract remains fail-closed. Gleason native
+measurement remains unavailable until P6.5 starts explicitly; perimeter and area
+remain unavailable until P6.6.
