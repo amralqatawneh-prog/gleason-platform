@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.2 Ordered Route State (2026-09-20)
+
+- Continue Phase 6 after the owner instructed **«اكمل»**.
+- Baseline: PR #15 merged to `main @ 143532248f707380b980e787051e7decc3c91086`; post-merge Release Acceptance Gates #530 SUCCESS.
+- Add transient ordered route-point state A→B→C… built only from explicit P6.1 geographic endpoints.
+- Add stable in-session point IDs, derived segment IDs, add/remove/reorder, undo and clear.
+- Reject country records as implicit point endpoints; no centroid/capital/boundary guess is introduced.
+- Keep route state transient: it is not stored in the P5.8 IndexedDB shared-selection record.
+- Add bilingual responsive Ordered Route panel and browser/core tests.
+- Keep route drawing/provider paths and numeric route/ruler/perimeter/area engines unavailable for later Phase 6 slices.
+- Accepted phase remains 5 and accepted application version remains v0.5.0; no tag, GitHub Release or deployment.
+
 ## [Unreleased] — Phase 6 / P6.1 Measurement Semantics Contract (2026-09-20)
 
 - Owner explicitly instructed **«ابدأ بتنفيذ Phase 6»**.
