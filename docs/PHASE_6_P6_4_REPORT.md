@@ -142,6 +142,11 @@ The owner reported all six P6.4 manual checks successful on 2026-09-21:
 - tested branch head: `59d19a96c6a7af443429d8ba7585386d4f491dee`;
 - pre-manual Release Acceptance Gates **#661 — SUCCESS** on that exact head.
 
-P6.4 is therefore marked **CLOSED**. This closure does not authorize merging
+P6.4 was therefore marked **CLOSED**. That closure did not itself authorize merging
 PR #21, starting P6.5 or P6.7, creating a tag/GitHub Release, or deployment.
-PR #21 remains OPEN / DRAFT / UNMERGED pending separate owner authorization.
+
+The owner subsequently gave separate merge authorization. PR #21 was **MERGED**
+into `main` at `11b571f08f72732b509f049f1a2ab1be92292938`; its final head
+`ced5649c3c2d6e1c8e1d96af35fb0775637719a3` had passed Release Acceptance Gates
+**#668 — SUCCESS**, and the post-merge `main` baseline passed Release Acceptance
+Gates **#669 — SUCCESS**. P6.5 and P6.7 remain **NOT STARTED**.
