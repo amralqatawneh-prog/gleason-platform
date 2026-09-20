@@ -5,20 +5,16 @@ This supersedes the previous Phase 5 hold. Phase 4 stays accepted at v0.4.0.
 Base commit: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 Working branch: `feat/phase5-shared-state`, uploaded with owner permission; draft PR #9. No merge/tag/release authorization is implied.
 
-## Current execution snapshot — 2026-09-19
+## Current execution snapshot — 2026-09-20
 
-- P5.1–P5.7: **CLOSED** after recorded CI and owner-reported manual PASS.
-- Latest owner-tested/documented baseline before the current GitHub documentation
-  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
-- CI #397 on that baseline: **SUCCESS** — 0 npm vulnerabilities, 78 frontend
-  core tests, 2 PWA tests, 15 Chromium scenarios, production build, parity,
-  Docker/PostGIS/Redis, locked-source and search gates.
-- P5.8 Versioned Local State Persistence: **CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- P5.9 Phase 5 regression and owner acceptance package: **NEXT / NOT STARTED**.
+- P5.1–P5.9: **CLOSED** after recorded automated evidence and owner-reported manual PASS.
+- P5.9 manual regression: **PASS — REPORTED BY OWNER (10/10)**.
+- Closure-documentation head `235a462762b2aab46a641a56bd3d9c8050578f63`: **CI #495 SUCCESS**.
+- Full Phase 5: **ACCEPTED BY OWNER** by explicit statement «أعتمد المرحلة الخامسة».
+- Accepted application version: **0.5.0**.
+- Implementation phase: **5**; accepted phase: **5**; phase status: **accepted**.
 - Phase 6 measurement/routes/ruler/area: **NOT STARTED**.
-- Full Phase 5: **IN PROGRESS / NOT YET ACCEPTED**.
-- Accepted application version remains **0.4.0**; PR #9 is merged into `main`. No tag or GitHub Release has been created.
-- This documentation synchronization does not itself authorize P5.8.
+- PR #13 remains open/draft and unmerged. No tag, GitHub Release or deployment is authorized by the Phase 5 acceptance decision.
 
 Historical dated subsections below are chronological evidence. Any older “next”,
 “pending”, or “not started” statement is superseded by this current snapshot and
@@ -51,7 +47,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.8 are closed after their recorded automated and owner checks. P5.9 Phase 5 regression and owner acceptance package is next and remains NOT STARTED.
+P5.1 through P5.9 are closed after their recorded automated and owner checks. P5.9 manual result is PASS — REPORTED BY OWNER (10/10 checks). Full Phase 5 is now **ACCEPTED BY OWNER** at v0.5.0.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -282,3 +278,71 @@ P5.8 is **CLOSED**. P5.9 is the next ordered slice and remains **NOT STARTED**
 until explicit owner continuation. Phase 6 remains NOT STARTED. Full Phase 5 is
 still IN PROGRESS / NOT YET ACCEPTED. Draft PR #11 remains unmerged. No tag,
 GitHub Release or deployment.
+
+
+## P5.9 start — 2026-09-20
+
+After P5.8 closure, the owner explicitly instructed «ابدأ». P5.9 is now the
+only active Phase 5 slice.
+
+P5.9 does not add a new model engine. It builds the final regression/acceptance
+package and verifies the Phase 5 gate across browser, offline, Arabic/English,
+mobile, poles, antimeridian, source visibility and known limitations.
+
+Working branch:
+`feat/phase5-p5-9-acceptance`
+
+Base:
+- P5.8 closure head `99cb55da979a46810c2c61215a729b1356806ada`;
+- CI #449 SUCCESS.
+
+P5.9 adds a machine-readable acceptance package and fail-closed repository
+consistency checker, plus explicit browser fixtures/tests near both poles and
+both sides of the antimeridian. These are TEST-ONLY and never production data.
+
+Report: `PHASE_5_P5_9_REPORT.md`.
+Acceptance package: `PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+P5.9 manual PASS and full Phase 5 owner acceptance are separate decisions.
+Phase 6 remains NOT STARTED. No merge, tag, GitHub Release or deployment is
+authorized by starting P5.9.
+
+
+## P5.9 automated verification — 2026-09-20
+
+Implementation head
+`802a46ac3a1adce95fa9730e135ec5e377567631` passed CI #451 with the complete
+release gate: Phase 5 package consistency, 0 npm vulnerabilities, 86 core tests,
+2 PWA tests, 17 Chromium scenarios, build/parity/Docker/PostGIS/Redis and locked
+source/search checks.
+
+P5.9 is technically green and awaits owner manual regression. It is not closed.
+Full Phase 5 acceptance remains a separate explicit owner decision.
+
+
+## P5.9 acceptance closure — 2026-09-20
+
+The owner completed the full ten-item manual P5.9 regression checklist and
+reported every check successful. Manual result: **PASS — REPORTED BY OWNER
+(10/10)**. The owner-tested pre-closure clean head was
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0`; Release Acceptance Gates #487 had
+already completed SUCCESS on that head.
+
+P5.9 is **CLOSED**. All Phase 5 slices P5.1–P5.9 are now closed. Full Phase 5
+itself remains **IN PROGRESS / NOT YET ACCEPTED** until the owner provides a
+separate explicit Phase 5 acceptance decision. Accepted application version
+remains 0.4.0; accepted phase remains 4; implementation phase remains 5; Phase 6
+is NOT STARTED. PR #13 remains unmerged and no tag, GitHub Release or deployment
+is authorized.
+
+
+## Phase 5 whole-phase acceptance — 2026-09-20
+
+After all nine slices were closed, the owner explicitly stated **«أعتمد المرحلة الخامسة»**.
+The whole phase is therefore **ACCEPTED BY OWNER**.
+
+Accepted application version: **v0.5.0**. Accepted phase: **5**. Phase status:
+**accepted**. Formal record: `PHASE_5_ACCEPTANCE.md`.
+
+PR #13 remains unmerged, Phase 6 remains NOT STARTED, and no tag, GitHub Release
+or deployment is authorized by this decision.

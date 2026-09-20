@@ -1,4 +1,4 @@
-# Gleason Comparison Platform — v0.4.0
+# Gleason Comparison Platform — v0.5.0
 
 Offline-first bilingual geospatial comparison platform with three independent
 model engines:
@@ -9,35 +9,27 @@ model engines:
 - **WGS84 Reference** — modern geodetic reference globe/2D fallback with
   authoritative backend reference calculations.
 
-> **Current development status — 2026-09-19**
+> **Current development status — 2026-09-20**
 >
-> Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on `main` after
-> **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
-> after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
-> State Persistence is CLOSED. P5.9 is next and NOT STARTED.** Phase 6 measurement/routing is
-> also NOT STARTED.
+> Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9,
+> including **10/10 P5.9 manual regression checks PASS — REPORTED BY OWNER**.
+> Phase 6 measurement/routing remains **NOT STARTED** and requires a separate
+> explicit start instruction. PR #13 remains open/draft and unmerged.
 
 ## Current verified development baseline
 
-- Branch: `main`
-- PR **#9**: **MERGED** into `main`
-- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`
-- Latest owner-tested/documented baseline before this documentation
-  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`
-- Release Acceptance Gates **#397 — SUCCESS**
-- CI #397: **0 npm vulnerabilities · 78 frontend core tests · 2 PWA tests ·
-  15 Chromium scenarios**, plus production build, WGS84 parity,
-  Docker/PostGIS/Redis, locked-source import, online/offline search and Arabic
-  city gates.
-- Accepted application version: **0.4.0**
+- Integration base: `main`
+- Active acceptance PR: **#13**, branch `feat/phase5-p5-9-acceptance-clean`, still **open/draft/unmerged**
+- P5.8 PR #11 is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`
+- P5.9 closure-documentation head: `235a462762b2aab46a641a56bd3d9c8050578f63`
+- Release Acceptance Gates **#495 — SUCCESS** on that closure-documentation head
+- Accepted application version: **0.5.0**
 - Implementation phase: **5**
-- Accepted phase: **4**
-- Phase status: **in_progress**
-- PR #9 has been merged with explicit owner authorization. No tag or GitHub Release has been authorized.
-
-The documentation-only GitHub synchronization requested after P5.7 does not
-change numerical engines, source datasets or accepted application version. See
-`docs/GITHUB_SYNC_AUDIT_2026-09-19.md` for the repository/documentation audit.
+- Accepted phase: **5**
+- Phase status: **accepted**
+- Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
+- Current v0.5.0 metadata promotion requires fresh CI on the exact PR head before merge.
+- No tag, GitHub Release, deployment or Phase 6 start has been authorized.
 
 ## Phase status
 
@@ -56,12 +48,14 @@ change numerical engines, source datasets or accepted application version. See
 | P5.6 | CLOSED ✅ | Independent zoom/focus/rotation/navigation |
 | P5.7 | CLOSED ✅ | Homogeneous-difference gate + unavailable future-service contracts |
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
-| P5.9 | NOT STARTED ⏳ | Phase 5 regression and owner acceptance package |
+| P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
+| Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
 
-Phase 5 as a whole is **not yet accepted**. Historical reports retain the status
+Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
-README, `docs/PROJECT_HANDOFF_CURRENT.md`, and `docs/PHASE_5_PLAN.md`.
+README, `docs/PHASE_5_ACCEPTANCE.md`, `docs/PROJECT_HANDOFF_CURRENT.md`, and
+`docs/PHASE_5_PLAN.md`.
 
 ## Implemented Phase 5 capabilities
 
@@ -93,9 +87,31 @@ service state.
 
 P5.8 acceptance: owner-reported PASS after CI #439/#442 SUCCESS.
 
+### P5.9 clean integration note
+
+P5.8 PR #11 is now merged into `main` at
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. P5.9 continues on the clean
+branch `feat/phase5-p5-9-acceptance-clean`.
+
+P5.9 is CLOSED after clean-head CI #487 SUCCESS and all ten owner manual
+regression checks were reported PASS. The owner then explicitly accepted Phase 5
+as a whole on 2026-09-20. Accepted application version is now **0.5.0**. A
+superseded PR #12 contains unverified acceptance/version claims and must not be
+merged.
+
+### P5.9 closure
+
+P5.9 is the final Phase 5 regression package and is now **CLOSED**. It added no
+new model engine. The owner reported PASS on all ten manual checks covering
+browser/offline/bilingual/mobile behavior, navigation independence, Model
+Laboratory semantics, persistence, WebGL fallback and Phase 6 boundaries.
+
+The machine-readable evidence remains in
+`docs/PHASE_5_ACCEPTANCE_PACKAGE.json`, and the explicit whole-phase owner
+decision is recorded in `docs/PHASE_5_ACCEPTANCE.md`.
+
 ## Explicitly not implemented yet
 
-- P5.9 final Phase 5 regression/acceptance package.
 - Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
@@ -207,7 +223,7 @@ Current source-of-truth documents:
 - `docs/PROJECT_HANDOFF_CURRENT.md` — canonical continuity handoff.
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
-- `docs/PHASE_5_P5_7_REPORT.md` — latest closed Phase 5 slice.
+- `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — P5.6/Phase 6 boundary.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `CHANGELOG.md` — chronological implementation/acceptance history.

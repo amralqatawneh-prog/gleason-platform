@@ -579,3 +579,54 @@ test('P5.8 restores installed-pack identity offline and discards malformed state
   await restored.getByRole('button',{name:'English',exact:true}).click();
   await expect(restored.locator('.persistence-status')).toContainText('Malformed or invalid local state was ignored.');
 });
+
+
+test('P5.9 phase regression covers polar and antimeridian selections with visible provenance and boundaries',async({page,servers})=>{
+  await english(page,servers.url);
+  const fixtures=[
+    ['TEST North East Edge',89.5,179.9],
+    ['TEST North West Edge',89.5,-179.9],
+    ['TEST South East Edge',-89.5,179.9],
+    ['TEST South West Edge',-89.5,-179.9],
+  ] as const;
+
+  for(const [name,latitude,longitude] of fixtures){
+    await locate(page,name);
+    const cards=page.locator('.projection-card');
+    await expect(cards).toHaveCount(2);
+    for(const card of await cards.all()){
+      await expect(card).toHaveAttribute('data-selected-latitude',String(latitude));
+      await expect(card).toHaveAttribute('data-selected-longitude',String(longitude));
+    }
+    const globe=page.locator('.reference-card');
+    await expect(globe).toHaveAttribute('data-selected-latitude',String(latitude));
+    await expect(globe).toHaveAttribute('data-selected-longitude',String(longitude));
+    await expect(globe.locator('.reference-navigation-toolbar').getByRole('button',{name:'Focus selected',exact:true})).toBeEnabled();
+
+    const provenance=page.locator('.place-provenance');
+    await expect(provenance).toContainText(name);
+    await expect(provenance).toContainText('test-v1');
+    await expect(provenance).toContainText('TEST_ONLY_SYNTHETIC_POINT');
+
+    const lab=page.locator('.model-laboratory');
+    await expect(lab.locator('.model-lab-card')).toHaveCount(3);
+    await expect(lab).toContainText('normalized-radius');
+    await expect(lab.locator('[data-service-status="unavailable"]')).toHaveCount(3);
+    await expect(lab.locator('[data-difference-status="available"]')).toHaveCount(0);
+  }
+
+  // Source evidence remains visible and distinct from place-source provenance.
+  const technical=page.locator('details.model-lab-technical');
+  await technical.nth(0).locator('summary').click();
+  await expect(technical.nth(0)).toContainText('gleason-1893-upload-v1');
+  await technical.nth(2).locator('summary').click();
+  await expect(technical.nth(2)).toContainText('PROJ/proj4js');
+
+  // The final Phase 5 regression package explicitly checks bilingual/mobile state.
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await page.setViewportSize({width:390,height:844});
+  await expect(page.locator('.inspector')).toContainText('المفتش الجغرافي');
+  await expect(page.locator('.place-provenance')).toContainText('test-v1');
+  await expect(page.locator('.future-contracts')).toContainText('غير متاح');
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});

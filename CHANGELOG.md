@@ -1,5 +1,58 @@
 # Changelog
 
+## [0.5.0] - 2026-09-20
+
+### Accepted
+- Owner explicitly accepted Phase 5 as a whole: **«أعتمد المرحلة الخامسة»**.
+- P5.1–P5.9 are closed; P5.9 manual regression is **10/10 PASS — REPORTED BY OWNER**.
+- Accepted application version advances from **0.4.0** to **0.5.0**.
+- Accepted phase advances from **4** to **5**; Phase 5 status becomes **accepted**.
+
+### Boundaries
+- Phase 6 remains **NOT STARTED**.
+- PR #13 remains open/draft and unmerged pending separate merge authorization.
+- No tag, GitHub Release or deployment is authorized by Phase 5 acceptance.
+- Historical-source, missing-height, undefined-scale and future-service fail-closed boundaries remain unchanged.
+
+## [Unreleased] — P5.9 owner manual closure (2026-09-20)
+
+- Owner completed the P5.9 manual regression checklist and reported all **10/10** checks successful.
+- Record P5.9 manual result as **PASS — REPORTED BY OWNER** and close P5.9.
+- Clean pre-closure head `4a5181c6fc8e4ed19f08f2281644cd40ee0282e0` had Release Acceptance Gates #487 SUCCESS.
+- Full Phase 5 remains **NOT YET ACCEPTED** pending a separate explicit owner decision.
+- Accepted application version remains **0.4.0**; accepted phase remains **4**; implementation phase remains **5 / in_progress**.
+- PR #13 remains open/draft and unmerged. Phase 6 remains NOT STARTED. No tag, GitHub Release or deployment is authorized.
+
+
+## [Unreleased] — P5.9 clean integration reconciliation (2026-09-20)
+
+- Owner authorized integration while P5.9 was active.
+- Merge closed/owner-tested P5.8 PR #11 into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`.
+- Continue P5.9 from the last verified pre-owner-acceptance state on `feat/phase5-p5-9-acceptance-clean`.
+- Supersede PR #12 because its branch contains unverified Phase 5 owner-acceptance and v0.5.0 claims not issued in the current owner conversation.
+- Keep P5.9 technically green / awaiting owner manual regression; Phase 5 remains NOT YET ACCEPTED at accepted version 0.4.0.
+- No tag, GitHub Release, deployment or Phase 6 start.
+
+
+## [Unreleased] — P5.9 automated verification (2026-09-20)
+
+- P5.9 implementation head `802a46ac3a1adce95fa9730e135ec5e377567631` passed Release Acceptance Gates #451.
+- CI reports acceptance-package gate PASS, 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests and 17 Chromium scenarios PASS, plus production build/parity/Docker/PostGIS/Redis/source/search gates.
+- The new browser regression covers ±89.5° / ±179.9°, provenance visibility, model evidence, unavailable future services, bilingual/mobile behavior and no heterogeneous cross-model delta leakage.
+- P5.9 remains open pending owner manual regression. Full Phase 5 remains unaccepted pending a separate explicit owner decision.
+
+
+## [Unreleased] — Phase 5 / P5.9 regression and acceptance package (2026-09-20)
+
+- Owner explicitly instructed «ابدأ» after P5.8 closure.
+- Create `feat/phase5-p5-9-acceptance` from P5.8 closure head `99cb55da979a46810c2c61215a729b1356806ada`; CI #449 on that base is SUCCESS.
+- Add machine-readable `docs/PHASE_5_ACCEPTANCE_PACKAGE.json` and fail-closed `scripts/check_phase5_acceptance_package.py`.
+- Add TEST-ONLY polar/antimeridian browser fixtures at ±89.5° / ±179.9° and an explicit Playwright regression for canonical selection, provenance, model evidence, unavailable future services, bilingual/mobile layout and no heterogeneous delta leakage.
+- Add the acceptance package to Release Acceptance Gates.
+- P5.9 and full Phase 5 are not accepted yet. Phase 6 remains NOT STARTED.
+- No merge, tag, GitHub Release or deployment is authorized by this start.
+
+
 ## [Unreleased] — P5.8 owner acceptance closure (2026-09-20)
 
 - Owner reported «نجحت جميع اختبارات P5.8». Record manual result PASS — REPORTED BY OWNER.

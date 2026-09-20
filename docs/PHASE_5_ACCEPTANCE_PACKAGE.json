@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "phase": 5,
+  "package_slice": "P5.9",
+  "status": "accepted",
+  "generated_date": "2026-09-20",
+  "accepted_application_version_before_phase5_decision": "0.4.0",
+  "accepted_phase_before_phase5_decision": 4,
+  "implementation_phase": 5,
+  "base": {
+    "branch": "feat/phase5-p5-8-state-persistence",
+    "commit": "99cb55da979a46810c2c61215a729b1356806ada",
+    "ci_run": 449,
+    "ci_conclusion": "success"
+  },
+  "slices": [
+    {
+      "id": "P5.1",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_1_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.2",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_2_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.3",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_3_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.4",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_4_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.5",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_5_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.6",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_6_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.7",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_7_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.8",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_8_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    },
+    {
+      "id": "P5.9",
+      "status": "closed",
+      "report": "docs/PHASE_5_P5_9_REPORT.md",
+      "owner_manual": "pass-reported-by-owner"
+    }
+  ],
+  "required_regression_gates": [
+    "browser",
+    "offline",
+    "arabic-english",
+    "mobile",
+    "poles",
+    "antimeridian",
+    "source-visibility",
+    "known-limitations"
+  ],
+  "automated_evidence": {
+    "browser_suite": "frontend/tests/e2e/acceptance.spec.ts",
+    "core_suite": "frontend/tests/*.test.mjs",
+    "source_locks": "data/sources/phase3-source-lock.json",
+    "historical_source": "data/sources/gleason-book.yaml",
+    "workflow": ".github/workflows/release-gates.yml"
+  },
+  "known_limitations": [
+    {
+      "id": "historical-scan-not-embedded",
+      "boundary": "No verified distributable standalone historical Gleason scan/control points are embedded."
+    },
+    {
+      "id": "gleason-scale-undefined",
+      "boundary": "Gleason normalized-radius is not converted to metres/kilometres without a declared basis."
+    },
+    {
+      "id": "missing-height-is-unknown",
+      "boundary": "Missing WGS84 ellipsoidal height remains unknown; ECEF is unavailable without explicit height."
+    },
+    {
+      "id": "future-time-unavailable",
+      "boundary": "Astronomy/time service is unavailable in Phase 5."
+    },
+    {
+      "id": "future-layer-sync-unavailable",
+      "boundary": "Shared cross-model layer synchronization is unavailable in Phase 5."
+    },
+    {
+      "id": "future-route-unavailable",
+      "boundary": "Route/ruler/distance/area engine is not implemented in Phase 5; Phase 6 remains not started."
+    },
+    {
+      "id": "camera-states-independent",
+      "boundary": "Model cameras/zoom are intentionally independent and are not numerically synchronized."
+    },
+    {
+      "id": "persistence-selection-only",
+      "boundary": "P5.8 persists canonical geographic selection only, not routes/experiments/future-service state."
+    }
+  ],
+  "phase6_status": "not_started",
+  "phase5_owner_acceptance": "accepted",
+  "merge_release_boundary": {
+    "pr9": "merged",
+    "pr11": "merged",
+    "p5_9_branch": "feat/phase5-p5-9-acceptance-clean",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "pr11_merge_commit": "7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4",
+    "superseded_pr12": "do-not-merge-unverified-acceptance-state",
+    "pr13": "open-draft-phase5-accepted-awaiting-separate-merge-authorization",
+    "deployment": "not_created"
+  },
+  "p5_9_owner_manual": {
+    "result": "pass-reported-by-owner",
+    "date": "2026-09-20",
+    "checklist_items_passed": 10,
+    "note": "All ten P5.9 manual regression checks were reported PASS by the owner in sequence."
+  },
+  "accepted_application_version_after_phase5_decision": "0.5.0",
+  "accepted_phase_after_phase5_decision": 5,
+  "phase5_status": "accepted",
+  "phase5_owner_acceptance_evidence": {
+    "date": "2026-09-20",
+    "statement": "أعتمد المرحلة الخامسة",
+    "decision": "accepted-by-owner",
+    "scope": "Phase 5 as a whole after P5.1–P5.9 closure"
+  }
+}

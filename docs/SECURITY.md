@@ -1,6 +1,6 @@
-# Security and Supply-Chain Baseline — current through P5.7
+# Security and Supply-Chain Baseline — current through P5.9
 
-_Last reconciled: 2026-09-19. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-20. Accepted application version: v0.5.0._
 
 ## Application security rules
 
@@ -51,8 +51,8 @@ security/integrity policy also prohibits fabricating them.
 
 ## Current automated evidence
 
-Release Acceptance Gates #397 on
-`e710075531dbdbc2fdd2ed62dde07f22786e320f` completed successfully and
+Release Acceptance Gates #495 on the P5.9 closure-documentation head
+`235a462762b2aab46a641a56bd3d9c8050578f63` completed successfully and
 reported:
 
 - npm security audit: **0 vulnerabilities**;
@@ -62,8 +62,7 @@ reported:
 - locked production-source verification/import: PASS;
 - Docker/PostGIS/Redis runtime gates: PASS.
 
-This evidence applies to that exact revision. Any dependency/source/security
-change requires fresh evidence.
+This evidence applies to that exact revision. The owner subsequently accepted Phase 5 as a whole. The v0.5.0 metadata promotion requires fresh CI on its own exact revision before merge; no PASS is inferred from the acceptance statement alone.
 
 ## Future security work
 

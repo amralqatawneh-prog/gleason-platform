@@ -1,6 +1,6 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-19_
+_Last updated: 2026-09-20_
 
 ## Purpose
 
@@ -9,24 +9,24 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current branch: `main`.
+- Current integration base: `main`; accepted Phase 5 metadata is being finalized on PR #13 branch `feat/phase5-p5-9-acceptance-clean`.
 - PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19.
 - Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
-- No tag or GitHub Release has been authorized.
+- PR #11 (P5.8) is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. No tag or GitHub Release has been authorized.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
-- Accepted application version: **v0.4.0**.
-- Implementation phase: **5**; accepted phase: **4**; phase status: **in_progress**.
+- Accepted application version: **v0.5.0**.
+- Implementation phase: **5**; accepted phase: **5**; phase status: **accepted**.
 - Latest owner-tested/documented development baseline before the current GitHub documentation reconciliation:
   `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
 - [Release Acceptance Gates #397](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35465278537) — **SUCCESS** on that baseline:
   0 npm vulnerabilities, 78 frontend core tests, 2 PWA tests, 15 Chromium
   scenarios, production build, WGS84 parity, Docker/PostGIS/Redis, locked-source
   import, online/offline search and Arabic city gates.
-- Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
-  after their recorded automated evidence and owner-reported manual PASS.
-- **P5.8 Versioned Local State Persistence is CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- **P5.9 Phase 5 Regression and Owner Acceptance Package is NEXT / NOT STARTED.** Phase 6 routes/ruler/distance/area remains NOT STARTED.
-- Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
+- Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
+- **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
+- **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20. Phase 6 routes/ruler/distance/area remains NOT STARTED and requires a separate start instruction.
+- Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
+- Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
 - GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
@@ -397,25 +397,17 @@ Historical slice state (new correction evidence is separate):
 Overall:
 - Phase 4: **COMPLETE AND ACCEPTED BY OWNER**, including M1–M6 corrections; manual checklist **PASS — REPORTED BY OWNER**.
 - Accepted application version: **v0.4.0**. This is version metadata, not a claim that a GitHub Release/tag exists.
-- Phase 5: **IN PROGRESS — P5.1 through P5.7 closed; P5.8 Versioned Local State Persistence next / NOT STARTED**. Full Phase 5 owner acceptance has not occurred.
+- Phase 5: **IN PROGRESS — P5.1 through P5.9 CLOSED; awaiting separate full Phase 5 owner acceptance**. Full Phase 5 owner acceptance has not occurred.
 
 ## Required next steps
 
-1. Keep P5.1–P5.7 closed unless a concrete regression or source error is found.
-2. P5.8 is now explicitly authorized and IN PROGRESS. Do not start P5.9 before P5.8 is technically closed and owner-tested.
-3. When authorized, P5.8 must implement versioned local state persistence:
-   offline restore from installed/local packs, safe handling of invalid/old
-   state, and no invented place identity or missing values.
-4. After P5.8 acceptance, P5.9 prepares the full Phase 5 regression and owner
-   acceptance package.
-5. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area
-   remain out of scope until the approved sequence reaches Phase 6.
-6. Preserve accepted version `0.4.0` until a later acceptance/version decision;
-   do not infer a release from development commits.
-7. PR #9 is already merged into `main`; do not create a tag or GitHub Release without separate authorization.
-8. Continue to use locked source manifests and never fabricate historical scan
-   control points, coordinates, ellipsoidal height, scale conversions, or
-   provenance.
+1. Keep P5.1–P5.9 closed unless a concrete regression or source error is found.
+2. Validate the accepted v0.5.0 metadata on the current PR branch with fresh Release Acceptance Gates.
+3. PR #13 remains unmerged; **merge authorization is separate** from the Phase 5 owner acceptance.
+4. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area remain **NOT STARTED** until the owner explicitly starts Phase 6.
+5. Do not create a tag, GitHub Release or deployment without separate authorization.
+6. Preserve Phase 5 source/model boundaries and use locked source manifests; never fabricate historical scan control points, coordinates, ellipsoidal height, scale conversions, or provenance.
+7. When Phase 6 is explicitly started, begin from the accepted Phase 5 baseline and define measurement semantics before drawing routes or reporting distance/area.
 
 ## Local Windows / Git Bash workflow
 
@@ -763,3 +755,106 @@ Current ordered state:
 
 Draft PR #11 remains open/unmerged. Accepted application version remains 0.4.0.
 No tag, GitHub Release or deployment.
+
+
+## P5.9 start — 2026-09-20
+
+After P5.8 closure and CI #449 SUCCESS, the owner explicitly instructed «ابدأ».
+
+A new stacked working branch was created from the closed P5.8 head:
+
+`feat/phase5-p5-9-acceptance`
+
+P5.9 scope:
+- final Phase 5 regression package;
+- explicit browser coverage for polar/antimeridian selections;
+- machine-readable acceptance package;
+- repository consistency gate;
+- source visibility and known-limitations evidence;
+- owner manual regression checklist.
+
+P5.9 does not add Phase 6 route/ruler/distance/area functionality.
+
+Report: `docs/PHASE_5_P5_9_REPORT.md`.
+Machine package: `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+Full Phase 5 acceptance remains pending and requires an explicit owner decision
+after P5.9 regression testing. Accepted application version remains 0.4.0 and
+accepted phase remains 4 until that decision. No tag or GitHub Release.
+
+
+## P5.9 automated verification — 2026-09-20
+
+P5.9 implementation head
+`802a46ac3a1adce95fa9730e135ec5e377567631` passed
+[CI #451](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35485918516).
+
+Evidence:
+- Phase 5 package consistency gate PASS;
+- 0 npm vulnerabilities;
+- 86 frontend core tests PASS;
+- 2 PWA tests PASS;
+- 17 Chromium scenarios PASS;
+- production build, WGS84 parity, Docker/PostGIS/Redis, locked sources,
+  online/offline search and Arabic search gates PASS.
+
+The new P5.9 browser regression explicitly covers polar/antimeridian points and
+source visibility. P5.9 status is **IN PROGRESS / TECHNICALLY GREEN / awaiting
+owner manual regression**.
+
+Full Phase 5 is still NOT YET ACCEPTED. Owner manual P5.9 PASS and owner Phase 5
+acceptance remain separate pending decisions. Phase 6 remains NOT STARTED.
+
+
+## P5.9 clean-branch reconciliation — 2026-09-20
+
+P5.8 PR #11 is merged into `main` at
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`.
+
+P5.9 continues on:
+`feat/phase5-p5-9-acceptance-clean`.
+
+The clean branch intentionally stops at the last verified pre-owner-acceptance
+state. CI #451 passed the P5.9 implementation/regression package with 86 core,
+2 PWA and 17 Chromium scenarios plus the full release suite.
+
+A superseded PR #12 branch contains unverified owner-acceptance/version claims
+and must not be used as acceptance evidence or merged.
+
+Current truth:
+- P5.1–P5.8 CLOSED;
+- P5.9 TECHNICALLY GREEN / awaiting owner manual regression;
+- Phase 5 NOT YET ACCEPTED;
+- accepted app version 0.4.0;
+- accepted phase 4;
+- Phase 6 NOT STARTED.
+
+
+## P5.9 owner manual closure — 2026-09-20
+
+The owner completed the ten-item P5.9 manual regression checklist in sequence and
+reported every item successful. Manual result: **PASS — REPORTED BY OWNER
+(10/10 checks)**.
+
+The exact owner-tested pre-closure branch head was
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0`, which had Release Acceptance Gates
+#487 SUCCESS before the manual run. P5.9 is therefore **CLOSED**.
+
+This is not full Phase 5 acceptance. Accepted application version remains
+**v0.4.0**, accepted phase remains **4**, implementation phase remains **5 /
+in_progress**, PR #13 remains unmerged, and Phase 6 remains **NOT STARTED**.
+
+
+## Phase 5 whole-phase owner acceptance — 2026-09-20
+
+After P5.1–P5.9 were closed and the P5.9 manual regression passed 10/10 checks,
+the owner explicitly stated **«أعتمد المرحلة الخامسة»**.
+
+Result: **PHASE 5 ACCEPTED BY OWNER**.
+
+Accepted application version: **v0.5.0**. Accepted phase: **5**. Phase status:
+**accepted**. The formal record is `docs/PHASE_5_ACCEPTANCE.md` and the
+machine-readable state is `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+This acceptance does not merge PR #13 and does not authorize a tag, GitHub
+Release, deployment or Phase 6 start. Phase 6 remains **NOT STARTED**.
