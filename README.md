@@ -33,12 +33,13 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.2 — Ordered Route State**
-- Active slice: **P6.3 — WGS84 Ruler / Distance — AWAITING TARGETED OWNER RETEST**
+- Active slice: **P6.3 — WGS84 Ruler / Distance — STRAIGHT-LINE REFINEMENT IN PROGRESS**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
 - P6.3 owner manual: **6/6 PASS — REPORTED BY OWNER** + browser-local fallback PASS after backend stop/restart.
-- P6.3 owner-requested refinement: visual-only route guide line + A/B/C markers on WGS84/Gleason/AE; head `483b123277f62e219937298b4fb7ca104809d420` passed **CI #587 SUCCESS**; targeted owner retest pending.
+- P6.3 route-guide refinement: **5/5 targeted retest PASS — REPORTED BY OWNER** + backend-stop line/fallback PASS; pre-retest CI #595 SUCCESS.
+- Current refinement: Gleason/AE route segments must be exact straight projected lines with no intermediate curve samples; automated verification pending.
 - PR #16 is **MERGED** at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with CI #554 SUCCESS.
 - PR #17 is **MERGED** at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
 - PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**. No tag, GitHub Release or deployment has been created.
@@ -64,7 +65,7 @@ model engines:
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
-| P6.3 | AWAITING TARGETED OWNER RETEST ⏳ | Base ruler manual 6/6 PASS + offline fallback PASS; visual-only route guide CI #587 SUCCESS; targeted retest pending |
+| P6.3 | STRAIGHT-LINE REFINEMENT IN PROGRESS 🛠️ | Base manual 6/6 PASS; route-guide retest 5/5 PASS; making Gleason/AE guide segments exact straight projected chords |
 | P6.4–P6.10 | NOT STARTED ⏳ | AE/Gleason measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
