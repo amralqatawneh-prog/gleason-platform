@@ -44,6 +44,9 @@ jobs:
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
           test -s docs/PHASE_4_P4_6_REPORT.md
+          test -s docs/PHASE_5_ACCEPTANCE_PACKAGE.json
+          test -s docs/PHASE_5_P5_9_REPORT.md
+          test -s scripts/check_phase5_acceptance_package.py
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
         run: |
@@ -57,6 +60,8 @@ jobs:
           jq -e 'all(.sources[]; (.sha256|type)=="string" and (.sha256|test("^[0-9a-f]{64}$")))' data/sources/phase3-source-lock.json
       - uses: actions/setup-python@v5
         with: {python-version: '3.13'}
+      - name: Verify Phase 5 acceptance package
+        run: python scripts/check_phase5_acceptance_package.py
       - name: Verify locked Phase 3 source SHA-256 values
         run: python scripts/fetch_phase3_sources.py --output-dir /tmp/phase3-data | tee /tmp/phase3-source-hashes.json
       - name: Backend tests
