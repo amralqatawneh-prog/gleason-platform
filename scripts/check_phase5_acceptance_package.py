@@ -18,12 +18,12 @@ data = json.loads(PACKAGE.read_text(encoding="utf-8"))
 require(data.get("schema_version") == 1, "schema_version must be 1")
 require(data.get("phase") == 5, "phase must be 5")
 require(data.get("package_slice") == "P5.9", "package_slice must be P5.9")
-require(data.get("status") == "in_progress", "P5.9 package must remain in_progress before owner phase acceptance")
+require(data.get("status") == "accepted", "Phase 5 acceptance package must be accepted after owner decision")
 require(data.get("accepted_application_version_before_phase5_decision") == "0.4.0", "accepted app version baseline must remain 0.4.0")
 require(data.get("accepted_phase_before_phase5_decision") == 4, "accepted phase must remain 4 before owner Phase 5 acceptance")
 require(data.get("implementation_phase") == 5, "implementation phase must be 5")
 require(data.get("phase6_status") == "not_started", "Phase 6 must remain not_started")
-require(data.get("phase5_owner_acceptance") == "pending", "Phase 5 owner acceptance must remain pending during P5.9 execution")
+require(data.get("phase5_owner_acceptance") == "accepted", "Phase 5 owner acceptance must be accepted")
 
 slices = data.get("slices", [])
 require([item.get("id") for item in slices] == [f"P5.{i}" for i in range(1, 10)], "slices must list P5.1 through P5.9 in order")
@@ -31,9 +31,10 @@ for item in slices[:8]:
     require(item.get("status") == "closed", f"{item.get('id')} must be closed")
     require(item.get("owner_manual") == "pass-reported-by-owner", f"{item.get('id')} owner manual evidence missing")
     require((ROOT / item["report"]).is_file(), f"missing report {item['report']}")
-require(slices[8].get("status") == "in_progress", "P5.9 must be in_progress")
-require(slices[8].get("owner_manual") == "pending", "P5.9 owner manual must be pending")
+require(slices[8].get("status") == "closed", "P5.9 must be closed")
+require(slices[8].get("owner_manual") == "pass-reported-by-owner", "P5.9 owner manual evidence missing")
 require((ROOT / slices[8]["report"]).is_file(), "P5.9 report must exist")
+require((ROOT / "docs" / "PHASE_5_ACCEPTANCE.md").is_file(), "Phase 5 acceptance record must exist")
 
 required_gates = {
     "browser","offline","arabic-english","mobile","poles","antimeridian",
@@ -49,16 +50,16 @@ for required in {
 }:
     require(required in limitation_ids, f"known limitation missing: {required}")
 
-require((ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.4.0", "root VERSION drifted")
+require((ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.5.0", "root VERSION drifted")
 frontend_pkg = json.loads((ROOT / "frontend" / "package.json").read_text(encoding="utf-8"))
-require(frontend_pkg.get("version") == "0.4.0", "frontend version drifted")
+require(frontend_pkg.get("version") == "0.5.0", "frontend version drifted")
 backend_pyproject = (ROOT / "backend" / "pyproject.toml").read_text(encoding="utf-8")
 require(re.search(r'^version\s*=\s*"0\.4\.0"\s*$', backend_pyproject, re.M) is not None, "backend version drifted")
 
 version_py = (ROOT / "backend" / "app" / "version.py").read_text(encoding="utf-8")
 require("IMPLEMENTATION_PHASE = 5" in version_py, "implementation phase metadata drifted")
-require("ACCEPTED_PHASE = 4" in version_py, "accepted phase must remain 4 before owner decision")
-require('PHASE_STATUS = "in_progress"' in version_py, "phase status must remain in_progress")
+require("ACCEPTED_PHASE = 5" in version_py, "accepted phase metadata drifted")
+require('PHASE_STATUS = "accepted"' in version_py, "phase status must be accepted")
 
 capabilities = (ROOT / "backend" / "app" / "services" / "capabilities.py").read_text(encoding="utf-8")
 require('"cross_model_synchronization": True' in capabilities, "cross-model synchronization capability missing")
@@ -87,8 +88,8 @@ for marker in [
 print(json.dumps({
     "phase": 5,
     "slice": "P5.9",
-    "status": "in_progress",
-    "closed_slices": [item["id"] for item in slices[:8]],
+    "status": "accepted",
+    "closed_slices": [item["id"] for item in slices],
     "required_regression_gates": sorted(required_gates),
     "known_limitations": sorted(limitation_ids),
 }, ensure_ascii=False))
