@@ -259,5 +259,7 @@ after which the owner reported all six manual tests **6/6 PASS**.
 P6.4 is **CLOSED + MERGED** through PR #21. The current integration baseline is
 `main @ 11b571f08f72732b509f049f1a2ab1be92292938`, with post-merge Release
 Acceptance Gates **#669 — SUCCESS**. P6.5 and P6.7 remain **NOT STARTED**.
-The post-PR21 documentation reconciliation is the current work; it does not start
-P6.5. No tag, GitHub Release or deployment is implied.
+The post-PR21 documentation reconciliation is tracked in PR #22; its verification
+head `ae23478c53b51520d708ddfabff90a5867a03152` passed Release Acceptance Gates
+**#670 — SUCCESS**. It does not start P6.5. No tag, GitHub Release or deployment
+is implied.
