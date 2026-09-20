@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "Route/ruler/distance/area engine was not implemented in Phase 5; P6.1 is now closed as semantics-only and route/measurement operations remain unavailable until later Phase 6 slices."
+      "boundary": "P6.2 provides transient ordered geographic route-point state only; route drawing/provider paths and numeric distance/ruler/perimeter/area engines remain unavailable."
     },
     {
       "id": "camera-states-independent",
@@ -117,7 +117,7 @@
     },
     {
       "id": "persistence-selection-only",
-      "boundary": "P5.8 persists canonical geographic selection only, not routes/experiments/future-service state."
+      "boundary": "P5.8 persists canonical geographic selection only; P6.2 ordered route state is intentionally transient and is not persisted."
     }
   ],
   "phase6_status": "in_progress",
@@ -139,7 +139,14 @@
     "pre_merge_ci_conclusion": "success",
     "post_merge_main_ci_run": 515,
     "post_merge_main_ci_conclusion": "success",
-    "post_merge_main_commit": "913ec67c195ac5971e0f63d9acfe94dba8de60bf"
+    "post_merge_main_commit": "913ec67c195ac5971e0f63d9acfe94dba8de60bf",
+    "pr15": "merged",
+    "pr15_merge_commit": "143532248f707380b980e787051e7decc3c91086",
+    "pr15_final_head": "766ff7ebbbf96f6e5b282859e62fa6226b6fa483",
+    "pr15_pre_merge_ci_run": 529,
+    "pr15_pre_merge_ci_conclusion": "success",
+    "pr15_post_merge_main_ci_run": 530,
+    "pr15_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -175,16 +182,27 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.1",
+    "current_slice": "P6.2",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "closed",
-    "next_slice": "P6.2",
+    "current_slice_status": "in_progress",
+    "next_slice": "P6.3",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
       "checklist_items_passed": 5
+    },
+    "previous_slice": "P6.1",
+    "previous_slice_status": "closed",
+    "p6_2_start": {
+      "date": "2026-09-20",
+      "owner_statement": "اكمل",
+      "decision": "continued-by-owner",
+      "baseline_commit": "143532248f707380b980e787051e7decc3c91086",
+      "baseline_ci_run": 530,
+      "baseline_ci_conclusion": "success",
+      "branch": "feat/phase6-p6-2-ordered-route-state"
     }
   }
 }
