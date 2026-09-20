@@ -19,9 +19,9 @@ model engines:
 > **6/6 manual checks PASS — REPORTED BY OWNER**, plus the direct-map refinement
 > retest PASS. **P6.3 WGS84 Ruler / Distance is CLOSED and MERGED** through PR #19
 > at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`, with post-merge Release
-> Acceptance Gates **#643 SUCCESS**. The owner has now explicitly started
-> **P6.4 — AE Native Measurement** from the verified post-PR20 baseline.
-> Accepted phase remains
+> Acceptance Gates **#643 SUCCESS**. **P6.4 — AE Native Measurement is now
+> CLOSED** after automated verification and **6/6 manual checks PASS — REPORTED
+> BY OWNER**. Accepted phase remains
 > **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
@@ -36,8 +36,8 @@ model engines:
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.3 — WGS84 Ruler / Distance**
-- Latest completed slice: **P6.3 — WGS84 Ruler / Distance — CLOSED**
+- Latest closed slice: **P6.4 — AE Native Measurement**
+- Latest completed slice: **P6.4 — AE Native Measurement — CLOSED**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
@@ -49,7 +49,8 @@ model engines:
 - PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**.
 - PR #19 is **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 - Post-PR19 documentation reconciliation was merged through PR #20 at `35fda15508973340669220a20ee1c5bf6bbaa39a`; post-merge Release Acceptance Gates **#651 — SUCCESS**.
-- P6.4 start baseline is that exact `main` revision; owner manual verification remains **NOT RUN**.
+- P6.4 start baseline is that exact `main` revision.
+- P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed CI #653; current owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed CI #661; owner manual **6/6 PASS — REPORTED BY OWNER**.
 
 ## Phase status
 
@@ -73,7 +74,7 @@ model engines:
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
-| P6.4 | AWAITING OWNER MANUAL ⏳ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; implementation head passed CI #653 SUCCESS |
+| P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
 | P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
@@ -257,9 +258,9 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is the active slice.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is closed and P6.5 is not started.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
-- `docs/PHASE_6_P6_4_REPORT.md` — active P6.4 implementation/verification report.
+- `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
@@ -297,8 +298,8 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
-**AWAITING OWNER MANUAL VERIFICATION** after CI #653 SUCCESS.
+Phase 6 remains **IN PROGRESS**; P6.1, P6.2, P6.3 and P6.4 are CLOSED.
+P6.5 remains **NOT STARTED**.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
@@ -308,15 +309,16 @@ Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
 - Final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed **CI #642 SUCCESS**.
 - PR #19 merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
 - Post-merge Release Acceptance Gates: **#643 SUCCESS**.
-- P6.3 is **CLOSED**; P6.4 is **AWAITING OWNER MANUAL VERIFICATION**.
+- P6.3 and P6.4 are **CLOSED**; P6.5 remains **NOT STARTED**.
 
 
-### Active P6.4 — AE Native Measurement
+### Closed P6.4 — AE Native Measurement
 - Start baseline: `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a`; post-PR20 CI #651 SUCCESS.
 - AE adjacent route segments are measured as straight Euclidean chords in the independent north-polar AE projected plane.
 - Method identity: `ae-projected-plane`; contract unit: `metre`; scale basis: `ae-projected-plane-si-metre`.
 - Backend uses pyproj/PROJ; browser/offline fallback uses proj4 2.22.0.
 - AE projected metres are explicitly not relabeled as WGS84 geodesic distance.
 - Implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
-- Owner manual verification: **NOT RUN**.
-- P6.5 and P6.7 remain **NOT STARTED**.
+- Current owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
+- Owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
+- P6.4 is **CLOSED**; P6.5 and P6.7 remain **NOT STARTED**; PR #21 remains draft/unmerged.
