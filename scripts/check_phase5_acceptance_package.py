@@ -71,7 +71,7 @@ require("availableOperations:Object.freeze([])" in future, "future services must
 
 historical = (ROOT / "data" / "sources" / "gleason-book.yaml").read_text(encoding="utf-8")
 require("control_points: []" in historical, "historical control points must remain empty")
-require("embedded_in_repository: false" in historical, "historical standalone scan must remain not embedded")
+require("standalone_historical_scan: not_embedded" in historical, "historical standalone scan must remain not embedded")
 
 e2e = (ROOT / "frontend" / "tests" / "e2e" / "acceptance.spec.ts").read_text(encoding="utf-8")
 for marker in [
