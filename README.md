@@ -19,22 +19,24 @@ model engines:
 > **6/6 manual checks PASS — REPORTED BY OWNER**, plus the direct-map refinement
 > retest PASS. **P6.3 WGS84 Ruler / Distance is CLOSED and MERGED** through PR #19
 > at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`, with post-merge Release
-> Acceptance Gates **#643 SUCCESS**. Accepted phase remains
+> Acceptance Gates **#643 SUCCESS**. The owner has now explicitly started
+> **P6.4 — AE Native Measurement** from the verified post-PR20 baseline.
+> Accepted phase remains
 > **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 4aac199646f3a899b45e241bf8995e8ba7c8f2a0` (PR #19 merge)
-- Release Acceptance Gates **#643 — SUCCESS** on that exact post-merge baseline
-- Current documentation reconciliation branch: `docs/post-pr19-merge-reconciliation`
+- Current integration baseline: `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a` (PR #20 merge)
+- Release Acceptance Gates **#651 — SUCCESS** on that exact post-merge baseline
+- Active development branch: `feat/phase6-p6-4-ae-native-measurement`
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.2 — Ordered Route State**
+- Latest closed slice: **P6.3 — WGS84 Ruler / Distance**
 - Latest completed slice: **P6.3 — WGS84 Ruler / Distance — CLOSED**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
@@ -46,7 +48,8 @@ model engines:
 - PR #17 is **MERGED** at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
 - PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**.
 - PR #19 is **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**. No tag, GitHub Release or deployment has been created.
-- Post-PR19 documentation reconciliation verification head `813d2268d74dd0b7ff1a1336b461e6281b71d392` passed Release Acceptance Gates **#644 — SUCCESS**; reconciliation is CLOSED.
+- Post-PR19 documentation reconciliation was merged through PR #20 at `35fda15508973340669220a20ee1c5bf6bbaa39a`; post-merge Release Acceptance Gates **#651 — SUCCESS**.
+- P6.4 start baseline is that exact `main` revision; owner manual verification remains **NOT RUN**.
 
 ## Phase status
 
@@ -70,7 +73,8 @@ model engines:
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
-| P6.4–P6.10 | NOT STARTED ⏳ | AE/Gleason measurements, polygon area, laboratories, regression |
+| P6.4 | IN PROGRESS 🛠️ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; automated verification pending |
+| P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -141,7 +145,7 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- Provider-backed road/flight route paths, AE/Gleason numeric measurements, perimeter and area calculations (P6.4+ / P6.6+).
+- Provider-backed road/flight route paths, Gleason numeric measurement, perimeter and area calculations (P6.5+ / P6.6+).
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
 - Shared cross-model layer-state service.
@@ -253,8 +257,9 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.3 is closed and P6.4 is not started.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is the active slice.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
+- `docs/PHASE_6_P6_4_REPORT.md` — active P6.4 implementation/verification report.
 - `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
