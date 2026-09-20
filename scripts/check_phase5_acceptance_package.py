@@ -274,16 +274,12 @@ require(p6_3_automated.get("ci_conclusion") == "success", "P6.3 automated CI #56
 require(p6_3_automated.get("browser_acceptance_tests_passed") == 20, "P6.3 browser acceptance count must be 20")
 p6_3_refinement = phase6_start.get("p6_3_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "awaiting-refinement-retest",
-    "P6.3 must await the targeted route-guide owner retest",
-)
-require(
     p6_3_refinement.get("decision") == "requested-by-owner-after-manual-pass",
     "P6.3 route-guide refinement owner request evidence missing",
 )
 require(
     p6_3_refinement.get("status") == "awaiting-owner-retest",
-    "P6.3 route-guide refinement must await owner retest",
+    "P6.3 route-guide refinement historical status drifted",
 )
 require(
     p6_3_refinement.get("automated_head") == "483b123277f62e219937298b4fb7ca104809d420",
@@ -303,7 +299,43 @@ require(
     "P6.3 route-guide refinement must remain visual-only",
 )
 require(p6_3_refinement.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
-require(p6_3_refinement.get("targeted_manual_retest") == "not_run", "P6.3 route-guide targeted retest must remain not_run")
+require(
+    p6_3_refinement.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 route-guide targeted owner retest PASS evidence missing",
+)
+require(p6_3_refinement.get("targeted_manual_items_passed") == 5, "P6.3 route-guide targeted retest must record 5/5")
+require(
+    p6_3_refinement.get("offline_backend_fallback_retest") == "pass-reported-by-owner",
+    "P6.3 route-guide offline fallback retest evidence missing",
+)
+require(p6_3_refinement.get("pre_retest_ci_run") == 595, "P6.3 route-guide owner retest must follow CI #595")
+require(
+    p6_3_refinement.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 route-guide pre-retest CI #595 must remain success",
+)
+p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
+require(
+    phase6_start.get("p6_3_status") == "straight-line-refinement-in-progress",
+    "P6.3 must remain in straight-line refinement until the targeted owner retest",
+)
+require(
+    p6_3_straight.get("decision") == "requested-by-owner-after-route-guide-retest-pass",
+    "P6.3 straight-line refinement owner request evidence missing",
+)
+require(p6_3_straight.get("status") == "in_progress", "P6.3 straight-line refinement must be in_progress")
+require(
+    p6_3_straight.get("geometry_semantics") == "straight-projected-segment",
+    "P6.3 flat-model guide must use straight projected segments",
+)
+require(
+    p6_3_straight.get("computation_identity") == "visual-only",
+    "P6.3 straight-line refinement must remain visual-only",
+)
+require(p6_3_straight.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(
+    p6_3_straight.get("targeted_manual_retest") == "not_run",
+    "P6.3 straight-line refinement targeted retest must remain not_run",
+)
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")
