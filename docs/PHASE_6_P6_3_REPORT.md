@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **STRAIGHT-LINE REFINEMENT IN PROGRESS — PRIOR ROUTE-GUIDE RETEST 5/5 PASS REPORTED BY OWNER**
+Status: **AWAITING STRAIGHT-LINE OWNER RETEST — CI #607 SUCCESS**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -323,7 +323,25 @@ Implementation rule:
 - numeric distance remains `wgs84-geodesic`;
 - this remains visual-only and does not start P6.7.
 
-Current straight-line refinement state: **IN PROGRESS — automated verification pending**.
+Current straight-line refinement state: **AWAITING TARGETED OWNER RETEST**.
+
+Straight-line implementation head:
+`f837f8af9c56309156540f28cdf5e60456642b69`
+
+Release Acceptance Gates **#607 — SUCCESS** on that exact head.
+
+The successful workflow includes:
+- frontend core tests proving each flat-model route segment has exactly two projected endpoints;
+- browser acceptance asserting both flat projection cards expose
+  `data-route-guide-geometry="straight-projected-segments"`;
+- existing WGS84 distance/parity regression;
+- production build/PWA;
+- Chromium acceptance;
+- Docker runtime;
+- locked-source/PostGIS/search regression.
+
+The owner only needs to retest the straightness behavior now; the previous
+5/5 route-guide retest and offline fallback PASS remain recorded.
 
 ## Closure criteria
 
