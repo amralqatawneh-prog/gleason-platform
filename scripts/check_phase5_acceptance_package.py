@@ -237,8 +237,34 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "645a27c5ea92febd78c3bdd823281ff496a742b3",
-    "current integration baseline must be the PR #18 merge commit",
+    == "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "current integration baseline must be the PR #20 merge commit",
+)
+require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
+require(
+    merge_boundary.get("pr19_merge_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "PR #19 merge commit drifted",
+)
+require(merge_boundary.get("pr19_pre_merge_ci_run") == 642, "PR #19 pre-merge CI must be #642")
+require(merge_boundary.get("pr19_post_merge_main_ci_run") == 643, "PR #19 post-merge CI must be #643")
+require(merge_boundary.get("pr20") == "merged", "PR #20 must be recorded as merged")
+require(
+    merge_boundary.get("pr20_merge_commit") == "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "PR #20 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr20_final_head") == "9b4e3693e95d05778930eb04dd0e526326e03fc6",
+    "PR #20 final head drifted",
+)
+require(merge_boundary.get("pr20_pre_merge_ci_run") == 650, "PR #20 pre-merge CI must be #650")
+require(
+    merge_boundary.get("pr20_pre_merge_ci_conclusion") == "success",
+    "PR #20 pre-merge CI #650 must remain success",
+)
+require(merge_boundary.get("pr20_post_merge_main_ci_run") == 651, "PR #20 post-merge CI must be #651")
+require(
+    merge_boundary.get("pr20_post_merge_main_ci_conclusion") == "success",
+    "PR #20 post-merge CI #651 must remain success",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
