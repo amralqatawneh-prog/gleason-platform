@@ -12,7 +12,10 @@
 - Keep route state transient: it is not stored in the P5.8 IndexedDB shared-selection record.
 - Add bilingual responsive Ordered Route panel and browser/core tests.
 - Keep route drawing/provider paths and numeric route/ruler/perimeter/area engines unavailable for later Phase 6 slices.
-- Accepted phase remains 5 and accepted application version remains v0.5.0; no tag, GitHub Release or deployment.
+- P6.2 final implementation/refinement head `1d37a70f376fbe8a8974274dac48c04e2fa36807` passed Release Acceptance Gates #546.
+- Owner reported the original P6.2 manual checklist **6/6 PASS** and the direct-map / >3-points refinement retest **PASS**.
+- P6.2 is **CLOSED**; P6.3 remains **NOT STARTED**.
+- PR #16 remains unmerged. Accepted phase remains 5 and accepted application version remains v0.5.0; no tag, GitHub Release or deployment.
 
 ## [Unreleased] — Phase 6 / P6.1 Measurement Semantics Contract (2026-09-20)
 
