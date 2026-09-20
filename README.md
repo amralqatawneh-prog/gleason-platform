@@ -33,7 +33,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.2 — Ordered Route State**
-- Active slice: **P6.3 — WGS84 Ruler / Distance — PAN + GREAT-CIRCLE REFINEMENT IN PROGRESS**
+- Active slice: **P6.3 — WGS84 Ruler / Distance — AWAITING PAN + GREAT-CIRCLE OWNER RETEST**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
@@ -285,6 +285,8 @@ Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **IN PROG
 
 ### Active P6.3 refinement
 - Straight-line Gleason/AE retest: **4/4 PASS — REPORTED BY OWNER**.
-- Add explicit mouse/touch free pan to Gleason and AE.
-- Render WGS84 route guide as a **Great Circle reference**.
+- Explicit mouse/touch free pan is implemented on Gleason and AE.
+- WGS84 route guide now renders a **Great Circle reference**.
+- Head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed **CI #627 SUCCESS**.
 - Numeric distance remains `wgs84-geodesic`; the guide is not observed flight-track data.
+- Targeted owner retest is pending.
