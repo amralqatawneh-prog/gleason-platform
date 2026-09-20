@@ -442,10 +442,7 @@ require(
     p6_3_pan_gc.get("result") == "closed-by-owner-verification",
     "P6.3 pan/great-circle refinement closure evidence missing",
 )
-require(phase6_start.get("current_slice") == "P6.3", "Phase 6 current slice must remain P6.3 at closure")
-require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice must be closed")
-require(phase6_start.get("next_slice") == "P6.4", "Phase 6 next slice must remain P6.4")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
+require(phase6_start.get("p6_3_status") == "closed", "P6.3 must remain closed after its closure")
 
 p6_3_merge = phase6_start.get("p6_3_merge", {})
 require(
