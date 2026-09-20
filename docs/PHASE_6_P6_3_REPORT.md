@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **PAN + GREAT-CIRCLE REFINEMENT IN PROGRESS — STRAIGHT-LINE RETEST 4/4 PASS REPORTED BY OWNER**
+Status: **AWAITING PAN + GREAT-CIRCLE OWNER RETEST — CI #627 SUCCESS**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -377,4 +377,21 @@ Implementation:
 - actual flight tracks may differ because of airways, winds and ATC;
 - P6.7 remains NOT STARTED.
 
-Automated verification for this refinement is pending.
+Automated verification for this refinement is complete.
+
+Implementation/documentation head:
+`f67a69c78547330f273fc65bf3de4bb7379a09bf`
+
+Release Acceptance Gates **#627 — SUCCESS** on that exact head.
+
+Verified automatically:
+- explicit mouse drag panning changes the independent center state of Gleason and AE;
+- pan remains camera-local and does not change canonical geographic selection;
+- both flat views advertise mouse + touch pan support;
+- Great Circle interpolation handles equatorial, antimeridian, repeated and antipodal inputs without NaN;
+- WGS84 globe route identity is `great-circle-reference`;
+- the route is explicitly marked `data-flight-track="false"`;
+- numeric P6.3 distance parity remains unchanged;
+- production build, Chromium acceptance, Docker, PostGIS and search regressions are green.
+
+Current state: **AWAITING TARGETED OWNER RETEST**.
