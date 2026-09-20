@@ -22,12 +22,15 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
 - Active development branch: `feat/phase6-p6-1-measurement-semantics`.
-- Current slice: **P6.1 — Measurement Semantics Contract**.
-- No tag, GitHub Release or deployment is authorized by the Phase 6 start.
+- Latest closed slice: **P6.1 — Measurement Semantics Contract**.
+- P6.1 automated evidence: Release Acceptance Gates **#519 and #520 — SUCCESS**.
+- P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
+- Next slice: **P6.2 — Ordered Route State — NOT STARTED**.
+- No tag, GitHub Release, deployment or PR #15 merge is authorized by P6.1 closure.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 is active; P6.2+ remain NOT STARTED.
+- **Phase 6 is IN PROGRESS** after explicit owner instruction «ابدأ بتنفيذ Phase 6». P6.1 is CLOSED; P6.2+ remain NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -81,9 +84,9 @@ after Release Acceptance Gates #517 SUCCESS. The accepted application version
 remains v0.5.0 and accepted phase remains 5 while implementation phase becomes
 6 / in_progress.
 
-P6.1 is semantics-only: it defines explicit endpoints, method/model/unit/scale
-identity and cross-model visualization identity. It does not enable route
-drawing, numeric ruler/distance/perimeter/area, or durable route persistence.
+P6.1 is now CLOSED. It defined explicit endpoints, method/model/unit/scale
+identity and cross-model visualization identity without enabling route drawing,
+numeric ruler/distance/perimeter/area, or durable route persistence.
 
 ## Governance and execution rules
 
