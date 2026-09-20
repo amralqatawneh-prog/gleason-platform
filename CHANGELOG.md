@@ -10,7 +10,10 @@
 - Keep WGS84 geodesic, AE projected-plane and Gleason normalized-native methods distinct.
 - Preserve computation identity when a path/result is visualized on another model.
 - Keep route operations fail-closed during P6.1; numeric route/ruler/perimeter/area engines are not implemented yet.
-- No tag, GitHub Release, deployment or merge authorization is implied.
+- P6.1 implementation verification passed Release Acceptance Gates #519 and documentation verification passed #520.
+- Owner reported all five P6.1 manual checks PASS; P6.1 is CLOSED.
+- P6.2 Ordered Route State remains NOT STARTED.
+- No tag, GitHub Release, deployment or PR #15 merge authorization is implied.
 
 ## [Unreleased] — Post-PR #13 merge documentation reconciliation (2026-09-20)
 
