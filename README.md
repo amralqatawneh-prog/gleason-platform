@@ -17,15 +17,17 @@ model engines:
 > checks PASS — REPORTED BY OWNER**. PR #15 is merged and post-merge CI #530
 > succeeded. **P6.2 Ordered Route State is CLOSED** after CI #532/#546 and
 > **6/6 manual checks PASS — REPORTED BY OWNER**, plus the direct-map refinement
-> retest PASS. Accepted phase remains
+> retest PASS. **P6.3 WGS84 Ruler / Distance is CLOSED and MERGED** through PR #19
+> at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`, with post-merge Release
+> Acceptance Gates **#643 SUCCESS**. Accepted phase remains
 > **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3` (PR #18 merge)
-- Release Acceptance Gates **#561 — SUCCESS** on that exact post-merge baseline
-- Active development branch: `feat/phase6-p6-3-wgs84-distance`
+- Current integration baseline: `main @ 4aac199646f3a899b45e241bf8995e8ba7c8f2a0` (PR #19 merge)
+- Release Acceptance Gates **#643 — SUCCESS** on that exact post-merge baseline
+- Current documentation reconciliation branch: `docs/post-pr19-merge-reconciliation`
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -39,10 +41,11 @@ model engines:
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
 - P6.3 owner manual: **6/6 PASS — REPORTED BY OWNER** + browser-local fallback PASS after backend stop/restart.
 - P6.3 route-guide refinement: **5/5 targeted retest PASS — REPORTED BY OWNER** + backend-stop line/fallback PASS; pre-retest CI #595 SUCCESS.
-- Current refinement: Gleason/AE route segments use exact straight projected lines with no intermediate curve samples; head `f837f8af9c56309156540f28cdf5e60456642b69` passed **CI #607 SUCCESS**; targeted owner retest pending.
+- P6.3 refinements are closed: route-guide **5/5 PASS**, straight-line **4/4 PASS**, and Pan/Great Circle **6/6 PASS — REPORTED BY OWNER**.
 - PR #16 is **MERGED** at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with CI #554 SUCCESS.
 - PR #17 is **MERGED** at `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; CI #558 SUCCESS.
-- PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**. No tag, GitHub Release or deployment has been created.
+- PR #18 is **MERGED** into `main` at `645a27c5ea92febd78c3bdd823281ff496a742b3`; post-merge Release Acceptance Gates **#561 — SUCCESS**.
+- PR #19 is **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 
 ## Phase status
 
@@ -65,7 +68,7 @@ model engines:
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
-| P6.3 | AWAITING STRAIGHT-LINE RETEST ⏳ | Base manual 6/6 PASS; route-guide retest 5/5 PASS; exact straight Gleason/AE projected chords passed CI #607 |
+| P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
 | P6.4–P6.10 | NOT STARTED ⏳ | AE/Gleason measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
@@ -130,11 +133,14 @@ decision is recorded in `docs/PHASE_5_ACCEPTANCE.md`.
 
 P6.1 provides the closed measurement-semantics contract. P6.2 adds transient
 ordered geographic route-point state with explicit point/segment identity and
-editing controls. The route measurement/provider service remains fail-closed.
+editing controls. P6.3 adds WGS84 geodesic segment/open-polyline distance,
+display-only route guides, exact straight projected segments on Gleason/AE,
+free mouse/touch pan on the flat models, and a display-only WGS84 Great Circle
+reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- Route drawing/provider paths, AE/Gleason numeric measurements, perimeter and area calculations (P6.4+ / P6.6+).
+- Provider-backed road/flight route paths, AE/Gleason numeric measurements, perimeter and area calculations (P6.4+ / P6.6+).
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
 - Shared cross-model layer-state service.
@@ -246,8 +252,9 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.3 boundary.
-- `docs/PHASE_6_P6_3_REPORT.md` — active P6.3 implementation/verification report.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.3 is closed and P6.4 is not started.
+- `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
+- `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR13 reconciliation.
@@ -278,25 +285,21 @@ PR #17 was subsequently authorized and merged at
 `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`; post-merge CI #558 succeeded.
 PR #18 then merged at `645a27c5ea92febd78c3bdd823281ff496a742b3`;
 post-merge Release Acceptance Gates **#561 — SUCCESS**.
+PR #19 was separately authorized and merged at
+`4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; its exact pre-merge head
+`c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates
+**#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **IN PROGRESS**.
+Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
+**NOT STARTED**.
 
-
-### Active P6.3 refinement
-- Straight-line Gleason/AE retest: **4/4 PASS — REPORTED BY OWNER**.
-- Explicit mouse/touch free pan is implemented on Gleason and AE.
-- WGS84 route guide now renders a **Great Circle reference**.
-- Head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed **CI #627 SUCCESS**.
-- Numeric distance remains `wgs84-geodesic`; the guide is not observed flight-track data.
-- Targeted owner retest is pending.
-
-
-### P6.3 closure
+### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
 - Route-guide refinement retest: **5/5 PASS — REPORTED BY OWNER**.
 - Straight-line refinement retest: **4/4 PASS — REPORTED BY OWNER**.
 - Pan + Great Circle refinement retest: **6/6 PASS — REPORTED BY OWNER**.
-- Pre-closure head `746e71b261747132bec49f33348cd42870092643` passed **CI #635 SUCCESS**.
-- P6.3 is marked **CLOSED**; P6.4 remains **NOT STARTED**.
-- PR #19 remains draft/unmerged until separate owner authorization.
+- Final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed **CI #642 SUCCESS**.
+- PR #19 merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
+- Post-merge Release Acceptance Gates: **#643 SUCCESS**.
+- P6.3 is **CLOSED**; P6.4 remains **NOT STARTED**.
