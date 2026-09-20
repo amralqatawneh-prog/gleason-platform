@@ -14,7 +14,7 @@ model engines:
 > Phase 4 is accepted at **v0.4.0**. Phase 5 is **IN PROGRESS** on `main` after
 > **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
 > after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
-> State Persistence is CLOSED. P5.9 is next and NOT STARTED.** Phase 6 measurement/routing is
+> State Persistence is CLOSED. P5.9 final regression/acceptance package is now IN PROGRESS.** Phase 6 measurement/routing is
 > also NOT STARTED.
 
 ## Current verified development baseline
@@ -56,7 +56,7 @@ change numerical engines, source datasets or accepted application version. See
 | P5.6 | CLOSED ✅ | Independent zoom/focus/rotation/navigation |
 | P5.7 | CLOSED ✅ | Homogeneous-difference gate + unavailable future-service contracts |
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
-| P5.9 | NOT STARTED ⏳ | Phase 5 regression and owner acceptance package |
+| P5.9 | IN PROGRESS 🚧 | Phase 5 regression and owner acceptance package |
 | Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
 
 Phase 5 as a whole is **not yet accepted**. Historical reports retain the status
@@ -92,6 +92,16 @@ P5.8 does not persist routes, experiments, astronomy state or shared future
 service state.
 
 P5.8 acceptance: owner-reported PASS after CI #439/#442 SUCCESS.
+
+### P5.9 current scope
+
+P5.9 is the final Phase 5 regression and owner-acceptance package. It adds no
+new model engine. It verifies browser/offline/bilingual/mobile/extreme-coordinate
+behavior, source visibility and known limitations, and packages the evidence in
+`docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+Full Phase 5 remains unaccepted until the owner gives an explicit Phase 5
+acceptance decision after P5.9 testing.
 
 ## Explicitly not implemented yet
 
