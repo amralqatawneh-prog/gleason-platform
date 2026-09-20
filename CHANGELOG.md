@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0] - 2026-09-20
+
+### Accepted
+- Owner explicitly accepted Phase 5 as a whole: **«أعتمد المرحلة الخامسة»**.
+- P5.1–P5.9 are closed; P5.9 manual regression is **10/10 PASS — REPORTED BY OWNER**.
+- Accepted application version advances from **0.4.0** to **0.5.0**.
+- Accepted phase advances from **4** to **5**; Phase 5 status becomes **accepted**.
+
+### Boundaries
+- Phase 6 remains **NOT STARTED**.
+- PR #13 remains open/draft and unmerged pending separate merge authorization.
+- No tag, GitHub Release or deployment is authorized by Phase 5 acceptance.
+- Historical-source, missing-height, undefined-scale and future-service fail-closed boundaries remain unchanged.
+
 ## [Unreleased] — P5.9 owner manual closure (2026-09-20)
 
 - Owner completed the P5.9 manual regression checklist and reported all **10/10** checks successful.
