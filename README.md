@@ -29,9 +29,9 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` (PR #22 merge)
-- PR #22 post-merge documentation reconciliation is **MERGED**; its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge
-- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; **CLOSED / VERIFIED on CI #673; PR #23 OPEN / UNMERGED; P6.5 remains NOT STARTED**
+- Current integration baseline: `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` (PR #23 merge)
+- PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
+- Post-PR23 documentation reconciliation: **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**; PR #24 remains **OPEN / UNMERGED** pending separate owner merge authorization; P6.5 remains **NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -78,7 +78,7 @@ model engines:
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
 | P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
-| Roadmap Architecture Amendment 2026-09-21 | CLOSED ✅ | Owner-approved requirements formalized; verification head `cb4b4681bd359e29b08542856b7bff144a239796`; CI #673 SUCCESS; PR #23 awaiting separate merge authorization |
+| Roadmap Architecture Amendment 2026-09-21 | CLOSED + MERGED ✅ | Initial verification `cb4b4681bd359e29b08542856b7bff144a239796` / CI #673; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` / CI #676; PR #23 merged at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` |
 | P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
@@ -280,7 +280,8 @@ Current source-of-truth documents:
 - `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is closed and P6.5 is not started.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
-- `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR19 documentation reconciliation.
+- `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR23 documentation reconciliation.
+- `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR13 reconciliation.
@@ -340,4 +341,4 @@ P6.5 remains **NOT STARTED**.
 - Implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
 - Current owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
 - Owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
-- P6.4 is **CLOSED**; P6.5 and P6.7 remain **NOT STARTED**; PR #21 remains draft/unmerged.
+- P6.4 is **CLOSED + MERGED** through PR #21; P6.5, P6.6, P6.7A and P6.7B remain **NOT STARTED**.

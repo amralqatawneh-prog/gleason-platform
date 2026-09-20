@@ -27,11 +27,11 @@ Current authoritative execution/status sources are:
 - `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
 
 Current state at this reconciliation: Phase 5 is accepted at v0.5.0; Phase 6 is
-in progress; P6.1–P6.4 are closed; P6.5 is not started. PR #22 is merged at
-`main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`. The owner has approved the
-2026-09-21 roadmap/architecture amendment, which is documentation/planning only
-and does not itself start P6.5 or any future astronomy/aviation/high-detail-map
-implementation.
+in progress; P6.1–P6.4 are closed; P6.5 is not started. The owner-approved
+2026-09-21 roadmap/architecture amendment was merged through PR #23 at
+`main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The amendment is
+architecture/documentation planning only and does not itself start P6.5 or any
+future astronomy/aviation/high-detail-map implementation.
 
 Important implemented deviations already recorded by later ADRs/documentation:
 - the delivered Phase 4 WGS84 renderer is a custom WebGL2/SVG implementation,

@@ -271,8 +271,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
-    "current integration baseline must be the PR #22 merge commit",
+    == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
+    "current integration baseline must be the PR #23 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -332,6 +332,25 @@ require(merge_boundary.get("pr22_pre_merge_ci_run") == 671, "PR #22 pre-merge CI
 require(
     merge_boundary.get("pr22_pre_merge_ci_conclusion") == "success",
     "PR #22 pre-merge CI #671 must remain success",
+)
+require(merge_boundary.get("pr23") == "merged", "PR #23 must be recorded as merged")
+require(
+    merge_boundary.get("pr23_merge_commit") == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
+    "PR #23 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr23_final_head") == "c73ca4cdd41b2e3cd745df5412be30a44d2bda9c",
+    "PR #23 final head drifted",
+)
+require(merge_boundary.get("pr23_pre_merge_ci_run") == 676, "PR #23 pre-merge CI must be #676")
+require(
+    merge_boundary.get("pr23_pre_merge_ci_conclusion") == "success",
+    "PR #23 pre-merge CI #676 must remain success",
+)
+require(merge_boundary.get("pr23_post_merge_main_ci_run") is None, "PR #23 must not fabricate an unseen post-merge CI run")
+require(
+    merge_boundary.get("pr23_post_merge_main_ci_conclusion") == "not-independently-observed",
+    "PR #23 post-merge CI evidence state drifted",
 )
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -407,10 +426,65 @@ require(
     amendment.get("verification_ci_conclusion") == "success",
     "roadmap architecture amendment verification CI #673 must remain success",
 )
-require(amendment.get("merge_status") == "open-unmerged", "roadmap architecture amendment must remain unmerged before owner authorization")
+require(amendment.get("merge_status") == "merged", "roadmap architecture amendment PR #23 must be merged")
 require(
-    amendment.get("merge_authorization") == "pending-separate-owner-instruction",
-    "roadmap architecture amendment merge must await separate owner authorization",
+    amendment.get("merge_authorization") == "explicit-owner-instruction",
+    "roadmap architecture amendment merge authorization evidence missing",
+)
+require(
+    amendment.get("merge_authorization_statement") == "قم بدمج PR #23 إلى main",
+    "roadmap architecture amendment merge authorization statement drifted",
+)
+require(
+    amendment.get("final_closure_head") == "c73ca4cdd41b2e3cd745df5412be30a44d2bda9c",
+    "roadmap architecture amendment final closure head drifted",
+)
+require(amendment.get("final_closure_ci_run") == 676, "roadmap architecture amendment final closure CI must be #676")
+require(
+    amendment.get("final_closure_ci_conclusion") == "success",
+    "roadmap architecture amendment final closure CI #676 must remain success",
+)
+require(
+    amendment.get("merge_commit") == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
+    "roadmap architecture amendment merge commit drifted",
+)
+require(amendment.get("post_merge_main_ci_run") is None, "roadmap amendment must not fabricate an unseen post-merge CI run")
+require(
+    amendment.get("post_merge_main_ci_conclusion") == "not-independently-observed",
+    "roadmap amendment post-merge CI evidence state drifted",
+)
+post_pr23 = data.get("post_pr23_merge_reconciliation", {})
+require(post_pr23.get("status") == "closed", "post-PR23 reconciliation must be closed after verification")
+require(post_pr23.get("pr") == 24, "post-PR23 reconciliation PR must be #24")
+require(
+    post_pr23.get("baseline_commit") == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
+    "post-PR23 reconciliation baseline drifted",
+)
+require(post_pr23.get("pr23_status") == "merged", "post-PR23 reconciliation must record PR #23 merged")
+require(post_pr23.get("p6_4_status") == "closed", "P6.4 must remain closed during post-PR23 reconciliation")
+require(post_pr23.get("p6_5_status") == "not_started", "P6.5 must remain not_started during post-PR23 reconciliation")
+require(post_pr23.get("accepted_phase") == 5, "accepted phase must remain 5 during post-PR23 reconciliation")
+require(
+    post_pr23.get("accepted_application_version") == "0.5.0",
+    "accepted application version must remain 0.5.0 during post-PR23 reconciliation",
+)
+require(post_pr23.get("phase6_status") == "in_progress", "Phase 6 must remain in_progress during post-PR23 reconciliation")
+require(post_pr23.get("tag") == "not_created", "post-PR23 reconciliation must not create a tag")
+require(post_pr23.get("github_release") == "not_created", "post-PR23 reconciliation must not create a GitHub Release")
+require(post_pr23.get("deployment") == "not_created", "post-PR23 reconciliation must not deploy")
+require(
+    post_pr23.get("verification_head") == "89b634d49eb802c17f9978fee7065ca958c3b592",
+    "post-PR23 reconciliation verification head drifted",
+)
+require(post_pr23.get("verification_ci_run") == 679, "post-PR23 reconciliation verification CI must be #679")
+require(
+    post_pr23.get("verification_ci_conclusion") == "success",
+    "post-PR23 reconciliation verification CI #679 must remain success",
+)
+require(post_pr23.get("merge_status") == "open-unmerged", "post-PR23 reconciliation PR #24 must remain unmerged before owner authorization")
+require(
+    post_pr23.get("merge_authorization") == "pending-separate-owner-instruction",
+    "post-PR23 reconciliation merge must await separate owner authorization",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(

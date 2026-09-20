@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` (PR #22 merge).
+- Current integration base: `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` (PR #23 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -29,9 +29,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
 - PR **#22** Post-PR21 reconciliation: **MERGED**; final head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge.
-- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED / VERIFIED** on head `cb4b4681bd359e29b08542856b7bff144a239796` with Release Acceptance Gates **#673 — SUCCESS**.
-- PR #23: **OPEN / UNMERGED**, awaiting separate owner merge authorization; no P6.5 functional branch has been started.
+- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED**. Initial verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed CI **#673**, and exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed CI **#676**.
+- PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
+- Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**. PR #24 remains OPEN / UNMERGED pending separate owner merge authorization; no P6.5 functional branch has been started.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
+- Post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - Latest closed slice: **P6.4 — AE Native Measurement**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.

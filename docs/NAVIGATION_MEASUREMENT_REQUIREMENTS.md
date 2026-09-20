@@ -1,6 +1,6 @@
 # Navigation and measurement requirements — updated 2026-09-21
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. Post-PR21 reconciliation PR #22 is merged at `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge. **P6.5 remains NOT STARTED**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. The approved roadmap amendment PR #23 is merged at `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8`; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge. **P6.5 remains NOT STARTED**.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
 Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; Gleason native distance remains P6.5; polygon perimeter/area remains P6.6; P6.7A owns same-route rendering; the newly approved P6.7B owns dedicated RouteProvider/turn-by-turn navigation.
 

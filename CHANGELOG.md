@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Post-PR #23 merge reconciliation (2026-09-21)
+
+- Owner explicitly authorized **«قم بدمج PR #23 إلى main»**.
+- Roadmap/Architecture Amendment PR #23 was **MERGED**.
+- Exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge.
+- PR #23 merge commit / current integration baseline: `de2cf9b0a8a48a788323373eb2b9c72622c288f8`.
+- A post-merge push-run number is not recorded because it was not independently visible through the available GitHub workflow view at reconciliation start; no CI result is fabricated.
+- Reconcile current-state documentation and machine-readable governance records to the post-PR23 truth.
+- Phase 5 remains **ACCEPTED** at **v0.5.0**; Phase 6 remains **IN PROGRESS**; P6.1–P6.4 remain **CLOSED**; P6.5 remains **NOT STARTED**.
+- No tag, GitHub Release or deployment is created by this reconciliation.
+- Reconciliation verification head `89b634d49eb802c17f9978fee7065ca958c3b592` passed Release Acceptance Gates **#679 — SUCCESS**; reconciliation is CLOSED/VERIFIED. PR #24 remains open/unmerged pending separate owner merge authorization.
+
+
 ## [Unreleased] — Roadmap & Architecture Amendment — New Requirements (2026-09-21)
 
 - Owner approved the expanded roadmap before starting P6.5.
@@ -11,7 +24,7 @@
 - Expand Phases 9–12, 15–16, 19 and 21 with explicit slices and acceptance criteria.
 - No astronomy, aviation, detailed-map, routing-provider or P6.5 functional implementation is introduced by this amendment.
 - Accepted phase remains 5; accepted application version remains v0.5.0; Phase 6 remains IN PROGRESS.
-- Amendment verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed Release Acceptance Gates **#673 — SUCCESS**; amendment state is CLOSED. PR #23 remains open/unmerged pending separate owner merge authorization.
+- Amendment initial verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed Release Acceptance Gates **#673 — SUCCESS**. Exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed **#676 — SUCCESS**. PR #23 was subsequently authorized and merged at `de2cf9b0a8a48a788323373eb2b9c72622c288f8`.
 
 
 ## [Unreleased] — Post-PR #21 merge reconciliation (2026-09-21)

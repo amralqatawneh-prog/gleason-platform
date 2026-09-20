@@ -1,6 +1,6 @@
 # Roadmap & Architecture Amendment — New Requirements 2026-09-21
 
-Status: **CLOSED / VERIFIED — PR #23 OPEN / UNMERGED**
+Status: **CLOSED + MERGED — PR #23**
 
 Owner approval date: 2026-09-21  
 Baseline: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`  
@@ -393,24 +393,24 @@ documentation retroactively for undocumented historical code.
 ## 11. Verification and closure
 
 - PR: **#23**
-- verification head: `cb4b4681bd359e29b08542856b7bff144a239796`
-- Release Acceptance Gates: **#673 — SUCCESS**
+- initial verification head: `cb4b4681bd359e29b08542856b7bff144a239796`
+- initial Release Acceptance Gates: **#673 — SUCCESS**
+- exact final closure head: `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c`
+- exact final Release Acceptance Gates: **#676 — SUCCESS**
+- merge authorization: explicit owner instruction **«قم بدمج PR #23 إلى main»**
+- merge commit: `de2cf9b0a8a48a788323373eb2b9c72622c288f8`
+- merged at GitHub timestamp: `2026-09-20T22:39:36Z`
+- post-merge push-run number: not independently verified/recorded; no result is fabricated
 - scope verification: documentation/architecture/governance only; no P6.5 functional implementation
 - P6.5 status: **NOT STARTED**
 - accepted phase: **5**
 - accepted application version: **v0.5.0**
-- PR #23 remains **OPEN / UNMERGED** until separate owner merge authorization.
-
-This closure-state update creates a new PR head, so that exact final head must pass
-the full Release Acceptance Gates before the PR is considered merge-ready.
 
 ## 12. Immediate execution order after this amendment
 
-1. Close and merge this documentation/architecture amendment only after CI and
-   separate owner merge authorization.
+1. Reconcile post-PR23 current-state documentation and machine-readable governance before starting another slice.
 2. Do **not** start Phase 9/10/11/12/15/16 implementation now.
-3. Resume Phase 6 with **P6.5 — Gleason Native Measurement** only after explicit
-   owner instruction.
+3. Resume Phase 6 with **P6.5 — Gleason Native Measurement** only after the reconciliation is merged and an explicit owner start instruction is given.
 4. Continue sequentially through P6.6, P6.7A and P6.7B before later Phase 6 labs.
 5. Whole Phase 6 acceptance remains dependent on P6.10 and explicit owner
    acceptance.
