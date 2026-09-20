@@ -20,6 +20,7 @@
 - Current route-guide documentation head `df9227a831e4b90940cea70dde902f64684a0bf4` passed Release Acceptance Gates **#595 — SUCCESS**.
 - Owner reported targeted route-guide refinement **5/5 PASS** and repeated backend-stop line/browser-local fallback **PASS**.
 - Owner-requested second same-slice refinement: on Gleason and AE, each route segment is now one exact straight projected chord using only the two projected endpoints; WGS84 visualization is unchanged.
+- Straight-line implementation head `f837f8af9c56309156540f28cdf5e60456642b69` passed Release Acceptance Gates **#607 — SUCCESS**.
 - Straight-line refinement retest remains **NOT RUN**.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
