@@ -40,7 +40,7 @@ export const FUTURE_SERVICE_CONTRACTS: readonly Readonly<FutureServiceContract>[
     kind:'route',
     contractVersion:FUTURE_SERVICE_CONTRACT_VERSION,
     status:'unavailable',
-    plannedPhase:'6 / P6.2+',
+    plannedPhase:'6',
     currentBoundary:'P6.1 defines measurement semantics only; route state, drawing, distance, ruler, perimeter and area engines remain unavailable until their later Phase 6 slices.',
     availableOperations:Object.freeze([]),
   }),
