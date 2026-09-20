@@ -44,11 +44,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19 and PR #20 are **MERGED**; P6.2 and P6.3 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.4 is **IN PROGRESS**.
+- PR #16, PR #19 and PR #20 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1, P6.2 and P6.3 are CLOSED; the owner explicitly started **P6.4 — AE Native Measurement** with «أبدأ P6.4».
+- **Phase 6 is IN PROGRESS**. P6.1, P6.2, P6.3 and P6.4 are CLOSED; P6.5 remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -58,7 +58,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Post-PR16 reconciliation: `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md`.
 - Post-PR17 GitHub state sync: `docs/POST_PR17_GITHUB_SYNC_2026-09-20.md`.
 - Closed P6.3 report: `docs/PHASE_6_P6_3_REPORT.md`.
-- Active P6.4 report: `docs/PHASE_6_P6_4_REPORT.md`.
+- Closed P6.4 report: `docs/PHASE_6_P6_4_REPORT.md`.
 - Post-PR19 reconciliation: `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md`.
 
 Historical Phase 4 commits, PR #8, CI runs and correction evidence remain below as
@@ -1015,9 +1015,9 @@ route segments and the open-polyline total. The method identity is
 `ae-projected-plane-si-metre`. Backend uses pyproj/PROJ; browser/offline uses
 the existing proj4 AE definition. WGS84 geodesic identity remains separate.
 
-P6.5 and P6.7 remain **NOT STARTED**. Owner manual P6.4 verification is
-**NOT RUN**. No merge, tag, GitHub Release or deployment is implied by starting
-the slice.
+P6.5 and P6.7 remain **NOT STARTED**. The owner subsequently reported all six
+P6.4 manual checks successful. No merge, tag, GitHub Release or deployment is
+implied by closing the slice.
 
 
 ## P6.4 — AE Native Measurement — current state
@@ -1046,8 +1046,13 @@ Automated evidence:
 - Release Acceptance Gates #653: **SUCCESS**;
 - CI #652 was a checker-only failure caused by a stale historical P6.3 current-slice assertion.
 
+Owner manual closure:
+- owner-tested head: `59d19a96c6a7af443429d8ba7585386d4f491dee`;
+- pre-manual Release Acceptance Gates #661: **SUCCESS**;
+- owner result: **6/6 PASS — REPORTED BY OWNER**.
+
 Current governance state:
-- P6.4: **AWAITING OWNER MANUAL VERIFICATION**;
+- P6.4: **CLOSED**;
 - P6.5: NOT STARTED;
 - P6.7: NOT STARTED;
 - PR #21: OPEN / DRAFT / UNMERGED;
