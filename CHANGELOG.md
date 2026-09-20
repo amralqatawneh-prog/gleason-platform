@@ -27,8 +27,11 @@
 - Pan/great-circle implementation/documentation head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed Release Acceptance Gates **#627 — SUCCESS**.
 - Pan/great-circle targeted retest: **6/6 PASS — REPORTED BY OWNER**.
 - Pre-closure head `746e71b261747132bec49f33348cd42870092643` passed Release Acceptance Gates **#635 — SUCCESS**.
-- P6.3 is now **CLOSED**; P6.4 remains **NOT STARTED**; PR #19 remains unmerged pending separate owner authorization.
-- P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
+- P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
+- Owner separately authorized merging PR #19; it merged into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
+- Post-merge `main` passed Release Acceptance Gates **#643 — SUCCESS**.
+- P6.3 is **CLOSED + MERGED**; P6.4 remains **NOT STARTED**.
+- No tag, GitHub Release or deployment has been created.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
 
