@@ -315,14 +315,26 @@ require(
 )
 p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "straight-line-refinement-in-progress",
-    "P6.3 must remain in straight-line refinement until the targeted owner retest",
+    phase6_start.get("p6_3_status") == "awaiting-straight-line-retest",
+    "P6.3 must await the straight-line targeted owner retest",
 )
 require(
     p6_3_straight.get("decision") == "requested-by-owner-after-route-guide-retest-pass",
     "P6.3 straight-line refinement owner request evidence missing",
 )
-require(p6_3_straight.get("status") == "in_progress", "P6.3 straight-line refinement must be in_progress")
+require(
+    p6_3_straight.get("status") == "awaiting-owner-retest",
+    "P6.3 straight-line refinement must await owner retest",
+)
+require(
+    p6_3_straight.get("automated_head") == "f837f8af9c56309156540f28cdf5e60456642b69",
+    "P6.3 straight-line automated head drifted",
+)
+require(p6_3_straight.get("ci_run") == 607, "P6.3 straight-line CI must be #607")
+require(
+    p6_3_straight.get("ci_conclusion") == "success",
+    "P6.3 straight-line CI #607 must remain success",
+)
 require(
     p6_3_straight.get("geometry_semantics") == "straight-projected-segment",
     "P6.3 flat-model guide must use straight projected segments",
