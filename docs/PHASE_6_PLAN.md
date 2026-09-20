@@ -75,7 +75,12 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **NOT STARTED**.
+Status: **IN PROGRESS — started by owner on 2026-09-20; automated verification pending; manual NOT RUN**.
+
+Start baseline:
+- `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
+- Release Acceptance Gates #561: **SUCCESS**
+- branch: `feat/phase6-p6-3-wgs84-distance`
 
 Deliver:
 - WGS84 geodesic segment and open-polyline distance;
@@ -186,9 +191,10 @@ P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
 
 PR #16 merged at
 `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with post-merge CI #554 SUCCESS.
-The subsequent documentation reconciliation PR #17 merged to
-`main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8`, and post-merge Release
-Acceptance Gates **#558 — SUCCESS**.
+The subsequent documentation synchronization PR #18 merged to
+`main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`, and post-merge Release
+Acceptance Gates **#561 — SUCCESS**.
 
-P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**. No numeric P6.3 work
-starts automatically from P6.2 closure or from either documentation merge.
+The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 is now
+**IN PROGRESS** on `feat/phase6-p6-3-wgs84-distance`. P6.4 remains
+**NOT STARTED** and does not start automatically from P6.3 implementation.
