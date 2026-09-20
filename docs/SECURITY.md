@@ -1,6 +1,6 @@
-# Security and Supply-Chain Baseline — current through P5.7
+# Security and Supply-Chain Baseline — current through accepted Phase 5
 
-_Last reconciled: 2026-09-19. Accepted application version: v0.4.0._
+_Last reconciled: 2026-09-19. Accepted application version: v0.5.0._
 
 ## Application security rules
 
