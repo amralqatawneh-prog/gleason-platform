@@ -27,6 +27,8 @@ def platform_capabilities() -> dict[str, object]:
         "regional_search_packs": True,
         "cross_model_synchronization": True,
         "measurement_semantics_contract": True,
+        "ordered_route_state": True,
+        "ordered_route_persistence": False,
         "measurement_engine": False,
         "route_engine": False,
         "area_engine": False,
