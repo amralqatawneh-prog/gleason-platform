@@ -748,6 +748,9 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
     await expect(view).toHaveAttribute('data-route-guide-points','2');
     await expect(view).toHaveAttribute('data-route-guide-segments','1');
   }
+  for(const flat of await page.locator('.projection-card').all()){
+    await expect(flat).toHaveAttribute('data-route-guide-geometry','straight-projected-segments');
+  }
   await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('visual guide');
   await expect(ruler).toContainText('wgs84-geodesic');
   await expect(ruler).toContainText('open-polyline');
