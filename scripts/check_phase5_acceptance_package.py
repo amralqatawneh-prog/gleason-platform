@@ -278,8 +278,8 @@ require(
     "P6.3 route-guide refinement owner request evidence missing",
 )
 require(
-    p6_3_refinement.get("status") == "awaiting-owner-retest",
-    "P6.3 route-guide refinement historical status drifted",
+    p6_3_refinement.get("status") == "closed",
+    "P6.3 route-guide refinement must be closed after owner verification",
 )
 require(
     p6_3_refinement.get("automated_head") == "483b123277f62e219937298b4fb7ca104809d420",
@@ -323,8 +323,8 @@ require(
     "P6.3 straight-line refinement owner request evidence missing",
 )
 require(
-    p6_3_straight.get("status") == "awaiting-owner-retest",
-    "P6.3 straight-line refinement must await owner retest",
+    p6_3_straight.get("status") == "closed",
+    "P6.3 straight-line refinement must be closed after owner verification",
 )
 require(
     p6_3_straight.get("automated_head") == "f837f8af9c56309156540f28cdf5e60456642b69",
@@ -364,8 +364,8 @@ require(
     "P6.3 pan/great-circle refinement owner request evidence missing",
 )
 require(
-    p6_3_pan_gc.get("status") == "awaiting-owner-retest",
-    "P6.3 pan/great-circle refinement must await owner retest",
+    p6_3_pan_gc.get("status") == "closed",
+    "P6.3 pan/great-circle refinement must be closed after owner verification",
 )
 require(
     p6_3_pan_gc.get("automated_head") == "f67a69c78547330f273fc65bf3de4bb7379a09bf",
@@ -400,6 +400,62 @@ require(phase6_start.get("current_slice") == "P6.3", "Phase 6 current slice must
 require(phase6_start.get("current_slice_status") == "closed", "P6.3 current slice must be closed")
 require(phase6_start.get("next_slice") == "P6.4", "Phase 6 next slice must remain P6.4")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.4 must remain not_started")
+
+p6_3_merge = phase6_start.get("p6_3_merge", {})
+require(
+    p6_3_merge.get("decision") == "merged-by-separate-owner-authorization",
+    "P6.3 merge authorization evidence missing",
+)
+require(p6_3_merge.get("pr") == 19, "P6.3 merge must reference PR #19")
+require(
+    p6_3_merge.get("final_head") == "c775aac8a97a6782915782ed2118c3018cfe5a1a",
+    "P6.3 final pre-merge head drifted",
+)
+require(p6_3_merge.get("pre_merge_ci_run") == 642, "P6.3 pre-merge CI must be #642")
+require(p6_3_merge.get("pre_merge_ci_conclusion") == "success", "P6.3 pre-merge CI #642 must remain success")
+require(
+    p6_3_merge.get("merge_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "P6.3 merge commit drifted",
+)
+require(p6_3_merge.get("post_merge_ci_run") == 643, "P6.3 post-merge CI must be #643")
+require(
+    p6_3_merge.get("post_merge_ci_conclusion") == "success",
+    "P6.3 post-merge CI #643 must remain success",
+)
+
+post_pr19 = data.get("post_pr19_merge_reconciliation", {})
+require(
+    post_pr19.get("scope") == "current-status documentation reconciliation after separately authorized PR #19 merge",
+    "post-PR19 reconciliation scope drifted",
+)
+require(post_pr19.get("status") == "closed", "post-PR19 reconciliation must be closed after verification")
+require(
+    post_pr19.get("baseline_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
+    "post-PR19 reconciliation baseline drifted",
+)
+require(post_pr19.get("baseline_ci_run") == 643, "post-PR19 reconciliation baseline CI must be #643")
+require(
+    post_pr19.get("baseline_ci_conclusion") == "success",
+    "post-PR19 reconciliation baseline CI #643 must remain success",
+)
+require(post_pr19.get("pr19_status") == "merged", "PR #19 must be recorded as merged")
+require(post_pr19.get("p6_3_status") == "closed", "P6.3 must remain closed after PR #19 merge")
+require(post_pr19.get("p6_4_status") == "not_started", "P6.4 must remain not_started during reconciliation")
+require(post_pr19.get("p6_7_status") == "not_started", "P6.7 must remain not_started during reconciliation")
+require(post_pr19.get("accepted_phase") == 5, "accepted phase must remain 5 during reconciliation")
+require(post_pr19.get("accepted_application_version") == "0.5.0", "accepted app version must remain 0.5.0")
+require(post_pr19.get("tag") == "not_created", "post-PR19 reconciliation must not create a tag")
+require(post_pr19.get("github_release") == "not_created", "post-PR19 reconciliation must not create a GitHub Release")
+require(post_pr19.get("deployment") == "not_created", "post-PR19 reconciliation must not deploy")
+require(
+    post_pr19.get("verification_head") == "813d2268d74dd0b7ff1a1336b461e6281b71d392",
+    "post-PR19 reconciliation verification head drifted",
+)
+require(post_pr19.get("verification_ci_run") == 644, "post-PR19 reconciliation verification CI must be #644")
+require(
+    post_pr19.get("verification_ci_conclusion") == "success",
+    "post-PR19 reconciliation verification CI #644 must remain success",
+)
 
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")

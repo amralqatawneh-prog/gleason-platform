@@ -323,7 +323,7 @@ Implementation rule:
 - numeric distance remains `wgs84-geodesic`;
 - this remains visual-only and does not start P6.7.
 
-Current straight-line refinement state: **AWAITING TARGETED OWNER RETEST**.
+Straight-line refinement result: **4/4 PASS — REPORTED BY OWNER**.
 
 Straight-line implementation head:
 `f837f8af9c56309156540f28cdf5e60456642b69`
@@ -340,21 +340,23 @@ The successful workflow includes:
 - Docker runtime;
 - locked-source/PostGIS/search regression.
 
-The owner only needs to retest the straightness behavior now; the previous
-5/5 route-guide retest and offline fallback PASS remain recorded.
+The owner subsequently reported the straight-line targeted retest **4/4 PASS**.
+The previous 5/5 route-guide retest and offline fallback PASS remain recorded.
 
 ## Closure criteria
 
-P6.3 may be marked CLOSED only after:
+All P6.3 closure criteria are complete:
 
-- complete Release Acceptance Gates succeed on the implementation head — **DONE: #565 SUCCESS**;
-- documentation is updated with the exact successful head/run — **DONE**;
-- the original owner manual checklist PASS — **DONE: 6/6 PASS + offline fallback PASS reported**;
-- the visual route-guide refinement passes the complete automated gates — **DONE: #587 SUCCESS**;
-- the owner performs the targeted route-guide retest — **PENDING / NOT RUN**;
-- a final closure-documentation head passes the complete gates again — **PENDING**.
+- complete Release Acceptance Gates on the implementation lineage — **DONE**;
+- original owner manual checklist — **6/6 PASS — REPORTED BY OWNER**;
+- route-guide refinement retest — **5/5 PASS — REPORTED BY OWNER**;
+- straight-line refinement retest — **4/4 PASS — REPORTED BY OWNER**;
+- Pan/Great Circle refinement retest — **6/6 PASS — REPORTED BY OWNER**;
+- final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` — **CI #642 SUCCESS**.
 
-P6.3 closure does not authorize P6.4, merge, tag, GitHub Release or deployment.
+P6.3 is therefore **CLOSED**. Closure did not itself authorize P6.4, tag,
+GitHub Release or deployment. Merge authorization was granted separately and is
+recorded in the post-merge section below.
 
 
 ## Third owner-requested refinement — flat-map pan + WGS84 Great Circle
@@ -394,7 +396,7 @@ Verified automatically:
 - numeric P6.3 distance parity remains unchanged;
 - production build, Chromium acceptance, Docker, PostGIS and search regressions are green.
 
-Current state: **AWAITING TARGETED OWNER RETEST**.
+Pan/Great Circle refinement result: **6/6 PASS — REPORTED BY OWNER**.
 
 
 ## Final owner verification and closure
@@ -412,12 +414,21 @@ Verified manually by the owner:
 The retest was performed after Release Acceptance Gates **#635 — SUCCESS** on
 head `746e71b261747132bec49f33348cd42870092643`.
 
-P6.3 is now marked **CLOSED** in the acceptance package. This closure-documentation
-head must pass the complete Release Acceptance Gates before the closure is
-considered fully verified for merge readiness.
+P6.3 was marked **CLOSED** in the acceptance package. The final closure head
+`c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates
+**#642 — SUCCESS**.
 
-Boundaries remain unchanged:
-- PR #19 remains unmerged;
-- P6.4 remains NOT STARTED;
-- P6.7 remains NOT STARTED;
-- no tag, GitHub Release or deployment is authorized.
+## Merge result
+
+The owner separately authorized **PR #19** to merge into `main`.
+
+- final PR head: `c775aac8a97a6782915782ed2118c3018cfe5a1a`;
+- pre-merge Release Acceptance Gates: **#642 — SUCCESS**;
+- merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
+- post-merge Release Acceptance Gates: **#643 — SUCCESS**.
+
+Current boundaries:
+- P6.3 remains **CLOSED**;
+- P6.4 remains **NOT STARTED**;
+- P6.7 remains **NOT STARTED**;
+- no tag, GitHub Release or deployment has been authorized.

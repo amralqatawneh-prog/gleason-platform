@@ -96,7 +96,14 @@ Start baseline:
 - current refinement: exact straight projected route segments on Gleason/AE, no intermediate samples
 - straight-line implementation head: `f837f8af9c56309156540f28cdf5e60456642b69`
 - straight-line Release Acceptance Gates #607: **SUCCESS**
-- targeted straight-line owner retest: **NOT RUN**
+- targeted straight-line owner retest: **4/4 PASS — REPORTED BY OWNER**
+- Pan/Great Circle implementation head: `f67a69c78547330f273fc65bf3de4bb7379a09bf`
+- Pan/Great Circle Release Acceptance Gates #627: **SUCCESS**
+- targeted Pan/Great Circle owner retest: **6/6 PASS — REPORTED BY OWNER**
+- final closure head: `c775aac8a97a6782915782ed2118c3018cfe5a1a`
+- final closure Release Acceptance Gates #642: **SUCCESS**
+- PR #19 merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`
+- post-merge Release Acceptance Gates #643: **SUCCESS**
 - P6.7 remains NOT STARTED
 
 Deliver:
@@ -212,28 +219,19 @@ The subsequent documentation synchronization PR #18 merged to
 `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`, and post-merge Release
 Acceptance Gates **#561 — SUCCESS**.
 
-The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 is now
-**IN PROGRESS** on `feat/phase6-p6-3-wgs84-distance`. P6.4 remains
-**NOT STARTED** and does not start automatically from P6.3 implementation.
+The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 was
+implemented, manually verified, closed, and then separately authorized for merge.
 
+P6.3 final evidence:
+- base owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
+- route-guide refinement: **5/5 PASS — REPORTED BY OWNER**;
+- straight-line refinement: **4/4 PASS — REPORTED BY OWNER**;
+- Pan/Great Circle refinement: **6/6 PASS — REPORTED BY OWNER**;
+- final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a`;
+- final pre-merge Release Acceptance Gates **#642 — SUCCESS**;
+- PR #19 merge commit on `main`: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
+- post-merge Release Acceptance Gates **#643 — SUCCESS**.
 
-P6.3 current same-slice refinement:
-- mouse/touch free pan for Gleason and AE;
-- WGS84 Great Circle reference rendering;
-- numeric WGS84 geodesic unchanged;
-- no observed-flight-track claim;
-- P6.7 remains NOT STARTED.
-
-
-P6.3 pan/great-circle verification:
-- head `f67a69c78547330f273fc65bf3de4bb7379a09bf`
-- Release Acceptance Gates #627: **SUCCESS**
-- targeted owner retest: **NOT RUN**
-
-
-P6.3 closure:
-- final Pan/Great Circle owner retest: **6/6 PASS — REPORTED BY OWNER**
-- pre-closure CI #635: **SUCCESS**
-- slice state: **CLOSED**
-- P6.4: **NOT STARTED**
-- PR #19 remains unmerged pending separate authorization
+Current next permitted slice is **P6.4 — AE Native Measurement**, but it remains
+**NOT STARTED** until a separate explicit owner instruction. P6.7 also remains
+**NOT STARTED**. No tag, GitHub Release or deployment is implied by the merge.
