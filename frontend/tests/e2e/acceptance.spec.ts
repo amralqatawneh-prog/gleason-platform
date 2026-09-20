@@ -632,6 +632,47 @@ test('P5.9 phase regression covers polar and antimeridian selections with visibl
 });
 
 
+test('P6.2 direct-map mode appends picks from all three models and supports more than three points',async({page,servers})=>{
+  await english(page,servers.url);
+  const panel=page.locator('.ordered-route-panel');
+  await expect(panel).toHaveAttribute('data-route-max-points','50');
+
+  await locate(page,'TEST Doha');
+  await panel.getByRole('button',{name:'Add current point',exact:true}).click();
+  await panel.getByRole('button',{name:'Add points directly on maps',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-map-add-mode','true');
+  await expect(page.locator('.app-shell')).toHaveAttribute('data-route-map-add-mode','true');
+
+  const gleasonMap=page.locator('.projection-card[data-model="gleason"] .projection-map');
+  await gleasonMap.scrollIntoViewIfNeeded();
+  const gBox=(await gleasonMap.boundingBox())!;
+  await page.mouse.click(gBox.x+gBox.width*.52,gBox.y+gBox.height*.48);
+  await expect(panel).toHaveAttribute('data-route-point-count','2');
+
+  const aeMap=page.locator('.projection-card[data-model="ae"] .projection-map');
+  await aeMap.scrollIntoViewIfNeeded();
+  const aBox=(await aeMap.boundingBox())!;
+  await page.mouse.click(aBox.x+aBox.width*.48,aBox.y+aBox.height*.52);
+  await expect(panel).toHaveAttribute('data-route-point-count','3');
+
+  const globe=page.locator('.reference-card');
+  const canvas=globe.locator('canvas.reference-globe');
+  await canvas.scrollIntoViewIfNeeded();
+  const cBox=(await canvas.boundingBox())!;
+  await page.mouse.click(cBox.x+cBox.width*.5,cBox.y+cBox.height*.5);
+  await expect(panel).toHaveAttribute('data-route-point-count','4');
+  await expect(panel).toHaveAttribute('data-route-segment-count','3');
+  await expect(panel.locator('.ordered-route-point')).toHaveCount(4);
+  await expect(panel.locator('.ordered-route-point').nth(1)).toHaveAttribute('data-source-model','gleason');
+  await expect(panel.locator('.ordered-route-point').nth(2)).toHaveAttribute('data-source-model','ae');
+  await expect(panel.locator('.ordered-route-point').nth(3)).toHaveAttribute('data-source-model','wgs84');
+  await expect(panel).toContainText('4 / 50');
+  await expect(panel.locator('.ordered-route-segments')).toHaveAttribute('data-has-numeric-measurement','false');
+
+  await panel.getByRole('button',{name:'Add points directly on maps',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-map-add-mode','false');
+});
+
 test('P6.2 ordered route state supports edit/undo/clear and remains transient across reload',async({page,servers})=>{
   await english(page,servers.url);
   const panel=page.locator('.ordered-route-panel');
