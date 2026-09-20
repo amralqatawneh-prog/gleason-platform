@@ -759,6 +759,10 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
   expect(threePointTotal).toBeGreaterThan(twoPointTotal);
 
   await panel.getByRole('button',{name:'Move C up',exact:true}).click();
+  await expect(ruler.locator('.wgs84-route-distance-segment').first()).toHaveAttribute(
+    'data-route-segment-id',
+    'route-segment:route-point-1->route-point-3',
+  );
   await expect(ruler).toHaveAttribute('data-measurement-status','ready');
   await expect(ruler).toHaveAttribute('data-route-segment-count','2');
 
