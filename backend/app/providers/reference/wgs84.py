@@ -169,7 +169,7 @@ class WGS84ReferenceProvider:
 
         segments: list[WGS84RouteDistanceSegment] = []
         distances: list[float] = []
-        for index, (start, end) in enumerate(zip(points, points[1:], strict=True)):
+        for index, (start, end) in enumerate(zip(points, points[1:])):
             _azimuth_forward, _azimuth_back, distance_m = self._geod.inv(
                 start.longitude,
                 start.latitude,
