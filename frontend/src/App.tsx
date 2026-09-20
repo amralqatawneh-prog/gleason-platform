@@ -121,7 +121,7 @@ export default function App() {
     : persistenceStatus==='save-error'?'The current local state could not be saved.'
     :'No previous saved state.'}</span></div><div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>PLACE SOURCE PROVENANCE ≠ REFERENCE_RESULT</span></div><div className="notice"><strong>{locale==='ar'?'طبقات محلية':'Offline layers'}</strong><span>Natural Earth / Phase 3 cached indexes · {globePlaces.length} features</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.webgl2?'WebGL2 3D':'2D fallback'} · {capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة الخامسة — مزامنة الاختيار':'Phase 5 — synchronized selection'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
+    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.2 حالة المسار المرتب':'Phase 6 — P6.2 ordered route state'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
   </div>;
 }
 function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}
