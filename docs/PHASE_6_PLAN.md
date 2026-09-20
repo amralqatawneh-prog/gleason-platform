@@ -75,12 +75,16 @@ Deliver transient ordered route state A → B → C → … with:
 
 ## P6.3 — WGS84 Ruler / Distance
 
-Status: **IN PROGRESS — started by owner on 2026-09-20; automated verification pending; manual NOT RUN**.
+Status: **AWAITING OWNER MANUAL VERIFICATION — CI #565 SUCCESS; manual NOT RUN**.
 
 Start baseline:
 - `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`
 - Release Acceptance Gates #561: **SUCCESS**
 - branch: `feat/phase6-p6-3-wgs84-distance`
+- final implementation head: `06f2397f63648d879d6271064f3297608a59c333`
+- Release Acceptance Gates #565: **SUCCESS**
+- browser acceptance: **20/20 PASS**
+- owner manual verification: **NOT RUN**
 
 Deliver:
 - WGS84 geodesic segment and open-polyline distance;
