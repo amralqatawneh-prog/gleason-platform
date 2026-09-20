@@ -315,8 +315,8 @@ require(
 )
 p6_3_straight = phase6_start.get("p6_3_straight_line_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "awaiting-straight-line-retest",
-    "P6.3 must await the straight-line targeted owner retest",
+    phase6_start.get("p6_3_status") in {"awaiting-straight-line-retest", "pan-great-circle-refinement-in-progress"},
+    "P6.3 status must remain in the active refinement lifecycle",
 )
 require(
     p6_3_straight.get("decision") == "requested-by-owner-after-route-guide-retest-pass",
@@ -345,8 +345,34 @@ require(
 )
 require(p6_3_straight.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
 require(
-    p6_3_straight.get("targeted_manual_retest") == "not_run",
-    "P6.3 straight-line refinement targeted retest must remain not_run",
+    p6_3_straight.get("targeted_manual_retest") == "pass-reported-by-owner",
+    "P6.3 straight-line targeted owner retest PASS evidence missing",
+)
+require(p6_3_straight.get("targeted_manual_items_passed") == 4, "P6.3 straight-line targeted retest must record 4/4")
+require(p6_3_straight.get("pre_retest_ci_run") == 614, "P6.3 straight-line owner retest must follow CI #614")
+require(
+    p6_3_straight.get("pre_retest_ci_conclusion") == "success",
+    "P6.3 straight-line pre-retest CI #614 must remain success",
+)
+p6_3_pan_gc = phase6_start.get("p6_3_pan_great_circle_refinement", {})
+require(
+    phase6_start.get("p6_3_status") == "pan-great-circle-refinement-in-progress",
+    "P6.3 must remain in pan/great-circle refinement until targeted owner retest",
+)
+require(
+    p6_3_pan_gc.get("decision") == "requested-by-owner-after-straight-line-retest-pass",
+    "P6.3 pan/great-circle refinement owner request evidence missing",
+)
+require(p6_3_pan_gc.get("status") == "in_progress", "P6.3 pan/great-circle refinement must be in_progress")
+require(
+    p6_3_pan_gc.get("wgs84_numeric_identity") == "wgs84-geodesic",
+    "P6.3 numeric WGS84 identity must remain wgs84-geodesic",
+)
+require(p6_3_pan_gc.get("observed_flight_track") is False, "P6.3 must not claim observed flight-track data")
+require(p6_3_pan_gc.get("p6_7_status_remains") == "not_started", "P6.7 must remain not_started")
+require(
+    p6_3_pan_gc.get("targeted_manual_retest") == "not_run",
+    "P6.3 pan/great-circle targeted retest must remain not_run",
 )
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
