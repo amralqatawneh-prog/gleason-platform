@@ -503,7 +503,7 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await expect(future.locator('[data-service-status="unavailable"]')).toHaveCount(3);
   await expect(future.locator('[data-future-service="time"]')).toContainText('phases 9–10');
   await expect(future.locator('[data-future-service="layer-sync"]')).toContainText('phase 16');
-  await expect(future.locator('[data-future-service="route"]')).toContainText('phase 6');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('Planned phase: 6');
   await expect(future.locator('[data-future-service="route"]')).toContainText('P6.3 implements WGS84 geodesic ruler/distance');
   await expect(future.locator('[data-future-service="route"]')).toContainText('route drawing/provider paths');
 
