@@ -3,12 +3,13 @@ from __future__ import annotations
 from fastapi import APIRouter
 
 from ..domain.reference import ECEFPoint, WGS84GeodeticPoint
-from ..domain.reference_api import GeodesicInverseRequest
+from ..domain.reference_api import GeodesicInverseRequest, WGS84RouteDistanceRequest
 from ..services.reference import (
     ecef_to_geodetic,
     geodesic_inverse,
     geodetic_to_ecef,
     reference_metadata,
+    wgs84_route_distance,
 )
 
 router = APIRouter()
@@ -32,3 +33,8 @@ def wgs84_ecef_to_geodetic(point: ECEFPoint) -> dict[str, object]:
 @router.post("/reference/wgs84/geodesic-inverse", tags=["reference"])
 def wgs84_geodesic_inverse(request: GeodesicInverseRequest) -> dict[str, object]:
     return geodesic_inverse(request.start, request.end).model_dump()
+
+
+@router.post("/reference/wgs84/route-distance", tags=["reference", "measurement"])
+def wgs84_route_distance_endpoint(request: WGS84RouteDistanceRequest) -> dict[str, object]:
+    return wgs84_route_distance(request.route_id, request.points).model_dump()
