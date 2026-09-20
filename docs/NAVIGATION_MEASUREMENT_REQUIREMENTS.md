@@ -2,7 +2,7 @@
 
 Status: P5.6 navigation implementation is CLOSED after CI #329/#340 and owner-reported manual PASS. Phase 6 measurement requirements remain future / NOT STARTED.
 Source: owner message following successful P5.3 retest and later continuation instructions.
-Sequential execution remains enforced: P5.6–P5.9 are closed. Full Phase 5 owner acceptance is still pending. Phase 6 paths/ruler/area remain NOT STARTED and require Phase 5 acceptance plus an explicit Phase 6 start instruction.
+Sequential execution remains enforced: P5.6–P5.9 are closed and Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 paths/ruler/area remain NOT STARTED and require an explicit Phase 6 start instruction.
 
 ## P5.6 — navigation on all three views
 
@@ -92,7 +92,7 @@ implementation will verify primary documentation for the selected algorithms.
 - P5.7 route contract only: **CLOSED**.
 - P5.8 state persistence: **CLOSED**.
 - P5.9 Phase 5 regression package: **CLOSED — owner manual PASS (10/10), reported by owner**.
-- Full Phase 5 acceptance: **PENDING separate explicit owner decision**.
+- Full Phase 5 acceptance: **ACCEPTED BY OWNER — v0.5.0**.
 - Phase 6 route drawing, ordered multi-stop state, ruler, distance, perimeter and area: **NOT STARTED**.
 
 The route contract being present in code must never be interpreted as a route or measurement engine. `availableOperations` remains empty until the approved later implementation replaces that unavailable boundary.
