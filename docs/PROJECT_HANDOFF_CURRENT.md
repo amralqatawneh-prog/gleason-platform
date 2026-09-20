@@ -27,6 +27,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - Current slice: **P6.2 — Ordered Route State — IN PROGRESS**.
+- P6.2 currently supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
 - P6.3+ remain NOT STARTED.
 - No tag, GitHub Release or deployment is authorized by P6.2 work.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
