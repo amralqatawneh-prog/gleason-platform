@@ -1,8 +1,8 @@
-# Navigation and measurement requirements — 2026-09-20
+# Navigation and measurement requirements — updated 2026-09-21
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. PR #21 is merged at `main @ 11b571f08f72732b509f049f1a2ab1be92292938`; its final P6.4 closure head passed Release Acceptance Gates #668 and the recorded post-merge `main` gates are **#669 — SUCCESS**. **P6.5 remains NOT STARTED**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. Post-PR21 reconciliation PR #22 is merged at `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge. **P6.5 remains NOT STARTED**.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
-Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; Gleason native distance remains P6.5 and polygon perimeter/area remains P6.6.
+Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; Gleason native distance remains P6.5; polygon perimeter/area remains P6.6; P6.7A owns same-route rendering; the newly approved P6.7B owns dedicated RouteProvider/turn-by-turn navigation.
 
 ## P5.6 — navigation on all three views
 
@@ -66,6 +66,14 @@ higher-resolution country dataset.
    poles/antimeridian, edits and all three renderings, plus online/offline parity.
    If a view cannot represent a supported path safely, report its limitation.
 
+7. Keep a future navigation route distinct from the measurement polyline. A
+   `RouteProvider` result must preserve provider/version/mode/geometry/legs/
+   maneuvers/distance/duration/provenance. Drawing that route on Gleason, AE or
+   WGS84 never converts provider distance into a native model distance.
+8. P6.7B evaluates a turn-by-turn provider (Valhalla is the first candidate
+   named by the approved amendment), but provider choice remains a documented
+   implementation decision with licensing/offline/error-state tests.
+
 ### P5.7 route-contract status — CLOSED 2026-09-19
 
 P5.7 declares a versioned route-service boundary with status `unavailable`
@@ -104,9 +112,13 @@ implementation will verify primary documentation for the selected algorithms.
 - P6.4 AE projected-plane segment/open-polyline distance: **CLOSED + MERGED** through PR #21.
 - P6.5 Gleason native normalized measurement: **NOT STARTED**.
 - P6.6 polygon/perimeter/area operations: **NOT STARTED**.
+- P6.7A same route / three renderings: **NOT STARTED**.
+- P6.7B RouteProvider / turn-by-turn directions: **NOT STARTED**.
 
 P6.2 continues to own transient ordered route state. P6.3 and P6.4 expose separate
 numeric measurement identities and do not enable provider-backed road/flight paths.
-The separate future route-provider contract remains fail-closed. Gleason native
+The dedicated future `RouteProvider` remains unavailable until P6.7B. Gleason native
 measurement remains unavailable until P6.5 starts explicitly; perimeter and area
-remain unavailable until P6.6.
+remain unavailable until P6.6. The approved architecture amendment is documented in
+`ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md` and
+`SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
