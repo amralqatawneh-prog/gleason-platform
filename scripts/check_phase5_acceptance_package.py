@@ -381,7 +381,7 @@ require(
 )
 amendment = data.get("roadmap_architecture_amendment_2026_09_21", {})
 require(amendment.get("decision") == "owner-approved", "roadmap architecture amendment owner approval missing")
-require(amendment.get("status") == "in_progress", "roadmap architecture amendment must be in_progress before verification closure")
+require(amendment.get("status") == "closed", "roadmap architecture amendment must be closed after verification")
 require(
     amendment.get("baseline_commit") == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
     "roadmap architecture amendment baseline drifted",
@@ -396,6 +396,21 @@ require(amendment.get("phase6_status_remains") == "in_progress", "Phase 6 must r
 require(
     amendment.get("reserved_contracts") == ["ObserverContext", "TimeContext", "ExternalLayerProvider", "RouteProvider"],
     "roadmap amendment shared contract set drifted",
+)
+require(amendment.get("pr") == 23, "roadmap architecture amendment PR must be #23")
+require(
+    amendment.get("verification_head") == "cb4b4681bd359e29b08542856b7bff144a239796",
+    "roadmap architecture amendment verification head drifted",
+)
+require(amendment.get("verification_ci_run") == 673, "roadmap architecture amendment verification CI must be #673")
+require(
+    amendment.get("verification_ci_conclusion") == "success",
+    "roadmap architecture amendment verification CI #673 must remain success",
+)
+require(amendment.get("merge_status") == "open-unmerged", "roadmap architecture amendment must remain unmerged before owner authorization")
+require(
+    amendment.get("merge_authorization") == "pending-separate-owner-instruction",
+    "roadmap architecture amendment merge must await separate owner authorization",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
