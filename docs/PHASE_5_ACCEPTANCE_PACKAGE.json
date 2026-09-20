@@ -2,7 +2,7 @@
   "schema_version": 1,
   "phase": 5,
   "package_slice": "P5.9",
-  "status": "in_progress",
+  "status": "accepted",
   "generated_date": "2026-09-20",
   "accepted_application_version_before_phase5_decision": "0.4.0",
   "accepted_phase_before_phase5_decision": 4,
@@ -64,9 +64,9 @@
     },
     {
       "id": "P5.9",
-      "status": "in_progress",
+      "status": "closed",
       "report": "docs/PHASE_5_P5_9_REPORT.md",
-      "owner_manual": "pending"
+      "owner_manual": "pass-reported-by-owner"
     }
   ],
   "required_regression_gates": [
@@ -121,12 +121,20 @@
     }
   ],
   "phase6_status": "not_started",
-  "phase5_owner_acceptance": "pending",
+  "phase5_owner_acceptance": "accepted",
   "merge_release_boundary": {
     "pr9": "merged",
     "pr11": "open-draft-unmerged",
     "p5_9_branch": "feat/phase5-p5-9-acceptance",
     "tag": "not_created",
     "github_release": "not_created"
+  },
+  "accepted_application_version": "0.5.0",
+  "accepted_phase": 5,
+  "acceptance_decision": {
+    "date": "2026-09-20",
+    "owner_statement": "نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة",
+    "p5_9_manual": "pass-reported-by-owner",
+    "phase5_decision": "accepted-by-owner"
   }
 }
