@@ -28,7 +28,7 @@
 3. اعتبار **P6.1 Measurement Semantics Contract** مغلقة ومثبتة كعقد مرجعي للشرائح اللاحقة.
 4. اعتبار **P6.2 Ordered Route State** مغلقة ومثبتة كأساس للمسار المرتب المؤقت حتى 50 نقطة مع direct-map add صريح.
 5. اعتبار **P6.3 WGS84 Ruler / Distance** و**P6.4 AE Native Measurement** مغلقتين ومندمجتين، مع الحفاظ على هوية الحساب المستقلة لكل منهما.
-6. اعتبار **Roadmap & Architecture Amendment — New Requirements 2026-09-21** مغلقة ومدمجة عبر PR #23؛ وتنفيذ **Post-PR23 Merge Documentation Reconciliation** قبل أي شريحة جديدة.
+6. اعتبار **Roadmap & Architecture Amendment — New Requirements 2026-09-21** مغلقة ومدمجة عبر PR #23؛ واعتبار **Post-PR23 Merge Documentation Reconciliation** مغلقة ومتحققة فنيًا على الرأس `89b634d49eb802c17f9978fee7065ca958c3b592` بعد CI **#679 — SUCCESS**؛ PR #24 بانتظار تفويض دمج منفصل.
 7. بعد إغلاق ودمج مصالحة ما بعد PR #23 بتفويض منفصل، تبقى **P6.5 Gleason Native Measurement = NOT STARTED** إلى أن يصدر أمر مالك صريح لبدئها؛ ولا تبدأ P6.6 معها.
 8. في Phase 6 يضاف **P6.7B Route Provider & Turn-by-Turn Directions** بعد P6.7A Same Route, Three Renderings، دون خلط navigation route مع measurement polyline.
 9. تنفيذ Observer/Astronomy/Analemma/Eclipse لاحقًا ضمن Phases 9–12، والطيران ضمن Phase 15، والخرائط عالية التفاصيل/مزودي الطبقات ضمن Phase 16.
