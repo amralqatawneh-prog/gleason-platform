@@ -27,10 +27,10 @@ with engine.begin() as db:
     for record, category, name, country, lat, lon in [
         ("test-doha", "city", "TEST Doha", "QA", 25.285447, 51.531040),
         ("test-amman", "city", "TEST Amman", "JO", 31.9454, 35.9284),
-        ("test-north-east-edge", "city", "TEST North East Edge", "ZZ", 89.5, 179.9),
-        ("test-north-west-edge", "city", "TEST North West Edge", "ZZ", 89.5, -179.9),
-        ("test-south-east-edge", "city", "TEST South East Edge", "ZZ", -89.5, 179.9),
-        ("test-south-west-edge", "city", "TEST South West Edge", "ZZ", -89.5, -179.9),
+        ("test-north-east-edge", "mountain", "TEST North East Edge", "ZZ", 89.5, 179.9),
+        ("test-north-west-edge", "mountain", "TEST North West Edge", "ZZ", 89.5, -179.9),
+        ("test-south-east-edge", "mountain", "TEST South East Edge", "ZZ", -89.5, 179.9),
+        ("test-south-west-edge", "mountain", "TEST South West Edge", "ZZ", -89.5, -179.9),
         ("test-country", "country", "TEST country", "QA", 25.3, 51.2),
         ("test-airport", "airport", "TEST airport", "QA", 25.273, 51.608),
     ]:
