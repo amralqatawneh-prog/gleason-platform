@@ -949,3 +949,24 @@ The next same-slice refinement is now in progress:
 - owner targeted retest: **NOT RUN**
 - P6.4/P6.7: NOT STARTED
 - PR #19: unmerged
+
+
+## P6.3 final closure — 2026-09-20
+
+P6.3 is **CLOSED** after:
+- base manual 6/6 PASS;
+- route-guide targeted retest 5/5 PASS;
+- straight-line targeted retest 4/4 PASS;
+- pan + Great Circle targeted retest 6/6 PASS;
+- pre-closure Release Acceptance Gates #635 SUCCESS on
+  `746e71b261747132bec49f33348cd42870092643`.
+
+The final closure-documentation head is subject to one complete Release Acceptance
+Gates run. No merge is implied by closure.
+
+Current boundaries:
+- P6.3 CLOSED;
+- P6.4 NOT STARTED;
+- P6.7 NOT STARTED;
+- PR #19 OPEN / DRAFT / UNMERGED;
+- no tag / GitHub Release / deployment.
