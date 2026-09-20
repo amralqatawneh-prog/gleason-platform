@@ -11,28 +11,25 @@ model engines:
 
 > **Current development status — 2026-09-20**
 >
-> Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9,
-> including **10/10 P5.9 manual regression checks PASS — REPORTED BY OWNER**.
-> Phase 6 measurement/routing remains **NOT STARTED** and requires a separate
-> explicit start instruction. PR #13 is **MERGED** into `main` at
-> `913ec67c195ac5971e0f63d9acfe94dba8de60bf`; post-merge Release Acceptance
-> Gates **#515 — SUCCESS**.
+> Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9.
+> Phase 6 was explicitly started by the owner on 2026-09-20 and is now
+> **IN PROGRESS — P6.1 Measurement Semantics Contract**. Accepted phase remains
+> **5** and accepted application version remains **v0.5.0** until a separate
+> Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
-- Integration base: `main`
-- PR #13: **MERGED** into `main`
-- Merge commit: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`
-- Final accepted PR head: `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`
-- Release Acceptance Gates **#514 — SUCCESS** on that exact pre-merge PR head
-- Release Acceptance Gates **#515 — SUCCESS** on the post-merge `main` commit
+- Accepted integration baseline: `main @ 3e5afcd9b95766bd18af59df88c9154f51567e8c` (PR #14 merge)
+- Release Acceptance Gates **#517 — SUCCESS** on that exact post-merge baseline
+- Active development branch: `feat/phase6-p6-1-measurement-semantics`
 - Accepted application version: **0.5.0**
-- Implementation phase: **5**
+- Implementation phase: **6**
 - Accepted phase: **5**
-- Phase status: **accepted**
+- Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
-- Phase 6: **NOT STARTED**
-- No tag, GitHub Release or deployment has been created/authorized by this merge.
+- Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
+- Current slice: **P6.1 — Measurement Semantics Contract**
+- No tag, GitHub Release or deployment is authorized by the Phase 6 start.
 
 ## Phase status
 
@@ -53,7 +50,8 @@ model engines:
 | P5.8 | CLOSED ✅ | Versioned local state persistence |
 | P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
-| Phase 6 | NOT STARTED ⏳ | Routes, ruler, distance, perimeter and area |
+| P6.1 | IN PROGRESS 🚧 | Measurement semantics only; no numeric route/ruler/area engine yet |
+| P6.2–P6.10 | NOT STARTED ⏳ | Ordered routes, model measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -113,9 +111,15 @@ The machine-readable evidence remains in
 `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`, and the explicit whole-phase owner
 decision is recorded in `docs/PHASE_5_ACCEPTANCE.md`.
 
+## Phase 6 current scope
+
+P6.1 introduces a versioned semantics contract for explicit measurement
+endpoints, method identity, units, scale basis and cross-model visualization
+identity. The route future-service remains fail-closed and exposes no operations.
+
 ## Explicitly not implemented yet
 
-- Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
+- P6.2+ ordered route drawing/state, ruler, numeric distance, perimeter or area.
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
 - Shared cross-model layer-state service.
@@ -227,7 +231,8 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — P5.6/Phase 6 boundary.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.1 boundary.
+- `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
 - `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — post-merge documentation reconciliation.
 - `CHANGELOG.md` — chronological implementation/acceptance history.
@@ -249,5 +254,5 @@ PR #13 was separately authorized and has been **merged into `main`** at
 Release Acceptance Gates **#514**, and the resulting `main` merge commit passed
 Release Acceptance Gates **#515**.
 
-No tag or GitHub Release exists, deployment remains a separate authorization,
-and Phase 6 remains **NOT STARTED** until the owner explicitly starts it.
+No tag or GitHub Release exists and deployment remains a separate authorization.
+The owner has now explicitly started Phase 6; P6.1 is the only active slice.
