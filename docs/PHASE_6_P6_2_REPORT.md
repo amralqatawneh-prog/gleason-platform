@@ -28,6 +28,9 @@ P6.2 adds a versioned transient route reducer:
 The route is an ordered list A → B → C → … of explicit P6.1 measurement
 endpoints. It stores geographic endpoint identity, never screen pixels.
 
+The transient P6.2 limit is **50 points**. A/B/C are examples of the first
+positions, not a three-point restriction.
+
 Each point receives a monotonic in-session ID such as:
 - `route-point-1`
 - `route-point-2`
@@ -47,11 +50,16 @@ deliberately excluded.
 
 Implemented:
 - add current selected point;
+- **direct map-add mode**: when explicitly enabled, a short pick on Gleason,
+  AE or WGS84 selects that geography and appends it directly to the route;
 - remove point;
 - move point up/down;
 - undo;
 - clear route;
 - explicit error dismissal.
+
+Normal map picking remains selection-only while direct map-add mode is off, so
+P6.2 does not silently change the established Phase 5 selection interaction.
 
 No-op boundary moves and unknown removals do not create fake revisions/history.
 
@@ -129,6 +137,8 @@ Core tests cover:
 
 Browser coverage exercises:
 - add Doha/Amman;
+- direct map-add picks from Gleason, AE and WGS84;
+- more than three ordered points and explicit 50-point UI capacity;
 - ordered segment identity;
 - reorder + undo;
 - remove + undo;
@@ -137,6 +147,15 @@ Browser coverage exercises:
 - reload confirms route state is transient.
 
 ## Manual checklist after automated gates are green
+
+Owner progress before the direct-map refinement:
+- test 1: **PASS — REPORTED BY OWNER**;
+- test 2: **PASS — REPORTED BY OWNER**;
+- test 3: **PASS — REPORTED BY OWNER**.
+
+Owner then requested direct map-point addition and explicit support for more
+than three points. Those refinements are now implemented and require a targeted
+retest before proceeding with the remaining checklist.
 
 1. Confirm `/api/v1/capabilities` reports
    `ordered_route_state=true`, `ordered_route_persistence=false`, while
@@ -191,5 +210,9 @@ Passed:
 
 ## Current status
 
-P6.2 is **TECHNICALLY GREEN / AWAITING OWNER MANUAL VERIFICATION**.
+P6.2 remains **IN PROGRESS** while the owner-requested direct-map refinement is
+reverified. Tests 1–3 were reported PASS before the refinement; tests 4–6 remain
+pending, and the new direct-map/more-than-three-points behavior requires a
+targeted owner retest after the final green CI.
+
 P6.3 remains **NOT STARTED**.
