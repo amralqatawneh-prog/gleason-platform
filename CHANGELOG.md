@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — Post-PR #13 merge documentation reconciliation (2026-09-20)
+
+- PR #13 was separately authorized and **MERGED** into `main`.
+- Merge commit / accepted main baseline: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Final pre-merge PR head `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed Release Acceptance Gates **#514**.
+- The post-merge `main` commit passed Release Acceptance Gates **#515**.
+- Reconcile current-status documentation without rewriting historical phase/slice evidence.
+- Phase 5 remains accepted at **v0.5.0**; Phase 6 remains **NOT STARTED**.
+- No tag, GitHub Release or deployment is created by this documentation reconciliation.
+
 ## [0.5.0] - 2026-09-20
 
 ### Accepted
@@ -10,7 +20,7 @@
 
 ### Boundaries
 - Phase 6 remains **NOT STARTED**.
-- PR #13 remains open/draft and unmerged pending separate merge authorization.
+- At the moment of the Phase 5 acceptance decision, PR #13 remained open/draft and unmerged pending a separate merge authorization; that later authorization and merge are recorded in the post-merge entry above.
 - No tag, GitHub Release or deployment is authorized by Phase 5 acceptance.
 - Historical-source, missing-height, undefined-scale and future-service fail-closed boundaries remain unchanged.
 
