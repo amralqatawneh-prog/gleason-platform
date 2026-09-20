@@ -6,7 +6,7 @@ import { countryBoundaryRings } from './countryGeometry';
 import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { localGeodeticToEcef } from './offlineWgs84';
-import { buildRouteGuideSegments } from '../measurement/routeGuide';
+import { buildGreatCircleRouteSegments } from '../measurement/routeGuide';
 import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, scaleReferenceZoomByPinch, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
@@ -100,7 +100,7 @@ function buildPlaces(places: readonly OfflinePlace[]): Float32Array {
 
 function buildRouteGuideVertices(points: readonly ReferenceGeoPoint[]): Float32Array {
   const vertices: number[] = [];
-  for (const segment of buildRouteGuideSegments(points)) {
+  for (const segment of buildGreatCircleRouteSegments(points)) {
     for (let index = 1; index < segment.samples.length; index += 1) {
       const start = segment.samples[index - 1];
       const end = segment.samples[index];
@@ -177,7 +177,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const surfaceVertices = useMemo(() => buildEllipsoidSurface(), []);
   const countryVertices = useMemo(() => buildCountries(), []);
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
-  const routeGuideSegments = useMemo(() => buildRouteGuideSegments(routePoints), [routePoints]);
+  const routeGuideSegments = useMemo(() => buildGreatCircleRouteSegments(routePoints), [routePoints]);
   const routeGuideVertices = useMemo(() => buildRouteGuideVertices(routePoints), [routePoints]);
   const routePointVertices = useMemo(() => buildRoutePointVertices(routePoints), [routePoints]);
   const countryPaths = useMemo(() => countryBoundaryRings().map(fallbackPath), []);
@@ -410,7 +410,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       const point=svgClientToGeo(e.currentTarget,e.clientX,e.clientY);if(point)choose(point);
     };
     return <section className="reference-card" data-mode="fallback2d" data-view-zoom={z.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-      data-route-guide="visual-only" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
+      data-route-guide="visual-only" data-route-guide-geometry="great-circle-reference" data-flight-track="false" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
       <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979 · north-up</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
       <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={z} areaMode={areaMode} hasSelection={!!selectionPoint}
         onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
@@ -491,7 +491,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   };
 
   return <section className="reference-card" data-mode="webgl3d" data-view-yaw={yaw} data-view-pitch={pitch} data-view-zoom={zoom.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-    data-route-guide="visual-only" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
+    data-route-guide="visual-only" data-route-guide-geometry="great-circle-reference" data-flight-track="false" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
     <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={zoom} areaMode={areaMode} hasSelection={!!selectionPoint}
       onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
