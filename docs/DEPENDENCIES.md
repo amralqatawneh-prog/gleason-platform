@@ -1,6 +1,6 @@
-# Dependency Register — current through Phase 5 / accepted app v0.4.0
+# Dependency Register — current through accepted Phase 5 / app v0.5.0
 
-_Last reconciled: 2026-09-19 after P5.7 closure._
+_Last reconciled: 2026-09-20 after Phase 5 owner acceptance._
 
 This register documents direct project dependencies. Exact transitive
 resolutions/integrities remain authoritative in `frontend/package-lock.json` and
@@ -97,16 +97,15 @@ npm run test:e2e
 
 ## Current dependency security gate
 
-Release Acceptance Gates run **#397** on
-`e710075531dbdbc2fdd2ed62dde07f22786e320f` reported:
+Release Acceptance Gates run **#495** on
+`235a462762b2aab46a641a56bd3d9c8050578f63` reported:
 
 - `npm audit --audit-level=high`: **0 vulnerabilities**
 - frontend production build: PASS
 - frontend core/PWA/Chromium regression gates: PASS
 - backend locked install/tests: PASS
 
-This is evidence for that exact baseline. A later dependency change must produce
-new evidence; do not carry this result forward automatically.
+This is evidence for that exact pre-v0.5.0-metadata baseline. Phase 5 acceptance did not change dependency constraints; the version/acceptance metadata promotion must still pass fresh CI on its exact revision. Any later dependency change requires new evidence.
 
 ## Data/source dependencies are separate from package dependencies
 
