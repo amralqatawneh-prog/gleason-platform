@@ -1,6 +1,6 @@
 # Post-PR #21 Merge Reconciliation — 2026-09-21
 
-Status: **IN PROGRESS — awaiting reconciliation verification gates**
+Status: **CLOSED STATE — initial reconciliation verification passed; exact closure head requires final gates before merge**
 
 ## Baseline truth
 
@@ -49,10 +49,14 @@ This reconciliation changes documentation/governance state only. It does not:
 - authorize deployment;
 - accept Phase 6 as a whole.
 
-## Closure rule
+## Verification and closure
 
-This record becomes **CLOSED** only after the exact reconciliation head passes
-the complete Release Acceptance Gates. Merge remains subject to explicit owner
-authorization. The owner has now explicitly instructed: **«قم بتنفيذ الدمج»**;
-that authorization applies to the reconciliation PR once its required gates are
-green and its exact head is verified.
+- Reconciliation verification head: `ae23478c53b51520d708ddfabff90a5867a03152`
+- Release Acceptance Gates: **#670 — SUCCESS**
+- PR: **#22**
+- Owner merge authorization: **«قم بتنفيذ الدمج»**
+- P6.5 remains **NOT STARTED**.
+
+This closure-state update creates a new exact PR head. That exact closure head must
+also pass the complete Release Acceptance Gates before the authorized merge is
+executed. No tag, GitHub Release, deployment or Phase 6 acceptance is implied.
