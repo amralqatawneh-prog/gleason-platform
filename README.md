@@ -29,9 +29,9 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 11b571f08f72732b509f049f1a2ab1be92292938` (PR #21 merge)
-- Release Acceptance Gates **#669 — SUCCESS** on that exact post-merge baseline
-- Post-PR21 reconciliation: **PR #22**; **P6.5 remains NOT STARTED**
+- Current integration baseline: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` (PR #22 merge)
+- PR #22 post-merge documentation reconciliation is **MERGED**; its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge
+- Active planning branch: `docs/roadmap-architecture-amendment-2026-09-21`; **P6.5 remains NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -78,7 +78,8 @@ model engines:
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
 | P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
-| P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, laboratories, regression |
+| Roadmap Architecture Amendment 2026-09-21 | IN PROGRESS 📝 | Owner-approved future requirements; documentation/architecture only; no P6.5 implementation |
+| P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -149,9 +150,11 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- Provider-backed road/flight route paths, Gleason numeric measurement, perimeter and area calculations (P6.5+ / P6.6+).
-- Road/flight routing without a dedicated data provider.
-- Astronomy/time engine or timeline.
+- P6.5 Gleason native numeric measurement and P6.6 polygon/perimeter/area.
+- P6.7B RouteProvider / turn-by-turn routing; provider-backed road/flight paths remain unavailable until dedicated providers are implemented.
+- Phase 9–12 astronomy/time/ObserverContext/virtual observer dome/analemma/eclipse engines.
+- Phase 15 Aviation Laboratory live/historical/scheduled provider integrations.
+- Phase 16 high-detail streets/buildings/cities and advanced external-layer providers.
 - Shared cross-model layer-state service.
 - Automatic conversion of Gleason `normalized-radius` to metres/kilometres.
 - Verified distributable standalone historical Gleason scan/control points.
@@ -178,6 +181,19 @@ Authoritative manifests:
 
 No fabricated coordinates, scan control points or undocumented historical scale
 conversion are allowed.
+
+## Approved roadmap amendment — 2026-09-21
+
+The owner approved the expanded roadmap covering solar/lunar analemmas, ObserverContext/current-location/pin workflows, observer sky dome, eclipse top/observer views, high-detail streets/cities, precise day/night/twilight events, an Aviation Laboratory, OSIRIS-inspired provider architecture and turn-by-turn routing.
+
+Authoritative planning documents:
+- `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`
+- `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
+- `docs/DEVELOPER_GUIDE.md`
+- `docs/USER_GUIDE.md`
+- `docs/CALCULATION_REFERENCE.md`
+
+The amendment is architecture/documentation work only. It does not start P6.5 or any astronomy/aviation/high-detail-map implementation.
 
 ## Architecture rules
 
