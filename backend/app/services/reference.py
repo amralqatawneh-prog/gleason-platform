@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ..domain.reference import ECEFPoint, ReferenceResult, WGS84GeodeticPoint
+from ..domain.reference import ECEFPoint, ReferenceResult, WGS84GeodeticPoint, WGS84RoutePoint
 from ..providers.reference import WGS84ReferenceProvider
 
 
@@ -24,3 +24,10 @@ def geodesic_inverse(
     end: WGS84GeodeticPoint,
 ) -> ReferenceResult:
     return _provider.geodesic_inverse(start, end)
+
+
+def wgs84_route_distance(
+    route_id: str,
+    points: list[WGS84RoutePoint],
+) -> ReferenceResult:
+    return _provider.route_distance(route_id, points)
