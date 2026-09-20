@@ -454,7 +454,7 @@ require(
     "roadmap amendment post-merge CI evidence state drifted",
 )
 post_pr23 = data.get("post_pr23_merge_reconciliation", {})
-require(post_pr23.get("status") == "in_progress", "post-PR23 reconciliation must remain in_progress until verification")
+require(post_pr23.get("status") == "closed", "post-PR23 reconciliation must be closed after verification")
 require(post_pr23.get("pr") == 24, "post-PR23 reconciliation PR must be #24")
 require(
     post_pr23.get("baseline_commit") == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
@@ -472,6 +472,20 @@ require(post_pr23.get("phase6_status") == "in_progress", "Phase 6 must remain in
 require(post_pr23.get("tag") == "not_created", "post-PR23 reconciliation must not create a tag")
 require(post_pr23.get("github_release") == "not_created", "post-PR23 reconciliation must not create a GitHub Release")
 require(post_pr23.get("deployment") == "not_created", "post-PR23 reconciliation must not deploy")
+require(
+    post_pr23.get("verification_head") == "89b634d49eb802c17f9978fee7065ca958c3b592",
+    "post-PR23 reconciliation verification head drifted",
+)
+require(post_pr23.get("verification_ci_run") == 679, "post-PR23 reconciliation verification CI must be #679")
+require(
+    post_pr23.get("verification_ci_conclusion") == "success",
+    "post-PR23 reconciliation verification CI #679 must remain success",
+)
+require(post_pr23.get("merge_status") == "open-unmerged", "post-PR23 reconciliation PR #24 must remain unmerged before owner authorization")
+require(
+    post_pr23.get("merge_authorization") == "pending-separate-owner-instruction",
+    "post-PR23 reconciliation merge must await separate owner authorization",
+)
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
     post_pr17_sync.get("status") == "closed",
