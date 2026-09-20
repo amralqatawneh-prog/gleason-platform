@@ -9,35 +9,35 @@ model engines:
 - **WGS84 Reference** — modern geodetic reference globe/2D fallback with
   authoritative backend reference calculations.
 
-> **Current development status — 2026-09-19**
+> **Current acceptance status — 2026-09-20**
 >
-> Phase 5 is **COMPLETE AND ACCEPTED BY OWNER** at **v0.5.0** on `main` after
-> **PR #9 was merged on 2026-09-19**. Slices **P5.1–P5.7 are CLOSED**
-> after automated gates and owner-reported manual PASS. **P5.8 Versioned Local
-> State Persistence is CLOSED. P5.9 final regression/acceptance package is CLOSED.** Phase 6 measurement/routing is
-> also NOT STARTED.
+> Phase 5 is **COMPLETE AND ACCEPTED BY OWNER** at **v0.5.0**. All slices
+> **P5.1–P5.9 are CLOSED** after automated gates and owner-reported manual PASS.
+> Phase 6 measurement/routing is **NOT STARTED** and requires a separate owner
+> start instruction.
 
-## Current verified development baseline
+## Current verified acceptance baseline
 
-- Branch: `main`
-- PR **#9**: **MERGED** into `main`
-- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`
-- Latest owner-tested/documented baseline before this documentation
-  reconciliation: `e710075531dbdbc2fdd2ed62dde07f22786e320f`
-- Release Acceptance Gates **#397 — SUCCESS**
-- CI #397: **0 npm vulnerabilities · 78 frontend core tests · 2 PWA tests ·
-  15 Chromium scenarios**, plus production build, WGS84 parity,
-  Docker/PostGIS/Redis, locked-source import, online/offline search and Arabic
-  city gates.
+- Acceptance branch: `feat/phase5-p5-9-acceptance`
+- P5.8 PR **#11**: open/draft/unmerged
+- P5.9 PR **#12**: open/draft/unmerged
+- Final pre-acceptance implementation/documentation head:
+  `cf1f3ad45b6a8da1cf7f608d8da94f275641c676`
+- Release Acceptance Gates **#455 — SUCCESS**
+- Earlier corrected implementation run **#451 — SUCCESS**
+- CI #451/#455 cover the Phase 5 acceptance-package gate, 0 npm vulnerabilities,
+  86 frontend core tests, 2 PWA tests, 17 Chromium scenarios, production build,
+  WGS84 parity, Docker/PostGIS/Redis, locked-source import and online/offline/
+  Arabic search gates.
 - Accepted application version: **0.5.0**
 - Implementation phase: **5**
 - Accepted phase: **5**
 - Phase status: **accepted**
-- PR #9 has been merged with explicit owner authorization. No tag or GitHub Release has been authorized.
+- PR #9 remains historically merged into `main`; the later P5.8/P5.9 branches
+  are not merged by the acceptance decision.
+- No tag, GitHub Release or deployment has been authorized.
 
-The documentation-only GitHub synchronization requested after P5.7 does not
-change numerical engines, source datasets or accepted application version. See
-`docs/GITHUB_SYNC_AUDIT_2026-09-19.md` for the repository/documentation audit.
+Acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 
 ## Phase status
 
@@ -100,8 +100,7 @@ new model engine. It verifies browser/offline/bilingual/mobile/extreme-coordinat
 behavior, source visibility and known limitations, and packages the evidence in
 `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
 
-Full Phase 5 remains unaccepted until the owner gives an explicit Phase 5
-acceptance decision after P5.9 testing.
+P5.9 is CLOSED and Phase 5 is ACCEPTED BY OWNER.
 
 ## Phase 5 acceptance — 2026-09-20
 
@@ -115,7 +114,6 @@ Phase 6 remains **NOT STARTED** and requires a separate explicit start.
 
 ## Explicitly not implemented yet
 
-- P5.9 final Phase 5 regression/acceptance package.
 - Phase 6 route drawing, multi-stop state, ruler, distance, perimeter or area.
 - Road/flight routing without a dedicated data provider.
 - Astronomy/time engine or timeline.
