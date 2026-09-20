@@ -271,8 +271,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "35fda15508973340669220a20ee1c5bf6bbaa39a",
-    "current integration baseline must be the PR #20 merge commit",
+    == "11b571f08f72732b509f049f1a2ab1be92292938",
+    "current integration baseline must be the PR #21 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -300,6 +300,43 @@ require(
     merge_boundary.get("pr20_post_merge_main_ci_conclusion") == "success",
     "PR #20 post-merge CI #651 must remain success",
 )
+require(merge_boundary.get("pr21") == "merged", "PR #21 must be recorded as merged")
+require(
+    merge_boundary.get("pr21_merge_commit") == "11b571f08f72732b509f049f1a2ab1be92292938",
+    "PR #21 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr21_final_head") == "ced5649c3c2d6e1c8e1d96af35fb0775637719a3",
+    "PR #21 final head drifted",
+)
+require(merge_boundary.get("pr21_pre_merge_ci_run") == 668, "PR #21 pre-merge CI must be #668")
+require(
+    merge_boundary.get("pr21_pre_merge_ci_conclusion") == "success",
+    "PR #21 pre-merge CI #668 must remain success",
+)
+require(merge_boundary.get("pr21_post_merge_main_ci_run") == 669, "PR #21 post-merge CI must be #669")
+require(
+    merge_boundary.get("pr21_post_merge_main_ci_conclusion") == "success",
+    "PR #21 post-merge CI #669 must remain success",
+)
+p6_4_merge = phase6_start.get("p6_4_merge", {})
+require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
+require(p6_4_merge.get("pr") == 21, "P6.4 merge PR must be #21")
+require(
+    p6_4_merge.get("merge_commit") == "11b571f08f72732b509f049f1a2ab1be92292938",
+    "P6.4 merge commit drifted",
+)
+require(p6_4_merge.get("post_merge_ci_run") == 669, "P6.4 post-merge CI must be #669")
+post_pr21 = data.get("post_pr21_merge_reconciliation", {})
+require(post_pr21.get("status") == "in_progress", "post-PR21 reconciliation must be in_progress before closure verification")
+require(
+    post_pr21.get("baseline_commit") == "11b571f08f72732b509f049f1a2ab1be92292938",
+    "post-PR21 reconciliation baseline drifted",
+)
+require(post_pr21.get("baseline_ci_run") == 669, "post-PR21 reconciliation baseline CI must be #669")
+require(post_pr21.get("baseline_ci_conclusion") == "success", "post-PR21 baseline CI #669 must remain success")
+require(post_pr21.get("p6_4_status") == "closed", "P6.4 must remain closed during reconciliation")
+require(post_pr21.get("p6_5_status") == "not_started", "P6.5 must remain not_started during reconciliation")
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
     post_pr17_sync.get("status") == "closed",
