@@ -67,6 +67,9 @@ Deliver transient ordered route state A → B → C → … with:
 - clear/undo;
 - explicit point IDs;
 - segment identity;
+- explicit direct-map add mode for short picks on Gleason / AE / WGS84;
+- support for more than three points, with a temporary P6.2 cap of 50 points;
+- normal map selection behavior preserved while direct-map add mode is off;
 - no automatic country centroid/boundary choice;
 - no durable Phase 17 experiment persistence yet.
 
