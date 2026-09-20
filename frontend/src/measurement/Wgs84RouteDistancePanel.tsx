@@ -97,8 +97,8 @@ export function Wgs84RouteDistancePanel({ locale, state }: Props) {
       <div className="notice route-guide-notice" data-route-guide-semantics="visual-only">
         <strong>{locale === 'ar' ? 'خط المسار على الخرائط' : 'Route line on maps'}</strong>
         <span>{locale === 'ar'
-          ? 'الخط الذهبي وعلامات A/B/C دليل بصري لربط نقاط المسار المرتبة فقط. في العرضين المسطحين Gleason وAE يُرسم كل مقطع خطًا مستقيمًا تمامًا بين موضعي النقطتين بعد الإسقاط. لا يغيّر ذلك حساب WGS84 ولا يُعد طريقًا أو مسار طيران أو قياسًا أصليًا لـAE/Gleason.'
-          : 'The gold line and A/B/C markers are a visual guide connecting the ordered route points only. On the flat Gleason and AE views, each segment is drawn as an exact straight line between the two projected endpoints. This does not change the WGS84 calculation and is not a road/flight route or an AE/Gleason native measurement.'}</span>
+          ? 'الخط الذهبي وعلامات A/B/C دليل بصري لربط نقاط المسار المرتبة فقط. في Gleason وAE يُرسم كل مقطع خطًا مستقيمًا تمامًا بعد الإسقاط، بينما يتبع الخط على كرة WGS84 مرجع Great Circle كأقصر قوس على كرة مرجعية. هذا ليس مسار رحلة جوية فعلية مسجّلة؛ الرحلات الحقيقية قد تنحرف بسبب الممرات والرياح والمراقبة الجوية. حساب المسافة العددي يبقى WGS84 geodesic.'
+          : 'The gold line and A/B/C markers are a visual guide connecting the ordered route points only. Gleason and AE use exact straight projected segments, while the WGS84 globe follows a Great Circle reference as the shortest arc on a reference sphere. This is not an observed flight track; real flights can deviate because of airways, winds and ATC. Numeric distance remains WGS84 geodesic.'}</span>
       </div>
 
       <div className="wgs84-route-distance-meta">
