@@ -276,3 +276,14 @@ The exact owner-tested pre-closure head was
 Release Acceptance Gates **#487** on that clean head completed **SUCCESS** before
 the owner manual regression. Closure documentation/checker changes must also
 remain green before any merge or full Phase 5 acceptance action.
+
+
+## Subsequent whole-Phase 5 acceptance — 2026-09-20
+
+After this P5.9 slice was closed, the owner explicitly stated **«أعتمد المرحلة الخامسة»**.
+That later decision accepts Phase 5 as a whole and advances the accepted application
+version to **v0.5.0**, accepted phase to **5**, and phase status to **accepted**.
+
+This later whole-phase decision does not alter the historical P5.9 test evidence
+above. PR #13 remains unmerged; Phase 6 remains NOT STARTED; no tag, GitHub
+Release or deployment is authorized.
