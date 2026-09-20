@@ -76,9 +76,12 @@ test('P6.1 method contracts keep model, method, space, units and scale basis ind
   const ae = measurementMethodContract('ae-projected-plane');
   const gleason = measurementMethodContract('gleason-native-normalized');
 
-  assert.equal(wgs.status, 'implemented');
+  assert.equal(wgs.status, 'partially-implemented');
+  assert.deepEqual(wgs.implementedQuantities, ['distance']);
   assert.equal(ae.status, 'contract-only');
+  assert.deepEqual(ae.implementedQuantities, []);
   assert.equal(gleason.status, 'contract-only');
+  assert.deepEqual(gleason.implementedQuantities, []);
 
   assert.equal(wgs.linearUnit, 'metre');
   assert.equal(ae.linearUnit, 'metre');
@@ -101,8 +104,12 @@ test('P6.1 computation identity contains semantics but no fabricated numeric res
     [area.methodId, area.calculationModel, area.unit, area.scaleBasis],
     ['gleason-native-normalized', 'gleason', 'normalized-radius-unit-squared', 'gleason-normalized-model-radius'],
   );
+  const perimeter = measurementComputationIdentity('wgs84-geodesic', 'perimeter');
+  const wgsArea = measurementComputationIdentity('wgs84-geodesic', 'area');
   assert.equal('value' in distance, false);
   assert.equal(distance.implementationStatus, 'implemented');
+  assert.equal(perimeter.implementationStatus, 'contract-only');
+  assert.equal(wgsArea.implementationStatus, 'contract-only');
 });
 
 test('P6.1 rendering on another model preserves the original computation identity', () => {
@@ -116,9 +123,10 @@ test('P6.1 rendering on another model preserves the original computation identit
   assert.equal(rendered.interpretationRule, 'preserve-computation-identity');
 });
 
-test('P6.2 ordered state does not accidentally enable the route measurement service', () => {
+test('P6.3 WGS84 measurement does not accidentally enable the future route-provider service', () => {
   const route = futureServiceContract('route');
   assert.equal(route.status, 'unavailable');
   assert.deepEqual(route.availableOperations, []);
-  assert.match(route.currentBoundary, /P6\.2/);
+  assert.match(route.currentBoundary, /P6\.3/);
+  assert.match(route.currentBoundary, /route drawing\/provider paths/);
 });
