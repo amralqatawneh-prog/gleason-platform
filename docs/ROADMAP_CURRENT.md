@@ -6,9 +6,10 @@
 
 - Phase 5 **ACCEPTED** والإصدار المقبول **v0.5.0**.
 - Phase 6 **IN PROGRESS**؛ الشرائح P6.1 وP6.2 وP6.3 وP6.4 **CLOSED**.
-- PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938` بعد closure head `ced5649c3c2d6e1c8e1d96af35fb0775637719a3` وRelease Acceptance Gates #668؛ وسُجل post-merge Release Acceptance Gates **#669 — SUCCESS**.
+- PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
+- **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
+- المالك اعتمد في 2026-09-21 متطلبات التوسعة الجديدة، والعمل الحالي هو **Roadmap & Architecture Amendment — New Requirements 2026-09-21** على فرع توثيق/معمارية مستقل.
 - P6.5 **NOT STARTED**، ولا يوجد Tag أو GitHub Release أو Deployment للمرحلة السادسة.
-- **Post-PR21 Merge Documentation Reconciliation** منفذة في PR #22؛ نجح رأس التحقق `ae23478c53b51520d708ddfabff90a5867a03152` في Release Acceptance Gates **#670 — SUCCESS**، ولا تبدأ P6.5 ضمن هذه المصالحة.
 - الأقسام الزمنية الأقدم أدناه تُحفظ كسجل تاريخي ولا تتغلب على هذه الحالة المرجعية الحالية.
 
 ## الوضع الحالي وتسلسل الإغلاق
@@ -27,10 +28,12 @@
 3. اعتبار **P6.1 Measurement Semantics Contract** مغلقة ومثبتة كعقد مرجعي للشرائح اللاحقة.
 4. اعتبار **P6.2 Ordered Route State** مغلقة ومثبتة كأساس للمسار المرتب المؤقت حتى 50 نقطة مع direct-map add صريح.
 5. اعتبار **P6.3 WGS84 Ruler / Distance** و**P6.4 AE Native Measurement** مغلقتين ومندمجتين، مع الحفاظ على هوية الحساب المستقلة لكل منهما.
-6. إكمال **Post-PR21 Merge Documentation Reconciliation** والتحقق من بوابات القبول ودمجه فقط بالتفويض الصريح.
-7. بعد إغلاق المصالحة، تبقى **P6.5 Gleason Native Measurement = NOT STARTED** إلى أن يصدر أمر مالك صريح لبدئها؛ ولا تبدأ P6.6 معها.
-8. نشر tag أو GitHub Release أو deployment يبقى ضمن تفويض مستقل.
-9. يبقى الفصل بين المحركات وسياسة المصادر وعدم اختلاق البيانات أو المقاييس قواعد ثابتة.
+6. تنفيذ وإغلاق **Roadmap & Architecture Amendment — New Requirements 2026-09-21** كتحديث توثيق/معمارية فقط، مع العقود والأدلة الحية ومعايير القبول الجديدة.
+7. بعد إغلاق ودمج التعديل المعماري بتفويض منفصل، تبقى **P6.5 Gleason Native Measurement = NOT STARTED** إلى أن يصدر أمر مالك صريح لبدئها؛ ولا تبدأ P6.6 معها.
+8. في Phase 6 يضاف **P6.7B Route Provider & Turn-by-Turn Directions** بعد P6.7A Same Route, Three Renderings، دون خلط navigation route مع measurement polyline.
+9. تنفيذ Observer/Astronomy/Analemma/Eclipse لاحقًا ضمن Phases 9–12، والطيران ضمن Phase 15، والخرائط عالية التفاصيل/مزودي الطبقات ضمن Phase 16.
+10. نشر tag أو GitHub Release أو deployment يبقى ضمن تفويض مستقل.
+11. يبقى الفصل بين المحركات وسياسة المصادر وعدم اختلاق البيانات أو المقاييس قواعد ثابتة.
 
 ## سجل المراحل 0–22
 
@@ -43,22 +46,22 @@
 | 4 | WGS84 مستقل، التحويلات والمسافات والكرة وFallback والبحث والطبقات وOffline | مكتملة ومقبولة v0.4.0؛ نجاح الفحص اليدوي بإفادة المالك موثق |
 | 5 | اختيار وحالة جغرافية مشتركة وadapters مستقلة ومفتش مقارنة وعقود الزمن والطبقات والمسارات | **مقبولة v0.5.0**؛ P5.1–P5.9 مغلقة، والمالك اعتمد المرحلة صراحة في 2026-09-20 |
 
-| 6 | محرك القياس ومختبرات الملاحة وخطوط الطول والادعاءات التاريخية وGleason Original Mode بحسب المصادر | تعريف المسافة والوحدات ونوع المسار وقاعدة المقياس، وأمثلة مرجعية وتطابق محلي/خادم |
+| 6 | القياس + Same Route + RouteProvider/turn-by-turn + مختبرات الملاحة/خطوط الطول + Gleason Original Mode | فصل measurement polyline عن navigation route؛ provider provenance؛ لا تحويلات مخفية؛ P6.10 regression |
 | 7 | الاستواء والمداران والشبكة والبوصلة والسمت | تمييز الشمال الحقيقي والمغناطيسي وشمال الشاشة؛ طبقات حتمية تعمل محليًا |
 | 8 | محرك اتجاه القبلة وخطوط المقارنة | إحداثيات مرجعية موثقة، تسمية الطريقة، حالات عالمية واختبار Offline |
-| 9 | AstronomyService ومحرك فلكي مرجعي ومفتش الشمس والقمر والكواكب | تثبيت ephemeris وإطارات الإحداثيات والزمن ونطاق التواريخ والحزم المحلية وحدودها |
-| 10 | حركة الأجرام والليل والنهار والشفق وشريط الزمن وDifference Overlay؛ شريحة تمثيل نماذج السماوات | فصل المصدر التاريخي/التفسيري عن المرجع والحساب والافتراض؛ لا تحويل تلقائي لوحدات غير محددة |
-| 11 | سماء الراصد وObservation Lab ومقارنة الفروق مع الرصد | مصدر الملاحظة وموقعها وتوقيتها وعدم اليقين؛ مقارنة كمية قابلة للإعادة |
-| 12 | الكسوف والخسوف وخط الأحداث والتنبؤ مقابل إمكانية الرؤية | وقوع الحدث منفصل عن رؤيته؛ التحقق من نافذة ±50 سنة إذا دعمتها الحزم المعتمدة |
+| 9 | Astronomy/Time/Observer foundations: ephemeris + TimeContext + ObserverContext + Sun/Moon/planet state | pin source/version/time scale/frame/observer provenance؛ لا ارتفاع مختلق |
+| 10 | حركة الأجرام + day/night + twilight + sunrise/sunset events + solar/lunar analemmas | مرجع مقابل model-native/display-only؛ تعريف sampling للأناليما؛ تطابق بصري/رقمي |
+| 11 | Observer Dome + current location + map pin + topocentric sky + Observation Lab | إذن الموقع ودقته؛ Alt/Az موثق؛ نفس ObserverContext عبر النماذج |
+| 12 | Eclipse Laboratory: top view + observer view للشمس والقمر | فصل وقوع الحدث عن الرؤية؛ عدم تمثيل الخسوف كمسار ظل شمسي على الأرض |
 | 13 | هندسة الأنهار واتجاه الجريان ومقاطع الارتفاع والتضاريس | بيانات مجارٍ فعلية ومرجع ارتفاع واضح؛ نقاط الأنهار الحالية ليست مساراتها |
 | 14 | الكابلات البحرية ومحطات الإنزال والتحليل | إذن الاستخدام والتخزين، ودقة المسار ومصدره؛ فصل التخطيط التقريبي عن القياس |
-| 15 | FlightDataProvider والطيران الحي وتحليل المسارات السابقة إن أتاحها المزود | نقاط فعلية وتغطية وحصص وأوقات؛ عرض فجوات البيانات، وعدم وصف بيانات محفوظة بأنها حية |
-| 16 | نظام طبقات متقدم وشارات الجودة والإصدار والحالة | مصدر كل طبقة، online/offline/stale، حجمها وصلاحيتها؛ خطة تفاصيل المدن والحزم |
+| 15 | Aviation Laboratory: live/historical/scheduled + metadata + receiver provenance + MSL/AGL | حالات live/historical/scheduled صريحة؛ receiver ≠ ATC tower دون مصدر؛ observed track محفوظ |
+| 16 | ExternalLayerProvider + renderer spike + high-detail streets/buildings/cities/vector tiles/offline packs + OSIRIS-inspired adapters | ترخيص/attribution/freshness؛ benchmark للعارض؛ canonical data ثم إسقاط مستقل للنماذج |
 | 17 | واجهة مقارنة متقدمة ونقاط ومسارات محفوظة ودفتر تجارب وروابط ومعرف إعادة إنتاج | حفظ المدخلات والخوارزميات وإصدارات المصادر والوقت؛ استعادة النتيجة بلا غموض |
 | 18 | التصميم النهائي للحاسوب والهاتف واللوحي ووضعا البحث والعرض والتصدير العالي و9:16 | RTL/LTR واللمس ولوحة المفاتيح والتباين ووضوح المصدر في الصادرات |
-| 19 | الأداء والثبات والأمان وإدارة التخزين وتحديث PWA وتقوية Capacitor | قياسات فعلية للأداء، ترقية آمنة للحزم، اختبار فقد WebGL context؛ Tauri قرار مشروط بالحاجة |
+| 19 | الأداء والثبات والأمان والتخزين وأحمال vector tiles/astronomy/live aviation/routing وWebGL fallback | budgets قابلة للقياس على أجهزة معلومة؛ graceful degradation؛ cache/storage limits |
 | 20 | تحقق جغرافي/علمي/وظيفي شامل ومصفوفة أجهزة ومتصفحات | حالات مرجعية وسماحيات ومخرجات قابلة للإعادة وتقرير VALIDATION_REPORT؛ لا تؤجل صحة الشرائح إلى هنا |
-| 21 | دليل الاستخدام والتثبيت والمصادر والحزم والحدود واستعادة البيانات | مطابقة الوثائق للسلوك المنفذ، وإعادة تنفيذ خطوات الدليل |
+| 21 | التحقق والتحرير النهائي لـUser Guide + Developer Guide + Calculation Reference + المصادر/التراخيص/Offline/Reproducibility | الأدلة حية من الآن؛ Phase 21 يطابقها مع السلوك التنفيذي ولا يكتبها بأثر رجعي |
 | 22 | v1.0.0 ونشر الويب وPWA وحزم الهاتف عند توافر التوقيع والحسابات | بوابات إصدار ومراقبة ونسخ احتياطي ومراجعة التراخيص؛ تفويض النشر مستقل |
 
 ## حدود المرحلة الخامسة وشرائحها
@@ -78,6 +81,10 @@
 | P5.9 | اختبارات المزامنة والتراجع والواجهة وOffline | سلامة المراحل 1–4، الحواف والأقطاب وخط ±180°، العربية والإنجليزية والهاتف والمصدر |
 
 ناتج Gleason الحالي بوحدة normalized-radius؛ لا يُحوَّل إلى كيلومترات دون قاعدة مقياس تاريخية موثقة أو افتراض معلن ومفصول. «المسافة بين دولتين» تتطلب تحديد نقطتين/عاصمتين/حدود وطريقة القياس؛ ليست كمية واحدة مفهومة ضمنًا.
+
+## التعديل المعماري المعتمد — 2026-09-21
+
+المرجع التفصيلي الملزم للتوسعة المستقبلية هو `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. كما أصبحت العقود `ObserverContext` و`TimeContext` و`ExternalLayerProvider` و`RouteProvider` محجوزة رسميًا في `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`. الأدلة `DEVELOPER_GUIDE.md` و`USER_GUIDE.md` و`CALCULATION_REFERENCE.md` وثائق حية يجب تحديثها مع الشرائح المستقبلية ذات الصلة.
 
 ## قرار العارض — ADR-014
 
