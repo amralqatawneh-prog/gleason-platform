@@ -6,7 +6,7 @@ Base:
 - P5.8 closure head: `99cb55da979a46810c2c61215a729b1356806ada`
 - P5.8 closure CI: **#449 SUCCESS**
 - P5.1–P5.8: CLOSED
-- P5.9: ACTIVE
+- P5.9: CLOSED — owner manual regression PASS — REPORTED BY OWNER
 - Full Phase 5: IN PROGRESS / NOT YET ACCEPTED
 - Phase 6: NOT STARTED
 
@@ -176,12 +176,38 @@ After these checks, two decisions are intentionally separate:
 
 Do not infer full Phase 5 acceptance merely from successful P5.9 tests.
 
+## Owner manual regression result — 2026-09-20
+
+Owner completed the ten-item P5.9 manual regression checklist in sequence and
+reported every item successful.
+
+Manual result: **PASS — REPORTED BY OWNER (10/10 checks).**
+
+The owner-verified checks cover:
+- shared canonical place selection and provenance across all three models;
+- English/Arabic switching;
+- phone-size layout at approximately 390×844;
+- independent camera/navigation behavior;
+- Model Laboratory units, missing-height behavior and comparability blocking;
+- future-service fail-closed boundaries;
+- P5.8 selected-place/free-point persistence after reload;
+- cached/offline behavior;
+- WebGL-disabled WGS84 fallback;
+- absence of Phase 6 route/ruler/area tools.
+
+This closes **P5.9 only**. It does **not** constitute full Phase 5 owner
+acceptance. Accepted application version remains **0.4.0**, accepted phase
+remains **4**, implementation phase remains **5 / in_progress**, and Phase 6
+remains **NOT STARTED**.
+
 ## Status
 
-**IN PROGRESS — TECHNICALLY GREEN / awaiting owner manual regression.**
+**CLOSED — OWNER MANUAL REGRESSION PASS — REPORTED BY OWNER.**
 
-P5.9 is not closed. Full Phase 5 is not accepted. Phase 6 remains NOT STARTED.
-P5.8 PR #11 is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. No tag, GitHub Release or deployment is authorized.
+Full Phase 5 is still **NOT YET ACCEPTED** and requires a separate explicit owner
+decision. P5.8 PR #11 is merged into `main` at
+`7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. PR #13 remains unmerged. No tag,
+GitHub Release, deployment or Phase 6 start is authorized.
 
 
 ## Automated verification — CI #451
@@ -240,3 +266,13 @@ where CI #451 is SUCCESS and P5.9 remains **TECHNICALLY GREEN / awaiting owner
 manual regression**. Full Phase 5 remains NOT YET ACCEPTED and version 0.4.0
 remains the accepted application version until an explicit owner Phase 5
 acceptance decision is given.
+
+
+## Clean-head automated reconciliation
+
+The exact owner-tested pre-closure head was
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0`.
+
+Release Acceptance Gates **#487** on that clean head completed **SUCCESS** before
+the owner manual regression. Closure documentation/checker changes must also
+remain green before any merge or full Phase 5 acceptance action.
