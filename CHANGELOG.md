@@ -25,7 +25,9 @@
 - Owner-requested next P6.3 refinement: explicit mouse/touch free pan on Gleason/AE and Great Circle reference rendering on the WGS84 globe.
 - Numeric WGS84 distance remains `wgs84-geodesic`; Great Circle rendering is visual-only and is not observed flight-track data.
 - Pan/great-circle implementation/documentation head `f67a69c78547330f273fc65bf3de4bb7379a09bf` passed Release Acceptance Gates **#627 — SUCCESS**.
-- Pan/great-circle targeted retest remains **NOT RUN**.
+- Pan/great-circle targeted retest: **6/6 PASS — REPORTED BY OWNER**.
+- Pre-closure head `746e71b261747132bec49f33348cd42870092643` passed Release Acceptance Gates **#635 — SUCCESS**.
+- P6.3 is now **CLOSED**; P6.4 remains **NOT STARTED**; PR #19 remains unmerged pending separate owner authorization.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
