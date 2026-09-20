@@ -221,7 +221,7 @@
     "current_slice": "P6.4",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed",
     "next_slice": "P6.5",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -379,10 +379,10 @@
       "baseline_ci_conclusion": "success",
       "branch": "feat/phase6-p6-4-ae-native-measurement",
       "scope": "AE native projected-plane distance for adjacent ordered route segments and open-polyline total only",
-      "status": "awaiting-owner-manual",
-      "owner_manual_status": "not_run"
+      "status": "closed",
+      "owner_manual_status": "pass-reported-by-owner"
     },
-    "p6_4_status": "awaiting-owner-manual",
+    "p6_4_status": "closed",
     "p6_4_automated": {
       "implementation_head": "bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476",
       "ci_run": 653,
@@ -392,6 +392,14 @@
       ],
       "prior_failure_scope": "stale acceptance-package checker still asserted the historical P6.3 current-slice state; implementation tests had not run before that gate failed",
       "note": "P6.4 implementation head passed the complete Release Acceptance Gates after separating current P6.4 state from historical P6.3 closure checks."
+    },
+    "p6_4_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "59d19a96c6a7af443429d8ba7585386d4f491dee",
+      "pre_manual_ci_run": 661,
+      "pre_manual_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {
