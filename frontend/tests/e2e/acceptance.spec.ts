@@ -743,6 +743,12 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
   await expect(ruler).toHaveAttribute('data-measurement-status','ready');
   await expect(ruler).toHaveAttribute('data-route-segment-count','1');
   await expect(ruler.locator('.wgs84-route-distance-segment')).toHaveCount(1);
+  for(const view of await page.locator('.reference-card,.projection-card').all()){
+    await expect(view).toHaveAttribute('data-route-guide','visual-only');
+    await expect(view).toHaveAttribute('data-route-guide-points','2');
+    await expect(view).toHaveAttribute('data-route-guide-segments','1');
+  }
+  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('visual guide');
   await expect(ruler).toContainText('wgs84-geodesic');
   await expect(ruler).toContainText('open-polyline');
   await expect(ruler).toContainText('wgs84-ellipsoid');
@@ -755,6 +761,10 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
   await expect(ruler).toHaveAttribute('data-measurement-status','ready');
   await expect(ruler).toHaveAttribute('data-route-segment-count','2');
   await expect(ruler.locator('.wgs84-route-distance-segment')).toHaveCount(2);
+  for(const view of await page.locator('.reference-card,.projection-card').all()){
+    await expect(view).toHaveAttribute('data-route-guide-points','3');
+    await expect(view).toHaveAttribute('data-route-guide-segments','2');
+  }
   const threePointTotal=Number(await ruler.getAttribute('data-route-distance-m'));
   expect(threePointTotal).toBeGreaterThan(twoPointTotal);
 
