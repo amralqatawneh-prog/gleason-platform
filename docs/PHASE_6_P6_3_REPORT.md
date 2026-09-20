@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **IN PROGRESS — AUTOMATED VERIFICATION PENDING**
+Status: **AWAITING OWNER MANUAL VERIFICATION — AUTOMATED GATES SUCCESS**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -215,9 +215,37 @@ the later operations above. P6.3 numeric WGS84 distance is implemented through
 the measurement engine, not by pretending the entire future route-provider
 service is available.
 
+## Automated verification
+
+Final implementation head:
+`06f2397f63648d879d6271064f3297608a59c333`
+
+Release Acceptance Gates **#565 — SUCCESS** on that exact head.
+
+Successful gate coverage includes:
+- repository/source-policy consistency;
+- accepted-package consistency;
+- locked-source verification;
+- backend tests including P6.3 API/reference cases;
+- frontend dependency security;
+- frontend core tests;
+- independent browser/backend WGS84 parity including multi-point routes;
+- production build/PWA checks;
+- **20/20 Chromium acceptance tests** including the P6.3 live ruler;
+- Docker runtime and the new route-distance API smoke test;
+- Phase 2/4 regression;
+- PostGIS locked-source import/coverage;
+- online/offline/Arabic search;
+- Redis and frontend HTTP checks.
+
+Earlier CI #562 and #564 exposed stale browser text expectations inherited from
+the P5.7/P6.2 UI wording. The numeric P6.3 backend/core/parity checks were already
+green; those stale expectations were corrected, and #565 then passed the full
+workflow.
+
 ## Manual verification
 
-Status: **NOT RUN**
+Status: **NOT RUN — owner action required**
 
 Owner manual PASS must not be inferred from automated tests.
 
@@ -236,9 +264,9 @@ Planned manual checklist after automated gates succeed:
 
 P6.3 may be marked CLOSED only after:
 
-- complete Release Acceptance Gates succeed on the implementation head;
-- documentation is updated with the exact successful head/run;
-- the owner reports the manual checklist PASS, or explicitly waives named items;
-- a final closure-documentation head passes the complete gates again.
+- complete Release Acceptance Gates succeed on the implementation head — **DONE: #565 SUCCESS**;
+- documentation is updated with the exact successful head/run — **DONE**;
+- the owner reports the manual checklist PASS, or explicitly waives named items — **PENDING / NOT RUN**;
+- a final closure-documentation head passes the complete gates again — **PENDING until owner manual result is recorded**.
 
 P6.3 closure does not authorize P6.4, merge, tag, GitHub Release or deployment.
