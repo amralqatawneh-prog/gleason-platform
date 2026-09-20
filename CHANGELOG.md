@@ -9,7 +9,9 @@
 - Keep AE projected-plane metres semantically separate from WGS84 geodesic metres; expose distortion limitations explicitly.
 - Add a separate bilingual live AE measurement panel bound to P6.2 ordered route state.
 - Add backend/core/browser tests for reference radial geometry, antimeridian projected chord, repeated points, reverse routes, invalid input and live recalculation.
-- P6.5/P6.7 remain NOT STARTED; owner manual P6.4 verification remains NOT RUN; no merge/tag/release/deployment authorization is implied.
+- CI #652 failed at the acceptance-package checker before implementation gates because a historical P6.3 current-slice assertion had not been separated from the new current P6.4 state.
+- Corrected implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
+- P6.5/P6.7 remain NOT STARTED; owner manual P6.4 verification remains NOT RUN; PR #21 remains draft/unmerged; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #19 merge reconciliation (2026-09-20)
 
