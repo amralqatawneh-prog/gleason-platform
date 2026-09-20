@@ -65,6 +65,13 @@ require(
 )
 require(p6_2_start.get("baseline_ci_run") == 530, "P6.2 baseline CI must be #530")
 require(p6_2_start.get("baseline_ci_conclusion") == "success", "P6.2 baseline CI #530 must remain success")
+p6_2_automated = phase6_start.get("p6_2_automated", {})
+require(
+    p6_2_automated.get("implementation_head") == "9acd10b6ccbc0ae4f3565200169ff2b2ec8f38fa",
+    "P6.2 implementation head evidence drifted",
+)
+require(p6_2_automated.get("ci_run") == 532, "P6.2 automated CI must be #532")
+require(p6_2_automated.get("ci_conclusion") == "success", "P6.2 automated CI #532 must remain success")
 p6_1_manual = phase6_start.get("p6_1_owner_manual", {})
 require(
     p6_1_manual.get("result") == "pass-reported-by-owner",
