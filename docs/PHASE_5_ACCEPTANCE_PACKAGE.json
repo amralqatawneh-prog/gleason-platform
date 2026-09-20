@@ -146,7 +146,15 @@
     "pr15_pre_merge_ci_run": 529,
     "pr15_pre_merge_ci_conclusion": "success",
     "pr15_post_merge_main_ci_run": 530,
-    "pr15_post_merge_main_ci_conclusion": "success"
+    "pr15_post_merge_main_ci_conclusion": "success",
+    "pr16": "merged",
+    "pr16_merge_commit": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+    "pr16_final_head": "a8a5d2bba7680491c131da239a2c583b5f31727c",
+    "pr16_pre_merge_ci_run": 553,
+    "pr16_pre_merge_ci_conclusion": "success",
+    "pr16_post_merge_main_ci_run": 554,
+    "pr16_post_merge_main_ci_conclusion": "success",
+    "current_integration_baseline": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -218,6 +226,32 @@
       "checklist_items_passed": 6,
       "refinement_retest": "pass-reported-by-owner",
       "refinement_scope": "direct-map additions on Gleason/AE/WGS84 and more-than-three-points support"
+    },
+    "p6_2_merge": {
+      "date": "2026-09-20",
+      "decision": "merged-by-separate-owner-authorization",
+      "pr": 16,
+      "final_head": "a8a5d2bba7680491c131da239a2c583b5f31727c",
+      "pre_merge_ci_run": 553,
+      "pre_merge_ci_conclusion": "success",
+      "merge_commit": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+      "post_merge_ci_run": 554,
+      "post_merge_ci_conclusion": "success"
     }
+  },
+  "post_pr16_merge_reconciliation": {
+    "date": "2026-09-20",
+    "scope": "current-status documentation reconciliation after separately authorized PR #16 merge",
+    "status": "verification_pending",
+    "baseline_commit": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
+    "baseline_ci_run": 554,
+    "baseline_ci_conclusion": "success",
+    "p6_2_status": "closed",
+    "p6_3_status": "not_started",
+    "accepted_phase": 5,
+    "accepted_application_version": "0.5.0",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created"
   }
 }
