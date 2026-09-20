@@ -309,3 +309,14 @@ Phase 6 remains **IN PROGRESS**; P6.1, P6.2 and P6.3 are CLOSED. P6.4 is
 - PR #19 merge commit: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`.
 - Post-merge Release Acceptance Gates: **#643 SUCCESS**.
 - P6.3 is **CLOSED**; P6.4 remains **NOT STARTED**.
+
+
+### Active P6.4 — AE Native Measurement
+- Start baseline: `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a`; post-PR20 CI #651 SUCCESS.
+- AE adjacent route segments are measured as straight Euclidean chords in the independent north-polar AE projected plane.
+- Method identity: `ae-projected-plane`; contract unit: `metre`; scale basis: `ae-projected-plane-si-metre`.
+- Backend uses pyproj/PROJ; browser/offline fallback uses proj4 2.22.0.
+- AE projected metres are explicitly not relabeled as WGS84 geodesic distance.
+- Implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
+- Owner manual verification: **NOT RUN**.
+- P6.5 and P6.7 remain **NOT STARTED**.
