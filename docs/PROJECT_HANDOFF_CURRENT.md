@@ -10,10 +10,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration base: `main`.
-- PR **#15**: **MERGED** into `main` with explicit owner authorization on 2026-09-20.
-- Current integration baseline:
-  `143532248f707380b980e787051e7decc3c91086`.
-- Release Acceptance Gates **#530 — SUCCESS** on that exact post-merge `main` baseline.
+- PR **#16**: **MERGED** into `main` with explicit owner authorization on 2026-09-20.
+- PR #16 merge commit / current integration baseline:
+  `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`.
+- Release Acceptance Gates **#554 — SUCCESS** on that exact post-merge `main` baseline.
+- PR **#15**: **MERGED** into `main` with explicit owner authorization on 2026-09-20 at `143532248f707380b980e787051e7decc3c91086`; CI #530 SUCCESS.
 - PR **#14**: **MERGED** into `main` at `3e5afcd9b95766bd18af59df88c9154f51567e8c`; CI #517 SUCCESS.
 - PR **#13**: **MERGED** at `913ec67c195ac5971e0f63d9acfe94dba8de60bf`; its final accepted head `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed CI #514 and its post-merge `main` passed CI #515.
 - PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19 at `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
@@ -22,7 +23,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
-- Active development branch: `feat/phase6-p6-2-ordered-route-state`.
+- Current documentation reconciliation branch: `docs/post-pr16-merge-reconciliation`; P6.3 implementation has not started.
 - Latest closed slice: **P6.2 — Ordered Route State**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
@@ -31,7 +32,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.2 direct-map / >3-points refinement retest: **PASS — REPORTED BY OWNER**.
 - P6.2 supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
 - P6.3 — WGS84 Ruler / Distance remains **NOT STARTED**.
-- PR #16 remains unmerged; no tag, GitHub Release or deployment is authorized by P6.2 closure.
+- PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created, and P6.3 remains NOT STARTED.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
@@ -42,6 +43,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Canonical Phase 6 plan: `docs/PHASE_6_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
 - GitHub/documentation/data audit: `docs/GITHUB_SYNC_AUDIT_2026-09-19.md`.
+- Post-PR16 reconciliation: `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md`.
 
 Historical Phase 4 commits, PR #8, CI runs and correction evidence remain below as
 chronological evidence. They do not override this current snapshot.
