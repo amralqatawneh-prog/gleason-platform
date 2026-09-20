@@ -201,8 +201,17 @@ require(
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
-    post_pr17_sync.get("status") in {"verification_pending", "closed"},
-    "post-PR17 GitHub sync status must be verification_pending or closed",
+    post_pr17_sync.get("status") == "closed",
+    "post-PR17 GitHub sync status must be closed",
+)
+require(
+    post_pr17_sync.get("verification_head") == "2314a247560d463ef03cd6438ea932da37813d73",
+    "post-PR17 GitHub sync verification head drifted",
+)
+require(post_pr17_sync.get("verification_ci_run") == 559, "post-PR17 GitHub sync verification CI must be #559")
+require(
+    post_pr17_sync.get("verification_ci_conclusion") == "success",
+    "post-PR17 GitHub sync verification CI #559 must remain success",
 )
 require(
     post_pr17_sync.get("baseline_commit")
