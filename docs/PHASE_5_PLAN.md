@@ -51,7 +51,7 @@ place provenance and numerical result provenance remain separate.
 | P5.8 | Versioned local state persistence | Offline restore from installed packs; invalid/old state safely handled; no silently invented identity |
 | P5.9 | Phase regression and owner acceptance package | Browser/offline/AR/EN/mobile/poles/antimeridian tests, source visibility, manual results and known limitations |
 
-P5.1 through P5.8 are closed after their recorded automated and owner checks. P5.9 Phase 5 regression and owner acceptance package is now IN PROGRESS.
+P5.1 through P5.9 are closed after their recorded automated and owner checks. P5.9 manual result is PASS — REPORTED BY OWNER (10/10 checks). Full Phase 5 acceptance remains pending a separate explicit owner decision.
 This is not an assertion of 1/9 of total effort: slices have different sizes.
 
 ## P5.1 contract decisions
@@ -322,3 +322,19 @@ source/search checks.
 
 P5.9 is technically green and awaits owner manual regression. It is not closed.
 Full Phase 5 acceptance remains a separate explicit owner decision.
+
+
+## P5.9 acceptance closure — 2026-09-20
+
+The owner completed the full ten-item manual P5.9 regression checklist and
+reported every check successful. Manual result: **PASS — REPORTED BY OWNER
+(10/10)**. The owner-tested pre-closure clean head was
+`4a5181c6fc8e4ed19f08f2281644cd40ee0282e0`; Release Acceptance Gates #487 had
+already completed SUCCESS on that head.
+
+P5.9 is **CLOSED**. All Phase 5 slices P5.1–P5.9 are now closed. Full Phase 5
+itself remains **IN PROGRESS / NOT YET ACCEPTED** until the owner provides a
+separate explicit Phase 5 acceptance decision. Accepted application version
+remains 0.4.0; accepted phase remains 4; implementation phase remains 5; Phase 6
+is NOT STARTED. PR #13 remains unmerged and no tag, GitHub Release or deployment
+is authorized.
