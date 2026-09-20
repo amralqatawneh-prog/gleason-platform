@@ -242,7 +242,7 @@
   "post_pr16_merge_reconciliation": {
     "date": "2026-09-20",
     "scope": "current-status documentation reconciliation after separately authorized PR #16 merge",
-    "status": "verification_pending",
+    "status": "closed",
     "baseline_commit": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
     "baseline_ci_run": 554,
     "baseline_ci_conclusion": "success",
@@ -252,6 +252,9 @@
     "accepted_application_version": "0.5.0",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "verification_head": "df212e45758b18b742ad03f76123dd190ae0f45e",
+    "verification_ci_run": 555,
+    "verification_ci_conclusion": "success"
   }
 }
