@@ -275,7 +275,7 @@
       "browser_acceptance_tests_passed": 20,
       "note": "Exact P6.3 implementation head passed the complete Release Acceptance Gates."
     },
-    "p6_3_status": "awaiting-straight-line-retest",
+    "p6_3_status": "pan-great-circle-refinement-in-progress",
     "p6_3_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
@@ -314,10 +314,26 @@
       "geometry_semantics": "straight-projected-segment",
       "computation_identity": "visual-only",
       "p6_7_status_remains": "not_started",
-      "targeted_manual_retest": "not_run",
+      "targeted_manual_retest": "pass-reported-by-owner",
       "automated_head": "f837f8af9c56309156540f28cdf5e60456642b69",
       "ci_run": 607,
-      "ci_conclusion": "success"
+      "ci_conclusion": "success",
+      "targeted_manual_items_passed": 4,
+      "retested_head": "12b4e1639f742052a376e9aa392dafa7855708e1",
+      "pre_retest_ci_run": 614,
+      "pre_retest_ci_conclusion": "success"
+    },
+    "p6_3_pan_great_circle_refinement": {
+      "date": "2026-09-20",
+      "owner_request": "Enable free mouse/touch panning on both flat models and make the WGS84 curved route follow a Great Circle reference.",
+      "decision": "requested-by-owner-after-straight-line-retest-pass",
+      "status": "in_progress",
+      "flat_navigation_scope": "Explicit drag pan in all directions on Gleason and AE using mouse or touch; area-zoom temporarily disables pan.",
+      "wgs84_visual_scope": "Display-only spherical great-circle reference between adjacent ordered points.",
+      "wgs84_numeric_identity": "wgs84-geodesic",
+      "observed_flight_track": false,
+      "p6_7_status_remains": "not_started",
+      "targeted_manual_retest": "not_run"
     }
   },
   "post_pr16_merge_reconciliation": {
