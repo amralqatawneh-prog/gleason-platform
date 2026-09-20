@@ -29,7 +29,8 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
 - PR **#22** Post-PR21 reconciliation: **MERGED**; final head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge.
-- Active planning branch: `docs/roadmap-architecture-amendment-2026-09-21`; no P6.5 functional branch has been started.
+- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED / VERIFIED** on head `cb4b4681bd359e29b08542856b7bff144a239796` with Release Acceptance Gates **#673 — SUCCESS**.
+- PR #23: **OPEN / UNMERGED**, awaiting separate owner merge authorization; no P6.5 functional branch has been started.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
 - Latest closed slice: **P6.4 — AE Native Measurement**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
