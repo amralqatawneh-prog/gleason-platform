@@ -5,7 +5,9 @@ import GeoJSON from 'ol/format/GeoJSON.js';
 import CircleGeometry from 'ol/geom/Circle.js';
 import LineString from 'ol/geom/LineString.js';
 import Point from 'ol/geom/Point.js';
+import DragPan from 'ol/interaction/DragPan.js';
 import DragZoom from 'ol/interaction/DragZoom.js';
+import { defaults as defaultInteractions } from 'ol/interaction/defaults.js';
 import VectorLayer from 'ol/layer/Vector.js';
 import Map from 'ol/Map.js';
 import Overlay from 'ol/Overlay.js';
@@ -49,6 +51,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
   const overlayRef = useRef<Overlay | null>(null);
   const mapRef = useRef<Map | null>(null);
   const viewRef = useRef<View | null>(null);
+  const dragPanRef = useRef<DragPan | null>(null);
   const dragZoomRef = useRef<DragZoom | null>(null);
   const routeSourceRef = useRef<VectorSource | null>(null);
   const fullExtentRef = useRef<[number,number,number,number] | null>(null);
@@ -76,8 +79,11 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
     });
     routeSourceRef.current = routeSource;
     const view = new View({ projection, center: [0, 0], rotation:0 });
-    const map = new Map({ target: targetRef.current, layers: [countryLayer, boundaryLayer, routeLayer], view, controls: [] });
+    const interactions = defaultInteractions({ dragPan: false, mouseWheelZoom: false, shiftDragZoom: false });
+    const map = new Map({ target: targetRef.current, layers: [countryLayer, boundaryLayer, routeLayer], view, controls: [], interactions });
     mapRef.current=map;viewRef.current=view;
+    const dragPan=new DragPan();
+    map.addInteraction(dragPan);dragPanRef.current=dragPan;
     const dragZoom=new DragZoom({condition:always,duration:180});
     dragZoom.setActive(false);
     map.addInteraction(dragZoom);dragZoomRef.current=dragZoom;
@@ -106,8 +112,8 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
       } catch { /* outside model circumference */ }
     });
     return () => {
-      overlayRef.current = null; mapRef.current=null;viewRef.current=null;dragZoomRef.current=null;routeSourceRef.current=null;fullExtentRef.current=null;
-      map.removeOverlay(overlay);map.removeInteraction(dragZoom);map.setTarget(undefined);
+      overlayRef.current = null; mapRef.current=null;viewRef.current=null;dragPanRef.current=null;dragZoomRef.current=null;routeSourceRef.current=null;fullExtentRef.current=null;
+      map.removeOverlay(overlay);map.removeInteraction(dragPan);map.removeInteraction(dragZoom);map.setTarget(undefined);
     };
   }, [model, onPoint]);
 
@@ -147,7 +153,10 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
   }, [routePoints, model]);
 
   const setAreaMode=(active:boolean)=>{
-    zoomAreaActiveRef.current=active;setZoomAreaActive(active);dragZoomRef.current?.setActive(active);
+    zoomAreaActiveRef.current=active;
+    setZoomAreaActive(active);
+    dragZoomRef.current?.setActive(active);
+    dragPanRef.current?.setActive(!active);
   };
   const zoomBy=(delta:number)=>{
     const view=viewRef.current;if(!view)return;
@@ -182,6 +191,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
   };
   return <section className="projection-card" data-model={model} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
     data-route-guide="visual-only" data-route-guide-geometry="straight-projected-segments" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0, routePoints.length - 1)}
+    data-pan-enabled={zoomAreaActive?'false':'true'} data-pan-inputs="mouse-touch"
     data-view-zoom={nav.zoom.toFixed(4)} data-view-rotation={nav.rotation.toFixed(6)} data-view-center-x={nav.centerX.toFixed(6)} data-view-center-y={nav.centerY.toFixed(6)} data-area-mode={zoomAreaActive?'true':'false'}>
     <div className="projection-card__head"><strong>{title}</strong><span>{model === 'gleason' ? 'DERIVED · GH-0.2.0' : 'REFERENCE · AE-0.2.0'}</span></div>
     <nav className="navigation-toolbar" aria-label={locale==='ar'?'أدوات التنقل':'Navigation tools'}>
