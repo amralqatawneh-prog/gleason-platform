@@ -97,15 +97,22 @@ npm run test:e2e
 
 ## Current dependency security gate
 
-Release Acceptance Gates run **#495** on
-`235a462762b2aab46a641a56bd3d9c8050578f63` reported:
+The final accepted PR #13 head
+`9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c` passed Release Acceptance Gates
+**#514 — SUCCESS**, and the resulting `main` merge commit
+`913ec67c195ac5971e0f63d9acfe94dba8de60bf` passed Release Acceptance Gates
+**#515 — SUCCESS**.
+
+The post-merge gate includes:
 
 - `npm audit --audit-level=high`: **0 vulnerabilities**
 - frontend production build: PASS
 - frontend core/PWA/Chromium regression gates: PASS
 - backend locked install/tests: PASS
 
-This is evidence for that exact pre-v0.5.0-metadata baseline. Phase 5 acceptance did not change dependency constraints; the version/acceptance metadata promotion must still pass fresh CI on its exact revision. Any later dependency change requires new evidence.
+This is evidence for the accepted post-merge v0.5.0 baseline. Any later
+dependency change requires fresh evidence; do not carry this result forward
+automatically.
 
 ## Data/source dependencies are separate from package dependencies
 
