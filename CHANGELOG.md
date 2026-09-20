@@ -9,7 +9,7 @@
 - Accepted phase remains 5 and accepted application version remains v0.5.0.
 - No tag, GitHub Release or deployment is created by this documentation-only reconciliation.
 - Historical reports retain the status that was true when they were written.
-- Reconciliation verification is pending on `docs/post-pr16-merge-reconciliation`.
+- Initial reconciliation head `df212e45758b18b742ad03f76123dd190ae0f45e` passed Release Acceptance Gates **#555 — SUCCESS**; reconciliation state is CLOSED.
 
 ## [Unreleased] — Phase 6 / P6.2 Ordered Route State (2026-09-20)
 
