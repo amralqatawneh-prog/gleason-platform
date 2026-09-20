@@ -10,5 +10,5 @@ except PackageNotFoundError:
     APP_VERSION = tomllib.loads((Path(__file__).parents[1] / "pyproject.toml").read_text())["project"]["version"]
 
 IMPLEMENTATION_PHASE = 5
-ACCEPTED_PHASE = 4
-PHASE_STATUS = "in_progress"
+ACCEPTED_PHASE = 5
+PHASE_STATUS = "accepted"
