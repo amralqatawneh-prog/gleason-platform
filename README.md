@@ -23,9 +23,9 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 143532248f707380b980e787051e7decc3c91086` (PR #15 merge)
-- Release Acceptance Gates **#530 — SUCCESS** on that exact post-merge baseline
-- Active development branch: `feat/phase6-p6-2-ordered-route-state`
+- Current integration baseline: `main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` (PR #16 merge)
+- Release Acceptance Gates **#554 — SUCCESS** on that exact post-merge baseline
+- Documentation reconciliation branch: `docs/post-pr16-merge-reconciliation`; no P6.3 implementation branch has started
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -36,7 +36,7 @@ model engines:
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - Next slice: **P6.3 — WGS84 Ruler / Distance — NOT STARTED**
-- PR #16 remains unmerged; no tag, GitHub Release or deployment is authorized by P6.2 closure.
+- PR #16 is **MERGED** into `main` at `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release Acceptance Gates **#554 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 
 ## Phase status
 
@@ -242,7 +242,8 @@ Current source-of-truth documents:
 - `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices and current P6.2 boundary.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.
-- `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — post-merge documentation reconciliation.
+- `docs/POST_PR13_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR13 reconciliation.
+- `docs/POST_PR16_MERGE_RECONCILIATION_2026-09-20.md` — current post-PR16 reconciliation.
 - `CHANGELOG.md` — chronological implementation/acceptance history.
 
 Historical phase reports under `docs/` are evidence artifacts and are
@@ -262,5 +263,8 @@ PR #13 was separately authorized and has been **merged into `main`** at
 Release Acceptance Gates **#514**, and the resulting `main` merge commit passed
 Release Acceptance Gates **#515**.
 
+PR #16 was separately authorized and is **merged into `main`** at
+`c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`; post-merge Release Acceptance Gates **#554 — SUCCESS**.
+
 No tag or GitHub Release exists and deployment remains a separate authorization.
-The owner has started Phase 6; P6.1 is closed and P6.2 is the active slice.
+Phase 6 remains **IN PROGRESS**; P6.1 and P6.2 are CLOSED, and P6.3 is **NOT STARTED**.

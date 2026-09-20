@@ -5,6 +5,7 @@
 ## الوضع الحالي وتسلسل الإغلاق
 
 - المراحل 0–5 مقبولة؛ إصدار التطبيق المعتمد **v0.5.0**. بدأ المالك المرحلة السادسة صراحة بتاريخ 2026-09-20. شريحة **P6.1 أُغلقت** بعد CI #519/#520/#529 ونجاح اختبارات المالك اليدوية 5/5، ثم دُمج PR #15 ونجح CI #530. شريحة **P6.2 Ordered Route State أُغلقت** بعد CI #532/#546 ونجاح اختبارات المالك اليدوية 6/6، إضافة إلى نجاح إعادة اختبار التعديل الخاص بالإضافة المباشرة من الخرائط ودعم أكثر من ثلاث نقاط. تبقى P6.3 **NOT STARTED**. لا يعني ذلك اعتماد Phase 6 أو تغيير الإصدار المقبول.
+- بعد التفويض المنفصل، تم دمج **PR #16** إلى `main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` ونجحت **Release Acceptance Gates #554** على نفس baseline. تبقى Phase 6 **IN PROGRESS** وP6.3 **NOT STARTED**، ولا يوجد Tag أو GitHub Release أو Deployment.
 - المرحلة الرابعة وتصحيحات م1–م6 مكتملة. نجحت الاختبارات المحلية وCI #186 و#188، بما فيها المتصفح وDocker والمصادر الفعلية وتطابق حزم API وCLI. أكد المالك نجاح جميع اختباراته واعتمد المرحلة الرابعة صراحة بتاريخ 2026-09-18.
 - مقترحات م1–م8 كلها معتمدة. **بدأت المرحلة الخامسة بأمر المالك الصريح بتاريخ 2026-09-19: «ابدأ المرحله الخامسة»**. أُغلقت الشرائح **P5.1–P5.9** بعد بوابات CI واختبارات المالك؛ وقد أبلغ المالك نجاح اختبارات P5.9 اليدوية العشرة ثم صرّح بتاريخ 2026-09-20: **«أعتمد المرحلة الخامسة»**. لذلك المرحلة الخامسة **مقبولة بالكامل** والإصدار المعتمد **v0.5.0**.
 - سجلا القبول: `PHASE_4_ACCEPTANCE.md` و`PHASE_5_ACCEPTANCE.md`. سجل التصحيحات والأدلة: `APPROVED_CORRECTIONS_2026-09-18.md` و`PHASE_4_CORRECTIONS_TEST_REPORT.md`.
@@ -213,9 +214,23 @@ P5.8 أصبحت **مغلقة**. P5.9 هي الخطوة التالية ولم ت�
 - accepted version: **v0.5.0**
 - accepted phase: **5**
 - implementation phase: **6 / in_progress**
-- current slice: **P6.1 — Measurement Semantics Contract**
-- P6.2–P6.10: **NOT STARTED**
+- historical start slice at that moment: **P6.1 — Measurement Semantics Contract**
+- this start-time snapshot is historical; the current state is P6.1/P6.2 CLOSED, PR #16 MERGED, and P6.3–P6.10 NOT STARTED
 
 بدأ التنفيذ من تعريف الدلالات قبل الأدوات: نوع endpoint، طريقة الحساب، النموذج
 الحاسب، الوحدات، scale basis، وهوية العرض على نموذج آخر. لا تُفعل عمليات
 route/ruler/area في P6.1.
+
+
+## تحديث ما بعد دمج PR #16 — 2026-09-20
+
+بعد التفويض المنفصل من المالك، تم دمج PR #16 إلى `main`.
+
+- Merge commit / current integration baseline: `c1d72e1d1536cf1aba9376e4ada76b7fc31056f5`.
+- Final P6.2 closure-documentation head: `a8a5d2bba7680491c131da239a2c583b5f31727c`.
+- Release Acceptance Gates #553: **SUCCESS** قبل الدمج.
+- Release Acceptance Gates #554: **SUCCESS** على `main` بعد الدمج.
+- P6.2 تبقى **CLOSED**؛ Phase 6 تبقى **IN PROGRESS**؛ P6.3 تبقى **NOT STARTED**.
+- Accepted phase تبقى **5** والإصدار المقبول يبقى **v0.5.0**.
+- لا يوجد Tag ولا GitHub Release ولا Deployment.
+- هذه المصالحة لا تبدأ P6.3 ولا تغيّر أي خوارزمية أو بيانات أو مصدر.
