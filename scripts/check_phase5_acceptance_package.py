@@ -356,14 +356,26 @@ require(
 )
 p6_3_pan_gc = phase6_start.get("p6_3_pan_great_circle_refinement", {})
 require(
-    phase6_start.get("p6_3_status") == "pan-great-circle-refinement-in-progress",
-    "P6.3 must remain in pan/great-circle refinement until targeted owner retest",
+    phase6_start.get("p6_3_status") == "awaiting-pan-great-circle-retest",
+    "P6.3 must await the pan/great-circle targeted owner retest",
 )
 require(
     p6_3_pan_gc.get("decision") == "requested-by-owner-after-straight-line-retest-pass",
     "P6.3 pan/great-circle refinement owner request evidence missing",
 )
-require(p6_3_pan_gc.get("status") == "in_progress", "P6.3 pan/great-circle refinement must be in_progress")
+require(
+    p6_3_pan_gc.get("status") == "awaiting-owner-retest",
+    "P6.3 pan/great-circle refinement must await owner retest",
+)
+require(
+    p6_3_pan_gc.get("automated_head") == "f67a69c78547330f273fc65bf3de4bb7379a09bf",
+    "P6.3 pan/great-circle automated head drifted",
+)
+require(p6_3_pan_gc.get("ci_run") == 627, "P6.3 pan/great-circle CI must be #627")
+require(
+    p6_3_pan_gc.get("ci_conclusion") == "success",
+    "P6.3 pan/great-circle CI #627 must remain success",
+)
 require(
     p6_3_pan_gc.get("wgs84_numeric_identity") == "wgs84-geodesic",
     "P6.3 numeric WGS84 identity must remain wgs84-geodesic",
