@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ 11b571f08f72732b509f049f1a2ab1be92292938`.
+- Current integration base: `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` (PR #22 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -28,7 +28,10 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **6**; accepted phase: **5**; phase status: **in_progress**.
-- Post-PR21 reconciliation: **PR #22**; no P6.5 functional branch has been started.
+- PR **#22** Post-PR21 reconciliation: **MERGED**; final head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge.
+- Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED / VERIFIED** on head `cb4b4681bd359e29b08542856b7bff144a239796` with Release Acceptance Gates **#673 — SUCCESS**.
+- PR #23: **OPEN / UNMERGED**, awaiting separate owner merge authorization; no P6.5 functional branch has been started.
+- Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
 - Latest closed slice: **P6.4 — AE Native Measurement**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
@@ -62,6 +65,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Closed P6.4 report: `docs/PHASE_6_P6_4_REPORT.md`.
 - Post-PR19 reconciliation: `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md`.
 - Post-PR21 reconciliation: `docs/POST_PR21_MERGE_RECONCILIATION_2026-09-21.md`.
+- Approved roadmap/architecture amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
+- Shared future contracts: `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
+- Living documentation: `docs/DEVELOPER_GUIDE.md`, `docs/USER_GUIDE.md`, `docs/CALCULATION_REFERENCE.md`.
 
 Historical Phase 4 commits, PR #8, CI runs and correction evidence remain below as
 chronological evidence. They do not override this current snapshot.
@@ -123,6 +129,12 @@ P6.2 is limited to transient ordered geographic route state:
 A→B→C…, explicit point/segment identities, add/remove/reorder/undo/clear, and
 bilingual responsive UI. It does not calculate multi-stop distance, perimeter,
 area, road/flight routing or persist routes. Those remain later slices.
+
+## Owner-approved 2026-09-21 roadmap expansion
+
+The owner approved the formal addition of: solar/lunar analemmas; ObserverContext with device/current location and map-pin sources; virtual observer dome; eclipse top/observer views; high-detail global streets/cities/buildings; accurate visual/numerical day/night and twilight events; an Aviation Laboratory; OSIRIS-inspired provider architecture; and RouteProvider turn-by-turn routing. These are scheduled future capabilities, not claims of current implementation.
+
+The amendment also makes living developer/user/calculation documentation a continuous acceptance requirement. Future code comments explain non-obvious **why/assumptions/invariants**, not every obvious line.
 
 ## Governance and execution rules
 

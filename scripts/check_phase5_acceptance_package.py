@@ -271,8 +271,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "11b571f08f72732b509f049f1a2ab1be92292938",
-    "current integration baseline must be the PR #21 merge commit",
+    == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "current integration baseline must be the PR #22 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -319,6 +319,20 @@ require(
     merge_boundary.get("pr21_post_merge_main_ci_conclusion") == "success",
     "PR #21 post-merge CI #669 must remain success",
 )
+require(merge_boundary.get("pr22") == "merged", "PR #22 must be recorded as merged")
+require(
+    merge_boundary.get("pr22_merge_commit") == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "PR #22 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr22_final_head") == "a76fcff0ac7ad366143645ad722ff5d91183561e",
+    "PR #22 final head drifted",
+)
+require(merge_boundary.get("pr22_pre_merge_ci_run") == 671, "PR #22 pre-merge CI must be #671")
+require(
+    merge_boundary.get("pr22_pre_merge_ci_conclusion") == "success",
+    "PR #22 pre-merge CI #671 must remain success",
+)
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
 require(p6_4_merge.get("pr") == 21, "P6.4 merge PR must be #21")
@@ -350,6 +364,53 @@ require(
 require(
     post_pr21.get("merge_authorization") == "explicit-owner-instruction",
     "post-PR21 reconciliation merge authorization evidence missing",
+)
+require(
+    post_pr21.get("final_closure_head") == "a76fcff0ac7ad366143645ad722ff5d91183561e",
+    "post-PR21 final closure head drifted",
+)
+require(post_pr21.get("final_closure_ci_run") == 671, "post-PR21 final closure CI must be #671")
+require(
+    post_pr21.get("final_closure_ci_conclusion") == "success",
+    "post-PR21 final closure CI #671 must remain success",
+)
+require(post_pr21.get("pr22_status") == "merged", "post-PR21 reconciliation PR #22 must be merged")
+require(
+    post_pr21.get("merge_commit") == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "post-PR21 merge commit drifted",
+)
+amendment = data.get("roadmap_architecture_amendment_2026_09_21", {})
+require(amendment.get("decision") == "owner-approved", "roadmap architecture amendment owner approval missing")
+require(amendment.get("status") == "closed", "roadmap architecture amendment must be closed after verification")
+require(
+    amendment.get("baseline_commit") == "ba44ae59410e02ae748b235ed9792c8d4ee31b02",
+    "roadmap architecture amendment baseline drifted",
+)
+require(amendment.get("p6_5_status") == "not_started", "P6.5 must remain not_started during roadmap amendment")
+require(amendment.get("accepted_phase_remains") == 5, "accepted phase must remain 5 during roadmap amendment")
+require(
+    amendment.get("accepted_application_version_remains") == "0.5.0",
+    "accepted app version must remain 0.5.0 during roadmap amendment",
+)
+require(amendment.get("phase6_status_remains") == "in_progress", "Phase 6 must remain in_progress during roadmap amendment")
+require(
+    amendment.get("reserved_contracts") == ["ObserverContext", "TimeContext", "ExternalLayerProvider", "RouteProvider"],
+    "roadmap amendment shared contract set drifted",
+)
+require(amendment.get("pr") == 23, "roadmap architecture amendment PR must be #23")
+require(
+    amendment.get("verification_head") == "cb4b4681bd359e29b08542856b7bff144a239796",
+    "roadmap architecture amendment verification head drifted",
+)
+require(amendment.get("verification_ci_run") == 673, "roadmap architecture amendment verification CI must be #673")
+require(
+    amendment.get("verification_ci_conclusion") == "success",
+    "roadmap architecture amendment verification CI #673 must remain success",
+)
+require(amendment.get("merge_status") == "open-unmerged", "roadmap architecture amendment must remain unmerged before owner authorization")
+require(
+    amendment.get("merge_authorization") == "pending-separate-owner-instruction",
+    "roadmap architecture amendment merge must await separate owner authorization",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(

@@ -24,6 +24,8 @@ Baseline:
 10. Phase 17 owns durable saved experiments/routes; Phase 6 may introduce transient route state required for measurement usability.
 11. Phase 18 owns final presentation/export polish, not the core usability of measurement tools.
 12. Historical-source claims remain distinct from DERIVED computational reconstructions.
+13. Future turn-by-turn navigation uses a dedicated `RouteProvider`; provider route distance/time never becomes a native model distance merely because the route is drawn on that model.
+14. Every future slice that changes user-visible behavior, numerical semantics, provider contracts or persistence must update the relevant living Developer/User/Calculation guides.
 
 ## P6.1 — Measurement Semantics Contract
 
@@ -148,7 +150,17 @@ Deliver:
 - native normalized-radius plane distance/polyline quantity;
 - normalized units only by default;
 - no automatic km conversion;
-- scale basis and historical/derived provenance shown explicitly.
+- scale basis and historical/derived provenance shown explicitly;
+- adjacent segment values and open-polyline total using the P6.2 ordered route;
+- backend/browser or otherwise independently testable parity where the implementation architecture supports both.
+
+Acceptance:
+- method identity is `gleason-native-normalized`;
+- distance unit is `normalized-radius-unit` and scale basis is `gleason-normalized-model-radius`;
+- repeated/reversed/polar/antimeridian/model-center cases are deterministic;
+- no WGS84/AE result is silently substituted;
+- no normalized-unit → metre/km conversion exists without a separately documented scale rule;
+- relevant living Developer/User/Calculation guides are updated.
 
 ## P6.6 — Polygon / Perimeter / Area
 
@@ -163,9 +175,16 @@ Define and implement:
 - interior/complement semantics;
 - antimeridian behavior;
 - polar behavior;
+- orientation/sign semantics;
 - model-specific perimeter/area identity and units.
 
-## P6.7 — Same Route, Three Renderings
+Acceptance:
+- invalid or degenerate geometry fails closed;
+- WGS84/AE/Gleason quantities expose their own method/unit/scale identity;
+- no cross-model area normalization is introduced;
+- relevant living Developer/User/Calculation guides are updated.
+
+## P6.7A — Same Route, Three Renderings
 
 Status: **NOT STARTED**.
 
@@ -175,6 +194,38 @@ preserving the selected computation identity.
 Example invariant:
 - WGS84 geodesic rendered on Gleason = **WGS84 geodesic visualized on Gleason**,
   never “Gleason distance.”
+
+Acceptance:
+- one canonical ordered route identity drives all three renderings;
+- each view projects/render independently;
+- computation identity and visualization identity remain inspectable.
+
+## P6.7B — Route Provider & Turn-by-Turn Directions
+
+Status: **NOT STARTED**.
+
+Introduce the future `RouteProvider` contract from
+`docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
+
+Deliver:
+- explicit navigation-route object distinct from the P6.2 measurement polyline;
+- provider/version/travel-mode/provenance;
+- canonical geographic route geometry;
+- legs and maneuvers/turn-by-turn instructions;
+- provider distance and duration/ETA when supplied;
+- same provider geometry rendered independently on Gleason, AE and WGS84;
+- provider/offline/regional-routing capability and error states;
+- Valhalla as the first implementation candidate to evaluate, not a pre-committed
+  dependency.
+
+Acceptance:
+- navigation route and measurement polyline cannot be silently interchanged;
+- provider distance/time retains provider identity;
+- rendering on a model never relabels provider distance as native model distance;
+- unsupported modes/providers fail closed;
+- rerouting/waypoint ordering/error cases have automated coverage;
+- attribution/licensing/provenance is visible;
+- relevant living Developer/User/Calculation guides are updated.
 
 ## P6.8 — Navigation / Longitude Laboratory
 
@@ -217,6 +268,7 @@ Regression:
 - quantity/method provenance;
 - model-specific units;
 - same-route rendering identity;
+- RouteProvider vs measurement-polyline identity and turn-by-turn provenance when P6.7B is implemented;
 - missing/ambiguous input behavior;
 - persistence boundaries;
 - historical source visibility.
@@ -256,10 +308,16 @@ passed Release Acceptance Gates **#653 — SUCCESS**. The current documentation
 head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed **#661 — SUCCESS**,
 after which the owner reported all six manual tests **6/6 PASS**.
 
-P6.4 is **CLOSED + MERGED** through PR #21. The current integration baseline is
-`main @ 11b571f08f72732b509f049f1a2ab1be92292938`, with post-merge Release
-Acceptance Gates **#669 — SUCCESS**. P6.5 and P6.7 remain **NOT STARTED**.
-The post-PR21 documentation reconciliation is tracked in PR #22; its verification
-head `ae23478c53b51520d708ddfabff90a5867a03152` passed Release Acceptance Gates
-**#670 — SUCCESS**. It does not start P6.5. No tag, GitHub Release or deployment
+P6.4 is **CLOSED + MERGED** through PR #21. Post-PR21 reconciliation PR #22 was
+subsequently merged to `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`;
+its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e`
+passed Release Acceptance Gates **#671 — SUCCESS** before merge.
+
+On 2026-09-21 the owner approved the expanded roadmap documented in
+`docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. That documentation/
+architecture amendment is **CLOSED / VERIFIED** on head
+`cb4b4681bd359e29b08542856b7bff144a239796` with Release Acceptance Gates
+**#673 — SUCCESS**. PR #23 remains OPEN / UNMERGED pending separate merge
+authorization. P6.5, P6.6, P6.7A and P6.7B remain **NOT STARTED**. No astronomy/
+observer/aviation/high-detail-map implementation, tag, GitHub Release or deployment
 is implied.
