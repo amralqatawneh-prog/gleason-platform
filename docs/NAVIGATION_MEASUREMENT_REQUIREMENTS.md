@@ -1,6 +1,6 @@
 # Navigation and measurement requirements — 2026-09-20
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1 is CLOSED** and **P6.2 Ordered Route State is CLOSED + MERGED**. PR #17 documentation reconciliation is merged at `main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8` and post-merge CI #558 succeeded. **P6.3 remains NOT STARTED**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2 are CLOSED**. PR #18 is merged at `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3` and post-merge CI #561 succeeded. **P6.3 WGS84 Ruler / Distance is IN PROGRESS** after explicit owner instruction.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
 Sequential execution remains enforced: P6.1 defines the closed semantics baseline; ordered route state, route drawing, numeric ruler/distance/perimeter/area remain later Phase 6 slices.
 
@@ -99,10 +99,11 @@ implementation will verify primary documentation for the selected algorithms.
 - Full Phase 5 acceptance: **ACCEPTED BY OWNER — v0.5.0**.
 - Phase 6: **IN PROGRESS**.
 - P6.1 Measurement Semantics Contract: **CLOSED — CI #519/#520/#529; owner manual PASS 5/5**.
-- P6.2 ordered route state: **CLOSED + MERGED** through PR #16; post-merge CI #554 SUCCESS.
-- P6.3+ numeric route/ruler/perimeter/area operations: **NOT STARTED**.
+- P6.2 ordered route state: **CLOSED + MERGED**.
+- P6.3 WGS84 geodesic segment/open-polyline distance: **IN PROGRESS**.
+- P6.4+ AE/Gleason measurement and P6.6 polygon/perimeter/area operations: **NOT STARTED**.
 
-P6.2 may maintain transient ordered route points and segment identity, but the
-route measurement/provider service remains unavailable. `availableOperations`
-for that provider contract remains empty until a later Phase 6 slice explicitly
-implements and validates numerical/path operations.
+P6.2 continues to own transient ordered route state. P6.3 adds WGS84 geodesic
+numeric measurement through the measurement engine only. The separate future
+route-provider contract remains fail-closed for route drawing/provider paths,
+AE/Gleason distances, perimeter and area.
