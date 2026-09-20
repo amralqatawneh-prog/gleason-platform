@@ -46,6 +46,52 @@ class GeodesicInverseOutput(BaseModel):
     reverse_bearing_deg: float | None = Field(default=None, ge=0.0, lt=360.0)
 
 
+class WGS84RoutePoint(BaseModel):
+    """Explicit WGS84 latitude/longitude route point for surface distance.
+
+    Height is intentionally absent: P6.3 measures the ellipsoidal surface
+    geodesic and must not invent an unknown ellipsoidal height.
+    """
+
+    point_id: str = Field(min_length=1, max_length=128)
+    latitude: float = Field(ge=-90.0, le=90.0)
+    longitude: float = Field(ge=-180.0, le=180.0)
+
+    @field_validator("point_id")
+    @classmethod
+    def point_id_must_be_explicit(cls, value: str) -> str:
+        trimmed = value.strip()
+        if not trimmed:
+            raise ValueError("point_id must be non-empty")
+        return trimmed
+
+    @field_validator("latitude", "longitude")
+    @classmethod
+    def route_coordinates_must_be_finite(cls, value: float) -> float:
+        if not math.isfinite(value):
+            raise ValueError("route coordinate values must be finite")
+        return value
+
+
+class WGS84RouteDistanceSegment(BaseModel):
+    segment_id: str
+    index: int = Field(ge=0)
+    from_point_id: str
+    to_point_id: str
+    distance_m: float = Field(ge=0.0)
+
+
+class WGS84RouteDistanceOutput(BaseModel):
+    method_id: Literal["wgs84-geodesic"] = "wgs84-geodesic"
+    quantity: Literal["distance"] = "distance"
+    unit: Literal["metre"] = "metre"
+    scale_basis: Literal["wgs84-ellipsoid"] = "wgs84-ellipsoid"
+    path_semantics: Literal["open-polyline"] = "open-polyline"
+    segment_count: int = Field(ge=1)
+    total_distance_m: float = Field(ge=0.0)
+    segments: list[WGS84RouteDistanceSegment]
+
+
 class ReferenceProvenance(BaseModel):
     semantic_type: Literal["REFERENCE_RESULT"] = "REFERENCE_RESULT"
     provider_id: str
