@@ -1,6 +1,6 @@
 # Phase 6 / P6.4 — AE Native Measurement Report
 
-Status: **IN PROGRESS — AUTOMATED VERIFICATION PENDING**
+Status: **AWAITING OWNER MANUAL VERIFICATION — CI #653 SUCCESS**
 
 Date: 2026-09-20
 
@@ -107,23 +107,35 @@ P6.4 does **not** implement:
 - astronomy;
 - tags, GitHub Release or deployment.
 
-## Planned verification
+## Automated verification
 
-Automated:
+Implementation head:
+`bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476`
+
+Release Acceptance Gates **#653 — SUCCESS**.
+
+The complete workflow verified:
 - backend route-distance/API tests;
 - frontend local AE math tests;
-- browser live-panel identity tests;
-- online/backend and offline/browser behavior;
-- repeated coordinates;
-- reverse route;
-- antimeridian case;
+- browser live-panel identity and route-edit behavior;
+- online/backend and offline/browser fallback behavior;
+- repeated coordinates and reverse route;
+- antimeridian projected-chord case;
 - north-pole/radial reference case;
-- invalid input rejection;
-- existing WGS84 P6.3 regression;
-- full release acceptance workflow.
+- invalid-input rejection;
+- WGS84 P6.3 regression;
+- production build/PWA;
+- Docker runtime, PostGIS, locked-source and search regressions.
 
-Owner manual verification remains **NOT RUN** until explicitly reported by the
-owner after automated gates succeed.
+CI #652 failed before implementation tests because the acceptance-package checker
+still contained a historical assertion that the current Phase 6 slice must remain
+P6.3. That checker was corrected so historical P6.3 closure evidence stays
+historical while the current slice is P6.4.
 
-P6.4 will not be marked CLOSED, merged, tagged, released or deployed without the
-required explicit governance steps.
+## Current state
+
+Owner manual verification: **NOT RUN**.
+
+P6.4 remains open and is **AWAITING OWNER MANUAL VERIFICATION**. It will not be
+marked CLOSED, merged, tagged, released or deployed without the required
+explicit governance steps. P6.5 and P6.7 remain NOT STARTED.
