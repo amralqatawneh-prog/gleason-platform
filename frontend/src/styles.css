@@ -14,6 +14,7 @@
 .ordered-route-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .ordered-route-actions>button{border:0;border-radius:9px;padding:9px 13px;background:var(--reference);color:#07111c;font-weight:700;cursor:pointer}
 .ordered-route-actions>button.secondary{border:1px solid #355068;background:#132638;color:#e7f2f8}
+.ordered-route-actions>button.active{border:1px solid #d6b66f;background:#3b321c;color:#fff0bd}
 .ordered-route-actions>button:disabled{opacity:.4;cursor:not-allowed}
 .ordered-route-points{display:grid;gap:8px;margin:14px 0 0;padding:0;list-style:none}
 .ordered-route-point{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid var(--line);border-radius:9px;background:#0c1926}
@@ -28,6 +29,7 @@
 .ordered-route-segments>small{width:100%;color:var(--muted)}
 .ordered-route-segment{padding:4px 7px;border:1px solid #365d4b;border-radius:999px;color:#b9f6ce;font-variant-numeric:tabular-nums}
 .ordered-route-empty{margin:14px 0 0}
+.ordered-route-map-mode{margin-top:12px}.ordered-route-map-mode[data-map-add-mode="true"]{border-color:#6c5639;background:#18170f}.ordered-route-map-mode small{font-variant-numeric:tabular-nums;color:var(--muted)}
 .ordered-route-error{border-color:#6c5639}
 .ordered-route-error button{justify-self:start}
 .ordered-route-boundary{margin-top:12px}
