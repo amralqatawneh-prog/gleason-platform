@@ -178,9 +178,9 @@ Do not infer full Phase 5 acceptance merely from successful P5.9 tests.
 
 ## Status
 
-**IN PROGRESS — TECHNICALLY GREEN / awaiting owner manual regression.**
+**CLOSED — PASS REPORTED BY OWNER.**
 
-P5.9 is not closed. Full Phase 5 is not accepted. Phase 6 remains NOT STARTED.
+Full Phase 5 is ACCEPTED BY OWNER. Phase 6 remains NOT STARTED.
 P5.8 PR #11 remains unmerged. No tag, GitHub Release or deployment is authorized.
 
 
@@ -221,3 +221,33 @@ passed the entire release suite.
 P5.9 is **TECHNICALLY GREEN / awaiting owner manual regression**. It is not
 closed yet. Full Phase 5 remains NOT YET ACCEPTED and still requires an explicit
 owner acceptance decision after P5.9 manual testing.
+
+
+## P5.9 and Phase 5 acceptance closure — 2026-09-20
+
+The owner reported:
+
+> نجحت جميع اختبارات P5.9 وأعتمد المرحلة الخامسة
+
+Record:
+- P5.9 manual regression: **PASS — REPORTED BY OWNER**;
+- P5.9: **CLOSED**;
+- Phase 5: **ACCEPTED BY OWNER**.
+
+Final pre-acceptance automated evidence:
+- `802a46ac3a1adce95fa9730e135ec5e377567631` — CI #451 SUCCESS;
+- `cf1f3ad45b6a8da1cf7f608d8da94f275641c676` — CI #455 SUCCESS.
+
+CI #450 remains historical failed-development evidence and is superseded by the
+corrected #451/#455 runs.
+
+Acceptance metadata is moved to application version **v0.5.0** with
+`implementation_phase=5`, `accepted_phase=5` and `phase_status=accepted`.
+Independent model versions remain unchanged.
+
+Canonical acceptance record:
+`docs/PHASE_5_ACCEPTANCE.md`.
+
+Phase 6 remains **NOT STARTED** and requires an explicit owner start instruction.
+PR #11 and PR #12 remain unmerged. No tag, GitHub Release or deployment has been
+authorized by the acceptance decision.
