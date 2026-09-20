@@ -185,8 +185,17 @@ require(p6_2_merge.get("post_merge_ci_run") == 554, "P6.2 post-merge CI must be 
 require(p6_2_merge.get("post_merge_ci_conclusion") == "success", "P6.2 post-merge CI #554 must remain success")
 reconciliation = data.get("post_pr16_merge_reconciliation", {})
 require(
-    reconciliation.get("status") in {"verification_pending", "closed"},
-    "post-PR16 reconciliation status must be verification_pending or closed",
+    reconciliation.get("status") == "closed",
+    "post-PR16 reconciliation status must be closed",
+)
+require(
+    reconciliation.get("verification_head") == "df212e45758b18b742ad03f76123dd190ae0f45e",
+    "post-PR16 reconciliation verification head drifted",
+)
+require(reconciliation.get("verification_ci_run") == 555, "post-PR16 reconciliation verification CI must be #555")
+require(
+    reconciliation.get("verification_ci_conclusion") == "success",
+    "post-PR16 reconciliation verification CI #555 must remain success",
 )
 require(
     reconciliation.get("baseline_commit") == "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
