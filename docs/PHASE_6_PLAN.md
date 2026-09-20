@@ -314,7 +314,10 @@ its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e`
 passed Release Acceptance Gates **#671 — SUCCESS** before merge.
 
 On 2026-09-21 the owner approved the expanded roadmap documented in
-`docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. The current work is that
-documentation/architecture amendment only. P6.5, P6.6, P6.7A and P6.7B remain
-**NOT STARTED**. No astronomy/observer/aviation/high-detail-map implementation,
-tag, GitHub Release or deployment is implied.
+`docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. That documentation/
+architecture amendment is **CLOSED / VERIFIED** on head
+`cb4b4681bd359e29b08542856b7bff144a239796` with Release Acceptance Gates
+**#673 — SUCCESS**. PR #23 remains OPEN / UNMERGED pending separate merge
+authorization. P6.5, P6.6, P6.7A and P6.7B remain **NOT STARTED**. No astronomy/
+observer/aviation/high-detail-map implementation, tag, GitHub Release or deployment
+is implied.
