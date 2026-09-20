@@ -1,6 +1,6 @@
 # Navigation and measurement requirements — 2026-09-20
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1 is CLOSED** and **P6.2 Ordered Route State is CLOSED + MERGED**. PR #16 merged to `main @ c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` and post-merge CI #554 succeeded. **P6.3 remains NOT STARTED**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1 is CLOSED** and **P6.2 Ordered Route State is CLOSED + MERGED**. PR #17 documentation reconciliation is merged at `main @ 660a7908dd9e3c2f073155a5394d5dfb60ee67e8` and post-merge CI #558 succeeded. **P6.3 remains NOT STARTED**.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
 Sequential execution remains enforced: P6.1 defines the closed semantics baseline; ordered route state, route drawing, numeric ruler/distance/perimeter/area remain later Phase 6 slices.
 

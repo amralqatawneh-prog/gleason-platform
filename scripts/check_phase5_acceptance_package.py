@@ -173,11 +173,54 @@ require(
     merge_boundary.get("pr16_post_merge_main_ci_conclusion") == "success",
     "PR #16 post-merge CI #554 must remain success",
 )
+require(merge_boundary.get("pr17") == "merged", "PR #17 current status must be merged")
+require(
+    merge_boundary.get("pr17_merge_commit")
+    == "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "PR #17 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr17_final_head")
+    == "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
+    "PR #17 final head drifted",
+)
+require(merge_boundary.get("pr17_pre_merge_ci_run") == 557, "PR #17 pre-merge CI must be #557")
+require(
+    merge_boundary.get("pr17_pre_merge_ci_conclusion") == "success",
+    "PR #17 pre-merge CI #557 must remain success",
+)
+require(merge_boundary.get("pr17_post_merge_main_ci_run") == 558, "PR #17 post-merge CI must be #558")
+require(
+    merge_boundary.get("pr17_post_merge_main_ci_conclusion") == "success",
+    "PR #17 post-merge CI #558 must remain success",
+)
 require(
     merge_boundary.get("current_integration_baseline")
-    == "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5",
-    "current integration baseline must be the PR #16 merge commit",
+    == "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "current integration baseline must be the PR #17 merge commit",
 )
+post_pr17_sync = data.get("post_pr17_github_sync", {})
+require(
+    post_pr17_sync.get("status") == "closed",
+    "post-PR17 GitHub sync status must be closed",
+)
+require(
+    post_pr17_sync.get("verification_head") == "2314a247560d463ef03cd6438ea932da37813d73",
+    "post-PR17 GitHub sync verification head drifted",
+)
+require(post_pr17_sync.get("verification_ci_run") == 559, "post-PR17 GitHub sync verification CI must be #559")
+require(
+    post_pr17_sync.get("verification_ci_conclusion") == "success",
+    "post-PR17 GitHub sync verification CI #559 must remain success",
+)
+require(
+    post_pr17_sync.get("baseline_commit")
+    == "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "post-PR17 GitHub sync baseline drifted",
+)
+require(post_pr17_sync.get("baseline_ci_run") == 558, "post-PR17 GitHub sync baseline CI must be #558")
+require(post_pr17_sync.get("baseline_ci_conclusion") == "success", "post-PR17 GitHub sync baseline CI #558 must remain success")
+require(post_pr17_sync.get("p6_3_status") == "not_started", "P6.3 must remain not_started during post-PR17 sync")
 p6_2_merge = phase6_start.get("p6_2_merge", {})
 require(p6_2_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.2 merge authorization evidence missing")
 require(p6_2_merge.get("pr") == 16, "P6.2 merge must reference PR #16")

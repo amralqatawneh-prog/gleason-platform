@@ -154,7 +154,14 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "c1d72e1d1536cf1aba9376e4ada76b7fc31056f5"
+    "current_integration_baseline": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "pr17": "merged",
+    "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
+    "pr17_pre_merge_ci_run": 557,
+    "pr17_pre_merge_ci_conclusion": "success",
+    "pr17_post_merge_main_ci_run": 558,
+    "pr17_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -255,6 +262,26 @@
     "deployment": "not_created",
     "verification_head": "df212e45758b18b742ad03f76123dd190ae0f45e",
     "verification_ci_run": 555,
+    "verification_ci_conclusion": "success"
+  },
+  "post_pr17_github_sync": {
+    "date": "2026-09-20",
+    "scope": "GitHub current-state synchronization after separately authorized PR #17 merge",
+    "status": "closed",
+    "baseline_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
+    "baseline_ci_run": 558,
+    "baseline_ci_conclusion": "success",
+    "pr17_status": "merged",
+    "p6_1_status": "closed",
+    "p6_2_status": "closed",
+    "p6_3_status": "not_started",
+    "accepted_phase": 5,
+    "accepted_application_version": "0.5.0",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created",
+    "verification_head": "2314a247560d463ef03cd6438ea932da37813d73",
+    "verification_ci_run": 559,
     "verification_ci_conclusion": "success"
   }
 }

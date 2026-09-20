@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
+
+- PR #17 was separately authorized and **MERGED** into `main`.
+- Merge commit / current integration baseline: `660a7908dd9e3c2f073155a5394d5dfb60ee67e8`.
+- Final PR #17 head `edfe36c98a48dfe6443d82f875ac53951a59a6a1` passed Release Acceptance Gates **#557**.
+- Post-merge `main` passed Release Acceptance Gates **#558 — SUCCESS**.
+- Synchronize README, handoff, roadmap, Phase 6 plan, measurement requirements and machine-readable GitHub state.
+- P6.1/P6.2 remain CLOSED; P6.3 remains NOT STARTED.
+- Accepted phase remains 5 and accepted application version remains v0.5.0.
+- No tag, GitHub Release or deployment is created by this state synchronization.
+- Initial synchronization head `2314a247560d463ef03cd6438ea932da37813d73` passed Release Acceptance Gates **#559 — SUCCESS**; synchronization state is CLOSED.
+
 ## [Unreleased] — Post-PR #16 documentation reconciliation (2026-09-20)
 
 - Reconcile current-status documentation with the separately authorized PR #16 merge.
