@@ -251,3 +251,16 @@ Canonical acceptance record:
 Phase 6 remains **NOT STARTED** and requires an explicit owner start instruction.
 PR #11 and PR #12 remain unmerged. No tag, GitHub Release or deployment has been
 authorized by the acceptance decision.
+
+
+## Final acceptance-metadata CI — #481
+
+The accepted v0.5.0 metadata head
+`e011857b05aed18dbf2ece679ae97bd152e95f74` passed Release Acceptance Gates
+#481 in full.
+
+Evidence includes 0 npm vulnerabilities, 86 frontend core tests, 2 PWA tests,
+17 Chromium scenarios, VERSION/package/lock consistency, Phase 5 acceptance
+package validation, build/parity/Docker/PostGIS/Redis/source/search gates.
+
+P5.9 remains CLOSED and Phase 5 remains ACCEPTED BY OWNER.
