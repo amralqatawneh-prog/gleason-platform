@@ -33,10 +33,13 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.2 owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
 - P6.2 direct-map / >3-points refinement retest: **PASS — REPORTED BY OWNER**.
 - P6.2 supports a transient ordered route of up to **50 points**, plus an explicit direct-map add mode for short picks on Gleason, AE and WGS84; normal map picking remains selection-only while that mode is off.
-- P6.3 — WGS84 Ruler / Distance is **AWAITING OWNER MANUAL VERIFICATION** after explicit owner instruction **«ابدأ في الخطوة P6.3»**.
+- P6.3 — WGS84 Ruler / Distance is **REFINEMENT IN PROGRESS** after the owner reported the base manual checklist PASS 6/6 and requested a visual route guide.
 - P6.3 start baseline: `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; CI #561 SUCCESS.
-- P6.3 final implementation head: `06f2397f63648d879d6271064f3297608a59c333`; Release Acceptance Gates **#565 — SUCCESS**; **20/20 browser acceptance tests PASS**; owner manual verification **NOT RUN**.
-- PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created, and P6.3 remains NOT STARTED.
+- P6.3 final pre-refinement implementation head: `06f2397f63648d879d6271064f3297608a59c333`; Release Acceptance Gates **#565 — SUCCESS**; **20/20 browser acceptance tests PASS**.
+- P6.3 owner manual verification: **6/6 PASS — REPORTED BY OWNER**; backend-stop browser-local GeographicLib fallback also **PASS — REPORTED BY OWNER**.
+- CI #572: **SUCCESS** on the documentation head tested before the visual refinement.
+- Active refinement: display-only ordered route line and A/B/C markers on WGS84, Gleason and AE; it must not change numeric WGS84 identity or start P6.7; targeted owner retest remains NOT RUN.
+- PR #16 is **MERGED**; P6.2 remains CLOSED. No tag, GitHub Release or deployment has been created. P6.3 remains open only for the owner-requested visual refinement; P6.4 is NOT STARTED.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
