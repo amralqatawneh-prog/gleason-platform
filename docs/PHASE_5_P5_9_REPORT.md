@@ -178,7 +178,46 @@ Do not infer full Phase 5 acceptance merely from successful P5.9 tests.
 
 ## Status
 
-**IN PROGRESS — automated P5.9 verification not yet completed.**
+**IN PROGRESS — TECHNICALLY GREEN / awaiting owner manual regression.**
 
 P5.9 is not closed. Full Phase 5 is not accepted. Phase 6 remains NOT STARTED.
 P5.8 PR #11 remains unmerged. No tag, GitHub Release or deployment is authorized.
+
+
+## Automated verification — CI #451
+
+Exact implementation head:
+
+`802a46ac3a1adce95fa9730e135ec5e377567631`
+
+[Release Acceptance Gates #451 — SUCCESS](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35485918516)
+
+Observed on that exact revision:
+
+- Phase 5 acceptance-package consistency gate: **PASS**;
+- npm security gate: **0 vulnerabilities**;
+- frontend core tests: **86 PASS**;
+- PWA tests: **2 PASS**;
+- Chromium acceptance scenarios: **17 PASS**;
+- production TypeScript/Vite build: **PASS**;
+- WGS84 browser/backend parity: **PASS**;
+- Docker/PostGIS/Redis: **PASS**;
+- locked production-source verification/import: **PASS**;
+- online/offline search and Arabic city gates: **PASS**.
+
+The 17th Chromium scenario is the explicit P5.9 regression at ±89.5° and
+±179.9°. It verifies canonical selection propagation across Gleason/AE/WGS84,
+source provenance, model evidence, unavailable future-service boundaries,
+cross-model difference blocking, Arabic/mobile layout and antimeridian sign
+preservation.
+
+CI #450 failed before Docker gates because the first P5.9 TEST-ONLY extreme
+fixtures were categorized as cities and therefore changed an existing test's
+expected default globe-layer count. The P5.9 regression itself passed. The
+fixtures were corrected to TEST-ONLY `mountain` records, which remain searchable
+but are intentionally excluded from the default globe label layers. CI #451 then
+passed the entire release suite.
+
+P5.9 is **TECHNICALLY GREEN / awaiting owner manual regression**. It is not
+closed yet. Full Phase 5 remains NOT YET ACCEPTED and still requires an explicit
+owner acceptance decision after P5.9 manual testing.
