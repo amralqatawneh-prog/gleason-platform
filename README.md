@@ -15,7 +15,9 @@ model engines:
 > Phase 6 was explicitly started by the owner on 2026-09-20. **P6.1 Measurement
 > Semantics Contract is CLOSED** after CI #519/#520/#529 SUCCESS and **5/5 manual
 > checks PASS — REPORTED BY OWNER**. PR #15 is merged and post-merge CI #530
-> succeeded. **P6.2 Ordered Route State is IN PROGRESS**. Accepted phase remains
+> succeeded. **P6.2 Ordered Route State is CLOSED** after CI #532/#546 and
+> **6/6 manual checks PASS — REPORTED BY OWNER**, plus the direct-map refinement
+> retest PASS. Accepted phase remains
 > **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
@@ -30,10 +32,11 @@ model engines:
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.1 — Measurement Semantics Contract**
+- Latest closed slice: **P6.2 — Ordered Route State**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
-- Current slice: **P6.2 — Ordered Route State — IN PROGRESS**
-- No tag, GitHub Release or deployment is authorized by P6.2 work.
+- P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
+- Next slice: **P6.3 — WGS84 Ruler / Distance — NOT STARTED**
+- PR #16 remains unmerged; no tag, GitHub Release or deployment is authorized by P6.2 closure.
 
 ## Phase status
 
@@ -55,7 +58,7 @@ model engines:
 | P5.9 | CLOSED ✅ | 10/10 owner manual regression checks PASS — REPORTED BY OWNER |
 | Phase 5 | ACCEPTED ✅ | Owner explicitly accepted whole phase on 2026-09-20 · v0.5.0 |
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
-| P6.2 | IN PROGRESS 🚧 | Transient route state up to 50 points; direct map-add on all three models; add/remove/reorder/undo/clear; no numeric route measurement |
+| P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3–P6.10 | NOT STARTED ⏳ | Model measurements, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
