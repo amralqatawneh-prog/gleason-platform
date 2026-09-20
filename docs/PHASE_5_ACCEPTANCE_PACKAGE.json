@@ -185,7 +185,7 @@
     "current_slice": "P6.2",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed",
     "next_slice": "P6.3",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -205,12 +205,19 @@
       "branch": "feat/phase6-p6-2-ordered-route-state"
     },
     "p6_2_automated": {
-      "implementation_head": "9acd10b6ccbc0ae4f3565200169ff2b2ec8f38fa",
-      "ci_run": 532,
+      "implementation_head": "1d37a70f376fbe8a8974274dac48c04e2fa36807",
+      "ci_run": 546,
       "ci_conclusion": "success",
+      "prior_success_ci_run": 532,
       "prior_failed_ci_run": 531,
-      "prior_failure_scope": "P5.7 literal route-boundary wording compatibility only",
-      "note": "P6.2 core and browser route-state tests passed; final implementation head passed the complete release acceptance workflow."
+      "note": "Final P6.2 implementation/refinement head passed the complete release acceptance workflow."
+    },
+    "p6_2_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-20",
+      "checklist_items_passed": 6,
+      "refinement_retest": "pass-reported-by-owner",
+      "refinement_scope": "direct-map additions on Gleason/AE/WGS84 and more-than-three-points support"
     }
   }
 }
