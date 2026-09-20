@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "35fda15508973340669220a20ee1c5bf6bbaa39a",
+    "current_integration_baseline": "11b571f08f72732b509f049f1a2ab1be92292938",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -182,7 +182,14 @@
     "pr20_pre_merge_ci_run": 650,
     "pr20_pre_merge_ci_conclusion": "success",
     "pr20_post_merge_main_ci_run": 651,
-    "pr20_post_merge_main_ci_conclusion": "success"
+    "pr20_post_merge_main_ci_conclusion": "success",
+    "pr21": "merged",
+    "pr21_merge_commit": "11b571f08f72732b509f049f1a2ab1be92292938",
+    "pr21_final_head": "ced5649c3c2d6e1c8e1d96af35fb0775637719a3",
+    "pr21_pre_merge_ci_run": 668,
+    "pr21_pre_merge_ci_conclusion": "success",
+    "pr21_post_merge_main_ci_run": 669,
+    "pr21_post_merge_main_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -400,6 +407,17 @@
       "tested_head": "59d19a96c6a7af443429d8ba7585386d4f491dee",
       "pre_manual_ci_run": 661,
       "pre_manual_ci_conclusion": "success"
+    },
+    "p6_4_merge": {
+      "date": "2026-09-21",
+      "decision": "merged-by-separate-owner-authorization",
+      "pr": 21,
+      "final_head": "ced5649c3c2d6e1c8e1d96af35fb0775637719a3",
+      "pre_merge_ci_run": 668,
+      "pre_merge_ci_conclusion": "success",
+      "merge_commit": "11b571f08f72732b509f049f1a2ab1be92292938",
+      "post_merge_ci_run": 669,
+      "post_merge_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -459,5 +477,22 @@
     "verification_head": "813d2268d74dd0b7ff1a1336b461e6281b71d392",
     "verification_ci_run": 644,
     "verification_ci_conclusion": "success"
+  },
+  "post_pr21_merge_reconciliation": {
+    "date": "2026-09-21",
+    "scope": "current-status documentation/state reconciliation after separately authorized PR #21 merge",
+    "status": "in_progress",
+    "branch": "docs/post-pr21-merge-reconciliation",
+    "baseline_commit": "11b571f08f72732b509f049f1a2ab1be92292938",
+    "baseline_ci_run": 669,
+    "baseline_ci_conclusion": "success",
+    "pr21_status": "merged",
+    "p6_4_status": "closed",
+    "p6_5_status": "not_started",
+    "accepted_phase": 5,
+    "accepted_application_version": "0.5.0",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created"
   }
 }
