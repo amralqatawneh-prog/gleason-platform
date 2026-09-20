@@ -204,17 +204,11 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": {
-      "id": "P6.3",
-      "status": "closed"
-    },
+    "current_slice": "P6.3",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
-    "next_slice": {
-      "id": "P6.4",
-      "status": "not_started"
-    },
+    "current_slice_status": "closed",
+    "next_slice": "P6.4",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
