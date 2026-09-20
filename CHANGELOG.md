@@ -7,6 +7,7 @@
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
 - Post-merge `main` Release Acceptance Gates **#669 — SUCCESS**.
 - Reconcile current-state documentation and machine-readable governance records to the post-PR21 truth; preserve historical dated statements as historical evidence.
+- Reconciliation verification head `ae23478c53b51520d708ddfabff90a5867a03152` passed Release Acceptance Gates **#670 — SUCCESS**; closure state is recorded for final exact-head verification.
 - P6.4 remains **CLOSED**; P6.5 remains **NOT STARTED**; accepted phase remains **5** and accepted application version remains **v0.5.0**.
 - No Phase 6 tag, GitHub Release or deployment is created by this reconciliation.
 
