@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased] — P5.8 owner acceptance closure (2026-09-20)
+
+- Owner reported «نجحت جميع اختبارات P5.8». Record manual result PASS — REPORTED BY OWNER.
+- P5.8 closes with CI #439 and CI #442 SUCCESS.
+- Accepted behavior includes versioned IndexedDB persistence, strict restore validation, installed-pack place identity verification, explicit coordinate-only degradation, no fabricated ellipsoidal height, and hydration without synthetic user revision.
+- P5.9 Phase 5 Regression and Owner Acceptance Package is next / NOT STARTED.
+- Full Phase 5 remains IN PROGRESS / NOT YET ACCEPTED. Phase 6 remains NOT STARTED.
+- Draft PR #11 remains open/unmerged. No tag, GitHub Release or deployment.
+
+
 ## [Unreleased] — P5.8 automated verification (2026-09-19)
 
 - P5.8 implementation head `3e4dd65500591c43b5fd95f3b3f259d519a6c0ef` passed Release Acceptance Gates #439.
