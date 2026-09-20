@@ -14,6 +14,7 @@ import { PlaceSearch, type PlaceSelection } from './search/PlaceSearch';
 import { SourceViewer } from './source/SourceViewer';
 import { RELEASE_NAME } from './shared/version';
 import { INITIAL_SELECTION_STATE, selectionReducer } from './comparison/selectionState';
+import { selectFreePoint, type SelectionModel } from './comparison/geographicSelection';
 import { ModelLaboratory } from './comparison/ModelLaboratory';
 import { type Phase5RestoreStatus } from './comparison/statePersistence';
 import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
@@ -26,6 +27,7 @@ export default function App() {
   const [serverState,setServerState]=useState<'checking'|'connected'|'offline'>('checking');
   const [{selection,revision},dispatchSelection]=useReducer(selectionReducer,INITIAL_SELECTION_STATE);
   const [routeState,dispatchRoute]=useReducer(orderedRouteReducer,INITIAL_ORDERED_ROUTE_STATE);
+  const [routePickMode,setRoutePickMode]=useState(false);
   const [persistenceStatus,setPersistenceStatus]=useState<Phase5RestoreStatus|'loading'|'save-error'>('loading');
   const [persistenceReady,setPersistenceReady]=useState(false);
   const selectedPlace=selection?.place??null;
@@ -74,7 +76,11 @@ export default function App() {
     return()=>{revision++;window.removeEventListener(SEARCH_PACKS_CHANGED,refresh);};
   },[globeLayers]);
 
-  const handlePoint=useCallback((model:Phase2MapModel,point:GeoPoint)=>dispatchSelection({type:'point',model,point}),[]);
+  const handlePoint=useCallback((model:SelectionModel,point:GeoPoint)=>{
+    const routeSelection=selectFreePoint(model,point);
+    dispatchSelection({type:'point',model,point});
+    if(routePickMode)dispatchRoute({type:'add-selection',selection:routeSelection});
+  },[routePickMode]);
   const locatePlace=useCallback((place:PlaceSelection)=>{dispatchSelection({type:'place',place});},[]);
   const changeGlobeLayers=useCallback((next:GlobeLayerVisibility)=>{
     setGlobeLayers(next);
@@ -87,7 +93,7 @@ export default function App() {
     label:selectedPlaceName,
   }:null;
 
-  return <div className="app-shell" dir={direction} data-selection-revision={revision} data-persistence-status={persistenceStatus}>
+  return <div className="app-shell" dir={direction} data-selection-revision={revision} data-persistence-status={persistenceStatus} data-route-map-add-mode={routePickMode?'true':'false'}>
     <header className="topbar"><div className="brand"><span className="brand-mark">◎</span><div><h1>{t.title}</h1><p>{t.subtitle} · {RELEASE_NAME}</p></div></div><div className="top-actions"><span className={`status-dot ${online?'ok':'warn'}`}>{online?t.online:t.offlineNow}</span><span className="status-dot">API: {serverState}</span><button className="secondary" onClick={()=>setLocale(locale==='ar'?'en':'ar')}>{locale==='ar'?'English':'العربية'}</button></div></header>
     <div className="workspace phase2-workspace">
       <aside className="sidebar">
@@ -97,9 +103,9 @@ export default function App() {
         <section className="phase-card"><h2>{locale==='ar'?'النماذج المتاحة':'Available models'}</h2><div className="model-key"><span className="dot historical"/>Gleason Historical <small>DERIVED</small></div><div className="model-key"><span className="dot reference"/>Azimuthal Equidistant <small>REFERENCE</small></div><div className="model-key"><span className="dot reference"/>WGS84 Reference <small>REFERENCE_RESULT</small></div></section>
       </aside>
       <main className="phase2-main">
-        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>dispatchSelection({type:'point',model:'wgs84',point})}/></section>
+        <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>handlePoint('wgs84',point)}/></section>
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
-        <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute}/>
+        <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute} mapAddMode={routePickMode} onMapAddModeChange={setRoutePickMode}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/></div><SourceViewer locale={locale}/>
       </main>
