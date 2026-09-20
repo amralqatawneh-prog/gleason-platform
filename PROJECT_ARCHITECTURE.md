@@ -10,7 +10,7 @@
 
 ---
 
-## Current implementation note — 2026-09-19
+## Current implementation note — 2026-09-21
 
 This file is the **accepted Phase 0 architecture baseline** and intentionally
 retains historical design language. It is not the current execution-status
@@ -22,9 +22,16 @@ Current authoritative execution/status sources are:
 - `docs/PROJECT_HANDOFF_CURRENT.md`
 - `docs/ROADMAP_CURRENT.md`
 - `docs/PHASE_5_PLAN.md`
+- `docs/PHASE_6_PLAN.md`
+- `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`
+- `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
 
-Current state at this reconciliation: phases 0–4 accepted; Phase 5 in progress;
-P5.1–P5.7 closed; P5.8 next and not started; accepted app version 0.4.0.
+Current state at this reconciliation: Phase 5 is accepted at v0.5.0; Phase 6 is
+in progress; P6.1–P6.4 are closed; P6.5 is not started. PR #22 is merged at
+`main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`. The owner has approved the
+2026-09-21 roadmap/architecture amendment, which is documentation/planning only
+and does not itself start P6.5 or any future astronomy/aviation/high-detail-map
+implementation.
 
 Important implemented deviations already recorded by later ADRs/documentation:
 - the delivered Phase 4 WGS84 renderer is a custom WebGL2/SVG implementation,
@@ -32,8 +39,12 @@ Important implemented deviations already recorded by later ADRs/documentation:
 - the original broad `ExperimentState`, route/time/layer synchronization and
   later astronomy concepts remain roadmap architecture unless explicitly
   implemented in a closed slice;
-- P5.7 only reserves unavailable future-service contracts for time/shared-layer
-  synchronization/routes; it does not implement those engines.
+- P5.7 only reserved unavailable future-service contracts for time/shared-layer
+  synchronization/routes; later Phase 6 slices implemented measurement state and
+  WGS84/AE distance, while provider-backed routing remains future work;
+- the approved 2026-09-21 amendment reserves `ObserverContext`, `TimeContext`,
+  `ExternalLayerProvider` and `RouteProvider` contracts and expands future phases
+  without retroactively changing the accepted Phase 0 history.
 
 Historical “Current”, “Next Gate”, or release labels later in this Phase 0
 document describe the architecture plan at the time of writing and must not
