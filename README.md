@@ -9,7 +9,7 @@ model engines:
 - **WGS84 Reference** — modern geodetic reference globe/2D fallback with
   authoritative backend reference calculations.
 
-> **Current development status — 2026-09-20**
+> **Current development status — 2026-09-21**
 >
 > Phase 5 is **ACCEPTED BY OWNER** at **v0.5.0** after closure of P5.1–P5.9.
 > Phase 6 was explicitly started by the owner on 2026-09-20. **P6.1 Measurement
@@ -21,15 +21,17 @@ model engines:
 > at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`, with post-merge Release
 > Acceptance Gates **#643 SUCCESS**. **P6.4 — AE Native Measurement is now
 > CLOSED** after automated verification and **6/6 manual checks PASS — REPORTED
-> BY OWNER**. Accepted phase remains
+> BY OWNER**. PR #21 was subsequently authorized and **MERGED** into `main` at
+> `11b571f08f72732b509f049f1a2ab1be92292938`; post-merge Release Acceptance
+> Gates **#669 — SUCCESS**. Accepted phase remains
 > **5** and accepted application version remains **v0.5.0** until a
 > separate Phase 6 acceptance decision.
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 35fda15508973340669220a20ee1c5bf6bbaa39a` (PR #20 merge)
-- Release Acceptance Gates **#651 — SUCCESS** on that exact post-merge baseline
-- Active development branch: `feat/phase6-p6-4-ae-native-measurement`
+- Current integration baseline: `main @ 11b571f08f72732b509f049f1a2ab1be92292938` (PR #21 merge)
+- Release Acceptance Gates **#669 — SUCCESS** on that exact post-merge baseline
+- Current reconciliation branch: `docs/post-pr21-merge-reconciliation`; **P6.5 remains NOT STARTED**
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -50,7 +52,8 @@ model engines:
 - PR #19 is **MERGED** into `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**. No tag, GitHub Release or deployment has been created.
 - Post-PR19 documentation reconciliation was merged through PR #20 at `35fda15508973340669220a20ee1c5bf6bbaa39a`; post-merge Release Acceptance Gates **#651 — SUCCESS**.
 - P6.4 start baseline is that exact `main` revision.
-- P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed CI #653; current owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed CI #661; owner manual **6/6 PASS — REPORTED BY OWNER**.
+- P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed CI #653; owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed CI #661; final closure head `ced5649c3c2d6e1c8e1d96af35fb0775637719a3` passed CI #668; owner manual **6/6 PASS — REPORTED BY OWNER**.
+- PR #21 is **MERGED** into `main` at `11b571f08f72732b509f049f1a2ab1be92292938`; post-merge Release Acceptance Gates **#669 — SUCCESS**.
 
 ## Phase status
 
@@ -74,7 +77,7 @@ model engines:
 | P6.1 | CLOSED ✅ | Measurement semantics contract · CI #519/#520/#529 · owner 5/5 PASS |
 | P6.2 | CLOSED ✅ | Transient route state up to 50 points; direct map-add on all three models; CI #532/#546; owner 6/6 + refinement PASS |
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
-| P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
+| P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
 | P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
