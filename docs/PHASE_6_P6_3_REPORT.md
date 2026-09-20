@@ -2,7 +2,7 @@
 
 Date: 2026-09-20
 
-Status: **AWAITING STRAIGHT-LINE OWNER RETEST — CI #607 SUCCESS**
+Status: **PAN + GREAT-CIRCLE REFINEMENT IN PROGRESS — STRAIGHT-LINE RETEST 4/4 PASS REPORTED BY OWNER**
 
 Owner start instruction: **«ابدأ في الخطوة P6.3»**
 
@@ -355,3 +355,26 @@ P6.3 may be marked CLOSED only after:
 - a final closure-documentation head passes the complete gates again — **PENDING**.
 
 P6.3 closure does not authorize P6.4, merge, tag, GitHub Release or deployment.
+
+
+## Third owner-requested refinement — flat-map pan + WGS84 Great Circle
+
+After reporting the straight-line targeted retest **4/4 PASS**, the owner requested:
+
+1. free panning of both flat models in all directions with mouse drag or touch;
+2. a WGS84 globe route curve that follows a **Great Circle reference**.
+
+Implementation:
+- Gleason and AE use an explicit OpenLayers `DragPan` interaction;
+- pan accepts mouse and touch pointer input;
+- area-zoom temporarily disables pan so the drag gesture has one meaning;
+- zoom, rotation, fit-full and focus-selected remain independent;
+- WGS84 visual route now samples a spherical great-circle arc using vector
+  spherical interpolation;
+- the visual great-circle is mapped onto the WGS84 ellipsoid renderer;
+- numeric distance remains the separate `wgs84-geodesic` ellipsoidal result;
+- the visual curve is **not** labeled as an observed/live flight track;
+- actual flight tracks may differ because of airways, winds and ATC;
+- P6.7 remains NOT STARTED.
+
+Automated verification for this refinement is pending.
