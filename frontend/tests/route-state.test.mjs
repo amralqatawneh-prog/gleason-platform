@@ -6,6 +6,7 @@ import {
   INITIAL_ORDERED_ROUTE_STATE,
   orderedRouteReducer,
   ORDERED_ROUTE_STATE_VERSION,
+  ORDERED_ROUTE_MAX_POINTS,
 } from '../.phase1-test-build/measurement/routeState.js';
 
 const source = {
@@ -124,4 +125,23 @@ test('P6.2 dismisses route errors without pretending a route mutation occurred',
   assert.equal(state.lastError, null);
   assert.equal(state.revision, revision);
   assert.equal(state.points.length, 0);
+});
+
+
+test('P6.2 supports more than three ordered points and exposes an explicit 50-point transient cap', () => {
+  let state = INITIAL_ORDERED_ROUTE_STATE;
+  for (let index = 0; index < 5; index += 1) {
+    state = add(state, selectFreePoint(index % 2 === 0 ? 'gleason' : 'ae', {
+      latitude: 10 + index,
+      longitude: 20 + index,
+    }));
+  }
+
+  assert.equal(ORDERED_ROUTE_MAX_POINTS, 50);
+  assert.equal(state.points.length, 5);
+  assert.equal(state.segments.length, 4);
+  assert.deepEqual(
+    state.points.map(point => point.pointId),
+    ['route-point-1', 'route-point-2', 'route-point-3', 'route-point-4', 'route-point-5'],
+  );
 });
