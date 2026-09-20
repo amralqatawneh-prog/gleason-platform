@@ -11,8 +11,12 @@
 - Do not fabricate unknown height in P6.3 route inputs.
 - Add backend/API/core/browser/parity coverage for antimeridian, near-polar, repeated, reversed and invalid routes.
 - Keep route drawing/provider paths, AE/Gleason distance, perimeter/area and persistence unavailable for later slices.
-- Final implementation head `06f2397f63648d879d6271064f3297608a59c333` passed Release Acceptance Gates **#565 — SUCCESS**, including **20/20 Chromium acceptance tests** and the Docker P6.3 API smoke test.
-- P6.3 owner manual verification: **NOT RUN**; slice remains open awaiting owner verification.
+- Final pre-refinement implementation head `06f2397f63648d879d6271064f3297608a59c333` passed Release Acceptance Gates **#565 — SUCCESS**, including **20/20 Chromium acceptance tests** and the Docker P6.3 API smoke test.
+- Owner reported the P6.3 manual checklist **6/6 PASS** and additionally confirmed browser-local GeographicLib distance works after stopping the backend and restarting it afterward.
+- Documentation head `a65ca1af84c5bed1e7b0584da2b38cd3c8cbdad9` passed Release Acceptance Gates **#572 — SUCCESS**.
+- Owner-requested same-slice refinement: add a **visual-only** ordered route guide line and A/B/C markers to WGS84, Gleason and AE.
+- The guide does not alter `wgs84-geodesic` computation identity and does not enable provider routes or start P6.7.
+- Targeted refinement retest remains **NOT RUN**.
 - P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
 
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
