@@ -116,7 +116,7 @@ Deliver:
 
 ## P6.4 — AE Native Measurement
 
-Status: **AWAITING OWNER MANUAL VERIFICATION — CI #653 SUCCESS**.
+Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**.
 
 Start / automated evidence:
 - owner instruction: **«أبدأ P6.4»**;
@@ -125,7 +125,9 @@ Start / automated evidence:
 - branch: `feat/phase6-p6-4-ae-native-measurement`;
 - implementation head: `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476`;
 - Release Acceptance Gates **#653 — SUCCESS**;
-- owner manual verification: **NOT RUN**.
+- owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
+- owner-tested head: `59d19a96c6a7af443429d8ba7585386d4f491dee`;
+- pre-manual Release Acceptance Gates **#661 — SUCCESS**.
 
 Deliver:
 - projected-plane segment/polyline measurement;
@@ -241,12 +243,14 @@ P6.3 final evidence:
 - PR #19 merge commit on `main`: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
 - post-merge Release Acceptance Gates **#643 — SUCCESS**.
 
-The owner subsequently gave the explicit instruction **«أبدأ P6.4»**. P6.4 is
-now **AWAITING OWNER MANUAL VERIFICATION** from the verified post-PR20 baseline
+The owner subsequently gave the explicit instruction **«أبدأ P6.4»**. P6.4 was
+implemented from the verified post-PR20 baseline
 `35fda15508973340669220a20ee1c5bf6bbaa39a` / CI **#651 SUCCESS**.
 
 P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476`
-passed Release Acceptance Gates **#653 — SUCCESS**. It implements AE
-projected-plane adjacent-segment/open-polyline distance with explicit distortion
-and method identity. P6.5 and P6.7 remain **NOT STARTED**.
-No tag, GitHub Release or deployment is implied.
+passed Release Acceptance Gates **#653 — SUCCESS**. The current documentation
+head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed **#661 — SUCCESS**,
+after which the owner reported all six manual tests **6/6 PASS**.
+
+P6.4 is **CLOSED**. P6.5 and P6.7 remain **NOT STARTED**. PR #21 remains
+OPEN / DRAFT / UNMERGED. No tag, GitHub Release or deployment is implied.
