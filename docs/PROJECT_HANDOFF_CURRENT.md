@@ -25,7 +25,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.7 are CLOSED**
   after their recorded automated evidence and owner-reported manual PASS.
 - **P5.8 Versioned Local State Persistence is CLOSED** after CI #439/#442 and owner-reported manual PASS.
-- **P5.9 Phase 5 Regression and Owner Acceptance Package is NEXT / NOT STARTED.** Phase 6 routes/ruler/distance/area remains NOT STARTED.
+- **P5.9 Phase 5 Regression and Owner Acceptance Package is IN PROGRESS** by explicit owner instruction «ابدأ». Phase 6 routes/ruler/distance/area remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_7_REPORT.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
 - Canonical future roadmap: `docs/ROADMAP_CURRENT.md`.
@@ -763,3 +763,29 @@ Current ordered state:
 
 Draft PR #11 remains open/unmerged. Accepted application version remains 0.4.0.
 No tag, GitHub Release or deployment.
+
+
+## P5.9 start — 2026-09-20
+
+After P5.8 closure and CI #449 SUCCESS, the owner explicitly instructed «ابدأ».
+
+A new stacked working branch was created from the closed P5.8 head:
+
+`feat/phase5-p5-9-acceptance`
+
+P5.9 scope:
+- final Phase 5 regression package;
+- explicit browser coverage for polar/antimeridian selections;
+- machine-readable acceptance package;
+- repository consistency gate;
+- source visibility and known-limitations evidence;
+- owner manual regression checklist.
+
+P5.9 does not add Phase 6 route/ruler/distance/area functionality.
+
+Report: `docs/PHASE_5_P5_9_REPORT.md`.
+Machine package: `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
+
+Full Phase 5 acceptance remains pending and requires an explicit owner decision
+after P5.9 regression testing. Accepted application version remains 0.4.0 and
+accepted phase remains 4 until that decision. No tag or GitHub Release.
