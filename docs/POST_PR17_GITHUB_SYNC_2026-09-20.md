@@ -1,6 +1,6 @@
 # Post-PR #17 GitHub State Synchronization — 2026-09-20
 
-Status: **VERIFICATION PENDING**
+Status: **CLOSED — AUTOMATED VERIFICATION SUCCESS**
 
 ## Purpose
 
@@ -69,13 +69,23 @@ older reports describe the repository at the time those reports were authored.
 Current execution truth is carried by README, the canonical handoff, roadmap,
 Phase 6 plan, the machine-readable package, this sync report, and GitHub itself.
 
-## Verification plan
+## Verification and closure
 
-1. Run the complete Release Acceptance Gates on the exact synchronization head.
-2. If successful, mark this synchronization **CLOSED** in this report and the
-   machine-readable state.
-3. Re-run the complete gates on the closure-documentation head.
-4. Record final verification on the synchronization PR discussion.
+Initial synchronization head:
+`2314a247560d463ef03cd6438ea932da37813d73`
+
+Release Acceptance Gates **#559 — SUCCESS** on that exact head.
+
+The complete workflow passed repository/source-policy checks, the acceptance
+package checker, locked-source verification, backend tests, dependency security,
+frontend core tests, WGS84 browser/backend parity, service-worker and production
+build/PWA checks, Chromium acceptance regression, Docker runtime, Phase 2/4 API
+regression, PostGIS/source import and coverage, online/offline/Arabic search,
+Redis and frontend HTTP checks.
 
 No owner manual runtime PASS is inferred because this work changes documentation
 and repository state records only.
+
+This synchronization is therefore **CLOSED**. The closure-documentation head is
+also required to pass the same full workflow; its final verification is recorded
+in PR #18 discussion.
