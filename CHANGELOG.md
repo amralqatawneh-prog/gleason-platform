@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] — Phase 5 / P5.9 regression and acceptance package (2026-09-20)
+
+- Owner explicitly instructed «ابدأ» after P5.8 closure.
+- Create `feat/phase5-p5-9-acceptance` from P5.8 closure head `99cb55da979a46810c2c61215a729b1356806ada`; CI #449 on that base is SUCCESS.
+- Add machine-readable `docs/PHASE_5_ACCEPTANCE_PACKAGE.json` and fail-closed `scripts/check_phase5_acceptance_package.py`.
+- Add TEST-ONLY polar/antimeridian browser fixtures at ±89.5° / ±179.9° and an explicit Playwright regression for canonical selection, provenance, model evidence, unavailable future services, bilingual/mobile layout and no heterogeneous delta leakage.
+- Add the acceptance package to Release Acceptance Gates.
+- P5.9 and full Phase 5 are not accepted yet. Phase 6 remains NOT STARTED.
+- No merge, tag, GitHub Release or deployment is authorized by this start.
+
+
 ## [Unreleased] — P5.8 owner acceptance closure (2026-09-20)
 
 - Owner reported «نجحت جميع اختبارات P5.8». Record manual result PASS — REPORTED BY OWNER.
