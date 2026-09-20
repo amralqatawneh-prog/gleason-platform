@@ -10,6 +10,7 @@
 - P6.3 remains **CLOSED**; P6.4 and P6.7 remain **NOT STARTED**.
 - Accepted phase remains **5** and accepted application version remains **v0.5.0**.
 - No tag, GitHub Release or deployment is created by this documentation reconciliation.
+- Reconciliation verification head `813d2268d74dd0b7ff1a1336b461e6281b71d392` passed Release Acceptance Gates **#644 — SUCCESS**; reconciliation status is CLOSED.
 
 ## [Unreleased] — Phase 6 / P6.3 WGS84 Ruler / Distance (2026-09-20)
 
