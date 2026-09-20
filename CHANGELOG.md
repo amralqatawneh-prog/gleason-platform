@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.3 WGS84 Ruler / Distance (2026-09-20)
+
+- Owner explicitly instructed **«ابدأ في الخطوة P6.3»**.
+- Start from verified `main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`; post-PR18 Release Acceptance Gates #561 SUCCESS.
+- Add authoritative backend WGS84 open-polyline distance using pyproj/PROJ per adjacent segment.
+- Add independent offline/browser WGS84 distance using `geographiclib-geodesic 2.2.0`.
+- Add live segment and total ruler UI bound to transient P6.2 ordered route state.
+- Preserve method identity `wgs84-geodesic`, contract unit `metre`, scale basis `wgs84-ellipsoid`, semantic type `REFERENCE_RESULT`.
+- Do not fabricate unknown height in P6.3 route inputs.
+- Add backend/API/core/browser/parity coverage for antimeridian, near-polar, repeated, reversed and invalid routes.
+- Keep route drawing/provider paths, AE/Gleason distance, perimeter/area and persistence unavailable for later slices.
+- P6.3 owner manual verification: **NOT RUN**.
+- P6.4 remains **NOT STARTED**; no merge/tag/release/deployment authorization is implied.
+
 ## [Unreleased] — Post-PR #17 GitHub state synchronization (2026-09-20)
 
 - PR #17 was separately authorized and **MERGED** into `main`.
