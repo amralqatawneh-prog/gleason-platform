@@ -481,7 +481,7 @@
   "post_pr21_merge_reconciliation": {
     "date": "2026-09-21",
     "scope": "current-status documentation/state reconciliation after separately authorized PR #21 merge",
-    "status": "in_progress",
+    "status": "closed",
     "branch": "docs/post-pr21-merge-reconciliation",
     "baseline_commit": "11b571f08f72732b509f049f1a2ab1be92292938",
     "baseline_ci_run": 669,
@@ -493,6 +493,12 @@
     "accepted_application_version": "0.5.0",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "pr": 22,
+    "verification_head": "ae23478c53b51520d708ddfabff90a5867a03152",
+    "verification_ci_run": 670,
+    "verification_ci_conclusion": "success",
+    "merge_authorization": "explicit-owner-instruction",
+    "merge_authorization_statement": "قم بتنفيذ الدمج"
   }
 }
