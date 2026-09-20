@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Roadmap & Architecture Amendment — New Requirements (2026-09-21)
+
+- Owner approved the expanded roadmap before starting P6.5.
+- Start documentation/architecture-only amendment from `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02` after PR #22 merged.
+- Add formal future scope for solar/lunar analemmas, ObserverContext/current-location/pin workflows, observer dome, eclipse top/observer views, accurate day/night/twilight events, high-detail map layers, Aviation Laboratory, OSIRIS-inspired provider architecture and turn-by-turn routing.
+- Add shared design contracts for `ObserverContext`, `TimeContext`, `ExternalLayerProvider` and `RouteProvider`.
+- Add living `DEVELOPER_GUIDE.md`, `USER_GUIDE.md` and `CALCULATION_REFERENCE.md`; future relevant slices must keep them synchronized.
+- Add P6.7B Route Provider & Turn-by-Turn Directions without changing the status of P6.5/P6.6/P6.7A.
+- Expand Phases 9–12, 15–16, 19 and 21 with explicit slices and acceptance criteria.
+- No astronomy, aviation, detailed-map, routing-provider or P6.5 functional implementation is introduced by this amendment.
+- Accepted phase remains 5; accepted application version remains v0.5.0; Phase 6 remains IN PROGRESS.
+
+
 ## [Unreleased] — Post-PR #21 merge reconciliation (2026-09-21)
 
 - PR #21 was separately authorized and **MERGED** into `main`.
