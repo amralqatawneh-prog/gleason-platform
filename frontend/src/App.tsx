@@ -20,6 +20,7 @@ import { type Phase5RestoreStatus } from './comparison/statePersistence';
 import { loadPhase5State, savePhase5State } from './comparison/statePersistenceStore';
 import { OrderedRoutePanel } from './measurement/OrderedRoutePanel';
 import { INITIAL_ORDERED_ROUTE_STATE, orderedRouteReducer } from './measurement/routeState';
+import { Wgs84RouteDistancePanel } from './measurement/Wgs84RouteDistancePanel';
 
 export default function App() {
   const [locale,setLocale]=useState<Locale>('ar');
@@ -106,6 +107,7 @@ export default function App() {
         <section className="reference-workspace"><ReferenceGlobe capabilities={capabilities} locale={locale} layers={globeLayers} layerPlaces={globePlaces} focusPoint={selectedPlace?selection!.point:null} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} onPoint={(point)=>handlePoint('wgs84',point)}/></section>
         <GeodesicInspector locale={locale} currentPoint={currentWgs84Point}/>
         <OrderedRoutePanel locale={locale} selection={selection} state={routeState} dispatch={dispatchRoute} mapAddMode={routePickMode} onMapAddModeChange={setRoutePickMode}/>
+        <Wgs84RouteDistancePanel locale={locale} state={routeState}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName}/></div><SourceViewer locale={locale}/>
       </main>
@@ -127,7 +129,7 @@ export default function App() {
     : persistenceStatus==='save-error'?'The current local state could not be saved.'
     :'No previous saved state.'}</span></div><div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>PLACE SOURCE PROVENANCE ≠ REFERENCE_RESULT</span></div><div className="notice"><strong>{locale==='ar'?'طبقات محلية':'Offline layers'}</strong><span>Natural Earth / Phase 3 cached indexes · {globePlaces.length} features</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.webgl2?'WebGL2 3D':'2D fallback'} · {capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.2 حالة المسار المرتب':'Phase 6 — P6.2 ordered route state'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
+    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.3 مسطرة ومسافة WGS84':'Phase 6 — P6.3 WGS84 ruler / distance'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
   </div>;
 }
 function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}
