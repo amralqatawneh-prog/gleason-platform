@@ -4,24 +4,26 @@ _Last updated: 2026-09-20_
 
 ## Purpose
 
-This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, current Phase 5 state, validation evidence, known boundaries, and the next permitted steps.
+This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, accepted Phase 5 baseline, validation evidence, known boundaries, and the next permitted steps.
 
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main`; accepted Phase 5 metadata is being finalized on PR #13 branch `feat/phase5-p5-9-acceptance-clean`.
-- PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19.
-- Merge commit: `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
-- PR #11 (P5.8) is merged into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`. No tag or GitHub Release has been authorized.
+- Current integration base: `main`.
+- PR **#13**: **MERGED** into `main` with separate owner authorization on 2026-09-20.
+- PR #13 merge commit / current accepted main baseline:
+  `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Final accepted PR #13 head:
+  `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`.
+- [Release Acceptance Gates #514](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35499260543) — **SUCCESS** on that exact pre-merge head.
+- [Release Acceptance Gates #515](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35499481965) — **SUCCESS** on the post-merge `main` commit.
+- PR **#9**: **MERGED** into `main` with explicit owner authorization on 2026-09-19 at `97f043174b07cef9884075b1c37a4e4394f6f8bb`.
+- PR #11 (P5.8): **MERGED** into `main` at `7d490d6bf207a1d919cb01f5f99ac8a7275f0fd4`.
+- PR #12: **CLOSED / SUPERSEDED / NOT MERGED**.
 - Accepted Phase 4 baseline: `1e46b8c38a5834f56d3ed70d8a396e8902e3efe3`.
 - Accepted application version: **v0.5.0**.
 - Implementation phase: **5**; accepted phase: **5**; phase status: **accepted**.
-- Latest owner-tested/documented development baseline before the current GitHub documentation reconciliation:
-  `e710075531dbdbc2fdd2ed62dde07f22786e320f`.
-- [Release Acceptance Gates #397](https://github.com/amralqatawneh-prog/gleason-platform/actions/runs/35465278537) — **SUCCESS** on that baseline:
-  0 npm vulnerabilities, 78 frontend core tests, 2 PWA tests, 15 Chromium
-  scenarios, production build, WGS84 parity, Docker/PostGIS/Redis, locked-source
-  import, online/offline search and Arabic city gates.
+- No tag, GitHub Release or deployment has been created by the PR #13 merge.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20. Phase 6 routes/ruler/distance/area remains NOT STARTED and requires a separate start instruction.
@@ -401,13 +403,12 @@ Overall:
 
 ## Required next steps
 
-1. Keep P5.1–P5.9 closed unless a concrete regression or source error is found.
-2. Validate the accepted v0.5.0 metadata on the current PR branch with fresh Release Acceptance Gates.
-3. PR #13 remains unmerged; **merge authorization is separate** from the Phase 5 owner acceptance.
-4. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area remain **NOT STARTED** until the owner explicitly starts Phase 6.
-5. Do not create a tag, GitHub Release or deployment without separate authorization.
-6. Preserve Phase 5 source/model boundaries and use locked source manifests; never fabricate historical scan control points, coordinates, ellipsoidal height, scale conversions, or provenance.
-7. When Phase 6 is explicitly started, begin from the accepted Phase 5 baseline and define measurement semantics before drawing routes or reporting distance/area.
+1. Keep P5.1–P5.9 and Phase 5 acceptance closed unless a concrete regression or source error is found.
+2. Treat `913ec67c195ac5971e0f63d9acfe94dba8de60bf` plus post-merge CI #515 SUCCESS as the accepted `main` baseline for the next functional work.
+3. Phase 6 route drawing, multi-stop state, ruler, distance, perimeter and area remain **NOT STARTED** until the owner explicitly starts Phase 6.
+4. Do not create a tag, GitHub Release or deployment without separate authorization.
+5. Preserve Phase 5 source/model boundaries and use locked source manifests; never fabricate historical scan control points, coordinates, ellipsoidal height, scale conversions, or provenance.
+6. When Phase 6 is explicitly started, begin from the accepted Phase 5 baseline and define measurement semantics before drawing routes or reporting distance/area.
 
 ## Local Windows / Git Bash workflow
 
@@ -858,3 +859,19 @@ machine-readable state is `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`.
 
 This acceptance does not merge PR #13 and does not authorize a tag, GitHub
 Release, deployment or Phase 6 start. Phase 6 remains **NOT STARTED**.
+
+
+## Post-PR #13 merge reconciliation — 2026-09-20
+
+This is the current status update after the historical acceptance sections above.
+
+- PR #13 was separately authorized and **MERGED** into `main`.
+- Merge commit: `913ec67c195ac5971e0f63d9acfe94dba8de60bf`.
+- Final pre-merge accepted head: `9d6dbbc3cbf2756d59cc0d1bd9d3fbe1f3483e8c`.
+- Release Acceptance Gates #514: **SUCCESS** on the final PR head.
+- Release Acceptance Gates #515: **SUCCESS** on the post-merge `main` commit.
+- Phase 5 remains **ACCEPTED BY OWNER — v0.5.0**.
+- Phase 6 remains **NOT STARTED**.
+- No tag or GitHub Release exists; deployment remains separately authorized.
+- Historical statements that PR #13 was unmerged are retained as dated evidence
+  of the state at the time they were written and do not override this snapshot.
