@@ -1,12 +1,14 @@
 import type { Dispatch } from 'react';
 import type { GeographicSelection } from '../comparison/geographicSelection';
-import type { OrderedRouteAction, OrderedRouteState } from './routeState';
+import { ORDERED_ROUTE_MAX_POINTS, type OrderedRouteAction, type OrderedRouteState } from './routeState';
 
 type Props = {
   locale: 'ar' | 'en';
   selection: GeographicSelection | null;
   state: OrderedRouteState;
   dispatch: Dispatch<OrderedRouteAction>;
+  mapAddMode: boolean;
+  onMapAddModeChange: (active: boolean) => void;
 };
 
 function pointLetter(index: number): string {
@@ -40,7 +42,7 @@ function errorText(code: OrderedRouteState['lastError'], locale: 'ar' | 'en'): s
   return 'The current point cannot be added to the route.';
 }
 
-export function OrderedRoutePanel({ locale, selection, state, dispatch }: Props) {
+export function OrderedRoutePanel({ locale, selection, state, dispatch, mapAddMode, onMapAddModeChange }: Props) {
   const error = errorText(state.lastError, locale);
   return <section
     className="ordered-route-panel"
@@ -48,14 +50,16 @@ export function OrderedRoutePanel({ locale, selection, state, dispatch }: Props)
     data-route-segment-count={state.segments.length}
     data-route-revision={state.revision}
     data-route-persistent="false"
+    data-route-max-points={ORDERED_ROUTE_MAX_POINTS}
+    data-map-add-mode={mapAddMode ? 'true' : 'false'}
     aria-labelledby="ordered-route-title"
   >
     <div className="section-heading">
       <div>
         <h2 id="ordered-route-title">{locale === 'ar' ? 'المسار المرتب' : 'Ordered route state'}</h2>
         <p>{locale === 'ar'
-          ? 'P6.2 · رتّب نقاط A ← B ← C مؤقتًا. لا تُحسب أي مسافة أو مساحة في هذه الشريحة.'
-          : 'P6.2 · Build an ordered A → B → C route in transient state. No distance or area is calculated in this slice.'}</p>
+          ? `P6.2 · أنشئ مسارًا مرتبًا من نقاط متعددة حتى ${ORDERED_ROUTE_MAX_POINTS} نقطة. لا تُحسب أي مسافة أو مساحة في هذه الشريحة.`
+          : `P6.2 · Build an ordered multi-point route with up to ${ORDERED_ROUTE_MAX_POINTS} points. No distance or area is calculated in this slice.`}</p>
       </div>
       <span className="evidence-badge">P6.2 · STATE ONLY</span>
     </div>
@@ -64,12 +68,32 @@ export function OrderedRoutePanel({ locale, selection, state, dispatch }: Props)
       <button type="button" disabled={!selection} onClick={() => selection && dispatch({ type: 'add-selection', selection })}>
         {locale === 'ar' ? 'أضف النقطة الحالية' : 'Add current point'}
       </button>
+      <button
+        type="button"
+        className={mapAddMode ? 'active' : 'secondary'}
+        aria-pressed={mapAddMode}
+        onClick={() => onMapAddModeChange(!mapAddMode)}
+      >
+        {locale === 'ar' ? 'إضافة مباشرة من الخرائط' : 'Add points directly on maps'}
+      </button>
       <button className="secondary" type="button" disabled={state.history.length === 0} onClick={() => dispatch({ type: 'undo' })}>
         {locale === 'ar' ? 'تراجع' : 'Undo'}
       </button>
       <button className="secondary" type="button" disabled={state.points.length === 0} onClick={() => dispatch({ type: 'clear' })}>
         {locale === 'ar' ? 'امسح المسار' : 'Clear route'}
       </button>
+    </div>
+
+    <div className="notice ordered-route-map-mode" data-map-add-mode={mapAddMode ? 'true' : 'false'}>
+      <strong>{locale === 'ar' ? 'وضع إضافة نقاط المسار' : 'Route-point map mode'}</strong>
+      <span>{mapAddMode
+        ? (locale === 'ar'
+            ? 'مفعّل: النقرة القصيرة على Gleason أو AE أو WGS84 تختار النقطة وتضيفها مباشرة إلى نهاية المسار.'
+            : 'Active: a short click on Gleason, AE, or WGS84 selects that geography and appends it directly to the route.')
+        : (locale === 'ar'
+            ? 'غير مفعّل: النقر على الخرائط يغيّر الاختيار فقط. فعّل الوضع لإضافة النقاط مباشرة.'
+            : 'Off: map clicks change selection only. Turn this mode on to append map picks directly to the route.')}</span>
+      <small dir="ltr">{state.points.length} / {ORDERED_ROUTE_MAX_POINTS}</small>
     </div>
 
     {error && <div className="notice ordered-route-error" role="alert">
