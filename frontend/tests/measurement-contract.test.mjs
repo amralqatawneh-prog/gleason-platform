@@ -70,18 +70,18 @@ test('P6.1 rejects a country record as an implicit point-to-point endpoint', () 
   );
 });
 
-test('P6.5 method contracts keep all three distance engines independent', () => {
+test('P6.6 method contracts keep all three measurement engines independent', () => {
   assert.equal(MEASUREMENT_METHOD_CONTRACTS.length, 3);
   const wgs = measurementMethodContract('wgs84-geodesic');
   const ae = measurementMethodContract('ae-projected-plane');
   const gleason = measurementMethodContract('gleason-native-normalized');
 
-  assert.equal(wgs.status, 'partially-implemented');
-  assert.deepEqual(wgs.implementedQuantities, ['distance']);
-  assert.equal(ae.status, 'partially-implemented');
-  assert.deepEqual(ae.implementedQuantities, ['distance']);
-  assert.equal(gleason.status, 'partially-implemented');
-  assert.deepEqual(gleason.implementedQuantities, ['distance']);
+  assert.equal(wgs.status, 'implemented');
+  assert.deepEqual(wgs.implementedQuantities, ['distance', 'perimeter', 'area']);
+  assert.equal(ae.status, 'implemented');
+  assert.deepEqual(ae.implementedQuantities, ['distance', 'perimeter', 'area']);
+  assert.equal(gleason.status, 'implemented');
+  assert.deepEqual(gleason.implementedQuantities, ['distance', 'perimeter', 'area']);
 
   assert.equal(wgs.linearUnit, 'metre');
   assert.equal(ae.linearUnit, 'metre');
@@ -93,7 +93,7 @@ test('P6.5 method contracts keep all three distance engines independent', () => 
   assert.ok(gleason.limitations.some(item => item.includes('No metres/kilometres')));
 });
 
-test('P6.5 computation identity exposes implemented distance but keeps perimeter/area contract-only', () => {
+test('P6.6 computation identity exposes distance, perimeter and area as implemented', () => {
   const wgsDistance = measurementComputationIdentity('wgs84-geodesic', 'distance');
   const aeDistance = measurementComputationIdentity('ae-projected-plane', 'distance');
   const gleasonDistance = measurementComputationIdentity('gleason-native-normalized', 'distance');
@@ -112,8 +112,8 @@ test('P6.5 computation identity exposes implemented distance but keeps perimeter
   );
   assert.equal(gleasonDistance.semanticType, 'COMPUTED_RESULT');
   assert.equal(gleasonDistance.implementationStatus, 'implemented');
-  assert.equal(gleasonPerimeter.implementationStatus, 'contract-only');
-  assert.equal(gleasonArea.implementationStatus, 'contract-only');
+  assert.equal(gleasonPerimeter.implementationStatus, 'implemented');
+  assert.equal(gleasonArea.implementationStatus, 'implemented');
   assert.equal('value' in gleasonDistance, false);
 });
 
@@ -128,12 +128,13 @@ test('P6.1 rendering on another model preserves the original computation identit
   assert.equal(rendered.interpretationRule, 'preserve-computation-identity');
 });
 
-test('P6.3/P6.4/P6.5 measurement engines do not accidentally enable route-provider service', () => {
+test('P6.3–P6.6 measurement engines do not accidentally enable route-provider service', () => {
   const route = futureServiceContract('route');
   assert.equal(route.status, 'unavailable');
   assert.deepEqual(route.availableOperations, []);
   assert.match(route.currentBoundary, /P6\.3/);
   assert.match(route.currentBoundary, /P6\.4/);
   assert.match(route.currentBoundary, /P6\.5/);
+  assert.match(route.currentBoundary, /P6\.6/);
   assert.match(route.currentBoundary, /provider-backed road\/flight paths/);
 });

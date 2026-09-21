@@ -325,8 +325,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "8ac38042050f24c0ec30e30b32d37cd1900abf92",
-    "current integration baseline must be the PR #29 merge commit",
+    == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "current integration baseline must be the PR #30 merge commit / P6.6 start baseline",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -515,6 +515,26 @@ require(
     merge_boundary.get("pr29_post_merge_main_ci_conclusion") == "not-independently-observed",
     "PR #29 post-merge CI evidence state drifted",
 )
+require(merge_boundary.get("pr30") == "merged", "PR #30 must be recorded as merged")
+require(
+    merge_boundary.get("pr30_merge_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "PR #30 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr30_final_head") == "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "PR #30 final head drifted",
+)
+require(merge_boundary.get("pr30_pre_merge_ci_run") == 759, "PR #30 pre-merge CI must be #759")
+require(
+    merge_boundary.get("pr30_pre_merge_ci_conclusion") == "success",
+    "PR #30 pre-merge CI #759 must remain success",
+)
+require(merge_boundary.get("pr30_post_merge_main_ci_run") is None, "PR #30 must not fabricate an unseen post-merge CI run")
+require(
+    merge_boundary.get("pr30_post_merge_main_ci_conclusion") == "not-independently-observed",
+    "PR #30 post-merge CI evidence state drifted",
+)
+
 
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -1016,11 +1036,44 @@ require(
     post_pr29.get("verification_ci_conclusion") == "success",
     "post-PR29 initial verification CI #758 must remain success",
 )
-require(post_pr29.get("merge_status") == "open-draft-unmerged", "post-PR29 reconciliation PR #30 must remain open/draft/unmerged")
+require(post_pr29.get("merge_status") == "merged", "post-PR29 reconciliation PR #30 must be recorded as merged")
 require(
-    post_pr29.get("merge_authorization") == "pending-separate-owner-instruction",
-    "post-PR29 reconciliation merge must await separate owner authorization",
+    post_pr29.get("merge_authorization") == "explicit-owner-instruction",
+    "post-PR29 reconciliation PR #30 merge authorization evidence missing",
 )
+require(
+    post_pr29.get("merge_authorization_statement") == "ادمج PR #30 وابدأ P6.6",
+    "post-PR29 reconciliation merge authorization statement drifted",
+)
+require(
+    post_pr29.get("final_closure_head") == "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "post-PR29 final closure head drifted",
+)
+require(post_pr29.get("final_closure_ci_run") == 759, "post-PR29 final closure CI must be #759")
+require(post_pr29.get("final_closure_ci_conclusion") == "success", "post-PR29 final closure CI #759 must remain success")
+require(
+    post_pr29.get("merge_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "post-PR29 PR #30 merge commit drifted",
+)
+require(post_pr29.get("post_merge_main_ci_run") is None, "post-PR29 record must not fabricate PR #30 post-merge CI")
+require(
+    post_pr29.get("post_merge_main_ci_conclusion") == "not-independently-observed",
+    "post-PR29 PR #30 post-merge CI evidence state drifted",
+)
+
+p6_6_start = phase6_start.get("p6_6_start", {})
+require(p6_6_start.get("decision") == "started-by-owner-after-pr30-merge", "P6.6 start decision missing")
+require(p6_6_start.get("owner_statement") == "ادمج PR #30 وابدأ P6.6", "P6.6 owner start statement drifted")
+require(
+    p6_6_start.get("baseline_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "P6.6 baseline drifted",
+)
+require(p6_6_start.get("baseline_pre_merge_ci_run") == 759, "P6.6 baseline CI must preserve #759")
+require(p6_6_start.get("baseline_pre_merge_ci_conclusion") == "success", "P6.6 baseline CI #759 must remain success")
+require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 branch drifted")
+require(p6_6_start.get("status") == "in_progress", "P6.6 must be in_progress")
+require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
+require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [

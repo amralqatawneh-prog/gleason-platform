@@ -68,10 +68,17 @@ See `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
 
 ## 6. Measurement architecture
 
-Current implemented distance identities:
+Current implemented measurement identities:
 - WGS84: `wgs84-geodesic`
 - AE: `ae-projected-plane`
-- Gleason: `gleason-native-normalized` (P6.5 active implementation)
+- Gleason: `gleason-native-normalized`
+
+P6.6 adds closed-polygon perimeter and area to all three identities. The
+canonical ring reuses ordered geographic vertices and closes implicitly from the
+last vertex to the first. WGS84 uses signed ellipsoidal geodesic polygon area;
+AE and Gleason use signed shoelace area after their own independent forward
+projection. Self-intersection is algebraic, repeated explicit coordinates are
+rejected, and zero-area method-native geometry fails closed.
 
 Gleason distance is Euclidean distance between adjacent GH-0.2.0 projected
 endpoints in the derived normalized-radius plane. Its contract unit is
@@ -79,7 +86,10 @@ endpoints in the derived normalized-radius plane. Its contract unit is
 Do not convert Gleason normalized units to SI units without a separately
 documented scale rule/assumption.
 
-The P6.2 ordered polyline is not automatically a road route.
+The P6.2 ordered polyline is not automatically a road route. P6.6 may interpret
+the same ordered vertices as a separately labeled closed polygon; this does not
+change the P6.3–P6.5 open-polyline distance semantics. See
+`docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
 ## 7. Astronomy architecture
 

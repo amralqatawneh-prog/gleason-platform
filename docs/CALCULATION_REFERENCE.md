@@ -11,13 +11,18 @@ those records.
 ### WGS84 geodesic
 
 - method: `wgs84-geodesic`
-- quantity currently implemented: distance
-- unit: metre
+- quantities currently implemented: distance, perimeter, area
+- linear unit: metre
+- area unit: square-metre
 - scale/reference basis: WGS84 ellipsoid
 - semantic class: REFERENCE_RESULT
 - backend authority: pyproj/PROJ
 - browser/offline implementation: GeographicLib JS
 - route total: sum of adjacent geodesic segments in the ordered open polyline
+- polygon perimeter: closed WGS84 geodesic ring
+- polygon area: signed ellipsoidal area; primary displayed area is its absolute value
+- polygon backend: `pyproj.Geod.polygon_area_perimeter`
+- polygon browser/offline: GeographicLib PolygonArea `Compute(false, true)`
 
 A display-only Great Circle guide must not be confused with the ellipsoidal
 numeric result or with an observed flight path.
@@ -25,14 +30,17 @@ numeric result or with an observed flight path.
 ### AE projected plane
 
 - method: `ae-projected-plane`
-- quantity currently implemented: distance
-- unit: metre
+- quantities currently implemented: distance, perimeter, area
+- linear unit: metre
+- area unit: square-metre
 - scale/reference basis: AE projected-plane SI metre
 - semantic class: REFERENCE_RESULT
 - projection: north-polar Azimuthal Equidistant
 - backend: pyproj/PROJ
 - browser/offline: proj4
 - segment rule: Euclidean distance between independently projected endpoints
+- polygon perimeter: Euclidean closed ring after AE projection
+- polygon area: signed shoelace area in the AE plane; primary area is the absolute value
 
 AE preserves radial distance from its projection center; arbitrary pairwise
 projected-plane distance is not automatically a WGS84 surface geodesic.
@@ -54,10 +62,27 @@ Current reconstruction uses the project-defined normalized radial rule
 
 P6.5 distance rule: project each canonical geographic endpoint with GH-0.2.0,
 then calculate Euclidean distance between adjacent projected coordinates and sum
-the open polyline. Backend and browser implementations are parity-gated.
+the open polyline.
+
+P6.6 polygon rule: project each canonical vertex independently with GH-0.2.0,
+close the ring implicitly, sum Euclidean closed-edge perimeter, and calculate
+signed shoelace area in `normalized-radius-unit-squared`. The primary area is
+the absolute value. Backend/browser parity is required.
 
 No automatic conversion to metres/kilometres is allowed without a separately
 documented historical scale or explicit assumption.
+
+### P6.6 shared polygon semantics
+
+- explicit vertices: 3–50;
+- closure: implicit last → first;
+- repeated geographic coordinates: rejected;
+- zero method-native signed area: fail closed;
+- orientation: positive = counterclockwise; negative = clockwise;
+- self-intersection: algebraic signed-area policy, not implicit union/fill area;
+- no cross-model area normalization.
+
+Full contract: `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
 ## 2. Measurement polyline vs navigation route
 

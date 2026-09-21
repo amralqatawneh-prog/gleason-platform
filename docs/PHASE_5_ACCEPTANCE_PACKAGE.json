@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "8ac38042050f24c0ec30e30b32d37cd1900abf92",
+    "current_integration_baseline": "1c64285b92c093365b74f3256aa9557b9a48268e",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -241,7 +241,14 @@
     "pr29_pre_merge_ci_run": 754,
     "pr29_pre_merge_ci_conclusion": "success",
     "pr29_post_merge_main_ci_run": null,
-    "pr29_post_merge_main_ci_conclusion": "not-independently-observed"
+    "pr29_post_merge_main_ci_conclusion": "not-independently-observed",
+    "pr30": "merged",
+    "pr30_merge_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "pr30_final_head": "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "pr30_pre_merge_ci_run": 759,
+    "pr30_pre_merge_ci_conclusion": "success",
+    "pr30_post_merge_main_ci_run": null,
+    "pr30_post_merge_main_ci_conclusion": "not-independently-observed"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -520,6 +527,20 @@
       "merge_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
       "post_merge_ci_run": null,
       "post_merge_ci_conclusion": "not-independently-observed"
+    },
+    "p6_6_start": {
+      "date": "2026-09-21",
+      "owner_statement": "ادمج PR #30 وابدأ P6.6",
+      "decision": "started-by-owner-after-pr30-merge",
+      "baseline_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+      "baseline_pre_merge_ci_run": 759,
+      "baseline_pre_merge_ci_conclusion": "success",
+      "branch": "feat/p6.6-polygon-perimeter-area",
+      "status": "in_progress",
+      "scope": "closed polygon perimeter and area with independent WGS84, AE and Gleason identities",
+      "semantics_document": "docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md",
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -914,7 +935,14 @@
     "verification_head": "0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448",
     "verification_ci_run": 758,
     "verification_ci_conclusion": "success",
-    "merge_status": "open-draft-unmerged",
-    "merge_authorization": "pending-separate-owner-instruction"
+    "merge_status": "merged",
+    "merge_authorization": "explicit-owner-instruction",
+    "merge_authorization_statement": "ادمج PR #30 وابدأ P6.6",
+    "final_closure_head": "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "final_closure_ci_run": 759,
+    "final_closure_ci_conclusion": "success",
+    "merge_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "post_merge_main_ci_run": null,
+    "post_merge_main_ci_conclusion": "not-independently-observed"
   }
 }

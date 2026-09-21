@@ -28,12 +28,14 @@ Current authoritative execution/status sources are:
 
 Current state: Phase 5 is accepted at v0.5.0; Phase 6 is in progress;
 P6.1–P6.5 are closed. P6.5 Gleason Native Measurement is merged through PR #25 at
-`main @ bdff76e765c78108e96fd0e644df850be22f8eed`; final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge. P6.6 remains NOT STARTED. The owner-approved
+`main @ bdff76e765c78108e96fd0e644df850be22f8eed`; final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge. P6.6 is **IN PROGRESS** from
+`main @ 1c64285b92c093365b74f3256aa9557b9a48268e` on
+`feat/p6.6-polygon-perimeter-area`. The owner-approved
 2026-09-21 roadmap/architecture amendment itself was merged through PR #23 at
 `de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The original amendment is architecture/documentation planning only.
 
 A later owner-approved comparative astronomy addendum is documented in
-`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`. It is **CLOSED / VERIFIED + MERGED** through PR #27; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS**. Its post-merge reconciliation is **CLOSED + MERGED** through PR #28; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**. Post-PR28 reconciliation is **CLOSED + MERGED** through PR #29: initial head `3e23d2074a65ce6422e378b7a62211627157c968` passed **#753 — SUCCESS**, exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**, and the current integration baseline is `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92`. Post-PR29 reconciliation is **CLOSED / VERIFIED** after exact head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed Release Acceptance Gates **#758 — SUCCESS**; draft PR #30 remains unmerged and its closure-state head still requires complete verification. It reserves
+`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`. It is **CLOSED / VERIFIED + MERGED** through PR #27; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS**. Its post-merge reconciliation is **CLOSED + MERGED** through PR #28; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**. Post-PR28 reconciliation is **CLOSED + MERGED** through PR #29: initial head `3e23d2074a65ce6422e378b7a62211627157c968` passed **#753 — SUCCESS**, exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**, and the current integration baseline is `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92`. Post-PR29 reconciliation is **CLOSED + MERGED** through PR #30: initial head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed **#758 — SUCCESS**, final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS**, and the current integration baseline is `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. It reserves
 `CelestialComputationProvider` and `EclipsePredictionProvider`, registers
 Shane/Walter/NASA/Babylonian-method planning sources, distinguishes
 `ObserverCelestialSphere` from `PhysicalHeavensModel`, and expands future

@@ -922,3 +922,25 @@ test('P6.5 Gleason normalized ruler stays live without SI conversion',async({pag
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P6.6 computes one closed polygon independently in all three measurement engines',async({page,servers})=>{
+  await english(page,servers.url);
+  for(const name of ['TEST Doha','TEST Amman','TEST airport']){
+    await locate(page,name);
+    await page.getByRole('button',{name:'Add current point',exact:true}).click();
+  }
+  const panel=page.locator('.polygon-measurement-panel');
+  await expect(panel).toHaveAttribute('data-polygon-point-count','3');
+  await expect(panel).toHaveAttribute('data-polygon-ready','true');
+  for(const engine of ['wgs84','ae','gleason']){
+    const card=panel.locator(`[data-polygon-engine="${engine}"]`);
+    await expect(card).toHaveAttribute('data-measurement-status','ready');
+    await expect(card).not.toHaveAttribute('data-perimeter','');
+    await expect(card).not.toHaveAttribute('data-area','');
+  }
+  await expect(panel.locator('[data-polygon-engine="wgs84"]')).toContainText('wgs84-geodesic');
+  await expect(panel.locator('[data-polygon-engine="ae"]')).toContainText('ae-projected-plane');
+  await expect(panel.locator('[data-polygon-engine="gleason"]')).toContainText('gleason-native-normalized');
+  await expect(panel.locator('[data-polygon-engine="gleason"]')).toContainText('NRU²');
+});

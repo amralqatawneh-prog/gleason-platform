@@ -21,6 +21,7 @@ import { loadPhase5State, savePhase5State } from './comparison/statePersistenceS
 import { AERouteDistancePanel } from './measurement/AERouteDistancePanel';
 import { GleasonRouteDistancePanel } from './measurement/GleasonRouteDistancePanel';
 import { OrderedRoutePanel } from './measurement/OrderedRoutePanel';
+import { PolygonMeasurementPanel } from './measurement/PolygonMeasurementPanel';
 import { INITIAL_ORDERED_ROUTE_STATE, orderedRouteReducer } from './measurement/routeState';
 import { Wgs84RouteDistancePanel } from './measurement/Wgs84RouteDistancePanel';
 
@@ -116,6 +117,7 @@ export default function App() {
         <Wgs84RouteDistancePanel locale={locale} state={routeState}/>
         <AERouteDistancePanel locale={locale} state={routeState}/>
         <GleasonRouteDistancePanel locale={locale} state={routeState}/>
+        <PolygonMeasurementPanel locale={locale} state={routeState}/>
         <ModelLaboratory locale={locale} selection={selection}/>
         <div className="projection-grid"><ProjectionMap model="gleason" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/><ProjectionMap model="ae" locale={locale} onPoint={handlePoint} selectionPoint={selection?.point??null} selectionLabel={selectedPlaceName} routePoints={routeGeoPoints}/></div><SourceViewer locale={locale}/>
       </main>
@@ -137,7 +139,7 @@ export default function App() {
     : persistenceStatus==='save-error'?'The current local state could not be saved.'
     :'No previous saved state.'}</span></div><div className="notice"><strong>{locale==='ar'?'الشفافية المصدرية':'Source transparency'}</strong><span>PLACE SOURCE PROVENANCE ≠ REFERENCE_RESULT</span></div><div className="notice"><strong>{locale==='ar'?'طبقات محلية':'Offline layers'}</strong><span>Natural Earth / Phase 3 cached indexes · {globePlaces.length} features</span></div><div className="notice"><strong>{locale==='ar'?'التوافق':'Compatibility'}</strong><span>{capabilities.webgl2?'WebGL2 3D':'2D fallback'} · {capabilities.touch?'Touch capable':'Pointer device'} · PWA</span></div></aside>
     </div>
-    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.5 قياس Gleason المعياري':'Phase 6 — P6.5 Gleason native measurement'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
+    <footer className="statusbar"><span>{RELEASE_NAME} · {locale==='ar'?'المرحلة السادسة — P6.6 المضلع والمحيط والمساحة':'Phase 6 — P6.6 polygon / perimeter / area'}</span><span>WGS84-0.4.0 reference</span><span>Bundled countries + cached Phase 3 layers</span></footer>
   </div>;
 }
 function Metric({label,value}:{label:string;value:string}){return <div className="metric"><dt>{label}</dt><dd>{value}</dd></div>;}

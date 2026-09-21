@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased] — P6.6 Polygon / Perimeter / Area (2026-09-21)
+
+- Owner instructed **«ادمج PR #30 وابدأ P6.6»**.
+- PR #30 was **MERGED / CLOSED** after final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed Release Acceptance Gates **#759 — SUCCESS**; merge commit / P6.6 start baseline is `1c64285b92c093365b74f3256aa9557b9a48268e`.
+- P6.6 is **IN PROGRESS** on `feat/p6.6-polygon-perimeter-area`.
+- Added explicit closed-ring semantics, repeated/degenerate validation, algebraic self-intersection policy, orientation/sign rules, WGS84 interior semantics, and independent WGS84/AE/Gleason perimeter/area engines.
+- No post-PR30 reconciliation PR is opened; current-state synchronization is maintained inside the functional P6.6 branch to avoid reconciliation/merge recursion.
+
 ## [Unreleased] — Post-PR #29 merge reconciliation (2026-09-21)
 
 - PR #29 — Post-PR28 Merge Documentation Reconciliation — is now **MERGED / CLOSED**.
