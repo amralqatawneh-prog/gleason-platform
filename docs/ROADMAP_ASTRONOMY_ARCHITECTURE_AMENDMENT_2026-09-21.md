@@ -1,13 +1,13 @@
 # Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles — 2026-09-21
 
-Status: **IN PROGRESS — APPROVED BY OWNER / PR #27 STACKED ON PR #26 / FULL CI PENDING BASE MERGE**
+Status: **IN PROGRESS — APPROVED BY OWNER / PR #26 MERGED / PR #27 RETARGET TO MAIN + FULL CI PENDING**
 
 Owner approval: **«موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد»**
 
 Stacked baseline:
 - post-PR25 reconciliation exact verified head: `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`
 - Release Acceptance Gates: **#718 — SUCCESS**
-- underlying integration baseline: `main @ bdff76e765c78108e96fd0e644df850be22f8eed`
+- current integration baseline: `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102` (PR #26 merge)
 - P6.5: **CLOSED + MERGED**
 - P6.6: **NOT STARTED**
 - accepted phase remains: **Phase 5**
@@ -421,23 +421,18 @@ No tag, GitHub Release, deployment, Phase 6 acceptance, or P6.6 start is
 authorized by this amendment.
 
 
-## 14. Stacked PR / verification dependency
+## 14. PR #27 verification after PR #26 merge
 
-Implementation PR: **#27 — OPEN / DRAFT / UNMERGED**.
+PR #26 has now been separately authorized and **MERGED** into `main`:
+- final head: `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`
+- Release Acceptance Gates: **#718 — SUCCESS**
+- merge commit: `6bbfe92e8a4c0b66415eb888598cace5b7b15102`
 
-PR #27 is intentionally based on
-`docs/post-pr25-merge-reconciliation` / PR #26 rather than `main`, so this
-amendment cannot implicitly merge or bypass the separately governed post-PR25
-reconciliation.
+Implementation PR #27 remains **OPEN / DRAFT / UNMERGED**.
 
-The repository Release Acceptance workflow auto-triggers for pull requests whose
-base is `main`. Therefore the complete remote gates for this exact amendment are
-deferred until:
-1. the owner separately authorizes and PR #26 is merged;
-2. PR #27 is retargeted/reconciled to `main`;
-3. the full Release Acceptance Gates run on the exact PR #27 head;
-4. any closure-state documentation head is tested again before separate merge
-   authorization.
+The previous stacked-base blocker is cleared. PR #27 must now be retargeted to
+`main` and pass the complete Release Acceptance Gates on its exact head. Any
+closure-state documentation update after that verification must itself pass the
+full gates before PR #27 is ready for separate merge authorization.
 
-This dependency is governance/CI sequencing only. It does not start P6.6 or any
-runtime astronomy implementation.
+This sequencing does not start P6.6 or any runtime astronomy implementation.
