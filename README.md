@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current active implementation slice: **none**. P6.6 is closed/verified/merged; the repository is being reconciled before P6.7A starts.
+- Current active implementation slice: **none**. P6.6 is closed/verified/merged. Post-PR31 reconciliation PR #33 passed Release Acceptance Gates **#790 — SUCCESS** on `d2bae09cb9ee8e35954bdd4036d2e7b710b8969d`; its closure-state head requires one final complete gate run before separate merge authorization. P6.7A remains NOT STARTED.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. No independent post-merge push CI is claimed. P6.7A remains **NOT STARTED**.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
