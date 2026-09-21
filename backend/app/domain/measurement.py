@@ -126,6 +126,7 @@ class GleasonRouteDistanceSegment(BaseModel):
     to_x_normalized_radius: float
     to_y_normalized_radius: float
     distance_normalized_radius_unit: float = Field(ge=0.0)
+    distance_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
 
 
 class GleasonRouteDistanceOutput(BaseModel):
@@ -137,6 +138,13 @@ class GleasonRouteDistanceOutput(BaseModel):
     segment_geometry: Literal["straight-projected-chord"] = "straight-projected-chord"
     segment_count: int = Field(ge=1)
     total_distance_normalized_radius_unit: float = Field(ge=0.0)
+    map_ruler_method_id: Literal["gleason-map-ruler-derived"] = "gleason-map-ruler-derived"
+    map_ruler_unit: Literal["nautical-mile-derived"] = "nautical-mile-derived"
+    map_ruler_scale_basis: Literal[
+        "60-nautical-miles-per-radial-latitude-degree"
+    ] = "60-nautical-miles-per-radial-latitude-degree"
+    map_ruler_evidence_level: Literal["DERIVED"] = "DERIVED"
+    total_distance_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
     segments: list[GleasonRouteDistanceSegment]
 
 
@@ -253,6 +261,10 @@ class GleasonPolygonOutput(BaseModel):
     perimeter_normalized_radius_unit: float = Field(ge=0.0)
     signed_area_normalized_radius_unit_squared: float
     area_normalized_radius_unit_squared: float = Field(gt=0.0)
+    map_ruler_method_id: Literal["gleason-map-ruler-derived"] = "gleason-map-ruler-derived"
+    map_ruler_evidence_level: Literal["DERIVED"] = "DERIVED"
+    perimeter_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
+    area_map_ruler_nautical_mile_squared_derived: float = Field(gt=0.0)
     segments: list[GleasonPolygonSegment]
 
 

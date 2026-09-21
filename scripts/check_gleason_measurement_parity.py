@@ -67,6 +67,7 @@ def main() -> None:
     max_segment_delta = 0.0
     max_total_delta = 0.0
     max_coordinate_delta = 0.0
+    max_map_ruler_nm_delta = 0.0
 
     for inputs, browser in zip(routes, browser_results, strict=True):
         backend = gleason_route_distance(
@@ -91,6 +92,12 @@ def main() -> None:
             )
             max_segment_delta = max(max_segment_delta, delta)
             assert delta < 1e-12, (inputs, actual, expected)
+            ruler_delta = abs(
+                actual["distance_map_ruler_nautical_mile_derived"]
+                - expected["distance_map_ruler_nautical_mile_derived"]
+            )
+            max_map_ruler_nm_delta = max(max_map_ruler_nm_delta, ruler_delta)
+            assert ruler_delta < 1e-8, (inputs, actual, expected)
             for key in [
                 "from_x_normalized_radius",
                 "from_y_normalized_radius",
@@ -114,6 +121,7 @@ def main() -> None:
         "max_segment_difference_normalized_radius_unit": max_segment_delta,
         "max_total_difference_normalized_radius_unit": max_total_delta,
         "max_projected_coordinate_difference": max_coordinate_delta,
+        "max_map_ruler_difference_nautical_mile": max_map_ruler_nm_delta,
     }, indent=2))
 
 

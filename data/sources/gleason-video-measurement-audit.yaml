@@ -1,0 +1,28 @@
+id: gleason-video-measurement-audit-2026-09-21
+source_type: user_supplied_secondary_research_video
+authority: comparative_only
+validation_truth: false
+date_audited: "2026-09-21"
+videos:
+  - id: WQCFOp5TyeE
+    title: "Measure distances on a Gleason's Map"
+    file_name: "YTDown.com_YouTube_Measure-distances-on-a-Gleason-s-Map_Media_WQCFOp5TyeE_001_1080p.mp4"
+    sha256: "63b65c294ba49e7b58b424648faff2ca8d58a37a512938aff3c8f39afbdfbb64"
+    duration_seconds: 1191.322993
+    observations:
+      - "Radial ruler calibration uses 60 nautical miles per latitude degree."
+      - "Georgetown-Morocco example: about 11.72 cm x 330 NM/cm = 3867.6 NM."
+      - "Sydney-Kamchatka arithmetic uses 15.8 cm x 330 NM/cm = 5214 NM."
+      - "The video also displays an inconsistent 18.5 cm label for Sydney-Kamchatka; 18.5 x 330 would be 6105 NM."
+  - id: UKFvsaQoxVc
+    title: "How to read a Gleason Map"
+    file_name: "YTDown.com_YouTube_How-to-read-a-Gleason-Map-Demonstrated-b_Media_UKFvsaQoxVc_001_1080p.mp4"
+    sha256: "b9b714da291564fd05afca310c1fb0aecf6a489958209ca8f36edbb7665621dc"
+    duration_seconds: 1383.026939
+    observations:
+      - "Sydney-Perth example applies 36 longitude degrees x 60 = 2160 NM."
+      - "That shortcut conflicts with Gleason book Figure 43 at southern latitudes."
+policy:
+  - "Never use either video as primary historical authority over Gleason's book."
+  - "Video examples may be deterministic comparative fixtures only when explicitly labeled secondary/observed."
+  - "Do not import the second video's 60-miles-per-longitude-degree shortcut as a general distance rule."

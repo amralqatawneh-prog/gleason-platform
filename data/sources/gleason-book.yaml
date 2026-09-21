@@ -40,3 +40,26 @@ georeferencing:
   standalone_historical_scan: not_embedded
   control_points: []
   policy: "Do not fabricate scan control points."
+
+historical_measurement:
+  radial_nautical_rule:
+    evidence_level: DOCUMENTED
+    locator: "PDF pp. 343-344 / printed pp. 317-318, Chapter XIV"
+    rule: "60 nautical miles per radial latitude degree"
+  map_ruler_derived:
+    evidence_level: DERIVED
+    method_id: gleason-map-ruler-derived
+    derivation: "180 radial latitude degrees per normalized radius x 60 nautical miles = 10800 nautical miles per normalized-radius-unit"
+    warning: "Map-plane ruler calibration; not Figure 43 longitude scaling."
+  longitude_scale:
+    evidence_level: DOCUMENTED_PLUS_DERIVED_FORMULA
+    locator: "PDF p. 429 / printed p. 402, Fig. 43"
+    formula: "historical_book_miles_per_longitude_degree = 60 - (2/3) * latitude_deg"
+  frame_time:
+    evidence_level: DOCUMENTED
+    locator: "PDF pp. 376-377 / printed pp. 349-350, Figs. 37-38"
+    relations:
+      - "15 degrees longitude = 1 hour"
+      - "1 degree longitude = 4 minutes time"
+      - "180 nautical/geographical miles = 208 English miles"
+      - "English mile = 5280 feet; nautical/sea/Solar mile = 6075 feet"

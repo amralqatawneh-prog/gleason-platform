@@ -2,6 +2,7 @@ import {
   GLEASON_MODEL_ID,
   GLEASON_MODEL_VERSION,
   gleasonForward,
+  GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
 } from '../models/gleason.js';
 import {
   measurePlanarPolygon,
@@ -42,6 +43,10 @@ export interface GleasonPolygonResult {
     readonly perimeter_normalized_radius_unit: number;
     readonly signed_area_normalized_radius_unit_squared: number;
     readonly area_normalized_radius_unit_squared: number;
+    readonly map_ruler_method_id: 'gleason-map-ruler-derived';
+    readonly map_ruler_evidence_level: 'DERIVED';
+    readonly perimeter_map_ruler_nautical_mile_derived: number;
+    readonly area_map_ruler_nautical_mile_squared_derived: number;
     readonly segments: readonly GleasonPolygonSegment[];
   };
   readonly provenance: {
@@ -100,6 +105,12 @@ export function localGleasonPolygonMeasurement(
       perimeter_normalized_radius_unit: measured.perimeter,
       signed_area_normalized_radius_unit_squared: measured.signedArea,
       area_normalized_radius_unit_squared: measured.area,
+      map_ruler_method_id: 'gleason-map-ruler-derived',
+      map_ruler_evidence_level: 'DERIVED',
+      perimeter_map_ruler_nautical_mile_derived:
+        measured.perimeter * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+      area_map_ruler_nautical_mile_squared_derived:
+        measured.area * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU ** 2,
       segments: Object.freeze(segments),
     }),
     provenance: Object.freeze({

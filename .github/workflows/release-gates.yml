@@ -49,10 +49,12 @@ jobs:
           test -s frontend/src/measurement/wgs84Polygon.ts
           test -s frontend/src/measurement/aePolygon.ts
           test -s frontend/src/measurement/gleasonPolygon.ts
+          test -s frontend/src/measurement/gleasonHistoricalMeasurement.ts
           test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
           test -s frontend/tests/route-guide.test.mjs
           test -s frontend/tests/polygon-measurement.test.mjs
+          test -s frontend/tests/gleason-historical-measurement.test.mjs
           test -s backend/tests/test_phase6_wgs84_route_distance.py
           test -s backend/tests/test_phase6_polygon_measurement.py
           test -s backend/tests/test_phase6_gleason_route_distance.py
