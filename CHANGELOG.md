@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Roadmap & Astronomy Architecture Amendment (2026-09-21)
+
+- Owner approved the comparative-astronomy roadmap proposal and explicitly instructed implementation of the documentation/architecture amendment.
+- Register Shane's Personal Celestial Sphere model and Walter Bislin's upstream FE-Dome implementation as separate external comparative/provenance sources; neither becomes sole numerical validation truth.
+- Register NASA solar/lunar Saros pages as modern cycle references, Brack-Bernsen & Steele (2005) as historical-method scholarship for Babylonian 223-month eclipse prediction, and the British Museum Map of the World as historical cosmography context only.
+- Add planning source registry `data/sources/astronomy-comparative-sources.yaml`.
+- Reserve `CelestialComputationProvider` and `EclipsePredictionProvider`.
+- Add calculation classes `reference-ephemeris`, `historical-cycle`, `external-comparative-model`, `model-native`, and `display-only`.
+- Separate `ObserverCelestialSphere` from any future `PhysicalHeavensModel`.
+- Expand future Phases 9–12, 17 and 20 with comparative astronomy, Personal Celestial Sphere comparison, Babylonian 223-Month/Saros historical-cycle work, reproducible experiment URLs/IDs, and provider-by-provider validation.
+- No functional astronomy engine, Saros calculator, observer dome, eclipse path, P6.6 start, tag, GitHub Release or deployment is introduced.
+
 ## [Unreleased] — Post-PR #25 merge reconciliation (2026-09-21)
 
 - Owner explicitly authorized **«قم بدمج PR #25 إلى main»**.
