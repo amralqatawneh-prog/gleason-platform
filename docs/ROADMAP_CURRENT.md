@@ -6,6 +6,7 @@
 
 - Phase 5 **ACCEPTED** والإصدار المقبول **v0.5.0**.
 - Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.6 **CLOSED**، وP6.6 **VERIFIED + MERGED** عبر PR #31. P6.7A هي التالية لكنها **NOT STARTED**.
+- مصالحة ما بعد دمج PR #31 تُنفذ عبر PR #33. رأس التحقق `d2bae09cb9ee8e35954bdd4036d2e7b710b8969d` نجح في Release Acceptance Gates **#790 — SUCCESS**؛ يلزم CI إغلاق نهائي على الرأس الذي يسجل #790 قبل طلب تفويض الدمج. لا تبدأ P6.7A أثناء ذلك.
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
 - **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
 - المالك اعتمد في 2026-09-21 متطلبات التوسعة الجديدة. **Roadmap & Architecture Amendment — New Requirements 2026-09-21** أصبحت **CLOSED + MERGED**؛ الرأس الأول `cb4b4681bd359e29b08542856b7bff144a239796` نجح في CI **#673**، والرأس النهائي `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` نجح في CI **#676**، ثم دُمج PR #23 إلى `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` بتفويض صريح من المالك.
