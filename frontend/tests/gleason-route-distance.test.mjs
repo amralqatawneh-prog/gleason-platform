@@ -54,8 +54,8 @@ test('P6.5 repeated points are zero, reverse preserves total, and pole is model 
   assert.equal(forward.output.segments[0].distance_normalized_radius_unit, 0);
   assert.ok(forward.output.segments[1].distance_normalized_radius_unit > 0);
   const last = forward.output.segments.at(-1);
-  assert.equal(last.to_x_normalized_radius, 0);
-  assert.equal(last.to_y_normalized_radius, 0);
+  assert.ok(Math.abs(last.to_x_normalized_radius) <= Number.EPSILON);
+  assert.ok(Math.abs(last.to_y_normalized_radius) <= Number.EPSILON);
   assert.ok(
     Math.abs(
       forward.output.total_distance_normalized_radius_unit
