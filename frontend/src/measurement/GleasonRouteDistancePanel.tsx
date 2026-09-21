@@ -112,12 +112,26 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
             ? 'المعايرة: 60 ميلًا بحريًا لكل درجة عرض شعاعية، أي 10800 NM لكل NRU. هذه معايرة مشتقة للمسطرة على مستوى الخريطة وليست قاعدة Fig.43.'
             : 'Calibration: 60 nautical miles per radial latitude degree, hence 10800 NM per NRU. This is a derived map-ruler calibration, not Figure 43.'}</p>
           <ol className="gleason-route-distance-segments">
-            {result.output.segments.map(segment => <li key={segment.segment_id}>
+            {result.output.segments.map(segment => <li
+              key={segment.segment_id}
+              className="gleason-route-distance-segment"
+              data-route-segment-id={segment.segment_id}
+              data-segment-distance-normalized-radius-unit={segment.distance_normalized_radius_unit.toFixed(12)}
+            >
               <strong>{pointLetter(segment.index)} → {pointLetter(segment.index + 1)}</strong>
               <span dir="ltr">{format(segment.distance_map_ruler_nautical_mile_derived, locale, 2)} NM</span>
               <small dir="ltr">{format(segment.distance_normalized_radius_unit, locale, 9)} NRU</small>
             </li>)}
           </ol>
+          <div className="notice" data-gleason-scale-boundary="explicit">
+            <strong>{locale === 'ar' ? 'مسافة Gleason الأصلية المعيارية — هذه ليست أمتارًا أو كيلومترات' : 'Gleason native normalized distance — these are not metres or kilometres'}</strong>
+            <span dir="ltr">COMPUTED_RESULT · gleason-native-normalized · normalized-radius-unit · gleason-normalized-model-radius</span>
+          </div>
+          <div className="gleason-route-distance-provenance">
+            <strong>{locale === 'ar' ? 'هوية الحساب والمصدر' : 'Computation identity & provenance'}</strong>
+            <span>{result.provenance.provider_id} · {result.provenance.provider_version}</span>
+            <span>{result.provenance.implementation} · {result.provenance.implementation_version}</span>
+          </div>
         </article>
 
         <article className="gleason-lab-card" data-gleason-tool="historical-longitude-scale">
