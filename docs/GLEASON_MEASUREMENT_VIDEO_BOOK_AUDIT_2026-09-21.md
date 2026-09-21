@@ -1,7 +1,7 @@
 # Gleason Measurement — Book, Five-Video, Walter and Restored-Raster Audit
 
 Date: 2026-09-21  
-Status: **OWNER-APPROVED IMPLEMENTATION INPUT — IMPLEMENTED, AWAITING NEW CI + OWNER MANUAL VERIFICATION**
+Status: **IMPLEMENTED / OWNER-VERIFIED + MERGED — corrected baseline `e96712975fc9f54f2615e235bb6976136efe8a2d` · #783 SUCCESS · 6/6 manual PASS · final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` · #784 SUCCESS · merge `6a2666112e56514051ea62fbe1c25f5a8016f1ae`**
 
 ## Source hierarchy
 
@@ -109,6 +109,16 @@ projected onto this raster and compared with historical labels.
 
 ## Current P6.6 state
 
-The previous P6.6 closure remains superseded. The amended implementation is on
-PR #31 and requires a fresh complete CI run plus targeted owner manual
-verification before closure.
+The audited correction package is implemented and closed.
+
+- corrected-contract owner-tested head: `e96712975fc9f54f2615e235bb6976136efe8a2d`;
+- Release Acceptance Gates before owner verification: **#783 — SUCCESS**;
+- owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
+- exact final closure head: `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`;
+- final Release Acceptance Gates: **#784 — SUCCESS**;
+- PR #31: **MERGED / CLOSED**;
+- merge commit/current integration baseline: `6a2666112e56514051ea62fbe1c25f5a8016f1ae`;
+- post-merge workflow on that merge commit: **not independently observed**;
+- P6.7A: **NOT STARTED**.
+
+The source hierarchy and all evidence boundaries in this audit remain unchanged.
