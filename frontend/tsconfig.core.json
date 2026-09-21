@@ -27,6 +27,7 @@
     "src/shared/version.ts",
     "src/models/projectionTypes.ts",
     "src/models/gleason.ts",
+    "src/models/gleasonHistoricalRaster.ts",
     "src/models/ae.ts",
     "src/georeferencing/affine.ts",
     "src/reference/offlineWgs84.ts",
