@@ -1100,7 +1100,7 @@
     "date": "2026-09-22",
     "owner_statement": "قم بتحديث وتوثيق ملفات وبيانات وتقارير github قبل ان نبدأ بأي مرحلة قادمه",
     "scope": "documentation/state/data-report reconciliation after separately authorized PR #31 merge; no functional implementation",
-    "status": "in_progress-awaiting-ci",
+    "status": "closed-verified-awaiting-separate-merge-authorization",
     "branch": "docs/post-pr31-merge-reconciliation",
     "baseline_commit": "6a2666112e56514051ea62fbe1c25f5a8016f1ae",
     "pr31_status": "merged",
@@ -1117,6 +1117,12 @@
     "phase6_status": "in_progress",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "verification_head": "d2bae09cb9ee8e35954bdd4036d2e7b710b8969d",
+    "verification_ci_run": 790,
+    "verification_ci_conclusion": "success",
+    "pr": 33,
+    "merge_status": "open-draft-unmerged",
+    "merge_authorization": "pending-separate-owner-instruction"
   }
 }
