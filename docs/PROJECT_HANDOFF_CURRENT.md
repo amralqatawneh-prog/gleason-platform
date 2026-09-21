@@ -33,7 +33,12 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
 - Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED + MERGED** through PR #24. Exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merged at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
-- Post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
+- Current post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
+- Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
+- PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
+- PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
+- PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
+- Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
 - Latest closed slice: **P6.5 — Gleason Native Measurement**.
 - P6.5 — Gleason Native Measurement is **CLOSED** after Release Acceptance Gates **#691 — SUCCESS** on tested head `a733f81d922963a385357becf69dafd8b6d576be` and **6/6 manual checks PASS — REPORTED BY OWNER**. P6.6 remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
@@ -51,7 +56,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19, PR #20 and PR #24 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **CLOSED**; P6.6 remains **NOT STARTED**.
+- PR #16, PR #19, PR #20, PR #24 and PR #25 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **CLOSED**; P6.6 remains **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
