@@ -532,7 +532,7 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await expect(future.locator('[data-future-service="layer-sync"]')).toContainText('phase 16');
   await expect(future.locator('[data-future-service="route"]')).toContainText('Planned phase: 6');
   await expect(future.locator('[data-future-service="route"]')).toContainText('P6.5 implements Gleason normalized native distance');
-  await expect(future.locator('[data-future-service="route"]')).toContainText('route drawing/provider paths');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('road/flight provider paths, perimeter and area');
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(comparison).toContainText('لا يُعرض فرق عددي لأن الكميتين غير متجانستين');
