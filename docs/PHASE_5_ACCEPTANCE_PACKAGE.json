@@ -1109,12 +1109,16 @@
     "source_pr_merge_commit": "6a2666112e56514051ea62fbe1c25f5a8016f1ae",
     "branch": "docs/post-pr31-merge-reconciliation-2026-09-22",
     "pr": 32,
-    "status": "open-draft",
+    "status": "closed-verified-awaiting-merge-authorization",
     "merge_authorization": "pending-separate-owner-instruction",
     "next_slice": "P6.7A",
     "next_slice_status": "not_started",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "verification_head": "6b93b76a7cfeea5dfcff32cd3e0f188adf879557",
+    "verification_ci_run": 787,
+    "verification_ci_conclusion": "success",
+    "workflow_run_id": 35657206996
   }
 }
