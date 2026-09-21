@@ -1,7 +1,7 @@
 # Post-PR #31 Merge Documentation & State Reconciliation
 
 Date: 2026-09-22  
-Status: **OPEN / DRAFT — PR #32 — RELEASE ACCEPTANCE CI PENDING**
+Status: **CLOSED / VERIFIED — PR #32 OPEN / DRAFT — AWAITING SEPARATE MERGE AUTHORIZATION**
 
 ## 1. Trigger
 
@@ -11,6 +11,10 @@ be synchronized before any new functional phase begins.
 Working branch: `docs/post-pr31-merge-reconciliation-2026-09-22`  
 Pull request: **#32 — OPEN / DRAFT**  
 Merge authorization: **pending separate owner instruction**
+
+Verification head: `6b93b76a7cfeea5dfcff32cd3e0f188adf879557`  
+Release Acceptance Gates: **#787 — SUCCESS**  
+Workflow run ID: `35657206996`
 
 This reconciliation starts from the live post-merge baseline:
 
@@ -131,8 +135,8 @@ The final retained corrected semantics are:
 
 This reconciliation does **not** start P6.7A.
 
-After this reconciliation passes the repository Release Acceptance Gates and is
-merged by separate owner authorization, the clean baseline may be used to start
+After this reconciliation is merged by separate owner authorization, the clean
+baseline may be used to start
 **P6.7A — Same Route, Three Renderings** only after an explicit owner start
 instruction.
 
