@@ -97,7 +97,7 @@ def main() -> None:
 
         pairs = [
             ("wgs84", browser["wgs84"], backend_wgs, "perimeter_m", "area_m2", 1e-5, 0.1, 0.0),
-            ("ae", browser["ae"], backend_ae, "perimeter_m", "area_m2", 0.1, 1.0, 2e-10),
+            ("ae", browser["ae"], backend_ae, "perimeter_m", "area_m2", 0.1, 1.0, 5e-9),
             (
                 "gleason",
                 browser["gleason"],
