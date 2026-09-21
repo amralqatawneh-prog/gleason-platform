@@ -807,7 +807,7 @@ require(astronomy_amendment.get("github_release") == "not_created", "astronomy a
 require(astronomy_amendment.get("deployment") == "not_created", "astronomy amendment must not deploy")
 
 post_pr27 = data.get("post_pr27_merge_reconciliation", {})
-require(post_pr27.get("status") == "in_progress", "post-PR27 reconciliation must remain in progress before verification")
+require(post_pr27.get("status") == "closed", "post-PR27 reconciliation must be closed after verification")
 require(post_pr27.get("pr") == 28, "post-PR27 reconciliation PR must be #28")
 require(
     post_pr27.get("baseline_commit") == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
@@ -850,9 +850,15 @@ require(post_pr27.get("runtime_astronomy_status") == "not_started", "runtime ast
 require(post_pr27.get("tag") == "not_created", "post-PR27 reconciliation must not create a tag")
 require(post_pr27.get("github_release") == "not_created", "post-PR27 reconciliation must not create a GitHub Release")
 require(post_pr27.get("deployment") == "not_created", "post-PR27 reconciliation must not deploy")
-require(post_pr27.get("verification_head") is None, "post-PR27 verification head must remain pending before CI")
-require(post_pr27.get("verification_ci_run") is None, "post-PR27 verification CI run must remain pending before CI")
-require(post_pr27.get("verification_ci_conclusion") == "pending", "post-PR27 verification conclusion must remain pending before CI")
+require(
+    post_pr27.get("verification_head") == "018e6a7984dcf682e94f36668333ea00ccbaf085",
+    "post-PR27 reconciliation verification head drifted",
+)
+require(post_pr27.get("verification_ci_run") == 738, "post-PR27 reconciliation verification CI must be #738")
+require(
+    post_pr27.get("verification_ci_conclusion") == "success",
+    "post-PR27 reconciliation verification CI #738 must remain success",
+)
 require(post_pr27.get("merge_status") == "open-unmerged", "post-PR27 reconciliation PR #28 must remain open/unmerged")
 require(
     post_pr27.get("merge_authorization") == "pending-separate-owner-instruction",
