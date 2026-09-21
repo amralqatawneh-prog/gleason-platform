@@ -10,8 +10,10 @@
 - Add independent browser/offline implementation and a deterministic backend/browser parity gate.
 - Add bilingual live P6.5 panel bound to P6.2 route state with explicit no-metre/km warning.
 - Preserve WGS84 and AE identities; provider-backed routing, perimeter and area remain unavailable.
-- Owner manual verification: **NOT RUN**.
-- P6.5 remains **IN PROGRESS** until exact-head automated gates and owner manual verification close it.
+- Exact pre-manual head `a733f81d922963a385357becf69dafd8b6d576be` passed Release Acceptance Gates **#691 — SUCCESS**.
+- Owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
+- Manual coverage includes basic normalized distance, multi-point live recomputation, repeated zero-length segment, reverse-route total invariance, backend-stop browser fallback, and Arabic/mobile layout.
+- P6.5 is **CLOSED** in closure-state documentation; P6.6 remains **NOT STARTED**. Final closure-state CI is required before separate merge authorization.
 
 
 ## [Unreleased] — Post-PR #23 merge reconciliation (2026-09-21)
