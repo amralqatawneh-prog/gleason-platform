@@ -876,7 +876,6 @@ test('P6.5 Gleason normalized ruler stays live without SI conversion',async({pag
   await english(page,servers.url);
   const route=page.locator('.ordered-route-panel');
   const gleason=page.locator('.gleason-route-distance-panel');
-  const ae=page.locator('.ae-route-distance-panel').filter({hasNot:page.locator('.gleason-route-distance-panel')});
   const wgs84=page.locator('.wgs84-route-distance-panel');
 
   await expect(gleason).toHaveAttribute('data-measurement-status','idle');
