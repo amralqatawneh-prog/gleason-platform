@@ -12,6 +12,8 @@
 - P6.5 remains **CLOSED + MERGED**; P6.6 remains **NOT STARTED**.
 - Accepted phase remains **5** and accepted application version remains **v0.5.0**.
 - No tag, GitHub Release or deployment is created by this reconciliation.
+- Reconciliation verification head `6b7b1e9cc2e809f4485626171d69c18366c89fe5` passed Release Acceptance Gates **#713 — SUCCESS**.
+- Reconciliation is **CLOSED / VERIFIED**; PR #26 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
 
 ## [Unreleased] — Phase 6 / P6.5 Gleason Native Measurement (2026-09-21)
 
