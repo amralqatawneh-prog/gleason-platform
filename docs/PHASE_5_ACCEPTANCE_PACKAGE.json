@@ -711,7 +711,7 @@
   "roadmap_astronomy_architecture_amendment_2026_09_21": {
     "decision": "owner-approved",
     "owner_statement": "موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد",
-    "status": "in_progress",
+    "status": "closed",
     "date": "2026-09-21",
     "branch": "docs/astronomy-roadmap-amendment-2026-09-21",
     "stacked_base_pr": 26,
@@ -764,14 +764,16 @@
     "pr": 27,
     "pr_base": "main",
     "merge_status": "open-draft-unmerged",
-    "verification_head": null,
-    "verification_ci_run": null,
-    "verification_ci_conclusion": "pending",
+    "verification_head": "eebf162e3dd1cf35e15933ff4622e7915bf0cd97",
+    "verification_ci_run": 720,
+    "verification_ci_conclusion": "success",
     "tag": "not_created",
     "github_release": "not_created",
     "deployment": "not_created",
     "verification_blocker": null,
     "next_required_action": "Run full Release Acceptance Gates on PR #27 after retargeting to main; then record exact verification head/run before closure.",
-    "stacked_base_merge_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102"
+    "stacked_base_merge_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
+    "merge_authorization": "pending-separate-owner-instruction",
+    "final_closure_ci_requirement": "complete Release Acceptance Gates must pass on the exact closure-state head before merge"
   }
 }
