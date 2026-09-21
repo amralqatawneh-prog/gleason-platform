@@ -445,7 +445,9 @@
       "branch": "feat/phase6-p6-5-gleason-native-measurement",
       "scope": "Gleason native normalized distance for adjacent ordered route segments and open-polyline total only",
       "status": "in_progress",
-      "owner_manual_status": "not-run"
+      "owner_manual_status": "not-run",
+      "pr": 25,
+      "pr_status": "draft-open"
     }
   },
   "post_pr16_merge_reconciliation": {
