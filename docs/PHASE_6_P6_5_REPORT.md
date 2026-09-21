@@ -152,8 +152,22 @@ Automated Release Acceptance Gates:
 - **#686 — FAILED** at Frontend core tests only because one new P6.5 test used
   strict equality for the model-center coordinate and distinguished JavaScript
   `-0` from `+0`. They are numerically identical; the production calculation
-  was not changed. The test now checks numeric zero tolerance.
-- replacement exact-head verification: **PENDING**.
+  was not changed. The test was corrected to use numeric-zero tolerance.
+- **#689 — FAILED** at the browser-acceptance step because the historical P5.7
+  future-route assertion still expected the old phrase `route drawing/provider paths`.
+  On that exact head, repository structure, source policy, Phase 5 package,
+  locked-source verification, backend tests, npm security, frontend core tests,
+  WGS84 parity, the new Gleason backend/browser parity gate, service-worker
+  syntax, production build and PWA checks had already **PASSED**.
+- The stale browser assertion was corrected in commit
+  `2e694a0a6d96d1bc877a9adc92a1c4ab5dd19ce1`.
+- Browser coverage was then strengthened in commit
+  `4e6e10bd86a5155750b59f15fdf135a27d0a48dd` to abort the Gleason measurement
+  endpoint during a route edit and require the visible provenance to switch to
+  `typescript-math (browser)`, proving the browser-local fallback path.
+- README current-slice wording was reconciled in
+  `53513cc7eb9c59219e62da64078d00ac491f9413`.
+- replacement exact-head full Release Acceptance Gates: **PENDING**.
 
 Owner manual verification: **NOT RUN**.
 
