@@ -2,7 +2,8 @@ import {
   GLEASON_MODEL_ID,
   GLEASON_MODEL_VERSION,
   gleasonForward,
-  GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+  GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+  GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
 } from '../models/gleason.js';
 
 export const GLEASON_ROUTE_DISTANCE_VERSION = 1 as const;
@@ -24,7 +25,8 @@ export interface GleasonRouteDistanceSegment {
   readonly to_x_normalized_radius: number;
   readonly to_y_normalized_radius: number;
   readonly distance_normalized_radius_unit: number;
-  readonly distance_map_ruler_nautical_mile_derived: number;
+  readonly distance_historical_fig43_mile_derived: number;
+  readonly distance_legacy_radial60_nautical_mile: number;
 }
 
 export interface GleasonRouteDistanceResult {
@@ -43,11 +45,15 @@ export interface GleasonRouteDistanceResult {
     readonly segment_geometry: 'straight-projected-chord';
     readonly segment_count: number;
     readonly total_distance_normalized_radius_unit: number;
-    readonly map_ruler_method_id: 'gleason-map-ruler-derived';
-    readonly map_ruler_unit: 'nautical-mile-derived';
-    readonly map_ruler_scale_basis: '60-nautical-miles-per-radial-latitude-degree';
-    readonly map_ruler_evidence_level: 'DERIVED';
-    readonly total_distance_map_ruler_nautical_mile_derived: number;
+    readonly historical_scale_profile_id: 'gleason-fig43-circle-derived';
+    readonly historical_scale_unit: 'historical-fig43-mile';
+    readonly historical_scale_basis: 'equator-360x60-circle-radius';
+    readonly historical_scale_evidence_level: 'DERIVED_FROM_DOCUMENTED';
+    readonly total_distance_historical_fig43_mile_derived: number;
+    readonly legacy_scale_profile_id: 'gleason-radial-60nm-legacy';
+    readonly legacy_scale_unit: 'nautical-mile-legacy';
+    readonly legacy_scale_evidence_level: 'SECONDARY_OBSERVED';
+    readonly total_distance_legacy_radial60_nautical_mile: number;
     readonly segments: readonly GleasonRouteDistanceSegment[];
   };
   readonly provenance: {
@@ -167,8 +173,10 @@ export function localGleasonRouteDistance(
       to_x_normalized_radius: endXY.x,
       to_y_normalized_radius: endXY.y,
       distance_normalized_radius_unit: distance,
-      distance_map_ruler_nautical_mile_derived:
-        distance * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+      distance_historical_fig43_mile_derived:
+        distance * GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+      distance_legacy_radial60_nautical_mile:
+        distance * GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
     }));
   }
 
@@ -185,12 +193,17 @@ export function localGleasonRouteDistance(
       segment_geometry: 'straight-projected-chord',
       segment_count: segments.length,
       total_distance_normalized_radius_unit: compensatedTotal(distances),
-      map_ruler_method_id: 'gleason-map-ruler-derived',
-      map_ruler_unit: 'nautical-mile-derived',
-      map_ruler_scale_basis: '60-nautical-miles-per-radial-latitude-degree',
-      map_ruler_evidence_level: 'DERIVED',
-      total_distance_map_ruler_nautical_mile_derived:
-        compensatedTotal(distances) * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+      historical_scale_profile_id: 'gleason-fig43-circle-derived',
+      historical_scale_unit: 'historical-fig43-mile',
+      historical_scale_basis: 'equator-360x60-circle-radius',
+      historical_scale_evidence_level: 'DERIVED_FROM_DOCUMENTED',
+      total_distance_historical_fig43_mile_derived:
+        compensatedTotal(distances) * GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+      legacy_scale_profile_id: 'gleason-radial-60nm-legacy',
+      legacy_scale_unit: 'nautical-mile-legacy',
+      legacy_scale_evidence_level: 'SECONDARY_OBSERVED',
+      total_distance_legacy_radial60_nautical_mile:
+        compensatedTotal(distances) * GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
       segments: Object.freeze(segments),
     }),
     provenance: Object.freeze({

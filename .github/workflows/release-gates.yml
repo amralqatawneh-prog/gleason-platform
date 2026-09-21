@@ -50,11 +50,14 @@ jobs:
           test -s frontend/src/measurement/aePolygon.ts
           test -s frontend/src/measurement/gleasonPolygon.ts
           test -s frontend/src/measurement/gleasonHistoricalMeasurement.ts
+          test -s frontend/src/measurement/gleasonScaleProfiles.ts
+          test -s frontend/src/models/gleasonHistoricalRaster.ts
           test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
           test -s frontend/tests/route-guide.test.mjs
           test -s frontend/tests/polygon-measurement.test.mjs
           test -s frontend/tests/gleason-historical-measurement.test.mjs
+          test -s frontend/tests/gleason-historical-raster.test.mjs
           test -s backend/tests/test_phase6_wgs84_route_distance.py
           test -s backend/tests/test_phase6_polygon_measurement.py
           test -s backend/tests/test_phase6_gleason_route_distance.py
@@ -169,7 +172,7 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"route-point-1","latitude":90,"longitude":0},{"point_id":"route-point-2","latitude":0,"longitude":0},{"point_id":"route-point-3","latitude":0,"longitude":90}]}' >/tmp/gleason-route.json
-          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069)' /tmp/gleason-route.json
+          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069) and .output.historical_scale_profile_id=="gleason-fig43-circle-derived" and (.output.total_distance_historical_fig43_mile_derived>8300 and .output.total_distance_historical_fig43_mile_derived<8301) and .output.legacy_scale_profile_id=="gleason-radial-60nm-legacy"' /tmp/gleason-route.json
           jq -e '.provenance.provider_id=="gleason-historical" and .provenance.provider_version=="GH-0.2.0"' /tmp/gleason-route.json
       - name: Verify P6.6 polygon measurement APIs
         run: |

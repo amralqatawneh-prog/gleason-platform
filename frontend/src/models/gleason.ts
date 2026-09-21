@@ -3,9 +3,12 @@ import type { GeoPoint, ProjectedPoint, ProjectionMetadata } from './projectionT
 export const GLEASON_MODEL_ID = 'gleason-historical';
 export const GLEASON_MODEL_VERSION = 'GH-0.2.0';
 export const GLEASON_UNITS = 'normalized-radius';
-export const GLEASON_HISTORICAL_NAUTICAL_MILES_PER_LATITUDE_DEGREE = 60 as const;
-export const GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU =
-  180 * GLEASON_HISTORICAL_NAUTICAL_MILES_PER_LATITUDE_DEGREE;
+export const GLEASON_FIG43_EQUATOR_MILES_PER_LONGITUDE_DEGREE = 60 as const;
+export const GLEASON_FIG43_EQUATOR_CIRCUMFERENCE_MILES =
+  360 * GLEASON_FIG43_EQUATOR_MILES_PER_LONGITUDE_DEGREE;
+export const GLEASON_FIG43_CIRCLE_MILES_PER_NRU =
+  GLEASON_FIG43_EQUATOR_CIRCUMFERENCE_MILES / Math.PI;
+export const GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU = 10800 as const;
 
 export function normalizeLongitude(longitude: number): number {
   let value = ((longitude + 180) % 360 + 360) % 360 - 180;

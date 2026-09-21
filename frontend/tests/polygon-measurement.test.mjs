@@ -23,16 +23,17 @@ test('P6.6 Gleason closed triangle exposes normalized perimeter, signed area and
   assert.ok(Math.abs(result.output.perimeter_normalized_radius_unit - (1 + Math.SQRT1_2)) < 1e-15);
   assert.ok(Math.abs(result.output.signed_area_normalized_radius_unit_squared - 0.125) < 1e-15);
   assert.equal(result.output.area_normalized_radius_unit_squared, 0.125);
-  assert.equal(result.output.map_ruler_method_id, 'gleason-map-ruler-derived');
-  assert.equal(result.output.map_ruler_evidence_level, 'DERIVED');
+  assert.equal(result.output.historical_scale_profile_id, 'gleason-fig43-circle-derived');
+  assert.equal(result.output.historical_scale_evidence_level, 'DERIVED_FROM_DOCUMENTED');
   assert.ok(Math.abs(
-    result.output.perimeter_map_ruler_nautical_mile_derived
-    - (1 + Math.SQRT1_2) * 10800
+    result.output.perimeter_historical_fig43_mile_derived
+    - (1 + Math.SQRT1_2) * (21600 / Math.PI)
   ) < 1e-9);
-  assert.equal(
-    result.output.area_map_ruler_nautical_mile_squared_derived,
-    0.125 * 10800 ** 2,
-  );
+  assert.ok(Math.abs(
+    result.output.area_historical_fig43_mile_squared_derived
+    - 0.125 * (21600 / Math.PI) ** 2
+  ) < 1e-6);
+  assert.equal(result.output.legacy_scale_profile_id, 'gleason-radial-60nm-legacy');
   assert.equal(result.output.segments.at(-1).to_point_id, 'A');
 });
 

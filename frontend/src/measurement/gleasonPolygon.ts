@@ -2,7 +2,8 @@ import {
   GLEASON_MODEL_ID,
   GLEASON_MODEL_VERSION,
   gleasonForward,
-  GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+  GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+  GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
 } from '../models/gleason.js';
 import {
   measurePlanarPolygon,
@@ -43,10 +44,13 @@ export interface GleasonPolygonResult {
     readonly perimeter_normalized_radius_unit: number;
     readonly signed_area_normalized_radius_unit_squared: number;
     readonly area_normalized_radius_unit_squared: number;
-    readonly map_ruler_method_id: 'gleason-map-ruler-derived';
-    readonly map_ruler_evidence_level: 'DERIVED';
-    readonly perimeter_map_ruler_nautical_mile_derived: number;
-    readonly area_map_ruler_nautical_mile_squared_derived: number;
+    readonly historical_scale_profile_id: 'gleason-fig43-circle-derived';
+    readonly historical_scale_evidence_level: 'DERIVED_FROM_DOCUMENTED';
+    readonly perimeter_historical_fig43_mile_derived: number;
+    readonly area_historical_fig43_mile_squared_derived: number;
+    readonly legacy_scale_profile_id: 'gleason-radial-60nm-legacy';
+    readonly perimeter_legacy_radial60_nautical_mile: number;
+    readonly area_legacy_radial60_nautical_mile_squared: number;
     readonly segments: readonly GleasonPolygonSegment[];
   };
   readonly provenance: {
@@ -105,12 +109,17 @@ export function localGleasonPolygonMeasurement(
       perimeter_normalized_radius_unit: measured.perimeter,
       signed_area_normalized_radius_unit_squared: measured.signedArea,
       area_normalized_radius_unit_squared: measured.area,
-      map_ruler_method_id: 'gleason-map-ruler-derived',
-      map_ruler_evidence_level: 'DERIVED',
-      perimeter_map_ruler_nautical_mile_derived:
-        measured.perimeter * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
-      area_map_ruler_nautical_mile_squared_derived:
-        measured.area * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU ** 2,
+      historical_scale_profile_id: 'gleason-fig43-circle-derived',
+      historical_scale_evidence_level: 'DERIVED_FROM_DOCUMENTED',
+      perimeter_historical_fig43_mile_derived:
+        measured.perimeter * GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+      area_historical_fig43_mile_squared_derived:
+        measured.area * GLEASON_FIG43_CIRCLE_MILES_PER_NRU ** 2,
+      legacy_scale_profile_id: 'gleason-radial-60nm-legacy',
+      perimeter_legacy_radial60_nautical_mile:
+        measured.perimeter * GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
+      area_legacy_radial60_nautical_mile_squared:
+        measured.area * GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU ** 2,
       segments: Object.freeze(segments),
     }),
     provenance: Object.freeze({

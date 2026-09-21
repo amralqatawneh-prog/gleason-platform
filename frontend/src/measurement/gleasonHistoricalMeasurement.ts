@@ -1,5 +1,6 @@
 import {
-  GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU,
+  GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
+  GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU,
   historicalLongitudeDegreeMiles,
   normalizeLongitude,
   gleasonForward,
@@ -27,7 +28,9 @@ export interface GleasonSameLatitudeLongitudeResult {
   readonly latitude_deg: number;
   readonly miles_per_longitude_degree: number;
   readonly longitude_delta_deg: number;
-  readonly distance_historical_book_mile: number;
+  readonly parallel_arc_historical_fig43_mile: number;
+  readonly parallel_radius_historical_fig43_mile: number;
+  readonly straight_chord_historical_fig43_mile: number;
 }
 
 export function shortestSignedLongitudeDelta(fromLongitude: number, toLongitude: number): number {
@@ -57,21 +60,52 @@ export function gleasonTextNauticalToEnglishMiles(nauticalMiles: number): number
   return nauticalMiles * GLEASON_TEXT_NAUTICAL_MILE_FEET / GLEASON_TEXT_ENGLISH_MILE_FEET;
 }
 
-export function gleasonMapRulerDerivedNauticalMiles(
+function normalizedChord(start: GleasonHistoricalPoint, end: GleasonHistoricalPoint): number {
+  const a = gleasonForward(start);
+  const b = gleasonForward(end);
+  return Math.hypot(b.x - a.x, b.y - a.y);
+}
+
+/** Preferred audited historical scale profile, derived from Fig.43's 60 miles
+ * per longitude degree at the Equator plus the circle relation C=2πr.
+ */
+export function gleasonFig43CircleDerivedDistance(
   start: GleasonHistoricalPoint,
   end: GleasonHistoricalPoint,
 ): number {
-  const a = gleasonForward(start);
-  const b = gleasonForward(end);
-  return Math.hypot(b.x - a.x, b.y - a.y) * GLEASON_MAP_RULER_NAUTICAL_MILES_PER_NRU;
+  return normalizedChord(start, end) * GLEASON_FIG43_CIRCLE_MILES_PER_NRU;
+}
+
+/** Legacy comparison only: the earlier video assumption of 60 NM for each of
+ * 180 radial latitude degrees. It is not the historical default.
+ */
+export function gleasonLegacyRadial60Distance(
+  start: GleasonHistoricalPoint,
+  end: GleasonHistoricalPoint,
+): number {
+  return normalizedChord(start, end) * GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU;
+}
+
+/** Walter-style external comparison. EQ is caller supplied distance from the
+ * north-pole center to the Equator; geometry is identical up to scale.
+ */
+export function gleasonWalterConfigurableDistance(
+  start: GleasonHistoricalPoint,
+  end: GleasonHistoricalPoint,
+  equatorDistance: number,
+): number {
+  if (!Number.isFinite(equatorDistance) || equatorDistance <= 0) {
+    throw new RangeError('equatorDistance must be a positive finite value');
+  }
+  return normalizedChord(start, end) * (2 * equatorDistance);
 }
 
 /**
  * Figure 43 is a latitude-specific longitude scale. It is not a general
- * arbitrary two-point route rule. Therefore this helper deliberately fails
- * closed unless the two endpoints lie on the same latitude.
+ * arbitrary two-point route rule. Same-latitude use exposes both the parallel
+ * arc and the direct planar chord; they are intentionally different quantities.
  */
-export function gleasonSameLatitudeHistoricalLongitudeDistance(
+export function gleasonSameLatitudeHistoricalLongitudeMetrics(
   start: GleasonHistoricalPoint,
   end: GleasonHistoricalPoint,
   latitudeToleranceDeg = 1e-9,
@@ -80,10 +114,15 @@ export function gleasonSameLatitudeHistoricalLongitudeDistance(
   const latitude = (start.latitude + end.latitude) / 2;
   const longitudeDelta = Math.abs(shortestSignedLongitudeDelta(start.longitude, end.longitude));
   const milesPerDegree = historicalLongitudeDegreeMiles(latitude);
+  const parallelArc = longitudeDelta * milesPerDegree;
+  const parallelRadius = 360 * milesPerDegree / (2 * Math.PI);
+  const straightChord = 2 * parallelRadius * Math.sin(longitudeDelta * Math.PI / 360);
   return Object.freeze({
     latitude_deg: latitude,
     miles_per_longitude_degree: milesPerDegree,
     longitude_delta_deg: longitudeDelta,
-    distance_historical_book_mile: longitudeDelta * milesPerDegree,
+    parallel_arc_historical_fig43_mile: parallelArc,
+    parallel_radius_historical_fig43_mile: parallelRadius,
+    straight_chord_historical_fig43_mile: Math.abs(straightChord),
   });
 }

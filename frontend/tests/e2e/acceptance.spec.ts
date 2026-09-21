@@ -954,10 +954,12 @@ test('Gleason source-audit laboratory separates ruler, Figure 43 and frame/time 
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
   const lab=page.locator('.gleason-measurement-lab');
   await expect(lab).toHaveAttribute('data-measurement-status','ready');
-  await expect(lab.locator('[data-gleason-tool="map-ruler-derived"]')).toContainText('gleason-map-ruler-derived');
+  await expect(lab.locator('[data-gleason-tool="historical-circle-derived"]')).toContainText('gleason-fig43-circle-derived');
   await expect(lab.locator('[data-gleason-tool="historical-longitude-scale"]')).toContainText('Fig.43');
   await expect(lab.locator('[data-gleason-tool="frame-time"]')).toContainText('Figs.37–38');
   await expect(lab).toContainText('not on the same latitude');
   await expect(lab).toContainText('Video 2');
   await expect(lab).not.toContainText('Sydney–Perth = 2160');
+  await expect(lab).toHaveAttribute('data-historical-scale-profile','gleason-fig43-circle-derived');
+  await expect(lab.locator('[data-gleason-raster-foundation="provisional"]')).toContainText('4653×6506');
 });

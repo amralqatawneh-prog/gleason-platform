@@ -3,7 +3,7 @@ import { gleasonRouteDistance, type GleasonRouteDistanceResult } from '../api';
 import {
   gleasonFig37NauticalToEnglishMiles,
   gleasonFrameTimeDifference,
-  gleasonSameLatitudeHistoricalLongitudeDistance,
+  gleasonSameLatitudeHistoricalLongitudeMetrics,
   gleasonTextNauticalToEnglishMiles,
 } from './gleasonHistoricalMeasurement';
 import { historicalLongitudeDegreeMiles } from '../models/gleason';
@@ -52,7 +52,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
       start,
       end,
       frame: gleasonFrameTimeDifference(start.longitude, end.longitude),
-      historical: gleasonSameLatitudeHistoricalLongitudeDistance(start, end),
+      historical: gleasonSameLatitudeHistoricalLongitudeMetrics(start, end),
     };
   });
 
@@ -67,9 +67,9 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
     data-route-distance-normalized-radius-unit={
       result ? result.output.total_distance_normalized_radius_unit.toFixed(12) : ''
     }
-    data-map-ruler-method={result?.output.map_ruler_method_id ?? 'gleason-map-ruler-derived'}
-    data-route-distance-derived-nautical-mile={
-      result ? result.output.total_distance_map_ruler_nautical_mile_derived.toFixed(6) : ''
+    data-historical-scale-profile={result?.output.historical_scale_profile_id ?? 'gleason-fig43-circle-derived'}
+    data-route-distance-historical-fig43-mile={
+      result ? result.output.total_distance_historical_fig43_mile_derived.toFixed(6) : ''
     }
     aria-labelledby="gleason-route-distance-title"
   >
@@ -95,22 +95,22 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
 
     {result && <>
       <div className="gleason-lab-grid">
-        <article className="gleason-lab-card" data-gleason-tool="map-ruler-derived">
+        <article className="gleason-lab-card" data-gleason-tool="historical-circle-derived">
           <div className="polygon-measurement-card__head">
             <div>
-              <strong>{locale === 'ar' ? '1) مسطرة مستوى الخريطة' : '1) Map-plane ruler'}</strong>
-              <small>gleason-map-ruler-derived · DERIVED</small>
+              <strong>{locale === 'ar' ? '1) المسطرة التاريخية المشتقة من Fig.43 والدائرة' : '1) Fig.43 / circle-derived ruler'}</strong>
+              <small>gleason-fig43-circle-derived · DERIVED_FROM_DOCUMENTED</small>
             </div>
-            <span className="evidence-badge">DERIVED</span>
+            <span className="evidence-badge">DERIVED_FROM_DOCUMENTED</span>
           </div>
           <div className="gleason-route-distance-total">
-            <span>{locale === 'ar' ? 'المجموع المشتق بالميل البحري' : 'Derived total in nautical miles'}</span>
-            <strong dir="ltr">{format(result.output.total_distance_map_ruler_nautical_mile_derived, locale, 2)} NM</strong>
+            <span>{locale === 'ar' ? 'المجموع بالمقياس التاريخي المشتق' : 'Historical circle-derived total'}</span>
+            <strong dir="ltr">{format(result.output.total_distance_historical_fig43_mile_derived, locale, 2)} historical Fig.43 miles</strong>
             <small dir="ltr">{format(result.output.total_distance_normalized_radius_unit, locale, 9)} NRU</small>
           </div>
           <p className="muted">{locale === 'ar'
-            ? 'المعايرة: 60 ميلًا بحريًا لكل درجة عرض شعاعية، أي 10800 NM لكل NRU. هذه معايرة مشتقة للمسطرة على مستوى الخريطة وليست قاعدة Fig.43.'
-            : 'Calibration: 60 nautical miles per radial latitude degree, hence 10800 NM per NRU. This is a derived map-ruler calibration, not Figure 43.'}</p>
+            ? 'المعايرة الافتراضية: Fig.43 يعطي 60 mile/° عند خط الاستواء؛ 360×60=21600 للمحيط، ثم C=2πr. لذلك 1 NRU = 21600/π ≈ 6875.49 historical Fig.43 miles. فرضية 10800 NM/NRU محفوظة للمقارنة فقط.'
+            : 'Default calibration: Figure 43 gives 60 miles/degree at the Equator; 360×60=21600 circumference, then C=2πr. Thus 1 NRU = 21600/π ≈ 6875.49 historical Fig.43 miles. The 10800 NM/NRU assumption remains legacy-only.'}</p>
           <ol className="gleason-route-distance-segments">
             {result.output.segments.map(segment => <li
               key={segment.segment_id}
@@ -119,7 +119,8 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
               data-segment-distance-normalized-radius-unit={segment.distance_normalized_radius_unit.toFixed(12)}
             >
               <strong>{pointLetter(segment.index)} → {pointLetter(segment.index + 1)}</strong>
-              <span dir="ltr">{format(segment.distance_map_ruler_nautical_mile_derived, locale, 2)} NM</span>
+              <span dir="ltr">{format(segment.distance_historical_fig43_mile_derived, locale, 2)} historical Fig.43 mi</span>
+              <small dir="ltr">legacy: {format(segment.distance_legacy_radial60_nautical_mile, locale, 2)} NM
               <small dir="ltr">{format(segment.distance_normalized_radius_unit, locale, 9)} NRU</small>
             </li>)}
           </ol>
@@ -152,7 +153,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
             {segments.map(segment => <li key={segment.index}>
               <strong>{pointLetter(segment.index)} → {pointLetter(segment.index + 1)}</strong>
               {segment.historical
-                ? <span dir="ltr">{format(segment.historical.longitude_delta_deg, locale, 4)}° × {format(segment.historical.miles_per_longitude_degree, locale, 4)} = {format(segment.historical.distance_historical_book_mile, locale, 2)} historical book miles</span>
+                ? <span dir="ltr">Δlon {format(segment.historical.longitude_delta_deg, locale, 4)}° · {format(segment.historical.miles_per_longitude_degree, locale, 4)} mi/° · arc {format(segment.historical.parallel_arc_historical_fig43_mile, locale, 2)} · chord {format(segment.historical.straight_chord_historical_fig43_mile, locale, 2)}</span>
                 : <span>{locale === 'ar'
                   ? 'غير معرّف كمسافة عامة: النقطتان ليستا على خط العرض نفسه.'
                   : 'Not defined as a general distance: endpoints are not on the same latitude.'}</span>}
@@ -187,6 +188,10 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
         </article>
       </div>
 
+      <div className="notice" data-gleason-raster-foundation="provisional">
+        <strong>{locale === 'ar' ? 'Raster جليسون عالي الجودة — georeferencing أولي' : 'High-resolution Gleason raster — provisional georeferencing'}</strong>
+        <span dir="ltr">4653×6506 px · PDF SHA-256 26105ca1f98ec9d… · center≈(2315.18,3287.41) · outer ring≈1851.84 px · fit RMS≈5.77 px</span>
+      </div>
       <div className="notice gleason-source-audit-notice">
         <strong>{locale === 'ar' ? 'نتيجة مراجعة الفيديوهين' : 'Video-source audit result'}</strong>
         <span>{locale === 'ar'

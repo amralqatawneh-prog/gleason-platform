@@ -126,7 +126,8 @@ class GleasonRouteDistanceSegment(BaseModel):
     to_x_normalized_radius: float
     to_y_normalized_radius: float
     distance_normalized_radius_unit: float = Field(ge=0.0)
-    distance_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
+    distance_historical_fig43_mile_derived: float = Field(ge=0.0)
+    distance_legacy_radial60_nautical_mile: float = Field(ge=0.0)
 
 
 class GleasonRouteDistanceOutput(BaseModel):
@@ -138,13 +139,25 @@ class GleasonRouteDistanceOutput(BaseModel):
     segment_geometry: Literal["straight-projected-chord"] = "straight-projected-chord"
     segment_count: int = Field(ge=1)
     total_distance_normalized_radius_unit: float = Field(ge=0.0)
-    map_ruler_method_id: Literal["gleason-map-ruler-derived"] = "gleason-map-ruler-derived"
-    map_ruler_unit: Literal["nautical-mile-derived"] = "nautical-mile-derived"
-    map_ruler_scale_basis: Literal[
-        "60-nautical-miles-per-radial-latitude-degree"
-    ] = "60-nautical-miles-per-radial-latitude-degree"
-    map_ruler_evidence_level: Literal["DERIVED"] = "DERIVED"
-    total_distance_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
+    historical_scale_profile_id: Literal[
+        "gleason-fig43-circle-derived"
+    ] = "gleason-fig43-circle-derived"
+    historical_scale_unit: Literal["historical-fig43-mile"] = "historical-fig43-mile"
+    historical_scale_basis: Literal[
+        "equator-360x60-circle-radius"
+    ] = "equator-360x60-circle-radius"
+    historical_scale_evidence_level: Literal[
+        "DERIVED_FROM_DOCUMENTED"
+    ] = "DERIVED_FROM_DOCUMENTED"
+    total_distance_historical_fig43_mile_derived: float = Field(ge=0.0)
+    legacy_scale_profile_id: Literal[
+        "gleason-radial-60nm-legacy"
+    ] = "gleason-radial-60nm-legacy"
+    legacy_scale_unit: Literal["nautical-mile-legacy"] = "nautical-mile-legacy"
+    legacy_scale_evidence_level: Literal[
+        "SECONDARY_OBSERVED"
+    ] = "SECONDARY_OBSERVED"
+    total_distance_legacy_radial60_nautical_mile: float = Field(ge=0.0)
     segments: list[GleasonRouteDistanceSegment]
 
 
@@ -261,10 +274,19 @@ class GleasonPolygonOutput(BaseModel):
     perimeter_normalized_radius_unit: float = Field(ge=0.0)
     signed_area_normalized_radius_unit_squared: float
     area_normalized_radius_unit_squared: float = Field(gt=0.0)
-    map_ruler_method_id: Literal["gleason-map-ruler-derived"] = "gleason-map-ruler-derived"
-    map_ruler_evidence_level: Literal["DERIVED"] = "DERIVED"
-    perimeter_map_ruler_nautical_mile_derived: float = Field(ge=0.0)
-    area_map_ruler_nautical_mile_squared_derived: float = Field(gt=0.0)
+    historical_scale_profile_id: Literal[
+        "gleason-fig43-circle-derived"
+    ] = "gleason-fig43-circle-derived"
+    historical_scale_evidence_level: Literal[
+        "DERIVED_FROM_DOCUMENTED"
+    ] = "DERIVED_FROM_DOCUMENTED"
+    perimeter_historical_fig43_mile_derived: float = Field(ge=0.0)
+    area_historical_fig43_mile_squared_derived: float = Field(gt=0.0)
+    legacy_scale_profile_id: Literal[
+        "gleason-radial-60nm-legacy"
+    ] = "gleason-radial-60nm-legacy"
+    perimeter_legacy_radial60_nautical_mile: float = Field(ge=0.0)
+    area_legacy_radial60_nautical_mile_squared: float = Field(gt=0.0)
     segments: list[GleasonPolygonSegment]
 
 

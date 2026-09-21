@@ -30,12 +30,13 @@ test('P6.5 local Gleason distance measures adjacent straight normalized chords',
   assert.ok(Math.abs(result.output.segments[0].distance_normalized_radius_unit - 0.5) < 1e-15);
   assert.ok(Math.abs(result.output.segments[1].distance_normalized_radius_unit - Math.SQRT1_2) < 1e-15);
   assert.ok(Math.abs(result.output.total_distance_normalized_radius_unit - (0.5 + Math.SQRT1_2)) < 1e-15);
-  assert.equal(result.output.map_ruler_method_id, 'gleason-map-ruler-derived');
-  assert.equal(result.output.map_ruler_evidence_level, 'DERIVED');
+  assert.equal(result.output.historical_scale_profile_id, 'gleason-fig43-circle-derived');
+  assert.equal(result.output.historical_scale_evidence_level, 'DERIVED_FROM_DOCUMENTED');
   assert.ok(Math.abs(
-    result.output.total_distance_map_ruler_nautical_mile_derived
-    - (0.5 + Math.SQRT1_2) * 10800
+    result.output.total_distance_historical_fig43_mile_derived
+    - (0.5 + Math.SQRT1_2) * (21600 / Math.PI)
   ) < 1e-9);
+  assert.equal(result.output.legacy_scale_profile_id, 'gleason-radial-60nm-legacy');
   assert.equal(result.provenance.implementation, 'typescript-math (browser)');
 });
 

@@ -123,9 +123,13 @@ def gleason_route_distance(route_id: str, points: list[GleasonRoutePoint]) -> Me
                 to_x_normalized_radius=end_xy.x,
                 to_y_normalized_radius=end_xy.y,
                 distance_normalized_radius_unit=distance,
-                distance_map_ruler_nautical_mile_derived=(
+                distance_historical_fig43_mile_derived=(
                     distance
-                    * _gleason_provider.map_ruler_nautical_miles_per_normalized_radius_unit
+                    * _gleason_provider.historical_fig43_miles_per_normalized_radius_unit
+                ),
+                distance_legacy_radial60_nautical_mile=(
+                    distance
+                    * _gleason_provider.legacy_radial60_nautical_miles_per_normalized_radius_unit
                 ),
             )
         )
@@ -134,9 +138,13 @@ def gleason_route_distance(route_id: str, points: list[GleasonRoutePoint]) -> Me
     output = GleasonRouteDistanceOutput(
         segment_count=len(segments),
         total_distance_normalized_radius_unit=total_normalized,
-        total_distance_map_ruler_nautical_mile_derived=(
+        total_distance_historical_fig43_mile_derived=(
             total_normalized
-            * _gleason_provider.map_ruler_nautical_miles_per_normalized_radius_unit
+            * _gleason_provider.historical_fig43_miles_per_normalized_radius_unit
+        ),
+        total_distance_legacy_radial60_nautical_mile=(
+            total_normalized
+            * _gleason_provider.legacy_radial60_nautical_miles_per_normalized_radius_unit
         ),
         segments=segments,
     )
@@ -299,15 +307,18 @@ def gleason_polygon_measurement(
     if not math.isfinite(signed_area) or math.isclose(signed_area, 0.0, abs_tol=1e-15):
         raise ValueError("Gleason polygon area is zero or numerically degenerate")
     perimeter_normalized = math.fsum(lengths)
-    ruler_scale = _gleason_provider.map_ruler_nautical_miles_per_normalized_radius_unit
+    historical_scale = _gleason_provider.historical_fig43_miles_per_normalized_radius_unit
+    legacy_scale = _gleason_provider.legacy_radial60_nautical_miles_per_normalized_radius_unit
     output = GleasonPolygonOutput(
         orientation="counterclockwise" if signed_area > 0 else "clockwise",
         segment_count=len(segments),
         perimeter_normalized_radius_unit=perimeter_normalized,
         signed_area_normalized_radius_unit_squared=signed_area,
         area_normalized_radius_unit_squared=abs(signed_area),
-        perimeter_map_ruler_nautical_mile_derived=perimeter_normalized * ruler_scale,
-        area_map_ruler_nautical_mile_squared_derived=abs(signed_area) * ruler_scale**2,
+        perimeter_historical_fig43_mile_derived=perimeter_normalized * historical_scale,
+        area_historical_fig43_mile_squared_derived=abs(signed_area) * historical_scale**2,
+        perimeter_legacy_radial60_nautical_mile=perimeter_normalized * legacy_scale,
+        area_legacy_radial60_nautical_mile_squared=abs(signed_area) * legacy_scale**2,
         segments=segments,
     )
     return MeasurementResult(

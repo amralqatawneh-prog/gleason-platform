@@ -97,7 +97,7 @@ function PolygonCard({
         </div>
       </div>
       {engine === 'gleason' && secondaryPerimeter && secondaryArea && <div className="gleason-polygon-derived">
-        <span>{locale === 'ar' ? 'معايرة مسطرة مشتقة — ليست مساحة سطح تاريخية' : 'Derived ruler calibration — not a historical surface-area claim'}</span>
+        <span>{locale === 'ar' ? 'مقياس Fig.43/الدائرة مشتق — مساحة مستوية وليست مساحة سطح فيزيائية' : 'Fig.43/circle-derived scale — planar area, not a physical surface-area claim'}</span>
         <strong dir="ltr">{secondaryPerimeter}</strong>
         <strong dir="ltr">{secondaryArea}</strong>
       </div>}
@@ -209,8 +209,8 @@ export function PolygonMeasurementPanel({ locale, state }: Props) {
           area={gleasonOutput?.area_normalized_radius_unit_squared ?? null} areaUnit="NRU²"
           signedArea={gleasonOutput?.signed_area_normalized_radius_unit_squared ?? null} orientation={gleasonOutput?.orientation ?? null}
           interiorRule={gleasonOutput?.interior_rule ?? 'absolute-algebraic-planar-area'} error={gleason.error}
-          secondaryPerimeter={gleasonOutput ? `${format(gleasonOutput.perimeter_map_ruler_nautical_mile_derived, locale, 2)} derived NM perimeter` : null}
-          secondaryArea={gleasonOutput ? `${format(gleasonOutput.area_map_ruler_nautical_mile_squared_derived, locale, 2)} derived NM² planar area` : null}
+          secondaryPerimeter={gleasonOutput ? `${format(gleasonOutput.perimeter_historical_fig43_mile_derived, locale, 2)} historical Fig.43 mi perimeter · legacy ${format(gleasonOutput.perimeter_legacy_radial60_nautical_mile, locale, 2)} NM` : null}
+          secondaryArea={gleasonOutput ? `${format(gleasonOutput.area_historical_fig43_mile_squared_derived, locale, 2)} historical Fig.43 mi² planar area` : null}
         />
       </div>
       <div className="notice polygon-measurement-boundary">
