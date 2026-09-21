@@ -68,6 +68,7 @@ jobs:
           test -s data/sources/gleason-video-measurement-audit.yaml
           test -s data/sources/gleason-restored-map.yaml
           test -s docs/GLEASON_SCALE_AND_RASTER_CALIBRATION_2026-09-21.md
+          test -s docs/POST_PR31_MERGE_RECONCILIATION_2026-09-22.md
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
