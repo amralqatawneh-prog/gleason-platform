@@ -1,13 +1,13 @@
 # Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles — 2026-09-21
 
-Status: **CLOSED / VERIFIED — CI #720 SUCCESS / PR #27 OPEN / DRAFT / UNMERGED / FINAL CLOSURE CI REQUIRED**
+Status: **CLOSED / VERIFIED + MERGED — FINAL HEAD `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` / CI #726 SUCCESS / MERGE `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`**
 
 Owner approval: **«موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد»**
 
 Stacked baseline:
 - post-PR25 reconciliation exact verified head: `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`
 - Release Acceptance Gates: **#718 — SUCCESS**
-- current integration baseline: `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102` (PR #26 merge)
+- current integration baseline: `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11` (PR #27 merge)
 - P6.5: **CLOSED + MERGED**
 - P6.6: **NOT STARTED**
 - accepted phase remains: **Phase 5**
@@ -428,7 +428,7 @@ PR #26 has now been separately authorized and **MERGED** into `main`:
 - Release Acceptance Gates: **#718 — SUCCESS**
 - merge commit: `6bbfe92e8a4c0b66415eb888598cace5b7b15102`
 
-Implementation PR #27 remains **OPEN / DRAFT / UNMERGED**.
+Implementation PR #27 is **MERGED / CLOSED** into `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11` by separate explicit owner authorization.
 
 The previous stacked-base blocker is cleared. PR #27 now targets `main` and must pass the complete Release Acceptance Gates on its exact head. Any
 closure-state documentation update after that verification must itself pass the
@@ -450,7 +450,4 @@ The amendment is therefore **CLOSED / VERIFIED** as architecture/documentation
 scope. It does not imply any runtime astronomy implementation and it does not
 start P6.6.
 
-PR #27 remains **OPEN / DRAFT / UNMERGED**. This closure documentation creates a
-new exact head, so that closure-state head must pass the complete Release
-Acceptance Gates before PR #27 is considered ready for a separate owner merge
-authorization.
+The closure-state head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed the complete **Release Acceptance Gates #726 — SUCCESS**. The owner separately authorized merging PR #27, and it was **MERGED** into `main` at `5442852ef4bc2e760db39743d0bc7b3bc57d0b11` on 2026-09-21. No post-merge push-run is claimed because none is independently visible through the available workflow view.
