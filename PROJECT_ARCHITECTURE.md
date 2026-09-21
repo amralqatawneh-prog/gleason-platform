@@ -33,7 +33,7 @@ P6.1–P6.5 are closed. P6.5 Gleason Native Measurement is merged through PR #25
 `de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The original amendment is architecture/documentation planning only.
 
 A later owner-approved comparative astronomy addendum is documented in
-`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`. It reserves
+`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`. It is **CLOSED / VERIFIED + MERGED** through PR #27 at `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11`; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS**. It reserves
 `CelestialComputationProvider` and `EclipsePredictionProvider`, registers
 Shane/Walter/NASA/Babylonian-method planning sources, distinguishes
 `ObserverCelestialSphere` from `PhysicalHeavensModel`, and expands future
