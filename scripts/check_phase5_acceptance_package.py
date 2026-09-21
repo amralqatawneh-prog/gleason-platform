@@ -51,12 +51,44 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.3", "previous Phase 6 slice must be P6.3")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.3 must remain closed")
-require(phase6_start.get("current_slice") == "P6.4", "current Phase 6 slice must be P6.4")
-require(phase6_start.get("current_slice_status") == "closed", "P6.4 current slice status must be closed")
-require(phase6_start.get("next_slice") == "P6.5", "next Phase 6 slice must be P6.5")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.5 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.4", "previous Phase 6 slice must be P6.4")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.4 must remain closed")
+require(phase6_start.get("current_slice") == "P6.5", "current Phase 6 slice must be P6.5")
+require(phase6_start.get("current_slice_status") == "closed", "P6.5 current slice status must be closed after owner verification")
+require(phase6_start.get("next_slice") == "P6.6", "next Phase 6 slice must be P6.6")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.6 must remain not_started")
+p6_5_start = phase6_start.get("p6_5_start", {})
+require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
+require(
+    p6_5_start.get("baseline_commit") == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "P6.5 baseline commit drifted",
+)
+require(
+    p6_5_start.get("branch") == "feat/phase6-p6-5-gleason-native-measurement",
+    "P6.5 branch evidence drifted",
+)
+require(
+    p6_5_start.get("scope") == "Gleason native normalized distance for adjacent ordered route segments and open-polyline total only",
+    "P6.5 scope drifted",
+)
+require(p6_5_start.get("status") == "closed", "P6.5 start record must be closed after owner verification")
+require(p6_5_start.get("owner_manual_status") == "pass-reported-by-owner", "P6.5 owner manual status must record owner-reported PASS")
+require(p6_5_start.get("pr") == 25, "P6.5 active pull request must be #25")
+require(p6_5_start.get("pr_status") == "draft-open", "P6.5 PR #25 must remain draft/open before owner verification")
+require(phase6_start.get("p6_5_status") == "closed", "P6.5 status must be closed after owner verification")
+p6_5_automated = phase6_start.get("p6_5_automated", {})
+require(p6_5_automated.get("implementation_head") == "a733f81d922963a385357becf69dafd8b6d576be", "P6.5 implementation head evidence drifted")
+require(p6_5_automated.get("ci_run") == 691, "P6.5 automated CI must be #691")
+require(p6_5_automated.get("ci_conclusion") == "success", "P6.5 automated CI #691 must remain success")
+require(p6_5_automated.get("prior_failed_ci_runs") == [686, 689], "P6.5 prior failed CI evidence drifted")
+p6_5_manual = phase6_start.get("p6_5_owner_manual", {})
+require(p6_5_manual.get("result") == "pass-reported-by-owner", "P6.5 owner manual PASS evidence missing")
+require(p6_5_manual.get("checklist_items_passed") == 6, "P6.5 must record 6/6 owner manual checks")
+require(p6_5_manual.get("tested_head") == "a733f81d922963a385357becf69dafd8b6d576be", "P6.5 tested head drifted")
+require(p6_5_manual.get("pre_manual_ci_run") == 691, "P6.5 manual verification must follow CI #691")
+require(p6_5_manual.get("pre_manual_ci_conclusion") == "success", "P6.5 pre-manual CI #691 must remain success")
+require(p6_5_manual.get("backend_fallback") == "pass-reported-by-owner", "P6.5 backend fallback owner test must be recorded")
+require(p6_5_manual.get("arabic_mobile_layout") == "pass-reported-by-owner", "P6.5 Arabic/mobile owner test must be recorded")
 p6_4_start = phase6_start.get("p6_4_start", {})
 require(p6_4_start.get("decision") == "started-by-owner", "P6.4 owner start evidence missing")
 require(
@@ -271,8 +303,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
-    "current integration baseline must be the PR #23 merge commit",
+    == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "current integration baseline must be the PR #24 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -351,6 +383,20 @@ require(merge_boundary.get("pr23_post_merge_main_ci_run") is None, "PR #23 must 
 require(
     merge_boundary.get("pr23_post_merge_main_ci_conclusion") == "not-independently-observed",
     "PR #23 post-merge CI evidence state drifted",
+)
+require(merge_boundary.get("pr24") == "merged", "PR #24 must be recorded as merged")
+require(
+    merge_boundary.get("pr24_merge_commit") == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "PR #24 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr24_final_head") == "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
+    "PR #24 final head drifted",
+)
+require(merge_boundary.get("pr24_pre_merge_ci_run") == 684, "PR #24 pre-merge CI must be #684")
+require(
+    merge_boundary.get("pr24_pre_merge_ci_conclusion") == "success",
+    "PR #24 pre-merge CI #684 must remain success",
 )
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -481,10 +527,20 @@ require(
     post_pr23.get("verification_ci_conclusion") == "success",
     "post-PR23 reconciliation verification CI #679 must remain success",
 )
-require(post_pr23.get("merge_status") == "open-unmerged", "post-PR23 reconciliation PR #24 must remain unmerged before owner authorization")
+require(post_pr23.get("merge_status") == "merged", "post-PR23 reconciliation PR #24 must be recorded as merged")
 require(
-    post_pr23.get("merge_authorization") == "pending-separate-owner-instruction",
-    "post-PR23 reconciliation merge must await separate owner authorization",
+    post_pr23.get("merge_authorization") == "explicit-owner-instruction",
+    "post-PR23 reconciliation merge authorization evidence missing",
+)
+require(
+    post_pr23.get("final_closure_head") == "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
+    "PR #24 final closure head drifted",
+)
+require(post_pr23.get("final_closure_ci_run") == 684, "PR #24 final closure CI must be #684")
+require(post_pr23.get("final_closure_ci_conclusion") == "success", "PR #24 CI #684 must remain success")
+require(
+    post_pr23.get("merge_commit") == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "PR #24 merge commit drifted",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
@@ -889,11 +945,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.3",
+            "phase6_previous_slice": "P6.4",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.4",
+            "phase6_current_slice": "P6.5",
             "phase6_current_slice_status": "closed",
-            "phase6_next_slice": "P6.5",
+            "phase6_next_slice": "P6.6",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,

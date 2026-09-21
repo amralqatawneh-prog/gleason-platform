@@ -58,8 +58,8 @@ export function OrderedRoutePanel({ locale, selection, state, dispatch, mapAddMo
       <div>
         <h2 id="ordered-route-title">{locale === 'ar' ? 'المسار المرتب' : 'Ordered route state'}</h2>
         <p>{locale === 'ar'
-          ? `P6.2 · أنشئ مسارًا مرتبًا من نقاط متعددة حتى ${ORDERED_ROUTE_MAX_POINTS} نقطة. تبقى هذه اللوحة مسؤولة عن هوية المسار فقط؛ قياس WGS84 في P6.3 وقياس AE في P6.4 يظهران في لوحتين منفصلتين.`
-          : `P6.2 · Build an ordered multi-point route with up to ${ORDERED_ROUTE_MAX_POINTS} points. This panel remains state/identity only; P6.3 WGS84 and P6.4 AE measurements appear in separate panels.`}</p>
+          ? `P6.2 · أنشئ مسارًا مرتبًا من نقاط متعددة حتى ${ORDERED_ROUTE_MAX_POINTS} نقطة. تبقى هذه اللوحة مسؤولة عن هوية المسار فقط؛ قياسات WGS84 في P6.3 وAE في P6.4 وGleason في P6.5 تظهر في لوحات مستقلة.`
+          : `P6.2 · Build an ordered multi-point route with up to ${ORDERED_ROUTE_MAX_POINTS} points. This panel remains state/identity only; P6.3 WGS84, P6.4 AE, and P6.5 Gleason measurements appear in separate panels.`}</p>
       </div>
       <span className="evidence-badge">P6.2 · STATE ONLY</span>
     </div>
@@ -146,15 +146,15 @@ export function OrderedRoutePanel({ locale, selection, state, dispatch, mapAddMo
             </span>;
           })}
       <small>{locale === 'ar'
-        ? 'هوية المقاطع فقط في حالة P6.2 — تظهر مسافتا WGS84 وAE العدديتان في لوحتي P6.3 وP6.4 المنفصلتين.'
-        : 'P6.2 keeps segment identity only — numeric WGS84 and AE distances appear in the separate P6.3 and P6.4 panels.'}</small>
+        ? 'هوية المقاطع فقط في حالة P6.2 — تظهر مسافات WGS84 وAE وGleason العددية في لوحات P6.3 وP6.4 وP6.5 المنفصلة.'
+        : 'P6.2 keeps segment identity only — numeric WGS84, AE, and Gleason distances appear in the separate P6.3, P6.4, and P6.5 panels.'}</small>
     </div>
 
     <div className="notice ordered-route-boundary">
       <strong>{locale === 'ar' ? 'حدود P6.2' : 'P6.2 boundary'}</strong>
       <span>{locale === 'ar'
-        ? 'هذه الحالة مؤقتة داخل الجلسة ولا تُحفظ في IndexedDB. P6.3 يحسب WGS84 وP6.4 يحسب AE على المستوى المسقط؛ قياس Gleason والمساحة يبقيان لاحقين.'
-        : 'This state is transient for the current session and is not saved to IndexedDB. P6.3 measures WGS84 and P6.4 measures the AE projected plane; Gleason measurement and area remain later work.'}</span>
+        ? 'هذه الحالة مؤقتة داخل الجلسة ولا تُحفظ في IndexedDB. P6.3 يحسب WGS84 وP6.4 يحسب AE وP6.5 يحسب Gleason بوحدته المعيارية؛ المساحة تبقى لـP6.6.'
+        : 'This state is transient for the current session and is not saved to IndexedDB. P6.3 measures WGS84, P6.4 measures the AE projected plane, and P6.5 measures Gleason in normalized units; area remains P6.6.'}</span>
     </div>
   </section>;
 }

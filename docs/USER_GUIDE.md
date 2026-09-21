@@ -26,7 +26,7 @@ Current accepted/product state includes:
 - AE projected-plane distance;
 - offline-capable foundations and bilingual Arabic/English UI.
 
-P6.4 is closed. P6.5 Gleason native numerical measurement has not started.
+P6.4 is closed. P6.5 Gleason native numerical measurement is now **IN PROGRESS** after the owner's explicit start instruction.
 
 ## 3. Understanding measurements
 
@@ -37,7 +37,7 @@ Examples:
 - WGS84 geodesic distance follows the WGS84 reference computation.
 - AE projected-plane distance measures straight Euclidean separation in the AE
   projected plane.
-- future Gleason native measurement will use normalized Gleason-plane units.
+- Gleason native measurement uses normalized Gleason-plane units (`normalized-radius-unit`) and is not automatically converted to metres/kilometres.
 - a future road-navigation route will carry the routing provider's identity,
   distance and time even when drawn on all three views.
 

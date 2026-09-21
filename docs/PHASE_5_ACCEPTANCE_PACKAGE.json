@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "de2cf9b0a8a48a788323373eb2b9c72622c288f8",
+    "current_integration_baseline": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -201,7 +201,12 @@
     "pr23_pre_merge_ci_run": 676,
     "pr23_pre_merge_ci_conclusion": "success",
     "pr23_post_merge_main_ci_run": null,
-    "pr23_post_merge_main_ci_conclusion": "not-independently-observed"
+    "pr23_post_merge_main_ci_conclusion": "not-independently-observed",
+    "pr24": "merged",
+    "pr24_merge_commit": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "pr24_final_head": "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
+    "pr24_pre_merge_ci_run": 684,
+    "pr24_pre_merge_ci_conclusion": "success"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -237,18 +242,18 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.4",
+    "current_slice": "P6.5",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
     "current_slice_status": "closed",
-    "next_slice": "P6.5",
+    "next_slice": "P6.6",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
       "checklist_items_passed": 5
     },
-    "previous_slice": "P6.3",
+    "previous_slice": "P6.4",
     "previous_slice_status": "closed",
     "p6_2_start": {
       "date": "2026-09-20",
@@ -430,6 +435,44 @@
       "merge_commit": "11b571f08f72732b509f049f1a2ab1be92292938",
       "post_merge_ci_run": 669,
       "post_merge_ci_conclusion": "success"
+    },
+    "p6_5_start": {
+      "date": "2026-09-21",
+      "owner_statement": "ابدأ P6.5",
+      "decision": "started-by-owner",
+      "baseline_commit": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+      "baseline_evidence": "PR #24 final head 2c3b12ceabdf374d587c96f49f23d097de8d8d1d passed Release Acceptance Gates #684 before merge",
+      "branch": "feat/phase6-p6-5-gleason-native-measurement",
+      "scope": "Gleason native normalized distance for adjacent ordered route segments and open-polyline total only",
+      "status": "closed",
+      "owner_manual_status": "pass-reported-by-owner",
+      "pr": 25,
+      "pr_status": "draft-open"
+    },
+    "p6_5_automated": {
+      "implementation_head": "a733f81d922963a385357becf69dafd8b6d576be",
+      "ci_run": 691,
+      "ci_conclusion": "success",
+      "prior_failed_ci_runs": [
+        686,
+        689
+      ],
+      "prior_failure_scope": "CI #686 failed on a strict JavaScript -0/+0 assertion only; CI #689 failed on one stale P5.7 browser text expectation only. Both test issues were corrected without changing the P6.5 numerical contract.",
+      "note": "Exact pre-manual P6.5 head passed the complete Release Acceptance Gates, including backend/browser Gleason parity, browser fallback coverage, Docker runtime, PostGIS and search regressions."
+    },
+    "p6_5_status": "closed",
+    "p6_5_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "a733f81d922963a385357becf69dafd8b6d576be",
+      "pre_manual_ci_run": 691,
+      "pre_manual_ci_conclusion": "success",
+      "multi_point_live_recalculation": "pass-reported-by-owner",
+      "repeated_coordinate_zero_segment": "pass-reported-by-owner",
+      "reversed_route_total_invariance": "pass-reported-by-owner",
+      "backend_fallback": "pass-reported-by-owner",
+      "arabic_mobile_layout": "pass-reported-by-owner"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -595,7 +638,11 @@
     "verification_head": "89b634d49eb802c17f9978fee7065ca958c3b592",
     "verification_ci_run": 679,
     "verification_ci_conclusion": "success",
-    "merge_status": "open-unmerged",
-    "merge_authorization": "pending-separate-owner-instruction"
+    "merge_status": "merged",
+    "merge_authorization": "explicit-owner-instruction",
+    "final_closure_head": "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
+    "final_closure_ci_run": 684,
+    "final_closure_ci_conclusion": "success",
+    "merge_commit": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536"
   }
 }

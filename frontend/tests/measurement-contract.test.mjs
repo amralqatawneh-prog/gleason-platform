@@ -70,7 +70,7 @@ test('P6.1 rejects a country record as an implicit point-to-point endpoint', () 
   );
 });
 
-test('P6.1 method contracts keep model, method, space, units and scale basis independent', () => {
+test('P6.5 method contracts keep all three distance engines independent', () => {
   assert.equal(MEASUREMENT_METHOD_CONTRACTS.length, 3);
   const wgs = measurementMethodContract('wgs84-geodesic');
   const ae = measurementMethodContract('ae-projected-plane');
@@ -80,8 +80,8 @@ test('P6.1 method contracts keep model, method, space, units and scale basis ind
   assert.deepEqual(wgs.implementedQuantities, ['distance']);
   assert.equal(ae.status, 'partially-implemented');
   assert.deepEqual(ae.implementedQuantities, ['distance']);
-  assert.equal(gleason.status, 'contract-only');
-  assert.deepEqual(gleason.implementedQuantities, []);
+  assert.equal(gleason.status, 'partially-implemented');
+  assert.deepEqual(gleason.implementedQuantities, ['distance']);
 
   assert.equal(wgs.linearUnit, 'metre');
   assert.equal(ae.linearUnit, 'metre');
@@ -89,33 +89,32 @@ test('P6.1 method contracts keep model, method, space, units and scale basis ind
   assert.notEqual(wgs.scaleBasis, ae.scaleBasis);
   assert.equal(gleason.linearUnit, 'normalized-radius-unit');
   assert.equal(gleason.areaUnit, 'normalized-radius-unit-squared');
+  assert.equal(gleason.semanticType, 'COMPUTED_RESULT');
   assert.ok(gleason.limitations.some(item => item.includes('No metres/kilometres')));
 });
 
-test('P6.1 computation identity contains semantics but no fabricated numeric result', () => {
-  const distance = measurementComputationIdentity('wgs84-geodesic', 'distance');
-  const area = measurementComputationIdentity('gleason-native-normalized', 'area');
+test('P6.5 computation identity exposes implemented distance but keeps perimeter/area contract-only', () => {
+  const wgsDistance = measurementComputationIdentity('wgs84-geodesic', 'distance');
+  const aeDistance = measurementComputationIdentity('ae-projected-plane', 'distance');
+  const gleasonDistance = measurementComputationIdentity('gleason-native-normalized', 'distance');
+  const gleasonPerimeter = measurementComputationIdentity('gleason-native-normalized', 'perimeter');
+  const gleasonArea = measurementComputationIdentity('gleason-native-normalized', 'area');
 
   assert.deepEqual(
-    [distance.methodId, distance.calculationModel, distance.unit, distance.scaleBasis],
+    [wgsDistance.methodId, wgsDistance.calculationModel, wgsDistance.unit, wgsDistance.scaleBasis],
     ['wgs84-geodesic', 'wgs84', 'metre', 'wgs84-ellipsoid'],
   );
-  assert.deepEqual(
-    [area.methodId, area.calculationModel, area.unit, area.scaleBasis],
-    ['gleason-native-normalized', 'gleason', 'normalized-radius-unit-squared', 'gleason-normalized-model-radius'],
-  );
-  const aeDistance = measurementComputationIdentity('ae-projected-plane', 'distance');
-  const aePerimeter = measurementComputationIdentity('ae-projected-plane', 'perimeter');
-  const perimeter = measurementComputationIdentity('wgs84-geodesic', 'perimeter');
-  const wgsArea = measurementComputationIdentity('wgs84-geodesic', 'area');
-  assert.equal('value' in distance, false);
-  assert.equal(distance.implementationStatus, 'implemented');
+  assert.equal(wgsDistance.implementationStatus, 'implemented');
   assert.equal(aeDistance.implementationStatus, 'implemented');
-  assert.equal(aeDistance.methodId, 'ae-projected-plane');
-  assert.equal(aeDistance.scaleBasis, 'ae-projected-plane-si-metre');
-  assert.equal(aePerimeter.implementationStatus, 'contract-only');
-  assert.equal(perimeter.implementationStatus, 'contract-only');
-  assert.equal(wgsArea.implementationStatus, 'contract-only');
+  assert.deepEqual(
+    [gleasonDistance.methodId, gleasonDistance.calculationModel, gleasonDistance.unit, gleasonDistance.scaleBasis],
+    ['gleason-native-normalized', 'gleason', 'normalized-radius-unit', 'gleason-normalized-model-radius'],
+  );
+  assert.equal(gleasonDistance.semanticType, 'COMPUTED_RESULT');
+  assert.equal(gleasonDistance.implementationStatus, 'implemented');
+  assert.equal(gleasonPerimeter.implementationStatus, 'contract-only');
+  assert.equal(gleasonArea.implementationStatus, 'contract-only');
+  assert.equal('value' in gleasonDistance, false);
 });
 
 test('P6.1 rendering on another model preserves the original computation identity', () => {
@@ -129,11 +128,12 @@ test('P6.1 rendering on another model preserves the original computation identit
   assert.equal(rendered.interpretationRule, 'preserve-computation-identity');
 });
 
-test('P6.3/P6.4 measurement engines do not accidentally enable the future route-provider service', () => {
+test('P6.3/P6.4/P6.5 measurement engines do not accidentally enable route-provider service', () => {
   const route = futureServiceContract('route');
   assert.equal(route.status, 'unavailable');
   assert.deepEqual(route.availableOperations, []);
   assert.match(route.currentBoundary, /P6\.3/);
   assert.match(route.currentBoundary, /P6\.4/);
+  assert.match(route.currentBoundary, /P6\.5/);
   assert.match(route.currentBoundary, /provider-backed road\/flight paths/);
 });

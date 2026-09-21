@@ -68,13 +68,14 @@ See `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
 
 ## 6. Measurement architecture
 
-Current implemented identities:
+Current implemented distance identities:
 - WGS84: `wgs84-geodesic`
 - AE: `ae-projected-plane`
+- Gleason: `gleason-native-normalized` (P6.5 active implementation)
 
-Planned:
-- Gleason: `gleason-native-normalized`
-
+Gleason distance is Euclidean distance between adjacent GH-0.2.0 projected
+endpoints in the derived normalized-radius plane. Its contract unit is
+`normalized-radius-unit` with scale basis `gleason-normalized-model-radius`.
 Do not convert Gleason normalized units to SI units without a separately
 documented scale rule/assumption.
 

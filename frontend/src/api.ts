@@ -7,6 +7,12 @@ import {
   type AERouteDistanceResult,
 } from './measurement/aeRouteDistance';
 import {
+  localGleasonRouteDistance,
+  validateGleasonRouteDistancePoints,
+  type GleasonRouteDistancePoint,
+  type GleasonRouteDistanceResult,
+} from './measurement/gleasonRouteDistance';
+import {
   localWgs84RouteDistance,
   validateWgs84RouteDistancePoints,
   type Wgs84RouteDistancePoint,
@@ -96,22 +102,21 @@ export async function geodesicInverse(start: ReferenceGeoInput, end: ReferenceGe
   validateGeo(start); validateGeo(end);
   if (!navigator.onLine) return localGeodesicInverse(start, end);
   try {
-  const response = await fetch(`${API_BASE}/reference/wgs84/geodesic-inverse`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      start: { ...start, ellipsoidal_height_m: start.ellipsoidal_height_m ?? 0 },
-      end: { ...end, ellipsoidal_height_m: end.ellipsoidal_height_m ?? 0 },
-    }),
-    signal: AbortSignal.timeout(4000),
-  });
-  if (!response.ok) throw new Error(`geodesic inverse failed: ${response.status}`);
-  return await response.json() as GeodesicInverseResult;
+    const response = await fetch(`${API_BASE}/reference/wgs84/geodesic-inverse`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        start: { ...start, ellipsoidal_height_m: start.ellipsoidal_height_m ?? 0 },
+        end: { ...end, ellipsoidal_height_m: end.ellipsoidal_height_m ?? 0 },
+      }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`geodesic inverse failed: ${response.status}`);
+    return await response.json() as GeodesicInverseResult;
   } catch {
     return localGeodesicInverse(start, end);
   }
 }
-
 
 export async function wgs84RouteDistance(
   pointsInput: readonly Wgs84RouteDistancePoint[],
@@ -153,9 +158,31 @@ export async function aeRouteDistance(
   }
 }
 
+export async function gleasonRouteDistance(
+  pointsInput: readonly GleasonRouteDistancePoint[],
+  routeId = 'transient-route',
+): Promise<GleasonRouteDistanceResult> {
+  const points = validateGleasonRouteDistancePoints(pointsInput);
+  if (!navigator.onLine) return localGleasonRouteDistance(points, routeId);
+  try {
+    const response = await fetch(`${API_BASE}/measurement/gleason/route-distance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ route_id: routeId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`Gleason route distance failed: ${response.status}`);
+    return await response.json() as GleasonRouteDistanceResult;
+  } catch {
+    return localGleasonRouteDistance(points, routeId);
+  }
+}
+
 export type {
   AERouteDistancePoint,
   AERouteDistanceResult,
+  GleasonRouteDistancePoint,
+  GleasonRouteDistanceResult,
   Wgs84RouteDistancePoint,
   Wgs84RouteDistanceResult,
 };

@@ -42,10 +42,14 @@ jobs:
           test -s frontend/src/reference/GeodesicInspector.tsx
           test -s frontend/src/measurement/wgs84RouteDistance.ts
           test -s frontend/src/measurement/Wgs84RouteDistancePanel.tsx
+          test -s frontend/src/measurement/gleasonRouteDistance.ts
+          test -s frontend/src/measurement/GleasonRouteDistancePanel.tsx
           test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
           test -s frontend/tests/route-guide.test.mjs
           test -s backend/tests/test_phase6_wgs84_route_distance.py
+          test -s backend/tests/test_phase6_gleason_route_distance.py
+          test -s scripts/check_gleason_measurement_parity.py
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
@@ -54,6 +58,7 @@ jobs:
           test -s docs/PHASE_5_ACCEPTANCE.md
           test -s docs/PHASE_5_P5_9_REPORT.md
           test -s docs/PHASE_6_P6_3_REPORT.md
+          test -s docs/PHASE_6_P6_5_REPORT.md
           test -s scripts/check_phase5_acceptance_package.py
           for path in App.tsx package.json pyproject.toml main.py config.py capabilities.ts gleason-book.yaml; do test ! -e "$path"; done
       - name: Validate source and Phase 3 policy
@@ -88,6 +93,8 @@ jobs:
         run: npm run test:core
       - name: Independent browser WGS84 parity against backend PROJ
         run: backend/.venv/bin/python scripts/check_reference_parity.py
+      - name: Independent browser/backend Gleason measurement parity
+        run: backend/.venv/bin/python scripts/check_gleason_measurement_parity.py
       - name: Validate service worker syntax
         working-directory: frontend
         run: npm run check:sw
@@ -143,6 +150,12 @@ jobs:
           jq -e '.semantic_type=="REFERENCE_RESULT" and .operation=="wgs84_route_distance" and .output.method_id=="wgs84-geodesic" and .output.unit=="metre" and .output.path_semantics=="open-polyline" and .output.segment_count==2 and (.output.total_distance_m>222638.98 and .output.total_distance_m<222638.99) and (.output.segments|length)==2' /tmp/wgs84-route.json
           status="$(curl --silent --output /tmp/invalid-reference.json --write-out '%{http_code}' -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/geodetic-to-ecef -H 'content-type: application/json' -d '{"latitude":0,"longitude":181,"ellipsoidal_height_m":0}')"
           test "$status" = "422"
+      - name: Verify P6.5 Gleason measurement API
+        run: |
+          set -euo pipefail
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"route-point-1","latitude":90,"longitude":0},{"point_id":"route-point-2","latitude":0,"longitude":0},{"point_id":"route-point-3","latitude":0,"longitude":90}]}' >/tmp/gleason-route.json
+          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069)' /tmp/gleason-route.json
+          jq -e '.provenance.provider_id=="gleason-historical" and .provenance.provider_version=="GH-0.2.0"' /tmp/gleason-route.json
       - name: Verify Phase 3 PostGIS catalog schema
         run: |
           test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"

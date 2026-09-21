@@ -9,7 +9,8 @@
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
 - **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
 - المالك اعتمد في 2026-09-21 متطلبات التوسعة الجديدة. **Roadmap & Architecture Amendment — New Requirements 2026-09-21** أصبحت **CLOSED + MERGED**؛ الرأس الأول `cb4b4681bd359e29b08542856b7bff144a239796` نجح في CI **#673**، والرأس النهائي `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` نجح في CI **#676**، ثم دُمج PR #23 إلى `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` بتفويض صريح من المالك.
-- P6.5 **NOT STARTED**، ولا يوجد Tag أو GitHub Release أو Deployment للمرحلة السادسة.
+- PR #24 الخاص بمصالحة ما بعد PR #23 **MERGED** إلى `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` بعد نجاح الرأس النهائي `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` في Release Acceptance Gates **#684 — SUCCESS**.
+- أصدر المالك الأمر الصريح **«ابدأ P6.5»**؛ وتم إغلاق P6.5 بعد نجاح الرأس المختبَر `a733f81d922963a385357becf69dafd8b6d576be` في Release Acceptance Gates **#691 — SUCCESS** ونجاح الاختبارات اليدوية **6/6 — REPORTED BY OWNER**. P6.6 وما بعدها لم تبدأ. لا يوجد Tag أو GitHub Release أو Deployment للمرحلة السادسة.
 - الأقسام الزمنية الأقدم أدناه تُحفظ كسجل تاريخي ولا تتغلب على هذه الحالة المرجعية الحالية.
 
 ## الوضع الحالي وتسلسل الإغلاق
@@ -28,8 +29,8 @@
 3. اعتبار **P6.1 Measurement Semantics Contract** مغلقة ومثبتة كعقد مرجعي للشرائح اللاحقة.
 4. اعتبار **P6.2 Ordered Route State** مغلقة ومثبتة كأساس للمسار المرتب المؤقت حتى 50 نقطة مع direct-map add صريح.
 5. اعتبار **P6.3 WGS84 Ruler / Distance** و**P6.4 AE Native Measurement** مغلقتين ومندمجتين، مع الحفاظ على هوية الحساب المستقلة لكل منهما.
-6. اعتبار **Roadmap & Architecture Amendment — New Requirements 2026-09-21** مغلقة ومدمجة عبر PR #23؛ واعتبار **Post-PR23 Merge Documentation Reconciliation** مغلقة ومتحققة فنيًا على الرأس `89b634d49eb802c17f9978fee7065ca958c3b592` بعد CI **#679 — SUCCESS**؛ PR #24 بانتظار تفويض دمج منفصل.
-7. بعد إغلاق ودمج مصالحة ما بعد PR #23 بتفويض منفصل، تبقى **P6.5 Gleason Native Measurement = NOT STARTED** إلى أن يصدر أمر مالك صريح لبدئها؛ ولا تبدأ P6.6 معها.
+6. اعتبار **Roadmap & Architecture Amendment — New Requirements 2026-09-21** مغلقة ومدمجة عبر PR #23، ومصالحة ما بعد PR #23 مغلقة ومدمجة عبر PR #24 عند `fc42af3cd97706ddc3f92b44f7e784ba86fc7536` بعد نجاح CI **#684 — SUCCESS** على الرأس النهائي قبل الدمج.
+7. **P6.5 Gleason Native Measurement مغلقة** بعد CI #691 ونجاح 6/6 يدويًا؛ **P6.6 تبقى NOT STARTED** حتى أمر المالك التالي.
 8. في Phase 6 يضاف **P6.7B Route Provider & Turn-by-Turn Directions** بعد P6.7A Same Route, Three Renderings، دون خلط navigation route مع measurement polyline.
 9. تنفيذ Observer/Astronomy/Analemma/Eclipse لاحقًا ضمن Phases 9–12، والطيران ضمن Phase 15، والخرائط عالية التفاصيل/مزودي الطبقات ضمن Phase 16.
 10. نشر tag أو GitHub Release أو deployment يبقى ضمن تفويض مستقل.

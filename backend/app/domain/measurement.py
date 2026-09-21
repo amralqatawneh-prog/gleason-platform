@@ -73,8 +73,75 @@ class AERouteDistanceOutput(BaseModel):
     segments: list[AERouteDistanceSegment]
 
 
+class GleasonRoutePoint(BaseModel):
+    """Canonical geographic route point projected into the derived Gleason plane."""
+
+    point_id: str = Field(min_length=1, max_length=128)
+    latitude: float = Field(ge=-90.0, le=90.0)
+    longitude: float = Field(ge=-180.0, le=180.0)
+
+    @field_validator("point_id")
+    @classmethod
+    def point_id_must_be_explicit(cls, value: str) -> str:
+        trimmed = value.strip()
+        if not trimmed:
+            raise ValueError("point_id must be non-empty")
+        return trimmed
+
+    @field_validator("latitude", "longitude")
+    @classmethod
+    def coordinates_must_be_finite(cls, value: float) -> float:
+        if not math.isfinite(value):
+            raise ValueError("route coordinate values must be finite")
+        return value
+
+
+class GleasonRouteDistanceRequest(BaseModel):
+    route_id: str = Field(default="transient-route", min_length=1, max_length=128)
+    points: list[GleasonRoutePoint] = Field(min_length=2, max_length=50)
+
+    @field_validator("route_id")
+    @classmethod
+    def route_id_must_be_explicit(cls, value: str) -> str:
+        trimmed = value.strip()
+        if not trimmed:
+            raise ValueError("route_id must be non-empty")
+        return trimmed
+
+    @model_validator(mode="after")
+    def point_ids_must_be_unique(self) -> "GleasonRouteDistanceRequest":
+        ids = [point.point_id for point in self.points]
+        if len(ids) != len(set(ids)):
+            raise ValueError("route point_id values must be unique")
+        return self
+
+
+class GleasonRouteDistanceSegment(BaseModel):
+    segment_id: str
+    index: int = Field(ge=0)
+    from_point_id: str
+    to_point_id: str
+    from_x_normalized_radius: float
+    from_y_normalized_radius: float
+    to_x_normalized_radius: float
+    to_y_normalized_radius: float
+    distance_normalized_radius_unit: float = Field(ge=0.0)
+
+
+class GleasonRouteDistanceOutput(BaseModel):
+    method_id: Literal["gleason-native-normalized"] = "gleason-native-normalized"
+    quantity: Literal["distance"] = "distance"
+    unit: Literal["normalized-radius-unit"] = "normalized-radius-unit"
+    scale_basis: Literal["gleason-normalized-model-radius"] = "gleason-normalized-model-radius"
+    path_semantics: Literal["open-polyline"] = "open-polyline"
+    segment_geometry: Literal["straight-projected-chord"] = "straight-projected-chord"
+    segment_count: int = Field(ge=1)
+    total_distance_normalized_radius_unit: float = Field(ge=0.0)
+    segments: list[GleasonRouteDistanceSegment]
+
+
 class MeasurementProvenance(BaseModel):
-    semantic_type: Literal["REFERENCE_RESULT"] = "REFERENCE_RESULT"
+    semantic_type: Literal["REFERENCE_RESULT", "COMPUTED_RESULT"] = "REFERENCE_RESULT"
     provider_id: str
     provider_version: str
     reference_frame: str
@@ -87,7 +154,7 @@ class MeasurementProvenance(BaseModel):
 
 
 class MeasurementResult(BaseModel):
-    semantic_type: Literal["REFERENCE_RESULT"] = "REFERENCE_RESULT"
+    semantic_type: Literal["REFERENCE_RESULT", "COMPUTED_RESULT"] = "REFERENCE_RESULT"
     operation: str
     input: Any
     output: Any

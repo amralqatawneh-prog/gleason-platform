@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` (PR #23 merge).
+- Current integration base: `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -31,10 +31,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#22** Post-PR21 reconciliation: **MERGED**; final head `a76fcff0ac7ad366143645ad722ff5d91183561e` passed Release Acceptance Gates **#671 — SUCCESS** before merge.
 - Roadmap amendment branch: `docs/roadmap-architecture-amendment-2026-09-21`; amendment **CLOSED**. Initial verification head `cb4b4681bd359e29b08542856b7bff144a239796` passed CI **#673**, and exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed CI **#676**.
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
-- Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**. PR #24 remains OPEN / UNMERGED pending separate owner merge authorization; no P6.5 functional branch has been started.
+- Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED + MERGED** through PR #24. Exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merged at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
 - Post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
-- Latest closed slice: **P6.4 — AE Native Measurement**.
+- Latest closed slice: **P6.5 — Gleason Native Measurement**.
+- P6.5 — Gleason Native Measurement is **CLOSED** after Release Acceptance Gates **#691 — SUCCESS** on tested head `a733f81d922963a385357becf69dafd8b6d576be` and **6/6 manual checks PASS — REPORTED BY OWNER**. P6.6 remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -50,11 +51,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19 and PR #20 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **NOT STARTED**.
+- PR #16, PR #19, PR #20 and PR #24 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **CLOSED**; P6.6 remains **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1, P6.2, P6.3 and P6.4 are CLOSED; P6.5 remains NOT STARTED.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.5 are CLOSED; P6.6 remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.

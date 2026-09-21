@@ -23,23 +23,29 @@ model engines:
 > CLOSED** after automated verification and **6/6 manual checks PASS — REPORTED
 > BY OWNER**. PR #21 was subsequently authorized and **MERGED** into `main` at
 > `11b571f08f72732b509f049f1a2ab1be92292938`; post-merge Release Acceptance
-> Gates **#669 — SUCCESS**. Accepted phase remains
-> **5** and accepted application version remains **v0.5.0** until a
-> separate Phase 6 acceptance decision.
+> Gates **#669 — SUCCESS**. PR #24 post-PR23 reconciliation was subsequently
+> **MERGED** at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536` after its exact
+> final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance
+> Gates **#684 — SUCCESS**. The owner then explicitly instructed **«ابدأ P6.5»**;
+> **P6.5 — Gleason Native Measurement is CLOSED** after exact-head Release Acceptance Gates **#691 — SUCCESS** and **6/6 manual checks PASS — REPORTED BY OWNER** on
+> `feat/phase6-p6-5-gleason-native-measurement`. Accepted phase remains **5**
+> and accepted application version remains **v0.5.0** until a separate Phase 6
+> acceptance decision.
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` (PR #23 merge)
+- Current integration baseline: `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
-- Post-PR23 documentation reconciliation: **CLOSED / VERIFIED** on head `89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates **#679 — SUCCESS**; PR #24 remains **OPEN / UNMERGED** pending separate owner merge authorization; P6.5 remains **NOT STARTED**
+- Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.4 — AE Native Measurement**
-- Latest completed slice: **P6.4 — AE Native Measurement — CLOSED**
+- Latest closed slice: **P6.5 — Gleason Native Measurement**
+- Latest completed slice: **P6.5 — Gleason Native Measurement — CLOSED**
+- Current active slice: **none**; P6.5 is **CLOSED** and P6.6 remains **NOT STARTED**
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
@@ -79,7 +85,8 @@ model engines:
 | P6.3 | CLOSED ✅ | WGS84 geodesic distance; route guide; straight Gleason/AE segments; mouse/touch pan; WGS84 Great Circle reference; owner 6/6 + 5/5 + 4/4 + 6/6 PASS; PR #19 merged; post-merge CI #643 SUCCESS |
 | P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
 | Roadmap Architecture Amendment 2026-09-21 | CLOSED + MERGED ✅ | Initial verification `cb4b4681bd359e29b08542856b7bff144a239796` / CI #673; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` / CI #676; PR #23 merged at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` |
-| P6.5–P6.10 | NOT STARTED ⏳ | Gleason measurement, polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
+| P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
+| P6.6–P6.10 | NOT STARTED ⏳ | Polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -150,7 +157,7 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- P6.5 Gleason native numeric measurement and P6.6 polygon/perimeter/area.
+- P6.6 polygon/perimeter/area remains NOT STARTED; P6.5 Gleason native distance is CLOSED.
 - P6.7B RouteProvider / turn-by-turn routing; provider-backed road/flight paths remain unavailable until dedicated providers are implemented.
 - Phase 9–12 astronomy/time/ObserverContext/virtual observer dome/analemma/eclipse engines.
 - Phase 15 Aviation Laboratory live/historical/scheduled provider integrations.
@@ -277,9 +284,10 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is closed and P6.5 is not started.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.1–P6.5 are closed and P6.6 is NOT STARTED.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
+- `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
 - `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR23 documentation reconciliation.
 - `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
@@ -318,8 +326,8 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1, P6.2, P6.3 and P6.4 are CLOSED.
-P6.5 remains **NOT STARTED**.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.5 are CLOSED.
+P6.6 remains **NOT STARTED**.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.

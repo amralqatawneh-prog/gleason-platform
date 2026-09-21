@@ -51,6 +51,7 @@ def test_capabilities_distinguish_implemented_features_from_phase_acceptance(tmp
     assert payload["measurement_engine"] is True
     assert payload["wgs84_route_distance"] is True
     assert payload["ae_route_distance"] is True
+    assert payload["gleason_route_distance"] is True
     assert payload["route_engine"] is False
     assert payload["area_engine"] is False
     assert payload["astronomy_engine"] is False
