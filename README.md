@@ -190,6 +190,7 @@ Current locked catalog expectations: **177 countries · 243 cities · 16 seas ·
 Authoritative manifests:
 
 - `data/sources/gleason-book.yaml`
+- `data/sources/gleason-owner-8k-map.yaml` — owner-supplied higher-resolution Gleason source bundle; JGW preserved, companion 8K raster still required before visual/ruler/frame audit.
 - `data/sources/phase3-source-lock.json`
 - `data/sources/phase3-place-sources.yaml`
 
