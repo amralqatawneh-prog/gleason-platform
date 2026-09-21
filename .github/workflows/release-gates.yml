@@ -61,6 +61,8 @@ jobs:
           test -s scripts/check_gleason_measurement_parity.py
           test -s scripts/check_polygon_measurement_parity.py
           test -s docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md
+          test -s docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md
+          test -s data/sources/gleason-video-measurement-audit.yaml
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md

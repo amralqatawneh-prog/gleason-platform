@@ -118,7 +118,7 @@ Deliver:
 
 ## P6.4 — AE Native Measurement
 
-Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**.
+Status: **REOPENED / IN PROGRESS — owner-approved Gleason measurement source-audit amendment**.
 
 Start / automated evidence:
 - owner instruction: **«أبدأ P6.4»**;
@@ -173,7 +173,9 @@ Acceptance:
 
 Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**.
 
-Closure report: `docs/PHASE_6_P6_6_REPORT.md`.
+Prior closure report (superseded): `docs/PHASE_6_P6_6_REPORT.md`.
+Source audit: `docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md`.
+Owner amendment approval: **«موافق على جميع مقترحاتك، تستطيع البدء»**.
 Owner-tested head: `4cb8c04b40fbea35745f4091a4bf5e849c34b299`.
 Release Acceptance Gates **#769 — SUCCESS** before manual verification.
 

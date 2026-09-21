@@ -156,3 +156,17 @@ identity:
 
 A tolerance is an acceptance bound between implementations; it is not an added
 measurement uncertainty model and must not be presented as one.
+
+
+## 10. Gleason measurement audit amendment — 2026-09-21
+
+The owner supplied two measurement videos after the first P6.6 closure and
+approved the resulting audit recommendations. The Gleason polygon engine now
+preserves native NRU / NRU² and an explicitly DERIVED ruler calibration in
+nautical-mile units.
+
+The derived NM² value is planar map-ruler area. It must not be described as a
+historical physical surface-area claim.
+
+Figure 43 longitude scaling is not used to re-scale arbitrary polygon edges. It
+remains a separate latitude-specific historical calculator.

@@ -4,9 +4,10 @@
 
 - Owner instructed **«ادمج PR #30 وابدأ P6.6»**.
 - PR #30 was **MERGED / CLOSED** after final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed Release Acceptance Gates **#759 — SUCCESS**; merge commit / P6.6 start baseline is `1c64285b92c093365b74f3256aa9557b9a48268e`.
-- P6.6 is **CLOSED** on `feat/p6.6-polygon-perimeter-area` after owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` passed Release Acceptance Gates **#769 — SUCCESS** and the owner reported **6/6 manual PASS**.
+- P6.6's earlier closure evidence (#769 + owner manual 6/6; final closure #771) is preserved but **SUPERSEDED** by an owner-approved Gleason measurement source audit. P6.6 is **REOPENED / IN PROGRESS** on the same PR #31.
 - Added explicit closed-ring semantics, repeated/degenerate validation, algebraic self-intersection policy, orientation/sign rules, WGS84 interior semantics, and independent WGS84/AE/Gleason perimeter/area engines.
-- PR #31 remains open/unmerged pending final closure-state verification and separate explicit merge authorization. P6.7A remains NOT STARTED.
+- Added three separated Gleason identities: DERIVED map-plane ruler, Figure 43 historical longitude scale, and Figure 37–38 frame/time calculator; added two-video audit fixtures and explicit rejection of the video-2 60-miles-per-longitude-degree shortcut.
+- PR #31 remains open/draft/unmerged. P6.7A remains NOT STARTED.
 - No post-PR30 reconciliation PR is opened; current-state synchronization is maintained inside the functional P6.6 branch to avoid reconciliation/merge recursion.
 
 ## [Unreleased] — Post-PR #29 merge reconciliation (2026-09-21)

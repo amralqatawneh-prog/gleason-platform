@@ -1074,7 +1074,7 @@ require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 br
 require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
 require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
-require(p6_6_start.get("status") == "closed", "P6.6 start record must now be closed after owner verification")
+require(p6_6_start.get("status") == "reopened-in-progress", "P6.6 must be reopened after owner-approved measurement audit")
 require(
     p6_6_start.get("owner_manual_status") == "pass-reported-by-owner",
     "P6.6 owner manual status missing",
@@ -1090,7 +1090,7 @@ require(
 )
 require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
 require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
-require(phase6_start.get("p6_6_status") == "closed", "P6.6 status must be closed")
+require(phase6_start.get("p6_6_status") == "reopened_in_progress", "P6.6 status must reflect reopened audit work")
 
 p6_6_automated = phase6_start.get("p6_6_automated", {})
 require(
@@ -1127,8 +1127,8 @@ for field in [
 
 p6_6_closure = phase6_start.get("p6_6_closure", {})
 require(
-    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
-    "P6.6 closure lifecycle drifted",
+    p6_6_closure.get("status") == "superseded-by-owner-approved-measurement-audit",
+    "P6.6 prior closure must remain superseded by measurement audit",
 )
 require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
 require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
@@ -1145,6 +1145,29 @@ require(p6_6_closure.get("tag") == "not_created", "P6.6 closure must not create 
 require(p6_6_closure.get("github_release") == "not_created", "P6.6 closure must not create a GitHub Release")
 require(p6_6_closure.get("deployment") == "not_created", "P6.6 closure must not deploy")
 require((ROOT / "docs" / "PHASE_6_P6_6_REPORT.md").is_file(), "P6.6 closure report missing")
+
+p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
+require(p6_6_audit.get("decision") == "owner-approved-reopen-and-implement", "P6.6 audit owner decision missing")
+require(
+    p6_6_audit.get("owner_statement") == "موافق على جميع مقترحاتك، تستطيع البدء",
+    "P6.6 audit owner statement drifted",
+)
+require(p6_6_audit.get("status") == "in_progress", "P6.6 measurement audit must be in progress")
+require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
+require(
+    p6_6_audit.get("identities")
+    == [
+        "gleason-map-ruler-derived",
+        "gleason-historical-longitude-scale",
+        "gleason-frame-time-calculator",
+    ],
+    "P6.6 audited Gleason identities drifted",
+)
+require(p6_6_audit.get("prior_final_ci_run") == 771, "P6.6 audit must preserve prior #771 evidence")
+require(p6_6_audit.get("prior_final_ci_conclusion") == "success", "P6.6 prior #771 must remain success")
+require(p6_6_audit.get("p6_7a_status") == "not_started", "P6.7A must remain not_started")
+require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
+require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
 
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [
@@ -1581,10 +1604,10 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.6",
+            "phase6_previous_slice": "P6.5",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": None,
-            "phase6_current_slice_status": "none",
+            "phase6_current_slice": "P6.6",
+            "phase6_current_slice_status": "reopened_in_progress",
             "phase6_next_slice": "P6.7A",
             "phase6_next_slice_status": "not_started",
         },

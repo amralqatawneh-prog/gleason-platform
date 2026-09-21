@@ -1,7 +1,7 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Closure Report
 
 Date: 2026-09-21  
-Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**  
+Status: **PRIOR CLOSURE SUPERSEDED — REOPENED IN PROGRESS AFTER OWNER-APPROVED SOURCE AUDIT**  
 PR: **#31 — P6.6 Polygon / Perimeter / Area**  
 Branch: `feat/p6.6-polygon-perimeter-area`  
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
@@ -124,3 +124,26 @@ PR #31 remains unmerged until separate explicit owner merge authorization.
 The closure-state head must pass the complete Release Acceptance Gates before
 PR #31 can be considered a verified merge candidate. That final workflow
 evidence is recorded on the PR without creating a separate reconciliation PR.
+
+
+## Post-closure source audit amendment — 2026-09-21
+
+After the closure above, the owner supplied two videos demonstrating Gleason
+map-ruler and frame usage and requested a second-by-second comparison against
+the primary book. The owner then approved all proposed corrections:
+
+**«موافق على جميع مقترحاتك، تستطيع البدء»**
+
+The earlier 6/6 manual result and #771 verification remain valid evidence for
+the previous contract, but they no longer close the amended Gleason measurement
+semantics.
+
+P6.6 is therefore reopened on the same PR #31. The amendment separates
+`gleason-map-ruler-derived`, `gleason-historical-longitude-scale` and
+`gleason-frame-time-calculator`.
+
+Audit:
+`docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md`.
+
+A new automated run and targeted owner manual verification are required before
+P6.6 can close again.

@@ -47,7 +47,7 @@ projected-plane distance is not automatically a WGS84 surface geodesic.
 
 ### Gleason native normalized measurement
 
-Status: **P6.5 CLOSED + MERGED — final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; Release Acceptance Gates #699 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER**
+Status: **P6.5 implementation retained; Gleason measurement semantics REOPENED on PR #31 after the 2026-09-21 book/video audit**
 
 Current P6.5 distance identity:
 - method: `gleason-native-normalized`
@@ -69,8 +69,20 @@ close the ring implicitly, sum Euclidean closed-edge perimeter, and calculate
 signed shoelace area in `normalized-radius-unit-squared`. The primary area is
 the absolute value. Backend/browser parity is required.
 
-No automatic conversion to metres/kilometres is allowed without a separately
-documented historical scale or explicit assumption.
+The audited Gleason tools are intentionally separate:
+
+- `gleason-map-ruler-derived`: straight GH-0.2.0 map-plane chord. NRU remains
+  native; derived ruler display uses 10800 NM/NRU from 60 nautical miles per
+  radial latitude degree. Evidence class: DERIVED.
+- `gleason-historical-longitude-scale`: Figure 43 latitude-specific
+  historical-book miles per longitude degree,
+  `60 - (2/3 * latitude_deg)`. It is not a general slanted-segment rule.
+- `gleason-frame-time-calculator`: Figures 37–38 / map-frame longitude-time
+  conversion. It is a calculator, not route geometry.
+
+No automatic conversion to metres/kilometres is allowed. Derived NM/NM²
+map-ruler values must not be mislabeled as WGS84 distance/area or as a
+source-defined physical surface metric.
 
 ### P6.6 shared polygon semantics
 
