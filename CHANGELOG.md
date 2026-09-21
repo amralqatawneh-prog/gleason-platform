@@ -593,3 +593,10 @@
 - Phase 1 monorepo, FastAPI/React/Vite/PWA foundation, Docker/PostGIS/Redis, RTL/LTR and tests.
 ### Changed
 - Repository permanently normalized into backend/frontend/data/database/docs domains with CI structure guard.
+
+
+- Closed the corrected P6.6 Gleason measurement contract after owner manual
+  **6/6 PASS — REPORTED BY OWNER** on
+  `e96712975fc9f54f2615e235bb6976136efe8a2d`, with pre-manual Release
+  Acceptance Gates **#783 — SUCCESS**. Final closure-state CI remains required
+  before PR #31 is a verified merge candidate.

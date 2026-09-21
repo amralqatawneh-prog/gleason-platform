@@ -118,7 +118,7 @@ Deliver:
 
 ## P6.4 — AE Native Measurement
 
-Status: **REOPENED / IN PROGRESS — owner-approved Gleason measurement source-audit amendment**.
+Status: **CLOSED + MERGED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**.
 
 Start / automated evidence:
 - owner instruction: **«أبدأ P6.4»**;
@@ -171,13 +171,15 @@ Acceptance:
 
 ## P6.6 — Polygon / Perimeter / Area
 
-Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**.
+Status: **CLOSED — CORRECTED CONTRACT OWNER MANUAL 6/6 PASS — AWAITING FINAL CLOSURE CI**.
 
 Prior closure report (superseded): `docs/PHASE_6_P6_6_REPORT.md`.
 Source audit: `docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md`.
 Owner amendment approval: **«موافق على جميع مقترحاتك، تستطيع البدء»**.
-Owner-tested head: `4cb8c04b40fbea35745f4091a4bf5e849c34b299`.
-Release Acceptance Gates **#769 — SUCCESS** before manual verification.
+Prior owner-tested head (superseded contract): `4cb8c04b40fbea35745f4091a4bf5e849c34b299` with #769 SUCCESS.
+Corrected-contract owner-tested head: `e96712975fc9f54f2615e235bb6976136efe8a2d`.
+Corrected-contract pre-manual Release Acceptance Gates: **#783 — SUCCESS**.
+Corrected-contract owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
 
 Start authorization: owner instruction **«ادمج PR #30 وابدأ P6.6»**. Start baseline:
 `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. The polygon semantics contract

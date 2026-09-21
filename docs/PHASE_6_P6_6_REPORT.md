@@ -1,7 +1,7 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Closure Report
 
 Date: 2026-09-21  
-Status: **PRIOR CLOSURE SUPERSEDED — REOPENED IN PROGRESS AFTER OWNER-APPROVED SOURCE AUDIT**  
+Status: **CLOSED — CORRECTED CONTRACT OWNER MANUAL 6/6 PASS — AWAITING FINAL CLOSURE CI**  
 PR: **#31 — P6.6 Polygon / Perimeter / Area**  
 Branch: `feat/p6.6-polygon-perimeter-area`  
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
@@ -165,3 +165,42 @@ testing. The amended contract:
 
 The slice remains REOPENED / IN PROGRESS until fresh complete CI and targeted
 owner manual verification pass.
+
+
+## Corrected-contract owner verification and closure — 2026-09-21
+
+Corrected-contract baseline tested by the owner:
+
+`e96712975fc9f54f2615e235bb6976136efe8a2d`
+
+Release Acceptance Gates before owner manual verification:
+
+**#783 — SUCCESS**
+
+Owner manual result for the corrected contract:
+
+**6/6 PASS — REPORTED BY OWNER**
+
+The six targeted checks verified:
+
+1. preferred historical scale `gleason-fig43-circle-derived` is the default,
+   with native NRU and legacy radial-60 comparison kept separate;
+2. Figure 43 scale is latitude-dependent and fails closed for an arbitrary
+   cross-latitude segment instead of applying a global `delta-longitude * 60`
+   shortcut;
+3. Figure 37–38 longitude/time conversion preserves
+   `1 degree = 4 minutes` and reverses sign when A/B are reversed without
+   becoming a route-distance method;
+4. restored-raster identity and provisional georeferencing are visible without
+   fabricated city control points or pixel/geographic-unit substitution;
+5. polygon output keeps NRU/NRU² native values while Figure 43-derived planar
+   perimeter/area and legacy comparison remain separately labeled;
+6. regression check confirms search, ordered-route editing/direct-map add,
+   WGS84, AE, Gleason, zoom/pan and stale-result clearing remain intact.
+
+This closes the corrected P6.6 contract subject to one final Release Acceptance
+Gates run on the documentation/state closure head.
+
+PR #31 remains open/draft/unmerged until that final CI passes and a separate
+owner merge authorization is given. P6.7A remains NOT STARTED. No tag, GitHub
+Release or deployment is authorized. No post-PR31 reconciliation PR is planned.

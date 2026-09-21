@@ -1091,7 +1091,7 @@ require(
 )
 require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
 require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
-require(phase6_start.get("p6_6_status") == "reopened_in_progress", "P6.6 status must reflect reopened audit work")
+require(phase6_start.get("p6_6_status") == "closed", "P6.6 corrected contract must be closed")
 
 p6_6_automated = phase6_start.get("p6_6_automated", {})
 require(
@@ -1128,8 +1128,8 @@ for field in [
 
 p6_6_closure = phase6_start.get("p6_6_closure", {})
 require(
-    p6_6_closure.get("status") == "superseded-by-owner-approved-measurement-audit",
-    "P6.6 prior closure must remain superseded by measurement audit",
+    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
+    "P6.6 corrected closure lifecycle drifted",
 )
 require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
 require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
@@ -1154,8 +1154,8 @@ require(
     "P6.6 audit owner statement drifted",
 )
 require(
-    p6_6_audit.get("status") == "implemented-awaiting-fresh-ci",
-    "P6.6 corrected measurement audit must await fresh CI",
+    p6_6_audit.get("status") == "closed-awaiting-final-closure-ci",
+    "P6.6 corrected measurement audit must be closed awaiting final closure CI",
 )
 require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
 require(
@@ -1202,8 +1202,33 @@ require(
     "restored Gleason raster SHA-256 drifted",
 )
 require(p6_6_audit.get("restored_raster", {}).get("city_control_points") == 0, "Gleason raster must not fabricate city control points")
-require(p6_6_audit.get("ci_status") == "pending", "corrected P6.6 contract CI must begin pending")
-require(p6_6_audit.get("manual_verification_status") == "not_run_for_corrected_contract", "corrected P6.6 manual tests must remain NOT RUN before owner testing")
+require(
+    p6_6_audit.get("ci_status") == "awaiting-final-closure-ci",
+    "corrected P6.6 contract must await final closure CI",
+)
+require(
+    p6_6_audit.get("manual_verification_status") == "pass-reported-by-owner",
+    "corrected P6.6 owner manual PASS evidence missing",
+)
+require(p6_6_audit.get("manual_checklist_items_passed") == 6, "corrected P6.6 checklist must record 6/6")
+require(
+    p6_6_audit.get("owner_tested_head") == "e96712975fc9f54f2615e235bb6976136efe8a2d",
+    "corrected P6.6 owner-tested head drifted",
+)
+require(p6_6_audit.get("pre_manual_ci_run") == 783, "corrected P6.6 owner testing must follow CI #783")
+require(p6_6_audit.get("pre_manual_ci_conclusion") == "success", "corrected P6.6 pre-manual CI #783 must remain success")
+for field in [
+    "corrected_historical_scale_and_legacy_separation",
+    "fig43_latitude_dependent_fail_closed",
+    "frame_time_conversion",
+    "restored_raster_provisional_georeferencing",
+    "polygon_scale_separation",
+    "cross_slice_regression",
+]:
+    require(
+        p6_6_audit.get("manual_checks", {}).get(field) == "pass-reported-by-owner",
+        f"corrected P6.6 manual evidence missing: {field}",
+    )
 require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
 require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
 
@@ -1642,10 +1667,10 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.5",
+            "phase6_previous_slice": "P6.6",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.6",
-            "phase6_current_slice_status": "reopened_in_progress",
+            "phase6_current_slice": None,
+            "phase6_current_slice_status": "none",
             "phase6_next_slice": "P6.7A",
             "phase6_next_slice_status": "not_started",
         },

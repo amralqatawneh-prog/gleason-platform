@@ -52,7 +52,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
-- Latest prior closure: **P6.6 — Polygon / Perimeter / Area**; **SUPERSEDED / REOPENED IN PROGRESS** after the owner-approved Gleason measurement book/video audit on PR #31.
+- Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
 - P6.6 is **CLOSED** after Release Acceptance Gates **#769 — SUCCESS** on owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` and **6/6 manual checks PASS — REPORTED BY OWNER**. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. PR #31 remains open/unmerged; P6.7A remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
@@ -1124,3 +1124,13 @@ PR #31 now targets the owner-approved corrected scale architecture:
 configurable comparison, same-latitude arc/chord separation, and provisional
 georeferencing for the owner-supplied 4653x6506 restored Gleason raster.
 P6.7A remains NOT STARTED.
+
+
+### P6.6 corrected-contract closure state — 2026-09-21
+
+The owner completed the corrected Gleason contract checklist **6/6 PASS —
+REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is closed subject
+to final closure-state CI. PR #31 stays unmerged pending separate owner merge
+authorization. P6.7A remains NOT STARTED. No reconciliation PR follows this
+closure.

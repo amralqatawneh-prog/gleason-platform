@@ -296,3 +296,9 @@ route/ruler/area في P6.1.
 - P6.6 correction package: Fig.43/circle-derived historical scale + legacy
   radial-60 profile + Walter configurable comparison + restored-raster
   georeferencing foundation. Await fresh CI/manual verification before closure.
+
+
+- P6.6 corrected Gleason contract: owner manual **6/6 PASS — REPORTED BY OWNER**
+  on `e96712975fc9f54f2615e235bb6976136efe8a2d` after **#783 SUCCESS**.
+  P6.6 is CLOSED pending final closure-state CI; P6.7A remains NOT STARTED.
+  PR #31 stays unmerged until separate owner authorization.

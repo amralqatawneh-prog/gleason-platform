@@ -548,7 +548,7 @@
       "pr": 31,
       "pr_status": "open-draft-unmerged"
     },
-    "p6_6_status": "reopened_in_progress",
+    "p6_6_status": "closed",
     "p6_6_automated": {
       "owner_tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
       "ci_run": 769,
@@ -573,7 +573,7 @@
       "minimum_vertex_stale_result_fail_closed": "pass-reported-by-owner"
     },
     "p6_6_closure": {
-      "status": "superseded-by-owner-approved-measurement-audit",
+      "status": "closed-awaiting-final-closure-ci",
       "report": "docs/PHASE_6_P6_6_REPORT.md",
       "pr": 31,
       "merge_status": "open-draft-unmerged",
@@ -590,7 +590,7 @@
       "date": "2026-09-21",
       "decision": "owner-approved-reopen-and-implement",
       "owner_statement": "موافق على جميع مقترحاتك، تستطيع البدء",
-      "status": "implemented-awaiting-fresh-ci",
+      "status": "closed-awaiting-final-closure-ci",
       "pr": 31,
       "branch": "feat/p6.6-polygon-perimeter-area",
       "primary_source": "gleason-book",
@@ -644,8 +644,22 @@
         "city_control_points": 0
       },
       "video_fixture_count": 5,
-      "manual_verification_status": "not_run_for_corrected_contract",
-      "ci_status": "pending"
+      "manual_verification_status": "pass-reported-by-owner",
+      "ci_status": "awaiting-final-closure-ci",
+      "owner_tested_head": "e96712975fc9f54f2615e235bb6976136efe8a2d",
+      "pre_manual_ci_run": 783,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_checks": {
+        "corrected_historical_scale_and_legacy_separation": "pass-reported-by-owner",
+        "fig43_latitude_dependent_fail_closed": "pass-reported-by-owner",
+        "frame_time_conversion": "pass-reported-by-owner",
+        "restored_raster_provisional_georeferencing": "pass-reported-by-owner",
+        "polygon_scale_separation": "pass-reported-by-owner",
+        "cross_slice_regression": "pass-reported-by-owner"
+      },
+      "next_slice": "P6.7A",
+      "next_slice_status": "not_started"
     }
   },
   "post_pr16_merge_reconciliation": {
