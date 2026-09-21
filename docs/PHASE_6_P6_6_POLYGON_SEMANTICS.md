@@ -138,3 +138,21 @@ comparable merely because they are displayed together.
 P6.6 acceptance requires backend/browser parity where both implementations
 exist, plus reversed-order, repeated-point, degenerate, antimeridian and polar
 coverage.
+
+
+## 9. Backend / browser parity tolerances
+
+Parity compares two independent implementations rather than forcing bitwise
+identity:
+
+- WGS84: perimeter < `1e-5 m`; area < `0.1 m²`.
+- AE: perimeter < `0.1 m`; area tolerance is
+  `max(1 m², 2e-10 × |backend area|)`. This accommodates the already accepted
+  sub-centimetre-to-centimetre class differences between browser proj4 and
+  backend pyproj/PROJ at very large projected coordinates without changing the
+  method identity or displayed precision.
+- Gleason normalized: perimeter and area differences < `1e-12` in native
+  normalized units.
+
+A tolerance is an acceptance bound between implementations; it is not an added
+measurement uncertainty model and must not be presented as one.
