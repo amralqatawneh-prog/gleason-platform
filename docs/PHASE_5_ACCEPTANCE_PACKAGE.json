@@ -693,5 +693,68 @@
     "verification_ci_conclusion": "success",
     "merge_status": "open-unmerged",
     "merge_authorization": "pending-separate-owner-instruction"
+  },
+  "roadmap_astronomy_architecture_amendment_2026_09_21": {
+    "decision": "owner-approved",
+    "owner_statement": "موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد",
+    "status": "in_progress",
+    "date": "2026-09-21",
+    "branch": "docs/astronomy-roadmap-amendment-2026-09-21",
+    "stacked_base_pr": 26,
+    "stacked_base_head": "24aba98192483dc8fc3d60cacbb8eac96f0fa5aa",
+    "stacked_base_ci_run": 718,
+    "stacked_base_ci_conclusion": "success",
+    "underlying_main_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "scope": "documentation and architecture planning only; comparative celestial models, historical eclipse cycles and future provider contracts; no astronomy runtime implementation",
+    "p6_6_status": "not_started",
+    "phase6_status_remains": "in_progress",
+    "accepted_phase_remains": 5,
+    "accepted_application_version_remains": "0.5.0",
+    "reserved_contracts": [
+      "ObserverContext",
+      "TimeContext",
+      "ExternalLayerProvider",
+      "RouteProvider",
+      "CelestialComputationProvider",
+      "EclipsePredictionProvider"
+    ],
+    "calculation_classes": [
+      "reference-ephemeris",
+      "historical-cycle",
+      "external-comparative-model",
+      "model-native",
+      "display-only"
+    ],
+    "source_registry": "data/sources/astronomy-comparative-sources.yaml",
+    "registered_source_ids": [
+      "shane-personal-celestial-sphere",
+      "shane-fe-model-license",
+      "walter-bislin-fe-dome",
+      "walter-bislin-fe-dome-heliocentric-basis",
+      "nasa-solar-saros-periodicity",
+      "nasa-lunar-saros-periodicity",
+      "brack-bernsen-steele-2005",
+      "british-museum-map-of-world-92687"
+    ],
+    "revised_phases": [
+      9,
+      10,
+      11,
+      12,
+      17,
+      20
+    ],
+    "roadmap_document": "docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md",
+    "provider_contract_document": "docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md",
+    "legacy_amendment_document": "docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md",
+    "pr": 27,
+    "pr_base": "docs/post-pr25-merge-reconciliation",
+    "merge_status": "open-draft-unmerged",
+    "verification_head": null,
+    "verification_ci_run": null,
+    "verification_ci_conclusion": "pending",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created"
   }
 }
