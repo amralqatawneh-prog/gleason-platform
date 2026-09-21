@@ -196,6 +196,16 @@ Primary source reviewed:
 - SHA-256:
   `03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60`
 
+Owner-supplied higher-resolution Gleason source:
+- registry: `data/sources/gleason-owner-8k-map.yaml`;
+- preserved world file: `data/sources/artifacts/8k-Flat-Earth-map.jgw`;
+- JGW SHA-256:
+  `0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43`;
+- current bundle status: **incomplete — companion 8K raster not yet received**;
+- intended audit: labels for cities/countries/oceans/seas, longitude/latitude graticule, bottom ruler, outer boundary/time dial, and comparison with Gleason Figs. 37–38 and 43;
+- preservation rule: retain the original 8K raster unchanged when supplied; any tiles/resamples are derivatives only;
+- promotion rule: do not replace the existing restored-raster reference until the companion image bytes/dimensions/hash and the ruler/frame/book audit are recorded.
+
 Important verified source notes:
 - Ch. XIII–XIX cover geodetic arguments, sun motion, distance, longitude, time, navigation, eclipses, rivers.
 - Ch. XVII describes “A New Circular Map of the World, and Longitude and Time Calculator.”
