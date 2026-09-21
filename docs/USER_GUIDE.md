@@ -28,11 +28,12 @@ Current accepted/product state includes:
 - P6.6 closed-polygon perimeter and area for WGS84, AE and Gleason, with each result retaining its own units and method identity;
 - offline-capable foundations and bilingual Arabic/English UI.
 
-P6.4 and P6.5 are closed. P6.6 **Polygon / Perimeter / Area is IN PROGRESS** on
-`feat/p6.6-polygon-perimeter-area`, starting from
-`main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. Add at least three ordered
+P6.4, P6.5 and P6.6 are closed. P6.6 **Polygon / Perimeter / Area is VERIFIED
++ MERGED** through PR #31 at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`; exact final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`
+passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract
+owner verification **6/6 PASS — REPORTED BY OWNER**. Add at least three ordered
 points; the polygon closes automatically from the last point to the first. Do
-not repeat the first vertex manually.
+not repeat the first vertex manually. P6.7A remains NOT STARTED.
 
 ## 3. Understanding measurements
 

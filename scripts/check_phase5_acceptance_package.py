@@ -52,12 +52,12 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.4", "previous Phase 6 slice must be P6.4")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.4 must remain closed")
-require(phase6_start.get("current_slice") == "P6.5", "current Phase 6 slice must be P6.5")
-require(phase6_start.get("current_slice_status") == "closed", "P6.5 current slice status must be closed after owner verification")
-require(phase6_start.get("next_slice") == "P6.6", "next Phase 6 slice must be P6.6")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.6 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.6", "previous Phase 6 slice must be P6.6")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.6 previous slice must remain closed")
+require(phase6_start.get("current_slice") is None, "no Phase 6 functional slice may be active during post-PR31 reconciliation")
+require(phase6_start.get("current_slice_status") == "none", "current Phase 6 slice status must be none")
+require(phase6_start.get("next_slice") == "P6.7A", "next Phase 6 slice must be P6.7A")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
 p6_5_start = phase6_start.get("p6_5_start", {})
 require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
 require(
@@ -326,8 +326,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "1c64285b92c093365b74f3256aa9557b9a48268e",
-    "current integration baseline must be the PR #30 merge commit / P6.6 start baseline",
+    == "6a2666112e56514051ea62fbe1c25f5a8016f1ae",
+    "current integration baseline must be the PR #31 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -1062,6 +1062,14 @@ require(
     "post-PR29 PR #30 post-merge CI evidence state drifted",
 )
 
+require(merge_boundary.get("pr31") == "merged", "PR #31 must be recorded as merged")
+require(merge_boundary.get("pr31_merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "PR #31 merge commit drifted")
+require(merge_boundary.get("pr31_final_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "PR #31 final head drifted")
+require(merge_boundary.get("pr31_pre_merge_ci_run") == 784, "PR #31 final verification CI must be #784")
+require(merge_boundary.get("pr31_pre_merge_ci_conclusion") == "success", "PR #31 #784 must remain success")
+require(merge_boundary.get("pr31_post_merge_main_ci_run") is None, "PR #31 post-merge CI must not be fabricated")
+require(merge_boundary.get("pr31_post_merge_main_ci_conclusion") == "not-independently-observed", "PR #31 post-merge evidence state drifted")
+
 p6_6_start = phase6_start.get("p6_6_start", {})
 require(p6_6_start.get("decision") == "started-by-owner-after-pr30-merge", "P6.6 start decision missing")
 require(p6_6_start.get("owner_statement") == "ادمج PR #30 وابدأ P6.6", "P6.6 owner start statement drifted")
@@ -1075,7 +1083,7 @@ require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 br
 require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
 require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
-require(p6_6_start.get("status") == "reopened-in-progress", "P6.6 must be reopened after owner-approved measurement audit")
+require(p6_6_start.get("status") == "closed-verified-merged", "P6.6 start record must reflect verified merged closure")
 require(
     p6_6_start.get("owner_manual_status") == "pass-reported-by-owner",
     "P6.6 owner manual status missing",
@@ -1090,8 +1098,8 @@ require(
     "P6.6 pre-manual CI #769 must remain success",
 )
 require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
-require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
-require(phase6_start.get("p6_6_status") == "closed", "P6.6 corrected contract must be closed")
+require(p6_6_start.get("pr_status") == "merged-closed", "P6.6 PR #31 must be recorded as merged/closed")
+require(phase6_start.get("p6_6_status") == "closed-verified-merged", "P6.6 corrected contract must be closed, verified and merged")
 
 p6_6_automated = phase6_start.get("p6_6_automated", {})
 require(
@@ -1128,15 +1136,15 @@ for field in [
 
 p6_6_closure = phase6_start.get("p6_6_closure", {})
 require(
-    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
-    "P6.6 corrected closure lifecycle drifted",
+    p6_6_closure.get("status") == "closed-verified-merged",
+    "P6.6 corrected closure lifecycle must be closed/verified/merged",
 )
 require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
 require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
-require(p6_6_closure.get("merge_status") == "open-draft-unmerged", "P6.6 PR #31 must remain unmerged")
+require(p6_6_closure.get("merge_status") == "merged", "P6.6 PR #31 must be recorded as merged")
 require(
-    p6_6_closure.get("merge_authorization") == "pending-separate-owner-instruction",
-    "P6.6 merge must await separate owner authorization",
+    p6_6_closure.get("merge_authorization") == "explicit-owner-instruction",
+    "P6.6 merge authorization evidence missing",
 )
 require(p6_6_closure.get("next_slice") == "P6.7A", "P6.6 next slice must remain P6.7A")
 require(p6_6_closure.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
@@ -1145,6 +1153,13 @@ require(p6_6_closure.get("accepted_application_version_remains") == "0.5.0", "P6
 require(p6_6_closure.get("tag") == "not_created", "P6.6 closure must not create a tag")
 require(p6_6_closure.get("github_release") == "not_created", "P6.6 closure must not create a GitHub Release")
 require(p6_6_closure.get("deployment") == "not_created", "P6.6 closure must not deploy")
+require(p6_6_closure.get("merge_authorization_statement") == "ادمج PR #31", "P6.6 merge authorization statement drifted")
+require(p6_6_closure.get("final_closure_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "P6.6 final closure head drifted")
+require(p6_6_closure.get("final_closure_ci_run") == 784, "P6.6 final closure CI must be #784")
+require(p6_6_closure.get("final_closure_ci_conclusion") == "success", "P6.6 final closure CI #784 must remain success")
+require(p6_6_closure.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "P6.6 PR #31 merge commit drifted")
+require(p6_6_closure.get("post_merge_main_ci_run") is None, "P6.6 must not fabricate unseen post-merge CI")
+require(p6_6_closure.get("post_merge_main_ci_conclusion") == "not-independently-observed", "P6.6 post-merge CI evidence state drifted")
 require((ROOT / "docs" / "PHASE_6_P6_6_REPORT.md").is_file(), "P6.6 closure report missing")
 
 p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
@@ -1154,8 +1169,8 @@ require(
     "P6.6 audit owner statement drifted",
 )
 require(
-    p6_6_audit.get("status") == "closed-awaiting-final-closure-ci",
-    "P6.6 corrected measurement audit must be closed awaiting final closure CI",
+    p6_6_audit.get("status") == "closed-verified-merged",
+    "P6.6 corrected measurement audit must be closed, verified and merged",
 )
 require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
 require(
@@ -1203,8 +1218,8 @@ require(
 )
 require(p6_6_audit.get("restored_raster", {}).get("city_control_points") == 0, "Gleason raster must not fabricate city control points")
 require(
-    p6_6_audit.get("ci_status") == "awaiting-final-closure-ci",
-    "corrected P6.6 contract must await final closure CI",
+    p6_6_audit.get("ci_status") == "final-closure-success",
+    "corrected P6.6 final closure CI state drifted",
 )
 require(
     p6_6_audit.get("manual_verification_status") == "pass-reported-by-owner",
@@ -1217,6 +1232,13 @@ require(
 )
 require(p6_6_audit.get("pre_manual_ci_run") == 783, "corrected P6.6 owner testing must follow CI #783")
 require(p6_6_audit.get("pre_manual_ci_conclusion") == "success", "corrected P6.6 pre-manual CI #783 must remain success")
+require(p6_6_audit.get("final_closure_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "corrected P6.6 final closure head drifted")
+require(p6_6_audit.get("final_closure_ci_run") == 784, "corrected P6.6 final closure CI must be #784")
+require(p6_6_audit.get("final_closure_ci_conclusion") == "success", "corrected P6.6 final closure #784 must remain success")
+require(p6_6_audit.get("merge_status") == "merged", "corrected P6.6 PR #31 must be merged")
+require(p6_6_audit.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "corrected P6.6 merge commit drifted")
+require(p6_6_audit.get("merge_authorization") == "explicit-owner-instruction", "corrected P6.6 merge authorization missing")
+require(p6_6_audit.get("merge_authorization_statement") == "ادمج PR #31", "corrected P6.6 merge authorization statement drifted")
 for field in [
     "corrected_historical_scale_and_legacy_separation",
     "fig43_latitude_dependent_fail_closed",
@@ -1231,6 +1253,32 @@ for field in [
     )
 require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
 require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
+
+post_pr31 = data.get("post_pr31_merge_reconciliation", {})
+require(post_pr31.get("decision") == "started-by-owner", "post-PR31 reconciliation owner decision missing")
+require(
+    post_pr31.get("owner_statement") == "قم بتحديث وتوثيق ملفات وبيانات وتقارير github قبل ان نبدأ بأي مرحلة قادمه",
+    "post-PR31 reconciliation owner statement drifted",
+)
+require(post_pr31.get("baseline_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 reconciliation baseline drifted")
+require(post_pr31.get("source_pr") == 31, "post-PR31 reconciliation must reference PR #31")
+require(post_pr31.get("source_pr_final_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "post-PR31 source final head drifted")
+require(post_pr31.get("source_pr_final_ci_run") == 784, "post-PR31 source final CI must be #784")
+require(post_pr31.get("source_pr_final_ci_conclusion") == "success", "post-PR31 source #784 must remain success")
+require(post_pr31.get("source_pr_merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 source merge commit drifted")
+require(post_pr31.get("branch") == "docs/post-pr31-merge-reconciliation-2026-09-22", "post-PR31 reconciliation branch drifted")
+require(post_pr31.get("pr") == 32, "post-PR31 reconciliation PR must be #32")
+require(post_pr31.get("status") == "closed-verified-awaiting-merge-authorization", "post-PR31 reconciliation must be closed/verified while awaiting merge authorization")
+require(post_pr31.get("merge_authorization") == "pending-separate-owner-instruction", "post-PR31 reconciliation merge must await separate owner authorization")
+require(post_pr31.get("verification_head") == "6b93b76a7cfeea5dfcff32cd3e0f188adf879557", "post-PR31 reconciliation verification head drifted")
+require(post_pr31.get("verification_ci_run") == 787, "post-PR31 reconciliation verification CI must be #787")
+require(post_pr31.get("verification_ci_conclusion") == "success", "post-PR31 reconciliation #787 must remain success")
+require(post_pr31.get("workflow_run_id") == 35657206996, "post-PR31 reconciliation workflow run id drifted")
+require(post_pr31.get("next_slice") == "P6.7A", "post-PR31 reconciliation next slice must be P6.7A")
+require(post_pr31.get("next_slice_status") == "not_started", "P6.7A must remain not started during reconciliation")
+require(post_pr31.get("tag") == "not_created", "post-PR31 reconciliation must not create a tag")
+require(post_pr31.get("github_release") == "not_created", "post-PR31 reconciliation must not create a GitHub Release")
+require(post_pr31.get("deployment") == "not_created", "post-PR31 reconciliation must not deploy")
 
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [

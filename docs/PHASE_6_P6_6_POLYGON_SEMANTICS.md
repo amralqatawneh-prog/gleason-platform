@@ -1,6 +1,6 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Semantics
 
-Status: **IN PROGRESS**
+Status: **CLOSED / VERIFIED + MERGED — PR #31 final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` · CI #784 SUCCESS · merge `6a2666112e56514051ea62fbe1c25f5a8016f1ae`**
 
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
 Working branch: `feat/p6.6-polygon-perimeter-area`  

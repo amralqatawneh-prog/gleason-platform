@@ -47,7 +47,7 @@ projected-plane distance is not automatically a WGS84 surface geodesic.
 
 ### Gleason native normalized measurement
 
-Status: **P6.5 implementation retained; Gleason measurement semantics REOPENED on PR #31 after the 2026-09-21 book/video audit**
+Status: **P6.5/P6.6 corrected Gleason measurement semantics VERIFIED + MERGED through PR #31; exact final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784**
 
 Current P6.5 distance identity:
 - method: `gleason-native-normalized`
@@ -72,17 +72,21 @@ the absolute value. Backend/browser parity is required.
 The audited Gleason tools are intentionally separate:
 
 - `gleason-map-ruler-derived`: straight GH-0.2.0 map-plane chord. NRU remains
-  native; derived ruler display uses 10800 NM/NRU from 60 nautical miles per
-  radial latitude degree. Evidence class: DERIVED.
+  native. The preferred audited historical display profile is
+  `gleason-fig43-circle-derived`, with `1 NRU = 21600/pi` historical Fig.43 miles.
+  The former `10800 NM/NRU` rule is retained only as the separately labeled
+  `gleason-radial-60nm-legacy` comparison. Evidence class for the preferred
+  profile: DERIVED_FROM_DOCUMENTED.
 - `gleason-historical-longitude-scale`: Figure 43 latitude-specific
   historical-book miles per longitude degree,
   `60 - (2/3 * latitude_deg)`. It is not a general slanted-segment rule.
 - `gleason-frame-time-calculator`: Figures 37–38 / map-frame longitude-time
   conversion. It is a calculator, not route geometry.
 
-No automatic conversion to metres/kilometres is allowed. Derived NM/NM²
-map-ruler values must not be mislabeled as WGS84 distance/area or as a
-source-defined physical surface metric.
+No automatic conversion to metres/kilometres is allowed. Fig.43/circle-derived
+historical-mile values and any legacy NM/NM² comparison remain explicitly
+labeled planar derived quantities; they must not be mislabeled as WGS84
+distance/area or as a source-defined physical surface metric.
 
 ### P6.6 shared polygon semantics
 

@@ -1,7 +1,7 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Closure Report
 
 Date: 2026-09-21  
-Status: **CLOSED — CORRECTED CONTRACT OWNER MANUAL 6/6 PASS — AWAITING FINAL CLOSURE CI**  
+Status: **CLOSED / VERIFIED + MERGED — FINAL HEAD `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` / CI #784 SUCCESS / MERGE `6a2666112e56514051ea62fbe1c25f5a8016f1ae`**  
 PR: **#31 — P6.6 Polygon / Perimeter / Area**  
 Branch: `feat/p6.6-polygon-perimeter-area`  
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
@@ -119,7 +119,8 @@ P6.6 is closed as a Phase 6 slice. This does **not**:
 - introduce RouteProvider navigation;
 - introduce runtime astronomy/Saros/eclipse features.
 
-PR #31 remains unmerged until separate explicit owner merge authorization.
+PR #31 was separately authorized and is now **MERGED / CLOSED** at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
+This merge does not accept Phase 6 as a whole and does not start P6.7A.
 
 The closure-state head must pass the complete Release Acceptance Gates before
 PR #31 can be considered a verified merge candidate. That final workflow
@@ -198,9 +199,11 @@ The six targeted checks verified:
 6. regression check confirms search, ordered-route editing/direct-map add,
    WGS84, AE, Gleason, zoom/pan and stale-result clearing remain intact.
 
-This closes the corrected P6.6 contract subject to one final Release Acceptance
-Gates run on the documentation/state closure head.
+This corrected P6.6 contract is fully closed. The exact final closure head
+`1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed **Release Acceptance Gates #784 — SUCCESS**. The owner then
+separately authorized merging PR #31, which merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
 
-PR #31 remains open/draft/unmerged until that final CI passes and a separate
-owner merge authorization is given. P6.7A remains NOT STARTED. No tag, GitHub
-Release or deployment is authorized. No post-PR31 reconciliation PR is planned.
+P6.7A remains NOT STARTED. No tag, GitHub Release or deployment is authorized.
+On 2026-09-22 the owner explicitly requested a documentation/state reconciliation
+before any next functional phase; that work is recorded in
+`docs/POST_PR31_MERGE_RECONCILIATION_2026-09-22.md`.

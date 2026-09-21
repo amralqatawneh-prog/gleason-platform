@@ -1,13 +1,25 @@
 # Changelog
 
+## [Unreleased] — Post-PR #31 merge reconciliation (2026-09-22)
+
+- PR #31 — P6.6 Polygon / Perimeter / Area — is **MERGED / CLOSED**.
+- Corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed Release Acceptance Gates **#783 — SUCCESS** and owner manual verification **6/6 PASS — REPORTED BY OWNER**.
+- Exact final PR #31 head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed **Release Acceptance Gates #784 — SUCCESS**.
+- PR #31 merge commit / current integration baseline is `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
+- No independent post-merge CI run is claimed for the merge commit.
+- P6.6 is **CLOSED / VERIFIED + MERGED**; P6.7A remains **NOT STARTED**.
+- Accepted phase remains **5**, accepted application version remains **v0.5.0**, and Phase 6 remains **IN PROGRESS**.
+- No tag, GitHub Release or deployment is created by this reconciliation.
+- Current-state documentation, machine-readable acceptance data, and the state checker are synchronized before the next functional slice.
+
 ## [Unreleased] — P6.6 Polygon / Perimeter / Area (2026-09-21)
 
 - Owner instructed **«ادمج PR #30 وابدأ P6.6»**.
 - PR #30 was **MERGED / CLOSED** after final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed Release Acceptance Gates **#759 — SUCCESS**; merge commit / P6.6 start baseline is `1c64285b92c093365b74f3256aa9557b9a48268e`.
-- P6.6's earlier closure evidence (#769 + owner manual 6/6; final closure #771) is preserved but **SUPERSEDED** by an owner-approved Gleason measurement source audit. P6.6 is **REOPENED / IN PROGRESS** on the same PR #31.
+- P6.6's earlier closure evidence (#769 + owner manual 6/6; final closure #771) is preserved as superseded-contract history. The corrected contract later closed on #783/#784 and PR #31 was merged.
 - Added explicit closed-ring semantics, repeated/degenerate validation, algebraic self-intersection policy, orientation/sign rules, WGS84 interior semantics, and independent WGS84/AE/Gleason perimeter/area engines.
 - Added separated Gleason geometry/scale identities. The preferred historical profile is now `gleason-fig43-circle-derived` (21600/pi historical Fig.43 miles per NRU); the prior 10800 NM/NRU assumption is retained only as `gleason-radial-60nm-legacy`. Added Walter configurable comparison, Figure 43 arc/chord fixtures, five-video evidence registry, and restored-raster georeferencing foundation.
-- PR #31 remains open/draft/unmerged. P6.7A remains NOT STARTED.
+- PR #31 was later **MERGED / CLOSED** at `6a2666112e56514051ea62fbe1c25f5a8016f1ae` after final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784. P6.7A remains NOT STARTED.
 - No post-PR30 reconciliation PR is opened; current-state synchronization is maintained inside the functional P6.6 branch to avoid reconciliation/merge recursion.
 
 ## [Unreleased] — Post-PR #29 merge reconciliation (2026-09-21)
@@ -598,5 +610,5 @@
 - Closed the corrected P6.6 Gleason measurement contract after owner manual
   **6/6 PASS — REPORTED BY OWNER** on
   `e96712975fc9f54f2615e235bb6976136efe8a2d`, with pre-manual Release
-  Acceptance Gates **#783 — SUCCESS**. Final closure-state CI remains required
-  before PR #31 is a verified merge candidate.
+  Acceptance Gates **#783 — SUCCESS**. The exact final closure head later passed
+  **#784 — SUCCESS**, and PR #31 was merged into the current `main` baseline.
