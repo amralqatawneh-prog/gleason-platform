@@ -72,7 +72,17 @@ Machine-readable state and validation:
 - `docs/PHASE_5_ACCEPTANCE_PACKAGE.json`;
 - `scripts/check_phase5_acceptance_package.py`.
 
-Production source/data manifests and numerical implementation are unchanged.
+Owner-supplied source material added during this reconciliation:
+- `data/sources/artifacts/8k-Flat-Earth-map.jgw`;
+- `data/sources/gleason-owner-8k-map.yaml`;
+- linkage in `data/sources/gleason-restored-map.yaml`;
+- calibration/audit note in
+  `docs/GLEASON_SCALE_AND_RASTER_CALIBRATION_2026-09-21.md`.
+
+The JGW is preserved as exact source input. The companion 8K raster was not
+present in the upload, so printed labels, ruler graphics and the outer time dial
+are not yet claimed as audited. Production Phase 3 source locks and numerical
+implementation remain unchanged.
 
 ## Verification boundary
 
