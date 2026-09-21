@@ -36,6 +36,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED + MERGED** through PR #27. Exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge; merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`. P6.6 remains NOT STARTED.
 - Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Current post-PR27 reconciliation: `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md`.
+- Post-PR27 reconciliation verification: exact head `018e6a7984dcf682e94f36668333ea00ccbaf085`, Release Acceptance Gates **#738 — SUCCESS**; state **CLOSED / VERIFIED**. PR #28 remains OPEN / DRAFT / UNMERGED pending separate owner merge authorization.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
