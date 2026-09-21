@@ -73,6 +73,8 @@ require(
 )
 require(p6_5_start.get("status") == "in_progress", "P6.5 must remain in progress before owner manual verification")
 require(p6_5_start.get("owner_manual_status") == "not-run", "P6.5 owner manual status must remain NOT RUN at implementation start")
+require(p6_5_start.get("pr") == 25, "P6.5 active pull request must be #25")
+require(p6_5_start.get("pr_status") == "draft-open", "P6.5 PR #25 must remain draft/open before owner verification")
 p6_4_start = phase6_start.get("p6_4_start", {})
 require(p6_4_start.get("decision") == "started-by-owner", "P6.4 owner start evidence missing")
 require(
@@ -367,6 +369,20 @@ require(merge_boundary.get("pr23_post_merge_main_ci_run") is None, "PR #23 must 
 require(
     merge_boundary.get("pr23_post_merge_main_ci_conclusion") == "not-independently-observed",
     "PR #23 post-merge CI evidence state drifted",
+)
+require(merge_boundary.get("pr24") == "merged", "PR #24 must be recorded as merged")
+require(
+    merge_boundary.get("pr24_merge_commit") == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "PR #24 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr24_final_head") == "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
+    "PR #24 final head drifted",
+)
+require(merge_boundary.get("pr24_pre_merge_ci_run") == 684, "PR #24 pre-merge CI must be #684")
+require(
+    merge_boundary.get("pr24_pre_merge_ci_conclusion") == "success",
+    "PR #24 pre-merge CI #684 must remain success",
 )
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
