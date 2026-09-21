@@ -55,7 +55,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
   const total = result?.output.total_distance_normalized_radius_unit ?? null;
 
   return <section
-    className="gleason-route-distance-panel ae-route-distance-panel"
+    className="gleason-route-distance-panel"
     data-measurement-status={status}
     data-measurement-method={result?.output.method_id ?? 'gleason-native-normalized'}
     data-measurement-unit={result?.output.unit ?? 'normalized-radius-unit'}
