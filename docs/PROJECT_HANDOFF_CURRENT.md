@@ -42,7 +42,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR **#26**: **MERGED** into `main` with explicit owner authorization; final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`, Release Acceptance Gates **#718 — SUCCESS**, merge commit `6bbfe92e8a4c0b66415eb888598cace5b7b15102`.
-- PR **#27**: **MERGED** into `main` with explicit owner authorization; final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22`, Release Acceptance Gates **#726 — SUCCESS**, merge commit `5442852ef4bc2e760db39743d0bc57d0b11`.
+- PR **#27**: **MERGED** into `main` with explicit owner authorization; final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22`, Release Acceptance Gates **#726 — SUCCESS**, merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`.
 - PR **#28**: **MERGED / CLOSED**; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789`, final pre-merge Release Acceptance Gates **#744 — SUCCESS**, merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. Post-merge workflow result: **not independently observed**.
 - PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
