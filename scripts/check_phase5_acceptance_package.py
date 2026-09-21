@@ -631,6 +631,122 @@ require(
     post_pr25.get("merge_authorization") == "pending-separate-owner-instruction",
     "post-PR25 reconciliation merge must await separate owner authorization",
 )
+
+astronomy_amendment = data.get("roadmap_astronomy_architecture_amendment_2026_09_21", {})
+require(astronomy_amendment.get("decision") == "owner-approved", "astronomy architecture amendment owner approval missing")
+require(
+    astronomy_amendment.get("owner_statement")
+    == "موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد",
+    "astronomy architecture amendment owner statement drifted",
+)
+require(astronomy_amendment.get("status") == "in_progress", "astronomy architecture amendment must remain in progress before verification")
+require(
+    astronomy_amendment.get("branch") == "docs/astronomy-roadmap-amendment-2026-09-21",
+    "astronomy architecture amendment branch drifted",
+)
+require(astronomy_amendment.get("stacked_base_pr") == 26, "astronomy amendment stacked base PR must be #26")
+require(
+    astronomy_amendment.get("stacked_base_head") == "24aba98192483dc8fc3d60cacbb8eac96f0fa5aa",
+    "astronomy amendment stacked base head drifted",
+)
+require(astronomy_amendment.get("stacked_base_ci_run") == 718, "astronomy amendment stacked base CI must be #718")
+require(
+    astronomy_amendment.get("stacked_base_ci_conclusion") == "success",
+    "astronomy amendment stacked base CI #718 must remain success",
+)
+require(
+    astronomy_amendment.get("underlying_main_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "astronomy amendment underlying main baseline drifted",
+)
+require(astronomy_amendment.get("p6_6_status") == "not_started", "P6.6 must remain not_started during astronomy amendment")
+require(astronomy_amendment.get("phase6_status_remains") == "in_progress", "Phase 6 must remain in progress during astronomy amendment")
+require(astronomy_amendment.get("accepted_phase_remains") == 5, "accepted phase must remain 5 during astronomy amendment")
+require(
+    astronomy_amendment.get("accepted_application_version_remains") == "0.5.0",
+    "accepted app version must remain 0.5.0 during astronomy amendment",
+)
+require(
+    astronomy_amendment.get("reserved_contracts")
+    == [
+        "ObserverContext",
+        "TimeContext",
+        "ExternalLayerProvider",
+        "RouteProvider",
+        "CelestialComputationProvider",
+        "EclipsePredictionProvider",
+    ],
+    "astronomy amendment contract set drifted",
+)
+require(
+    astronomy_amendment.get("calculation_classes")
+    == [
+        "reference-ephemeris",
+        "historical-cycle",
+        "external-comparative-model",
+        "model-native",
+        "display-only",
+    ],
+    "astronomy amendment calculation classes drifted",
+)
+require(
+    astronomy_amendment.get("revised_phases") == [9, 10, 11, 12, 17, 20],
+    "astronomy amendment revised phase set drifted",
+)
+require(
+    astronomy_amendment.get("source_registry") == "data/sources/astronomy-comparative-sources.yaml",
+    "astronomy amendment source registry drifted",
+)
+require(astronomy_amendment.get("pr") == 27, "astronomy architecture amendment PR must be #27")
+require(
+    astronomy_amendment.get("pr_base") == "docs/post-pr25-merge-reconciliation",
+    "astronomy amendment PR base drifted",
+)
+require(
+    astronomy_amendment.get("merge_status") == "open-draft-unmerged",
+    "astronomy amendment PR #27 must remain open/draft/unmerged before verification",
+)
+require(astronomy_amendment.get("verification_head") is None, "astronomy amendment verification head must remain pending before CI")
+require(astronomy_amendment.get("verification_ci_run") is None, "astronomy amendment verification run must remain pending before CI")
+require(
+    astronomy_amendment.get("verification_ci_conclusion") == "pending",
+    "astronomy amendment verification conclusion must remain pending before CI",
+)
+require(astronomy_amendment.get("tag") == "not_created", "astronomy amendment must not create a tag")
+require(astronomy_amendment.get("github_release") == "not_created", "astronomy amendment must not create a GitHub Release")
+require(astronomy_amendment.get("deployment") == "not_created", "astronomy amendment must not deploy")
+
+astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
+for marker in [
+    "shane-personal-celestial-sphere",
+    "shane-fe-model-license",
+    "walter-bislin-fe-dome",
+    "walter-bislin-fe-dome-heliocentric-basis",
+    "nasa-solar-saros-periodicity",
+    "nasa-lunar-saros-periodicity",
+    "brack-bernsen-steele-2005",
+    "british-museum-map-of-world-92687",
+    "external-comparative-model",
+    "historical-cycle",
+    "pin_snapshot_hash_before_runtime_code_reuse: true",
+]:
+    require(marker in astronomy_sources, f"astronomy source registry marker missing: {marker}")
+
+astronomy_roadmap = (ROOT / "docs" / "ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md").read_text(encoding="utf-8")
+for marker in [
+    "CelestialComputationProvider",
+    "EclipsePredictionProvider",
+    "ObserverCelestialSphere",
+    "PhysicalHeavensModel",
+    "Babylonian 223-Month Eclipse Cycle",
+    "P9.6",
+    "P10.7",
+    "P11.6",
+    "P12.9",
+    "Revised Phase 17",
+    "Revised Phase 20",
+]:
+    require(marker in astronomy_roadmap, f"astronomy roadmap marker missing: {marker}")
+
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
     post_pr17_sync.get("status") == "closed",
