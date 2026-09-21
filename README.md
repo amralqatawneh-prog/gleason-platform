@@ -38,6 +38,7 @@ model engines:
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED / VERIFIED** on head `6b7b1e9cc2e809f4485626171d69c18366c89fe5` with Release Acceptance Gates **#713 — SUCCESS**; PR #26 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
+- Owner-approved **Roadmap & Astronomy Architecture Amendment** is now **IN PROGRESS (documentation/architecture only)** on `docs/astronomy-roadmap-amendment-2026-09-21`; it expands future Phases 9–12, 17 and 20, registers comparative/historical astronomy sources, and reserves `CelestialComputationProvider` / `EclipsePredictionProvider`. P6.6 remains **NOT STARTED**.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -197,12 +198,14 @@ The owner approved the expanded roadmap covering solar/lunar analemmas, Observer
 
 Authoritative planning documents:
 - `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`
+- `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`
+- `data/sources/astronomy-comparative-sources.yaml`
 - `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
 - `docs/DEVELOPER_GUIDE.md`
 - `docs/USER_GUIDE.md`
 - `docs/CALCULATION_REFERENCE.md`
 
-The amendment is architecture/documentation work only. It does not start P6.5 or any astronomy/aviation/high-detail-map implementation.
+The original amendment and the approved astronomy addendum are architecture/documentation work only. The astronomy addendum does not start P6.6, Phase 9, a Saros engine, observer-dome rendering, or any astronomy/aviation/high-detail-map implementation.
 
 ## Architecture rules
 
