@@ -52,12 +52,12 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.4", "previous Phase 6 slice must be P6.4")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.4 must remain closed")
-require(phase6_start.get("current_slice") == "P6.5", "current Phase 6 slice must be P6.5")
-require(phase6_start.get("current_slice_status") == "closed", "P6.5 current slice status must be closed after owner verification")
-require(phase6_start.get("next_slice") == "P6.6", "next Phase 6 slice must be P6.6")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.6 must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.6", "previous Phase 6 slice must be P6.6")
+require(phase6_start.get("previous_slice_status") == "closed", "P6.6 must remain closed")
+require(phase6_start.get("current_slice") is None, "no Phase 6 functional slice may be active during post-PR31 reconciliation")
+require(phase6_start.get("current_slice_status") == "none", "current functional slice status must be none")
+require(phase6_start.get("next_slice") == "P6.7A", "next Phase 6 slice must be P6.7A")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
 p6_5_start = phase6_start.get("p6_5_start", {})
 require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
 require(
@@ -326,8 +326,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "1c64285b92c093365b74f3256aa9557b9a48268e",
-    "current integration baseline must be the PR #30 merge commit / P6.6 start baseline",
+    == "6a2666112e56514051ea62fbe1c25f5a8016f1ae",
+    "current integration baseline must be the PR #31 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -1075,7 +1075,7 @@ require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 br
 require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
 require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
-require(p6_6_start.get("status") == "reopened-in-progress", "P6.6 must be reopened after owner-approved measurement audit")
+require(p6_6_start.get("status") == "closed", "P6.6 start record must now reflect closed state")
 require(
     p6_6_start.get("owner_manual_status") == "pass-reported-by-owner",
     "P6.6 owner manual status missing",
@@ -1090,7 +1090,7 @@ require(
     "P6.6 pre-manual CI #769 must remain success",
 )
 require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
-require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
+require(p6_6_start.get("pr_status") == "merged", "P6.6 PR #31 must be recorded as merged")
 require(phase6_start.get("p6_6_status") == "closed", "P6.6 corrected contract must be closed")
 
 p6_6_automated = phase6_start.get("p6_6_automated", {})
@@ -1128,15 +1128,15 @@ for field in [
 
 p6_6_closure = phase6_start.get("p6_6_closure", {})
 require(
-    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
-    "P6.6 corrected closure lifecycle drifted",
+    p6_6_closure.get("status") == "closed-verified-merged",
+    "P6.6 corrected closure lifecycle must be closed/verified/merged",
 )
 require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
 require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
-require(p6_6_closure.get("merge_status") == "open-draft-unmerged", "P6.6 PR #31 must remain unmerged")
+require(p6_6_closure.get("merge_status") == "merged", "P6.6 PR #31 must be merged")
 require(
-    p6_6_closure.get("merge_authorization") == "pending-separate-owner-instruction",
-    "P6.6 merge must await separate owner authorization",
+    p6_6_closure.get("merge_authorization") == "explicit-owner-instruction",
+    "P6.6 merge authorization evidence missing",
 )
 require(p6_6_closure.get("next_slice") == "P6.7A", "P6.6 next slice must remain P6.7A")
 require(p6_6_closure.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
@@ -1146,6 +1146,41 @@ require(p6_6_closure.get("tag") == "not_created", "P6.6 closure must not create 
 require(p6_6_closure.get("github_release") == "not_created", "P6.6 closure must not create a GitHub Release")
 require(p6_6_closure.get("deployment") == "not_created", "P6.6 closure must not deploy")
 require((ROOT / "docs" / "PHASE_6_P6_6_REPORT.md").is_file(), "P6.6 closure report missing")
+require(
+    p6_6_closure.get("final_closure_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84",
+    "P6.6 final closure head drifted",
+)
+require(p6_6_closure.get("final_closure_ci_run") == 784, "P6.6 final closure CI must be #784")
+require(p6_6_closure.get("final_closure_ci_conclusion") == "success", "P6.6 final closure CI #784 must remain success")
+require(p6_6_closure.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "P6.6 merge commit drifted")
+require(p6_6_closure.get("post_merge_main_ci_run") is None, "P6.6 must not invent post-merge CI")
+
+p6_6_merge = phase6_start.get("p6_6_merge", {})
+require(p6_6_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.6 merge decision missing")
+require(p6_6_merge.get("pr") == 31, "P6.6 merge must reference PR #31")
+require(p6_6_merge.get("corrected_pre_manual_ci_run") == 783, "P6.6 corrected owner baseline CI must be #783")
+require(p6_6_merge.get("corrected_owner_manual") == "6/6-pass-reported-by-owner", "P6.6 corrected owner manual evidence missing")
+require(p6_6_merge.get("final_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "P6.6 merge final head drifted")
+require(p6_6_merge.get("pre_merge_ci_run") == 784, "P6.6 pre-merge CI must be #784")
+require(p6_6_merge.get("pre_merge_ci_conclusion") == "success", "P6.6 pre-merge CI #784 must remain success")
+require(p6_6_merge.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "P6.6 merge commit evidence drifted")
+require(p6_6_merge.get("post_merge_ci_run") is None, "P6.6 merge record must not invent post-merge CI")
+
+post_pr31 = data.get("post_pr31_merge_reconciliation", {})
+require(post_pr31.get("status") == "in_progress-awaiting-ci", "post-PR31 reconciliation must await verification on this head")
+require(post_pr31.get("branch") == "docs/post-pr31-merge-reconciliation", "post-PR31 reconciliation branch drifted")
+require(post_pr31.get("baseline_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 reconciliation baseline drifted")
+require(post_pr31.get("pr31_status") == "merged", "post-PR31 reconciliation must record PR #31 merged")
+require(post_pr31.get("pr31_pre_merge_ci_run") == 784, "post-PR31 baseline must preserve #784")
+require(post_pr31.get("p6_6_status") == "closed-verified-merged", "P6.6 state drifted during reconciliation")
+require(post_pr31.get("p6_7a_status") == "not_started", "P6.7A must remain not_started during reconciliation")
+require(post_pr31.get("accepted_phase") == 5, "accepted phase must remain 5 during post-PR31 reconciliation")
+require(post_pr31.get("accepted_application_version") == "0.5.0", "accepted version must remain 0.5.0")
+require(post_pr31.get("phase6_status") == "in_progress", "Phase 6 must remain in progress")
+require(post_pr31.get("tag") == "not_created", "post-PR31 reconciliation must not create a tag")
+require(post_pr31.get("github_release") == "not_created", "post-PR31 reconciliation must not create a GitHub Release")
+require(post_pr31.get("deployment") == "not_created", "post-PR31 reconciliation must not deploy")
+
 
 p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
 require(p6_6_audit.get("decision") == "owner-approved-reopen-and-implement", "P6.6 audit owner decision missing")
@@ -1154,8 +1189,8 @@ require(
     "P6.6 audit owner statement drifted",
 )
 require(
-    p6_6_audit.get("status") == "closed-awaiting-final-closure-ci",
-    "P6.6 corrected measurement audit must be closed awaiting final closure CI",
+    p6_6_audit.get("status") == "closed-verified-merged",
+    "P6.6 corrected measurement audit must be closed/verified/merged",
 )
 require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
 require(
@@ -1203,8 +1238,8 @@ require(
 )
 require(p6_6_audit.get("restored_raster", {}).get("city_control_points") == 0, "Gleason raster must not fabricate city control points")
 require(
-    p6_6_audit.get("ci_status") == "awaiting-final-closure-ci",
-    "corrected P6.6 contract must await final closure CI",
+    p6_6_audit.get("ci_status") == "final-closure-success",
+    "corrected P6.6 contract final closure CI must be recorded as success",
 )
 require(
     p6_6_audit.get("manual_verification_status") == "pass-reported-by-owner",
