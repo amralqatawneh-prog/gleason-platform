@@ -448,6 +448,14 @@
       "owner_manual_status": "not-run",
       "pr": 25,
       "pr_status": "draft-open"
+    },
+    "p6_5_automated": {
+      "status": "in_progress",
+      "prior_failed_ci_runs": [
+        686
+      ],
+      "prior_failure_scope": "Frontend core test asserted +0 at the Gleason model center while JavaScript returned numerically equivalent -0; production calculation was not changed.",
+      "owner_manual_status": "not-run"
     }
   },
   "post_pr16_merge_reconciliation": {
