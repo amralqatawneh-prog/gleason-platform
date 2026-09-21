@@ -54,7 +54,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.4", "previous Phase 6 slice must be P6.4")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.4 must remain closed")
 require(phase6_start.get("current_slice") == "P6.5", "current Phase 6 slice must be P6.5")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.5 current slice status must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.5 current slice status must be closed after owner verification")
 require(phase6_start.get("next_slice") == "P6.6", "next Phase 6 slice must be P6.6")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.6 must remain not_started")
 p6_5_start = phase6_start.get("p6_5_start", {})
@@ -71,10 +71,24 @@ require(
     p6_5_start.get("scope") == "Gleason native normalized distance for adjacent ordered route segments and open-polyline total only",
     "P6.5 scope drifted",
 )
-require(p6_5_start.get("status") == "in_progress", "P6.5 must remain in progress before owner manual verification")
-require(p6_5_start.get("owner_manual_status") == "not-run", "P6.5 owner manual status must remain NOT RUN at implementation start")
+require(p6_5_start.get("status") == "closed", "P6.5 start record must be closed after owner verification")
+require(p6_5_start.get("owner_manual_status") == "pass-reported-by-owner", "P6.5 owner manual status must record owner-reported PASS")
 require(p6_5_start.get("pr") == 25, "P6.5 active pull request must be #25")
 require(p6_5_start.get("pr_status") == "draft-open", "P6.5 PR #25 must remain draft/open before owner verification")
+require(phase6_start.get("p6_5_status") == "closed", "P6.5 status must be closed after owner verification")
+p6_5_automated = phase6_start.get("p6_5_automated", {})
+require(p6_5_automated.get("implementation_head") == "a733f81d922963a385357becf69dafd8b6d576be", "P6.5 implementation head evidence drifted")
+require(p6_5_automated.get("ci_run") == 691, "P6.5 automated CI must be #691")
+require(p6_5_automated.get("ci_conclusion") == "success", "P6.5 automated CI #691 must remain success")
+require(p6_5_automated.get("prior_failed_ci_runs") == [686, 689], "P6.5 prior failed CI evidence drifted")
+p6_5_manual = phase6_start.get("p6_5_owner_manual", {})
+require(p6_5_manual.get("result") == "pass-reported-by-owner", "P6.5 owner manual PASS evidence missing")
+require(p6_5_manual.get("checklist_items_passed") == 6, "P6.5 must record 6/6 owner manual checks")
+require(p6_5_manual.get("tested_head") == "a733f81d922963a385357becf69dafd8b6d576be", "P6.5 tested head drifted")
+require(p6_5_manual.get("pre_manual_ci_run") == 691, "P6.5 manual verification must follow CI #691")
+require(p6_5_manual.get("pre_manual_ci_conclusion") == "success", "P6.5 pre-manual CI #691 must remain success")
+require(p6_5_manual.get("backend_fallback") == "pass-reported-by-owner", "P6.5 backend fallback owner test must be recorded")
+require(p6_5_manual.get("arabic_mobile_layout") == "pass-reported-by-owner", "P6.5 Arabic/mobile owner test must be recorded")
 p6_4_start = phase6_start.get("p6_4_start", {})
 require(p6_4_start.get("decision") == "started-by-owner", "P6.4 owner start evidence missing")
 require(
@@ -934,7 +948,7 @@ print(
             "phase6_previous_slice": "P6.4",
             "phase6_previous_slice_status": "closed",
             "phase6_current_slice": "P6.5",
-            "phase6_current_slice_status": "in_progress",
+            "phase6_current_slice_status": "closed",
             "phase6_next_slice": "P6.6",
             "phase6_next_slice_status": "not_started",
         },
