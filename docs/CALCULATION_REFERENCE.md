@@ -39,9 +39,9 @@ projected-plane distance is not automatically a WGS84 surface geodesic.
 
 ### Gleason native normalized measurement
 
-Status: **PLANNED / P6.5 NOT STARTED**
+Status: **P6.5 IN PROGRESS — distance implemented on the active branch; owner manual verification NOT RUN**
 
-Planned identity:
+Current P6.5 distance identity:
 - method: `gleason-native-normalized`
 - distance unit: `normalized-radius-unit`
 - area unit: `normalized-radius-unit-squared`
@@ -51,6 +51,10 @@ Planned identity:
 
 Current reconstruction uses the project-defined normalized radial rule
 `r = (90 - latitude_deg) / 180`.
+
+P6.5 distance rule: project each canonical geographic endpoint with GH-0.2.0,
+then calculate Euclidean distance between adjacent projected coordinates and sum
+the open polyline. Backend and browser implementations are parity-gated.
 
 No automatic conversion to metres/kilometres is allowed without a separately
 documented historical scale or explicit assumption.
