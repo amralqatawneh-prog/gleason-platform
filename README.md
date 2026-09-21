@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest prior closure: **P6.6 — Polygon / Perimeter / Area**; that closure is now **SUPERSEDED / REOPENED** for the Gleason measurement amendment after the owner-supplied video + primary-book audit.
-- Current active slice: **P6.6 — REOPENED / IN PROGRESS** on PR #31.
+- Current active slice: **P6.6 — REOPENED / IN PROGRESS** on PR #31; scale/raster correction package implemented, awaiting fresh CI + targeted owner manual verification.
 - P6.7A remains **NOT STARTED**; PR #31 remains open/draft/unmerged.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**

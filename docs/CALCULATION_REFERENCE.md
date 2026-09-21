@@ -225,3 +225,24 @@ Any aviation calculation must distinguish, when supplied:
 
 AGL requires a named terrain/elevation source and its vertical datum/resolution
 limitations.
+
+
+## Gleason audited scale-profile amendment — 2026-09-21
+
+The default historical scale is now `gleason-fig43-circle-derived`:
+
+`1 NRU = 21600/pi = 6875.493541569879 historical-fig43-mile`.
+
+The prior `10800 NM/NRU` profile is retained only as
+`gleason-radial-60nm-legacy` with evidence
+`SECONDARY_OBSERVED`.
+
+Walter comparison is parameterized:
+
+`distance = NRU_distance * 2 * EQ`.
+
+For same-latitude Figure 43 work the application exposes both parallel arc and
+direct planar chord. These are not interchangeable.
+
+Restored raster source/calibration:
+`data/sources/gleason-restored-map.yaml`.

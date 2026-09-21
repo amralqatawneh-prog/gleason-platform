@@ -590,7 +590,7 @@
       "date": "2026-09-21",
       "decision": "owner-approved-reopen-and-implement",
       "owner_statement": "موافق على جميع مقترحاتك، تستطيع البدء",
-      "status": "in_progress",
+      "status": "implemented-awaiting-fresh-ci",
       "pr": 31,
       "branch": "feat/p6.6-polygon-perimeter-area",
       "primary_source": "gleason-book",
@@ -611,7 +611,41 @@
       "accepted_application_version_remains": "0.5.0",
       "tag": "not_created",
       "github_release": "not_created",
-      "deployment": "not_created"
+      "deployment": "not_created",
+      "preferred_scale_profile": {
+        "id": "gleason-fig43-circle-derived",
+        "unit": "historical-fig43-mile",
+        "distance_per_nru": 6875.493541569879,
+        "evidence_level": "DERIVED_FROM_DOCUMENTED"
+      },
+      "legacy_scale_profile": {
+        "id": "gleason-radial-60nm-legacy",
+        "distance_per_nru": 10800,
+        "unit": "nautical-mile-legacy",
+        "evidence_level": "SECONDARY_OBSERVED",
+        "status": "comparison_only"
+      },
+      "external_scale_profile": {
+        "id": "walter-eq-configurable",
+        "rule": "distance_per_nru=2*EQ",
+        "evidence_level": "EXTERNAL_COMPARATIVE"
+      },
+      "restored_raster": {
+        "source_registry": "data/sources/gleason-restored-map.yaml",
+        "pdf_sha256": "26105ca1f98ec9d862eb5ab52ef94b01b8b4f642a41b678cf5fbe21cff19f327",
+        "raster_sha256": "dc7f96ef7a473a4db334f721ce54963474792814280cf21dd00307f4b14619b0",
+        "width_px": 4653,
+        "height_px": 6506,
+        "calibration_status": "provisional-geometric-fit",
+        "center_x_px": 2315.1835844095776,
+        "center_y_px": 3287.4068173009764,
+        "outer_ring_radius_px": 1851.8383776797139,
+        "fit_rms_px": 5.768749489287826,
+        "city_control_points": 0
+      },
+      "video_fixture_count": 5,
+      "manual_verification_status": "not_run_for_corrected_contract",
+      "ci_status": "pending"
     }
   },
   "post_pr16_merge_reconciliation": {

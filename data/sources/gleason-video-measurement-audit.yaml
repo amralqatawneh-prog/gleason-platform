@@ -1,28 +1,54 @@
 id: gleason-video-measurement-audit-2026-09-21
-source_type: user_supplied_secondary_research_video
+source_type: user_supplied_secondary_research_video_set
 authority: comparative_only
 validation_truth: false
 date_audited: "2026-09-21"
+policy:
+  - "Primary historical authority remains Gleason's book."
+  - "Video examples may become deterministic fixtures only when explicitly labeled SECONDARY_OBSERVED."
+  - "A video interpretation is never silently promoted to DOCUMENTED."
 videos:
   - id: WQCFOp5TyeE
     title: "Measure distances on a Gleason's Map"
-    file_name: "YTDown.com_YouTube_Measure-distances-on-a-Gleason-s-Map_Media_WQCFOp5TyeE_001_1080p.mp4"
     sha256: "63b65c294ba49e7b58b424648faff2ca8d58a37a512938aff3c8f39afbdfbb64"
     duration_seconds: 1191.322993
-    observations:
-      - "Radial ruler calibration uses 60 nautical miles per latitude degree."
-      - "Georgetown-Morocco example: about 11.72 cm x 330 NM/cm = 3867.6 NM."
-      - "Sydney-Kamchatka arithmetic uses 15.8 cm x 330 NM/cm = 5214 NM."
-      - "The video also displays an inconsistent 18.5 cm label for Sydney-Kamchatka; 18.5 x 330 would be 6105 NM."
+    role: SECONDARY_LEGACY_SCALE_EXAMPLE
+    findings:
+      - "Uses an approximately 330 NM/cm print calibration from pole-to-place examples."
+      - "Georgetown-Morocco and Sydney-Kamchatka ruler examples agree with GH planar geometry to about one percent under that legacy scale."
+      - "Contains an internal 18.5 cm versus 15.8 cm inconsistency for Sydney-Kamchatka."
   - id: UKFvsaQoxVc
     title: "How to read a Gleason Map"
-    file_name: "YTDown.com_YouTube_How-to-read-a-Gleason-Map-Demonstrated-b_Media_UKFvsaQoxVc_001_1080p.mp4"
     sha256: "b9b714da291564fd05afca310c1fb0aecf6a489958209ca8f36edbb7665621dc"
     duration_seconds: 1383.026939
-    observations:
-      - "Sydney-Perth example applies 36 longitude degrees x 60 = 2160 NM."
-      - "That shortcut conflicts with Gleason book Figure 43 at southern latitudes."
-policy:
-  - "Never use either video as primary historical authority over Gleason's book."
-  - "Video examples may be deterministic comparative fixtures only when explicitly labeled secondary/observed."
-  - "Do not import the second video's 60-miles-per-longitude-degree shortcut as a general distance rule."
+    role: SECONDARY_REJECTED_GENERALIZATION
+    findings:
+      - "Sydney-Perth applies 36 longitude degrees x 60 = 2160 NM."
+      - "That global shortcut conflicts with Figure 43 at southern latitudes and is not imported."
+  - id: dNBxb-UTmeg
+    title: "Gleason Map"
+    sha256: "d802a464cb16fbca7901a1d44176c58093ab85ac1113194dcca04b7ee663c99c"
+    duration_seconds: 534.546576
+    role: SECONDARY_MEASUREMENT_DERIVATION
+    findings:
+      - "Derives Equator circumference as 360 x 60 = 21600 and radius via C=2*pi*r."
+      - "Shows the 4994.9302558 historical-scale chord fixture for (0,-105) to (-60,-165)."
+      - "Shows Australia same-latitude arc/chord distinction: about 3062.64 arc versus 3005.986408 chord."
+      - "Shows north-south Australia fixture about 1354.281242."
+  - id: SuHnvvYEfok
+    title: "Distances on the Gleasons map"
+    sha256: "c20dae0675d9f19cb918114a1d6232fc85c929c27133a162d96309e2beb3e09a"
+    duration_seconds: 1484.196281
+    role: SECONDARY_GEOMETRY_VALIDATION
+    findings:
+      - "Ruler/protractor triangle with approximately 17.3 cm, 10.6 cm and 52 degrees."
+      - "Law-of-cosines/direct-ruler result about 13.632681222 cm confirms planar chord geometry."
+  - id: 7E0aN7Ajw9U
+    title: "Gleason's Sun's Pyramid 45/45 Mirrored"
+    sha256: "db75a563cafe401483df3b7498827f4ba69a35d2ead4ef07f912651022d1d19f"
+    duration_seconds: 491.937959
+    role: SECONDARY_SOLAR_GEOMETRY_DEMONSTRATION
+    findings:
+      - "Uses the historical map frame and a 45/45 geometric construction."
+      - "Near-equinox Suncalc examples show approximately 45.23 degrees at +45 latitude and 44.80 degrees at -45 latitude with approximately 1 m shadows for a 1 m object."
+      - "Suncalc Sun-Earth distance is external-model output and is not imported into Gleason distance measurement."

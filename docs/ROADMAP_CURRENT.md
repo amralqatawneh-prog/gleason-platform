@@ -291,3 +291,8 @@ route/ruler/area في P6.1.
 - Accepted phase تبقى **5** والإصدار المقبول يبقى **v0.5.0**.
 - لا يوجد Tag ولا GitHub Release ولا Deployment.
 - هذا التحديث خاص بحالة GitHub والتوثيق ولا يبدأ أي تنفيذ وظيفي جديد.
+
+
+- P6.6 correction package: Fig.43/circle-derived historical scale + legacy
+  radial-60 profile + Walter configurable comparison + restored-raster
+  georeferencing foundation. Await fresh CI/manual verification before closure.

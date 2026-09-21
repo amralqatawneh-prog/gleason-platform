@@ -1115,3 +1115,12 @@ New future architecture:
 
 No astronomy engine is currently implemented by this amendment. P6.6 remains
 NOT STARTED. Source/code snapshots must be pinned and audited before runtime reuse.
+
+
+### 2026-09-21 Gleason scale/raster audit update
+
+PR #31 now targets the owner-approved corrected scale architecture:
+`gleason-fig43-circle-derived` default, radial-60 legacy comparison, Walter
+configurable comparison, same-latitude arc/chord separation, and provisional
+georeferencing for the owner-supplied 4653x6506 restored Gleason raster.
+P6.7A remains NOT STARTED.

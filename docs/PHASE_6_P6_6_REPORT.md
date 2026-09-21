@@ -147,3 +147,21 @@ Audit:
 
 A new automated run and targeted owner manual verification are required before
 P6.6 can close again.
+
+
+## Scale/raster correction package — owner approved
+
+The owner approved the final scale/raster formulation before new manual
+testing. The amended contract:
+
+- keeps GH normalized geometry;
+- makes `gleason-fig43-circle-derived` the preferred historical scale;
+- demotes `10800 NM/NRU` to `gleason-radial-60nm-legacy`;
+- adds Walter configurable scale as external comparison;
+- adds same-latitude Figure 43 arc/chord separation;
+- registers the high-resolution restored map and provisional pixel
+  georeferencing;
+- registers all five uploaded videos with evidence roles.
+
+The slice remains REOPENED / IN PROGRESS until fresh complete CI and targeted
+owner manual verification pass.

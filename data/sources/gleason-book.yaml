@@ -42,19 +42,41 @@ georeferencing:
   policy: "Do not fabricate scan control points."
 
 historical_measurement:
-  radial_nautical_rule:
-    evidence_level: DOCUMENTED
-    locator: "PDF pp. 343-344 / printed pp. 317-318, Chapter XIV"
-    rule: "60 nautical miles per radial latitude degree"
-  map_ruler_derived:
-    evidence_level: DERIVED
-    method_id: gleason-map-ruler-derived
-    derivation: "180 radial latitude degrees per normalized radius x 60 nautical miles = 10800 nautical miles per normalized-radius-unit"
-    warning: "Map-plane ruler calibration; not Figure 43 longitude scaling."
+  geometry:
+    evidence_level: DERIVED_FROM_DOCUMENTED
+    method_id: gleason-polar-euclidean-chord
+    normalized_radius_formula: "rho=(90-latitude_deg)/180"
+    chord_formula: "sqrt(rho1^2+rho2^2-2*rho1*rho2*cos(delta_longitude))"
+    warning: "The book does not print this modern analytic formula; it is a project reconstruction of the circular geometry."
+  preferred_scale_profile:
+    id: gleason-fig43-circle-derived
+    evidence_level: DERIVED_FROM_DOCUMENTED
+    locator:
+      - "PDF pp. 376-377 / printed pp. 349-350, Fig. 37"
+      - "PDF p. 429 / printed p. 402, Fig. 43"
+      - "PDF pp. 343-344 / printed pp. 317-318, Chapter XIV"
+    derivation:
+      - "Fig.43/Chapter XVII Equator scale: 60 historical/geographical miles per longitude degree."
+      - "Equator circumference = 360*60 = 21600 historical Fig.43 miles."
+      - "Equator radius = 21600/(2*pi)."
+      - "Equator is rho=0.5 in GH-0.2.0, therefore 1 NRU = 21600/pi = 6875.493541569879 historical Fig.43 miles."
+    unit: historical-fig43-mile
+    warning: "The source uses 'miles' in Fig.43; the project preserves a neutral historical-fig43-mile unit rather than silently forcing statute or nautical identity."
+  legacy_scale_profile:
+    id: gleason-radial-60nm-legacy
+    evidence_level: SECONDARY_OBSERVED
+    value_per_nru: 10800
+    unit: nautical-mile-legacy
+    status: superseded_as_historical_default
+    warning: "Earlier secondary-video assumption; retained only for explicit comparison."
   longitude_scale:
     evidence_level: DOCUMENTED_PLUS_DERIVED_FORMULA
     locator: "PDF p. 429 / printed p. 402, Fig. 43"
-    formula: "historical_book_miles_per_longitude_degree = 60 - (2/3) * latitude_deg"
+    formula: "historical_fig43_miles_per_longitude_degree = 60 - (2/3) * latitude_deg"
+    same_latitude_quantities:
+      - parallel_arc
+      - straight_planar_chord
+    warning: "Arc and chord are distinct; Figure 43 is not a general arbitrary-segment route rule."
   frame_time:
     evidence_level: DOCUMENTED
     locator: "PDF pp. 376-377 / printed pp. 349-350, Figs. 37-38"

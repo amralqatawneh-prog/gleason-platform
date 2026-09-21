@@ -1152,7 +1152,10 @@ require(
     p6_6_audit.get("owner_statement") == "موافق على جميع مقترحاتك، تستطيع البدء",
     "P6.6 audit owner statement drifted",
 )
-require(p6_6_audit.get("status") == "in_progress", "P6.6 measurement audit must be in progress")
+require(
+    p6_6_audit.get("status") == "implemented-awaiting-fresh-ci",
+    "P6.6 corrected measurement audit must await fresh CI",
+)
 require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
 require(
     p6_6_audit.get("identities")
@@ -1166,6 +1169,40 @@ require(
 require(p6_6_audit.get("prior_final_ci_run") == 771, "P6.6 audit must preserve prior #771 evidence")
 require(p6_6_audit.get("prior_final_ci_conclusion") == "success", "P6.6 prior #771 must remain success")
 require(p6_6_audit.get("p6_7a_status") == "not_started", "P6.7A must remain not_started")
+require(p6_6_audit.get("video_fixture_count") == 5, "P6.6 video fixture registry must contain five audited videos")
+require(
+    p6_6_audit.get("preferred_scale_profile", {}).get("id") == "gleason-fig43-circle-derived",
+    "P6.6 preferred Gleason scale profile drifted",
+)
+require(
+    abs(p6_6_audit.get("preferred_scale_profile", {}).get("distance_per_nru", 0) - (21600 / math.pi)) < 1e-12,
+    "P6.6 historical scale must remain 21600/pi per NRU",
+)
+require(
+    p6_6_audit.get("legacy_scale_profile", {}).get("id") == "gleason-radial-60nm-legacy",
+    "P6.6 legacy scale profile drifted",
+)
+require(
+    p6_6_audit.get("legacy_scale_profile", {}).get("status") == "comparison_only",
+    "P6.6 radial-60 profile must remain comparison-only",
+)
+require(
+    p6_6_audit.get("external_scale_profile", {}).get("id") == "walter-eq-configurable",
+    "P6.6 Walter external profile drifted",
+)
+require(
+    p6_6_audit.get("restored_raster", {}).get("pdf_sha256")
+    == "26105ca1f98ec9d862eb5ab52ef94b01b8b4f642a41b678cf5fbe21cff19f327",
+    "restored Gleason PDF SHA-256 drifted",
+)
+require(
+    p6_6_audit.get("restored_raster", {}).get("raster_sha256")
+    == "dc7f96ef7a473a4db334f721ce54963474792814280cf21dd00307f4b14619b0",
+    "restored Gleason raster SHA-256 drifted",
+)
+require(p6_6_audit.get("restored_raster", {}).get("city_control_points") == 0, "Gleason raster must not fabricate city control points")
+require(p6_6_audit.get("ci_status") == "pending", "corrected P6.6 contract CI must begin pending")
+require(p6_6_audit.get("manual_verification_status") == "not_run_for_corrected_contract", "corrected P6.6 manual tests must remain NOT RUN before owner testing")
 require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
 require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
 

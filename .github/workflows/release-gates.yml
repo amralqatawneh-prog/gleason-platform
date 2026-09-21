@@ -66,6 +66,8 @@ jobs:
           test -s docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md
           test -s docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md
           test -s data/sources/gleason-video-measurement-audit.yaml
+          test -s data/sources/gleason-restored-map.yaml
+          test -s docs/GLEASON_SCALE_AND_RASTER_CALIBRATION_2026-09-21.md
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
@@ -81,6 +83,9 @@ jobs:
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
+          grep -q 'gleason-fig43-circle-derived' data/sources/gleason-book.yaml
+          grep -q 'superseded_as_historical_default' data/sources/gleason-book.yaml
+          grep -q 'fabricated_control_points: false' data/sources/gleason-restored-map.yaml
           python scripts/check_release_metadata.py
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md

@@ -1,0 +1,46 @@
+id: gleason-restored-map-owner-upload-2026-09-21
+source_type: owner_supplied_restored_historical_raster
+authority: visual_reference
+validation_truth: false
+file_name: "hi res restored gleason map (1).pdf"
+pdf:
+  pages: 1
+  sha256: "26105ca1f98ec9d862eb5ab52ef94b01b8b4f642a41b678cf5fbe21cff19f327"
+  parsed_text: false
+embedded_raster:
+  width_px: 4653
+  height_px: 6506
+  mode: RGB
+  sha256: "dc7f96ef7a473a4db334f721ce54963474792814280cf21dd00307f4b14619b0"
+lineage:
+  supplied_by_owner: true
+  restoration_lineage_independently_verified: false
+  note: "Use as the project's high-resolution historical visual reference; do not infer archival provenance that is not supplied."
+georeferencing:
+  status: provisional_geometric_fit
+  method: "radial dark-ring sampling plus least-squares circle fit"
+  center_x_px: 2315.1835844095776
+  center_y_px: 3287.4068173009764
+  south_pole_ring_radius_px: 1851.8383776797139
+  fit_rms_px: 5.768749489287826
+  fit_median_absolute_px: 4.706116332701413
+  orientation: "Greenwich ray visually right; east longitudes counterclockwise/upward in raster pixels"
+  geographic_city_control_points: []
+  fabricated_control_points: false
+  runtime_status: foundation_only
+visual_features_allowed_for_research:
+  - historical city labels
+  - seas
+  - oceans
+  - islands
+  - Equator
+  - Tropic of Cancer
+  - Tropic of Capricorn
+  - longitude graticule
+  - latitude rings
+  - outer longitude/time dial
+  - bottom conversion rulers
+policy:
+  - "Historical label location is not a replacement for modern source coordinates."
+  - "Bottom scales are conversion rulers; do not treat them as a universal arbitrary-segment scale bar."
+  - "Raster pixel geometry and computation geometry remain separate identities."
