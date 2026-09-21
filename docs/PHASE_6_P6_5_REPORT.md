@@ -16,6 +16,7 @@ Owner start instruction: **«ابدأ P6.5»**
 - Release Acceptance Gates **#684 — SUCCESS** on that exact pre-merge head
 - Working branch:
   `feat/phase6-p6-5-gleason-native-measurement`
+- Pull request: **#25 — OPEN / DRAFT / UNMERGED**
 - Accepted application version remains **v0.5.0**
 - Accepted phase remains **5**
 - Phase 6 remains **IN PROGRESS**
