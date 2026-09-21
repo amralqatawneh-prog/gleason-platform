@@ -125,4 +125,6 @@ This reconciliation is ready for closure only when:
 11. The acceptance-package checker enforces the current merge facts.
 12. Full Release Acceptance Gates pass on the reconciliation PR head.
 
-Reconciliation PR number will be recorded after creation.
+Reconciliation PR: **#28 — OPEN / DRAFT / UNMERGED**.
+
+Merge of PR #28 requires a separate explicit owner instruction after the reconciliation head passes the full Release Acceptance Gates.
