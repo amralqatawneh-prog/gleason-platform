@@ -120,7 +120,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
             >
               <strong>{pointLetter(segment.index)} → {pointLetter(segment.index + 1)}</strong>
               <span dir="ltr">{format(segment.distance_historical_fig43_mile_derived, locale, 2)} historical Fig.43 mi</span>
-              <small dir="ltr">legacy: {format(segment.distance_legacy_radial60_nautical_mile, locale, 2)} NM
+              <small dir="ltr">legacy: {format(segment.distance_legacy_radial60_nautical_mile, locale, 2)} NM</small>
               <small dir="ltr">{format(segment.distance_normalized_radius_unit, locale, 9)} NRU</small>
             </li>)}
           </ol>
