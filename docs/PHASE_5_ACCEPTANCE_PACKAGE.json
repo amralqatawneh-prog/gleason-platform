@@ -888,7 +888,7 @@
     "date": "2026-09-21",
     "owner_statement": "ابدأ بمصالحة ما بعد دمج PR #29 لتثبيت baseline الجديد",
     "scope": "current-status documentation/state reconciliation after separately authorized PR #29 merge",
-    "status": "in_progress",
+    "status": "closed",
     "branch": "docs/post-pr29-merge-reconciliation",
     "baseline_commit": "8ac38042050f24c0ec30e30b32d37cd1900abf92",
     "pr29_status": "merged",
@@ -911,9 +911,9 @@
     "github_release": "not_created",
     "deployment": "not_created",
     "pr": 30,
-    "verification_head": null,
-    "verification_ci_run": null,
-    "verification_ci_conclusion": "not-run",
+    "verification_head": "0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448",
+    "verification_ci_run": 758,
+    "verification_ci_conclusion": "success",
     "merge_status": "open-draft-unmerged",
     "merge_authorization": "pending-separate-owner-instruction"
   }

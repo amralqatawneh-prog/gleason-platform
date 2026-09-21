@@ -14,7 +14,7 @@ Stacked baseline:
 - accepted application version remains: **v0.5.0**
 - post-PR27 reconciliation: **CLOSED + MERGED** through PR #28; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed Release Acceptance Gates **#744 — SUCCESS** before merge
 - post-PR28 reconciliation: **CLOSED + MERGED** through PR #29; initial head `3e23d2074a65ce6422e378b7a62211627157c968` passed **#753 — SUCCESS**, final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**, merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`
-- post-PR29 reconciliation: **IN PROGRESS** through draft PR #30; P6.6 remains **NOT STARTED**
+- post-PR29 reconciliation: **CLOSED / VERIFIED** after exact head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed Release Acceptance Gates **#758 — SUCCESS**; draft PR #30 remains unmerged and final closure-state CI is still required; P6.6 remains **NOT STARTED**
 
 This amendment changes roadmap contracts and source/provenance policy only. It
 does not implement astronomy, eclipses, observer-dome calculations, Saros
