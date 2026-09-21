@@ -755,6 +755,8 @@
     "verification_ci_conclusion": "pending",
     "tag": "not_created",
     "github_release": "not_created",
-    "deployment": "not_created"
+    "deployment": "not_created",
+    "verification_blocker": "PR #27 is intentionally stacked on PR #26; Release Acceptance Gates auto-trigger only for pull requests targeting main. Merge/retarget must not bypass separate owner authorization for PR #26.",
+    "next_required_action": "After separate owner-authorized merge of PR #26, retarget PR #27 to main and run full Release Acceptance Gates on the unchanged or reconciled exact PR #27 head."
   }
 }
