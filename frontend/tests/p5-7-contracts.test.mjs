@@ -91,12 +91,13 @@ test('matching P5.5 descriptors still cannot bypass a P5.7 domain mismatch',()=>
 });
 
 
-test('P6.3/P6.4 keep the future route-provider contract unavailable while exposing measurement separately',()=>{
+test('P6.3/P6.4/P6.5 keep the future route-provider contract unavailable while exposing measurement separately',()=>{
   const route=futureServiceContract('route');
   assert.equal(route.status,'unavailable');
   assert.deepEqual(route.availableOperations,[]);
   assert.match(route.currentBoundary,/P6\.3 implements WGS84 geodesic distance/);
   assert.match(route.currentBoundary,/P6\.4 implements AE projected-plane distance/);
+  assert.match(route.currentBoundary,/P6\.5 implements Gleason normalized native distance/);
   assert.match(route.currentBoundary,/provider-backed road\/flight paths/);
-  assert.match(route.currentBoundary,/Gleason distance/);
+  assert.match(route.currentBoundary,/perimeter and area/);
 });
