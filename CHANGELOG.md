@@ -12,6 +12,8 @@
 - P6.6 remains **NOT STARTED**; runtime astronomy/Saros/eclipse/observer-dome implementation remains **NOT STARTED**.
 - Accepted phase remains **5** and accepted application version remains **v0.5.0**.
 - No tag, GitHub Release or deployment is created by this reconciliation.
+- Reconciliation verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**.
+- Reconciliation is **CLOSED / VERIFIED**; PR #28 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
 
 ## [Unreleased] — Roadmap & Astronomy Architecture Amendment (2026-09-21)
 
