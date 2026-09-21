@@ -1,8 +1,8 @@
 # Navigation and measurement requirements — updated 2026-09-21
 
-Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED**. The approved roadmap amendment PR #23 is merged at `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8`; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge. **P6.5 remains NOT STARTED**.
+Status: P5.6 navigation is CLOSED. Phase 5 is ACCEPTED BY OWNER at v0.5.0. Phase 6 is in progress; **P6.1/P6.2/P6.3/P6.4 are CLOSED** and **P6.5 is IN PROGRESS** after explicit owner instruction **«ابدأ P6.5»**. PR #24 is merged at `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`; its exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** before merge.
 Source: owner requirements, accepted Phase 5 records, and explicit instruction «ابدأ بتنفيذ Phase 6».
-Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; Gleason native distance remains P6.5; polygon perimeter/area remains P6.6; P6.7A owns same-route rendering; the newly approved P6.7B owns dedicated RouteProvider/turn-by-turn navigation.
+Sequential execution remains enforced: P6.1 defines the closed semantics baseline; P6.2 owns transient ordered route state; P6.3 implements WGS84 geodesic distance; P6.4 implements AE projected-plane distance; P6.5 is implementing Gleason native normalized distance; polygon perimeter/area remains P6.6; P6.7A owns same-route rendering; the newly approved P6.7B owns dedicated RouteProvider/turn-by-turn navigation.
 
 ## P5.6 — navigation on all three views
 
@@ -110,15 +110,15 @@ implementation will verify primary documentation for the selected algorithms.
 - P6.2 ordered route state: **CLOSED + MERGED**.
 - P6.3 WGS84 geodesic segment/open-polyline distance: **CLOSED + MERGED** through PR #19.
 - P6.4 AE projected-plane segment/open-polyline distance: **CLOSED + MERGED** through PR #21.
-- P6.5 Gleason native normalized measurement: **NOT STARTED**.
+- P6.5 Gleason native normalized measurement: **IN PROGRESS** on `feat/phase6-p6-5-gleason-native-measurement`; owner manual verification **NOT RUN**.
 - P6.6 polygon/perimeter/area operations: **NOT STARTED**.
 - P6.7A same route / three renderings: **NOT STARTED**.
 - P6.7B RouteProvider / turn-by-turn directions: **NOT STARTED**.
 
-P6.2 continues to own transient ordered route state. P6.3 and P6.4 expose separate
+P6.2 continues to own transient ordered route state. P6.3, P6.4 and active P6.5 expose separate
 numeric measurement identities and do not enable provider-backed road/flight paths.
-The dedicated future `RouteProvider` remains unavailable until P6.7B. Gleason native
-measurement remains unavailable until P6.5 starts explicitly; perimeter and area
-remain unavailable until P6.6. The approved architecture amendment is documented in
+The dedicated future `RouteProvider` remains unavailable until P6.7B. P6.5 Gleason distance
+uses normalized model units with no automatic SI conversion; perimeter and area remain
+unavailable until P6.6. The approved architecture amendment is documented in
 `ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md` and
 `SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
