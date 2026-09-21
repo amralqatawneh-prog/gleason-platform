@@ -1,4 +1,5 @@
-import { gleasonForward, normalizeLongitude, type GeoPoint } from './gleason.js';
+import { gleasonForward, normalizeLongitude } from './gleason.js';
+import type { GeoPoint } from './projectionTypes.js';
 
 export const GLEASON_RESTORED_RASTER = Object.freeze({
   source_id: 'gleason-restored-map-owner-upload-2026-09-21',
