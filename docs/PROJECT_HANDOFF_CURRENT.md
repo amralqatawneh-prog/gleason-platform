@@ -1,6 +1,6 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-21_
+_Last updated: 2026-09-22_
 
 ## Purpose
 
@@ -10,6 +10,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration base: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e` (PR #30 merge).
+- Current integration baseline: `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae` — PR **#31** merged after exact final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS**.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -40,7 +41,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Historical post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR28 reconciliation: **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge run is claimed without independent observation.
 - Historical post-PR29 reconciliation: `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md`; **CLOSED + MERGED** through PR #30. Initial head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed **#758 — SUCCESS**; exact final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS**; merge commit `1c64285b92c093365b74f3256aa9557b9a48268e`. No post-merge CI result is claimed without independent observation.
-- P6.6 **IN PROGRESS** on `feat/p6.6-polygon-perimeter-area` from that baseline by owner instruction **«ادمج PR #30 وابدأ P6.6»**.
+- P6.6 is **CLOSED / VERIFIED / MERGED**. Corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 before owner manual **6/6 PASS**; final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
@@ -1130,7 +1131,5 @@ P6.7A remains NOT STARTED.
 
 The owner completed the corrected Gleason contract checklist **6/6 PASS —
 REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
-which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is closed subject
-to final closure-state CI. PR #31 stays unmerged pending separate owner merge
-authorization. P6.7A remains NOT STARTED. No reconciliation PR follows this
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. P6.7A remains NOT STARTED. A documentation/state reconciliation was explicitly requested by the owner on 2026-09-22 before any next implementation slice
 closure.
