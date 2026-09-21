@@ -1,6 +1,6 @@
 # Post-PR #31 Merge Reconciliation — 2026-09-22
 
-Status: **IN PROGRESS — AWAITING RELEASE ACCEPTANCE GATES**
+Status: **CLOSED / VERIFIED — CI #790 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
 
 Owner instruction:
 **«قم بتحديث وتوثيق ملفات وبيانات وتقارير github قبل ان نبدأ بأي مرحلة قادمه»**
@@ -82,8 +82,21 @@ Branch:
 Baseline:
 `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
 
-The complete Release Acceptance Gates must pass on the exact reconciliation
-head before this reconciliation can be marked CLOSED / VERIFIED.
+Verification head:
+`d2bae09cb9ee8e35954bdd4036d2e7b710b8969d`.
+
+Release Acceptance Gates:
+**#790 — SUCCESS**.
+
+The complete gate set passed, including machine-readable state validation,
+backend/frontend tests, WGS84 and Gleason parity, P6.6 polygon parity,
+production build/PWA/offline, browser acceptance, Docker runtime, P6.5/P6.6
+APIs, PostGIS import/coverage/provenance, unified search, Arabic/offline search,
+Redis and frontend-over-Docker checks.
+
+This file records #790, so the resulting closure-state head must itself pass the
+complete Release Acceptance Gates once more before PR #33 is a verified merge
+candidate.
 
 Merge into `main` remains a separate owner authorization. Until then, P6.7A
 remains NOT STARTED.
