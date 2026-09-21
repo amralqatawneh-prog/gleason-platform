@@ -11,6 +11,7 @@
 - المالك اعتمد في 2026-09-21 متطلبات التوسعة الجديدة. **Roadmap & Architecture Amendment — New Requirements 2026-09-21** أصبحت **CLOSED + MERGED**؛ الرأس الأول `cb4b4681bd359e29b08542856b7bff144a239796` نجح في CI **#673**، والرأس النهائي `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` نجح في CI **#676**، ثم دُمج PR #23 إلى `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` بتفويض صريح من المالك.
 - PR #24 الخاص بمصالحة ما بعد PR #23 **MERGED** إلى `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` بعد نجاح الرأس النهائي `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` في Release Acceptance Gates **#684 — SUCCESS**.
 - أصدر المالك الأمر الصريح **«ابدأ P6.5»**؛ وأُغلقت P6.5 بعد نجاح الرأس المختبَر `a733f81d922963a385357becf69dafd8b6d576be` في Release Acceptance Gates **#691 — SUCCESS** ونجاح الاختبارات اليدوية **6/6 — REPORTED BY OWNER**، ثم نجح رأس الإغلاق النهائي `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` في CI **#699 — SUCCESS** ودُمج PR #25 إلى `main @ bdff76e765c78108e96fd0e644df850be22f8eed` بتفويض منفصل صريح. P6.6 وما بعدها لم تبدأ. لا يوجد Tag أو GitHub Release أو Deployment للمرحلة السادسة.
+- وافق المالك على **Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles**. التعديل معماري/توثيقي فقط: يسجل Shane/Walter كمصادر مقارنة منفصلة، يضيف `CelestialComputationProvider` و`EclipsePredictionProvider`، ويدخل محرك Babylonian 223-Month Eclipse Cycle ضمن Phase 12 المستقبلية. **P6.6 تبقى NOT STARTED** ولا يبدأ أي تنفيذ فلكي بهذا التعديل.
 - الأقسام الزمنية الأقدم أدناه تُحفظ كسجل تاريخي ولا تتغلب على هذه الحالة المرجعية الحالية.
 
 ## الوضع الحالي وتسلسل الإغلاق
@@ -50,18 +51,18 @@
 | 6 | القياس + Same Route + RouteProvider/turn-by-turn + مختبرات الملاحة/خطوط الطول + Gleason Original Mode | فصل measurement polyline عن navigation route؛ provider provenance؛ لا تحويلات مخفية؛ P6.10 regression |
 | 7 | الاستواء والمداران والشبكة والبوصلة والسمت | تمييز الشمال الحقيقي والمغناطيسي وشمال الشاشة؛ طبقات حتمية تعمل محليًا |
 | 8 | محرك اتجاه القبلة وخطوط المقارنة | إحداثيات مرجعية موثقة، تسمية الطريقة، حالات عالمية واختبار Offline |
-| 9 | Astronomy/Time/Observer foundations: ephemeris + TimeContext + ObserverContext + Sun/Moon/planet state | pin source/version/time scale/frame/observer provenance؛ لا ارتفاع مختلق |
-| 10 | حركة الأجرام + day/night + twilight + sunrise/sunset events + solar/lunar analemmas | مرجع مقابل model-native/display-only؛ تعريف sampling للأناليما؛ تطابق بصري/رقمي |
-| 11 | Observer Dome + current location + map pin + topocentric sky + Observation Lab | إذن الموقع ودقته؛ Alt/Az موثق؛ نفس ObserverContext عبر النماذج |
-| 12 | Eclipse Laboratory: top view + observer view للشمس والقمر | فصل وقوع الحدث عن الرؤية؛ عدم تمثيل الخسوف كمسار ظل شمسي على الأرض |
+| 9 | Astronomy/Time/Observer foundations + source registry + `CelestialComputationProvider` + Shane/Walter comparative adapters policy | pin source/version/hash/license/time scale/frame/observer provenance؛ فصل reference/historical-cycle/external/model-native/display-only |
+| 10 | حركة الأجرام + day/night + twilight + sunrise/sunset + analemmas + comparative astronomy overlays | نفس الزمن/الراصد/الكمية قبل المقارنة؛ شارات provider/method؛ لا hidden normalization |
+| 11 | Observer Dome / Observation Lab + `ObserverCelestialSphere` + Personal Celestial Sphere comparison | فصل القبة الرياضية/البصرية عن `PhysicalHeavensModel`؛ Alt/Az وprovider provenance واضحان |
+| 12 | Multi-Method Eclipse Laboratory: modern reference + Babylonian 223-month/Saros + Shane/Walter comparative + future model-native | historical recurrence ≠ precise local path؛ provider capabilities صريحة؛ مقارنة زمن/مسار/رؤية دون استعارة حقول مفقودة |
 | 13 | هندسة الأنهار واتجاه الجريان ومقاطع الارتفاع والتضاريس | بيانات مجارٍ فعلية ومرجع ارتفاع واضح؛ نقاط الأنهار الحالية ليست مساراتها |
 | 14 | الكابلات البحرية ومحطات الإنزال والتحليل | إذن الاستخدام والتخزين، ودقة المسار ومصدره؛ فصل التخطيط التقريبي عن القياس |
 | 15 | Aviation Laboratory: live/historical/scheduled + metadata + receiver provenance + MSL/AGL | حالات live/historical/scheduled صريحة؛ receiver ≠ ATC tower دون مصدر؛ observed track محفوظ |
 | 16 | ExternalLayerProvider + renderer spike + high-detail streets/buildings/cities/vector tiles/offline packs + OSIRIS-inspired adapters | ترخيص/attribution/freshness؛ benchmark للعارض؛ canonical data ثم إسقاط مستقل للنماذج |
-| 17 | واجهة مقارنة متقدمة ونقاط ومسارات محفوظة ودفتر تجارب وروابط ومعرف إعادة إنتاج | حفظ المدخلات والخوارزميات وإصدارات المصادر والوقت؛ استعادة النتيجة بلا غموض |
+| 17 | واجهة مقارنة متقدمة + دفتر تجارب + Reproducible Experiment URL/ID يشمل observer/time/provider/method/source snapshot | إعادة فتح نفس التجربة بالحالة المعلنة؛ provider retired/unknown يفشل بوضوح ولا يترقى صامتًا |
 | 18 | التصميم النهائي للحاسوب والهاتف واللوحي ووضعا البحث والعرض والتصدير العالي و9:16 | RTL/LTR واللمس ولوحة المفاتيح والتباين ووضوح المصدر في الصادرات |
 | 19 | الأداء والثبات والأمان والتخزين وأحمال vector tiles/astronomy/live aviation/routing وWebGL fallback | budgets قابلة للقياس على أجهزة معلومة؛ graceful degradation؛ cache/storage limits |
-| 20 | تحقق جغرافي/علمي/وظيفي شامل ومصفوفة أجهزة ومتصفحات | حالات مرجعية وسماحيات ومخرجات قابلة للإعادة وتقرير VALIDATION_REPORT؛ لا تؤجل صحة الشرائح إلى هنا |
+| 20 | تحقق شامل + astronomy provider validation matrix لأحداث الكسوف/الخسوف وAlt/Az/day-night/Saros replay | تقرير فروق الوقت/الزاوية/الموقع/التصنيف وunsupported fields لكل provider؛ لا overall winner ولا خلط هوية |
 | 21 | التحقق والتحرير النهائي لـUser Guide + Developer Guide + Calculation Reference + المصادر/التراخيص/Offline/Reproducibility | الأدلة حية من الآن؛ Phase 21 يطابقها مع السلوك التنفيذي ولا يكتبها بأثر رجعي |
 | 22 | v1.0.0 ونشر الويب وPWA وحزم الهاتف عند توافر التوقيع والحسابات | بوابات إصدار ومراقبة ونسخ احتياطي ومراجعة التراخيص؛ تفويض النشر مستقل |
 
@@ -83,9 +84,30 @@
 
 ناتج Gleason الحالي بوحدة normalized-radius؛ لا يُحوَّل إلى كيلومترات دون قاعدة مقياس تاريخية موثقة أو افتراض معلن ومفصول. «المسافة بين دولتين» تتطلب تحديد نقطتين/عاصمتين/حدود وطريقة القياس؛ ليست كمية واحدة مفهومة ضمنًا.
 
-## التعديل المعماري المعتمد — 2026-09-21
+## التعديلات المعمارية المعتمدة — 2026-09-21
 
-المرجع التفصيلي الملزم للتوسعة المستقبلية هو `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. كما أصبحت العقود `ObserverContext` و`TimeContext` و`ExternalLayerProvider` و`RouteProvider` محجوزة رسميًا في `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`. الأدلة `DEVELOPER_GUIDE.md` و`USER_GUIDE.md` و`CALCULATION_REFERENCE.md` وثائق حية يجب تحديثها مع الشرائح المستقبلية ذات الصلة.
+المرجع الأصلي للتوسعة هو `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
+
+التعديل الفلكي المقارن اللاحق المعتمد هو
+`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
+وهو يوسع المراحل 9–12 و17 و20، ويسجل رسميًا:
+- Shane Personal Celestial Sphere وWalter Bislin upstream كمصدرين منفصلين؛
+- NASA Saros كمراجع حديثة لتعريفات الدورة؛
+- Brack-Bernsen & Steele (2005) كمصدر تاريخي/أكاديمي لطريقة 223 شهرًا البابلية؛
+- British Museum Map of the World كسياق تاريخي فقط؛
+- `CelestialComputationProvider` و`EclipsePredictionProvider`;
+- الفصل بين `ObserverCelestialSphere` و`PhysicalHeavensModel`.
+
+العقود المحجوزة أصبحت: `ObserverContext` و`TimeContext` و
+`ExternalLayerProvider` و`RouteProvider` و`CelestialComputationProvider`
+و`EclipsePredictionProvider`.
+
+سجل المصادر التخطيطي:
+`data/sources/astronomy-comparative-sources.yaml`.
+
+الأدلة `DEVELOPER_GUIDE.md` و`USER_GUIDE.md` و`CALCULATION_REFERENCE.md`
+وثائق حية يجب تحديثها مع الشرائح المستقبلية ذات الصلة. هذا التعديل لا يبدأ
+P6.6 ولا أي محرك فلكي.
 
 ## قرار العارض — ADR-014
 
