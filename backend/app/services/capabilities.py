@@ -32,6 +32,7 @@ def platform_capabilities() -> dict[str, object]:
         "measurement_engine": True,
         "wgs84_route_distance": True,
         "ae_route_distance": True,
+        "gleason_route_distance": True,
         "route_engine": False,
         "area_engine": False,
         "astronomy_engine": False,
