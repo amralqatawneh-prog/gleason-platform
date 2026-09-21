@@ -677,7 +677,7 @@ require(
     == "موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد",
     "astronomy architecture amendment owner statement drifted",
 )
-require(astronomy_amendment.get("status") == "in_progress", "astronomy architecture amendment must remain in progress before verification")
+require(astronomy_amendment.get("status") == "closed", "astronomy architecture amendment must be closed after verification")
 require(
     astronomy_amendment.get("branch") == "docs/astronomy-roadmap-amendment-2026-09-21",
     "astronomy architecture amendment branch drifted",
@@ -748,11 +748,18 @@ require(
     "astronomy amendment PR #27 must remain open/draft/unmerged before verification",
 )
 require(astronomy_amendment.get("verification_blocker") is None, "astronomy amendment verification blocker must be cleared after PR #26 merge")
-require(astronomy_amendment.get("verification_head") is None, "astronomy amendment verification head must remain pending before CI")
-require(astronomy_amendment.get("verification_ci_run") is None, "astronomy amendment verification run must remain pending before CI")
 require(
-    astronomy_amendment.get("verification_ci_conclusion") == "pending",
-    "astronomy amendment verification conclusion must remain pending before CI",
+    astronomy_amendment.get("verification_head") == "eebf162e3dd1cf35e15933ff4622e7915bf0cd97",
+    "astronomy amendment verification head drifted",
+)
+require(astronomy_amendment.get("verification_ci_run") == 720, "astronomy amendment verification CI must be #720")
+require(
+    astronomy_amendment.get("verification_ci_conclusion") == "success",
+    "astronomy amendment verification CI #720 must remain success",
+)
+require(
+    astronomy_amendment.get("merge_authorization") == "pending-separate-owner-instruction",
+    "astronomy amendment merge must await separate owner authorization",
 )
 require(astronomy_amendment.get("tag") == "not_created", "astronomy amendment must not create a tag")
 require(astronomy_amendment.get("github_release") == "not_created", "astronomy amendment must not create a GitHub Release")
