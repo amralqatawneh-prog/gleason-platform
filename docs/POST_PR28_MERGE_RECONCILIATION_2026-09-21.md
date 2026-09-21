@@ -1,6 +1,6 @@
 # Post-PR28 Merge Documentation Reconciliation — 2026-09-21
 
-Status: **IN PROGRESS — PR PENDING**
+Status: **IN PROGRESS — PR #29 OPEN / DRAFT / UNMERGED**
 
 Repository: `amralqatawneh-prog/gleason-platform`  
 Branch: `docs/post-pr28-merge-reconciliation`  
@@ -109,7 +109,7 @@ This reconciliation may be closed only when:
 
 ## 7. Pull request / verification
 
-Reconciliation PR: **PENDING**.
+Reconciliation PR: **#29 — OPEN / DRAFT / UNMERGED**.
 
 Initial verification: **NOT RUN**.
 Closure verification: **NOT RUN**.
