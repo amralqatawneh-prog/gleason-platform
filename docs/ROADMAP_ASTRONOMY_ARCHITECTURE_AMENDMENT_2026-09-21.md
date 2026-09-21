@@ -7,11 +7,13 @@ Owner approval: **«موافق على هذا التصور، وابدأ بتنف�
 Stacked baseline:
 - post-PR25 reconciliation exact verified head: `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`
 - Release Acceptance Gates: **#718 — SUCCESS**
-- current integration baseline: `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11` (PR #27 merge)
+- current integration baseline: `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170` (PR #28 post-PR27 reconciliation merge)
 - P6.5: **CLOSED + MERGED**
 - P6.6: **NOT STARTED**
 - accepted phase remains: **Phase 5**
 - accepted application version remains: **v0.5.0**
+- post-PR27 reconciliation: **CLOSED + MERGED** through PR #28; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed Release Acceptance Gates **#744 — SUCCESS** before merge
+- post-PR28 reconciliation: **IN PROGRESS** through draft PR #29; P6.6 remains **NOT STARTED**
 
 This amendment changes roadmap contracts and source/provenance policy only. It
 does not implement astronomy, eclipses, observer-dome calculations, Saros
