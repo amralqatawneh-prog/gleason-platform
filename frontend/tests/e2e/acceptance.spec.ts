@@ -901,10 +901,13 @@ test('P6.5 Gleason normalized ruler stays live without SI conversion',async({pag
   const total=Number(await gleason.getAttribute('data-route-distance-normalized-radius-unit'));
   expect(total).toBeGreaterThan(0);
 
+  await page.route('**/measurement/gleason/route-distance', routeRequest=>routeRequest.abort());
   await locate(page,'TEST North East Edge');
   await route.getByRole('button',{name:'Add current point',exact:true}).click();
   await expect(gleason).toHaveAttribute('data-route-segment-count','2');
   await expect(gleason.locator('.gleason-route-distance-segment')).toHaveCount(2);
+  await expect(gleason.locator('.gleason-route-distance-provenance')).toContainText('typescript-math (browser)');
+  await page.unroute('**/measurement/gleason/route-distance');
 
   await route.getByRole('button',{name:'Move C up',exact:true}).click();
   await expect(gleason.locator('.gleason-route-distance-segment').first()).toHaveAttribute(
