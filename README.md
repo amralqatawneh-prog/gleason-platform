@@ -48,9 +48,9 @@ model engines:
 - Phase status: **in_progress**
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
-- Latest closed slice: **P6.5 — Gleason Native Measurement**
-- Latest completed slice: **P6.5 — Gleason Native Measurement — CLOSED**
-- Current active slice: **P6.6 — Polygon / Perimeter / Area — IN PROGRESS** from `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`
+- Latest closed slice: **P6.6 — Polygon / Perimeter / Area**
+- Latest completed slice: **P6.6 — Polygon / Perimeter / Area — CLOSED** after **#769 SUCCESS + owner manual 6/6 PASS — REPORTED BY OWNER**
+- Current active slice: **none**; P6.7A remains **NOT STARTED**. PR #31 remains open/unmerged pending final closure-state verification and separate merge authorization.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
@@ -92,7 +92,8 @@ model engines:
 | P6.4 | CLOSED ✅ | AE projected-plane segment/open-polyline distance; backend pyproj + browser proj4; CI #653/#661/#668 SUCCESS; owner manual 6/6 PASS; PR #21 merged; post-merge CI #669 SUCCESS |
 | Roadmap Architecture Amendment 2026-09-21 | CLOSED + MERGED ✅ | Initial verification `cb4b4681bd359e29b08542856b7bff144a239796` / CI #673; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` / CI #676; PR #23 merged at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` |
 | P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
-| P6.6–P6.10 | NOT STARTED ⏳ | Polygon area, same-route rendering, turn-by-turn provider slice, laboratories, regression |
+| P6.6 | CLOSED ✅ | WGS84/AE/Gleason closed perimeter + area; three-engine parity; #769 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER; PR #31 unmerged |
+| P6.7A–P6.10 | NOT STARTED ⏳ | Same-route rendering, turn-by-turn provider slice, laboratories, regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this

@@ -1075,6 +1075,78 @@ require(p6_6_start.get("status") == "in_progress", "P6.6 must be in_progress")
 require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
 require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
+require(p6_6_start.get("status") == "closed", "P6.6 start record must now be closed after owner verification")
+require(
+    p6_6_start.get("owner_manual_status") == "pass-reported-by-owner",
+    "P6.6 owner manual status missing",
+)
+require(
+    p6_6_start.get("owner_tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 owner-tested head drifted",
+)
+require(p6_6_start.get("pre_manual_ci_run") == 769, "P6.6 owner manual verification must follow CI #769")
+require(
+    p6_6_start.get("pre_manual_ci_conclusion") == "success",
+    "P6.6 pre-manual CI #769 must remain success",
+)
+require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
+require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
+require(phase6_start.get("p6_6_status") == "closed", "P6.6 status must be closed")
+
+p6_6_automated = phase6_start.get("p6_6_automated", {})
+require(
+    p6_6_automated.get("owner_tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 automated owner-tested head drifted",
+)
+require(p6_6_automated.get("ci_run") == 769, "P6.6 automated CI must be #769")
+require(p6_6_automated.get("ci_conclusion") == "success", "P6.6 automated CI #769 must remain success")
+require(p6_6_automated.get("frontend_core_tests_passed") == 129, "P6.6 frontend core count must be 129")
+require(p6_6_automated.get("browser_acceptance_tests_passed") == 23, "P6.6 browser acceptance count must be 23")
+require(p6_6_automated.get("polygon_parity_cases") == 104, "P6.6 polygon parity case count must be 104")
+
+p6_6_manual = phase6_start.get("p6_6_owner_manual", {})
+require(p6_6_manual.get("result") == "pass-reported-by-owner", "P6.6 owner manual PASS evidence missing")
+require(p6_6_manual.get("checklist_items_passed") == 6, "P6.6 owner manual checklist must record 6/6")
+require(
+    p6_6_manual.get("tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 manual tested head drifted",
+)
+require(p6_6_manual.get("pre_manual_ci_run") == 769, "P6.6 manual verification must follow CI #769")
+require(p6_6_manual.get("pre_manual_ci_conclusion") == "success", "P6.6 pre-manual CI #769 must remain success")
+for field in [
+    "basic_polygon_and_implicit_closure",
+    "reversed_orientation_invariance",
+    "live_add_reorder_remove",
+    "repeated_explicit_closure_rejected",
+    "backend_stop_browser_fallback",
+    "minimum_vertex_stale_result_fail_closed",
+]:
+    require(
+        p6_6_manual.get(field) == "pass-reported-by-owner",
+        f"P6.6 manual evidence missing: {field}",
+    )
+
+p6_6_closure = phase6_start.get("p6_6_closure", {})
+require(
+    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
+    "P6.6 closure lifecycle drifted",
+)
+require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
+require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
+require(p6_6_closure.get("merge_status") == "open-draft-unmerged", "P6.6 PR #31 must remain unmerged")
+require(
+    p6_6_closure.get("merge_authorization") == "pending-separate-owner-instruction",
+    "P6.6 merge must await separate owner authorization",
+)
+require(p6_6_closure.get("next_slice") == "P6.7A", "P6.6 next slice must remain P6.7A")
+require(p6_6_closure.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
+require(p6_6_closure.get("accepted_phase_remains") == 5, "P6.6 closure must not accept Phase 6")
+require(p6_6_closure.get("accepted_application_version_remains") == "0.5.0", "P6.6 closure must not change accepted version")
+require(p6_6_closure.get("tag") == "not_created", "P6.6 closure must not create a tag")
+require(p6_6_closure.get("github_release") == "not_created", "P6.6 closure must not create a GitHub Release")
+require(p6_6_closure.get("deployment") == "not_created", "P6.6 closure must not deploy")
+require((ROOT / "docs" / "PHASE_6_P6_6_REPORT.md").is_file(), "P6.6 closure report missing")
+
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [
     "shane-personal-celestial-sphere",
@@ -1510,10 +1582,10 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.5",
+            "phase6_previous_slice": "P6.6",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.6",
-            "phase6_current_slice_status": "in_progress",
+            "phase6_current_slice": None,
+            "phase6_current_slice_status": "none",
             "phase6_next_slice": "P6.7A",
             "phase6_next_slice_status": "not_started",
         },

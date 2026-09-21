@@ -536,11 +536,55 @@
       "baseline_pre_merge_ci_run": 759,
       "baseline_pre_merge_ci_conclusion": "success",
       "branch": "feat/p6.6-polygon-perimeter-area",
-      "status": "in_progress",
+      "status": "closed",
       "scope": "closed polygon perimeter and area with independent WGS84, AE and Gleason identities",
       "semantics_document": "docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md",
       "accepted_phase_remains": 5,
-      "accepted_application_version_remains": "0.5.0"
+      "accepted_application_version_remains": "0.5.0",
+      "owner_manual_status": "pass-reported-by-owner",
+      "owner_tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "pre_manual_ci_run": 769,
+      "pre_manual_ci_conclusion": "success",
+      "pr": 31,
+      "pr_status": "open-draft-unmerged"
+    },
+    "p6_6_status": "closed",
+    "p6_6_automated": {
+      "owner_tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "ci_run": 769,
+      "ci_conclusion": "success",
+      "frontend_core_tests_passed": 129,
+      "browser_acceptance_tests_passed": 23,
+      "polygon_parity_cases": 104,
+      "note": "Complete Release Acceptance Gates passed before owner manual verification, including three-engine polygon parity, browser/PWA/offline, Docker runtime and polygon API checks."
+    },
+    "p6_6_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "pre_manual_ci_run": 769,
+      "pre_manual_ci_conclusion": "success",
+      "basic_polygon_and_implicit_closure": "pass-reported-by-owner",
+      "reversed_orientation_invariance": "pass-reported-by-owner",
+      "live_add_reorder_remove": "pass-reported-by-owner",
+      "repeated_explicit_closure_rejected": "pass-reported-by-owner",
+      "backend_stop_browser_fallback": "pass-reported-by-owner",
+      "minimum_vertex_stale_result_fail_closed": "pass-reported-by-owner"
+    },
+    "p6_6_closure": {
+      "status": "closed-awaiting-final-closure-ci",
+      "report": "docs/PHASE_6_P6_6_REPORT.md",
+      "pr": 31,
+      "merge_status": "open-draft-unmerged",
+      "merge_authorization": "pending-separate-owner-instruction",
+      "next_slice": "P6.7A",
+      "next_slice_status": "not_started",
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0",
+      "tag": "not_created",
+      "github_release": "not_created",
+      "deployment": "not_created"
     }
   },
   "post_pr16_merge_reconciliation": {
