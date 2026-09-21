@@ -47,7 +47,7 @@ projected-plane distance is not automatically a WGS84 surface geodesic.
 
 ### Gleason native normalized measurement
 
-Status: **P6.5 implementation retained; Gleason measurement semantics REOPENED on PR #31 after the 2026-09-21 book/video audit**
+Status: **P6.5/P6.6 corrected Gleason measurement semantics VERIFIED + MERGED through PR #31; final closure #784 SUCCESS**
 
 Current P6.5 distance identity:
 - method: `gleason-native-normalized`
