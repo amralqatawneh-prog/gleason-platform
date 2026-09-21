@@ -13,6 +13,22 @@ import {
   type GleasonRouteDistanceResult,
 } from './measurement/gleasonRouteDistance';
 import {
+  localWgs84PolygonMeasurement,
+  type Wgs84PolygonResult,
+} from './measurement/wgs84Polygon';
+import {
+  localAEPolygonMeasurement,
+  type AEPolygonResult,
+} from './measurement/aePolygon';
+import {
+  localGleasonPolygonMeasurement,
+  type GleasonPolygonResult,
+} from './measurement/gleasonPolygon';
+import {
+  validatePolygonMeasurementPoints,
+  type PolygonMeasurementPoint,
+} from './measurement/polygonSemantics';
+import {
   localWgs84RouteDistance,
   validateWgs84RouteDistancePoints,
   type Wgs84RouteDistancePoint,
@@ -178,11 +194,75 @@ export async function gleasonRouteDistance(
   }
 }
 
+export async function wgs84PolygonMeasurement(
+  pointsInput: readonly PolygonMeasurementPoint[],
+  polygonId = 'transient-polygon',
+): Promise<Wgs84PolygonResult> {
+  const points = validatePolygonMeasurementPoints(pointsInput);
+  if (!navigator.onLine) return localWgs84PolygonMeasurement(points, polygonId);
+  try {
+    const response = await fetch(`${API_BASE}/reference/wgs84/polygon`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ polygon_id: polygonId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`WGS84 polygon measurement failed: ${response.status}`);
+    return await response.json() as Wgs84PolygonResult;
+  } catch {
+    return localWgs84PolygonMeasurement(points, polygonId);
+  }
+}
+
+export async function aePolygonMeasurement(
+  pointsInput: readonly PolygonMeasurementPoint[],
+  polygonId = 'transient-polygon',
+): Promise<AEPolygonResult> {
+  const points = validatePolygonMeasurementPoints(pointsInput);
+  if (!navigator.onLine) return localAEPolygonMeasurement(points, polygonId);
+  try {
+    const response = await fetch(`${API_BASE}/measurement/ae/polygon`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ polygon_id: polygonId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`AE polygon measurement failed: ${response.status}`);
+    return await response.json() as AEPolygonResult;
+  } catch {
+    return localAEPolygonMeasurement(points, polygonId);
+  }
+}
+
+export async function gleasonPolygonMeasurement(
+  pointsInput: readonly PolygonMeasurementPoint[],
+  polygonId = 'transient-polygon',
+): Promise<GleasonPolygonResult> {
+  const points = validatePolygonMeasurementPoints(pointsInput);
+  if (!navigator.onLine) return localGleasonPolygonMeasurement(points, polygonId);
+  try {
+    const response = await fetch(`${API_BASE}/measurement/gleason/polygon`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ polygon_id: polygonId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`Gleason polygon measurement failed: ${response.status}`);
+    return await response.json() as GleasonPolygonResult;
+  } catch {
+    return localGleasonPolygonMeasurement(points, polygonId);
+  }
+}
+
 export type {
+  AEPolygonResult,
   AERouteDistancePoint,
   AERouteDistanceResult,
+  GleasonPolygonResult,
   GleasonRouteDistancePoint,
   GleasonRouteDistanceResult,
+  PolygonMeasurementPoint,
+  Wgs84PolygonResult,
   Wgs84RouteDistancePoint,
   Wgs84RouteDistanceResult,
 };

@@ -50,7 +50,7 @@ model engines:
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.5 — Gleason Native Measurement**
 - Latest completed slice: **P6.5 — Gleason Native Measurement — CLOSED**
-- Current active slice: **none**; P6.5 is **CLOSED** and P6.6 remains **NOT STARTED**
+- Current active slice: **P6.6 — Polygon / Perimeter / Area — IN PROGRESS** from `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.

@@ -26,6 +26,13 @@ def geodesic_inverse(
     return _provider.geodesic_inverse(start, end)
 
 
+def wgs84_polygon_measurement(
+    polygon_id: str,
+    points: list[WGS84RoutePoint],
+) -> ReferenceResult:
+    return _provider.polygon_measurement(polygon_id, points)
+
+
 def wgs84_route_distance(
     route_id: str,
     points: list[WGS84RoutePoint],

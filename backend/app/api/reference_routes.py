@@ -1,14 +1,15 @@
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from ..domain.reference import ECEFPoint, WGS84GeodeticPoint
-from ..domain.reference_api import GeodesicInverseRequest, WGS84RouteDistanceRequest
+from ..domain.reference_api import GeodesicInverseRequest, WGS84PolygonRequest, WGS84RouteDistanceRequest
 from ..services.reference import (
     ecef_to_geodetic,
     geodesic_inverse,
     geodetic_to_ecef,
     reference_metadata,
+    wgs84_polygon_measurement,
     wgs84_route_distance,
 )
 
@@ -38,3 +39,11 @@ def wgs84_geodesic_inverse(request: GeodesicInverseRequest) -> dict[str, object]
 @router.post("/reference/wgs84/route-distance", tags=["reference", "measurement"])
 def wgs84_route_distance_endpoint(request: WGS84RouteDistanceRequest) -> dict[str, object]:
     return wgs84_route_distance(request.route_id, request.points).model_dump()
+
+
+@router.post("/reference/wgs84/polygon", tags=["reference", "measurement"])
+def wgs84_polygon_endpoint(request: WGS84PolygonRequest) -> dict[str, object]:
+    try:
+        return wgs84_polygon_measurement(request.polygon_id, request.points).model_dump()
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc

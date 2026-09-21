@@ -92,6 +92,34 @@ class WGS84RouteDistanceOutput(BaseModel):
     segments: list[WGS84RouteDistanceSegment]
 
 
+class WGS84PolygonSegment(BaseModel):
+    edge_id: str
+    index: int = Field(ge=0)
+    from_point_id: str
+    to_point_id: str
+    distance_m: float = Field(ge=0.0)
+
+
+class WGS84PolygonOutput(BaseModel):
+    method_id: Literal["wgs84-geodesic"] = "wgs84-geodesic"
+    quantities: list[Literal["perimeter", "area"]] = Field(
+        default_factory=lambda: ["perimeter", "area"]
+    )
+    perimeter_unit: Literal["metre"] = "metre"
+    area_unit: Literal["square-metre"] = "square-metre"
+    scale_basis: Literal["wgs84-ellipsoid"] = "wgs84-ellipsoid"
+    path_semantics: Literal["closed-polygon"] = "closed-polygon"
+    closure_semantics: Literal["implicit-last-to-first"] = "implicit-last-to-first"
+    self_intersection_policy: Literal["algebraic-signed-area"] = "algebraic-signed-area"
+    interior_rule: Literal["signed-half-surface-range"] = "signed-half-surface-range"
+    orientation: Literal["counterclockwise", "clockwise"]
+    segment_count: int = Field(ge=3)
+    perimeter_m: float = Field(ge=0.0)
+    signed_area_m2: float
+    area_m2: float = Field(gt=0.0)
+    segments: list[WGS84PolygonSegment]
+
+
 class ReferenceProvenance(BaseModel):
     semantic_type: Literal["REFERENCE_RESULT"] = "REFERENCE_RESULT"
     provider_id: str

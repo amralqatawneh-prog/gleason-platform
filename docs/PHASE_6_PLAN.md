@@ -171,7 +171,11 @@ Acceptance:
 
 ## P6.6 — Polygon / Perimeter / Area
 
-Status: **NOT STARTED**.
+Status: **IN PROGRESS**.
+
+Start authorization: owner instruction **«ادمج PR #30 وابدأ P6.6»**. Start baseline:
+`main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. The polygon semantics contract
+is `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
 Define and implement:
 - closed ordered points;

@@ -12,6 +12,8 @@ from ...domain.reference import (
     ReferenceProvenance,
     ReferenceResult,
     WGS84GeodeticPoint,
+    WGS84PolygonOutput,
+    WGS84PolygonSegment,
     WGS84RouteDistanceOutput,
     WGS84RouteDistanceSegment,
     WGS84RoutePoint,
@@ -209,6 +211,76 @@ class WGS84ReferenceProvider:
                     "Surface geodesic distance uses latitude/longitude only; no unknown height is invented.",
                     "Repeated coordinates are valid and contribute a zero-length segment.",
                     "This is not a road, flight, AE projected-plane, or Gleason-native route distance.",
+                ],
+            ),
+        )
+
+    def polygon_measurement(
+        self,
+        polygon_id: str,
+        points: list[WGS84RoutePoint],
+    ) -> ReferenceResult:
+        """Compute closed WGS84 geodesic perimeter and signed ellipsoidal area."""
+
+        longitudes = [point.longitude for point in points]
+        latitudes = [point.latitude for point in points]
+        signed_area_m2, perimeter_m = self._geod.polygon_area_perimeter(
+            longitudes,
+            latitudes,
+        )
+        signed_area = float(signed_area_m2)
+        if not math.isfinite(signed_area) or math.isclose(signed_area, 0.0, abs_tol=1e-6):
+            raise ValueError("WGS84 polygon area is zero or numerically degenerate")
+        orientation = "counterclockwise" if signed_area > 0 else "clockwise"
+
+        segments: list[WGS84PolygonSegment] = []
+        for index, start in enumerate(points):
+            end = points[(index + 1) % len(points)]
+            _azimuth_forward, _azimuth_back, distance_m = self._geod.inv(
+                start.longitude,
+                start.latitude,
+                end.longitude,
+                end.latitude,
+            )
+            distance = 0.0 if math.isclose(distance_m, 0.0, abs_tol=1e-9) else float(distance_m)
+            segments.append(
+                WGS84PolygonSegment(
+                    edge_id=f"polygon-edge:{start.point_id}->{end.point_id}",
+                    index=index,
+                    from_point_id=start.point_id,
+                    to_point_id=end.point_id,
+                    distance_m=distance,
+                )
+            )
+
+        output = WGS84PolygonOutput(
+            orientation=orientation,
+            segment_count=len(segments),
+            perimeter_m=float(perimeter_m),
+            signed_area_m2=signed_area,
+            area_m2=abs(signed_area),
+            segments=segments,
+        )
+        return ReferenceResult(
+            operation="wgs84_polygon_measurement",
+            input={
+                "polygon_id": polygon_id,
+                "points": [point.model_dump() for point in points],
+            },
+            output=output.model_dump(),
+            provenance=self._provenance(
+                operation="wgs84_polygon_measurement",
+                algorithm=(
+                    "PROJ/GeographicLib-compatible Geod.polygon_area_perimeter "
+                    "for closed WGS84 geodesic perimeter and signed ellipsoidal area"
+                ),
+                units={"perimeter": "metres", "area": "square metres"},
+                notes=[
+                    "P6.6 closes the ring implicitly from the last explicit vertex to the first.",
+                    "Counterclockwise traversal is positive; clockwise traversal is negative.",
+                    "Self-intersecting rings use algebraic signed-area accumulation; no union/fill area is invented.",
+                    "Signed-area semantics are used rather than silently choosing a rest-of-earth complement by orientation.",
+                    "This is not a road, flight, AE projected-plane, or Gleason-native polygon quantity.",
                 ],
             ),
         )
