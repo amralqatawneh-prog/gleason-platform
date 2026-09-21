@@ -28,15 +28,16 @@ model engines:
 > final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance
 > Gates **#684 — SUCCESS**. The owner then explicitly instructed **«ابدأ P6.5»**;
 > **P6.5 — Gleason Native Measurement is CLOSED** after exact-head Release Acceptance Gates **#691 — SUCCESS** and **6/6 manual checks PASS — REPORTED BY OWNER** on
-> `feat/phase6-p6-5-gleason-native-measurement`. Accepted phase remains **5**
+> `feat/phase6-p6-5-gleason-native-measurement`. PR #25 was subsequently authorized and **MERGED** into `main @ bdff76e765c78108e96fd0e644df850be22f8eed`; exact final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge. Accepted phase remains **5**
 > and accepted application version remains **v0.5.0** until a separate Phase 6
 > acceptance decision.
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge)
+- Current integration baseline: `main @ bdff76e765c78108e96fd0e644df850be22f8eed` (PR #25 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
+- Post-PR25 documentation reconciliation: **CLOSED / VERIFIED** on head `6b7b1e9cc2e809f4485626171d69c18366c89fe5` with Release Acceptance Gates **#713 — SUCCESS**; PR #26 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -60,6 +61,7 @@ model engines:
 - P6.4 start baseline is that exact `main` revision.
 - P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed CI #653; owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed CI #661; final closure head `ced5649c3c2d6e1c8e1d96af35fb0775637719a3` passed CI #668; owner manual **6/6 PASS — REPORTED BY OWNER**.
 - PR #21 is **MERGED** into `main` at `11b571f08f72732b509f049f1a2ab1be92292938`; post-merge Release Acceptance Gates **#669 — SUCCESS**.
+- PR #25 is **MERGED** into `main` at `bdff76e765c78108e96fd0e644df850be22f8eed`; final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge; no post-merge push-run is claimed without independent observation.
 
 ## Phase status
 
@@ -288,7 +290,8 @@ Current source-of-truth documents:
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
-- `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR23 documentation reconciliation.
+- `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR25 documentation reconciliation.
+- `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR23 documentation reconciliation.
 - `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
 - `docs/GITHUB_SYNC_AUDIT_2026-09-19.md` — GitHub/documentation/data audit.

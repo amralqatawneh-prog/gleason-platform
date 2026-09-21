@@ -27,9 +27,8 @@ Current authoritative execution/status sources are:
 - `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
 
 Current state: Phase 5 is accepted at v0.5.0; Phase 6 is in progress;
-P6.1–P6.4 are closed; P6.5 Gleason Native Measurement is in progress after the
-owner instruction **«ابدأ P6.5»**. Post-PR23 reconciliation PR #24 is merged at
-`main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`; the owner-approved
+P6.1–P6.5 are closed. P6.5 Gleason Native Measurement is merged through PR #25 at
+`main @ bdff76e765c78108e96fd0e644df850be22f8eed`; final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge. P6.6 remains NOT STARTED. The owner-approved
 2026-09-21 roadmap/architecture amendment itself was merged through PR #23 at
 `de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The amendment is
 architecture/documentation planning only and does not itself start P6.5 or any

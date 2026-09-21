@@ -1,5 +1,20 @@
 # Changelog
 
+## [Unreleased] — Post-PR #25 merge reconciliation (2026-09-21)
+
+- Owner explicitly authorized **«قم بدمج PR #25 إلى main»**.
+- PR #25 — Phase 6 P6.5 Gleason Native Measurement — was **MERGED / CLOSED**.
+- Exact final PR head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge.
+- P6.5 owner manual verification remains **6/6 PASS — REPORTED BY OWNER**.
+- PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
+- No post-merge push-run number is claimed because it has not been independently observed through the available workflow view.
+- Reconcile current-state documentation and machine-readable governance to the post-PR25 truth.
+- P6.5 remains **CLOSED + MERGED**; P6.6 remains **NOT STARTED**.
+- Accepted phase remains **5** and accepted application version remains **v0.5.0**.
+- No tag, GitHub Release or deployment is created by this reconciliation.
+- Reconciliation verification head `6b7b1e9cc2e809f4485626171d69c18366c89fe5` passed Release Acceptance Gates **#713 — SUCCESS**.
+- Reconciliation is **CLOSED / VERIFIED**; PR #26 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
+
 ## [Unreleased] — Phase 6 / P6.5 Gleason Native Measurement (2026-09-21)
 
 - Owner explicitly instructed **«ابدأ P6.5»**.

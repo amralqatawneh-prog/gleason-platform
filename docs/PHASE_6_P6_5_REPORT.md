@@ -1,6 +1,6 @@
 # Phase 6 / P6.5 — Gleason Native Measurement Report
 
-Status: **CLOSED — PRE-MANUAL CI #691 SUCCESS / OWNER MANUAL 6/6 PASS — REPORTED BY OWNER / FINAL CLOSURE CI REQUIRED**
+Status: **CLOSED + MERGED — FINAL HEAD `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` / CI #699 SUCCESS / OWNER MANUAL 6/6 PASS — REPORTED BY OWNER**
 
 Date: 2026-09-21
 
@@ -16,7 +16,7 @@ Owner start instruction: **«ابدأ P6.5»**
 - Release Acceptance Gates **#684 — SUCCESS** on that exact pre-merge head
 - Working branch:
   `feat/phase6-p6-5-gleason-native-measurement`
-- Pull request: **#25 — OPEN / DRAFT / UNMERGED**
+- Pull request: **#25 — MERGED / CLOSED**
 - Accepted application version remains **v0.5.0**
 - Accepted phase remains **5**
 - Phase 6 remains **IN PROGRESS**
@@ -189,10 +189,6 @@ Result: **6/6 PASS — REPORTED BY OWNER**.
 Tested head: `a733f81d922963a385357becf69dafd8b6d576be`.
 Pre-manual Release Acceptance Gates: **#691 — SUCCESS**.
 
-P6.5 is therefore marked **CLOSED** in the closure-state documentation. This
-does **not** authorize merging PR #25, starting P6.6, creating a tag/GitHub
-Release, or deployment.
+P6.5 was marked **CLOSED** after owner verification. The closure-state head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` then passed the complete **Release Acceptance Gates #699 — SUCCESS**. The owner separately authorized merging PR #25, which was **MERGED** into `main` at `bdff76e765c78108e96fd0e644df850be22f8eed` on 2026-09-21.
 
-The closure-state documentation head created after this manual result must pass
-the complete Release Acceptance Gates before the slice is considered ready for
-separate merge authorization. P6.6 remains **NOT STARTED**.
+No post-merge push-run number is claimed because it has not been independently observed through the available workflow view. P6.6 remains **NOT STARTED**. No tag, GitHub Release or deployment is implied.
