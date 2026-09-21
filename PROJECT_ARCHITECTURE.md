@@ -26,10 +26,12 @@ Current authoritative execution/status sources are:
 - `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`
 - `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`
 
-Current state at this reconciliation: Phase 5 is accepted at v0.5.0; Phase 6 is
-in progress; P6.1–P6.4 are closed; P6.5 is not started. The owner-approved
-2026-09-21 roadmap/architecture amendment was merged through PR #23 at
-`main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The amendment is
+Current state: Phase 5 is accepted at v0.5.0; Phase 6 is in progress;
+P6.1–P6.4 are closed; P6.5 Gleason Native Measurement is in progress after the
+owner instruction **«ابدأ P6.5»**. Post-PR23 reconciliation PR #24 is merged at
+`main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`; the owner-approved
+2026-09-21 roadmap/architecture amendment itself was merged through PR #23 at
+`de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The amendment is
 architecture/documentation planning only and does not itself start P6.5 or any
 future astronomy/aviation/high-detail-map implementation.
 
