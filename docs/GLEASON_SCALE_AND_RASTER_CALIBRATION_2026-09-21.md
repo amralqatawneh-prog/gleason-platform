@@ -1,7 +1,7 @@
 # Gleason Scale Profiles and Restored-Raster Calibration
 
 Date: 2026-09-21  
-Status: **IMPLEMENTED ON PR #31 — AWAITING CI / OWNER MANUAL VERIFICATION**
+Status: **IMPLEMENTED / VERIFIED / MERGED WITH PR #31 — #783 + owner 6/6 + final closure #784**
 
 ## Scale profiles
 
