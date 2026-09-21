@@ -1254,6 +1254,28 @@ for field in [
 require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
 require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
 
+post_pr31 = data.get("post_pr31_merge_reconciliation", {})
+require(post_pr31.get("decision") == "started-by-owner", "post-PR31 reconciliation owner decision missing")
+require(
+    post_pr31.get("owner_statement") == "قم بتحديث وتوثيق ملفات وبيانات وتقارير github قبل ان نبدأ بأي مرحلة قادمه",
+    "post-PR31 reconciliation owner statement drifted",
+)
+require(post_pr31.get("baseline_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 reconciliation baseline drifted")
+require(post_pr31.get("source_pr") == 31, "post-PR31 reconciliation must reference PR #31")
+require(post_pr31.get("source_pr_final_head") == "1d84ba85ba21d320a0de0ed16d87006c5ef80c84", "post-PR31 source final head drifted")
+require(post_pr31.get("source_pr_final_ci_run") == 784, "post-PR31 source final CI must be #784")
+require(post_pr31.get("source_pr_final_ci_conclusion") == "success", "post-PR31 source #784 must remain success")
+require(post_pr31.get("source_pr_merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 source merge commit drifted")
+require(post_pr31.get("branch") == "docs/post-pr31-merge-reconciliation-2026-09-22", "post-PR31 reconciliation branch drifted")
+require(post_pr31.get("pr") == 32, "post-PR31 reconciliation PR must be #32")
+require(post_pr31.get("status") == "open-draft", "post-PR31 reconciliation PR #32 must remain open/draft before merge authorization")
+require(post_pr31.get("merge_authorization") == "pending-separate-owner-instruction", "post-PR31 reconciliation merge must await separate owner authorization")
+require(post_pr31.get("next_slice") == "P6.7A", "post-PR31 reconciliation next slice must be P6.7A")
+require(post_pr31.get("next_slice_status") == "not_started", "P6.7A must remain not started during reconciliation")
+require(post_pr31.get("tag") == "not_created", "post-PR31 reconciliation must not create a tag")
+require(post_pr31.get("github_release") == "not_created", "post-PR31 reconciliation must not create a GitHub Release")
+require(post_pr31.get("deployment") == "not_created", "post-PR31 reconciliation must not deploy")
+
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [
     "shane-personal-celestial-sphere",
