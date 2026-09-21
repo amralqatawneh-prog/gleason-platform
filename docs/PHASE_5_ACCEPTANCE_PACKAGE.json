@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance and P6.4 is implementing AE projected-plane open-polyline distance. Provider-backed road/flight paths, Gleason native distance, perimeter and area remain unavailable."
+      "boundary": "P6.3 implements WGS84 geodesic distance, P6.4 AE projected-plane distance, P6.5 Gleason normalized native distance, and P6.6 is implementing model-specific polygon perimeter/area. Provider-backed road/flight paths and turn-by-turn directions remain unavailable."
     },
     {
       "id": "camera-states-independent",
@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "8ac38042050f24c0ec30e30b32d37cd1900abf92",
+    "current_integration_baseline": "1c64285b92c093365b74f3256aa9557b9a48268e",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -241,7 +241,14 @@
     "pr29_pre_merge_ci_run": 754,
     "pr29_pre_merge_ci_conclusion": "success",
     "pr29_post_merge_main_ci_run": null,
-    "pr29_post_merge_main_ci_conclusion": "not-independently-observed"
+    "pr29_post_merge_main_ci_conclusion": "not-independently-observed",
+    "pr30": "merged",
+    "pr30_merge_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "pr30_final_head": "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "pr30_pre_merge_ci_run": 759,
+    "pr30_pre_merge_ci_conclusion": "success",
+    "pr30_post_merge_main_ci_run": null,
+    "pr30_post_merge_main_ci_conclusion": "not-independently-observed"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -520,6 +527,139 @@
       "merge_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
       "post_merge_ci_run": null,
       "post_merge_ci_conclusion": "not-independently-observed"
+    },
+    "p6_6_start": {
+      "date": "2026-09-21",
+      "owner_statement": "ادمج PR #30 وابدأ P6.6",
+      "decision": "started-by-owner-after-pr30-merge",
+      "baseline_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+      "baseline_pre_merge_ci_run": 759,
+      "baseline_pre_merge_ci_conclusion": "success",
+      "branch": "feat/p6.6-polygon-perimeter-area",
+      "status": "reopened-in-progress",
+      "scope": "closed polygon perimeter and area with independent WGS84, AE and Gleason identities",
+      "semantics_document": "docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md",
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0",
+      "owner_manual_status": "pass-reported-by-owner",
+      "owner_tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "pre_manual_ci_run": 769,
+      "pre_manual_ci_conclusion": "success",
+      "pr": 31,
+      "pr_status": "open-draft-unmerged"
+    },
+    "p6_6_status": "closed",
+    "p6_6_automated": {
+      "owner_tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "ci_run": 769,
+      "ci_conclusion": "success",
+      "frontend_core_tests_passed": 129,
+      "browser_acceptance_tests_passed": 23,
+      "polygon_parity_cases": 104,
+      "note": "Complete Release Acceptance Gates passed before owner manual verification, including three-engine polygon parity, browser/PWA/offline, Docker runtime and polygon API checks."
+    },
+    "p6_6_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+      "pre_manual_ci_run": 769,
+      "pre_manual_ci_conclusion": "success",
+      "basic_polygon_and_implicit_closure": "pass-reported-by-owner",
+      "reversed_orientation_invariance": "pass-reported-by-owner",
+      "live_add_reorder_remove": "pass-reported-by-owner",
+      "repeated_explicit_closure_rejected": "pass-reported-by-owner",
+      "backend_stop_browser_fallback": "pass-reported-by-owner",
+      "minimum_vertex_stale_result_fail_closed": "pass-reported-by-owner"
+    },
+    "p6_6_closure": {
+      "status": "closed-awaiting-final-closure-ci",
+      "report": "docs/PHASE_6_P6_6_REPORT.md",
+      "pr": 31,
+      "merge_status": "open-draft-unmerged",
+      "merge_authorization": "pending-separate-owner-instruction",
+      "next_slice": "P6.7A",
+      "next_slice_status": "not_started",
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0",
+      "tag": "not_created",
+      "github_release": "not_created",
+      "deployment": "not_created"
+    },
+    "p6_6_measurement_audit": {
+      "date": "2026-09-21",
+      "decision": "owner-approved-reopen-and-implement",
+      "owner_statement": "موافق على جميع مقترحاتك، تستطيع البدء",
+      "status": "closed-awaiting-final-closure-ci",
+      "pr": 31,
+      "branch": "feat/p6.6-polygon-perimeter-area",
+      "primary_source": "gleason-book",
+      "audit_document": "docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md",
+      "secondary_source_registry": "data/sources/gleason-video-measurement-audit.yaml",
+      "video_1_sha256": "63b65c294ba49e7b58b424648faff2ca8d58a37a512938aff3c8f39afbdfbb64",
+      "video_2_sha256": "b9b714da291564fd05afca310c1fb0aecf6a489958209ca8f36edbb7665621dc",
+      "identities": [
+        "gleason-map-ruler-derived",
+        "gleason-historical-longitude-scale",
+        "gleason-frame-time-calculator"
+      ],
+      "prior_manual_6_of_6": "historical-evidence-for-superseded-contract",
+      "prior_final_ci_run": 771,
+      "prior_final_ci_conclusion": "success",
+      "p6_7a_status": "not_started",
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0",
+      "tag": "not_created",
+      "github_release": "not_created",
+      "deployment": "not_created",
+      "preferred_scale_profile": {
+        "id": "gleason-fig43-circle-derived",
+        "unit": "historical-fig43-mile",
+        "distance_per_nru": 6875.493541569879,
+        "evidence_level": "DERIVED_FROM_DOCUMENTED"
+      },
+      "legacy_scale_profile": {
+        "id": "gleason-radial-60nm-legacy",
+        "distance_per_nru": 10800,
+        "unit": "nautical-mile-legacy",
+        "evidence_level": "SECONDARY_OBSERVED",
+        "status": "comparison_only"
+      },
+      "external_scale_profile": {
+        "id": "walter-eq-configurable",
+        "rule": "distance_per_nru=2*EQ",
+        "evidence_level": "EXTERNAL_COMPARATIVE"
+      },
+      "restored_raster": {
+        "source_registry": "data/sources/gleason-restored-map.yaml",
+        "pdf_sha256": "26105ca1f98ec9d862eb5ab52ef94b01b8b4f642a41b678cf5fbe21cff19f327",
+        "raster_sha256": "dc7f96ef7a473a4db334f721ce54963474792814280cf21dd00307f4b14619b0",
+        "width_px": 4653,
+        "height_px": 6506,
+        "calibration_status": "provisional-geometric-fit",
+        "center_x_px": 2315.1835844095776,
+        "center_y_px": 3287.4068173009764,
+        "outer_ring_radius_px": 1851.8383776797139,
+        "fit_rms_px": 5.768749489287826,
+        "city_control_points": 0
+      },
+      "video_fixture_count": 5,
+      "manual_verification_status": "pass-reported-by-owner",
+      "ci_status": "awaiting-final-closure-ci",
+      "owner_tested_head": "e96712975fc9f54f2615e235bb6976136efe8a2d",
+      "pre_manual_ci_run": 783,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_checks": {
+        "corrected_historical_scale_and_legacy_separation": "pass-reported-by-owner",
+        "fig43_latitude_dependent_fail_closed": "pass-reported-by-owner",
+        "frame_time_conversion": "pass-reported-by-owner",
+        "restored_raster_provisional_georeferencing": "pass-reported-by-owner",
+        "polygon_scale_separation": "pass-reported-by-owner",
+        "cross_slice_regression": "pass-reported-by-owner"
+      },
+      "next_slice": "P6.7A",
+      "next_slice_status": "not_started"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -914,7 +1054,14 @@
     "verification_head": "0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448",
     "verification_ci_run": 758,
     "verification_ci_conclusion": "success",
-    "merge_status": "open-draft-unmerged",
-    "merge_authorization": "pending-separate-owner-instruction"
+    "merge_status": "merged",
+    "merge_authorization": "explicit-owner-instruction",
+    "merge_authorization_statement": "ادمج PR #30 وابدأ P6.6",
+    "final_closure_head": "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "final_closure_ci_run": 759,
+    "final_closure_ci_conclusion": "success",
+    "merge_commit": "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "post_merge_main_ci_run": null,
+    "post_merge_main_ci_conclusion": "not-independently-observed"
   }
 }

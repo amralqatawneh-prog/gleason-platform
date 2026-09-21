@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92` (PR #29 merge).
+- Current integration base: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e` (PR #30 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -39,7 +39,8 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Post-PR27 reconciliation: **CLOSED + MERGED** through PR #28. Initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**; merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge run is claimed without independent observation.
 - Historical post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR28 reconciliation: **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge run is claimed without independent observation.
-- Current post-PR29 reconciliation: `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md` on branch `docs/post-pr29-merge-reconciliation`, draft PR #30. Exact initial verification head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed Release Acceptance Gates **#758 — SUCCESS**; reconciliation is **CLOSED / VERIFIED**, but PR #30 remains **OPEN / DRAFT / UNMERGED** and the closure-state head requires a second complete gates run before separate owner merge authorization.
+- Historical post-PR29 reconciliation: `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md`; **CLOSED + MERGED** through PR #30. Initial head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed **#758 — SUCCESS**; exact final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS**; merge commit `1c64285b92c093365b74f3256aa9557b9a48268e`. No post-merge CI result is claimed without independent observation.
+- P6.6 **IN PROGRESS** on `feat/p6.6-polygon-perimeter-area` from that baseline by owner instruction **«ادمج PR #30 وابدأ P6.6»**.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
@@ -47,11 +48,12 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#27**: **MERGED** into `main` with explicit owner authorization; final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22`, Release Acceptance Gates **#726 — SUCCESS**, merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`.
 - PR **#28**: **MERGED / CLOSED**; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789`, final pre-merge Release Acceptance Gates **#744 — SUCCESS**, merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. Post-merge workflow result: **not independently observed**.
 - PR **#29**: **MERGED / CLOSED**; initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` / **#753 — SUCCESS**; final head `7751e76c1d3fe3e8c129436717042a49040ead4b` / **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. Post-merge workflow result: **not independently observed**.
+- PR **#30**: **MERGED / CLOSED**; initial verification head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` / **#758 — SUCCESS**; final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` / **#759 — SUCCESS**; merge commit `1c64285b92c093365b74f3256aa9557b9a48268e`. Post-merge workflow result: **not independently observed**.
 - PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
-- Latest closed slice: **P6.5 — Gleason Native Measurement**.
-- P6.5 — Gleason Native Measurement is **CLOSED** after Release Acceptance Gates **#691 — SUCCESS** on tested head `a733f81d922963a385357becf69dafd8b6d576be` and **6/6 manual checks PASS — REPORTED BY OWNER**. P6.6 remains **NOT STARTED**.
+- Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
+- P6.6 is **CLOSED** after Release Acceptance Gates **#769 — SUCCESS** on owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` and **6/6 manual checks PASS — REPORTED BY OWNER**. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. PR #31 remains open/unmerged; P6.7A remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -67,11 +69,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19, PR #20, PR #24 and PR #25 are **MERGED**; P6.2, P6.3 and P6.4 remain CLOSED. No tag, GitHub Release or deployment has been created. P6.5 is **CLOSED**; P6.6 remains **NOT STARTED**.
+- PR #16, PR #19, PR #20, PR #24, PR #25 and PR #30 are **MERGED**. P6.2–P6.6 are CLOSED. PR #31 is open/unmerged. No tag, GitHub Release or deployment has been created. P6.7A remains **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.5 are CLOSED; P6.6 remains NOT STARTED.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.6 are CLOSED; P6.7A remains NOT STARTED.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -82,6 +84,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Post-PR17 GitHub state sync: `docs/POST_PR17_GITHUB_SYNC_2026-09-20.md`.
 - Closed P6.3 report: `docs/PHASE_6_P6_3_REPORT.md`.
 - Closed P6.4 report: `docs/PHASE_6_P6_4_REPORT.md`.
+- Closed P6.6 report: `docs/PHASE_6_P6_6_REPORT.md`.
 - Post-PR19 reconciliation: `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md`.
 - Post-PR21 reconciliation: `docs/POST_PR21_MERGE_RECONCILIATION_2026-09-21.md`.
 - Approved roadmap/architecture amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
@@ -1112,3 +1115,22 @@ New future architecture:
 
 No astronomy engine is currently implemented by this amendment. P6.6 remains
 NOT STARTED. Source/code snapshots must be pinned and audited before runtime reuse.
+
+
+### 2026-09-21 Gleason scale/raster audit update
+
+PR #31 now targets the owner-approved corrected scale architecture:
+`gleason-fig43-circle-derived` default, radial-60 legacy comparison, Walter
+configurable comparison, same-latitude arc/chord separation, and provisional
+georeferencing for the owner-supplied 4653x6506 restored Gleason raster.
+P6.7A remains NOT STARTED.
+
+
+### P6.6 corrected-contract closure state — 2026-09-21
+
+The owner completed the corrected Gleason contract checklist **6/6 PASS —
+REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is closed subject
+to final closure-state CI. PR #31 stays unmerged pending separate owner merge
+authorization. P6.7A remains NOT STARTED. No reconciliation PR follows this
+closure.

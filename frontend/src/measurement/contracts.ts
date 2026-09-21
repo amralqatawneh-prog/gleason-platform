@@ -17,7 +17,7 @@ export type MeasurementScaleBasis =
   | 'ae-projected-plane-si-metre'
   | 'gleason-normalized-model-radius';
 export type MeasurementSemanticType = 'REFERENCE_RESULT' | 'COMPUTED_RESULT';
-export type MeasurementMethodStatus = 'contract-only' | 'partially-implemented';
+export type MeasurementMethodStatus = 'contract-only' | 'partially-implemented' | 'implemented';
 export type MeasurementImplementationStatus = 'contract-only' | 'implemented';
 
 export interface MeasurementEndpoint {
@@ -132,15 +132,15 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     calculationModel: 'wgs84',
     calculationSpace: 'WGS84 ellipsoidal geodesic/reference geometry',
     semanticType: 'REFERENCE_RESULT',
-    status: 'partially-implemented',
+    status: 'implemented',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
-    implementedQuantities: Object.freeze(['distance'] as const),
+    implementedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'wgs84-ellipsoid',
     provenance: 'P6.3 binds distance to backend pyproj/PROJ and an independent offline geographiclib-geodesic implementation with parity gates.',
     limitations: Object.freeze([
-      'P6.3 implements distance for an ordered open polyline only; WGS84 polygon perimeter/area remains P6.6.',
+      'P6.3 provides open-polyline distance; P6.6 adds closed geodesic perimeter and signed/absolute polygon area.',
       'A WGS84 geodesic keeps this method identity when visualized on AE or Gleason.',
       'Road/flight routing is not implied by geodesic distance.',
     ]),
@@ -151,9 +151,9 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     calculationModel: 'ae',
     calculationSpace: 'independent Azimuthal Equidistant projected plane',
     semanticType: 'REFERENCE_RESULT',
-    status: 'partially-implemented',
+    status: 'implemented',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
-    implementedQuantities: Object.freeze(['distance'] as const),
+    implementedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
     linearUnit: 'metre',
     areaUnit: 'square-metre',
     scaleBasis: 'ae-projected-plane-si-metre',
@@ -161,7 +161,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     limitations: Object.freeze([
       'Projected-plane metres are not automatically WGS84 geodesic distance even though both use SI metres.',
       'Azimuthal Equidistant preserves radial distance from the north-pole center, not every arbitrary pairwise surface distance.',
-      'P6.4 implements adjacent straight projected segments and open-polyline distance only; polygon perimeter/area remains P6.6.',
+      'P6.4 provides open-polyline distance; P6.6 adds closed projected perimeter and signed/absolute shoelace area.',
     ]),
   }),
   Object.freeze({
@@ -170,9 +170,9 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     calculationModel: 'gleason',
     calculationSpace: 'Gleason derived normalized-radius plane',
     semanticType: 'COMPUTED_RESULT',
-    status: 'partially-implemented',
+    status: 'implemented',
     supportedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
-    implementedQuantities: Object.freeze(['distance'] as const),
+    implementedQuantities: Object.freeze(['distance', 'perimeter', 'area'] as const),
     linearUnit: 'normalized-radius-unit',
     areaUnit: 'normalized-radius-unit-squared',
     scaleBasis: 'gleason-normalized-model-radius',
@@ -180,7 +180,7 @@ export const MEASUREMENT_METHOD_CONTRACTS: readonly Readonly<MeasurementMethodCo
     limitations: Object.freeze([
       'No metres/kilometres or square SI conversion exists without a documented scale basis or explicitly labeled assumption.',
       'The modern normalized analytic reconstruction must not be attributed to the historical book as a printed formula.',
-      'P6.5 implements adjacent straight projected segments and open-polyline distance only; polygon perimeter/area remains P6.6.',
+      'P6.5 provides open-polyline distance; P6.6 adds closed normalized perimeter and signed/absolute shoelace area.',
     ]),
   }),
 ]);

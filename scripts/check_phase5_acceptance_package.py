@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -325,8 +326,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "8ac38042050f24c0ec30e30b32d37cd1900abf92",
-    "current integration baseline must be the PR #29 merge commit",
+    == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "current integration baseline must be the PR #30 merge commit / P6.6 start baseline",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -515,6 +516,26 @@ require(
     merge_boundary.get("pr29_post_merge_main_ci_conclusion") == "not-independently-observed",
     "PR #29 post-merge CI evidence state drifted",
 )
+require(merge_boundary.get("pr30") == "merged", "PR #30 must be recorded as merged")
+require(
+    merge_boundary.get("pr30_merge_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "PR #30 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr30_final_head") == "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "PR #30 final head drifted",
+)
+require(merge_boundary.get("pr30_pre_merge_ci_run") == 759, "PR #30 pre-merge CI must be #759")
+require(
+    merge_boundary.get("pr30_pre_merge_ci_conclusion") == "success",
+    "PR #30 pre-merge CI #759 must remain success",
+)
+require(merge_boundary.get("pr30_post_merge_main_ci_run") is None, "PR #30 must not fabricate an unseen post-merge CI run")
+require(
+    merge_boundary.get("pr30_post_merge_main_ci_conclusion") == "not-independently-observed",
+    "PR #30 post-merge CI evidence state drifted",
+)
+
 
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -1016,11 +1037,200 @@ require(
     post_pr29.get("verification_ci_conclusion") == "success",
     "post-PR29 initial verification CI #758 must remain success",
 )
-require(post_pr29.get("merge_status") == "open-draft-unmerged", "post-PR29 reconciliation PR #30 must remain open/draft/unmerged")
+require(post_pr29.get("merge_status") == "merged", "post-PR29 reconciliation PR #30 must be recorded as merged")
 require(
-    post_pr29.get("merge_authorization") == "pending-separate-owner-instruction",
-    "post-PR29 reconciliation merge must await separate owner authorization",
+    post_pr29.get("merge_authorization") == "explicit-owner-instruction",
+    "post-PR29 reconciliation PR #30 merge authorization evidence missing",
 )
+require(
+    post_pr29.get("merge_authorization_statement") == "ادمج PR #30 وابدأ P6.6",
+    "post-PR29 reconciliation merge authorization statement drifted",
+)
+require(
+    post_pr29.get("final_closure_head") == "14c69a8cb1aaae2b375803e6400efe24aa83fd03",
+    "post-PR29 final closure head drifted",
+)
+require(post_pr29.get("final_closure_ci_run") == 759, "post-PR29 final closure CI must be #759")
+require(post_pr29.get("final_closure_ci_conclusion") == "success", "post-PR29 final closure CI #759 must remain success")
+require(
+    post_pr29.get("merge_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "post-PR29 PR #30 merge commit drifted",
+)
+require(post_pr29.get("post_merge_main_ci_run") is None, "post-PR29 record must not fabricate PR #30 post-merge CI")
+require(
+    post_pr29.get("post_merge_main_ci_conclusion") == "not-independently-observed",
+    "post-PR29 PR #30 post-merge CI evidence state drifted",
+)
+
+p6_6_start = phase6_start.get("p6_6_start", {})
+require(p6_6_start.get("decision") == "started-by-owner-after-pr30-merge", "P6.6 start decision missing")
+require(p6_6_start.get("owner_statement") == "ادمج PR #30 وابدأ P6.6", "P6.6 owner start statement drifted")
+require(
+    p6_6_start.get("baseline_commit") == "1c64285b92c093365b74f3256aa9557b9a48268e",
+    "P6.6 baseline drifted",
+)
+require(p6_6_start.get("baseline_pre_merge_ci_run") == 759, "P6.6 baseline CI must preserve #759")
+require(p6_6_start.get("baseline_pre_merge_ci_conclusion") == "success", "P6.6 baseline CI #759 must remain success")
+require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 branch drifted")
+require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
+require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
+
+require(p6_6_start.get("status") == "reopened-in-progress", "P6.6 must be reopened after owner-approved measurement audit")
+require(
+    p6_6_start.get("owner_manual_status") == "pass-reported-by-owner",
+    "P6.6 owner manual status missing",
+)
+require(
+    p6_6_start.get("owner_tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 owner-tested head drifted",
+)
+require(p6_6_start.get("pre_manual_ci_run") == 769, "P6.6 owner manual verification must follow CI #769")
+require(
+    p6_6_start.get("pre_manual_ci_conclusion") == "success",
+    "P6.6 pre-manual CI #769 must remain success",
+)
+require(p6_6_start.get("pr") == 31, "P6.6 must reference PR #31")
+require(p6_6_start.get("pr_status") == "open-draft-unmerged", "P6.6 PR #31 must remain open/draft/unmerged before merge authorization")
+require(phase6_start.get("p6_6_status") == "closed", "P6.6 corrected contract must be closed")
+
+p6_6_automated = phase6_start.get("p6_6_automated", {})
+require(
+    p6_6_automated.get("owner_tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 automated owner-tested head drifted",
+)
+require(p6_6_automated.get("ci_run") == 769, "P6.6 automated CI must be #769")
+require(p6_6_automated.get("ci_conclusion") == "success", "P6.6 automated CI #769 must remain success")
+require(p6_6_automated.get("frontend_core_tests_passed") == 129, "P6.6 frontend core count must be 129")
+require(p6_6_automated.get("browser_acceptance_tests_passed") == 23, "P6.6 browser acceptance count must be 23")
+require(p6_6_automated.get("polygon_parity_cases") == 104, "P6.6 polygon parity case count must be 104")
+
+p6_6_manual = phase6_start.get("p6_6_owner_manual", {})
+require(p6_6_manual.get("result") == "pass-reported-by-owner", "P6.6 owner manual PASS evidence missing")
+require(p6_6_manual.get("checklist_items_passed") == 6, "P6.6 owner manual checklist must record 6/6")
+require(
+    p6_6_manual.get("tested_head") == "4cb8c04b40fbea35745f4091a4bf5e849c34b299",
+    "P6.6 manual tested head drifted",
+)
+require(p6_6_manual.get("pre_manual_ci_run") == 769, "P6.6 manual verification must follow CI #769")
+require(p6_6_manual.get("pre_manual_ci_conclusion") == "success", "P6.6 pre-manual CI #769 must remain success")
+for field in [
+    "basic_polygon_and_implicit_closure",
+    "reversed_orientation_invariance",
+    "live_add_reorder_remove",
+    "repeated_explicit_closure_rejected",
+    "backend_stop_browser_fallback",
+    "minimum_vertex_stale_result_fail_closed",
+]:
+    require(
+        p6_6_manual.get(field) == "pass-reported-by-owner",
+        f"P6.6 manual evidence missing: {field}",
+    )
+
+p6_6_closure = phase6_start.get("p6_6_closure", {})
+require(
+    p6_6_closure.get("status") == "closed-awaiting-final-closure-ci",
+    "P6.6 corrected closure lifecycle drifted",
+)
+require(p6_6_closure.get("report") == "docs/PHASE_6_P6_6_REPORT.md", "P6.6 closure report path drifted")
+require(p6_6_closure.get("pr") == 31, "P6.6 closure must reference PR #31")
+require(p6_6_closure.get("merge_status") == "open-draft-unmerged", "P6.6 PR #31 must remain unmerged")
+require(
+    p6_6_closure.get("merge_authorization") == "pending-separate-owner-instruction",
+    "P6.6 merge must await separate owner authorization",
+)
+require(p6_6_closure.get("next_slice") == "P6.7A", "P6.6 next slice must remain P6.7A")
+require(p6_6_closure.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
+require(p6_6_closure.get("accepted_phase_remains") == 5, "P6.6 closure must not accept Phase 6")
+require(p6_6_closure.get("accepted_application_version_remains") == "0.5.0", "P6.6 closure must not change accepted version")
+require(p6_6_closure.get("tag") == "not_created", "P6.6 closure must not create a tag")
+require(p6_6_closure.get("github_release") == "not_created", "P6.6 closure must not create a GitHub Release")
+require(p6_6_closure.get("deployment") == "not_created", "P6.6 closure must not deploy")
+require((ROOT / "docs" / "PHASE_6_P6_6_REPORT.md").is_file(), "P6.6 closure report missing")
+
+p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
+require(p6_6_audit.get("decision") == "owner-approved-reopen-and-implement", "P6.6 audit owner decision missing")
+require(
+    p6_6_audit.get("owner_statement") == "موافق على جميع مقترحاتك، تستطيع البدء",
+    "P6.6 audit owner statement drifted",
+)
+require(
+    p6_6_audit.get("status") == "closed-awaiting-final-closure-ci",
+    "P6.6 corrected measurement audit must be closed awaiting final closure CI",
+)
+require(p6_6_audit.get("pr") == 31, "P6.6 measurement audit must remain on PR #31")
+require(
+    p6_6_audit.get("identities")
+    == [
+        "gleason-map-ruler-derived",
+        "gleason-historical-longitude-scale",
+        "gleason-frame-time-calculator",
+    ],
+    "P6.6 audited Gleason identities drifted",
+)
+require(p6_6_audit.get("prior_final_ci_run") == 771, "P6.6 audit must preserve prior #771 evidence")
+require(p6_6_audit.get("prior_final_ci_conclusion") == "success", "P6.6 prior #771 must remain success")
+require(p6_6_audit.get("p6_7a_status") == "not_started", "P6.7A must remain not_started")
+require(p6_6_audit.get("video_fixture_count") == 5, "P6.6 video fixture registry must contain five audited videos")
+require(
+    p6_6_audit.get("preferred_scale_profile", {}).get("id") == "gleason-fig43-circle-derived",
+    "P6.6 preferred Gleason scale profile drifted",
+)
+require(
+    abs(p6_6_audit.get("preferred_scale_profile", {}).get("distance_per_nru", 0) - (21600 / math.pi)) < 1e-12,
+    "P6.6 historical scale must remain 21600/pi per NRU",
+)
+require(
+    p6_6_audit.get("legacy_scale_profile", {}).get("id") == "gleason-radial-60nm-legacy",
+    "P6.6 legacy scale profile drifted",
+)
+require(
+    p6_6_audit.get("legacy_scale_profile", {}).get("status") == "comparison_only",
+    "P6.6 radial-60 profile must remain comparison-only",
+)
+require(
+    p6_6_audit.get("external_scale_profile", {}).get("id") == "walter-eq-configurable",
+    "P6.6 Walter external profile drifted",
+)
+require(
+    p6_6_audit.get("restored_raster", {}).get("pdf_sha256")
+    == "26105ca1f98ec9d862eb5ab52ef94b01b8b4f642a41b678cf5fbe21cff19f327",
+    "restored Gleason PDF SHA-256 drifted",
+)
+require(
+    p6_6_audit.get("restored_raster", {}).get("raster_sha256")
+    == "dc7f96ef7a473a4db334f721ce54963474792814280cf21dd00307f4b14619b0",
+    "restored Gleason raster SHA-256 drifted",
+)
+require(p6_6_audit.get("restored_raster", {}).get("city_control_points") == 0, "Gleason raster must not fabricate city control points")
+require(
+    p6_6_audit.get("ci_status") == "awaiting-final-closure-ci",
+    "corrected P6.6 contract must await final closure CI",
+)
+require(
+    p6_6_audit.get("manual_verification_status") == "pass-reported-by-owner",
+    "corrected P6.6 owner manual PASS evidence missing",
+)
+require(p6_6_audit.get("manual_checklist_items_passed") == 6, "corrected P6.6 checklist must record 6/6")
+require(
+    p6_6_audit.get("owner_tested_head") == "e96712975fc9f54f2615e235bb6976136efe8a2d",
+    "corrected P6.6 owner-tested head drifted",
+)
+require(p6_6_audit.get("pre_manual_ci_run") == 783, "corrected P6.6 owner testing must follow CI #783")
+require(p6_6_audit.get("pre_manual_ci_conclusion") == "success", "corrected P6.6 pre-manual CI #783 must remain success")
+for field in [
+    "corrected_historical_scale_and_legacy_separation",
+    "fig43_latitude_dependent_fail_closed",
+    "frame_time_conversion",
+    "restored_raster_provisional_georeferencing",
+    "polygon_scale_separation",
+    "cross_slice_regression",
+]:
+    require(
+        p6_6_audit.get("manual_checks", {}).get(field) == "pass-reported-by-owner",
+        f"corrected P6.6 manual evidence missing: {field}",
+    )
+require((ROOT / "docs" / "GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md").is_file(), "Gleason audit doc missing")
+require((ROOT / "data" / "sources" / "gleason-video-measurement-audit.yaml").is_file(), "Gleason video audit registry missing")
 
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [
@@ -1457,11 +1667,11 @@ print(
             "accepted_phase": 5,
             "implementation_phase": 6,
             "phase6_status": "in_progress",
-            "phase6_previous_slice": "P6.4",
+            "phase6_previous_slice": "P6.6",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": "P6.5",
-            "phase6_current_slice_status": "closed",
-            "phase6_next_slice": "P6.6",
+            "phase6_current_slice": None,
+            "phase6_current_slice_status": "none",
+            "phase6_next_slice": "P6.7A",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,

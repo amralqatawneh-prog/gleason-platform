@@ -44,12 +44,30 @@ jobs:
           test -s frontend/src/measurement/Wgs84RouteDistancePanel.tsx
           test -s frontend/src/measurement/gleasonRouteDistance.ts
           test -s frontend/src/measurement/GleasonRouteDistancePanel.tsx
+          test -s frontend/src/measurement/PolygonMeasurementPanel.tsx
+          test -s frontend/src/measurement/polygonSemantics.ts
+          test -s frontend/src/measurement/wgs84Polygon.ts
+          test -s frontend/src/measurement/aePolygon.ts
+          test -s frontend/src/measurement/gleasonPolygon.ts
+          test -s frontend/src/measurement/gleasonHistoricalMeasurement.ts
+          test -s frontend/src/measurement/gleasonScaleProfiles.ts
+          test -s frontend/src/models/gleasonHistoricalRaster.ts
           test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
           test -s frontend/tests/route-guide.test.mjs
+          test -s frontend/tests/polygon-measurement.test.mjs
+          test -s frontend/tests/gleason-historical-measurement.test.mjs
+          test -s frontend/tests/gleason-historical-raster.test.mjs
           test -s backend/tests/test_phase6_wgs84_route_distance.py
+          test -s backend/tests/test_phase6_polygon_measurement.py
           test -s backend/tests/test_phase6_gleason_route_distance.py
           test -s scripts/check_gleason_measurement_parity.py
+          test -s scripts/check_polygon_measurement_parity.py
+          test -s docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md
+          test -s docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md
+          test -s data/sources/gleason-video-measurement-audit.yaml
+          test -s data/sources/gleason-restored-map.yaml
+          test -s docs/GLEASON_SCALE_AND_RASTER_CALIBRATION_2026-09-21.md
           test -s frontend/src/reference/globeLayers.ts
           test -s frontend/src/reference/globeLabels.ts
           test -s docs/PHASE_4_PLAN.md
@@ -65,6 +83,9 @@ jobs:
         run: |
           grep -q 'forward_inverse_locked: true' data/sources/gleason-book.yaml
           grep -q 'control_points: \[\]' data/sources/gleason-book.yaml
+          grep -q 'gleason-fig43-circle-derived' data/sources/gleason-book.yaml
+          grep -q 'superseded_as_historical_default' data/sources/gleason-book.yaml
+          grep -q 'fabricated_control_points: false' data/sources/gleason-restored-map.yaml
           python scripts/check_release_metadata.py
           grep -q 'Natural Earth' docs/PHASE_3_PLAN.md
           grep -q 'OurAirports' docs/PHASE_3_PLAN.md
@@ -95,6 +116,8 @@ jobs:
         run: backend/.venv/bin/python scripts/check_reference_parity.py
       - name: Independent browser/backend Gleason measurement parity
         run: backend/.venv/bin/python scripts/check_gleason_measurement_parity.py
+      - name: Independent browser/backend P6.6 polygon parity
+        run: backend/.venv/bin/python scripts/check_polygon_measurement_parity.py
       - name: Validate service worker syntax
         working-directory: frontend
         run: npm run check:sw
@@ -154,8 +177,18 @@ jobs:
         run: |
           set -euo pipefail
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"route-point-1","latitude":90,"longitude":0},{"point_id":"route-point-2","latitude":0,"longitude":0},{"point_id":"route-point-3","latitude":0,"longitude":90}]}' >/tmp/gleason-route.json
-          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069)' /tmp/gleason-route.json
+          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069) and .output.historical_scale_profile_id=="gleason-fig43-circle-derived" and (.output.total_distance_historical_fig43_mile_derived>8299.45 and .output.total_distance_historical_fig43_mile_derived<8299.46) and .output.legacy_scale_profile_id=="gleason-radial-60nm-legacy"' /tmp/gleason-route.json
           jq -e '.provenance.provider_id=="gleason-historical" and .provenance.provider_version=="GH-0.2.0"' /tmp/gleason-route.json
+      - name: Verify P6.6 polygon measurement APIs
+        run: |
+          set -euo pipefail
+          payload='{"polygon_id":"transient-polygon","points":[{"point_id":"A","latitude":90,"longitude":0},{"point_id":"B","latitude":0,"longitude":0},{"point_id":"C","latitude":0,"longitude":90}]}'
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/reference/wgs84/polygon -H 'content-type: application/json' -d "$payload" >/tmp/wgs84-polygon.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and .output.method_id=="wgs84-geodesic" and .output.segment_count==3 and .output.perimeter_unit=="metre" and .output.area_unit=="square-metre" and (.output.area_m2>63758202715510 and .output.area_m2<63758202715512)' /tmp/wgs84-polygon.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/ae/polygon -H 'content-type: application/json' -d "$payload" >/tmp/ae-polygon.json
+          jq -e '.semantic_type=="REFERENCE_RESULT" and .output.method_id=="ae-projected-plane" and .output.segment_count==3 and .output.area_m2>0' /tmp/ae-polygon.json
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/polygon -H 'content-type: application/json' -d "$payload" >/tmp/gleason-polygon.json
+          jq -e '.semantic_type=="COMPUTED_RESULT" and .output.method_id=="gleason-native-normalized" and .output.segment_count==3 and (.output.area_normalized_radius_unit_squared>0.124999999 and .output.area_normalized_radius_unit_squared<0.125000001)' /tmp/gleason-polygon.json
       - name: Verify Phase 3 PostGIS catalog schema
         run: |
           test -n "$(docker compose exec -T db psql -U gleason -d gleason -tAc "SELECT extversion FROM pg_extension WHERE extname='postgis';" | tr -d '[:space:]')"

@@ -29,6 +29,12 @@ class GleasonHistoricalProjectionProvider:
     model_id = "gleason-historical"
     model_version = "GH-0.2.0"
     units = "normalized-radius"
+    fig43_equator_miles_per_longitude_degree = 60.0
+    fig43_equator_circumference_miles = 360.0 * fig43_equator_miles_per_longitude_degree
+    historical_fig43_miles_per_normalized_radius_unit = (
+        fig43_equator_circumference_miles / math.pi
+    )
+    legacy_radial60_nautical_miles_per_normalized_radius_unit = 10800.0
 
     def forward(self, point: GeoPoint) -> ProjectedPoint:
         radius = (90.0 - point.latitude) / 180.0

@@ -24,9 +24,15 @@ Current accepted/product state includes:
 - transient multi-point ordered route state;
 - WGS84 geodesic distance;
 - AE projected-plane distance;
+- Gleason normalized native distance;
+- P6.6 closed-polygon perimeter and area for WGS84, AE and Gleason, with each result retaining its own units and method identity;
 - offline-capable foundations and bilingual Arabic/English UI.
 
-P6.4 is closed. P6.5 Gleason native numerical measurement is **CLOSED + MERGED** through PR #25; its final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates #699 and the owner reported 6/6 manual PASS. P6.6 remains **NOT STARTED**.
+P6.4 and P6.5 are closed. P6.6 **Polygon / Perimeter / Area is IN PROGRESS** on
+`feat/p6.6-polygon-perimeter-area`, starting from
+`main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. Add at least three ordered
+points; the polygon closes automatically from the last point to the first. Do
+not repeat the first vertex manually.
 
 ## 3. Understanding measurements
 
@@ -40,6 +46,12 @@ Examples:
 - Gleason native measurement uses normalized Gleason-plane units (`normalized-radius-unit`) and is not automatically converted to metres/kilometres.
 - a future road-navigation route will carry the routing provider's identity,
   distance and time even when drawn on all three views.
+
+For P6.6, WGS84 reports geodesic perimeter in metres and ellipsoidal area in
+m²; AE reports projected-plane perimeter/area in m/m²; Gleason reports
+normalized-radius units and squared normalized-radius units. These are not
+silently normalized to match each other. Reversing vertex order changes signed
+area orientation but not primary area or perimeter.
 
 Always read the method/unit/provenance labels.
 

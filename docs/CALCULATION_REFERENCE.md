@@ -11,13 +11,18 @@ those records.
 ### WGS84 geodesic
 
 - method: `wgs84-geodesic`
-- quantity currently implemented: distance
-- unit: metre
+- quantities currently implemented: distance, perimeter, area
+- linear unit: metre
+- area unit: square-metre
 - scale/reference basis: WGS84 ellipsoid
 - semantic class: REFERENCE_RESULT
 - backend authority: pyproj/PROJ
 - browser/offline implementation: GeographicLib JS
 - route total: sum of adjacent geodesic segments in the ordered open polyline
+- polygon perimeter: closed WGS84 geodesic ring
+- polygon area: signed ellipsoidal area; primary displayed area is its absolute value
+- polygon backend: `pyproj.Geod.polygon_area_perimeter`
+- polygon browser/offline: GeographicLib PolygonArea `Compute(false, true)`
 
 A display-only Great Circle guide must not be confused with the ellipsoidal
 numeric result or with an observed flight path.
@@ -25,21 +30,24 @@ numeric result or with an observed flight path.
 ### AE projected plane
 
 - method: `ae-projected-plane`
-- quantity currently implemented: distance
-- unit: metre
+- quantities currently implemented: distance, perimeter, area
+- linear unit: metre
+- area unit: square-metre
 - scale/reference basis: AE projected-plane SI metre
 - semantic class: REFERENCE_RESULT
 - projection: north-polar Azimuthal Equidistant
 - backend: pyproj/PROJ
 - browser/offline: proj4
 - segment rule: Euclidean distance between independently projected endpoints
+- polygon perimeter: Euclidean closed ring after AE projection
+- polygon area: signed shoelace area in the AE plane; primary area is the absolute value
 
 AE preserves radial distance from its projection center; arbitrary pairwise
 projected-plane distance is not automatically a WGS84 surface geodesic.
 
 ### Gleason native normalized measurement
 
-Status: **P6.5 CLOSED + MERGED — final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; Release Acceptance Gates #699 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER**
+Status: **P6.5 implementation retained; Gleason measurement semantics REOPENED on PR #31 after the 2026-09-21 book/video audit**
 
 Current P6.5 distance identity:
 - method: `gleason-native-normalized`
@@ -54,10 +62,39 @@ Current reconstruction uses the project-defined normalized radial rule
 
 P6.5 distance rule: project each canonical geographic endpoint with GH-0.2.0,
 then calculate Euclidean distance between adjacent projected coordinates and sum
-the open polyline. Backend and browser implementations are parity-gated.
+the open polyline.
 
-No automatic conversion to metres/kilometres is allowed without a separately
-documented historical scale or explicit assumption.
+P6.6 polygon rule: project each canonical vertex independently with GH-0.2.0,
+close the ring implicitly, sum Euclidean closed-edge perimeter, and calculate
+signed shoelace area in `normalized-radius-unit-squared`. The primary area is
+the absolute value. Backend/browser parity is required.
+
+The audited Gleason tools are intentionally separate:
+
+- `gleason-map-ruler-derived`: straight GH-0.2.0 map-plane chord. NRU remains
+  native; derived ruler display uses 10800 NM/NRU from 60 nautical miles per
+  radial latitude degree. Evidence class: DERIVED.
+- `gleason-historical-longitude-scale`: Figure 43 latitude-specific
+  historical-book miles per longitude degree,
+  `60 - (2/3 * latitude_deg)`. It is not a general slanted-segment rule.
+- `gleason-frame-time-calculator`: Figures 37–38 / map-frame longitude-time
+  conversion. It is a calculator, not route geometry.
+
+No automatic conversion to metres/kilometres is allowed. Derived NM/NM²
+map-ruler values must not be mislabeled as WGS84 distance/area or as a
+source-defined physical surface metric.
+
+### P6.6 shared polygon semantics
+
+- explicit vertices: 3–50;
+- closure: implicit last → first;
+- repeated geographic coordinates: rejected;
+- zero method-native signed area: fail closed;
+- orientation: positive = counterclockwise; negative = clockwise;
+- self-intersection: algebraic signed-area policy, not implicit union/fill area;
+- no cross-model area normalization.
+
+Full contract: `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
 ## 2. Measurement polyline vs navigation route
 
@@ -188,3 +225,24 @@ Any aviation calculation must distinguish, when supplied:
 
 AGL requires a named terrain/elevation source and its vertical datum/resolution
 limitations.
+
+
+## Gleason audited scale-profile amendment — 2026-09-21
+
+The default historical scale is now `gleason-fig43-circle-derived`:
+
+`1 NRU = 21600/pi = 6875.493541569879 historical-fig43-mile`.
+
+The prior `10800 NM/NRU` profile is retained only as
+`gleason-radial-60nm-legacy` with evidence
+`SECONDARY_OBSERVED`.
+
+Walter comparison is parameterized:
+
+`distance = NRU_distance * 2 * EQ`.
+
+For same-latitude Figure 43 work the application exposes both parallel arc and
+direct planar chord. These are not interchangeable.
+
+Restored raster source/calibration:
+`data/sources/gleason-restored-map.yaml`.

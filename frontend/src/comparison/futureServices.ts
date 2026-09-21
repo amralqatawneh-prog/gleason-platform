@@ -41,7 +41,7 @@ export const FUTURE_SERVICE_CONTRACTS: readonly Readonly<FutureServiceContract>[
     contractVersion:FUTURE_SERVICE_CONTRACT_VERSION,
     status:'unavailable',
     plannedPhase:'6',
-    currentBoundary:'P6.3 implements WGS84 geodesic distance, P6.4 implements AE projected-plane distance, and P6.5 implements Gleason normalized native distance in the measurement engine. This future route-provider contract remains unavailable for provider-backed road/flight paths, perimeter and area.',
+    currentBoundary:'P6.3 implements WGS84 geodesic distance, P6.4 implements AE projected-plane distance, and P6.5 implements Gleason normalized native distance in the measurement engine. P6.6 implements model-specific polygon perimeter/area separately. This future route-provider contract remains unavailable for provider-backed road/flight paths and turn-by-turn directions.',
     availableOperations:Object.freeze([]),
   }),
 ]);
