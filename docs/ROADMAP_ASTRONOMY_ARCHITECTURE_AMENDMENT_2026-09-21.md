@@ -1,6 +1,6 @@
 # Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles — 2026-09-21
 
-Status: **IN PROGRESS — APPROVED BY OWNER / PR #26 MERGED / PR #27 TARGETS MAIN / FULL CI PENDING**
+Status: **CLOSED / VERIFIED — CI #720 SUCCESS / PR #27 OPEN / DRAFT / UNMERGED / FINAL CLOSURE CI REQUIRED**
 
 Owner approval: **«موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد»**
 
@@ -435,3 +435,22 @@ closure-state documentation update after that verification must itself pass the
 full gates before PR #27 is ready for separate merge authorization.
 
 This sequencing does not start P6.6 or any runtime astronomy implementation.
+
+
+## 15. Verification and closure
+
+Pre-closure verification:
+- exact head: `eebf162e3dd1cf35e15933ff4622e7915bf0cd97`
+- Release Acceptance Gates: **#720 — SUCCESS**
+- acceptance-package checker: **PASS**
+- backend/frontend/parity/PWA/browser/Docker/API/PostGIS/search/Redis gates:
+  **PASS**
+
+The amendment is therefore **CLOSED / VERIFIED** as architecture/documentation
+scope. It does not imply any runtime astronomy implementation and it does not
+start P6.6.
+
+PR #27 remains **OPEN / DRAFT / UNMERGED**. This closure documentation creates a
+new exact head, so that closure-state head must pass the complete Release
+Acceptance Gates before PR #27 is considered ready for a separate owner merge
+authorization.
