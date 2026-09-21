@@ -1,6 +1,6 @@
 # Phase 6 / P6.5 — Gleason Native Measurement Report
 
-Status: **IN PROGRESS — AUTOMATED VERIFICATION PENDING / OWNER MANUAL NOT RUN**
+Status: **CLOSED — PRE-MANUAL CI #691 SUCCESS / OWNER MANUAL 6/6 PASS — REPORTED BY OWNER / FINAL CLOSURE CI REQUIRED**
 
 Date: 2026-09-21
 
@@ -167,13 +167,32 @@ Automated Release Acceptance Gates:
   `typescript-math (browser)`, proving the browser-local fallback path.
 - README current-slice wording was reconciled in
   `53513cc7eb9c59219e62da64078d00ac491f9413`.
-- replacement exact-head full Release Acceptance Gates: **PENDING**.
+- Exact pre-manual head `a733f81d922963a385357becf69dafd8b6d576be` passed the complete
+  **Release Acceptance Gates #691 — SUCCESS**. All workflow steps passed,
+  including backend tests, frontend core tests, Gleason backend/browser parity,
+  browser acceptance/fallback coverage, production build/PWA, Docker runtime,
+  P6.5 API verification, PostGIS, locked data and online/offline search gates.
 
-Owner manual verification: **NOT RUN**.
+## Owner manual verification
 
-P6.5 must not be marked CLOSED until:
-1. the complete automated gates pass on an exact implementation/documentation head;
-2. the owner performs and reports the manual checklist, or explicitly waives named items;
-3. a final closure-state head passes the complete gates.
+The owner reported all six P6.5 manual checks successful on 2026-09-21:
 
-P6.6 must not start before P6.5 closure.
+1. basic two-point Gleason normalized distance and explicit method/unit identity — **PASS**;
+2. multi-point route plus live recomputation after reordering — **PASS**;
+3. repeated adjacent coordinate produces a zero-length segment without corrupting the total — **PASS**;
+4. fully reversed route preserves the total while segment directions reverse — **PASS**;
+5. backend stop triggers browser-local `typescript-math (browser)` fallback while keeping the Gleason identity — **PASS**;
+6. Arabic + narrow/mobile layout remains readable with explicit normalized-unit/no-SI boundary — **PASS**.
+
+Result: **6/6 PASS — REPORTED BY OWNER**.
+
+Tested head: `a733f81d922963a385357becf69dafd8b6d576be`.
+Pre-manual Release Acceptance Gates: **#691 — SUCCESS**.
+
+P6.5 is therefore marked **CLOSED** in the closure-state documentation. This
+does **not** authorize merging PR #25, starting P6.6, creating a tag/GitHub
+Release, or deployment.
+
+The closure-state documentation head created after this manual result must pass
+the complete Release Acceptance Gates before the slice is considered ready for
+separate merge authorization. P6.6 remains **NOT STARTED**.
