@@ -903,7 +903,7 @@ require(
 )
 
 post_pr28 = data.get("post_pr28_merge_reconciliation", {})
-require(post_pr28.get("status") == "in_progress", "post-PR28 reconciliation must remain in_progress before verification")
+require(post_pr28.get("status") == "closed", "post-PR28 reconciliation must be closed after initial verification")
 require(post_pr28.get("pr") == 29, "post-PR28 reconciliation PR must be #29")
 require(
     post_pr28.get("branch") == "docs/post-pr28-merge-reconciliation",
@@ -950,9 +950,15 @@ require(post_pr28.get("runtime_astronomy_status") == "not_started", "runtime ast
 require(post_pr28.get("tag") == "not_created", "post-PR28 reconciliation must not create a tag")
 require(post_pr28.get("github_release") == "not_created", "post-PR28 reconciliation must not create a GitHub Release")
 require(post_pr28.get("deployment") == "not_created", "post-PR28 reconciliation must not deploy")
-require(post_pr28.get("verification_head") is None, "post-PR28 initial verification head must be empty before first verified run")
-require(post_pr28.get("verification_ci_run") is None, "post-PR28 initial verification CI must be empty before first verified run")
-require(post_pr28.get("verification_ci_conclusion") == "not-run", "post-PR28 initial verification must remain not-run before first verified run")
+require(
+    post_pr28.get("verification_head") == "3e23d2074a65ce6422e378b7a62211627157c968",
+    "post-PR28 initial verification head drifted",
+)
+require(post_pr28.get("verification_ci_run") == 753, "post-PR28 initial verification CI must be #753")
+require(
+    post_pr28.get("verification_ci_conclusion") == "success",
+    "post-PR28 initial verification CI #753 must remain success",
+)
 require(post_pr28.get("merge_status") == "open-draft-unmerged", "post-PR28 reconciliation PR #29 must remain open/draft/unmerged")
 require(
     post_pr28.get("merge_authorization") == "pending-separate-owner-instruction",

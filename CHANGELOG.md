@@ -8,7 +8,8 @@
 - PR #28 merge commit / current integration baseline: `a96f47b95c542c2eafb21771bc7c53e7ab40d170`.
 - No post-merge workflow run/conclusion is claimed because none is independently observed for that merge commit.
 - The owner instructed **«أبدأ العمل»** after review of the current handoff; the agreed next task is post-PR28 documentation/state reconciliation.
-- Draft PR #29 on `docs/post-pr28-merge-reconciliation` is **IN PROGRESS** for this reconciliation.
+- Draft PR #29 on `docs/post-pr28-merge-reconciliation` reached exact initial verification head `3e23d2074a65ce6422e378b7a62211627157c968`, and Release Acceptance Gates **#753 — SUCCESS** completed on that head.
+- The reconciliation is now **CLOSED / VERIFIED** in documentation; PR #29 remains **OPEN / DRAFT / UNMERGED**, and the exact closure-state head must pass the full gates again before separate owner merge authorization.
 - P6.6 remains **NOT STARTED**; accepted phase remains **5** and accepted application version remains **v0.5.0**.
 - No runtime astronomy/Saros/eclipse/observer-dome implementation, tag, GitHub Release or deployment is introduced.
 

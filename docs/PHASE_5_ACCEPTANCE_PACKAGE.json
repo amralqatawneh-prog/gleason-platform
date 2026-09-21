@@ -841,7 +841,7 @@
     "owner_statement": "أبدأ العمل",
     "start_authorization_context": "post-PR28 merge documentation reconciliation was the agreed next permitted task after project review",
     "scope": "current-status documentation/state reconciliation after separately authorized PR #28 merge",
-    "status": "in_progress",
+    "status": "closed",
     "branch": "docs/post-pr28-merge-reconciliation",
     "baseline_commit": "a96f47b95c542c2eafb21771bc7c53e7ab40d170",
     "pr28_status": "merged",
@@ -864,9 +864,9 @@
     "github_release": "not_created",
     "deployment": "not_created",
     "pr": 29,
-    "verification_head": null,
-    "verification_ci_run": null,
-    "verification_ci_conclusion": "not-run",
+    "verification_head": "3e23d2074a65ce6422e378b7a62211627157c968",
+    "verification_ci_run": 753,
+    "verification_ci_conclusion": "success",
     "merge_status": "open-draft-unmerged",
     "merge_authorization": "pending-separate-owner-instruction"
   }

@@ -37,7 +37,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Historical post-PR27 reconciliation: `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR27 reconciliation: **CLOSED + MERGED** through PR #28. Initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**; merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge run is claimed without independent observation.
-- Current post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` on branch `docs/post-pr28-merge-reconciliation`, draft PR #29, **IN PROGRESS**.
+- Current post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` on branch `docs/post-pr28-merge-reconciliation`, draft PR #29. Exact initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; reconciliation is **CLOSED / VERIFIED**, but PR #29 remains **OPEN / DRAFT / UNMERGED** and the closure-state head requires a second complete gates run before separate owner merge authorization.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.

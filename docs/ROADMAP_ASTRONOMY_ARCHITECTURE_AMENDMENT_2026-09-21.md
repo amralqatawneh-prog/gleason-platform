@@ -13,7 +13,7 @@ Stacked baseline:
 - accepted phase remains: **Phase 5**
 - accepted application version remains: **v0.5.0**
 - post-PR27 reconciliation: **CLOSED + MERGED** through PR #28; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed Release Acceptance Gates **#744 — SUCCESS** before merge
-- post-PR28 reconciliation: **IN PROGRESS** through draft PR #29; P6.6 remains **NOT STARTED**
+- post-PR28 reconciliation: **CLOSED / VERIFIED** after exact head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; draft PR #29 remains unmerged and final closure-state CI is still required; P6.6 remains **NOT STARTED**
 
 This amendment changes roadmap contracts and source/provenance policy only. It
 does not implement astronomy, eclipses, observer-dome calculations, Saros
