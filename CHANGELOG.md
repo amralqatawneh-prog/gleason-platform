@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Post-PR #27 merge reconciliation (2026-09-21)
+
+- Owner explicitly authorized **«قم بدمج PR #27 إلى main»**.
+- PR #27 — Roadmap & Astronomy Architecture Amendment — was **MERGED / CLOSED**.
+- Exact final PR head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge.
+- Prior amendment verification head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed **#720 — SUCCESS**.
+- PR #27 merge commit / current integration baseline: `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`.
+- No post-merge push-run number is claimed because none is independently visible through the available workflow view.
+- Astronomy Architecture Amendment remains **CLOSED / VERIFIED + MERGED**.
+- P6.6 remains **NOT STARTED**; runtime astronomy/Saros/eclipse/observer-dome implementation remains **NOT STARTED**.
+- Accepted phase remains **5** and accepted application version remains **v0.5.0**.
+- No tag, GitHub Release or deployment is created by this reconciliation.
+
 ## [Unreleased] — Roadmap & Astronomy Architecture Amendment (2026-09-21)
 
 - Owner approved the comparative-astronomy roadmap proposal and explicitly instructed implementation of the documentation/architecture amendment.
@@ -12,7 +25,7 @@
 - Expand future Phases 9–12, 17 and 20 with comparative astronomy, Personal Celestial Sphere comparison, Babylonian 223-Month/Saros historical-cycle work, reproducible experiment URLs/IDs, and provider-by-provider validation.
 - No functional astronomy engine, Saros calculator, observer dome, eclipse path, P6.6 start, tag, GitHub Release or deployment is introduced.
 - PR #26 was separately authorized and **MERGED** at `6bbfe92e8a4c0b66415eb888598cace5b7b15102` after exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS**. PR #27 can now be retargeted to `main` for full remote verification.
-- PR #27 verification head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed Release Acceptance Gates **#720 — SUCCESS**. The astronomy amendment is **CLOSED / VERIFIED**; PR #27 remains OPEN / DRAFT / UNMERGED pending final closure-state CI and separate owner merge authorization.
+- PR #27 verification head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed Release Acceptance Gates **#720 — SUCCESS**; exact final closure head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed **#726 — SUCCESS** and PR #27 was subsequently **MERGED** at `5442852ef4bc2e760db39743d0bc7b3bc57d0b11` by separate owner authorization.
 
 ## [Unreleased] — Post-PR #25 merge reconciliation (2026-09-21)
 
