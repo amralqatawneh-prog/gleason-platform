@@ -34,11 +34,12 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102` (PR #26 merge)
+- Current integration baseline: `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11` (PR #27 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
-- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED** through PR #27 after exact head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed Release Acceptance Gates **#720 — SUCCESS**. PR #27 remains **OPEN / DRAFT / UNMERGED** pending final closure-head CI and separate owner merge authorization. P6.6 remains **NOT STARTED**.
+- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED + MERGED** through PR #27 at `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11`; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge. P6.6 remains **NOT STARTED**.
+- Post-PR27 documentation reconciliation: **CLOSED / VERIFIED** on head `018e6a7984dcf682e94f36668333ea00ccbaf085` with Release Acceptance Gates **#738 — SUCCESS**; PR #28 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -293,7 +294,8 @@ Current source-of-truth documents:
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
-- `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR25 documentation reconciliation.
+- `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR27 documentation reconciliation.
+- `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR25 documentation reconciliation.
 - `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR23 documentation reconciliation.
 - `docs/POST_PR19_MERGE_RECONCILIATION_2026-09-20.md` — historical post-PR19 documentation reconciliation.
 - `docs/NAVIGATION_MEASUREMENT_REQUIREMENTS.md` — navigation/measurement requirements.
