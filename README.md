@@ -297,7 +297,7 @@ Current source-of-truth documents:
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
 - `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR29 reconciliation (PR #30, in progress).
-- `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR28 reconciliation (PR #29, closed/verified; final closure CI and merge authorization pending).
+- `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR28 reconciliation, closed and merged through PR #29 after final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed Release Acceptance Gates **#754 — SUCCESS**.
 - `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR27 documentation reconciliation.
 - `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR25 documentation reconciliation.
 - `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR23 documentation reconciliation.
