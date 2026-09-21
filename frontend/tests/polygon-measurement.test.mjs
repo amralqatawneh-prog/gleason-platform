@@ -23,6 +23,16 @@ test('P6.6 Gleason closed triangle exposes normalized perimeter, signed area and
   assert.ok(Math.abs(result.output.perimeter_normalized_radius_unit - (1 + Math.SQRT1_2)) < 1e-15);
   assert.ok(Math.abs(result.output.signed_area_normalized_radius_unit_squared - 0.125) < 1e-15);
   assert.equal(result.output.area_normalized_radius_unit_squared, 0.125);
+  assert.equal(result.output.map_ruler_method_id, 'gleason-map-ruler-derived');
+  assert.equal(result.output.map_ruler_evidence_level, 'DERIVED');
+  assert.ok(Math.abs(
+    result.output.perimeter_map_ruler_nautical_mile_derived
+    - (1 + Math.SQRT1_2) * 10800
+  ) < 1e-9);
+  assert.equal(
+    result.output.area_map_ruler_nautical_mile_squared_derived,
+    0.125 * 10800 ** 2,
+  );
   assert.equal(result.output.segments.at(-1).to_point_id, 'A');
 });
 

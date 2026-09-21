@@ -112,3 +112,16 @@
 .polygon-measurement-boundary{margin-top:12px}
 @media(max-width:1180px){.polygon-measurement-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.polygon-measurement-panel{padding:12px 8px}.polygon-measurement-card__head{display:grid}.polygon-measurement-card__head .evidence-badge{justify-self:start}}
+
+.gleason-measurement-lab{padding:18px;border-bottom:1px solid var(--line);background:#0a1721}
+.gleason-lab-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.gleason-lab-card{min-width:0;padding:12px;border:1px solid var(--line);border-radius:11px;background:#0b1825}
+.gleason-lab-card .gleason-route-distance-total{margin-top:12px}
+.gleason-historical-point-scales,.gleason-conversion-reference{display:grid;gap:6px;margin-top:12px}
+.gleason-historical-point-scales>div{display:flex;justify-content:space-between;gap:8px;padding:7px;border:1px solid #314757;border-radius:7px}
+.gleason-historical-segments{display:grid;gap:7px;margin:12px 0 0;padding:0;list-style:none}
+.gleason-historical-segments li{display:grid;gap:4px;padding:8px;border:1px solid #314757;border-radius:7px}
+.gleason-source-audit-notice{margin-top:12px;border-color:#725f2f;background:#18170f}
+.gleason-polygon-derived{display:grid;gap:4px;margin-top:10px;padding:9px;border:1px dashed #725f2f;border-radius:8px}
+.gleason-polygon-derived span{color:var(--muted);font-size:9px}
+@media(max-width:1180px){.gleason-lab-grid{grid-template-columns:1fr}}

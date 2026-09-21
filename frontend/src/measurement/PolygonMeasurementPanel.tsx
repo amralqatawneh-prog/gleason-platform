@@ -51,11 +51,14 @@ type CardProps = {
   orientation: 'counterclockwise' | 'clockwise' | null;
   interiorRule: string;
   error: string | null;
+  secondaryPerimeter?: string | null;
+  secondaryArea?: string | null;
 };
 
 function PolygonCard({
   locale, engine, title, semanticType, status, methodId, scaleBasis,
   perimeter, perimeterUnit, area, areaUnit, signedArea, orientation, interiorRule, error,
+  secondaryPerimeter = null, secondaryArea = null,
 }: CardProps) {
   return <article
     className="polygon-measurement-card"
@@ -93,6 +96,11 @@ function PolygonCard({
           <strong dir="ltr">{format(signedArea, locale, engine === 'gleason' ? 12 : 3)} {areaUnit}</strong>
         </div>
       </div>
+      {engine === 'gleason' && secondaryPerimeter && secondaryArea && <div className="gleason-polygon-derived">
+        <span>{locale === 'ar' ? 'معايرة مسطرة مشتقة — ليست مساحة سطح تاريخية' : 'Derived ruler calibration — not a historical surface-area claim'}</span>
+        <strong dir="ltr">{secondaryPerimeter}</strong>
+        <strong dir="ltr">{secondaryArea}</strong>
+      </div>}
       <div className="polygon-measurement-meta">
         <span><b>{locale === 'ar' ? 'الاتجاه' : 'Orientation'}:</b> {orientationLabel(orientation, locale)}</span>
         <span><b>{locale === 'ar' ? 'أساس المقياس' : 'Scale basis'}:</b> {scaleBasis}</span>
@@ -201,6 +209,8 @@ export function PolygonMeasurementPanel({ locale, state }: Props) {
           area={gleasonOutput?.area_normalized_radius_unit_squared ?? null} areaUnit="NRU²"
           signedArea={gleasonOutput?.signed_area_normalized_radius_unit_squared ?? null} orientation={gleasonOutput?.orientation ?? null}
           interiorRule={gleasonOutput?.interior_rule ?? 'absolute-algebraic-planar-area'} error={gleason.error}
+          secondaryPerimeter={gleasonOutput ? `${format(gleasonOutput.perimeter_map_ruler_nautical_mile_derived, locale, 2)} derived NM perimeter` : null}
+          secondaryArea={gleasonOutput ? `${format(gleasonOutput.area_map_ruler_nautical_mile_squared_derived, locale, 2)} derived NM² planar area` : null}
         />
       </div>
       <div className="notice polygon-measurement-boundary">

@@ -944,3 +944,20 @@ test('P6.6 computes one closed polygon independently in all three measurement en
   await expect(panel.locator('[data-polygon-engine="gleason"]')).toContainText('gleason-native-normalized');
   await expect(panel.locator('[data-polygon-engine="gleason"]')).toContainText('NRU²');
 });
+
+
+test('Gleason source-audit laboratory separates ruler, Figure 43 and frame/time identities',async({page,servers})=>{
+  await english(page,servers.url);
+  await locate(page,'TEST Doha');
+  await page.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await page.getByRole('button',{name:'Add current point',exact:true}).click();
+  const lab=page.locator('.gleason-measurement-lab');
+  await expect(lab).toHaveAttribute('data-measurement-status','ready');
+  await expect(lab.locator('[data-gleason-tool="map-ruler-derived"]')).toContainText('gleason-map-ruler-derived');
+  await expect(lab.locator('[data-gleason-tool="historical-longitude-scale"]')).toContainText('Fig.43');
+  await expect(lab.locator('[data-gleason-tool="frame-time"]')).toContainText('Figs.37–38');
+  await expect(lab).toContainText('not on the same latitude');
+  await expect(lab).toContainText('Video 2');
+  await expect(lab).not.toContainText('Sydney–Perth = 2160');
+});
