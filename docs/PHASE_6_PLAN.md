@@ -144,7 +144,14 @@ Deliver:
 
 ## P6.5 — Gleason Native Measurement
 
-Status: **NOT STARTED**.
+Status: **IN PROGRESS — started by explicit owner instruction «ابدأ P6.5»**.
+
+Start baseline:
+- `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge);
+- PR #24 exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** before merge;
+- branch: `feat/phase6-p6-5-gleason-native-measurement`;
+- accepted phase remains **5** and accepted application version remains **v0.5.0**;
+- owner manual verification: **NOT RUN**.
 
 Deliver:
 - native normalized-radius plane distance/polyline quantity;
@@ -320,8 +327,10 @@ architecture amendment is **CLOSED + MERGED**. Initial verification head
 **#673 — SUCCESS**; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c`
 passed **#676 — SUCCESS**; PR #23 merged at
 `de2cf9b0a8a48a788323373eb2b9c72622c288f8` by explicit owner authorization.
-Post-PR23 documentation reconciliation is **CLOSED / VERIFIED** on head
-`89b634d49eb802c17f9978fee7065ca958c3b592` with Release Acceptance Gates
-**#679 — SUCCESS**; PR #24 remains OPEN / UNMERGED pending separate merge
-authorization. P6.5, P6.6, P6.7A and P6.7B remain **NOT STARTED**. No astronomy/observer/aviation/high-detail-map
-implementation, tag, GitHub Release or deployment is implied.
+Post-PR23 documentation reconciliation is **CLOSED + MERGED** through PR #24.
+Its exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates
+**#684 — SUCCESS** and merged to `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
+The owner then explicitly instructed **«ابدأ P6.5»**. P6.5 is therefore **IN PROGRESS**
+on `feat/phase6-p6-5-gleason-native-measurement`; P6.6, P6.7A and P6.7B remain
+**NOT STARTED**. No astronomy/observer/aviation/high-detail-map implementation,
+tag, GitHub Release or deployment is implied.
