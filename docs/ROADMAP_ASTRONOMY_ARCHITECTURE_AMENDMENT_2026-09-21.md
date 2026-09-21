@@ -1,6 +1,6 @@
 # Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles — 2026-09-21
 
-Status: **IN PROGRESS — APPROVED BY OWNER / PR #26 MERGED / PR #27 RETARGET TO MAIN + FULL CI PENDING**
+Status: **IN PROGRESS — APPROVED BY OWNER / PR #26 MERGED / PR #27 TARGETS MAIN / FULL CI PENDING**
 
 Owner approval: **«موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد»**
 
@@ -430,8 +430,7 @@ PR #26 has now been separately authorized and **MERGED** into `main`:
 
 Implementation PR #27 remains **OPEN / DRAFT / UNMERGED**.
 
-The previous stacked-base blocker is cleared. PR #27 must now be retargeted to
-`main` and pass the complete Release Acceptance Gates on its exact head. Any
+The previous stacked-base blocker is cleared. PR #27 now targets `main` and must pass the complete Release Acceptance Gates on its exact head. Any
 closure-state documentation update after that verification must itself pass the
 full gates before PR #27 is ready for separate merge authorization.
 
