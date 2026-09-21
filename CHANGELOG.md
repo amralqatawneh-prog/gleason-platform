@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.5 Gleason Native Measurement (2026-09-21)
+
+- Owner explicitly instructed **«ابدأ P6.5»**.
+- Start from verified `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` after PR #24 merged; PR #24 exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** before merge.
+- Add Gleason adjacent-segment and open-polyline distance with method identity `gleason-native-normalized`, unit `normalized-radius-unit`, scale basis `gleason-normalized-model-radius`, semantic type `COMPUTED_RESULT`.
+- Reuse the registered GH-0.2.0 DERIVED normalized reconstruction; do not claim the historical book prints the analytic formula verbatim.
+- Add backend API `POST /api/v1/measurement/gleason/route-distance`.
+- Add independent browser/offline implementation and a deterministic backend/browser parity gate.
+- Add bilingual live P6.5 panel bound to P6.2 route state with explicit no-metre/km warning.
+- Preserve WGS84 and AE identities; provider-backed routing, perimeter and area remain unavailable.
+- Owner manual verification: **NOT RUN**.
+- P6.5 remains **IN PROGRESS** until exact-head automated gates and owner manual verification close it.
+
+
 ## [Unreleased] — Post-PR #23 merge reconciliation (2026-09-21)
 
 - Owner explicitly authorized **«قم بدمج PR #23 إلى main»**.
