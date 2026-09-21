@@ -144,7 +144,7 @@ Deliver:
 
 ## P6.5 — Gleason Native Measurement
 
-Status: **IN PROGRESS — started by explicit owner instruction «ابدأ P6.5»**.
+Status: **CLOSED — CI #691 SUCCESS · owner manual 6/6 PASS — REPORTED BY OWNER**.
 
 Start baseline:
 - `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge);
@@ -330,7 +330,5 @@ passed **#676 — SUCCESS**; PR #23 merged at
 Post-PR23 documentation reconciliation is **CLOSED + MERGED** through PR #24.
 Its exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates
 **#684 — SUCCESS** and merged to `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
-The owner then explicitly instructed **«ابدأ P6.5»**. P6.5 is therefore **IN PROGRESS**
-on `feat/phase6-p6-5-gleason-native-measurement`; P6.6, P6.7A and P6.7B remain
-**NOT STARTED**. No astronomy/observer/aviation/high-detail-map implementation,
+The owner then explicitly instructed **«ابدأ P6.5»**. P6.5 is now **CLOSED** after exact tested head `a733f81d922963a385357becf69dafd8b6d576be` passed Release Acceptance Gates **#691 — SUCCESS** and the owner reported **6/6 manual PASS**. P6.6, P6.7A and P6.7B remain **NOT STARTED**. No astronomy/observer/aviation/high-detail-map implementation,
 tag, GitHub Release or deployment is implied.
