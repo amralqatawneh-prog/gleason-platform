@@ -1167,7 +1167,7 @@ require(p6_6_merge.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f
 require(p6_6_merge.get("post_merge_ci_run") is None, "P6.6 merge record must not invent post-merge CI")
 
 post_pr31 = data.get("post_pr31_merge_reconciliation", {})
-require(post_pr31.get("status") == "in_progress-awaiting-ci", "post-PR31 reconciliation must await verification on this head")
+require(post_pr31.get("status") == "closed-verified-awaiting-separate-merge-authorization", "post-PR31 reconciliation must be closed/verified before merge authorization")
 require(post_pr31.get("branch") == "docs/post-pr31-merge-reconciliation", "post-PR31 reconciliation branch drifted")
 require(post_pr31.get("baseline_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 reconciliation baseline drifted")
 require(post_pr31.get("pr31_status") == "merged", "post-PR31 reconciliation must record PR #31 merged")
@@ -1180,6 +1180,12 @@ require(post_pr31.get("phase6_status") == "in_progress", "Phase 6 must remain in
 require(post_pr31.get("tag") == "not_created", "post-PR31 reconciliation must not create a tag")
 require(post_pr31.get("github_release") == "not_created", "post-PR31 reconciliation must not create a GitHub Release")
 require(post_pr31.get("deployment") == "not_created", "post-PR31 reconciliation must not deploy")
+require(post_pr31.get("verification_head") == "d2bae09cb9ee8e35954bdd4036d2e7b710b8969d", "post-PR31 reconciliation verification head drifted")
+require(post_pr31.get("verification_ci_run") == 790, "post-PR31 reconciliation verification CI must be #790")
+require(post_pr31.get("verification_ci_conclusion") == "success", "post-PR31 reconciliation CI #790 must remain success")
+require(post_pr31.get("pr") == 33, "post-PR31 reconciliation must reference PR #33")
+require(post_pr31.get("merge_status") == "open-draft-unmerged", "PR #33 must remain open/unmerged before separate authorization")
+require(post_pr31.get("merge_authorization") == "pending-separate-owner-instruction", "PR #33 merge must await owner authorization")
 
 
 p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
