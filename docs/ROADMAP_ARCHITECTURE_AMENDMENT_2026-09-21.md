@@ -9,6 +9,10 @@ Accepted phase remains: **Phase 5**
 Current implementation phase remains: **Phase 6 / IN PROGRESS**  
 P6.1–P6.4 remain **CLOSED**. P6.5 remains **NOT STARTED**.
 
+### Astronomy addendum notice
+
+A later owner-approved astronomy addendum extends the future celestial roadmap without changing the historical PR #23 approval record below. Its authoritative specification is `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`; P6.6 remains NOT STARTED.
+
 This amendment does not rewrite the accepted Phase 0 architecture history. It extends
 the current execution roadmap after the owner approved the new requirements below.
 
@@ -414,3 +418,59 @@ documentation retroactively for undocumented historical code.
 4. Continue sequentially through P6.6, P6.7A and P6.7B before later Phase 6 labs.
 5. Whole Phase 6 acceptance remains dependent on P6.10 and explicit owner
    acceptance.
+
+
+## 11. Approved Astronomy Architecture Addendum — 2026-09-21
+
+The owner subsequently approved a dedicated comparative-astronomy and historical
+eclipse-cycle amendment. The detailed authoritative addendum is:
+
+`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`
+
+It adds, for future phases only:
+
+- registered Shane and Walter comparative-model source identities;
+- a source registry at `data/sources/astronomy-comparative-sources.yaml`;
+- `CelestialComputationProvider`;
+- `EclipsePredictionProvider`;
+- the permanent distinction between `ObserverCelestialSphere` and
+  `PhysicalHeavensModel`;
+- Phase 9 source/provenance and comparative-adapter work;
+- Phase 10 comparative celestial layers;
+- Phase 11 Personal Celestial Sphere comparison;
+- Phase 12 multi-method eclipse comparison, including a future
+  **Babylonian 223-Month Eclipse Cycle (later called Saros)** historical-cycle
+  provider;
+- Phase 17 reproducible experiment URL/ID state;
+- Phase 20 provider-by-provider astronomy validation matrix.
+
+### Source-identity rule added by the addendum
+
+Future celestial results are classified as one of:
+- `reference-ephemeris`;
+- `historical-cycle`;
+- `external-comparative-model`;
+- `model-native`;
+- `display-only`.
+
+Rendering does not change this identity. A historical-cycle result cannot borrow a
+precise ground path from a modern provider and still be called historical-cycle;
+a Shane/Walter result cannot be called reference astronomy; a reference result
+drawn on Gleason cannot be called Gleason-native.
+
+### Historical-evidence boundary
+
+The Babylonian Map of the World is contextual evidence for a particular
+world-disc depiction only. It is not the mathematical source for Saros, nor does
+it establish a single universal cosmology for every Babylonian astronomer.
+
+The actual historical-method roadmap is grounded in cited scholarship on the
+223-synodic-month eclipse cycle and later procedure-text research. Modern NASA
+Saros pages are used to cross-check modern cycle parameters, not to replace the
+historical source identity.
+
+### Execution boundary
+
+This addendum is architecture/documentation work only. It does not start P6.6,
+Phase 9, an ephemeris engine, an observer-dome renderer, a Saros engine, an
+eclipse-path engine, a tag, GitHub Release or deployment.
