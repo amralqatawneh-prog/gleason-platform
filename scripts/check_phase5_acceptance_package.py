@@ -89,6 +89,28 @@ require(p6_5_manual.get("pre_manual_ci_run") == 691, "P6.5 manual verification m
 require(p6_5_manual.get("pre_manual_ci_conclusion") == "success", "P6.5 pre-manual CI #691 must remain success")
 require(p6_5_manual.get("backend_fallback") == "pass-reported-by-owner", "P6.5 backend fallback owner test must be recorded")
 require(p6_5_manual.get("arabic_mobile_layout") == "pass-reported-by-owner", "P6.5 Arabic/mobile owner test must be recorded")
+p6_5_merge = phase6_start.get("p6_5_merge", {})
+require(
+    p6_5_merge.get("decision") == "merged-by-separate-owner-authorization",
+    "P6.5 merge authorization evidence missing",
+)
+require(p6_5_merge.get("owner_statement") == "قم بدمج PR #25 إلى main", "P6.5 merge owner statement drifted")
+require(p6_5_merge.get("pr") == 25, "P6.5 merge PR must be #25")
+require(
+    p6_5_merge.get("final_head") == "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+    "P6.5 final merge head drifted",
+)
+require(p6_5_merge.get("pre_merge_ci_run") == 699, "P6.5 pre-merge CI must be #699")
+require(p6_5_merge.get("pre_merge_ci_conclusion") == "success", "P6.5 pre-merge CI #699 must remain success")
+require(
+    p6_5_merge.get("merge_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "P6.5 merge commit drifted",
+)
+require(p6_5_merge.get("post_merge_ci_run") is None, "P6.5 merge record must not invent post-merge CI")
+require(
+    p6_5_merge.get("post_merge_ci_conclusion") == "not-independently-observed",
+    "P6.5 post-merge CI evidence state drifted",
+)
 p6_4_start = phase6_start.get("p6_4_start", {})
 require(p6_4_start.get("decision") == "started-by-owner", "P6.4 owner start evidence missing")
 require(
@@ -303,8 +325,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
-    "current integration baseline must be the PR #24 merge commit",
+    == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "current integration baseline must be the PR #25 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -397,6 +419,25 @@ require(merge_boundary.get("pr24_pre_merge_ci_run") == 684, "PR #24 pre-merge CI
 require(
     merge_boundary.get("pr24_pre_merge_ci_conclusion") == "success",
     "PR #24 pre-merge CI #684 must remain success",
+)
+require(merge_boundary.get("pr25") == "merged", "PR #25 must be recorded as merged")
+require(
+    merge_boundary.get("pr25_merge_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "PR #25 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr25_final_head") == "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+    "PR #25 final head drifted",
+)
+require(merge_boundary.get("pr25_pre_merge_ci_run") == 699, "PR #25 pre-merge CI must be #699")
+require(
+    merge_boundary.get("pr25_pre_merge_ci_conclusion") == "success",
+    "PR #25 pre-merge CI #699 must remain success",
+)
+require(merge_boundary.get("pr25_post_merge_main_ci_run") is None, "PR #25 must not fabricate an unseen post-merge CI run")
+require(
+    merge_boundary.get("pr25_post_merge_main_ci_conclusion") == "not-independently-observed",
+    "PR #25 post-merge CI evidence state drifted",
 )
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -541,6 +582,48 @@ require(post_pr23.get("final_closure_ci_conclusion") == "success", "PR #24 CI #6
 require(
     post_pr23.get("merge_commit") == "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
     "PR #24 merge commit drifted",
+)
+post_pr25 = data.get("post_pr25_merge_reconciliation", {})
+require(post_pr25.get("status") == "in_progress", "post-PR25 reconciliation must remain in progress before CI closure")
+require(post_pr25.get("pr") == 26, "post-PR25 reconciliation PR must be #26")
+require(
+    post_pr25.get("baseline_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "post-PR25 reconciliation baseline drifted",
+)
+require(post_pr25.get("pr25_status") == "merged", "post-PR25 reconciliation must record PR #25 merged")
+require(
+    post_pr25.get("pr25_final_head") == "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+    "post-PR25 final head drifted",
+)
+require(post_pr25.get("pr25_pre_merge_ci_run") == 699, "post-PR25 record must preserve CI #699")
+require(post_pr25.get("pr25_pre_merge_ci_conclusion") == "success", "post-PR25 CI #699 must remain success")
+require(
+    post_pr25.get("pr25_merge_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "post-PR25 merge commit drifted",
+)
+require(post_pr25.get("pr25_post_merge_ci_run") is None, "post-PR25 reconciliation must not fabricate a post-merge CI run")
+require(
+    post_pr25.get("pr25_post_merge_ci_conclusion") == "not-independently-observed",
+    "post-PR25 post-merge CI evidence state drifted",
+)
+require(post_pr25.get("p6_5_status") == "closed", "P6.5 must remain closed during post-PR25 reconciliation")
+require(post_pr25.get("p6_6_status") == "not_started", "P6.6 must remain not_started during post-PR25 reconciliation")
+require(post_pr25.get("accepted_phase") == 5, "accepted phase must remain 5 during post-PR25 reconciliation")
+require(
+    post_pr25.get("accepted_application_version") == "0.5.0",
+    "accepted application version must remain 0.5.0 during post-PR25 reconciliation",
+)
+require(post_pr25.get("phase6_status") == "in_progress", "Phase 6 must remain in_progress during post-PR25 reconciliation")
+require(post_pr25.get("tag") == "not_created", "post-PR25 reconciliation must not create a tag")
+require(post_pr25.get("github_release") == "not_created", "post-PR25 reconciliation must not create a GitHub Release")
+require(post_pr25.get("deployment") == "not_created", "post-PR25 reconciliation must not deploy")
+require(post_pr25.get("verification_head") is None, "post-PR25 verification head must remain pending before CI")
+require(post_pr25.get("verification_ci_run") is None, "post-PR25 verification CI run must remain pending before CI")
+require(post_pr25.get("verification_ci_conclusion") == "pending", "post-PR25 verification conclusion must remain pending before CI")
+require(post_pr25.get("merge_status") == "open-unmerged", "post-PR25 reconciliation PR #26 must remain open/unmerged")
+require(
+    post_pr25.get("merge_authorization") == "pending-separate-owner-instruction",
+    "post-PR25 reconciliation merge must await separate owner authorization",
 )
 post_pr17_sync = data.get("post_pr17_github_sync", {})
 require(
