@@ -171,7 +171,7 @@ Acceptance:
 
 ## P6.6 — Polygon / Perimeter / Area
 
-Status: **CLOSED — CORRECTED CONTRACT OWNER MANUAL 6/6 PASS — AWAITING FINAL CLOSURE CI**.
+Status: **CLOSED / VERIFIED + MERGED — PR #31 final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` · CI #784 SUCCESS · merge `6a2666112e56514051ea62fbe1c25f5a8016f1ae`**.
 
 Prior closure report (superseded): `docs/PHASE_6_P6_6_REPORT.md`.
 Source audit: `docs/GLEASON_MEASUREMENT_VIDEO_BOOK_AUDIT_2026-09-21.md`.
@@ -180,6 +180,10 @@ Prior owner-tested head (superseded contract): `4cb8c04b40fbea35745f4091a4bf5e84
 Corrected-contract owner-tested head: `e96712975fc9f54f2615e235bb6976136efe8a2d`.
 Corrected-contract pre-manual Release Acceptance Gates: **#783 — SUCCESS**.
 Corrected-contract owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
+Final corrected-contract closure head: `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`.
+Final Release Acceptance Gates: **#784 — SUCCESS**.
+PR #31 merge commit / current integration baseline: `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
+No independent post-merge CI run is claimed for that merge commit.
 
 Start authorization: owner instruction **«ادمج PR #30 وابدأ P6.6»**. Start baseline:
 `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. The polygon semantics contract
@@ -296,60 +300,24 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-P6.1 is closed and merged through PR #15. P6.2 — Ordered Route State is
-**CLOSED + MERGED** through PR #16.
+P6.1 through P6.6 are **CLOSED**. P6.6 is additionally
+**VERIFIED + MERGED** through PR #31:
 
-PR #16 merged at
-`c1d72e1d1536cf1aba9376e4ada76b7fc31056f5` with post-merge CI #554 SUCCESS.
-The subsequent documentation synchronization PR #18 merged to
-`main @ 645a27c5ea92febd78c3bdd823281ff496a742b3`, and post-merge Release
-Acceptance Gates **#561 — SUCCESS**.
+- corrected owner-tested head: `e96712975fc9f54f2615e235bb6976136efe8a2d`;
+- pre-manual Release Acceptance Gates: **#783 — SUCCESS**;
+- owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
+- exact final PR head: `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`;
+- final Release Acceptance Gates: **#784 — SUCCESS**;
+- merge commit/current integration baseline: `6a2666112e56514051ea62fbe1c25f5a8016f1ae`;
+- post-merge CI on the merge commit: **not independently observed**.
 
-The owner then explicitly instructed **«ابدأ في الخطوة P6.3»**. P6.3 was
-implemented, manually verified, closed, and then separately authorized for merge.
+The repository must be documentation/state-synchronized before new functional
+work. That reconciliation is recorded in
+`docs/POST_PR31_MERGE_RECONCILIATION_2026-09-22.md`.
 
-P6.3 final evidence:
-- base owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
-- route-guide refinement: **5/5 PASS — REPORTED BY OWNER**;
-- straight-line refinement: **4/4 PASS — REPORTED BY OWNER**;
-- Pan/Great Circle refinement: **6/6 PASS — REPORTED BY OWNER**;
-- final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a`;
-- final pre-merge Release Acceptance Gates **#642 — SUCCESS**;
-- PR #19 merge commit on `main`: `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`;
-- post-merge Release Acceptance Gates **#643 — SUCCESS**.
-
-The owner subsequently gave the explicit instruction **«أبدأ P6.4»**. P6.4 was
-implemented from the verified post-PR20 baseline
-`35fda15508973340669220a20ee1c5bf6bbaa39a` / CI **#651 SUCCESS**.
-
-P6.4 implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476`
-passed Release Acceptance Gates **#653 — SUCCESS**. The current documentation
-head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed **#661 — SUCCESS**,
-after which the owner reported all six manual tests **6/6 PASS**.
-
-P6.4 is **CLOSED + MERGED** through PR #21. Post-PR21 reconciliation PR #22 was
-subsequently merged to `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`;
-its exact final PR head `a76fcff0ac7ad366143645ad722ff5d91183561e`
-passed Release Acceptance Gates **#671 — SUCCESS** before merge.
-
-On 2026-09-21 the owner approved the expanded roadmap documented in
-`docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`. That documentation/
-architecture amendment is **CLOSED + MERGED**. Initial verification head
-`cb4b4681bd359e29b08542856b7bff144a239796` passed Release Acceptance Gates
-**#673 — SUCCESS**; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c`
-passed **#676 — SUCCESS**; PR #23 merged at
-`de2cf9b0a8a48a788323373eb2b9c72622c288f8` by explicit owner authorization.
-Post-PR23 documentation reconciliation is **CLOSED + MERGED** through PR #24.
-Its exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates
-**#684 — SUCCESS** and merged to `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
-The owner then explicitly instructed **«ابدأ P6.5»**. P6.5 is now **CLOSED** after exact tested head `a733f81d922963a385357becf69dafd8b6d576be` passed Release Acceptance Gates **#691 — SUCCESS** and the owner reported **6/6 manual PASS**. PR #25 was subsequently merged into `main @ bdff76e765c78108e96fd0e644df850be22f8eed` by separate explicit owner authorization. The separately approved future astronomy addendum is documented in `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`; it is **CLOSED / VERIFIED + MERGED** through PR #27 after exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS**. Post-PR27 reconciliation was then **CLOSED + MERGED** through PR #28: initial verification `018e6a7984dcf682e94f36668333ea00ccbaf085` / #738 SUCCESS, final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` / **#744 SUCCESS**, merge baseline `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170`. The post-PR28 reconciliation is **CLOSED + MERGED** through PR #29: initial head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; merge baseline is `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92`. The post-PR29 reconciliation is **CLOSED + MERGED** through PR #30. Its initial verification head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed Release Acceptance Gates **#758 — SUCCESS**; exact final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS** and merged to `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. The owner then instructed **«ادمج PR #30 وابدأ P6.6»**. P6.6 is now **CLOSED** after Release Acceptance Gates **#769 — SUCCESS** on owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` and **6/6 manual checks PASS — REPORTED BY OWNER**. PR #31 remains open/unmerged pending closure-state verification and separate merge authorization. P6.7A and P6.7B remain **NOT STARTED**. No astronomy/observer/aviation/high-detail-map implementation, tag, GitHub Release or deployment is implied.
-
-
-### P6.6 source-audit correction package — 2026-09-21
-
-Owner approved the final formulation. Current target contract uses
-`gleason-fig43-circle-derived` as the preferred historical scale,
-`gleason-radial-60nm-legacy` as comparison only, and
-`walter-eq-configurable` as external comparison. The restored map is registered
-with provisional raster georeferencing. Fresh CI and targeted manual tests are
-required before re-closing P6.6.
+After that reconciliation is verified and merged by separate owner authorization,
+the next permitted functional slice is **P6.7A — Same Route, Three Renderings**.
+P6.7A remains **NOT STARTED**. P6.7B, P6.8, P6.9 and P6.10 also remain
+**NOT STARTED**. Whole Phase 6 acceptance remains a separate explicit owner
+decision. No astronomy/observer/aviation/high-detail-map implementation, tag,
+GitHub Release or deployment is implied.
