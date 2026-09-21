@@ -1,12 +1,16 @@
 # Post-PR #31 Merge Documentation & State Reconciliation
 
 Date: 2026-09-22  
-Status: **DOCUMENTATION/STATE RECONCILIATION — IMPLEMENTED ON BRANCH; CI/PR MERGE PENDING**
+Status: **OPEN / DRAFT — PR #32 — RELEASE ACCEPTANCE CI PENDING**
 
 ## 1. Trigger
 
 The owner explicitly requested that GitHub files, data/state records and reports
 be synchronized before any new functional phase begins.
+
+Working branch: `docs/post-pr31-merge-reconciliation-2026-09-22`  
+Pull request: **#32 — OPEN / DRAFT**  
+Merge authorization: **pending separate owner instruction**
 
 This reconciliation starts from the live post-merge baseline:
 
