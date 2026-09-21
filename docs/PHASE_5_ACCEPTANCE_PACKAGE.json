@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "current_integration_baseline": "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -213,7 +213,14 @@
     "pr25_pre_merge_ci_run": 699,
     "pr25_pre_merge_ci_conclusion": "success",
     "pr25_post_merge_main_ci_run": null,
-    "pr25_post_merge_main_ci_conclusion": "not-independently-observed"
+    "pr25_post_merge_main_ci_conclusion": "not-independently-observed",
+    "pr26": "merged",
+    "pr26_merge_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
+    "pr26_final_head": "24aba98192483dc8fc3d60cacbb8eac96f0fa5aa",
+    "pr26_pre_merge_ci_run": 718,
+    "pr26_pre_merge_ci_conclusion": "success",
+    "pr26_post_merge_main_ci_run": null,
+    "pr26_post_merge_main_ci_conclusion": "not-independently-observed"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -691,8 +698,15 @@
     "verification_head": "6b7b1e9cc2e809f4485626171d69c18366c89fe5",
     "verification_ci_run": 713,
     "verification_ci_conclusion": "success",
-    "merge_status": "open-unmerged",
-    "merge_authorization": "pending-separate-owner-instruction"
+    "merge_status": "merged",
+    "merge_authorization": "explicit-owner-instruction",
+    "merge_authorization_statement": "ابد الدمج الذي طلبته",
+    "final_closure_head": "24aba98192483dc8fc3d60cacbb8eac96f0fa5aa",
+    "final_closure_ci_run": 718,
+    "final_closure_ci_conclusion": "success",
+    "merge_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
+    "post_merge_main_ci_run": null,
+    "post_merge_main_ci_conclusion": "not-independently-observed"
   },
   "roadmap_astronomy_architecture_amendment_2026_09_21": {
     "decision": "owner-approved",
@@ -704,7 +718,7 @@
     "stacked_base_head": "24aba98192483dc8fc3d60cacbb8eac96f0fa5aa",
     "stacked_base_ci_run": 718,
     "stacked_base_ci_conclusion": "success",
-    "underlying_main_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "underlying_main_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
     "scope": "documentation and architecture planning only; comparative celestial models, historical eclipse cycles and future provider contracts; no astronomy runtime implementation",
     "p6_6_status": "not_started",
     "phase6_status_remains": "in_progress",
@@ -748,7 +762,7 @@
     "provider_contract_document": "docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md",
     "legacy_amendment_document": "docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md",
     "pr": 27,
-    "pr_base": "docs/post-pr25-merge-reconciliation",
+    "pr_base": "main",
     "merge_status": "open-draft-unmerged",
     "verification_head": null,
     "verification_ci_run": null,
@@ -756,7 +770,8 @@
     "tag": "not_created",
     "github_release": "not_created",
     "deployment": "not_created",
-    "verification_blocker": "PR #27 is intentionally stacked on PR #26; Release Acceptance Gates auto-trigger only for pull requests targeting main. Merge/retarget must not bypass separate owner authorization for PR #26.",
-    "next_required_action": "After separate owner-authorized merge of PR #26, retarget PR #27 to main and run full Release Acceptance Gates on the unchanged or reconciled exact PR #27 head."
+    "verification_blocker": null,
+    "next_required_action": "Run full Release Acceptance Gates on PR #27 after retargeting to main; then record exact verification head/run before closure.",
+    "stacked_base_merge_commit": "6bbfe92e8a4c0b66415eb888598cace5b7b15102"
   }
 }
