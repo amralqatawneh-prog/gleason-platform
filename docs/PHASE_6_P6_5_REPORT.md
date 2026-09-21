@@ -148,7 +148,12 @@ P6.5 does **not** implement:
 
 ## Verification state
 
-Automated Release Acceptance Gates: **PENDING on the active branch / PR**.
+Automated Release Acceptance Gates:
+- **#686 — FAILED** at Frontend core tests only because one new P6.5 test used
+  strict equality for the model-center coordinate and distinguished JavaScript
+  `-0` from `+0`. They are numerically identical; the production calculation
+  was not changed. The test now checks numeric zero tolerance.
+- replacement exact-head verification: **PENDING**.
 
 Owner manual verification: **NOT RUN**.
 
