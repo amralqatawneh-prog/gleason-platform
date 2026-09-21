@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170` (PR #28 merge).
+- Current integration base: `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92` (PR #29 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -37,13 +37,16 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Historical post-PR27 reconciliation: `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR27 reconciliation: **CLOSED + MERGED** through PR #28. Initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**; merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge run is claimed without independent observation.
-- Current post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` on branch `docs/post-pr28-merge-reconciliation`, draft PR #29. Exact initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; reconciliation is **CLOSED / VERIFIED**, but PR #29 remains **OPEN / DRAFT / UNMERGED** and the closure-state head requires a second complete gates run before separate owner merge authorization.
+- Historical post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md`.
+- Post-PR28 reconciliation: **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge run is claimed without independent observation.
+- Current post-PR29 reconciliation: `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md` on branch `docs/post-pr29-merge-reconciliation`, draft PR #30, **IN PROGRESS**.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR **#26**: **MERGED** into `main` with explicit owner authorization; final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`, Release Acceptance Gates **#718 — SUCCESS**, merge commit `6bbfe92e8a4c0b66415eb888598cace5b7b15102`.
 - PR **#27**: **MERGED** into `main` with explicit owner authorization; final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22`, Release Acceptance Gates **#726 — SUCCESS**, merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`.
 - PR **#28**: **MERGED / CLOSED**; final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789`, final pre-merge Release Acceptance Gates **#744 — SUCCESS**, merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. Post-merge workflow result: **not independently observed**.
+- PR **#29**: **MERGED / CLOSED**; initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` / **#753 — SUCCESS**; final head `7751e76c1d3fe3e8c129436717042a49040ead4b` / **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. Post-merge workflow result: **not independently observed**.
 - PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
