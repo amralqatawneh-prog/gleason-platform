@@ -30,9 +30,15 @@ Current state: Phase 5 is accepted at v0.5.0; Phase 6 is in progress;
 P6.1–P6.5 are closed. P6.5 Gleason Native Measurement is merged through PR #25 at
 `main @ bdff76e765c78108e96fd0e644df850be22f8eed`; final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates **#699 — SUCCESS** before merge. P6.6 remains NOT STARTED. The owner-approved
 2026-09-21 roadmap/architecture amendment itself was merged through PR #23 at
-`de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The amendment is
-architecture/documentation planning only and does not itself start P6.5 or any
-future astronomy/aviation/high-detail-map implementation.
+`de2cf9b0a8a48a788323373eb2b9c72622c288f8`. The original amendment is architecture/documentation planning only.
+
+A later owner-approved comparative astronomy addendum is documented in
+`docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md`. It reserves
+`CelestialComputationProvider` and `EclipsePredictionProvider`, registers
+Shane/Walter/NASA/Babylonian-method planning sources, distinguishes
+`ObserverCelestialSphere` from `PhysicalHeavensModel`, and expands future
+Phases 9–12, 17 and 20. This addendum does not start P6.6 or any astronomy
+implementation.
 
 Important implemented deviations already recorded by later ADRs/documentation:
 - the delivered Phase 4 WGS84 renderer is a custom WebGL2/SVG implementation,

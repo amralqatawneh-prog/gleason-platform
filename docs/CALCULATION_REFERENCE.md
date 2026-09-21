@@ -79,7 +79,18 @@ Before Phase 9 calculations become executable, this reference must record:
 - topocentric altitude/azimuth convention;
 - refraction policy;
 - offline approximation/cache policy;
-- tolerances and reference cases.
+- tolerances and reference cases;
+- provider/method/version/source IDs;
+- calculation class:
+  `reference-ephemeris`, `historical-cycle`,
+  `external-comparative-model`, `model-native` or `display-only`.
+
+Rendering does not change calculation class.
+
+The planning source registry is
+`data/sources/astronomy-comparative-sources.yaml`. Shane/Walter are comparative
+sources, not automatic reference-validation truth. Their exact source snapshot and
+algorithm path must be audited before numerical fixtures are accepted.
 
 ## 4. Future twilight/event definitions
 
@@ -113,6 +124,59 @@ Phase 12 must separate:
 
 Solar and lunar eclipse geometry must not be forced into an identical ground-path
 representation.
+
+### 6.1 EclipsePredictionProvider capability rule
+
+Each provider must advertise supported outputs. A result may contain only the
+fields that provider actually calculates or sources. Missing geometry remains
+missing.
+
+Examples of independent capabilities:
+- eclipse possibility/window;
+- family/series;
+- event maximum time;
+- local contact times;
+- magnitude/obscuration;
+- observer visibility;
+- central line;
+- umbra/antumbra/penumbra;
+- precise ground path.
+
+### 6.2 Babylonian 223-Month Eclipse Cycle
+
+Planned class: `historical-cycle`.
+
+Historical-method source:
+Brack-Bernsen & Steele (2005), DOI
+`10.1111/j.1600-0498.2005.470301.x`.
+
+Modern Saros parameter cross-check:
+NASA solar/lunar Saros periodicity references.
+
+Initial numerical relationship to document/test at implementation:
+- 223 synodic months;
+- approximately 242 draconic months;
+- approximately 239 anomalistic months;
+- approximately 6585.32 days for the modern mean Saros relationship.
+
+The historical engine must distinguish the historically reconstructed rule from
+modern mean orbital-period values. NASA values are not to be back-labeled as
+Babylonian tablet numbers.
+
+Saros recurrence alone is not a complete precise local ground-path calculation.
+Any Exeligmos, TU 11, BM 45861, 5/6-month or Goal-Year rule must be implemented
+only after exact scholarly/tablet evidence is extracted and cited.
+
+### 6.3 Comparative eclipse matrix
+
+Future comparison may include:
+- modern reference provider;
+- Babylonian historical-cycle provider;
+- audited Shane/Walter external-comparative provider;
+- future model-native provider.
+
+Comparisons report compatible quantities such as time/angular/path differences
+without borrowing unsupported fields or changing provider identity.
 
 ## 7. Future aviation altitude semantics
 

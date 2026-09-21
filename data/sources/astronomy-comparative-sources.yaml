@@ -1,0 +1,158 @@
+registry_id: astronomy-comparative-sources
+registry_version: "2026-09-21-a1"
+status: roadmap_sources_not_runtime_dependencies
+purpose: >
+  Planning/provenance registry for future reference astronomy, external comparative
+  models, historical eclipse-cycle computation, and historical cosmology context.
+  Inclusion here does not make a source numerical validation truth.
+
+global_policy:
+  no_hidden_normalization: true
+  preserve_upstream_identity: true
+  separate_computation_from_rendering: true
+  pin_snapshot_hash_before_runtime_code_reuse: true
+  require_license_review_before_bundling: true
+  current_runtime_dependency: false
+
+sources:
+  - id: shane-personal-celestial-sphere
+    title: "Shane's Personal Celestial Sphere / Flat Earth Dome Model"
+    url: "https://adl.place/shanes-fe-model"
+    supplied_state_url: "https://adl.place/shanes-fe-model&state=--9120.11494-136.13963-282-14.5642857-9-6"
+    source_type: external_comparative_model
+    calculation_class: external-comparative-model
+    role:
+      - observer-dome UX/reference study
+      - Sun/Moon/star track comparison
+      - day-night/terminator comparison
+      - eclipse-node/demo comparison
+      - deterministic state/replay UX study
+    validation_truth: false
+    upstream_source: walter-bislin-fe-dome
+    license_record: shane-fe-model-license
+    audit_status: textual_and_indexed_page_review_complete_code_audit_pending
+    code_reuse_status: not_authorized_until_snapshot_hash_and_code_audit
+    important_boundary: >
+      Shane's interpretation and claims must be stored as source claims. Outputs
+      adapted from this model retain EXTERNAL_COMPARATIVE_MODEL identity and may
+      not be relabeled as REFERENCE_ASTRONOMY or Gleason-native astronomy.
+    notes:
+      - "The indexed page describes Personal Celestial Sphere, Sun/Moon tracks, stars, day/night terminator and eclipse demos."
+      - "The page also states that its day/night terminator performs a Globe Earth coordinate transform before Flat Earth transformation."
+      - "The supplied state URL requires a later reproducible DOM/source-code audit before it becomes a locked test fixture."
+
+  - id: shane-fe-model-license
+    title: "Shane FE Model — License and Attribution"
+    url: "https://adl.place/shanes-fe-model/license.html"
+    source_type: license_and_attribution_record
+    role:
+      - provenance
+      - reuse-policy input
+    validation_truth: false
+    audit_status: reviewed
+    notes:
+      - "Page states that original code was created by Walter Bislin."
+      - "Page describes the incorporated/original code and modifications as public-domain/free-to-use, while also stating that selling the scripts alone is prohibited."
+      - "Any future code reuse still requires a repository snapshot, exact-file attribution review and project legal/license review."
+
+  - id: walter-bislin-fe-dome
+    title: "Flat Earth Dome Model"
+    author: "Walter Bislin"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Flat+Earth+Dome+Model"
+    source_type: upstream_reference_implementation
+    calculation_class: external-comparative-model
+    role:
+      - upstream provenance for Shane-derived model
+      - algorithm/code audit reference
+      - observer-dome and URL-state UX reference
+    validation_truth: false
+    rights_statement_on_page: Public Domain
+    audit_status: textual_review_complete_code_snapshot_pending
+    important_boundary: >
+      Walter explicitly describes his model as calculating from heliocentric/JPL
+      inputs and projecting the results onto a flat-earth dome. That upstream
+      computation identity must remain visible when results are compared or reused.
+    notes:
+      - "Page documents sunrise/sunset, Moon phases/orientation, eclipse aspects, star trails, celestial poles and URL state parameters."
+      - "Do not merge Walter's interpretation with Shane's conflicting interpretation; preserve both as separate source claims."
+
+  - id: walter-bislin-fe-dome-heliocentric-basis
+    title: "Flat Earth Dome Model only works Based on the Heliocentric Model"
+    author: "Walter Bislin"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Flat+Earth+Dome+Model+only+works+Based+on+the+Heliocentric+Model"
+    source_type: upstream_methodology_statement
+    calculation_class: external-comparative-model
+    role:
+      - computation-identity evidence
+      - upstream assumptions audit
+    validation_truth: false
+    audit_status: reviewed
+
+  - id: nasa-solar-saros-periodicity
+    title: "NASA — Periodicity of Solar Eclipses"
+    url: "https://eclipse.gsfc.nasa.gov/SEsaros/SEperiodicity.html"
+    source_type: modern_reference
+    calculation_class: reference-astronomy
+    role:
+      - modern Saros definition/reference
+      - cycle-length and Exeligmos reference
+    validation_truth: reference_for_documented_modern_saros_parameters
+    audit_status: reviewed
+    notes:
+      - "Documents 223 synodic ~= 239 anomalistic ~= 242 draconic months."
+      - "Documents approximately 6585.32 days and the ~8 hour / ~120 degree longitudinal shift."
+
+  - id: nasa-lunar-saros-periodicity
+    title: "NASA — Periodicity of Lunar Eclipses"
+    url: "https://eclipse.gsfc.nasa.gov/LEsaros/LEperiodicity.html"
+    source_type: modern_reference
+    calculation_class: reference-astronomy
+    role:
+      - modern lunar Saros definition/reference
+    validation_truth: reference_for_documented_modern_saros_parameters
+    audit_status: reviewed
+
+  - id: brack-bernsen-steele-2005
+    title: "Eclipse Prediction and the Length of the Saros in Babylonian Astronomy"
+    authors:
+      - "Lis Brack-Bernsen"
+      - "John M. Steele"
+    year: 2005
+    journal: "Centaurus"
+    volume: 47
+    issue: 3
+    pages: "181-206"
+    doi: "10.1111/j.1600-0498.2005.470301.x"
+    url: "https://onlinelibrary.wiley.com/doi/10.1111/j.1600-0498.2005.470301.x"
+    source_type: historical_astronomy_secondary_source
+    calculation_class: historical-cycle
+    role:
+      - Babylonian 223-synodic-month eclipse-cycle history
+      - eclipse-possibility/time prediction methodology
+      - TU 11 / BM 45861 research lead
+    validation_truth: historical_method_reference_not_modern_ephemeris_truth
+    audit_status: abstract_and_bibliographic_review_complete_full_text_method_extraction_pending
+    important_boundary: >
+      The historical-cycle engine must implement only rules supported by cited
+      scholarship/tablet evidence. It may not infer a full local eclipse ground
+      path from the Saros alone.
+
+  - id: british-museum-map-of-world-92687
+    title: "British Museum — The Map of the World, tablet 92687"
+    url: "https://www.britishmuseum.org/collection/object/W_1882-0714-509"
+    source_type: historical_context
+    role:
+      - Mesopotamian cosmography context only
+    validation_truth: false
+    audit_status: reviewed
+    important_boundary: >
+      The tablet is contextual evidence for one Babylonian world-disc depiction.
+      It is not evidence that every Babylonian astronomer used one identical
+      cosmology and it is not evidence for the mathematical Saros algorithm.
+
+planned_provider_classes:
+  - reference-ephemeris
+  - historical-cycle
+  - external-comparative-model
+  - model-native
+  - display-only

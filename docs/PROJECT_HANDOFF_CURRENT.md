@@ -9,7 +9,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration base: `main @ fc42af3cd97706ddc3f92b44f7e784ba86fc7536` (PR #24 merge).
+- Current integration base: `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102` (PR #26 merge).
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -33,9 +33,12 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
 - Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED + MERGED** through PR #24. Exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merged at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
+- Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED** as documentation/architecture scope on PR #27. Exact verification head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed Release Acceptance Gates **#720 — SUCCESS**. PR #27 remains OPEN / DRAFT / UNMERGED pending final closure-head CI and separate owner merge authorization. P6.6 remains NOT STARTED.
+- Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Current post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
+- PR **#26**: **MERGED** into `main` with explicit owner authorization; final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa`, Release Acceptance Gates **#718 — SUCCESS**, merge commit `6bbfe92e8a4c0b66415eb888598cace5b7b15102`.
 - PR #25 final head: `03a04679cfa4955340fa91f5f9d75aeeb268b0d7`; pre-merge Release Acceptance Gates **#699 — SUCCESS**.
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
@@ -1079,3 +1082,25 @@ Current governance state:
 - P6.7: NOT STARTED;
 - PR #21: OPEN / DRAFT / UNMERGED;
 - no tag / GitHub Release / deployment.
+
+
+## Owner-approved 2026-09-21 comparative astronomy addendum
+
+The owner approved a second architecture-only expansion after reviewing Shane's
+Personal Celestial Sphere model, Walter Bislin's upstream FE-Dome implementation,
+modern NASA Saros references and historical scholarship on Babylonian eclipse
+prediction.
+
+New future architecture:
+- `CelestialComputationProvider`;
+- `EclipsePredictionProvider`;
+- calculation classes: reference-ephemeris / historical-cycle /
+  external-comparative-model / model-native / display-only;
+- `ObserverCelestialSphere` kept distinct from any `PhysicalHeavensModel`;
+- Shane/Walter registered as separate comparative/provenance sources;
+- Phase 12 future Babylonian 223-Month Eclipse Cycle (later called Saros);
+- Phase 17 reproducible experiment URLs/IDs;
+- Phase 20 provider-by-provider astronomy validation matrix.
+
+No astronomy engine is currently implemented by this amendment. P6.6 remains
+NOT STARTED. Source/code snapshots must be pinned and audited before runtime reuse.

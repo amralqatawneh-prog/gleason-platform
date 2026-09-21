@@ -48,12 +48,26 @@ Always read the method/unit/provenance labels.
 Approved future scope includes:
 - current-location observer selection;
 - placing an observer pin on a map;
-- a virtual observer sky dome;
+- a virtual `ObserverCelestialSphere` with horizon/cardinal directions;
 - Sun/Moon/planet/star tracks where supported;
 - day/night and twilight bands;
 - numerical sunrise/sunset/twilight events;
 - solar and lunar analemmas;
-- eclipse top-view and observer-view laboratories.
+- multi-method eclipse top-view and observer-view laboratories;
+- comparison between modern reference astronomy, historical-cycle calculations,
+  audited Shane/Walter comparative outputs, and future model-native outputs when
+  those engines actually exist;
+- reproducible experiment URLs/IDs that restore declared observer/time/provider
+  state.
+
+The observer dome is a mathematical/visual sky surface. It is not automatically a
+claim that celestial objects physically lie on a solid dome.
+
+The future eclipse laboratory will include a documented Babylonian
+**223-Month Eclipse Cycle (later called Saros)** method alongside modern
+reference calculations. A cycle recurrence result will be shown with its own
+limitations and will not be presented as a precise local eclipse path unless that
+specific provider actually calculates one.
 
 These are roadmap features and are not yet implemented.
 

@@ -83,12 +83,53 @@ The P6.2 ordered polyline is not automatically a road route.
 
 ## 7. Astronomy architecture
 
-Future astronomy must distinguish:
-- reference ephemeris results;
-- model-native rules;
-- display-only conventions.
+Future astronomy must use the approved `CelestialComputationProvider` identity
+envelope and distinguish:
+- `reference-ephemeris`;
+- `historical-cycle`;
+- `external-comparative-model`;
+- `model-native`;
+- `display-only`.
 
-Topocentric results depend on both ObserverContext and TimeContext.
+Topocentric results depend on both `ObserverContext` and `TimeContext`.
+
+The project also distinguishes:
+- `ObserverCelestialSphere`: a mathematical/topocentric visualization surface;
+- `PhysicalHeavensModel`: a separately specified physical/model-native
+  interpretation, if one is later implemented.
+
+A dome-shaped renderer does not convert a reference or external result into a
+physical-dome claim.
+
+### 7.1 Comparative astronomy sources
+
+Planning registry:
+`data/sources/astronomy-comparative-sources.yaml`.
+
+Shane's Personal Celestial Sphere model and Walter Bislin's upstream FE-Dome
+implementation are registered as separate comparative/provenance sources. Their
+conflicting interpretation of the computation basis must not be collapsed into
+one source claim.
+
+Before runtime code reuse:
+- pin exact source snapshot/revision;
+- record hash;
+- audit formulas/dependencies;
+- re-check exact-file license/attribution;
+- add deterministic fixtures.
+
+### 7.2 Eclipse providers
+
+Future eclipse calculations use `EclipsePredictionProvider` capabilities rather
+than assuming every engine can produce the same fields.
+
+A Babylonian 223-month/Saros historical-cycle engine may produce recurrence,
+family and historically supported timing/possibility outputs. It may not invent a
+precise local ground path merely because a modern reference provider can produce
+one.
+
+Modern reference, historical-cycle, external-comparative and model-native results
+must remain separately attributable in tests, APIs and UI.
 
 ## 8. Testing expectations
 
