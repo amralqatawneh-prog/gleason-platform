@@ -870,3 +870,53 @@ test('P6.4 AE projected-plane ruler stays live and semantically distinct from WG
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
+
+
+test('P6.5 Gleason normalized ruler stays live without SI conversion',async({page,servers})=>{
+  await english(page,servers.url);
+  const route=page.locator('.ordered-route-panel');
+  const gleason=page.locator('.gleason-route-distance-panel');
+  const ae=page.locator('.ae-route-distance-panel').filter({hasNot:page.locator('.gleason-route-distance-panel')});
+  const wgs84=page.locator('.wgs84-route-distance-panel');
+
+  await expect(gleason).toHaveAttribute('data-measurement-status','idle');
+  await expect(gleason).toHaveAttribute('data-measurement-method','gleason-native-normalized');
+  await expect(gleason).toHaveAttribute('data-measurement-unit','normalized-radius-unit');
+  await expect(gleason).toHaveAttribute('data-measurement-scale-basis','gleason-normalized-model-radius');
+
+  await locate(page,'TEST Doha');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  await expect(gleason).toHaveAttribute('data-measurement-status','ready');
+  await expect(wgs84).toHaveAttribute('data-measurement-status','ready');
+  await expect(gleason).toHaveAttribute('data-route-segment-count','1');
+  await expect(gleason.locator('.gleason-route-distance-segment')).toHaveCount(1);
+  await expect(gleason).toContainText('gleason-native-normalized');
+  await expect(gleason).toContainText('normalized-radius-unit');
+  await expect(gleason).toContainText('gleason-normalized-model-radius');
+  await expect(gleason).toContainText('COMPUTED_RESULT');
+  await expect(gleason.locator('[data-gleason-scale-boundary="explicit"]')).toContainText('not metres or kilometres');
+  await expect(gleason.locator('.gleason-route-distance-provenance')).toContainText(/python-math|typescript-math/);
+  const total=Number(await gleason.getAttribute('data-route-distance-normalized-radius-unit'));
+  expect(total).toBeGreaterThan(0);
+
+  await locate(page,'TEST North East Edge');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await expect(gleason).toHaveAttribute('data-route-segment-count','2');
+  await expect(gleason.locator('.gleason-route-distance-segment')).toHaveCount(2);
+
+  await route.getByRole('button',{name:'Move C up',exact:true}).click();
+  await expect(gleason.locator('.gleason-route-distance-segment').first()).toHaveAttribute(
+    'data-route-segment-id',
+    'route-segment:route-point-1->route-point-3',
+  );
+  await expect(gleason).toHaveAttribute('data-measurement-status','ready');
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(gleason).toContainText('مسافة Gleason الأصلية المعيارية');
+  await expect(gleason).toContainText('هذه ليست أمتارًا أو كيلومترات');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
