@@ -584,7 +584,7 @@ require(
     "PR #24 merge commit drifted",
 )
 post_pr25 = data.get("post_pr25_merge_reconciliation", {})
-require(post_pr25.get("status") == "in_progress", "post-PR25 reconciliation must remain in progress before CI closure")
+require(post_pr25.get("status") == "closed", "post-PR25 reconciliation must be closed after verification")
 require(post_pr25.get("pr") == 26, "post-PR25 reconciliation PR must be #26")
 require(
     post_pr25.get("baseline_commit") == "bdff76e765c78108e96fd0e644df850be22f8eed",
@@ -617,9 +617,15 @@ require(post_pr25.get("phase6_status") == "in_progress", "Phase 6 must remain in
 require(post_pr25.get("tag") == "not_created", "post-PR25 reconciliation must not create a tag")
 require(post_pr25.get("github_release") == "not_created", "post-PR25 reconciliation must not create a GitHub Release")
 require(post_pr25.get("deployment") == "not_created", "post-PR25 reconciliation must not deploy")
-require(post_pr25.get("verification_head") is None, "post-PR25 verification head must remain pending before CI")
-require(post_pr25.get("verification_ci_run") is None, "post-PR25 verification CI run must remain pending before CI")
-require(post_pr25.get("verification_ci_conclusion") == "pending", "post-PR25 verification conclusion must remain pending before CI")
+require(
+    post_pr25.get("verification_head") == "6b7b1e9cc2e809f4485626171d69c18366c89fe5",
+    "post-PR25 reconciliation verification head drifted",
+)
+require(post_pr25.get("verification_ci_run") == 713, "post-PR25 reconciliation verification CI must be #713")
+require(
+    post_pr25.get("verification_ci_conclusion") == "success",
+    "post-PR25 reconciliation verification CI #713 must remain success",
+)
 require(post_pr25.get("merge_status") == "open-unmerged", "post-PR25 reconciliation PR #26 must remain open/unmerged")
 require(
     post_pr25.get("merge_authorization") == "pending-separate-owner-instruction",
