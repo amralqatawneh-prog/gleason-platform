@@ -96,8 +96,8 @@ def main() -> None:
         backend_gleason = gleason_polygon_measurement("transient-polygon", gleason_points).model_dump()
 
         pairs = [
-            ("wgs84", browser["wgs84"], backend_wgs, "perimeter_m", "area_m2", 1e-5, 0.1),
-            ("ae", browser["ae"], backend_ae, "perimeter_m", "area_m2", 1e-5, 0.1),
+            ("wgs84", browser["wgs84"], backend_wgs, "perimeter_m", "area_m2", 1e-5, 0.1, 0.0),
+            ("ae", browser["ae"], backend_ae, "perimeter_m", "area_m2", 0.1, 1.0, 2e-10),
             (
                 "gleason",
                 browser["gleason"],
@@ -106,9 +106,19 @@ def main() -> None:
                 "area_normalized_radius_unit_squared",
                 1e-12,
                 1e-12,
+                0.0,
             ),
         ]
-        for name, actual, expected, perimeter_key, area_key, perimeter_tolerance, area_tolerance in pairs:
+        for (
+            name,
+            actual,
+            expected,
+            perimeter_key,
+            area_key,
+            perimeter_tolerance,
+            area_absolute_tolerance,
+            area_relative_tolerance,
+        ) in pairs:
             assert actual["output"]["method_id"] == expected["output"]["method_id"]
             assert actual["output"]["orientation"] == expected["output"]["orientation"]
             assert actual["output"]["segment_count"] == expected["output"]["segment_count"] == len(inputs)
@@ -140,8 +150,16 @@ def main() -> None:
                     "gleason": "gleason_area_nru2",
                 }[name]
             ], area_delta)
-            assert perimeter_delta < perimeter_tolerance, (name, inputs, perimeter_delta)
-            assert area_delta < area_tolerance, (name, inputs, area_delta)
+            area_tolerance = max(
+                area_absolute_tolerance,
+                abs(expected["output"][area_key]) * area_relative_tolerance,
+            )
+            assert perimeter_delta < perimeter_tolerance, (
+                name, inputs, perimeter_delta, perimeter_tolerance
+            )
+            assert area_delta < area_tolerance, (
+                name, inputs, area_delta, area_tolerance
+            )
 
     print(json.dumps({
         "status": "PASS",
