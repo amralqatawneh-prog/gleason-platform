@@ -91,3 +91,8 @@
 .projection-map{cursor:grab;touch-action:none}
 .projection-map:active{cursor:grabbing}
 .projection-map.zoom-area-mode,.projection-map.zoom-area-mode:active{cursor:zoom-in!important}
+
+.gleason-route-distance-panel{padding:18px;border-bottom:1px solid var(--line);background:#0c1823}
+.gleason-route-distance-empty{margin:14px 0 0}
+.gleason-route-distance-error{border-color:#6c5639}
+@media(max-width:560px){.gleason-route-distance-panel{padding:12px 8px}}
