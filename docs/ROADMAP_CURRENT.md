@@ -2,10 +2,10 @@
 
 تاريخ التسوية الأصلي: 2026-09-18. هذه الخريطة تطبق موافقة المالك على م7 وم8، وتجمع ملف التسليم وملخص المشروع المرفق ذي 43 صفحة وخطة المراحل الأصلية في `PROJECT_ARCHITECTURE.md`. اعتماد الخريطة لا يعني بدء المراحل المستقبلية؛ التنفيذ شريحة واحدة في كل مرة، وقبول المرحلة السابقة شرط للانتقال.
 
-## الحالة المرجعية الحالية — 2026-09-21
+## الحالة المرجعية الحالية — 2026-09-22
 
 - Phase 5 **ACCEPTED** والإصدار المقبول **v0.5.0**.
-- Phase 6 **IN PROGRESS**؛ الشرائح P6.1 وP6.2 وP6.3 وP6.4 **CLOSED**.
+- Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.6 **CLOSED**، وP6.6 **VERIFIED + MERGED** عبر PR #31. P6.7A هي التالية لكنها **NOT STARTED**.
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
 - **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
 - المالك اعتمد في 2026-09-21 متطلبات التوسعة الجديدة. **Roadmap & Architecture Amendment — New Requirements 2026-09-21** أصبحت **CLOSED + MERGED**؛ الرأس الأول `cb4b4681bd359e29b08542856b7bff144a239796` نجح في CI **#673**، والرأس النهائي `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` نجح في CI **#676**، ثم دُمج PR #23 إلى `main @ de2cf9b0a8a48a788323373eb2b9c72622c288f8` بتفويض صريح من المالك.
@@ -32,7 +32,7 @@
 4. اعتبار **P6.2 Ordered Route State** مغلقة ومثبتة كأساس للمسار المرتب المؤقت حتى 50 نقطة مع direct-map add صريح.
 5. اعتبار **P6.3 WGS84 Ruler / Distance** و**P6.4 AE Native Measurement** مغلقتين ومندمجتين، مع الحفاظ على هوية الحساب المستقلة لكل منهما.
 6. اعتبار **Roadmap & Architecture Amendment — New Requirements 2026-09-21** مغلقة ومدمجة عبر PR #23، ومصالحة ما بعد PR #23 مغلقة ومدمجة عبر PR #24 عند `fc42af3cd97706ddc3f92b44f7e784ba86fc7536` بعد نجاح CI **#684 — SUCCESS** على الرأس النهائي قبل الدمج.
-7. **P6.5 Gleason Native Measurement مغلقة ومدمجة** عبر PR #25 عند `bdff76e765c78108e96fd0e644df850be22f8eed` بعد CI #699 ونجاح 6/6 يدويًا؛ Astronomy Architecture Amendment مغلقة ومدمجة عبر PR #27؛ ومصالحة ما بعد PR #27 مدمجة عبر PR #28 عند baseline الحالي `a96f47b95c542c2eafb21771bc7c53e7ab40d170` بعد نجاح #744 على الرأس النهائي قبل الدمج. مصالحة ما بعد PR #28 **CLOSED + MERGED** عبر PR #29 بعد #753 ثم #754، والـbaseline الحالي `8ac38042050f24c0ec30e30b32d37cd1900abf92`. مصالحة ما بعد PR #29 **CLOSED + MERGED** عبر PR #30 بعد #758 و#759؛ baseline بدء P6.6 هو `1c64285b92c093365b74f3256aa9557b9a48268e`. **P6.6 REOPENED / IN PROGRESS** بعد #769 و6/6 يدويًا؛ PR #31 ينتظر تحقق رأس الإغلاق ثم تفويض دمج مستقل؛ P6.7A **NOT STARTED**.
+7. **P6.5 Gleason Native Measurement مغلقة ومدمجة** عبر PR #25 عند `bdff76e765c78108e96fd0e644df850be22f8eed` بعد CI #699 ونجاح 6/6 يدويًا؛ Astronomy Architecture Amendment مغلقة ومدمجة عبر PR #27؛ ومصالحة ما بعد PR #27 مدمجة عبر PR #28 عند baseline الحالي `a96f47b95c542c2eafb21771bc7c53e7ab40d170` بعد نجاح #744 على الرأس النهائي قبل الدمج. مصالحة ما بعد PR #28 **CLOSED + MERGED** عبر PR #29 بعد #753 ثم #754، والـbaseline الحالي `8ac38042050f24c0ec30e30b32d37cd1900abf92`. مصالحة ما بعد PR #29 **CLOSED + MERGED** عبر PR #30 بعد #758 و#759؛ baseline بدء P6.6 هو `1c64285b92c093365b74f3256aa9557b9a48268e`. **P6.6 CLOSED / VERIFIED / MERGED** بعد #783 و6/6 يدويًا للعقد المصحح ثم #784 على رأس الإغلاق النهائي؛ PR #31 دُمج عند `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A **NOT STARTED**.
 8. في Phase 6 يضاف **P6.7B Route Provider & Turn-by-Turn Directions** بعد P6.7A Same Route, Three Renderings، دون خلط navigation route مع measurement polyline.
 9. تنفيذ Observer/Astronomy/Analemma/Eclipse لاحقًا ضمن Phases 9–12، والطيران ضمن Phase 15، والخرائط عالية التفاصيل/مزودي الطبقات ضمن Phase 16.
 10. نشر tag أو GitHub Release أو deployment يبقى ضمن تفويض مستقل.
@@ -300,5 +300,4 @@ route/ruler/area في P6.1.
 
 - P6.6 corrected Gleason contract: owner manual **6/6 PASS — REPORTED BY OWNER**
   on `e96712975fc9f54f2615e235bb6976136efe8a2d` after **#783 SUCCESS**.
-  P6.6 is CLOSED pending final closure-state CI; P6.7A remains NOT STARTED.
-  PR #31 stays unmerged until separate owner authorization.
+  P6.6 is CLOSED / VERIFIED / MERGED after final closure-state CI #784 and merge commit `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A remains NOT STARTED.
