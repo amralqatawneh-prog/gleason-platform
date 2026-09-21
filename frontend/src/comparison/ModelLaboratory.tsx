@@ -263,12 +263,12 @@ function futureServiceText(kind:FutureServiceKind,locale:'ar'|'en') {
   const ar:Record<FutureServiceKind,{title:string;body:string}>={
     time:{title:'خدمة الزمن/الفلك',body:'العقد محجوز فقط؛ لا يوجد في المرحلة الخامسة محرك فلكي أو خط زمني. التنفيذ المخطط في المراحل 9–10.'},
     'layer-sync':{title:'مزامنة الطبقات بين النماذج',body:'الطبقات المحلية الموجودة داخل بعض العروض لا تعني وجود خدمة طبقات مشتركة بين النماذج. النظام المتقدم مخطط للمرحلة 16.'},
-    route:{title:'خدمة المسارات والقياس',body:'تنفذ P6.3 مسطرة ومسافة WGS84 الجيوديسية في محرك القياس المنفصل. يبقى عقد مزود المسارات غير متاح لرسم مسارات المزود وقياسات AE/Gleason والمحيط والمساحة.'},
+    route:{title:'خدمة المسارات والقياس',body:'تنفذ P6.3 مسافة WGS84 الجيوديسية، وP6.4 مسافة AE على المستوى المسقط، وP6.5 مسافة Gleason المعيارية في محرك القياس المنفصل. يبقى عقد مزود المسارات غير متاح لمسارات الطريق/الطيران والمحيط والمساحة.'},
   };
   const en:Record<FutureServiceKind,{title:string;body:string}>={
     time:{title:'Time / astronomy service',body:'Only the contract boundary is reserved; Phase 5 has no astronomy engine or timeline. Implementation is planned for phases 9–10.'},
     'layer-sync':{title:'Cross-model layer synchronization',body:'Existing view-local layers do not constitute a shared cross-model layer service. The advanced layer system is planned for phase 16.'},
-    route:{title:'Route and measurement service',body:'P6.3 implements WGS84 geodesic ruler/distance in the separate measurement engine. The future route-provider contract remains unavailable for route drawing/provider paths, AE/Gleason distances, perimeter and area.'},
+    route:{title:'Route and measurement service',body:'P6.3 implements WGS84 geodesic distance, P6.4 implements AE projected-plane distance, and P6.5 implements Gleason normalized native distance in the separate measurement engine. The future route-provider contract remains unavailable for road/flight provider paths, perimeter and area.'},
   };
   return (locale==='ar'?ar:en)[kind];
 }
