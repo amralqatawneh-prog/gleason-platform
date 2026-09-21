@@ -34,13 +34,14 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170` (PR #28 merge)
+- Current integration baseline: `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92` (PR #29 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
 - Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED + MERGED** through PR #27 at `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11`; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge. P6.6 remains **NOT STARTED**.
 - Post-PR27 documentation reconciliation is **CLOSED + MERGED** through PR #28. Its initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS** and PR #28 merged to `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge workflow result is claimed without independent observation.
-- Post-PR28 documentation reconciliation is **CLOSED / VERIFIED** after exact head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**. PR #29 remains **OPEN / DRAFT / UNMERGED**; the closure-state head must pass the complete gates again before separate owner merge authorization. P6.6 remains **NOT STARTED**.
+- Post-PR28 documentation reconciliation is **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; PR #29 merged to `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge workflow result is claimed without independent observation.
+- Post-PR29 documentation reconciliation is **CLOSED / VERIFIED** after exact initial verification head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed Release Acceptance Gates **#758 — SUCCESS**. PR #30 remains **OPEN / DRAFT / UNMERGED**; the exact closure-state head must pass the complete gates again before separate owner merge authorization. P6.6 remains **NOT STARTED**.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
@@ -295,7 +296,8 @@ Current source-of-truth documents:
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
-- `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR28 reconciliation (PR #29, closed/verified; final closure CI and merge authorization pending).
+- `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md` — current post-PR29 reconciliation (PR #30, closed/verified; final closure CI and merge authorization pending).
+- `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR28 reconciliation, closed and merged through PR #29 after final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed Release Acceptance Gates **#754 — SUCCESS**.
 - `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR27 documentation reconciliation.
 - `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR25 documentation reconciliation.
 - `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md` — historical post-PR23 documentation reconciliation.
