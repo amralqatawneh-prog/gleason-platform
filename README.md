@@ -284,7 +284,7 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.4 is closed and P6.5 is not started.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.1–P6.4 are closed and P6.5 is the active in-progress slice.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — active P6.5 Gleason native measurement report.
