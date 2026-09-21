@@ -38,7 +38,7 @@ model engines:
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
-- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **IN PROGRESS (documentation/architecture only)** through **PR #27**. PR #26 is now merged; PR #27 is being retargeted to `main` for full Release Acceptance Gates. P6.6 remains **NOT STARTED**.
+- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED** through PR #27 after exact head `eebf162e3dd1cf35e15933ff4622e7915bf0cd97` passed Release Acceptance Gates **#720 — SUCCESS**. PR #27 remains **OPEN / DRAFT / UNMERGED** pending final closure-head CI and separate owner merge authorization. P6.6 remains **NOT STARTED**.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
