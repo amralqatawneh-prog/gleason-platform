@@ -68,6 +68,10 @@ See `docs/SHARED_CONTEXT_PROVIDER_CONTRACTS.md`.
 
 ## 6. Measurement architecture
 
+Current lifecycle state: P6.1–P6.6 are closed; the corrected P6.6 contract was
+verified on final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` by Release Acceptance Gates #784 and merged
+through PR #31 at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A remains not started.
+
 Current implemented measurement identities:
 - WGS84: `wgs84-geodesic`
 - AE: `ae-projected-plane`
