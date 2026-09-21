@@ -325,8 +325,8 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "6bbfe92e8a4c0b66415eb888598cace5b7b15102",
-    "current integration baseline must be the PR #26 merge commit",
+    == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
+    "current integration baseline must be the PR #27 merge commit",
 )
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
@@ -457,6 +457,25 @@ require(merge_boundary.get("pr26_post_merge_main_ci_run") is None, "PR #26 must 
 require(
     merge_boundary.get("pr26_post_merge_main_ci_conclusion") == "not-independently-observed",
     "PR #26 post-merge CI evidence state drifted",
+)
+require(merge_boundary.get("pr27") == "merged", "PR #27 must be recorded as merged")
+require(
+    merge_boundary.get("pr27_merge_commit") == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
+    "PR #27 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr27_final_head") == "8d84c2e83a148a359fd0d75da7e5f3b21570ac22",
+    "PR #27 final head drifted",
+)
+require(merge_boundary.get("pr27_pre_merge_ci_run") == 726, "PR #27 pre-merge CI must be #726")
+require(
+    merge_boundary.get("pr27_pre_merge_ci_conclusion") == "success",
+    "PR #27 pre-merge CI #726 must remain success",
+)
+require(merge_boundary.get("pr27_post_merge_main_ci_run") is None, "PR #27 must not fabricate an unseen post-merge CI run")
+require(
+    merge_boundary.get("pr27_post_merge_main_ci_conclusion") == "not-independently-observed",
+    "PR #27 post-merge CI evidence state drifted",
 )
 p6_4_merge = phase6_start.get("p6_4_merge", {})
 require(p6_4_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.4 merge authorization evidence missing")
@@ -744,8 +763,8 @@ require(
     "astronomy amendment PR base must be main after PR #26 merge",
 )
 require(
-    astronomy_amendment.get("merge_status") == "open-draft-unmerged",
-    "astronomy amendment PR #27 must remain open/draft/unmerged before verification",
+    astronomy_amendment.get("merge_status") == "merged",
+    "astronomy amendment PR #27 must be recorded as merged",
 )
 require(astronomy_amendment.get("verification_blocker") is None, "astronomy amendment verification blocker must be cleared after PR #26 merge")
 require(
@@ -758,12 +777,87 @@ require(
     "astronomy amendment verification CI #720 must remain success",
 )
 require(
-    astronomy_amendment.get("merge_authorization") == "pending-separate-owner-instruction",
-    "astronomy amendment merge must await separate owner authorization",
+    astronomy_amendment.get("merge_authorization") == "explicit-owner-instruction",
+    "astronomy amendment merge authorization evidence missing",
+)
+require(
+    astronomy_amendment.get("merge_authorization_statement") == "قم بدمج PR #27 إلى main",
+    "astronomy amendment merge authorization statement drifted",
+)
+require(
+    astronomy_amendment.get("final_closure_head") == "8d84c2e83a148a359fd0d75da7e5f3b21570ac22",
+    "astronomy amendment final closure head drifted",
+)
+require(astronomy_amendment.get("final_closure_ci_run") == 726, "astronomy amendment final closure CI must be #726")
+require(
+    astronomy_amendment.get("final_closure_ci_conclusion") == "success",
+    "astronomy amendment final closure CI #726 must remain success",
+)
+require(
+    astronomy_amendment.get("merge_commit") == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
+    "astronomy amendment merge commit drifted",
+)
+require(astronomy_amendment.get("post_merge_main_ci_run") is None, "astronomy amendment must not fabricate an unseen post-merge CI run")
+require(
+    astronomy_amendment.get("post_merge_main_ci_conclusion") == "not-independently-observed",
+    "astronomy amendment post-merge CI evidence state drifted",
 )
 require(astronomy_amendment.get("tag") == "not_created", "astronomy amendment must not create a tag")
 require(astronomy_amendment.get("github_release") == "not_created", "astronomy amendment must not create a GitHub Release")
 require(astronomy_amendment.get("deployment") == "not_created", "astronomy amendment must not deploy")
+
+post_pr27 = data.get("post_pr27_merge_reconciliation", {})
+require(post_pr27.get("status") == "in_progress", "post-PR27 reconciliation must remain in progress before verification")
+require(post_pr27.get("pr") == 28, "post-PR27 reconciliation PR must be #28")
+require(
+    post_pr27.get("baseline_commit") == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
+    "post-PR27 reconciliation baseline drifted",
+)
+require(post_pr27.get("pr27_status") == "merged", "post-PR27 reconciliation must record PR #27 merged")
+require(
+    post_pr27.get("pr27_final_head") == "8d84c2e83a148a359fd0d75da7e5f3b21570ac22",
+    "post-PR27 final head drifted",
+)
+require(post_pr27.get("pr27_pre_merge_ci_run") == 726, "post-PR27 record must preserve CI #726")
+require(post_pr27.get("pr27_pre_merge_ci_conclusion") == "success", "post-PR27 CI #726 must remain success")
+require(
+    post_pr27.get("pr27_prior_verification_head") == "eebf162e3dd1cf35e15933ff4622e7915bf0cd97",
+    "post-PR27 prior verification head drifted",
+)
+require(post_pr27.get("pr27_prior_verification_ci_run") == 720, "post-PR27 prior verification CI must be #720")
+require(post_pr27.get("pr27_prior_verification_ci_conclusion") == "success", "post-PR27 prior verification CI #720 must remain success")
+require(
+    post_pr27.get("pr27_merge_commit") == "5442852ef4bc2e760db39743d0bc7b3bc57d0b11",
+    "post-PR27 merge commit drifted",
+)
+require(post_pr27.get("pr27_post_merge_ci_run") is None, "post-PR27 reconciliation must not fabricate a post-merge CI run")
+require(
+    post_pr27.get("pr27_post_merge_ci_conclusion") == "not-independently-observed",
+    "post-PR27 post-merge CI evidence state drifted",
+)
+require(
+    post_pr27.get("astronomy_amendment_status") == "closed-verified-merged",
+    "astronomy amendment must remain closed/verified/merged during post-PR27 reconciliation",
+)
+require(post_pr27.get("p6_6_status") == "not_started", "P6.6 must remain not_started during post-PR27 reconciliation")
+require(post_pr27.get("accepted_phase") == 5, "accepted phase must remain 5 during post-PR27 reconciliation")
+require(
+    post_pr27.get("accepted_application_version") == "0.5.0",
+    "accepted application version must remain 0.5.0 during post-PR27 reconciliation",
+)
+require(post_pr27.get("phase6_status") == "in_progress", "Phase 6 must remain in_progress during post-PR27 reconciliation")
+require(post_pr27.get("runtime_astronomy_status") == "not_started", "runtime astronomy must remain not_started during post-PR27 reconciliation")
+require(post_pr27.get("tag") == "not_created", "post-PR27 reconciliation must not create a tag")
+require(post_pr27.get("github_release") == "not_created", "post-PR27 reconciliation must not create a GitHub Release")
+require(post_pr27.get("deployment") == "not_created", "post-PR27 reconciliation must not deploy")
+require(post_pr27.get("verification_head") is None, "post-PR27 verification head must remain pending before CI")
+require(post_pr27.get("verification_ci_run") is None, "post-PR27 verification CI run must remain pending before CI")
+require(post_pr27.get("verification_ci_conclusion") == "pending", "post-PR27 verification conclusion must remain pending before CI")
+require(post_pr27.get("merge_status") == "open-unmerged", "post-PR27 reconciliation PR #28 must remain open/unmerged")
+require(
+    post_pr27.get("merge_authorization") == "pending-separate-owner-instruction",
+    "post-PR27 reconciliation merge must await separate owner authorization",
+)
 
 astronomy_sources = (ROOT / "data" / "sources" / "astronomy-comparative-sources.yaml").read_text(encoding="utf-8")
 for marker in [
