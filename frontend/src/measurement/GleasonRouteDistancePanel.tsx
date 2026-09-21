@@ -60,6 +60,13 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
     className="gleason-route-distance-panel gleason-measurement-lab"
     data-measurement-status={status}
     data-measurement-method={result?.output.method_id ?? 'gleason-native-normalized'}
+    data-measurement-unit={result?.output.unit ?? 'normalized-radius-unit'}
+    data-measurement-scale-basis={result?.output.scale_basis ?? 'gleason-normalized-model-radius'}
+    data-segment-geometry={result?.output.segment_geometry ?? 'straight-projected-chord'}
+    data-route-segment-count={result?.output.segment_count ?? Math.max(0, points.length - 1)}
+    data-route-distance-normalized-radius-unit={
+      result ? result.output.total_distance_normalized_radius_unit.toFixed(12) : ''
+    }
     data-map-ruler-method={result?.output.map_ruler_method_id ?? 'gleason-map-ruler-derived'}
     data-route-distance-derived-nautical-mile={
       result ? result.output.total_distance_map_ruler_nautical_mile_derived.toFixed(6) : ''
