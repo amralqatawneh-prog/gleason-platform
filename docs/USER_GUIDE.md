@@ -26,7 +26,7 @@ Current accepted/product state includes:
 - AE projected-plane distance;
 - offline-capable foundations and bilingual Arabic/English UI.
 
-P6.4 is closed. P6.5 Gleason native numerical measurement is now **IN PROGRESS** after the owner's explicit start instruction.
+P6.4 is closed. P6.5 Gleason native numerical measurement is **CLOSED + MERGED** through PR #25; its final head `03a04679cfa4955340fa91f5f9d75aeeb268b0d7` passed Release Acceptance Gates #699 and the owner reported 6/6 manual PASS. P6.6 remains **NOT STARTED**.
 
 ## 3. Understanding measurements
 
