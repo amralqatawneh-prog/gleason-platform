@@ -34,7 +34,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
 - Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED + MERGED** through PR #24. Exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merged at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
-- Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED + MERGED** through PR #27. Exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge; merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`. P6.6 remains NOT STARTED.
+- Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED + MERGED** through PR #27. Exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge; merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`. At that historical amendment point P6.6 had not started; current P6.6 state is CLOSED / VERIFIED / MERGED.
 - Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Historical post-PR27 reconciliation: `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR27 reconciliation: **CLOSED + MERGED** through PR #28. Initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**; merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge run is claimed without independent observation.
@@ -54,7 +54,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
-- P6.6 is **CLOSED** after Release Acceptance Gates **#769 — SUCCESS** on owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` and **6/6 manual checks PASS — REPORTED BY OWNER**. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. PR #31 remains open/unmerged; P6.7A remains **NOT STARTED**.
+- P6.6 is **CLOSED / VERIFIED / MERGED**. The corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 with owner manual 6/6 PASS; exact closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. P6.7A remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -70,7 +70,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19, PR #20, PR #24, PR #25 and PR #30 are **MERGED**. P6.2–P6.6 are CLOSED. PR #31 is open/unmerged. No tag, GitHub Release or deployment has been created. P6.7A remains **NOT STARTED**.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30 and PR #31 are **MERGED**. P6.2–P6.6 are CLOSED. No tag, GitHub Release or deployment has been created. P6.7A remains **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
