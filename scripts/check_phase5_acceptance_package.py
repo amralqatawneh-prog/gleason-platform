@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 import math
 from pathlib import Path
@@ -1673,6 +1674,27 @@ require("status:'unavailable'" in future, "future services must fail closed as u
 require(
     "availableOperations:Object.freeze([])" in future,
     "future services must expose no operations",
+)
+
+owner_8k_registry_path = ROOT / "data" / "sources" / "gleason-owner-8k-map.yaml"
+owner_8k_world_path = ROOT / "data" / "sources" / "artifacts" / "8k-Flat-Earth-map.jgw"
+require(owner_8k_registry_path.is_file(), "owner-supplied 8K Gleason source registry missing")
+require(owner_8k_world_path.is_file(), "owner-supplied 8K Gleason JGW source missing")
+owner_8k_registry = owner_8k_registry_path.read_text(encoding="utf-8")
+for marker in [
+    "gleason-owner-8k-map-2026-09-22",
+    "incomplete_bundle_waiting_for_companion_raster",
+    "0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43",
+    "bottom_measurement_ruler",
+    "longitude_time_zone_frame",
+    "crs: unknown_not_encoded_in_world_file",
+    "preserve_original_resolution: true",
+]:
+    require(marker in owner_8k_registry, f"8K Gleason source registry marker missing: {marker}")
+require(
+    hashlib.sha256(owner_8k_world_path.read_bytes()).hexdigest()
+    == "0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43",
+    "owner-supplied 8K Gleason JGW SHA-256 drifted",
 )
 
 historical = (ROOT / "data" / "sources" / "gleason-book.yaml").read_text(encoding="utf-8")
