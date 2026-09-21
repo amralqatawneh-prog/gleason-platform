@@ -34,11 +34,11 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ bdff76e765c78108e96fd0e644df850be22f8eed` (PR #25 merge)
+- Current integration baseline: `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102` (PR #26 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
-- Post-PR25 documentation reconciliation: **CLOSED / VERIFIED** on head `6b7b1e9cc2e809f4485626171d69c18366c89fe5` with Release Acceptance Gates **#713 — SUCCESS**; PR #26 remains **OPEN / DRAFT / UNMERGED** pending separate owner merge authorization.
-- Owner-approved **Roadmap & Astronomy Architecture Amendment** is now **IN PROGRESS (documentation/architecture only)** through stacked **PR #27**, based on PR #26. It expands future Phases 9–12, 17 and 20, registers comparative/historical astronomy sources, and reserves `CelestialComputationProvider` / `EclipsePredictionProvider`. Full CI awaits the separately authorized merge of PR #26 and retargeting of #27 to `main`; P6.6 remains **NOT STARTED**.
+- Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
+- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **IN PROGRESS (documentation/architecture only)** through **PR #27**. PR #26 is now merged; PR #27 is being retargeted to `main` for full Release Acceptance Gates. P6.6 remains **NOT STARTED**.
 - Accepted application version: **0.5.0**
 - Implementation phase: **6**
 - Accepted phase: **5**
