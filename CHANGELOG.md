@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased] — Post-PR #28 merge reconciliation (2026-09-21)
+
+- PR #28 — Post-PR27 Merge Documentation Reconciliation — is now **MERGED / CLOSED**.
+- Exact final PR #28 head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed Release Acceptance Gates **#744 — SUCCESS** before merge.
+- Earlier PR #28 verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed **#738 — SUCCESS**.
+- PR #28 merge commit / current integration baseline: `a96f47b95c542c2eafb21771bc7c53e7ab40d170`.
+- No post-merge workflow run/conclusion is claimed because none is independently observed for that merge commit.
+- The owner instructed **«أبدأ العمل»** after review of the current handoff; the agreed next task is post-PR28 documentation/state reconciliation.
+- Draft PR #29 on `docs/post-pr28-merge-reconciliation` is **IN PROGRESS** for this reconciliation.
+- P6.6 remains **NOT STARTED**; accepted phase remains **5** and accepted application version remains **v0.5.0**.
+- No runtime astronomy/Saros/eclipse/observer-dome implementation, tag, GitHub Release or deployment is introduced.
+
 ## [Unreleased] — Post-PR #27 merge reconciliation (2026-09-21)
 
 - Owner explicitly authorized **«قم بدمج PR #27 إلى main»**.
