@@ -531,7 +531,7 @@ test('P5.7 blocks heterogeneous differences and exposes future services as unava
   await expect(future.locator('[data-future-service="time"]')).toContainText('phases 9–10');
   await expect(future.locator('[data-future-service="layer-sync"]')).toContainText('phase 16');
   await expect(future.locator('[data-future-service="route"]')).toContainText('Planned phase: 6');
-  await expect(future.locator('[data-future-service="route"]')).toContainText('P6.3 implements WGS84 geodesic ruler/distance');
+  await expect(future.locator('[data-future-service="route"]')).toContainText('P6.5 implements Gleason normalized native distance');
   await expect(future.locator('[data-future-service="route"]')).toContainText('route drawing/provider paths');
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
@@ -742,7 +742,7 @@ test('P6.2 ordered route state supports edit/undo/clear and remains transient ac
 
   await page.getByRole('button',{name:'العربية',exact:true}).click();
   await expect(panel).toContainText('المسار المرتب');
-  await expect(panel).toContainText('تظهر مسافتا WGS84 وAE العدديتان في لوحتي P6.3 وP6.4 المنفصلتين.');
+  await expect(panel).toContainText('تظهر مسافات WGS84 وAE وGleason العددية في لوحات P6.3 وP6.4 وP6.5 المنفصلة.');
   await page.setViewportSize({width:390,height:844});
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 
