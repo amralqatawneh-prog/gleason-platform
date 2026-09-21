@@ -1,6 +1,6 @@
 # Roadmap & Astronomy Architecture Amendment — Comparative Celestial Models and Historical Eclipse Cycles — 2026-09-21
 
-Status: **IN PROGRESS — APPROVED BY OWNER / DOCUMENTATION & ARCHITECTURE ONLY**
+Status: **IN PROGRESS — APPROVED BY OWNER / PR #27 STACKED ON PR #26 / FULL CI PENDING BASE MERGE**
 
 Owner approval: **«موافق على هذا التصور، وابدأ بتنفيذ Roadmap & Astronomy Architecture Amendment جديد»**
 
@@ -419,3 +419,25 @@ not relabel provider identities or force an overall model winner.
 
 No tag, GitHub Release, deployment, Phase 6 acceptance, or P6.6 start is
 authorized by this amendment.
+
+
+## 14. Stacked PR / verification dependency
+
+Implementation PR: **#27 — OPEN / DRAFT / UNMERGED**.
+
+PR #27 is intentionally based on
+`docs/post-pr25-merge-reconciliation` / PR #26 rather than `main`, so this
+amendment cannot implicitly merge or bypass the separately governed post-PR25
+reconciliation.
+
+The repository Release Acceptance workflow auto-triggers for pull requests whose
+base is `main`. Therefore the complete remote gates for this exact amendment are
+deferred until:
+1. the owner separately authorizes and PR #26 is merged;
+2. PR #27 is retargeted/reconciled to `main`;
+3. the full Release Acceptance Gates run on the exact PR #27 head;
+4. any closure-state documentation head is tested again before separate merge
+   authorization.
+
+This dependency is governance/CI sequencing only. It does not start P6.6 or any
+runtime astronomy implementation.
