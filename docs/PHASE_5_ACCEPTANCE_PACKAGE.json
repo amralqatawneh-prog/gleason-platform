@@ -154,7 +154,7 @@
     "pr16_pre_merge_ci_conclusion": "success",
     "pr16_post_merge_main_ci_run": 554,
     "pr16_post_merge_main_ci_conclusion": "success",
-    "current_integration_baseline": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
+    "current_integration_baseline": "bdff76e765c78108e96fd0e644df850be22f8eed",
     "pr17": "merged",
     "pr17_merge_commit": "660a7908dd9e3c2f073155a5394d5dfb60ee67e8",
     "pr17_final_head": "edfe36c98a48dfe6443d82f875ac53951a59a6a1",
@@ -206,7 +206,14 @@
     "pr24_merge_commit": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536",
     "pr24_final_head": "2c3b12ceabdf374d587c96f49f23d097de8d8d1d",
     "pr24_pre_merge_ci_run": 684,
-    "pr24_pre_merge_ci_conclusion": "success"
+    "pr24_pre_merge_ci_conclusion": "success",
+    "pr25": "merged",
+    "pr25_merge_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "pr25_final_head": "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+    "pr25_pre_merge_ci_run": 699,
+    "pr25_pre_merge_ci_conclusion": "success",
+    "pr25_post_merge_main_ci_run": null,
+    "pr25_post_merge_main_ci_conclusion": "not-independently-observed"
   },
   "p5_9_owner_manual": {
     "result": "pass-reported-by-owner",
@@ -473,6 +480,18 @@
       "reversed_route_total_invariance": "pass-reported-by-owner",
       "backend_fallback": "pass-reported-by-owner",
       "arabic_mobile_layout": "pass-reported-by-owner"
+    },
+    "p6_5_merge": {
+      "date": "2026-09-21",
+      "decision": "merged-by-separate-owner-authorization",
+      "owner_statement": "قم بدمج PR #25 إلى main",
+      "pr": 25,
+      "final_head": "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+      "pre_merge_ci_run": 699,
+      "pre_merge_ci_conclusion": "success",
+      "merge_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+      "post_merge_ci_run": null,
+      "post_merge_ci_conclusion": "not-independently-observed"
     }
   },
   "post_pr16_merge_reconciliation": {
@@ -644,5 +663,35 @@
     "final_closure_ci_run": 684,
     "final_closure_ci_conclusion": "success",
     "merge_commit": "fc42af3cd97706ddc3f92b44f7e784ba86fc7536"
+  },
+  "post_pr25_merge_reconciliation": {
+    "date": "2026-09-21",
+    "owner_statement": "قم بمصالحة/تحديث التوثيق بعد دمج PR #25",
+    "scope": "current-status documentation/state reconciliation after separately authorized PR #25 merge",
+    "status": "in_progress",
+    "branch": "docs/post-pr25-merge-reconciliation",
+    "baseline_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "baseline_evidence": "PR #25 exact final head 03a04679cfa4955340fa91f5f9d75aeeb268b0d7 passed Release Acceptance Gates #699 before merge; P6.5 owner manual 6/6 PASS reported; no independently observed post-merge push-run number recorded",
+    "pr25_status": "merged",
+    "pr25_final_head": "03a04679cfa4955340fa91f5f9d75aeeb268b0d7",
+    "pr25_pre_merge_ci_run": 699,
+    "pr25_pre_merge_ci_conclusion": "success",
+    "pr25_merge_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
+    "pr25_post_merge_ci_run": null,
+    "pr25_post_merge_ci_conclusion": "not-independently-observed",
+    "p6_5_status": "closed",
+    "p6_6_status": "not_started",
+    "accepted_phase": 5,
+    "accepted_application_version": "0.5.0",
+    "phase6_status": "in_progress",
+    "tag": "not_created",
+    "github_release": "not_created",
+    "deployment": "not_created",
+    "pr": 26,
+    "verification_head": null,
+    "verification_ci_run": null,
+    "verification_ci_conclusion": "pending",
+    "merge_status": "open-unmerged",
+    "merge_authorization": "pending-separate-owner-instruction"
   }
 }
