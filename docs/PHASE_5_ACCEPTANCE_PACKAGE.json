@@ -245,7 +245,7 @@
     "current_slice": "P6.5",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed",
     "next_slice": "P6.6",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -444,18 +444,35 @@
       "baseline_evidence": "PR #24 final head 2c3b12ceabdf374d587c96f49f23d097de8d8d1d passed Release Acceptance Gates #684 before merge",
       "branch": "feat/phase6-p6-5-gleason-native-measurement",
       "scope": "Gleason native normalized distance for adjacent ordered route segments and open-polyline total only",
-      "status": "in_progress",
-      "owner_manual_status": "not-run",
+      "status": "closed",
+      "owner_manual_status": "pass-reported-by-owner",
       "pr": 25,
       "pr_status": "draft-open"
     },
     "p6_5_automated": {
-      "status": "in_progress",
+      "implementation_head": "a733f81d922963a385357becf69dafd8b6d576be",
+      "ci_run": 691,
+      "ci_conclusion": "success",
       "prior_failed_ci_runs": [
-        686
+        686,
+        689
       ],
-      "prior_failure_scope": "Frontend core test asserted +0 at the Gleason model center while JavaScript returned numerically equivalent -0; production calculation was not changed.",
-      "owner_manual_status": "not-run"
+      "prior_failure_scope": "CI #686 failed on a strict JavaScript -0/+0 assertion only; CI #689 failed on one stale P5.7 browser text expectation only. Both test issues were corrected without changing the P6.5 numerical contract.",
+      "note": "Exact pre-manual P6.5 head passed the complete Release Acceptance Gates, including backend/browser Gleason parity, browser fallback coverage, Docker runtime, PostGIS and search regressions."
+    },
+    "p6_5_status": "closed",
+    "p6_5_owner_manual": {
+      "result": "pass-reported-by-owner",
+      "date": "2026-09-21",
+      "checklist_items_passed": 6,
+      "tested_head": "a733f81d922963a385357becf69dafd8b6d576be",
+      "pre_manual_ci_run": 691,
+      "pre_manual_ci_conclusion": "success",
+      "multi_point_live_recalculation": "pass-reported-by-owner",
+      "repeated_coordinate_zero_segment": "pass-reported-by-owner",
+      "reversed_route_total_invariance": "pass-reported-by-owner",
+      "backend_fallback": "pass-reported-by-owner",
+      "arabic_mobile_layout": "pass-reported-by-owner"
     }
   },
   "post_pr16_merge_reconciliation": {
