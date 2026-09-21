@@ -73,7 +73,7 @@ Current implemented measurement identities:
 - AE: `ae-projected-plane`
 - Gleason: `gleason-native-normalized`
 
-P6.6 adds closed-polygon perimeter and area to all three identities. The
+P6.6, now closed/verified/merged through PR #31, adds closed-polygon perimeter and area to all three identities. The
 canonical ring reuses ordered geographic vertices and closes implicitly from the
 last vertex to the first. WGS84 uses signed ellipsoidal geodesic polygon area;
 AE and Gleason use signed shoelace area after their own independent forward
