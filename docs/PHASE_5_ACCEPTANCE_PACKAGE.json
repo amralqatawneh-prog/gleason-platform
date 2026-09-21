@@ -668,7 +668,7 @@
     "date": "2026-09-21",
     "owner_statement": "قم بمصالحة/تحديث التوثيق بعد دمج PR #25",
     "scope": "current-status documentation/state reconciliation after separately authorized PR #25 merge",
-    "status": "in_progress",
+    "status": "closed",
     "branch": "docs/post-pr25-merge-reconciliation",
     "baseline_commit": "bdff76e765c78108e96fd0e644df850be22f8eed",
     "baseline_evidence": "PR #25 exact final head 03a04679cfa4955340fa91f5f9d75aeeb268b0d7 passed Release Acceptance Gates #699 before merge; P6.5 owner manual 6/6 PASS reported; no independently observed post-merge push-run number recorded",
@@ -688,9 +688,9 @@
     "github_release": "not_created",
     "deployment": "not_created",
     "pr": 26,
-    "verification_head": null,
-    "verification_ci_run": null,
-    "verification_ci_conclusion": "pending",
+    "verification_head": "6b7b1e9cc2e809f4485626171d69c18366c89fe5",
+    "verification_ci_run": 713,
+    "verification_ci_conclusion": "success",
     "merge_status": "open-unmerged",
     "merge_authorization": "pending-separate-owner-instruction"
   }
