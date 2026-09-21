@@ -109,7 +109,7 @@
     },
     {
       "id": "future-route-unavailable",
-      "boundary": "P6.3 implements WGS84 geodesic open-polyline distance and P6.4 is implementing AE projected-plane open-polyline distance. Provider-backed road/flight paths, Gleason native distance, perimeter and area remain unavailable."
+      "boundary": "P6.3 implements WGS84 geodesic distance, P6.4 AE projected-plane distance, P6.5 Gleason normalized native distance, and P6.6 is implementing model-specific polygon perimeter/area. Provider-backed road/flight paths and turn-by-turn directions remain unavailable."
     },
     {
       "id": "camera-states-independent",
