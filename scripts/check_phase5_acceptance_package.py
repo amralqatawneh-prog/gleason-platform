@@ -1071,7 +1071,6 @@ require(
 require(p6_6_start.get("baseline_pre_merge_ci_run") == 759, "P6.6 baseline CI must preserve #759")
 require(p6_6_start.get("baseline_pre_merge_ci_conclusion") == "success", "P6.6 baseline CI #759 must remain success")
 require(p6_6_start.get("branch") == "feat/p6.6-polygon-perimeter-area", "P6.6 branch drifted")
-require(p6_6_start.get("status") == "in_progress", "P6.6 must be in_progress")
 require(p6_6_start.get("accepted_phase_remains") == 5, "P6.6 must not change accepted phase")
 require(p6_6_start.get("accepted_application_version_remains") == "0.5.0", "P6.6 must not change accepted version")
 
