@@ -11,6 +11,7 @@
 - Separate `ObserverCelestialSphere` from any future `PhysicalHeavensModel`.
 - Expand future Phases 9–12, 17 and 20 with comparative astronomy, Personal Celestial Sphere comparison, Babylonian 223-Month/Saros historical-cycle work, reproducible experiment URLs/IDs, and provider-by-provider validation.
 - No functional astronomy engine, Saros calculator, observer dome, eclipse path, P6.6 start, tag, GitHub Release or deployment is introduced.
+- Implementation is tracked in stacked **PR #27** above PR #26. Because Release Acceptance Gates auto-trigger only for PRs targeting `main`, full remote verification is pending the separately authorized merge of PR #26 and retargeting of PR #27.
 
 ## [Unreleased] — Post-PR #25 merge reconciliation (2026-09-21)
 
