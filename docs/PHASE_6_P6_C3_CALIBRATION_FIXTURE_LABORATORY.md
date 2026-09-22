@@ -1,6 +1,6 @@
 # Phase 6 · P6.C3 — Calibration & Fixture Laboratory
 
-Status: **IN PROGRESS — FIXTURE ENGINE + RESEARCH UI IMPLEMENTED / AWAITING COMPLETE CI**
+Status: **IN PROGRESS / TECHNICALLY GREEN — #897 SUCCESS — AWAITING OWNER MANUAL VERIFICATION AFTER EXACT RECORDING-HEAD CI**
 
 Date started: 2026-09-22
 
@@ -229,5 +229,20 @@ diagnostic-only and preserves its recorded pixel RMS. The owner 8K/JGW fixture
 is visible but **GATED** with reason
 `missing-true-companion-8k-raster`.
 
-Complete Release Acceptance Gates must pass before this checkpoint is considered
-technically green. Owner manual verification remains **NOT RUN**.
+Exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a`
+passed the complete Release Acceptance Gates **#897 — SUCCESS**.
+
+Development runs retained as non-closure history:
+
+- **#894**: initial TSX residual-percentage escape caused production-build failure;
+- **#895**: selector ambiguity after adding the second Gleason laboratory plus a
+  locale-formatted numeric assertion caused browser acceptance failure.
+
+Both causes were corrected before #897. On #897 the acceptance-package checker,
+backend, frontend core tests, WGS84/Gleason/P6.6 parity, production build/PWA,
+browser acceptance, Docker runtime, PostGIS import/coverage, Arabic/offline
+search, Redis and frontend-over-Docker all passed.
+
+This documentation/state recording changes the PR head, so the exact recording
+head must pass the complete gates before owner manual verification starts.
+Owner manual verification remains **NOT RUN**.
