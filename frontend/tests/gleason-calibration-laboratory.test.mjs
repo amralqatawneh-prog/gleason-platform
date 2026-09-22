@@ -78,7 +78,8 @@ test('restored raster is diagnostic-only while owner 8K/JGW remains fail-closed'
   const owner8k=fixtures.find(item=>item.fixture_id==='raster-owner-8k-jgw');
   assert.ok(owner8k);
   assert.equal(owner8k.status,'gated');
-  assert.equal(owner8k.gate_reason,'missing-true-companion-8k-raster');
+  assert.equal(owner8k.gate_reason,'exact-pixel-pairing-unverified-proxy-only');
+  assert.equal(owner8k.source_unit,'metre-affine-unit-verified');
   assert.equal(owner8k.profile_prediction,null);
   assert.equal(owner8k.residual_absolute,null);
 });
@@ -121,8 +122,12 @@ test('verified lower-resolution ruler reference exposes named metre-per-mile pro
   assert.ok(Math.abs(fig37.metre_per_unit-nautical6075.metre_per_unit-8.0264)<1e-9);
   assert.equal(nautical6075.conflict_group,'historical-nautical-mile-context');
   assert.equal(fig37.conflict_group,'historical-nautical-mile-context');
-  assert.equal(GLEASON_RULER_UNIT_POLICY.visual_reference_id,'gleason-owner-hires-jpeg-reference-2026-09-22');
-  assert.deepEqual(GLEASON_RULER_UNIT_POLICY.visual_reference_dimensions_px,[1464,2048]);
+  assert.equal(GLEASON_RULER_UNIT_POLICY.visual_reference_id,'gleason-owner-8k-received-proxy-2026-09-22');
+  assert.deepEqual(GLEASON_RULER_UNIT_POLICY.visual_reference_dimensions_px,[1361,2048]);
   assert.equal(GLEASON_RULER_UNIT_POLICY.generic_fig43_mile_si_status,'unresolved');
-  assert.equal(GLEASON_RULER_UNIT_POLICY.owner_jgw_native_unit_status,'unknown');
+  assert.equal(GLEASON_RULER_UNIT_POLICY.owner_jgw_native_unit_status,'metre-owner-authorized-proxy-verified');
+  assert.equal(GLEASON_RULER_UNIT_POLICY.owner_jgw_crs_status,'unknown-not-encoded');
+  assert.ok(Math.abs(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_m-5014.548291487017)<1e-9);
+  assert.ok(Math.abs(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_statute_mile-3.115895850412974)<1e-12);
+  assert.ok(Math.abs(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_nautical_mile-2.7076394662456895)<1e-12);
 });
