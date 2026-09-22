@@ -298,19 +298,19 @@
     "baseline_commit": "3e5afcd9b95766bd18af59df88c9154f51567e8c",
     "baseline_ci_run": 517,
     "baseline_ci_conclusion": "success",
-    "current_slice": "P6.7A",
+    "current_slice": null,
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "closed",
-    "next_slice": "P6.7B",
+    "current_slice_status": "none",
+    "next_slice": "P6.C1",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
       "date": "2026-09-20",
       "checklist_items_passed": 5
     },
-    "previous_slice": "P6.6",
-    "previous_slice_status": "closed",
+    "previous_slice": "P6.7A",
+    "previous_slice_status": "closed-verified-merged",
     "p6_2_start": {
       "date": "2026-09-20",
       "owner_statement": "اكمل",
@@ -708,7 +708,7 @@
       "baseline_evidence": "PR #33 final head a72249b35250e3aeee1c3dbfac9c59dd89a7edfb passed Release Acceptance Gates #803 before merge",
       "branch": "feat/p6.7a-same-route-three-renderings",
       "pr": 34,
-      "pr_status": "draft-open-awaiting-final-closure-ci",
+      "pr_status": "merged",
       "scope": "one canonical P6.2 route, one selected computation identity, and three independent renderings on Gleason/AE/WGS84 with preserve-computation-identity",
       "supported_computation_identities": [
         "wgs84-geodesic",
@@ -721,7 +721,7 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-owner-manual-passed-awaiting-final-closure-ci",
+      "automated_status": "closed-verified-merged",
       "owner_manual_status": "pass-reported-by-owner",
       "automated_head": "02dad46db4f692709ded3f0471097aa3c4683fb7",
       "automated_ci_run": 816,
@@ -744,12 +744,64 @@
         "arabic_mobile": "pass-reported-by-owner",
         "backend_unavailable_browser_local_rendering": "pass-reported-by-owner"
       },
-      "closure_status": "closed-awaiting-final-closure-ci",
-      "final_closure_ci_run": null,
-      "final_closure_ci_conclusion": "pending",
-      "merge_authorization": "pending-separate-owner-instruction"
+      "closure_status": "closed-verified-merged",
+      "final_closure_ci_run": 829,
+      "final_closure_ci_conclusion": "success",
+      "merge_authorization": "explicit-owner-instruction",
+      "final_closure_head": "8b60cac42431947b52950c9e8b9d920ca46ebd5b",
+      "merge_commit": "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52",
+      "post_merge_main_ci_run": null,
+      "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_7a_status": "closed"
+    "p6_7a_status": "closed-verified-merged",
+    "p6_7a_merge": {
+      "date": "2026-09-22",
+      "decision": "merged-by-separate-owner-authorization",
+      "owner_statement": "أدمج PR #34",
+      "pr": 34,
+      "owner_tested_head": "a11f7263cf42880ce0309c49f79ba45c29d78323",
+      "pre_manual_ci_run": 821,
+      "owner_manual": "6/6-pass-reported-by-owner",
+      "final_head": "8b60cac42431947b52950c9e8b9d920ca46ebd5b",
+      "pre_merge_ci_run": 829,
+      "pre_merge_ci_conclusion": "success",
+      "merge_commit": "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52",
+      "post_merge_ci_run": null,
+      "post_merge_ci_conclusion": "not-independently-observed"
+    },
+    "corrective_measurement_architecture_amendment": {
+      "date": "2026-09-22",
+      "owner_statement": "انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.",
+      "decision": "approved-and-started-by-owner",
+      "status": "in_progress-awaiting-ci",
+      "branch": "docs/measurement-ux-celestial-architecture-amendment-2026-09-22",
+      "baseline_commit": "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52",
+      "document": "docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md",
+      "walter_source_registry": "data/sources/walter-bislin-comparative-models.yaml",
+      "scope": [
+        "gleason-measurement-profile-architecture",
+        "si-output-and-calibration-laboratory",
+        "ellipsoidal-elevation-provider",
+        "map-first-comparison-workspace",
+        "observer-dome-and-optics-provider-separation"
+      ],
+      "corrective_sequence": [
+        "P6.C1",
+        "P6.C2",
+        "P6.C3",
+        "P6.C4",
+        "P6.C5"
+      ],
+      "p6_c1_status": "not_started",
+      "p6_7b_status": "paused-not-started-until-corrective-sequence-closes",
+      "functional_implementation": false,
+      "accepted_phase_remains": 5,
+      "accepted_application_version_remains": "0.5.0",
+      "phase6_status": "in_progress",
+      "tag": "not_created",
+      "github_release": "not_created",
+      "deployment": "not_created"
+    }
   },
   "post_pr16_merge_reconciliation": {
     "date": "2026-09-20",
