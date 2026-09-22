@@ -992,8 +992,25 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "contract-foundation-started",
-      "owner_manual_status": "not_run"
+      "automated_status": "fixture-engine-ui-implemented-awaiting-ci",
+      "owner_manual_status": "not_run",
+      "fixture_count": 9,
+      "fixture_set_version": "P6.C3-fixtures-v1",
+      "implemented_artifacts": [
+        "data/sources/gleason-calibration-fixtures.yaml",
+        "frontend/src/measurement/gleasonCalibrationLaboratory.ts",
+        "frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx",
+        "frontend/tests/gleason-calibration-laboratory.test.mjs",
+        "frontend/tests/e2e/acceptance.spec.ts"
+      ],
+      "initial_fixture_families": [
+        "book-fig43-local-longitude",
+        "owner-video-deterministic",
+        "walter-external-comparative",
+        "wgs84-reference-comparison",
+        "restored-raster-diagnostic",
+        "owner-8k-jgw-gated"
+      ]
     }
   },
   "post_pr16_merge_reconciliation": {
