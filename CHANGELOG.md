@@ -9,6 +9,9 @@
 - Added the P6.C3 browser fixture/residual engine, local-scale diagnostics, bilingual research-profile UI, unit tests and Playwright acceptance coverage; complete CI is required before manual verification.
 - Development CI #894 (TSX escape) and #895 (legacy selector ambiguity/localized text assertion) exposed implementation/test issues; both were corrected.
 - Exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a` passed complete Release Acceptance Gates **#897 — SUCCESS**. Owner manual verification remains NOT RUN; exact recording-head CI is required before manual testing.
+- Exact recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**; owner manual P6.C3 then completed **6/6 PASS — REPORTED BY OWNER**.
+- Post-manual owner refinement approves `hi res restored gleason map.jpg` (1464×2048, SHA-256 `9ccbf6…`) as the visual/ruler reference. Verified named profiles: English/statute mile = 1609.344 m; Chapter-XVII 6075-ft nautical/sea/Solar mile = 1851.66 m; Figure-37 ratio-derived nautical/geographical mile = 1859.6864 m. The historical conflict is preserved, generic Figure-43 mile remains unresolved, and JGW georeferencing/native units remain gated/unknown.
+- Added `docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md`; targeted owner retest of the affected ruler/JGW presentation is required after complete CI.
 - P6.C4/P6.C5 remain NOT STARTED; P6.7B remains PAUSED / NOT STARTED. No tag, GitHub Release or deployment.
 
 # Changelog
