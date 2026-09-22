@@ -1105,22 +1105,26 @@ test('P6.C3 calibration laboratory exposes source-backed fixtures, residuals and
 
   const owner8k=lab.locator('[data-p6c3-fixture-id="raster-owner-8k-jgw"]');
   await expect(owner8k).toHaveAttribute('data-p6c3-fixture-status','gated');
-  await expect(owner8k.locator('[data-p6c3-gate-reason="missing-true-companion-8k-raster"]')).toBeVisible();
+  await expect(owner8k.locator('[data-p6c3-gate-reason="exact-pixel-pairing-unverified-proxy-only"]')).toBeVisible();
+  await expect(owner8k).toContainText('metre-affine-unit-verified');
 
   const rulerUnits=lab.locator('[data-p6c3-tool="verified-ruler-units"]');
   await expect(rulerUnits).toBeVisible();
-  await expect(rulerUnits).toHaveAttribute('data-p6c3-visual-reference','gleason-owner-hires-jpeg-reference-2026-09-22');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-visual-reference','gleason-owner-8k-received-proxy-2026-09-22');
   await expect(rulerUnits).toHaveAttribute('data-p6c3-fig43-mile-si-status','unresolved');
-  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-unit-status','unknown');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-unit-status','metre-owner-authorized-proxy-verified');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-crs-status','unknown-not-encoded');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-pixel-step-m','5014.548291487017');
+  await expect(rulerUnits.locator('[data-p6c3-jgw-affine-unit="metre-owner-authorized-proxy-verified"]')).toContainText('JGW affine unit verified: metre');
   await expect(rulerUnits.locator('[data-p6c3-ruler-unit-count="3"]')).toBeVisible();
   await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="english-land-statute-mile-5280ft"]')).toHaveAttribute('data-p6c3-metre-per-unit','1609.344000');
   await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="nautical-sea-solar-mile-6075ft"]')).toHaveAttribute('data-p6c3-metre-per-unit','1851.660000');
   await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="fig37-nautical-geographical-mile-by-208-to-180-ratio"]')).toHaveAttribute('data-p6c3-metre-per-unit','1859.686400');
   await expect(rulerUnits.locator('[data-p6c3-ruler-conflict="preserve-both"]')).toContainText('keeps both values separate');
 
-  const jgwNotice=lab.locator('[data-p6c3-8k-raster-gate="missing-true-companion-raster"]');
-  await expect(jgwNotice).toContainText('visual reference for the printed ruler');
-  await expect(jgwNotice).toContainText('JGW unit and CRS');
+  const jgwNotice=lab.locator('[data-p6c3-8k-raster-gate="exact-pixel-pairing-unverified-proxy-only"]');
+  await expect(jgwNotice).toContainText('metre verified');
+  await expect(jgwNotice).toContainText('no CRS is named');
 
   await lab.getByLabel('Research profile').selectOption('walter-flat-plane-eq-10008');
   await expect(lab).toHaveAttribute('data-p6c3-profile','walter-flat-plane-eq-10008');
