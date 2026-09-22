@@ -124,7 +124,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
             <small dir="ltr">{format(profile.distance_m, locale, 2)} m · {format(profile.distance_nmi, locale, 3)} NM</small>
           </div>
           <p className="muted">{profile.conversion_basis}</p>
-          <div className="gleason-route-distance-provenance">
+          <div className="gleason-si-profile-provenance">
             <strong>{locale === 'ar' ? 'الهوية والدليل' : 'Identity & evidence'}</strong>
             <span>{profile.evidence_level} · {profile.native_distance_unit}</span>
             <span dir="ltr">{format(profile.native_distance_value, locale, 6)} {profile.native_distance_unit}</span>
