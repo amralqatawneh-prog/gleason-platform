@@ -53,3 +53,33 @@ findings:
     source_class: EXTERNAL_COMPARATIVE_MODEL
     relation: "E=10008 km; normalized project relation gives 1 NRU=20016 km"
     rule: "Never relabel as a Gleason historical source result."
+
+p6c3_lower_resolution_ruler_verification:
+  date: "2026-09-22"
+  owner_decision: use_lower_resolution_visual_reference_and_adopt_verified_metre_mile_profiles
+  visual_reference:
+    registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+    file_name: "hi res restored gleason map.jpg"
+    dimensions_px: [1464, 2048]
+    sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
+    role: owner_approved_visual_ruler_calibration_reference
+    is_jgw_companion_raster: false
+  book_cross_check:
+    english_land_statute_mile_feet: 5280
+    nautical_sea_solar_mile_feet: 6075
+    fig37_relation: "208 English miles = 180 nautical/sea/geographical miles"
+  conversion_convention:
+    foot_to_metre: 0.3048
+    convention: international-foot-project-convention
+  verified_profiles:
+    english_land_statute_mile_m: 1609.344
+    nautical_sea_solar_6075ft_m: 1851.66
+    fig37_ratio_nautical_geographical_mile_m: 1859.6864
+  preserved_conflict:
+    absolute_difference_m: 8.0264
+    policy: preserve_both_named_profiles
+  unresolved:
+    generic_fig43_mile_si_identity: true
+    jgw_native_unit: true
+    jgw_crs: true
+  report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
