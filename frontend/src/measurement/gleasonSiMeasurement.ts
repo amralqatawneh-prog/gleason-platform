@@ -111,6 +111,10 @@ const chapter17 = scenario('chapter17-nautical-6075ft-context-assumption');
 const figure37 = scenario('fig37-208english-180nautical-context-assumption');
 const chapter19 = scenario('chapter19-navigator-6070ft-context');
 
+export const CHAPTER17_6075FT_METRES_PER_MILE = chapter17.source_value * INTERNATIONAL_FOOT_METRES;
+export const FIG37_RATIO_METRES_PER_MILE = figure37.source_value * ENGLISH_STATUTE_MILE_METRES;
+export const CHAPTER19_6070FT_METRES_PER_MILE = chapter19.source_value * INTERNATIONAL_FOOT_METRES;
+
 const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
   Object.freeze({
     profile_id: 'walter-flat-plane-eq-10008',
@@ -142,7 +146,7 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     native_unit: 'historical-fig43-mile',
     nativeTotal: base => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: segment => segment.distance_historical_fig43_mile_derived,
-    metresPerNativeUnit: chapter17.source_value * INTERNATIONAL_FOOT_METRES,
+    metresPerNativeUnit: CHAPTER17_6075FT_METRES_PER_MILE,
     conversion_basis: 'Explicit assumption: interpret each diagnostic Figure 43 mile as the Chapter XVII nautical/sea/Solar mile stated as 6075 feet; 1 international foot=0.3048 m.',
     provenance: Object.freeze([
       'gleason-1893-upload-v1:Fig.43',
@@ -163,7 +167,7 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     native_unit: 'historical-fig43-mile',
     nativeTotal: base => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: segment => segment.distance_historical_fig43_mile_derived,
-    metresPerNativeUnit: figure37.source_value * ENGLISH_STATUTE_MILE_METRES,
+    metresPerNativeUnit: FIG37_RATIO_METRES_PER_MILE,
     conversion_basis: 'Explicit assumption: interpret each diagnostic Figure 43 mile as the nautical/geographical side of Fig.37 ratio 180 nautical/geographical = 208 English miles; English mile=5280 international feet.',
     provenance: Object.freeze([
       'gleason-1893-upload-v1:Figs.37-38',
@@ -184,7 +188,7 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     native_unit: 'historical-fig43-mile',
     nativeTotal: base => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: segment => segment.distance_historical_fig43_mile_derived,
-    metresPerNativeUnit: chapter19.source_value * INTERNATIONAL_FOOT_METRES,
+    metresPerNativeUnit: CHAPTER19_6070FT_METRES_PER_MILE,
     conversion_basis: 'Explicit assumption: interpret each diagnostic Figure 43 mile using the reproduced Chapter XIX navigator statement of 6070 feet per nautical mile; 1 international foot=0.3048 m.',
     provenance: Object.freeze([
       'gleason-1893-upload-v1:Chapter XIX navigator correspondence',
