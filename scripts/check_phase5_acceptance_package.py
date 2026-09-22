@@ -55,10 +55,43 @@ require(
 )
 require(phase6_start.get("previous_slice") == "P6.6", "previous Phase 6 slice must be P6.6")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.6 must remain closed")
-require(phase6_start.get("current_slice") is None, "no Phase 6 functional slice may be active during post-PR31 reconciliation")
-require(phase6_start.get("current_slice_status") == "none", "current functional slice status must be none")
-require(phase6_start.get("next_slice") == "P6.7A", "next Phase 6 slice must be P6.7A")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.7A must remain not_started")
+require(phase6_start.get("current_slice") == "P6.7A", "current Phase 6 slice must be P6.7A")
+require(phase6_start.get("current_slice_status") == "in_progress", "P6.7A current slice status must be in_progress")
+require(phase6_start.get("next_slice") == "P6.7B", "next Phase 6 slice must be P6.7B")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.7B must remain not_started")
+p6_7a_start = phase6_start.get("p6_7a_start", {})
+require(p6_7a_start.get("decision") == "started-by-owner", "P6.7A owner start evidence missing")
+require(p6_7a_start.get("owner_statement") == "ابدأ P6.7A", "P6.7A owner statement drifted")
+require(
+    p6_7a_start.get("baseline_commit") == "1825852da81c04cee8e5b9f73dba28b55068c000",
+    "P6.7A baseline commit drifted",
+)
+require(
+    p6_7a_start.get("branch") == "feat/p6.7a-same-route-three-renderings",
+    "P6.7A branch evidence drifted",
+)
+require(p6_7a_start.get("pr") == 34, "P6.7A must reference PR #34")
+require(p6_7a_start.get("pr_status") == "draft-open", "P6.7A PR #34 must remain draft/open before closure")
+require(
+    p6_7a_start.get("supported_computation_identities")
+    == ["wgs84-geodesic", "ae-projected-plane", "gleason-native-normalized"],
+    "P6.7A computation identity set drifted",
+)
+require(
+    p6_7a_start.get("route_provider_status") == "not_started-reserved-for-p6.7b",
+    "P6.7A must not start RouteProvider / turn-by-turn",
+)
+require(p6_7a_start.get("accepted_phase_remains") == 5, "P6.7A must not accept Phase 6")
+require(
+    p6_7a_start.get("accepted_application_version_remains") == "0.5.0",
+    "P6.7A must not change the accepted application version",
+)
+require(p6_7a_start.get("tag") == "not_created", "P6.7A must not create a tag")
+require(p6_7a_start.get("github_release") == "not_created", "P6.7A must not create a GitHub Release")
+require(p6_7a_start.get("deployment") == "not_created", "P6.7A must not deploy")
+require(p6_7a_start.get("automated_status") == "in_progress", "P6.7A automated status must be in_progress")
+require(p6_7a_start.get("owner_manual_status") == "not_run", "P6.7A owner manual verification must not be fabricated")
+
 p6_5_start = phase6_start.get("p6_5_start", {})
 require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
 require(
@@ -327,9 +360,25 @@ require(
 )
 require(
     merge_boundary.get("current_integration_baseline")
-    == "6a2666112e56514051ea62fbe1c25f5a8016f1ae",
-    "current integration baseline must be the PR #31 merge commit",
+    == "1825852da81c04cee8e5b9f73dba28b55068c000",
+    "current integration baseline must be the PR #33 merge commit / P6.7A start baseline",
 )
+require(merge_boundary.get("pr33") == "merged", "PR #33 must be recorded as merged")
+require(
+    merge_boundary.get("pr33_merge_commit") == "1825852da81c04cee8e5b9f73dba28b55068c000",
+    "PR #33 merge commit drifted",
+)
+require(
+    merge_boundary.get("pr33_final_head") == "a72249b35250e3aeee1c3dbfac9c59dd89a7edfb",
+    "PR #33 final head drifted",
+)
+require(merge_boundary.get("pr33_pre_merge_ci_run") == 803, "PR #33 pre-merge CI must be #803")
+require(
+    merge_boundary.get("pr33_pre_merge_ci_conclusion") == "success",
+    "PR #33 pre-merge CI #803 must remain success",
+)
+require(merge_boundary.get("pr33_post_merge_main_ci_run") is None, "do not invent PR #33 post-merge CI")
+
 require(merge_boundary.get("pr19") == "merged", "PR #19 must be recorded as merged")
 require(
     merge_boundary.get("pr19_merge_commit") == "4aac199646f3a899b45e241bf8995e8ba7c8f2a0",
@@ -1168,13 +1217,13 @@ require(p6_6_merge.get("merge_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f
 require(p6_6_merge.get("post_merge_ci_run") is None, "P6.6 merge record must not invent post-merge CI")
 
 post_pr31 = data.get("post_pr31_merge_reconciliation", {})
-require(post_pr31.get("status") == "closed-verified-awaiting-separate-merge-authorization", "post-PR31 reconciliation must be closed/verified before merge authorization")
+require(post_pr31.get("status") == "closed-verified-merged", "post-PR31 reconciliation must be closed/verified/merged")
 require(post_pr31.get("branch") == "docs/post-pr31-merge-reconciliation", "post-PR31 reconciliation branch drifted")
 require(post_pr31.get("baseline_commit") == "6a2666112e56514051ea62fbe1c25f5a8016f1ae", "post-PR31 reconciliation baseline drifted")
 require(post_pr31.get("pr31_status") == "merged", "post-PR31 reconciliation must record PR #31 merged")
 require(post_pr31.get("pr31_pre_merge_ci_run") == 784, "post-PR31 baseline must preserve #784")
 require(post_pr31.get("p6_6_status") == "closed-verified-merged", "P6.6 state drifted during reconciliation")
-require(post_pr31.get("p6_7a_status") == "not_started", "P6.7A must remain not_started during reconciliation")
+require(post_pr31.get("p6_7a_status") == "started-after-reconciliation-merge", "P6.7A start-after-reconciliation evidence missing")
 require(post_pr31.get("accepted_phase") == 5, "accepted phase must remain 5 during post-PR31 reconciliation")
 require(post_pr31.get("accepted_application_version") == "0.5.0", "accepted version must remain 0.5.0")
 require(post_pr31.get("phase6_status") == "in_progress", "Phase 6 must remain in progress")
@@ -1185,8 +1234,13 @@ require(post_pr31.get("verification_head") == "d2bae09cb9ee8e35954bdd4036d2e7b71
 require(post_pr31.get("verification_ci_run") == 790, "post-PR31 reconciliation verification CI must be #790")
 require(post_pr31.get("verification_ci_conclusion") == "success", "post-PR31 reconciliation CI #790 must remain success")
 require(post_pr31.get("pr") == 33, "post-PR31 reconciliation must reference PR #33")
-require(post_pr31.get("merge_status") == "open-draft-unmerged", "PR #33 must remain open/unmerged before separate authorization")
-require(post_pr31.get("merge_authorization") == "pending-separate-owner-instruction", "PR #33 merge must await owner authorization")
+require(post_pr31.get("merge_status") == "merged", "PR #33 must be recorded as merged")
+require(post_pr31.get("merge_authorization") == "explicit-owner-instruction", "PR #33 merge authorization evidence missing")
+require(post_pr31.get("final_head") == "a72249b35250e3aeee1c3dbfac9c59dd89a7edfb", "PR #33 final head drifted")
+require(post_pr31.get("final_pre_merge_ci_run") == 803, "PR #33 pre-merge CI must be #803")
+require(post_pr31.get("final_pre_merge_ci_conclusion") == "success", "PR #33 pre-merge CI #803 must remain success")
+require(post_pr31.get("merge_commit") == "1825852da81c04cee8e5b9f73dba28b55068c000", "PR #33 merge commit drifted")
+require(post_pr31.get("post_merge_main_ci_run") is None, "do not invent an unseen PR #33 post-merge CI run")
 
 
 p6_6_audit = phase6_start.get("p6_6_measurement_audit", {})
@@ -1732,9 +1786,9 @@ print(
             "phase6_status": "in_progress",
             "phase6_previous_slice": "P6.6",
             "phase6_previous_slice_status": "closed",
-            "phase6_current_slice": None,
-            "phase6_current_slice_status": "none",
-            "phase6_next_slice": "P6.7A",
+            "phase6_current_slice": "P6.7A",
+            "phase6_current_slice_status": "in_progress",
+            "phase6_next_slice": "P6.7B",
             "phase6_next_slice_status": "not_started",
         },
         ensure_ascii=False,
