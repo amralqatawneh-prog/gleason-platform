@@ -1,0 +1,79 @@
+id: gleason-owner-8k-map-2026-09-22
+source_type: owner_supplied_high_resolution_gleason_map_bundle
+authority: visual_and_georeferencing_research_input
+validation_truth: false
+status: incomplete_bundle_waiting_for_companion_raster
+owner_statement:
+  supplied_as: "higher-resolution Gleason map, approximately 8K"
+  intended_uses:
+    - city_labels
+    - country_labels
+    - ocean_labels
+    - sea_labels
+    - longitude_graticule
+    - latitude_graticule
+    - bottom_measurement_ruler
+    - outer_boundary_circle
+    - longitude_time_zone_frame
+preservation:
+  preserve_original_raster_bytes: true
+  preserve_original_resolution: true
+  no_resampling_of_archival_source: true
+  derivatives_must_be_separate: true
+world_file:
+  file_name: "8k-Flat-Earth-map.jgw"
+  repository_path: "data/sources/artifacts/8k-Flat-Earth-map.jgw"
+  bytes: 112
+  sha256: "0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43"
+  format: JGW
+  line_order: [A, D, B, E, C, F]
+  A_pixel_size_x: 5014.54829148701719532
+  D_rotation_y: 0
+  B_rotation_x: 0
+  E_pixel_size_y: -5014.54829148701719532
+  C_upper_left_pixel_center_x: -19423852.80707496032118797
+  F_upper_left_pixel_center_y: 19448678.93866851553320885
+  square_pixels: true
+  north_up: true
+  rotation: zero
+  crs: unknown_not_encoded_in_world_file
+  units: unknown_until_crs_or_companion_metadata_is_verified
+related_non_8k_visual_reference:
+  registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+  dimensions_px: [1464, 2048]
+  sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
+  rule: "This JPEG is not the JGW companion raster and must not be used for JGW calibration."
+
+companion_raster:
+  received: false
+  expected_role: "original high-resolution image whose basename corresponds to this world file"
+  dimensions_px: unknown
+  sha256: unknown
+  note: "The JGW contains affine georeferencing only; it does not contain the 8K image pixels, printed labels, ruler graphics, or boundary artwork."
+relationship_to_existing_source:
+  existing_registry: "data/sources/gleason-restored-map.yaml"
+  role: higher_resolution_successor_candidate
+  preferred_visual_status: pending_companion_raster_and_audit
+book_audit:
+  primary_source_registry: "data/sources/gleason-book.yaml"
+  required_cross_checks:
+    - "PDF pp. 376-377 / printed pp. 349-350, Figs. 37-38: circular map, 24-hour dial, longitude/time relation"
+    - "PDF p. 429 / printed p. 402, Fig. 43: longitude-line geometry and historical longitude scale"
+    - "PDF pp. 343-344 / printed pp. 317-318: mile/time conversion context already registered by the project"
+  rules:
+    - "Do not treat JGW numeric units as metres, miles, or any named CRS until independently verified."
+    - "Do not use label positions as authoritative modern coordinates without a documented control-point/residual audit."
+    - "Do not treat the bottom ruler as a universal arbitrary-segment scale until its printed legend and book relation are inspected on the companion raster."
+    - "Do not infer time zones from the outer frame until the printed dial, longitude rays, and book 15-degrees-per-hour relation are cross-checked."
+    - "Keep raster pixel geometry, historical map geometry, and computation geometry as separate identities."
+planned_audit_outputs:
+  - image_dimensions_and_hash
+  - no-resample_archival_copy
+  - outer_circle_center_radius_fit
+  - graticule_line_sampling
+  - printed_longitude_latitude_label_inventory
+  - city_country_ocean_sea_label_inventory
+  - bottom_ruler_transcription_and_scale_test
+  - outer_time_dial_transcription_and_15deg_per_hour_test
+  - comparison_against_gleason_book_figures_37_38_43
+  - residual_report_against_existing_restored_raster

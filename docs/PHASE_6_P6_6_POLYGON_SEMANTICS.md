@@ -1,9 +1,9 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Semantics
 
-Status: **IN PROGRESS**
+Status: **CLOSED / VERIFIED / MERGED through PR #31**
 
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
-Working branch: `feat/p6.6-polygon-perimeter-area`  
+Implementation branch: `feat/p6.6-polygon-perimeter-area` — merged through PR #31 at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`  
 Owner instruction: **«ادمج PR #30 وابدأ P6.6»**
 
 ## 1. Canonical polygon identity

@@ -44,3 +44,11 @@ policy:
   - "Historical label location is not a replacement for modern source coordinates."
   - "Bottom scales are conversion rulers; do not treat them as a universal arbitrary-segment scale bar."
   - "Raster pixel geometry and computation geometry remain separate identities."
+
+higher_resolution_successor_candidate:
+  registry: "data/sources/gleason-owner-8k-map.yaml"
+  world_file: "data/sources/artifacts/8k-Flat-Earth-map.jgw"
+  status: incomplete_bundle_waiting_for_companion_raster
+  owner_priority: "Prefer the new 8K source for future visual-label/ruler/frame research once its companion raster is registered and audited."
+  preservation_rule: "Keep the original 8K raster unchanged; any runtime pyramid/tile/resample must be a separate derivative."
+  promotion_rule: "Do not replace this current restored-map reference until the 8K raster bytes, dimensions, hash, frame/ruler transcription and book cross-check are recorded."

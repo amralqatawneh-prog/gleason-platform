@@ -1,6 +1,6 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-21_
+_Last updated: 2026-09-22_
 
 ## Purpose
 
@@ -10,6 +10,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration base: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e` (PR #30 merge).
+- Current integration baseline: `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae` — PR **#31** merged after exact final head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS**.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -33,14 +34,15 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR **#23**: **MERGED** with explicit owner authorization at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` on 2026-09-20T22:39:36Z. No independently verified post-merge push-run number is recorded.
 - Post-PR23 reconciliation branch: `docs/post-pr23-merge-reconciliation`; **CLOSED + MERGED** through PR #24. Exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merged at `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`.
 - Owner-approved roadmap amendment: `docs/ROADMAP_ARCHITECTURE_AMENDMENT_2026-09-21.md`.
-- Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED + MERGED** through PR #27. Exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge; merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`. P6.6 remains NOT STARTED.
+- Owner-approved astronomy roadmap addendum: `docs/ROADMAP_ASTRONOMY_ARCHITECTURE_AMENDMENT_2026-09-21.md` — **CLOSED / VERIFIED + MERGED** through PR #27. Exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge; merge commit `5442852ef4bc2e760db39743d0bc7b3bc57d0b11`. At that historical amendment point P6.6 had not started; current P6.6 state is CLOSED / VERIFIED / MERGED.
 - Comparative astronomy planning source registry: `data/sources/astronomy-comparative-sources.yaml`.
 - Historical post-PR27 reconciliation: `docs/POST_PR27_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR27 reconciliation: **CLOSED + MERGED** through PR #28. Initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS**; merge commit `a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge run is claimed without independent observation.
 - Historical post-PR28 reconciliation: `docs/POST_PR28_MERGE_RECONCILIATION_2026-09-21.md`.
 - Post-PR28 reconciliation: **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; merge commit `8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge run is claimed without independent observation.
 - Historical post-PR29 reconciliation: `docs/POST_PR29_MERGE_RECONCILIATION_2026-09-21.md`; **CLOSED + MERGED** through PR #30. Initial head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed **#758 — SUCCESS**; exact final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS**; merge commit `1c64285b92c093365b74f3256aa9557b9a48268e`. No post-merge CI result is claimed without independent observation.
-- P6.6 **IN PROGRESS** on `feat/p6.6-polygon-perimeter-area` from that baseline by owner instruction **«ادمج PR #30 وابدأ P6.6»**.
+- P6.6 is **CLOSED / VERIFIED / MERGED**. Corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 before owner manual **6/6 PASS**; final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
+- Post-PR31 reconciliation is on PR #33 / `docs/post-pr31-merge-reconciliation`; verification head `d2bae09cb9ee8e35954bdd4036d2e7b710b8969d` passed Release Acceptance Gates **#790 — SUCCESS**. Closure-state CI is still required because the reconciliation files now record #790. P6.7A remains NOT STARTED.
 - Historical post-PR25 reconciliation: `docs/POST_PR25_MERGE_RECONCILIATION_2026-09-21.md`.
 - Historical post-PR23 reconciliation: `docs/POST_PR23_MERGE_RECONCILIATION_2026-09-21.md`.
 - PR **#25**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
@@ -53,7 +55,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - PR #25 merge commit / current integration baseline: `bdff76e765c78108e96fd0e644df850be22f8eed`.
 - Post-merge push-run: **not independently observed through the available workflow view**; no run number/conclusion is fabricated.
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
-- P6.6 is **CLOSED** after Release Acceptance Gates **#769 — SUCCESS** on owner-tested head `4cb8c04b40fbea35745f4091a4bf5e849c34b299` and **6/6 manual checks PASS — REPORTED BY OWNER**. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. PR #31 remains open/unmerged; P6.7A remains **NOT STARTED**.
+- P6.6 is **CLOSED / VERIFIED / MERGED**. The corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 with owner manual 6/6 PASS; exact closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. Closure report: `docs/PHASE_6_P6_6_REPORT.md`. P6.7A remains **NOT STARTED**.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -69,7 +71,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Gleason/AE route-guide segments remain exact straight projected chords; flat models support mouse/touch pan; WGS84 guide remains a display-only Great Circle reference; numeric distance remains `wgs84-geodesic`; P6.7 remains NOT STARTED.
-- PR #16, PR #19, PR #20, PR #24, PR #25 and PR #30 are **MERGED**. P6.2–P6.6 are CLOSED. PR #31 is open/unmerged. No tag, GitHub Release or deployment has been created. P6.7A remains **NOT STARTED**.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30 and PR #31 are **MERGED**. P6.2–P6.6 are CLOSED. No tag, GitHub Release or deployment has been created. P6.7A remains **NOT STARTED**.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
@@ -193,6 +195,16 @@ Primary source reviewed:
 - Copyright 1890; rewritten/revised/enlarged 1893.
 - SHA-256:
   `03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60`
+
+Owner-supplied higher-resolution Gleason source:
+- registry: `data/sources/gleason-owner-8k-map.yaml`;
+- preserved world file: `data/sources/artifacts/8k-Flat-Earth-map.jgw`;
+- JGW SHA-256:
+  `0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43`;
+- current bundle status: **incomplete — companion 8K raster not yet received**;
+- intended audit: labels for cities/countries/oceans/seas, longitude/latitude graticule, bottom ruler, outer boundary/time dial, and comparison with Gleason Figs. 37–38 and 43;
+- preservation rule: retain the original 8K raster unchanged when supplied; any tiles/resamples are derivatives only;
+- promotion rule: do not replace the existing restored-raster reference until the companion image bytes/dimensions/hash and the ruler/frame/book audit are recorded.
 
 Important verified source notes:
 - Ch. XIII–XIX cover geodetic arguments, sun motion, distance, longitude, time, navigation, eclipses, rivers.
@@ -1130,7 +1142,5 @@ P6.7A remains NOT STARTED.
 
 The owner completed the corrected Gleason contract checklist **6/6 PASS —
 REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
-which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is closed subject
-to final closure-state CI. PR #31 stays unmerged pending separate owner merge
-authorization. P6.7A remains NOT STARTED. No reconciliation PR follows this
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. P6.7A remains NOT STARTED. A documentation/state reconciliation was explicitly requested by the owner on 2026-09-22 before any next implementation slice
 closure.

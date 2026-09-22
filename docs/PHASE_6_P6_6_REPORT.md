@@ -1,7 +1,7 @@
 # Phase 6 — P6.6 Polygon / Perimeter / Area Closure Report
 
 Date: 2026-09-21  
-Status: **CLOSED — CORRECTED CONTRACT OWNER MANUAL 6/6 PASS — AWAITING FINAL CLOSURE CI**  
+Status: **CLOSED / VERIFIED / MERGED — corrected contract owner manual 6/6 PASS; final closure #784 SUCCESS; PR #31 merged**  
 PR: **#31 — P6.6 Polygon / Perimeter / Area**  
 Branch: `feat/p6.6-polygon-perimeter-area`  
 Start baseline: `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`  
@@ -119,11 +119,9 @@ P6.6 is closed as a Phase 6 slice. This does **not**:
 - introduce RouteProvider navigation;
 - introduce runtime astronomy/Saros/eclipse features.
 
-PR #31 remains unmerged until separate explicit owner merge authorization.
+Historical closure boundary: PR #31 remained unmerged at that point until separate explicit owner merge authorization. That authorization was later given and the PR was merged.
 
-The closure-state head must pass the complete Release Acceptance Gates before
-PR #31 can be considered a verified merge candidate. That final workflow
-evidence is recorded on the PR without creating a separate reconciliation PR.
+The closure-state head later passed the complete Release Acceptance Gates as #784 and became the verified merge candidate. PR #31 was subsequently merged. The owner later explicitly requested a documentation/state reconciliation before starting the next functional slice.
 
 
 ## Post-closure source audit amendment — 2026-09-21
@@ -163,8 +161,7 @@ testing. The amended contract:
   georeferencing;
 - registers all five uploaded videos with evidence roles.
 
-The slice remains REOPENED / IN PROGRESS until fresh complete CI and targeted
-owner manual verification pass.
+This paragraph records the reopened period historically. Fresh CI and targeted owner verification later passed on the corrected contract.
 
 
 ## Corrected-contract owner verification and closure — 2026-09-21
@@ -198,9 +195,24 @@ The six targeted checks verified:
 6. regression check confirms search, ordered-route editing/direct-map add,
    WGS84, AE, Gleason, zoom/pan and stale-result clearing remain intact.
 
-This closes the corrected P6.6 contract subject to one final Release Acceptance
-Gates run on the documentation/state closure head.
+This closed the corrected P6.6 contract subject to one final Release Acceptance
+Gates run on the closure-state head.
 
-PR #31 remains open/draft/unmerged until that final CI passes and a separate
-owner merge authorization is given. P6.7A remains NOT STARTED. No tag, GitHub
-Release or deployment is authorized. No post-PR31 reconciliation PR is planned.
+## Final closure verification and merge — 2026-09-21
+
+- exact final closure head: `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`;
+- Release Acceptance Gates: **#784 — SUCCESS**;
+- owner-tested corrected-contract baseline: `e96712975fc9f54f2615e235bb6976136efe8a2d`;
+- pre-manual Release Acceptance Gates: **#783 — SUCCESS**;
+- owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
+- separate owner merge authorization: given;
+- PR #31: **MERGED / CLOSED**;
+- merge commit / current integration baseline:
+  `6a2666112e56514051ea62fbe1c25f5a8016f1ae`;
+- no independent post-merge push CI is claimed;
+- P6.7A remains **NOT STARTED**;
+- accepted phase remains **5** and accepted application version remains **v0.5.0**;
+- no tag, GitHub Release or deployment is authorized.
+
+On 2026-09-22 the owner explicitly requested a full GitHub documentation/state
+reconciliation before starting the next functional slice.

@@ -1,7 +1,7 @@
 # Gleason Measurement — Book, Five-Video, Walter and Restored-Raster Audit
 
 Date: 2026-09-21  
-Status: **OWNER-APPROVED IMPLEMENTATION INPUT — IMPLEMENTED, AWAITING NEW CI + OWNER MANUAL VERIFICATION**
+Status: **IMPLEMENTED / VERIFIED / MERGED WITH P6.6 — corrected contract #783 + owner 6/6 + final closure #784**
 
 ## Source hierarchy
 
@@ -109,6 +109,4 @@ projected onto this raster and compared with historical labels.
 
 ## Current P6.6 state
 
-The previous P6.6 closure remains superseded. The amended implementation is on
-PR #31 and requires a fresh complete CI run plus targeted owner manual
-verification before closure.
+The previous P6.6 closure remains superseded by this amended contract. The amended implementation passed Release Acceptance Gates #783 on the owner-tested head, owner manual verification 6/6, and final closure Release Acceptance Gates #784. PR #31 was then merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`.

@@ -1,7 +1,7 @@
 # Gleason Scale Profiles and Restored-Raster Calibration
 
 Date: 2026-09-21  
-Status: **IMPLEMENTED ON PR #31 — AWAITING CI / OWNER MANUAL VERIFICATION**
+Status: **IMPLEMENTED / VERIFIED / MERGED WITH PR #31 — #783 + owner 6/6 + final closure #784**
 
 ## Scale profiles
 
@@ -56,3 +56,71 @@ The measurement laboratory now separates:
 6. provisional raster ruler in pixels.
 
 No one of these is silently substituted for another.
+
+## Owner-supplied 8K successor bundle — 2026-09-22
+
+A higher-resolution Gleason-map source was supplied by the owner for future
+label, graticule, ruler and outer-frame research. The material currently
+received in the repository is the companion world file only:
+
+- `data/sources/artifacts/8k-Flat-Earth-map.jgw`
+- source registry: `data/sources/gleason-owner-8k-map.yaml`
+- SHA-256:
+  `0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43`
+
+The six JGW coefficients are:
+
+```text
+A =  5014.54829148701719532
+D =  0
+B =  0
+E = -5014.54829148701719532
+C = -19423852.80707496032118797
+F =  19448678.93866851553320885
+```
+
+Therefore the file records square pixels, zero rotation and a north-up affine
+grid. For zero-based pixel indices `(column,row)`, the world-file transform is:
+
+`X = C + A*column + B*row`
+
+`Y = F + D*column + E*row`
+
+A JGW does **not** encode the CRS, named units, raster width/height, city/country
+labels, longitude/latitude artwork, bottom ruler, or outer time dial. Those
+items cannot be audited until the companion 8K image bytes are received.
+
+When the companion raster is supplied, preserve it at original resolution and
+hash it before any derivative processing. The audit must then compare:
+
+1. city/country/ocean/sea labels;
+2. longitude rays and latitude rings;
+3. bottom printed ruler and its legends;
+4. outer boundary/time dial;
+5. circle centre/radius and graticule geometry;
+6. the applicable passages/figures already registered from Gleason:
+   Figs. 37–38 and Fig. 43.
+
+No JGW coordinate unit is to be silently interpreted as metres, historical
+miles or a named EPSG CRS until independent metadata or geometric evidence
+supports that interpretation.
+
+## Non-8K owner JPEG visual reference — 2026-09-22
+
+A separate owner-supplied JPEG was inspected and registered as a visual
+reference only:
+
+- dimensions: **1464 × 2048 px**;
+- format/mode: **JPEG / RGB**;
+- file size: **1,119,790 bytes**;
+- SHA-256:
+  `9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03`;
+- registry:
+  `data/sources/gleason-owner-hires-jpeg-reference.yaml`.
+
+This JPEG is **not 8K** and is **not** the companion raster for
+`8k-Flat-Earth-map.jgw`. It may be used for visual transcription of labels,
+graticule, bottom ruler and outer longitude/time dial where legible, but it must
+not be paired with the JGW or promoted over the existing 4653×6506 restored
+raster. The true 8K raster is still awaited.
+

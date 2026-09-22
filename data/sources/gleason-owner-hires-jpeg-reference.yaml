@@ -1,0 +1,31 @@
+id: gleason-owner-hires-jpeg-reference-2026-09-22
+source_type: owner_supplied_visual_reference
+authority: visual_reference
+validation_truth: false
+status: registered_reference_not_8k
+file_name: "hi res restored gleason map.jpg"
+image:
+  width_px: 1464
+  height_px: 2048
+  mode: RGB
+  format: JPEG
+  bytes: 1119790
+  sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
+classification:
+  is_8k: false
+  is_companion_raster_for_owner_jgw: false
+  role:
+    - visual_transcription_reference
+    - longitude_latitude_graticule_review
+    - bottom_ruler_review
+    - outer_longitude_time_dial_review
+    - city_country_ocean_sea_label_review
+relationship:
+  owner_8k_bundle_registry: "data/sources/gleason-owner-8k-map.yaml"
+  existing_restored_raster_registry: "data/sources/gleason-restored-map.yaml"
+  note: "Do not pair this 1464x2048 JPEG with the 8K JGW. It is a separate visual reference."
+resolution_policy:
+  - "Do not upscale and then call the result 8K."
+  - "Do not replace the existing 4653x6506 restored-raster reference with this lower-resolution JPEG."
+  - "Use this JPEG for visual reading only where its content is legible."
+  - "Await the true 8K companion raster before JGW-based calibration, full label inventory, or promotion."
