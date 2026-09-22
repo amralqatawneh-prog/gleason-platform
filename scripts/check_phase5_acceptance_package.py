@@ -56,7 +56,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.7A", "previous Phase 6 slice must be P6.7A")
 require(phase6_start.get("previous_slice_status") == "closed-verified-merged", "P6.7A must be closed/verified/merged")
 require(phase6_start.get("current_slice") == "P6.C3", "current Phase 6 slice must be P6.C3")
-require(phase6_start.get("current_slice_status") == "technically-green-awaiting-owner-manual", "P6.C3 current slice must be technically green awaiting owner manual")
+require(phase6_start.get("current_slice_status") == "owner-verified-refinement-in-progress", "P6.C3 current slice must record owner verification plus active refinement")
 require(phase6_start.get("next_slice") == "P6.C4", "next Phase 6 slice must be P6.C4")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.C4 must remain not_started")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
@@ -315,18 +315,18 @@ require(p6_c2.get("post_merge_main_ci_conclusion") == "not-independently-observe
 require(phase6_start.get("p6_c2_status") == "closed-verified-merged", "P6.C2 top-level status must be closed/verified/merged")
 
 p6_c3 = phase6_start.get("p6_c3_start", {})
-require(phase6_start.get("p6_c3_status") == "technically-green-awaiting-owner-manual", "P6.C3 top-level status must be technically green awaiting owner manual")
+require(phase6_start.get("p6_c3_status") == "owner-verified-refinement-in-progress", "P6.C3 top-level status must record owner-verified refinement in progress")
 require(p6_c3.get("decision") == "started-by-owner-after-p6c2-merge", "P6.C3 owner start evidence missing")
 require(p6_c3.get("baseline_commit") == "90d03c98d3345d563dd3a6721be4542c1d35af9f", "P6.C3 baseline commit drifted")
 require(p6_c3.get("branch") == "feat/p6.c3-calibration-fixture-laboratory", "P6.C3 branch drifted")
 require(p6_c3.get("pr") == 39, "P6.C3 must reference PR #39")
 require(p6_c3.get("pr_status") == "draft-open", "P6.C3 PR #39 must remain draft/open during implementation")
-require(p6_c3.get("status") == "technically-green-awaiting-owner-manual", "P6.C3 must be technically green awaiting owner manual")
+require(p6_c3.get("status") == "owner-verified-refinement-in-progress", "P6.C3 must record owner-verified refinement in progress")
 require(p6_c3.get("report") == "docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md", "P6.C3 report path drifted")
 require(p6_c3.get("fixture_registry") == "data/sources/gleason-calibration-fixtures.yaml", "P6.C3 fixture registry path drifted")
 require(p6_c3.get("browser_engine") == "frontend/src/measurement/gleasonCalibrationLaboratory.ts", "P6.C3 browser engine path drifted")
 require(p6_c3.get("ui_panel") == "frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx", "P6.C3 UI panel path drifted")
-require(p6_c3.get("raster_8k_status") == "gated-missing-true-companion-raster", "P6.C3 8K raster gate drifted")
+require(p6_c3.get("raster_8k_status") == "visual-ruler-reference-approved-jgw-georeferencing-gated", "P6.C3 raster/JGW refinement status drifted")
 require(p6_c3.get("p6_c4_status") == "not_started", "P6.C4 must remain not_started")
 require(p6_c3.get("p6_c5_status") == "not_started", "P6.C5 must remain not_started")
 require(p6_c3.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
@@ -335,14 +335,52 @@ require(p6_c3.get("accepted_application_version_remains") == "0.5.0", "P6.C3 mus
 require(p6_c3.get("tag") == "not_created", "P6.C3 must not create a tag")
 require(p6_c3.get("github_release") == "not_created", "P6.C3 must not create a GitHub Release")
 require(p6_c3.get("deployment") == "not_created", "P6.C3 must not deploy")
-require(p6_c3.get("owner_manual_status") == "not_run", "P6.C3 owner manual verification must not be fabricated")
-require(p6_c3.get("automated_status") == "technically-green-awaiting-owner-manual", "P6.C3 automated status must be technically green awaiting owner manual")
+require(p6_c3.get("owner_manual_status") == "pass-reported-by-owner", "P6.C3 owner manual PASS evidence missing")
+require(p6_c3.get("owner_tested_head") == "acb232c9ab78bcd8c84e16fd666b37200b5d1c57", "P6.C3 owner-tested head drifted")
+require(p6_c3.get("pre_manual_ci_run") == 904, "P6.C3 manual verification must follow exact-head CI #904")
+require(p6_c3.get("pre_manual_ci_conclusion") == "success", "P6.C3 pre-manual CI #904 must remain success")
+require(p6_c3.get("manual_checklist_items_passed") == 6, "P6.C3 must record all six owner manual checks")
+require(p6_c3.get("manual_result") == "6/6-pass-reported-by-owner", "P6.C3 owner manual result drifted")
+manual_checks = p6_c3.get("manual_checks", {})
+for key in [
+    "laboratory_presence_complete_fixture_set",
+    "source_identity_residual_semantics",
+    "research_profile_selector",
+    "local_scale_diagnostic",
+    "raster_diagnostic_8k_fail_closed",
+    "arabic_route_regression_general_stability",
+]:
+    require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C3 manual check missing/pass drift: {key}")
+require(p6_c3.get("automated_status") == "owner-approved-ruler-refinement-awaiting-ci", "P6.C3 refinement automated status drifted")
 require(p6_c3.get("verification_head") == "ed411b6f14ab1df2b406004a44a13af48dcd534a", "P6.C3 verification head drifted")
 require(p6_c3.get("verification_ci_run") == 897, "P6.C3 verification CI must be #897")
 require(p6_c3.get("verification_ci_conclusion") == "success", "P6.C3 verification CI #897 must remain success")
-require(p6_c3.get("recording_head_ci") == "pending", "P6.C3 recording-head CI must remain pending until the documentation/state head passes")
+require(p6_c3.get("pre_refinement_recording_head") == "acb232c9ab78bcd8c84e16fd666b37200b5d1c57", "P6.C3 pre-refinement recording head drifted")
+require(p6_c3.get("pre_refinement_recording_ci_run") == 904, "P6.C3 pre-refinement recording CI must be #904")
+require(p6_c3.get("pre_refinement_recording_ci_conclusion") == "success", "P6.C3 pre-refinement recording CI #904 must remain success")
+require(p6_c3.get("recording_head_ci") == "superseded-by-owner-refinement-after-manual", "P6.C3 recording-head state must reflect post-manual owner refinement")
 failures = p6_c3.get("development_failures", [])
 require([item.get("run") for item in failures] == [894, 895], "P6.C3 development-failure history drifted")
+owner_refinement = p6_c3.get("owner_ruler_reference_refinement", {})
+require(owner_refinement.get("decision") == "owner-approved-lower-resolution-visual-ruler-reference", "P6.C3 lower-resolution reference decision missing")
+require(owner_refinement.get("visual_reference_dimensions_px") == [1464, 2048], "P6.C3 visual reference dimensions drifted")
+require(owner_refinement.get("visual_reference_sha256") == "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03", "P6.C3 visual reference SHA drifted")
+require(owner_refinement.get("verified_unit_profiles") == {
+    "english_land_statute_mile_m": 1609.344,
+    "nautical_sea_solar_6075ft_m": 1851.66,
+    "fig37_ratio_nautical_geographical_mile_m": 1859.6864,
+}, "P6.C3 verified ruler-unit profiles drifted")
+require(owner_refinement.get("conflict_policy") == "preserve-both-do-not-silently-select", "P6.C3 historical ruler conflict policy drifted")
+require(owner_refinement.get("generic_fig43_mile_si_status") == "unresolved", "P6.C3 generic Figure-43 mile must remain unresolved")
+require(owner_refinement.get("jgw_native_unit_status") == "unknown", "P6.C3 JGW native unit must remain unknown")
+require(owner_refinement.get("jgw_georeferencing_status") == "gated-missing-true-companion-raster", "P6.C3 JGW georeferencing gate drifted")
+require(p6_c3.get("refinement_status") == "implemented-awaiting-complete-ci", "P6.C3 refinement status drifted")
+require(p6_c3.get("refinement_verification_head") is None, "P6.C3 refinement verification head must not be invented before CI")
+require(p6_c3.get("refinement_ci_run") is None, "P6.C3 refinement CI run must remain unset until observed")
+require(p6_c3.get("refinement_ci_conclusion") == "pending", "P6.C3 refinement CI must remain pending")
+require(p6_c3.get("targeted_owner_retest_required") is True, "P6.C3 targeted retest requirement missing")
+require(p6_c3.get("targeted_owner_retest_status") == "not_run", "P6.C3 targeted owner retest must remain not_run before actual retest")
+
 require(p6_c3.get("fixture_count") == 9, "P6.C3 initial fixture count must remain 9")
 require(p6_c3.get("fixture_set_version") == "P6.C3-fixtures-v1", "P6.C3 fixture set version drifted")
 require(p6_c3.get("implemented_artifacts") == [
@@ -363,6 +401,12 @@ for marker in [
     "raster-restored-outer-ring-fit",
     "raster-owner-8k-jgw",
     "missing-true-companion-8k-raster",
+    "english-land-statute-mile-5280ft",
+    "nautical-sea-solar-mile-6075ft",
+    "fig37-nautical-geographical-mile-by-208-to-180-ratio",
+    "1609.344",
+    "1851.66",
+    "1859.6864",
 ]:
     require(marker in fixture_registry_text, f"P6.C3 fixture registry marker missing: {marker}")
 for path in [
@@ -374,6 +418,17 @@ for path in [
     require((ROOT / path).is_file(), f"P6.C2 artifact missing: {path}")
 
 require((ROOT / "docs" / "PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md").is_file(), "P6.C3 contract/report missing")
+require((ROOT / "docs" / "GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md").is_file(), "P6.C3 lower-resolution ruler verification report missing")
+lower_ref_registry = (ROOT / "data" / "sources" / "gleason-owner-hires-jpeg-reference.yaml").read_text(encoding="utf-8")
+for marker in [
+    "owner_approved_p6c3_visual_ruler_reference",
+    "english_land_statute_mile_m: 1609.344",
+    "nautical_sea_solar_6075ft_m: 1851.66",
+    "fig37_ratio_nautical_geographical_mile_m: 1859.6864",
+    "generic_fig43_mile_si_status: unresolved",
+    "jgw_unit_status: unknown",
+]:
+    require(marker in lower_ref_registry, f"P6.C3 lower-resolution reference registry marker missing: {marker}")
 
 for path in [
     "frontend/src/measurement/gleasonMeasurementProfiles.ts",
