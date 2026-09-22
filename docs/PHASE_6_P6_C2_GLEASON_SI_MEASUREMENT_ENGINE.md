@@ -1,6 +1,6 @@
 # Phase 6 · P6.C2 — Gleason SI Measurement Engine
 
-Status: **IN PROGRESS — IMPLEMENTATION STARTED**
+Status: **IN PROGRESS / TECHNICALLY GREEN — #870 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**
 
 Owner instruction: **«ابدأ»**
 
@@ -203,6 +203,39 @@ Those remain:
 - P6.C4 Ellipsoidal Elevation Provider;
 - P6.C5 Map-First Comparison Workspace;
 - P6.7B paused until P6.C1–P6.C5 close.
+
+## 9. Automated verification
+
+Exact verified implementation head:
+
+`e1e708ce864e97ac4dd6dc23106ecca475948080`
+
+Release Acceptance Gates:
+
+- **#869 — SUCCESS**;
+- **#870 — SUCCESS** (authoritative verification record).
+
+The duplicate successful run occurred because PR #38 was closed/reopened once
+to refresh GitHub's stale head snapshot. Both runs executed the same exact head.
+
+The complete gate set passed, including:
+- state/source-policy validation;
+- backend tests;
+- frontend core tests including P6.C2 arithmetic;
+- WGS84 parity;
+- browser/backend Gleason parity including every executable P6.C2 SI profile;
+- P6.6 polygon parity;
+- production build/PWA/offline;
+- browser acceptance including the new P6.C2 profile identity test;
+- Docker runtime;
+- live P6.C2 backend endpoint acceptance;
+- PostGIS/search/offline/Redis regression gates.
+
+Development runs #866–#868 failed before this verified head. Their causes were
+fixed: TypeScript narrowing/typing and a P6.5 provenance-locator regression.
+They are retained as development history and are not closure evidence.
+
+Owner manual verification remains **NOT RUN**.
 
 ## 9. Acceptance path
 
