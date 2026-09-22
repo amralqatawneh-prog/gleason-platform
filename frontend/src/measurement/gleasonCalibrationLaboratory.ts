@@ -68,6 +68,22 @@ export interface GleasonCalibrationFixtureResult {
   readonly notes: readonly string[];
 }
 
+export interface GleasonRulerUnitVerification {
+  readonly unit_profile_id:
+    | 'english-land-statute-mile-5280ft'
+    | 'nautical-sea-solar-mile-6075ft'
+    | 'fig37-nautical-geographical-mile-by-208-to-180-ratio';
+  readonly source_label: string;
+  readonly source_class: 'GLEASON_PRIMARY_HISTORICAL';
+  readonly source_relation: string;
+  readonly metre_per_unit: number;
+  readonly conversion_basis: string;
+  readonly status: 'verified-conversion-profile' | 'verified-ratio-derived-conversion-profile';
+  readonly conflict_group: 'historical-nautical-mile-context' | null;
+  readonly provenance: readonly string[];
+  readonly notes: readonly string[];
+}
+
 export interface GleasonLocalScaleDiagnostic {
   readonly latitude_deg: number;
   readonly historical_fig43_miles_per_longitude_degree: number;
@@ -398,3 +414,76 @@ export function gleasonLocalScaleDiagnostic(latitudeDeg: number): Readonly<Gleas
     ]),
   });
 }
+
+
+export const P6C3_INTERNATIONAL_FOOT_TO_METRE = 0.3048 as const;
+
+export function gleasonRulerUnitVerifications(): readonly Readonly<GleasonRulerUnitVerification>[] {
+  const englishMetres = 5280 * P6C3_INTERNATIONAL_FOOT_TO_METRE;
+  const nautical6075Metres = 6075 * P6C3_INTERNATIONAL_FOOT_TO_METRE;
+  const fig37RatioMetres = (208 / 180) * englishMetres;
+
+  return Object.freeze([
+    Object.freeze({
+      unit_profile_id: 'english-land-statute-mile-5280ft' as const,
+      source_label: 'English / Land / Statute mile',
+      source_class: 'GLEASON_PRIMARY_HISTORICAL' as const,
+      source_relation: '1 English land/statute mile = 5280 feet',
+      metre_per_unit: englishMetres,
+      conversion_basis: '5280 ft × 0.3048 m/ft',
+      status: 'verified-conversion-profile' as const,
+      conflict_group: null,
+      provenance: Object.freeze([
+        'gleason-1893-upload-v1:Chapter XVII',
+        'gleason-owner-hires-jpeg-reference-2026-09-22',
+        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+      ]),
+      notes: Object.freeze([
+        'This named profile does not assign the generic historical Figure-43 mile to the English/statute mile.',
+      ]),
+    }),
+    Object.freeze({
+      unit_profile_id: 'nautical-sea-solar-mile-6075ft' as const,
+      source_label: 'Nautical / Sea / Solar mile — Chapter XVII 6075 ft',
+      source_class: 'GLEASON_PRIMARY_HISTORICAL' as const,
+      source_relation: '1 nautical/sea/Solar mile = 6075 feet',
+      metre_per_unit: nautical6075Metres,
+      conversion_basis: '6075 ft × 0.3048 m/ft',
+      status: 'verified-conversion-profile' as const,
+      conflict_group: 'historical-nautical-mile-context' as const,
+      provenance: Object.freeze([
+        'gleason-1893-upload-v1:Chapter XVII',
+        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+      ]),
+      notes: Object.freeze([
+        'Historical source profile; do not silently replace with the modern international nautical mile.',
+      ]),
+    }),
+    Object.freeze({
+      unit_profile_id: 'fig37-nautical-geographical-mile-by-208-to-180-ratio' as const,
+      source_label: 'Nautical / Sea / Geographical mile — Figure 37 ratio',
+      source_class: 'GLEASON_PRIMARY_HISTORICAL' as const,
+      source_relation: '208 English miles = 180 nautical/sea/geographical miles',
+      metre_per_unit: fig37RatioMetres,
+      conversion_basis: '(208 / 180) × 1609.344 m',
+      status: 'verified-ratio-derived-conversion-profile' as const,
+      conflict_group: 'historical-nautical-mile-context' as const,
+      provenance: Object.freeze([
+        'gleason-1893-upload-v1:Figure 37',
+        'gleason-owner-hires-jpeg-reference-2026-09-22',
+        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+      ]),
+      notes: Object.freeze([
+        'This ratio-derived value conflicts with the Chapter-XVII 6075-foot profile; both remain visible.',
+      ]),
+    }),
+  ]);
+}
+
+export const GLEASON_RULER_UNIT_POLICY = Object.freeze({
+  visual_reference_id: 'gleason-owner-hires-jpeg-reference-2026-09-22',
+  visual_reference_dimensions_px: Object.freeze([1464, 2048] as const),
+  generic_fig43_mile_si_status: 'unresolved' as const,
+  owner_jgw_native_unit_status: 'unknown' as const,
+  jgw_georeferencing_status: 'gated-missing-true-companion-raster' as const,
+});
