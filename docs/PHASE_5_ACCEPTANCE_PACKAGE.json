@@ -301,7 +301,7 @@
     "current_slice": "P6.C2",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed-owner-verified-awaiting-final-closure-ci",
     "next_slice": "P6.C3",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -886,7 +886,7 @@
       "post_merge_main_ci_run": null,
       "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_c2_status": "in_progress",
+    "p6_c2_status": "closed-owner-verified-awaiting-final-closure-ci",
     "p6_c2_start": {
       "date": "2026-09-22",
       "owner_statement": "ابدأ",
@@ -896,7 +896,7 @@
       "branch": "feat/p6.c2-gleason-si-measurement-engine",
       "pr": 38,
       "pr_status": "draft-open",
-      "status": "in_progress",
+      "status": "closed-owner-verified-awaiting-final-closure-ci",
       "scope": "execute P6.C1-approved SI profiles with metres/kilometres/NM where justified; explicit profile provenance; browser/backend parity; no hidden normalization",
       "report": "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md",
       "browser_engine": "frontend/src/measurement/gleasonSiMeasurement.ts",
@@ -923,8 +923,8 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-awaiting-owner-manual",
-      "owner_manual_status": "not_run",
+      "automated_status": "owner-verified-awaiting-final-closure-ci",
+      "owner_manual_status": "pass-reported-by-owner",
       "verification_head": "e1e708ce864e97ac4dd6dc23106ecca475948080",
       "verification_ci_run": 870,
       "verification_ci_conclusion": "success",
@@ -939,7 +939,25 @@
         "warnings_policy": "limitations-array-is-single-normative-warning-channel",
         "route_revision_policy": "excluded-ui-session-state-exact-route-id-and-ordered-input-points-are-numerical-reproducibility-boundary",
         "si_unit_policy": "explicit-distance-m-km-nmi-fields-plus-provider-unit-provenance-no-duplicate-generic-si-unit"
-      }
+      },
+      "owner_tested_head": "b1dacada7cb84c715b71c654c7abe465d370cc0b",
+      "pre_manual_ci_run": 876,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_result": "6/6-pass-reported-by-owner",
+      "manual_date": "2026-09-22",
+      "manual_checks": {
+        "walter_direct_si_identity": "pass-reported-by-owner",
+        "figure43_explicit_assumption_profiles": "pass-reported-by-owner",
+        "historical_si_fail_closed": "pass-reported-by-owner",
+        "multi_point_live_recomputation": "pass-reported-by-owner",
+        "backend_stop_browser_fallback": "pass-reported-by-owner",
+        "arabic_mobile_provenance_cross_slice_regression": "pass-reported-by-owner"
+      },
+      "closure_status": "closed-owner-verified-awaiting-final-closure-ci",
+      "final_closure_head": null,
+      "final_closure_ci_run": null,
+      "final_closure_ci_conclusion": "pending"
     }
   },
   "post_pr16_merge_reconciliation": {

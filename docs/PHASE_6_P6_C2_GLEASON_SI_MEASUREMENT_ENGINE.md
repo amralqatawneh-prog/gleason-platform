@@ -1,6 +1,6 @@
 # Phase 6 · P6.C2 — Gleason SI Measurement Engine
 
-Status: **IN PROGRESS — IMPLEMENTATION GREEN (#869/#870; pre-reconciliation recording head #874 SUCCESS) — FINAL CONTRACT RECONCILIATION HEAD MUST PASS CI BEFORE OWNER MANUAL**
+Status: **CLOSED BY OWNER VERIFICATION — 6/6 PASS ON `b1dacada7cb84c715b71c654c7abe465d370cc0b` AFTER #876 SUCCESS — AWAITING FINAL CLOSURE-STATE CI**
 
 Owner instruction: **«ابدأ»**
 
@@ -280,19 +280,30 @@ Development runs #866–#868 failed before this verified head. Their causes were
 fixed: TypeScript narrowing/typing and a P6.5 provenance-locator regression.
 They are retained as development history and are not closure evidence.
 
-Owner manual verification remains **NOT RUN**. The prior recording head
-`31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed Release Acceptance Gates
-**#874 — SUCCESS**. Because the final-contract/documentation reconciliation
-changes the PR head, the corrected head must pass the complete gates again
-before manual verification starts.
+The exact final-contract owner-test head
+`b1dacada7cb84c715b71c654c7abe465d370cc0b` passed the complete Release
+Acceptance Gates **#876 — SUCCESS** before manual verification.
+
+Owner manual verification then completed **6/6 PASS — REPORTED BY OWNER** on
+2026-09-22. Verified checks:
+
+1. Walter DIRECT SI identity, external-comparative classification, calculation space and null assumption identity;
+2. separate Figure 43 explicit-assumption profiles with explicit scenario ids;
+3. direct Gleason historical SI remains FAIL CLOSED / UNRESOLVED and gated calibration profiles are not fabricated;
+4. multi-point/live route recomputation preserves profile identity and totals;
+5. backend-stop browser-local fallback preserves P6.C2 identities and outputs;
+6. Arabic/mobile/provenance/limitations and WGS84/AE/P6.7A cross-slice regression remain intact.
+
+The new documentation/state head must now pass the complete Release Acceptance
+Gates as the final closure-state CI. No merge is implied by owner verification.
 
 ## 9. Acceptance path
 
-1. implement browser/backend SI engines;
-2. pass complete Release Acceptance Gates;
-3. run owner manual verification;
-4. record **PASS — REPORTED BY OWNER** only after actual owner report;
-5. run final closure-state CI;
+1. implement browser/backend SI engines — **COMPLETE**;
+2. pass complete Release Acceptance Gates — **#876 SUCCESS on exact owner-tested head**;
+3. owner manual verification — **COMPLETE, 6/6 PASS — REPORTED BY OWNER**;
+4. record owner PASS on exact tested head — **COMPLETE**;
+5. run final closure-state CI on the new documentation/state head;
 6. merge only by separate owner authorization.
 
 No tag, GitHub Release or deployment is created by P6.C2.

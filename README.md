@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current functional slice: **P6.C2 — Gleason SI Measurement Engine / IN PROGRESS** on `feat/p6.c2-gleason-si-measurement-engine`. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37 at `main @ 3096d963b75478682923c20925e3eac974bbfb69` after final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed **#864 — SUCCESS**. P6.C3 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
+- Current functional slice: **P6.C2 — Gleason SI Measurement Engine / CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE-STATE CI** on `feat/p6.c2-gleason-si-measurement-engine`. Exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed **#876 — SUCCESS** before owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C3 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
 - P6.C2 final contract is **P6.C2-1**: executable profiles expose explicit `calculation_space` plus nullable `assumption_id`; `limitations[]` is the single normative warning channel; UI-only `route_revision` is not duplicated into the numerical result because the exact ordered input-point snapshot is returned with the result.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
@@ -96,7 +96,7 @@ model engines:
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
 | P6.C1 | CLOSED / VERIFIED / MERGED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure #859; recording head `385a04bc…` #864 SUCCESS; PR #37 merged at `3096d963…` |
-| P6.C2 | IN PROGRESS / FINAL-CONTRACT RECONCILIATION 🛠️ | SI engine m/km/NM profiles; implementation head `e1e708ce…` #870 SUCCESS; pre-reconciliation recording head `31d84936…` #874 SUCCESS; corrected head requires exact CI; owner manual NOT RUN; draft PR #38 |
+| P6.C2 | CLOSED BY OWNER VERIFICATION / FINAL CI PENDING ✅🛠️ | Exact tested head `b1dacada…`; #876 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER; final closure-state CI required; draft PR #38 remains unmerged |
 | P6.C3–P6.C5 | NOT STARTED ⏳ | Calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
@@ -348,7 +348,7 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIFIED / MERGED**. **P6.C2 is IN PROGRESS**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIFIED / MERGED**. **P6.C2 is CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE-STATE CI**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
