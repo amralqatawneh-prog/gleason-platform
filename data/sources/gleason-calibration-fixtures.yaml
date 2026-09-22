@@ -6,7 +6,7 @@ policy:
   - "Every fixture preserves source class, evidence level, native unit and provenance."
   - "Residuals require semantically compatible quantities and units; otherwise fail closed."
   - "No city/raster control point may be fabricated."
-  - "The owner 8K JGW remains gated until the true companion 8K raster is present and audited."
+  - "The lower-resolution 1464x2048 image is owner-approved for visual/ruler calibration; JGW georeferencing remains gated until its true companion raster is present and audited."
 fixtures:
   - fixture_id: book-fig43-equator-one-degree
     fixture_kind: historical_longitude_arc
@@ -149,5 +149,42 @@ fixtures:
       - "gleason-owner-8k-map-2026-09-22"
       - "data/sources/artifacts/8k-Flat-Earth-map.jgw"
     notes:
-      - "Do not pair the JGW with the unrelated 1464x2048 JPEG."
+      - "The 1464x2048 JPEG is approved for printed-ruler visual calibration, but remains unrelated to JGW pixel georeferencing."
       - "Do not label JGW numeric units as metres, miles or a named CRS without independent verification."
+
+verified_ruler_units:
+  reference_registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+  verification_report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
+  foot_to_metre_convention: 0.3048
+  profiles:
+    - unit_profile_id: english-land-statute-mile-5280ft
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      source_value_feet: 5280
+      metre_per_unit: 1609.344
+      status: verified-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Chapter XVII"
+        - "gleason-owner-hires-jpeg-reference-2026-09-22"
+    - unit_profile_id: nautical-sea-solar-mile-6075ft
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      source_value_feet: 6075
+      metre_per_unit: 1851.66
+      status: verified-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Chapter XVII"
+    - unit_profile_id: fig37-nautical-geographical-mile-by-208-to-180-ratio
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      relation: "208 English miles = 180 nautical/sea/geographical miles"
+      metre_per_unit: 1859.6864
+      status: verified-ratio-derived-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Figure 37"
+        - "gleason-owner-hires-jpeg-reference-2026-09-22"
+  conflict:
+    profiles:
+      - nautical-sea-solar-mile-6075ft
+      - fig37-nautical-geographical-mile-by-208-to-180-ratio
+    absolute_difference_m: 8.0264
+    policy: preserve-both-do-not-silently-select
+  generic_fig43_mile_si_status: unresolved
+  owner_jgw_native_unit_status: unknown
