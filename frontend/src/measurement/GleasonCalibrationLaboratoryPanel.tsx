@@ -71,17 +71,21 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
       className="gleason-lab-card"
       data-p6c3-tool="verified-ruler-units"
       data-p6c3-visual-reference="gleason-owner-hires-jpeg-reference-2026-09-22"
-      data-p6c3-visual-reference-width="1464"
+      data-p6c3-visual-reference-width="1361"
       data-p6c3-visual-reference-height="2048"
       data-p6c3-fig43-mile-si-status={GLEASON_RULER_UNIT_POLICY.generic_fig43_mile_si_status}
       data-p6c3-jgw-unit-status={GLEASON_RULER_UNIT_POLICY.owner_jgw_native_unit_status}
+      data-p6c3-jgw-crs-status={GLEASON_RULER_UNIT_POLICY.owner_jgw_crs_status}
+      data-p6c3-jgw-pixel-step-m={GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_m.toFixed(12)}
+      data-p6c3-jgw-pixel-step-statute-mile={GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_statute_mile.toFixed(12)}
+      data-p6c3-jgw-pixel-step-nautical-mile={GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_nautical_mile.toFixed(12)}
     >
       <div className="polygon-measurement-card__head">
         <div>
           <strong>{locale === 'ar' ? 'وحدات المسطرة المتحقق منها' : 'Verified ruler units'}</strong>
           <small>{locale === 'ar'
-            ? 'مرجع بصري 1464×2048 مع تحقق كتابي من الفصل السابع عشر/الشكل 37'
-            : '1464×2048 visual reference cross-checked against Chapter XVII / Figure 37'}</small>
+            ? 'مرجع بصري 1361×2048 مع تحقق كتابي من الفصل السابع عشر/الشكل 37'
+            : '1361×2048 visual reference cross-checked against Chapter XVII / Figure 37'}</small>
         </div>
         <span className="evidence-badge">VERIFIED PROFILES</span>
       </div>
@@ -114,9 +118,13 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
           ? 'تعريف 6075 قدم يعطي 1851.66 م، بينما علاقة الشكل 37 تعطي 1859.6864 م. يحتفظ المختبر بالقيمتين منفصلتين.'
           : 'The 6075-foot definition gives 1851.66 m, while the Figure-37 ratio gives 1859.6864 m. The laboratory keeps both values separate.'}</span>
       </div>
+      <div className="notice" data-p6c3-jgw-affine-unit="metre-owner-authorized-proxy-verified">
+        <strong>{locale === 'ar' ? 'وحدة JGW affine متحقق منها: metre' : 'JGW affine unit verified: metre'}</strong>
+        <span dir="ltr">1 px = {format(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_m, locale, 6)} m = {format(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_statute_mile, locale, 6)} international statute mi = {format(GLEASON_RULER_UNIT_POLICY.owner_jgw_pixel_step_international_nautical_mile, locale, 6)} international NM</span>
+      </div>
       <small className="muted">{locale === 'ar'
-        ? 'يبقى historical-fig43-mile غير محسوم للتحويل التلقائي إلى SI، كما تبقى وحدة JGW غير معروفة.'
-        : 'historical-fig43-mile remains unresolved for automatic SI conversion, and the JGW native unit remains unknown.'}</small>
+        ? 'يبقى historical-fig43-mile غير محسوم للتحويل التلقائي إلى SI. وحدة JGW affine معتمدة كمتر، لكن CRS والربط الدقيق للبكسلات مع الأصل غير المتوفر ما زالا غير محسومين.'
+        : 'historical-fig43-mile remains unresolved for automatic SI conversion. The JGW affine unit is accepted as metre, while the CRS and exact unavailable-original pixel pairing remain unresolved.'}</small>
     </article>
 
     <div className="gleason-lab-grid" data-p6c3-tool="fixture-results">
@@ -196,11 +204,11 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
       {diagnostic.limitations.map(item => <small key={item} className="muted">{item}</small>)}
     </article>
 
-    <div className="notice" data-p6c3-8k-raster-gate="missing-true-companion-raster">
-      <strong>{locale === 'ar' ? 'مرجع المسطرة معتمد — معايرة JGW الجغرافية ما زالت مغلقة' : 'Ruler reference approved — JGW georeferencing still gated'}</strong>
+    <div className="notice" data-p6c3-8k-raster-gate="exact-pixel-pairing-unverified-proxy-only">
+      <strong>{locale === 'ar' ? 'مرجع proxy معتمد — metre معتمد — الربط الدقيق وCRS ما زالا مغلقين' : 'Proxy approved — metre verified — exact pairing and CRS remain gated'}</strong>
       <span>{locale === 'ar'
-        ? 'الصورة 1464×2048 معتمدة الآن كمرجع بصري للمسطرة والوحدات المطبوعة، لكنها ليست الصورة المطابقة لملف JGW. لذلك تبقى وحدة JGW وCRS غير معروفتين حتى توفر companion raster حقيقي أو دليل مستقل.'
-        : 'The 1464×2048 image is now approved as a visual reference for the printed ruler and unit labels, but it is not the JGW companion raster. The JGW unit and CRS therefore remain unknown until the true companion raster or independent evidence is available.'}</span>
+        ? 'الصورة Gleason-map-8k.jpg ذات 1361×2048 وSHA-256 الموثق معتمدة كمرجع proxy بصري/للمسطرة. وحدة JGW affine معتمدة كمتر بعد التحقق، لكننا لا نعامل الصورة المنقولة كأنها مصفوفة 8K الأصلية ولا نسمّي CRS.'
+        : 'The 1361×2048 Gleason-map-8k.jpg with its recorded SHA-256 is the owner-authorized visual/ruler proxy. The JGW affine unit is verified as metre, but the transport proxy is not treated as the unavailable original 8K pixel matrix and no CRS is named.'}</span>
     </div>
   </section>;
 }
