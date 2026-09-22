@@ -39,9 +39,9 @@ test('P6.C2 exposes historical Figure43 SI only as explicit assumption profiles'
     assert.equal(profile.evidence_level,'ASSUMPTION_PROFILE');
     assert.equal(profile.source_profile_id,'gleason-fig43-circle-derived-diagnostic');
   }
-  assert.equal(CHAPTER17_6075FT_METRES_PER_MILE,1851.66);
-  assert.equal(FIG37_RATIO_METRES_PER_MILE,1859.6864);
-  assert.equal(CHAPTER19_6070FT_METRES_PER_MILE,1850.136);
+  assert.ok(Math.abs(CHAPTER17_6075FT_METRES_PER_MILE-1851.66)<1e-9);
+  assert.ok(Math.abs(FIG37_RATIO_METRES_PER_MILE-1859.6864)<1e-9);
+  assert.ok(Math.abs(CHAPTER19_6070FT_METRES_PER_MILE-1850.136)<1e-9);
   assert.notEqual(chapter17.distance_m,fig37.distance_m);
   assert.notEqual(chapter17.distance_m,chapter19.distance_m);
 });
