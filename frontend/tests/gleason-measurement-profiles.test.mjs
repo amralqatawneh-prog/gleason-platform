@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   GLEASON_MEASUREMENT_PROFILES,
+  GLEASON_HISTORICAL_UNIT_SCENARIOS,
   WALTER_DEFAULT_EQUATOR_DISTANCE_KM,
   WALTER_DEFAULT_KM_PER_NRU,
   gleasonMeasurementProfile,
@@ -39,6 +40,21 @@ test('circle-derived profile is diagnostic and is not a direct SI profile', () =
   assert.equal(profile.role, 'diagnostic');
   assert.equal(profile.si_conversion_status, 'diagnostic-only');
   assert.equal(profileAllowsDirectSi(profile), false);
+});
+
+test('historical mile scenarios preserve conflicting source statements and have no automatic default', () => {
+  assert.equal(GLEASON_HISTORICAL_UNIT_SCENARIOS.length, 4);
+  const unresolved=GLEASON_HISTORICAL_UNIT_SCENARIOS.find(item=>item.scenario_id==='fig43-mile-unresolved');
+  assert.ok(unresolved);
+  assert.equal(unresolved.status, 'unresolved');
+  assert.equal(unresolved.source_value, null);
+  const feet6075=GLEASON_HISTORICAL_UNIT_SCENARIOS.find(item=>item.scenario_id==='chapter17-nautical-6075ft-context-assumption');
+  const ratio=GLEASON_HISTORICAL_UNIT_SCENARIOS.find(item=>item.scenario_id==='fig37-208english-180nautical-context-assumption');
+  const feet6070=GLEASON_HISTORICAL_UNIT_SCENARIOS.find(item=>item.scenario_id==='chapter19-navigator-6070ft-context');
+  assert.equal(feet6075?.source_value, 6075);
+  assert.equal(ratio?.source_value, 208/180);
+  assert.equal(feet6070?.source_value, 6070);
+  assert.ok(GLEASON_HISTORICAL_UNIT_SCENARIOS.every(item=>item.scenario_id !== 'default'));
 });
 
 test('Walter default external profile exposes direct SI without becoming Gleason historical', () => {
