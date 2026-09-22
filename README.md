@@ -94,8 +94,9 @@ model engines:
 | P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
-| P6.C1 | CLOSED / VERIFIED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure head `4e08520d…`; #859 SUCCESS; exact recording-head CI pending; draft PR #37 unmerged |
-| P6.C2–P6.C5 | NOT STARTED ⏳ | SI engine, calibration lab, ellipsoidal elevation, map-first workspace |
+| P6.C1 | CLOSED / VERIFIED / MERGED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure #859; recording head `385a04bc…` #864 SUCCESS; PR #37 merged at `3096d963…` |
+| P6.C2 | IN PROGRESS 🛠️ | SI engine: executable m/km/NM profiles with explicit DIRECT SI vs ASSUMPTION identity; draft PR #38 |
+| P6.C3–P6.C5 | NOT STARTED ⏳ | Calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
@@ -167,7 +168,7 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- P6.7A Same Route, Three Renderings is **CLOSED / VERIFIED / MERGED** through PR #34. The owner approved a corrective P6.C1–P6.C5 sequence before P6.7B; P6.C1 is next and P6.7B remains paused/not-started.
+- P6.7A Same Route, Three Renderings is **CLOSED / VERIFIED / MERGED** through PR #34. P6.C1 is also **CLOSED / VERIFIED / MERGED** through PR #37. P6.C2 is now IN PROGRESS; P6.7B remains paused/not-started until P6.C1–P6.C5 close.
 - P6.C1–P6.C5 corrective sequence: measurement profiles/SI, calibration fixtures, ellipsoidal elevation, and map-first comparison workspace. P6.7B RouteProvider / turn-by-turn resumes afterward; provider-backed road/flight paths remain unavailable until dedicated providers are implemented.
 - Phase 9–12 astronomy/time/ObserverContext/virtual observer dome/analemma/eclipse engines.
 - Phase 15 Aviation Laboratory live/historical/scheduled provider integrations.
