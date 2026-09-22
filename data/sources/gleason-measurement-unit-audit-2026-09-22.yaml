@@ -1,0 +1,55 @@
+id: gleason-measurement-unit-audit-2026-09-22
+date: "2026-09-22"
+status: p6_c1_contract_audit
+authority: source_semantics_audit
+primary_source: gleason-1893-upload-v1
+policy:
+  - "Preserve the wording and context of each historical passage."
+  - "Do not silently equate differently named mile quantities across figures/chapters."
+  - "A modern SI conversion is derived presentation, never retroactively printed source text."
+findings:
+  chapter_xvii_fig37_38:
+    locator: "PDF pp. 376-377 / printed pp. 349-350"
+    evidence_level: DOCUMENTED
+    statements:
+      - "Figure 37 gives English miles corresponding with nautical/geographical miles."
+      - "208 English miles are stated equal to 180 nautical/sea/geographical miles."
+      - "Figure 38 connects Sun time, arc and nautical miles."
+      - "1 degree longitude = 4 minutes time; 1 minute arc is called one mile in the comparison table."
+      - "English/statute mile is stated as 5280 feet."
+      - "Nautical/sea/Solar mile is stated as 6075 feet in the Chapter XVII text."
+  chapter_xix_navigation_letters:
+    locator: "Chapter XIX navigation correspondence"
+    evidence_level: DOCUMENTED
+    statements:
+      - "Navigator correspondence says chart distances were worked in geographical or nautical miles."
+      - "The reproduced letter separately mentions 6070 feet to the nautical mile, creating a historical internal inconsistency with Chapter XVII's 6075-foot statement."
+  fig43:
+    locator: "PDF p.429 / printed p.402 / Fig.43"
+    evidence_level: DOCUMENTED
+    statements:
+      - "Text describes getting longitude in miles of a meridian north or south of the Equator."
+      - "The table gives 60 at the Equator and a 3 1/3 mile change for each five latitude degrees."
+    project_derived_rule: "60 - (2/3)*latitude_deg, with south latitude negative"
+    unit_identity_decision:
+      status: unresolved
+      reason: >
+        Figure 43 says longitude in miles but the Figure 43 passage does not itself
+        explicitly identify that mile as nautical/sea/Solar, English/statute, or a
+        distinct longitude-mile unit. Nearby Chapter XVII material strongly connects
+        longitude/time with nautical/geographical miles, but P6.C1 treats that as
+        contextual evidence rather than silently collapsing the unit identities.
+      runtime_rule: "Fail closed for automatic SI conversion from Figure 43 mile until a versioned assumption or stronger source demonstration is selected."
+  circle_derived_profile:
+    id: gleason-fig43-circle-derived
+    old_role: historical-default
+    p6_c1_role: diagnostic
+    reason: >
+      The multiplier 21600/pi follows from combining 60 miles/longitude-degree at
+      the Equator with C=2*pi*r. The circle relation is a project derivation and is
+      not printed as a universal arbitrary-route metric in Figure 43.
+  walter_profile:
+    id: walter-flat-plane-eq-10008
+    source_class: EXTERNAL_COMPARATIVE_MODEL
+    relation: "E=10008 km; normalized project relation gives 1 NRU=20016 km"
+    rule: "Never relabel as a Gleason historical source result."
