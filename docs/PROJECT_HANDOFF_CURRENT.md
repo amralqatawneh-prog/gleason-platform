@@ -198,15 +198,24 @@ Primary source reviewed:
 - SHA-256:
   `03e429285376c7fcd21659116f43a8da7d6e363169e7c7841c9b31518effbe60`
 
-Owner-supplied higher-resolution Gleason source:
+Owner-supplied Gleason 8K source:
 - registry: `data/sources/gleason-owner-8k-map.yaml`;
 - preserved world file: `data/sources/artifacts/8k-Flat-Earth-map.jgw`;
 - JGW SHA-256:
   `0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43`;
-- current bundle status: **incomplete — companion 8K raster not yet received**;
-- intended audit: labels for cities/countries/oceans/seas, longitude/latitude graticule, bottom ruler, outer boundary/time dial, and comparison with Gleason Figs. 37–38 and 43;
-- preservation rule: retain the original 8K raster unchanged when supplied; any tiles/resamples are derivatives only;
-- promotion rule: do not replace the existing restored-raster reference until the companion image bytes/dimensions/hash and the ruler/frame/book audit are recorded.
+- the owner has now supplied the map identified as the 8K source;
+- the exact representation delivered through chat is JPEG/RGB **1361×2048**, **1,233,904 bytes**, SHA-256
+  `884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d`;
+- exact received bytes are preserved in ChatGPT Library at
+  `/Gleason Platform Sources/Gleason-map-8k.jpg`;
+- audit manifest: `data/sources/gleason-owner-8k-received-manifest.yaml`;
+- audit report: `docs/GLEASON_8K_RASTER_AUDIT_2026-09-22.md`;
+- visual/book audit confirms the Longitude and Time Calculator frame, 24-hour dial, longitude rays, latitude rings, bottom mile-conversion ruler, bottom arc/Sun-time ruler, the 180 nautical/geographical ↔ 208 English mile relation, and consistency with the registered 15° longitude = 1 hour relation;
+- use this owner source as the preferred historical visual source for legible city/country/ocean/sea labels, graticule, ruler and frame research;
+- historical printed label positions are not modern authoritative coordinates;
+- the chat-delivered image is not the original 8K pixel matrix; a 4× hypothesis gives 5444×8192 and is consistent with transport downsampling but remains unverified;
+- preserve the original full-resolution 8K bytes unchanged when supplied as a raw file/ZIP; any tiles/resamples are derivatives only;
+- do not apply the JGW numerically until the original full-resolution raster is preserved, hashed and verified as its exact companion.
 
 Important verified source notes:
 - Ch. XIII–XIX cover geodetic arguments, sun motion, distance, longitude, time, navigation, eclipses, rivers.
