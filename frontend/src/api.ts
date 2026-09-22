@@ -285,6 +285,7 @@ export type {
   GleasonPolygonResult,
   GleasonRouteDistancePoint,
   GleasonRouteDistanceResult,
+  GleasonSiRouteDistanceResult,
   PolygonMeasurementPoint,
   Wgs84PolygonResult,
   Wgs84RouteDistancePoint,
