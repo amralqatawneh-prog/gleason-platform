@@ -1023,7 +1023,7 @@ test('Gleason source-audit laboratory separates ruler, Figure 43 and frame/time 
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
   await locate(page,'TEST Amman');
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
-  const lab=page.locator('.gleason-measurement-lab');
+  const lab=page.locator('.gleason-route-distance-panel.gleason-measurement-lab');
   await expect(lab).toHaveAttribute('data-measurement-status','ready');
   await expect(lab.locator('[data-gleason-tool="historical-circle-derived"]')).toContainText('gleason-fig43-circle-derived');
   await expect(lab.locator('[data-gleason-tool="historical-longitude-scale"]')).toContainText('Fig.43');
@@ -1043,7 +1043,7 @@ test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities
   await locate(page,'TEST Amman');
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
 
-  const lab=page.locator('.gleason-measurement-lab');
+  const lab=page.locator('.gleason-route-distance-panel.gleason-measurement-lab');
   await expect(lab).toHaveAttribute('data-measurement-status','ready');
 
   const si=lab.locator('[data-gleason-tool="si-profiles"]');
@@ -1116,8 +1116,9 @@ test('P6.C3 calibration laboratory exposes source-backed fixtures, residuals and
 
   const diagnostic=lab.locator('[data-p6c3-tool="local-scale-diagnostic"]');
   await diagnostic.getByLabel('Diagnostic latitude').fill('-30');
-  await expect(diagnostic).toContainText('80');
-  await expect(diagnostic).toContainText('13344');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-latitude-deg','-30.000000');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-fig43-miles-per-longitude-degree','80.000000000000');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-walter-radius-km','13344.000000000000');
 
   await page.getByRole('button',{name:'العربية'}).click();
   await expect(lab).toContainText('مختبر المعايرة');
