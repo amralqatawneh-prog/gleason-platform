@@ -677,6 +677,6 @@ PR #36 merged at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
 ## 15. Current sequence after amendment closure
 
 1. P6.C1 was created, verified, owner-tested, closed and merged through PR #37.
-2. P6.C2 is the active slice on PR #38 and implements the approved SI-profile runtime contract.
-3. P6.C3–P6.C5 remain NOT STARTED.
+2. P6.C2 closed/verified/merged through PR #38 at `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` after final recording-head #878 SUCCESS.
+3. P6.C3 is IN PROGRESS on draft PR #39 from that baseline; P6.C4–P6.C5 remain NOT STARTED.
 4. P6.7B remains PAUSED / NOT STARTED until P6.C1–P6.C5 close.
