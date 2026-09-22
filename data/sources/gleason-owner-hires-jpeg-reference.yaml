@@ -1,8 +1,8 @@
 id: gleason-owner-hires-jpeg-reference-2026-09-22
 source_type: owner_supplied_visual_reference
-authority: owner_approved_visual_ruler_calibration_reference
+authority: visual_reference
 validation_truth: false
-status: owner_approved_p6c3_visual_ruler_reference
+status: registered_reference_not_current_owner_proxy
 file_name: "hi res restored gleason map.jpg"
 image:
   width_px: 1464
@@ -18,7 +18,7 @@ classification:
     - visual_transcription_reference
     - longitude_latitude_graticule_review
     - bottom_ruler_review
-    - p6c3_visual_ruler_calibration_reference
+    - historical_visual_cross_check
     - printed_unit_verification
     - outer_longitude_time_dial_review
     - city_country_ocean_sea_label_review
@@ -29,36 +29,13 @@ relationship:
 resolution_policy:
   - "Do not upscale and then call the result 8K."
   - "Do not replace the existing 4653x6506 restored-raster reference with this lower-resolution JPEG."
-  - "Use this JPEG as the owner-approved P6.C3 visual/ruler calibration reference where its content is legible."
-  - "The true 8K companion raster is still required only for JGW georeferencing calibration and full-resolution pixel/frame work."
+  - "Keep as a separate historical visual cross-check."
+  - "The current owner-authorized proxy is Gleason-map-8k.jpg (1361x2048, SHA-256 884e9b...)."
+  - "Do not use this 1464x2048 JPEG to establish JGW pixel pairing or unit identity."
 
 p6c3_owner_decision:
-  date: "2026-09-22"
-  decision: use_lower_resolution_reference_because_true_8k_companion_is_unavailable
-  owner_manual_precondition: "P6.C3 6/6 PASS reported on acb232c9ab78bcd8c84e16fd666b37200b5d1c57 after #904 SUCCESS"
-  permitted_uses:
-    - printed_bottom_ruler_transcription
-    - English_land_statute_mile_verification
-    - nautical_sea_geographical_ruler_relation_verification
-    - longitude_time_dial_visual_cross_check
-  prohibited_uses:
-    - pair_with_owner_jgw_as_companion_raster
-    - infer_jgw_crs
-    - infer_jgw_native_unit
-    - fabricate_city_control_points
-verified_ruler_relations:
-  english_land_statute_mile_feet: 5280
-  nautical_sea_solar_mile_feet_chapter17: 6075
-  fig37_english_miles: 208
-  fig37_nautical_sea_geographical_miles: 180
-  conversion_convention:
-    foot_to_metre: 0.3048
-    identity: international-foot-project-convention
-  named_conversion_profiles:
-    english_land_statute_mile_m: 1609.344
-    nautical_sea_solar_6075ft_m: 1851.66
-    fig37_ratio_nautical_geographical_mile_m: 1859.6864
-  conflict_policy: "Keep the Chapter-XVII 6075-foot value and Figure-37 ratio-derived value separate; do not silently select one."
-  generic_fig43_mile_si_status: unresolved
-  jgw_unit_status: unknown
-verification_report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
+  status: superseded_for_p6c3_proxy_role
+  current_proxy_registry: "data/sources/gleason-owner-8k-proxy-verification.yaml"
+  current_proxy_file: "Gleason-map-8k.jpg"
+  current_proxy_dimensions_px: [1361, 2048]
+  current_proxy_sha256: "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d"
