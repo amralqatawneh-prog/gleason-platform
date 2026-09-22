@@ -1,3 +1,12 @@
+## [Unreleased] — P6.C3 Calibration & Fixture Laboratory (2026-09-22)
+
+- PR #38 / P6.C2 was separately authorized and merged at `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f`; exact final recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` passed Release Acceptance Gates **#878 — SUCCESS** before merge.
+- Reconciled README, current handoff, roadmap, Phase 6 plan, P6.C2 report and machine-readable acceptance state to the new P6.C2-merged baseline.
+- Owner instructed post-PR #38 reconciliation followed by starting **P6.C3 — Calibration & Fixture Laboratory**.
+- Created `feat/p6.c3-calibration-fixture-laboratory` from the exact PR #38 merge baseline and opened draft PR #39.
+- Added the initial P6.C3 contract at `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`: source-backed book/video/Walter/raster/reference fixtures, residual semantics, local scale/distortion diagnostics, research profile selection, and fail-closed 8K/JGW calibration until the true companion raster is available.
+- P6.C4/P6.C5 remain NOT STARTED; P6.7B remains PAUSED / NOT STARTED. No tag, GitHub Release or deployment.
+
 # Changelog
 
 ## [Unreleased] — P6.C2 Gleason SI Measurement Engine (2026-09-22)
