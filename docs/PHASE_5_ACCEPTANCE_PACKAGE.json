@@ -849,7 +849,7 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "awaiting-complete-ci",
+      "automated_status": "technically-green-awaiting-owner-manual",
       "owner_manual_status": "not_run",
       "current_base_branch": "main",
       "current_base_commit": "7e398ebab7841f0b5e6ced9f9437f144efc318e7",
@@ -858,7 +858,10 @@
       "historical_stacked_base_head": "06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1",
       "historical_stacked_base_ci_run": 837,
       "historical_stacked_base_ci_conclusion": "success",
-      "sync_commit_after_pr36_merge": "16b122f77ffbfd02129448a57f5096e1973a7e45"
+      "sync_commit_after_pr36_merge": "16b122f77ffbfd02129448a57f5096e1973a7e45",
+      "verification_head": "1d316618163a26c4647aec63682b0a4c7bd39a26",
+      "verification_ci_run": 845,
+      "verification_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {
