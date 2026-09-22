@@ -239,7 +239,7 @@ Governing architecture:
 P6.7B is intentionally paused until P6.C1–P6.C5 close.
 
 ### P6.C1 — Gleason Measurement Re-evaluation
-Status: **NOT STARTED — next functional slice after amendment verification/merge**.
+Status: **CLOSED / VERIFIED — #859 SUCCESS — AWAITING EXACT RECORDING-HEAD CI + SEPARATE MERGE AUTHORIZATION**.
 
 Deliver:
 - versioned Gleason measurement-profile contract;
@@ -372,10 +372,12 @@ P6.7A is **CLOSED / VERIFIED / MERGED**:
 - PR #34 merge `cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`.
 
 Current task:
-1. verify the architecture amendment and Walter source registry;
-2. merge the amendment only by separate owner authorization;
-3. start **P6.C1 — Gleason Measurement Re-evaluation** from the verified amendment head;
-4. keep P6.7B **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+1. Architecture Amendment exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; PR #36 was then explicitly authorized and merged at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
+2. **P6.C1 is now IN PROGRESS** on `feat/p6.c1-gleason-measurement-reevaluation`, draft PR #37 retargeted to `main` and synchronized after PR #36 through `16b122f77ffbfd02129448a57f5096e1973a7e45`.
+3. P6.C1 contract/source audit demotes the circle-derived profile to diagnostic, fails closed on unresolved Figure 43 SI conversion, registers Walter direct-SI external comparison, and gates video/raster calibration profiles.
+4. Exact P6.C1 verification head `1d316618163a26c4647aec63682b0a4c7bd39a26` passed **Release Acceptance Gates #845 — SUCCESS**; the subsequent owner-test candidate `0fe9a18943fd6404773d6604c5ee901fd6773589` passed **#850 — SUCCESS**, and the owner reported **6/6 PASS — REPORTED BY OWNER**.
+5. Owner manual verification completed **6/6 PASS — REPORTED BY OWNER** on `0fe9a18943fd6404773d6604c5ee901fd6773589` after **#850 — SUCCESS**. Closure-state head `4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22` passed **#859 — SUCCESS**; the recording head now requires one final complete gate run before merge authorization.
+6. P6.C2 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
 
 ### P6.6 source-audit correction package — 2026-09-21
 

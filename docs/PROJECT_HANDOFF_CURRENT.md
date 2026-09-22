@@ -11,7 +11,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` — PR **#34** / P6.7A merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working branch: `docs/measurement-ux-celestial-architecture-amendment-2026-09-22`; draft PR #36. Architecture amendment is **CLOSED / VERIFIED** after `20a203fad5b86409c64e9129806dd07169d3cddf` passed **#832 — SUCCESS**; closure-state CI remains required before separate merge authorization. P6.7A is merged; next functional slice is P6.C1; P6.7B is paused/not-started.
+- Current working functional branch: `feat/p6.c1-gleason-measurement-reevaluation`; draft PR **#37** is now based on `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7` after PR #36 merged. Historical architecture closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; branch synchronization commit is `16b122f77ffbfd02129448a57f5096e1973a7e45`. P6.C1 is **CLOSED by owner verification / awaiting final closure CI** after owner-tested head `0fe9a18943fd6404773d6604c5ee901fd6773589` passed **#850 — SUCCESS** and owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C2 is NOT STARTED; P6.7B is paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -75,11 +75,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Historical P6.3 route-guide behavior is superseded for active route visualization by P6.7A: the selected computation identity now owns the geometry shown on all three views. Flat-model pan/touch behavior remains unchanged; numeric P6.3–P6.5 measurement panels retain their own independent identities.
-- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33 and PR #34 are **MERGED**. P6.2–P6.7A are CLOSED. No tag, GitHub Release or deployment has been created. Corrective architecture amendment is in progress; P6.C1 is next after verification/merge.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34 and PR #36 are **MERGED**. P6.2–P6.7A are CLOSED. Corrective architecture amendment is merged; P6.C1 is closed by owner verification on PR #37 and awaits final closure CI. No tag, GitHub Release or deployment has been created.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. The owner-approved corrective sequence P6.C1–P6.C5 is next; P6.7B is paused/not-started until that sequence closes.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. **P6.C1 is IN PROGRESS** on stacked PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.

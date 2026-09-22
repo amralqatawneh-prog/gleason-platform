@@ -6,11 +6,11 @@ import {
 export const GLEASON_SCALE_PROFILES = Object.freeze([
   Object.freeze({
     id: 'gleason-fig43-circle-derived',
-    role: 'historical-default',
+    role: 'diagnostic-derived',
     unit: 'historical-fig43-mile',
     distance_per_nru: GLEASON_FIG43_CIRCLE_MILES_PER_NRU,
     evidence_level: 'DERIVED_FROM_DOCUMENTED',
-    basis: 'Fig.43 Equator 60 miles/longitude-degree -> 21600 circumference -> C=2πr',
+    basis: 'Diagnostic only after P6.C1: Fig.43 Equator 60 miles/longitude-degree -> 21600 circumference -> derived C=2πr; not a universal historical route metric',
   }),
   Object.freeze({
     id: 'gleason-radial-60nm-legacy',
