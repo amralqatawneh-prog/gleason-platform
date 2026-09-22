@@ -6,7 +6,8 @@ policy:
   - "Every fixture preserves source class, evidence level, native unit and provenance."
   - "Residuals require semantically compatible quantities and units; otherwise fail closed."
   - "No city/raster control point may be fabricated."
-  - "The lower-resolution 1464x2048 image is owner-approved for visual/ruler calibration; JGW georeferencing remains gated until its true companion raster is present and audited."
+  - "Gleason-map-8k.jpg (1361x2048, SHA-256 884e9b...) is the owner-authorized visual/ruler proxy because the original full-resolution raster is unavailable."
+  - "The JGW affine working unit is metre by owner-authorized proxy verification; exact original-pixel pairing and CRS remain gated."
 fixtures:
   - fixture_id: book-fig43-equator-one-degree
     fixture_kind: historical_longitude_arc
@@ -141,16 +142,17 @@ fixtures:
     fixture_kind: raster_fit
     source_class: OWNER_SECONDARY_OBSERVED
     evidence_level: SECONDARY_OBSERVED
-    source_unit: unknown-jgw-native-unit
+    source_unit: metre-affine-unit-verified
     prediction_profile_id: gleason-raster-calibrated
     status: gated
-    gate_reason: missing-true-companion-8k-raster
+    gate_reason: exact-pixel-pairing-unverified-proxy-only
     provenance:
       - "gleason-owner-8k-map-2026-09-22"
       - "data/sources/artifacts/8k-Flat-Earth-map.jgw"
     notes:
-      - "The 1464x2048 JPEG is approved for printed-ruler visual calibration, but remains unrelated to JGW pixel georeferencing."
-      - "Do not label JGW numeric units as metres, miles or a named CRS without independent verification."
+      - "Gleason-map-8k.jpg (1361x2048; SHA-256 884e9b...) is the owner-authorized visual/ruler proxy."
+      - "The JGW affine unit is metre for P6.C3 working diagnostics; explicit modern statute-mile and nautical-mile conversions are allowed."
+      - "Exact proxy-to-JGW pixel pairing is not claimed and CRS remains unknown/not encoded."
 
 verified_ruler_units:
   reference_registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
@@ -187,4 +189,9 @@ verified_ruler_units:
     absolute_difference_m: 8.0264
     policy: preserve-both-do-not-silently-select
   generic_fig43_mile_si_status: unresolved
-  owner_jgw_native_unit_status: unknown
+  owner_jgw_native_unit_status: metre-owner-authorized-proxy-verified
+  owner_jgw_crs_status: unknown-not-encoded
+  owner_jgw_pixel_step_m: 5014.548291487017
+  owner_jgw_pixel_step_international_statute_mile: 3.115895850412974
+  owner_jgw_pixel_step_international_nautical_mile: 2.7076394662456895
+  owner_jgw_exact_pixel_pairing_status: gated-exact-original-unavailable
