@@ -86,7 +86,7 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
           <span><b>{locale === 'ar' ? 'المصدر' : 'Source'}:</b> {format(fixture.source_distance, locale)} {fixture.source_unit}</span>
           <span><b>{locale === 'ar' ? 'التنبؤ' : 'Prediction'}:</b> {format(fixture.profile_prediction, locale)} {fixture.prediction_unit ?? ''}</span>
           <span><b>{locale === 'ar' ? 'الباقي المطلق' : 'Absolute residual'}:</b> {format(fixture.residual_absolute, locale)} {fixture.prediction_unit ?? fixture.source_unit}</span>
-          <span><b>{locale === 'ar' ? 'الباقي %' : 'Residual %'}:</b> {fixture.residual_percent == null ? '—' : \`${format(fixture.residual_percent, locale, 6)}%\`}</span>
+          <span><b>{locale === 'ar' ? 'الباقي %' : 'Residual %'}:</b> {fixture.residual_percent == null ? '—' : `${format(fixture.residual_percent, locale, 6)}%`}</span>
           <span><b>{locale === 'ar' ? 'السياق' : 'Context'}:</b> {fixture.latitude_context} · {fixture.direction_context}</span>
         </div>
         {fixture.gate_reason && <div className="notice" data-p6c3-gate-reason={fixture.gate_reason}>
