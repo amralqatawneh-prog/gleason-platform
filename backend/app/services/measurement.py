@@ -269,7 +269,7 @@ def gleason_si_route_distance(route_id: str, points: list[GleasonRoutePoint]) ->
             "conversion_basis": (
                 "Explicit assumption: interpret each diagnostic Figure 43 mile as "
                 "the nautical/geographical side of Fig.37 ratio 180 nautical/geographical "
-                "=208 English miles; English mile=5280 international feet."
+                "= 208 English miles; English mile=5280 international feet."
             ),
             "provenance": [
                 "gleason-1893-upload-v1:Figs.37-38",
