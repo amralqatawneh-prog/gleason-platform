@@ -7,6 +7,7 @@ import { buildGlobeLabels, declutterProjectedLabels } from './globeLabels';
 import type { GlobeLayerVisibility } from './globeLayers';
 import { localGeodeticToEcef } from './offlineWgs84';
 import { buildGreatCircleRouteSegments } from '../measurement/routeGuide';
+import type { SameRouteRenderingPlan } from '../measurement/sameRouteRendering';
 import { GLOBE_CLIP_SCALE, WGS84_POLAR_RATIO, clampLatitude, clampReferenceZoom, latLonToEllipsoid, draggedYaw, geoPointToViewAngles, normalizeLongitude, projectGeoToScreen, referenceViewMode, scaleReferenceZoomByPinch, screenPointToGeo, type ReferenceGeoPoint } from './referenceMath';
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
   layers?: GlobeLayerVisibility;
   layerPlaces?: OfflinePlace[];
   routePoints?: readonly ReferenceGeoPoint[];
+  routeRenderingPlan?: SameRouteRenderingPlan;
 };
 
 type DragState = { pointerId:number; x: number; y: number; yaw: number; pitch: number } | null;
@@ -98,9 +100,9 @@ function buildPlaces(places: readonly OfflinePlace[]): Float32Array {
   return new Float32Array(vertices);
 }
 
-function buildRouteGuideVertices(points: readonly ReferenceGeoPoint[]): Float32Array {
+function buildRouteGuideVertices(segments: SameRouteRenderingPlan['segments'] | ReturnType<typeof buildGreatCircleRouteSegments>): Float32Array {
   const vertices: number[] = [];
-  for (const segment of buildGreatCircleRouteSegments(points)) {
+  for (const segment of segments) {
     for (let index = 1; index < segment.samples.length; index += 1) {
       const start = segment.samples[index - 1];
       const end = segment.samples[index];
@@ -158,7 +160,7 @@ function svgClientToGeo(svg:SVGSVGElement,clientX:number,clientY:number):Referen
   return {latitude:90-local.y,longitude:normalizeLongitude(local.x-180)};
 }
 
-export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, selectionPoint, selectionLabel, layers, layerPlaces = [], routePoints = [] }: Props) {
+export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, selectionPoint, selectionLabel, layers, layerPlaces = [], routePoints = [], routeRenderingPlan }: Props) {
   const mode = useMemo(() => referenceViewMode(capabilities), [capabilities]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fallbackRef = useRef<SVGSVGElement | null>(null);
@@ -177,9 +179,10 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   const surfaceVertices = useMemo(() => buildEllipsoidSurface(), []);
   const countryVertices = useMemo(() => buildCountries(), []);
   const placeVertices = useMemo(() => buildPlaces(layerPlaces), [layerPlaces]);
-  const routeGuideSegments = useMemo(() => buildGreatCircleRouteSegments(routePoints), [routePoints]);
-  const routeGuideVertices = useMemo(() => buildRouteGuideVertices(routePoints), [routePoints]);
-  const routePointVertices = useMemo(() => buildRoutePointVertices(routePoints), [routePoints]);
+  const renderedRoutePoints = useMemo(() => routeRenderingPlan?.canonicalPoints.map(item => item.point) ?? routePoints, [routeRenderingPlan, routePoints]);
+  const routeGuideSegments = useMemo(() => routeRenderingPlan?.segments ?? buildGreatCircleRouteSegments(renderedRoutePoints), [routeRenderingPlan, renderedRoutePoints]);
+  const routeGuideVertices = useMemo(() => buildRouteGuideVertices(routeGuideSegments), [routeGuideSegments]);
+  const routePointVertices = useMemo(() => buildRoutePointVertices(renderedRoutePoints), [renderedRoutePoints]);
   const countryPaths = useMemo(() => countryBoundaryRings().map(fallbackPath), []);
   const labels = useMemo(() => layers ? buildGlobeLabels(layerPlaces, layers, locale) : [], [layerPlaces, layers, locale]);
   const projectedLabels = useMemo(() => declutterProjectedLabels(
@@ -192,10 +195,10 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
     52,
   ), [labels, viewport, yaw, pitch, zoom]);
 
-  const routeMarkers = useMemo(() => routePoints.flatMap((point, index) => {
+  const routeMarkers = useMemo(() => renderedRoutePoints.flatMap((point, index) => {
     const screen = projectGeoToScreen(point, viewport.width, viewport.height, yaw, pitch, zoom);
     return screen?.visible ? [{ point, index, screen }] : [];
-  }), [routePoints, viewport, yaw, pitch, zoom]);
+  }), [renderedRoutePoints, viewport, yaw, pitch, zoom]);
 
   useEffect(() => {
     if (mode !== 'fallback2d' || !fallbackRef.current) return;
@@ -410,7 +413,12 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
       const point=svgClientToGeo(e.currentTarget,e.clientX,e.clientY);if(point)choose(point);
     };
     return <section className="reference-card" data-mode="fallback2d" data-view-zoom={z.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-      data-route-guide="visual-only" data-route-guide-geometry="great-circle-reference" data-flight-track="false" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
+      data-route-guide="visual-only" data-route-guide-geometry={routeRenderingPlan?.geometryKind ?? 'great-circle-reference'} data-flight-track="false"
+      data-route-guide-points={renderedRoutePoints.length} data-route-guide-segments={routeGuideSegments.length}
+      data-route-id={routeRenderingPlan?.routeId ?? ''} data-route-revision={routeRenderingPlan?.routeRevision ?? ''}
+      data-route-computation-method={routeRenderingPlan?.computation.methodId ?? ''} data-route-computation-model={routeRenderingPlan?.computation.calculationModel ?? ''}
+      data-route-computation-unit={routeRenderingPlan?.computation.unit ?? ''} data-route-rendered-on-model="wgs84"
+      data-route-interpretation-rule={routeRenderingPlan?.visualizations.wgs84.interpretationRule ?? ''}>
       <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>2D fallback · EPSG:4979 · north-up</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
       <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={z} areaMode={areaMode} hasSelection={!!selectionPoint}
         onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
@@ -428,7 +436,7 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
             {layerPlaces.filter((place)=>place.category!=='country').map((place)=><circle key={place.id} cx={place.longitude+180} cy={90-place.latitude} r={Math.max(.4,1.3/Math.max(1,z))} className={'reference-place-dot reference-place-'+place.category}><title>{locale==='ar'&&place.nameAr?place.nameAr:place.name}</title></circle>)}
             {fallbackLabels.map(({label,fontSizePx})=><text key={label.id} x={label.longitude+180} y={90-label.latitude} dominantBaseline="central" style={{fontSize:fontSizePx/scale}} className={'reference-map-label reference-map-label-'+label.kind}><title>{label.provenance}</title>{label.text}</text>)}
             {routeGuideSegments.map(segment=><path key={segment.segmentId} d={fallbackPath(segment.samples.map(point=>[point.longitude,point.latitude] as [number,number]))} className="reference-route-guide-line"/>)}
-            {routePoints.map((point,index)=><g key={'route-point-'+index} className="reference-route-guide-point">
+            {renderedRoutePoints.map((point,index)=><g key={'route-point-'+index} className="reference-route-guide-point">
               <circle cx={point.longitude+180} cy={90-point.latitude} r={Math.max(.9,3.2/Math.max(1,z))}/>
               <text x={point.longitude+180} y={90-point.latitude-Math.max(1.5,5/Math.max(1,z))} textAnchor="middle" dominantBaseline="central" style={{fontSize:Math.max(2.2,5/Math.max(1,z))}}>{index<26?String.fromCharCode(65+index):`P${index+1}`}</text>
             </g>)}
@@ -491,7 +499,12 @@ export function ReferenceGlobe({ capabilities, locale, onPoint, focusPoint, sele
   };
 
   return <section className="reference-card" data-mode="webgl3d" data-view-yaw={yaw} data-view-pitch={pitch} data-view-zoom={zoom.toFixed(4)} data-area-mode={areaMode?'true':'false'} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-    data-route-guide="visual-only" data-route-guide-geometry="great-circle-reference" data-flight-track="false" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0,routePoints.length-1)}>
+    data-route-guide="visual-only" data-route-guide-geometry={routeRenderingPlan?.geometryKind ?? 'great-circle-reference'} data-flight-track="false"
+    data-route-guide-points={renderedRoutePoints.length} data-route-guide-segments={routeGuideSegments.length}
+    data-route-id={routeRenderingPlan?.routeId ?? ''} data-route-revision={routeRenderingPlan?.routeRevision ?? ''}
+    data-route-computation-method={routeRenderingPlan?.computation.methodId ?? ''} data-route-computation-model={routeRenderingPlan?.computation.calculationModel ?? ''}
+    data-route-computation-unit={routeRenderingPlan?.computation.unit ?? ''} data-route-rendered-on-model="wgs84"
+    data-route-interpretation-rule={routeRenderingPlan?.visualizations.wgs84.interpretationRule ?? ''}>
     <div className="reference-card__head"><div><strong>WGS84 Reference</strong><span>Interactive WebGL2 ellipsoid · EPSG:4979</span></div><span className="evidence-badge">REFERENCE_RESULT</span></div>
     <ReferenceNavigationToolbar locale={locale} mode={mode} zoom={zoom} areaMode={areaMode} hasSelection={!!selectionPoint}
       onZoomIn={()=>zoomBy(1.25)} onZoomOut={()=>zoomBy(1/1.25)} onArea={()=>{setAreaMode(!areaMode);setBoxZoom(null);}}
