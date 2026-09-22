@@ -301,7 +301,7 @@
     "current_slice": "P6.C1",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed",
     "next_slice": "P6.C2",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -815,7 +815,7 @@
       "post_merge_main_ci_run": null,
       "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_c1_status": "in_progress",
+    "p6_c1_status": "closed",
     "p6_c1_start": {
       "date": "2026-09-22",
       "owner_statement": "انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.",
@@ -849,8 +849,8 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-awaiting-owner-manual",
-      "owner_manual_status": "not_run",
+      "automated_status": "technically-green-owner-manual-passed-awaiting-final-closure-ci",
+      "owner_manual_status": "pass-reported-by-owner",
       "current_base_branch": "main",
       "current_base_commit": "7e398ebab7841f0b5e6ced9f9437f144efc318e7",
       "historical_stacked_base_branch": "docs/measurement-ux-celestial-architecture-amendment-2026-09-22",
@@ -861,7 +861,24 @@
       "sync_commit_after_pr36_merge": "16b122f77ffbfd02129448a57f5096e1973a7e45",
       "verification_head": "1d316618163a26c4647aec63682b0a4c7bd39a26",
       "verification_ci_run": 845,
-      "verification_ci_conclusion": "success"
+      "verification_ci_conclusion": "success",
+      "owner_tested_head": "0fe9a18943fd6404773d6604c5ee901fd6773589",
+      "pre_manual_ci_run": 850,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_result": "6/6-pass-reported-by-owner",
+      "manual_checks": {
+        "fig43_circle_derived_diagnostic_label": "pass-reported-by-owner",
+        "unresolved_fig43_si_fails_closed": "pass-reported-by-owner",
+        "fig43_local_latitude_dependent_semantics": "pass-reported-by-owner",
+        "fig37_frame_time_conversions_separate": "pass-reported-by-owner",
+        "bilingual_source_evidence_boundaries": "pass-reported-by-owner",
+        "p6c2_p6c7b_boundaries_preserved": "pass-reported-by-owner"
+      },
+      "closure_status": "closed-awaiting-final-closure-ci",
+      "final_closure_ci_run": null,
+      "final_closure_ci_conclusion": "pending",
+      "merge_authorization": "pending-separate-owner-instruction"
     }
   },
   "post_pr16_merge_reconciliation": {
