@@ -205,7 +205,7 @@ Acceptance:
 
 ## P6.7A — Same Route, Three Renderings
 
-Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER — AWAITING FINAL CLOSURE CI**.
+Status: **CLOSED / VERIFIED / MERGED — owner manual 6/6 PASS; final closure #829 SUCCESS; PR #34 merged**.
 
 Automated evidence: earlier implementation head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS**. The exact owner-tested head `a11f7263cf42880ce0309c49f79ba45c29d78323` passed Release Acceptance Gates **#821 — SUCCESS** immediately before manual verification.
 
@@ -213,9 +213,9 @@ Start authorization: owner instruction **«ابدأ P6.7A»**.
 
 Start baseline: `main @ 1825852da81c04cee8e5b9f73dba28b55068c000` after PR #33 merged. PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
 
-Working branch: `feat/p6.7a-same-route-three-renderings`; draft PR #34.
+Implementation branch: `feat/p6.7a-same-route-three-renderings`; PR #34 **MERGED** at `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` after exact closure head `8b60cac42431947b52950c9e8b9d920ca46ebd5b` passed Release Acceptance Gates **#829 — SUCCESS**.
 
-Owner manual evidence: exact tested head `a11f7263cf42880ce0309c49f79ba45c29d78323`; pre-manual Release Acceptance Gates **#821 — SUCCESS**; result **6/6 PASS — REPORTED BY OWNER**. PR #34 remains draft/open/unmerged pending final closure CI and separate merge authorization.
+Owner manual evidence: exact tested head `a11f7263cf42880ce0309c49f79ba45c29d78323`; pre-manual Release Acceptance Gates **#821 — SUCCESS**; result **6/6 PASS — REPORTED BY OWNER**. Final closure head `8b60cac42431947b52950c9e8b9d920ca46ebd5b` passed **#829 — SUCCESS** and PR #34 was separately authorized and merged.
 
 Detailed contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
 
@@ -230,6 +230,52 @@ Acceptance:
 - one canonical ordered route identity drives all three renderings;
 - each view projects/render independently;
 - computation identity and visualization identity remain inspectable.
+
+## Corrective measurement sequence — owner approved 2026-09-22
+
+Governing architecture:
+`docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
+
+P6.7B is intentionally paused until P6.C1–P6.C5 close.
+
+### P6.C1 — Gleason Measurement Re-evaluation
+Status: **NOT STARTED — next functional slice after amendment verification/merge**.
+
+Deliver:
+- versioned Gleason measurement-profile contract;
+- source/evidence hierarchy;
+- demote `gleason-fig43-circle-derived` from preferred universal route scale to diagnostic;
+- register Walter SI flat-plane profile as external comparative, not Gleason historical;
+- audit Figure 43 mile unit identity before automatic SI conversion;
+- define book/video/raster profile semantics and fail-closed conversion rules;
+- tests/fixtures for formulas and profile metadata;
+- no Map-First UI redesign yet.
+
+### P6.C2 — Gleason SI Measurement Engine
+Status: **NOT STARTED**.
+
+Implement approved profiles with metre/km/NM outputs where justified, explicit
+profile provenance, browser/backend parity and no hidden normalization.
+
+### P6.C3 — Calibration & Fixture Laboratory
+Status: **NOT STARTED**.
+
+Compare book/video/Walter/raster/reference fixtures, report residuals and local
+scale/distortion diagnostics, and expose research profile selection.
+
+### P6.C4 — Ellipsoidal Elevation Provider
+Status: **NOT STARTED**.
+
+Define `ElevationProvider`; verify at least one online provider; preserve vertical
+datum/provenance; compute ellipsoidal height for WGS84 ECEF without inventing
+`h=0`; define cache/offline/failure behavior.
+
+### P6.C5 — Map-First Comparison Workspace
+Status: **NOT STARTED**.
+
+Implement single large map, two-map 50/50 desktop comparison, mobile tabs and a
+collapsible inspector while preserving canonical selection/route/computation
+identity.
 
 ## P6.7B — Route Provider & Turn-by-Turn Directions
 
@@ -308,27 +354,28 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-P6.7A — **Same Route, Three Renderings** is **CLOSED by owner verification / awaiting final closure CI** after explicit owner
-instruction **«ابدأ P6.7A»**.
+The owner approved the corrective measurement/UX/celestial architecture roadmap
+on 2026-09-22.
 
-Current integration baseline:
-`main @ 1825852da81c04cee8e5b9f73dba28b55068c000`.
+Architecture branch:
+`docs/measurement-ux-celestial-architecture-amendment-2026-09-22`.
 
-Start evidence:
-- PR #33 final head: `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb`;
-- PR #33 pre-merge Release Acceptance Gates: **#803 — SUCCESS**;
-- PR #33 merge commit: `1825852da81c04cee8e5b9f73dba28b55068c000`;
-- no independent post-merge push CI is claimed;
-- working branch: `feat/p6.7a-same-route-three-renderings`;
-- draft PR: **#34**.
+Baseline:
+`main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`.
 
-The implementation reuses the single P6.2 ordered route and permits exactly one
-selected computation identity at a time: WGS84 geodesic, AE projected-plane, or
-Gleason native normalized. One computation geometry is built, then visualized
-independently on all three models under
-`preserve-computation-identity`.
+P6.7A is **CLOSED / VERIFIED / MERGED**:
+- owner-tested head `a11f7263cf42880ce0309c49f79ba45c29d78323`;
+- pre-manual CI **#821 — SUCCESS**;
+- owner manual **6/6 PASS — REPORTED BY OWNER**;
+- closure head `8b60cac42431947b52950c9e8b9d920ca46ebd5b`;
+- closure CI **#829 — SUCCESS**;
+- PR #34 merge `cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`.
 
-Owner manual verification completed **6/6 PASS — REPORTED BY OWNER** on `a11f7263cf42880ce0309c49f79ba45c29d78323`. Current task: run the complete final closure Release Acceptance Gates on the documentation/state closure head. P6.7B remains **NOT STARTED** and no RouteProvider, turn-by-turn, road-route or flight-route semantics are introduced.
+Current task:
+1. verify the architecture amendment and Walter source registry;
+2. merge the amendment only by separate owner authorization;
+3. start **P6.C1 — Gleason Measurement Re-evaluation** from the verified amendment head;
+4. keep P6.7B **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
 
 ### P6.6 source-audit correction package — 2026-09-21
 

@@ -138,6 +138,32 @@ navigation. Those remain P6.7B.
 Detailed contract:
 `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
 
+## 6.2 Corrective measurement/provider architecture — approved, not yet implemented
+
+Governing document:
+`docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
+
+The next functional sequence is P6.C1–P6.C5 before P6.7B.
+
+New/reserved contracts:
+
+- `MeasurementProfile` for Gleason profile identity/evidence/scale/SI status;
+- `ElevationProvider` for orthometric/geoid/ellipsoidal-height provenance;
+- `CoordinateDomain` to separate WGS84/AE/Gleason/Walter/raster/dome spaces;
+- `DomeProjectionProvider`;
+- `ObserverOpticsProvider`;
+- `TerrestrialRefractionProvider`;
+- `AstronomicalRefractionProvider`;
+- `SyntheticObserverRayMapping`.
+
+Walter formulas/apps are registered under
+`data/sources/walter-bislin-comparative-models.yaml` as external comparative
+sources. They must not be relabeled as Gleason historical rules.
+
+The future map-first workspace must preserve the existing canonical selection,
+ordered route and computation identity while allowing one large map or two 50/50
+maps on desktop and tabs on mobile.
+
 ## 7. Astronomy architecture
 
 Future astronomy must use the approved `CelestialComputationProvider` identity

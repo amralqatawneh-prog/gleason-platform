@@ -1,0 +1,141 @@
+registry_id: walter-bislin-comparative-models
+registry_version: "1.0.0"
+date: "2026-09-22"
+status: planning_and_algorithm_sources_not_validation_truth
+source_class: EXTERNAL_COMPARATIVE_MODEL
+author: "Walter Bislin"
+site_root: "https://walter.bislins.ch/bloge/index.asp"
+policy:
+  - "Use formulas/algorithms as external comparative implementations with provenance."
+  - "Do not relabel Walter formulas as Gleason historical rules."
+  - "Do not adopt the author's model conclusions as project conclusions."
+  - "Pin/copy code only after license/source snapshot review at implementation time."
+  - "Separate physical atmospheric refraction from synthetic FE-Dome ray mapping."
+sources:
+  - id: walter-distances-globe-flat-earth
+    title: "Distances on Globe and Flat Earth"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Distances+on+Globe+and+Flat+Earth"
+    accessed: "2026-09-22"
+    source_type: external_comparative_algorithm
+    intended_use:
+      - "P6.C1 measurement profile specification"
+      - "P6.C2 SI flat-plane comparison"
+      - "P6.C3 calibration fixtures"
+    formulas:
+      radial_distance: "r_i = (1 - latitude_i/90deg) * E"
+      default_equator_distance: "E = 10008 km"
+      x: "x_i = r_i * cos(longitude_i)"
+      y: "y_i = r_i * sin(longitude_i)"
+      distance: "L = sqrt((x2-x1)^2 + (y2-y1)^2)"
+      normalized_project_relation: "project rho=(90-lat)/180 implies 1 NRU = 2*E = 20016 km when E=10008 km"
+    notes:
+      - "Page exposes km/nmi/statute-mile output and treats flat-model shortest path as a straight plane segment."
+      - "The page is comparative model material, not Gleason primary source evidence."
+
+  - id: walter-globe-flat-transformations
+    title: "Globe and Flat Earth Transformations and Mappings"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=globe+and+flat+earth+transformations+and+mappings"
+    accessed: "2026-09-22"
+    source_type: external_comparative_mapping
+    intended_use:
+      - "CoordinateDomain architecture"
+      - "projection-vs-coordinate-transform semantics"
+      - "future flight and celestial projection boundaries"
+    formulas:
+      flat_radial: "r = (pi/2 - latitude_rad) * R"
+      flat_x: "X = r * cos(longitude_rad)"
+      flat_y: "Y = r * sin(longitude_rad)"
+      flat_z: "Z = h"
+      inverse_latitude: "latitude_rad = pi/2 - r/R"
+      inverse_longitude: "longitude_rad = acos(X/r) * sign(Y), r>0"
+      inverse_height: "h = Z"
+    notes:
+      - "Page explicitly states that mapping/projection between different geometries does not preserve vectors."
+
+  - id: walter-gps-flat-stretch
+    title: "Math: GPS Flight Data and the Shape of the Earth"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Math%3A+GPS+Flight+Data+and+the+Shape+of+the+Earth"
+    accessed: "2026-09-22"
+    source_type: external_comparative_distortion
+    intended_use:
+      - "P6.C3 local distortion diagnostic"
+      - "future aviation comparison"
+    formulas:
+      east_west_stretch: "k = (pi/2 - latitude_rad) / cos(latitude_rad)"
+    notes:
+      - "This is registered as a diagnostic relationship, not Gleason historical evidence."
+
+  - id: walter-flat-earth-flight-plans
+    title: "Creating Flight Plans for Flat Earth"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Creating+Flight+Plans+for+Flat+Earth"
+    accessed: "2026-09-22"
+    source_type: external_comparative_flight_app
+    intended_use:
+      - "Phase 15 comparative waypoint/flight-plan UX"
+    concepts:
+      paths:
+        - "Way Points"
+        - "Navigation"
+        - "Great Circle"
+      fields:
+        - "WP"
+        - "CRS"
+        - "LegDist"
+        - "DTG"
+        - "TTA"
+        - "TAS"
+        - "FF"
+        - "FOB"
+    limitations:
+      - "The source page itself warns that its generated plans must not be used for real flights."
+
+  - id: walter-fe-dome
+    title: "Flat Earth Dome Model"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Flat+Earth+Dome+Model"
+    accessed: "2026-09-22"
+    source_type: external_comparative_observer_dome
+    intended_use:
+      - "Phase 11 observer-dome architecture"
+      - "synthetic observer ray mapping comparison"
+    methods:
+      - "observer-centered dome visualization"
+      - "adjustable Bezier light-ray curves in the FE-Dome presentation"
+    limitations:
+      - "Synthetic light-ray mapping is not registered as physical atmospheric refraction."
+      - "Do not relabel projected reference celestial state as Gleason-native astronomy."
+
+  - id: walter-terrestrial-refraction
+    title: "Calculator for Terrestrial Atmospheric Refraction"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Calculator+for+Terrestrial+Atmospheric+Refraction"
+    accessed: "2026-09-22"
+    source_type: external_physics_algorithm_reference
+    intended_use:
+      - "future TerrestrialRefractionProvider research"
+    notes:
+      - "Page says equations are based on Fermat principle and Edlen/Ciddor-related refractivity work."
+      - "Page explicitly states the calculator cannot be used for astronomical refraction."
+
+  - id: walter-refraction-derivation
+    title: "Deriving Equations for Atmospheric Refraction"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Deriving+Equations+for+Atmospheric+Refraction"
+    accessed: "2026-09-22"
+    source_type: external_physics_derivation
+    intended_use:
+      - "future refraction provider methodology review"
+    notes:
+      - "Terrestrial atmospheric refraction is treated as refractive-index-gradient light bending."
+      - "Astronomical refraction requires a separate implementation decision."
+
+  - id: walter-gps-flight-code
+    title: "Code: GPS Flight Data and the Shape of the Earth"
+    url: "https://walter.bislins.ch/bloge/index.asp?page=Code%3A+GPS+Flight+Data+and+the+Shape+of+the+Earth"
+    accessed: "2026-09-22"
+    source_type: external_comparative_code_reference
+    intended_use:
+      - "Phase 15 data-model research"
+      - "Elevation/geoid field naming review"
+    observed_fields:
+      - "SurfaceElevation"
+      - "GeoidHeight"
+    notes:
+      - "Code source is planning input only until a pinned source/license audit is completed."
