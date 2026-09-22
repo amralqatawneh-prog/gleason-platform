@@ -346,7 +346,7 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1–P6.7A are **CLOSED**, with P6.7A merged through PR #34. **P6.C1 is IN PROGRESS** on PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIFIED / MERGED**. **P6.C2 is IN PROGRESS**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
