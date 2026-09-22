@@ -301,8 +301,8 @@
     "current_slice": "P6.C3",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
-    "next_slice": "P6.C3",
+    "current_slice_status": "technically-green-awaiting-owner-manual",
+    "next_slice": "P6.C4",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
       "result": "pass-reported-by-owner",
@@ -967,7 +967,7 @@
       "post_merge_main_ci_run": null,
       "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_c3_status": "in_progress",
+    "p6_c3_status": "technically-green-awaiting-owner-manual",
     "p6_c3_start": {
       "date": "2026-09-22",
       "decision": "started-by-owner-after-p6c2-merge",
@@ -976,7 +976,7 @@
       "branch": "feat/p6.c3-calibration-fixture-laboratory",
       "pr": 39,
       "pr_status": "draft-open",
-      "status": "in_progress",
+      "status": "technically-green-awaiting-owner-manual",
       "report": "docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md",
       "fixture_registry": "data/sources/gleason-calibration-fixtures.yaml",
       "browser_engine": "frontend/src/measurement/gleasonCalibrationLaboratory.ts",
@@ -992,7 +992,7 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "fixture-engine-ui-implemented-awaiting-ci",
+      "automated_status": "technically-green-awaiting-owner-manual",
       "owner_manual_status": "not_run",
       "fixture_count": 9,
       "fixture_set_version": "P6.C3-fixtures-v1",
@@ -1010,6 +1010,22 @@
         "wgs84-reference-comparison",
         "restored-raster-diagnostic",
         "owner-8k-jgw-gated"
+      ],
+      "verification_head": "ed411b6f14ab1df2b406004a44a13af48dcd534a",
+      "verification_ci_run": 897,
+      "verification_ci_conclusion": "success",
+      "recording_head_ci": "pending",
+      "development_failures": [
+        {
+          "run": 894,
+          "cause": "TypeScript/TSX invalid escaped template-literal character in the initial P6.C3 residual-percentage UI.",
+          "resolution": "Removed the invalid escape; subsequent production build passed."
+        },
+        {
+          "run": 895,
+          "cause": "Browser acceptance regressions: legacy Gleason lab selectors became ambiguous after adding P6.C3, and a localized thousands separator made one textual numeric assertion brittle.",
+          "resolution": "Scoped legacy selectors to the route-distance laboratory and added stable numeric data attributes for local-scale diagnostics; #897 passed."
+        }
       ]
     }
   },
