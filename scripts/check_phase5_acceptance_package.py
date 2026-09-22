@@ -336,6 +336,29 @@ require(p6_c3.get("tag") == "not_created", "P6.C3 must not create a tag")
 require(p6_c3.get("github_release") == "not_created", "P6.C3 must not create a GitHub Release")
 require(p6_c3.get("deployment") == "not_created", "P6.C3 must not deploy")
 require(p6_c3.get("owner_manual_status") == "not_run", "P6.C3 owner manual verification must not be fabricated")
+require(p6_c3.get("automated_status") == "fixture-engine-ui-implemented-awaiting-ci", "P6.C3 implementation status drifted")
+require(p6_c3.get("fixture_count") == 9, "P6.C3 initial fixture count must remain 9")
+require(p6_c3.get("fixture_set_version") == "P6.C3-fixtures-v1", "P6.C3 fixture set version drifted")
+require(p6_c3.get("implemented_artifacts") == [
+    "data/sources/gleason-calibration-fixtures.yaml",
+    "frontend/src/measurement/gleasonCalibrationLaboratory.ts",
+    "frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx",
+    "frontend/tests/gleason-calibration-laboratory.test.mjs",
+    "frontend/tests/e2e/acceptance.spec.ts",
+], "P6.C3 implemented artifact set drifted")
+for artifact in p6_c3.get("implemented_artifacts", []):
+    require((ROOT / artifact).is_file(), f"P6.C3 implemented artifact missing: {artifact}")
+fixture_registry_text = (ROOT / "data" / "sources" / "gleason-calibration-fixtures.yaml").read_text(encoding="utf-8")
+for marker in [
+    "book-fig43-equator-one-degree",
+    "video-dNBxb-spreadsheet-chord",
+    "walter-pole-equator-default",
+    "reference-equator-one-degree-wgs84-vs-walter",
+    "raster-restored-outer-ring-fit",
+    "raster-owner-8k-jgw",
+    "missing-true-companion-8k-raster",
+]:
+    require(marker in fixture_registry_text, f"P6.C3 fixture registry marker missing: {marker}")
 for path in [
     "frontend/src/measurement/gleasonSiMeasurement.ts",
     "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md",
