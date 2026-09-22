@@ -239,7 +239,7 @@ Governing architecture:
 P6.7B is intentionally paused until P6.C1–P6.C5 close.
 
 ### P6.C1 — Gleason Measurement Re-evaluation
-Status: **CLOSED / VERIFIED — #859 SUCCESS — AWAITING EXACT RECORDING-HEAD CI + SEPARATE MERGE AUTHORIZATION**.
+Status: **CLOSED / VERIFIED / MERGED — owner manual 6/6 PASS; #859 closure; #864 exact recording-head SUCCESS; PR #37 merged at `3096d963b75478682923c20925e3eac974bbfb69`**.
 
 Deliver:
 - versioned Gleason measurement-profile contract;
@@ -252,7 +252,7 @@ Deliver:
 - no Map-First UI redesign yet.
 
 ### P6.C2 — Gleason SI Measurement Engine
-Status: **IN PROGRESS / TECHNICALLY GREEN — #870 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**.
+Status: **IN PROGRESS — implementation #869/#870 SUCCESS; pre-reconciliation recording head #874 SUCCESS; final contract/documentation reconciliation requires exact-head CI before owner manual verification**.
 
 Implement approved profiles with metre/km/NM outputs where justified, explicit
 profile provenance, browser/backend parity and no hidden normalization.
@@ -262,7 +262,9 @@ Baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` after P6.C1 / PR #37
 Contract/report: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
 P6.C3 remains NOT STARTED; P6.7B remains PAUSED / NOT STARTED.
 
-Automated evidence: exact head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed Release Acceptance Gates **#870 — SUCCESS** (duplicate same-head run #869 also SUCCESS). Owner manual verification remains NOT RUN.
+Automated evidence: exact implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed Release Acceptance Gates **#870 — SUCCESS** (duplicate same-head run #869 also SUCCESS). The subsequent recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed **#874 — SUCCESS**. The final contract/documentation reconciliation head must pass the complete gates before owner manual verification. Owner manual verification remains NOT RUN.
+
+Final P6.C2 contract: explicit per-profile `calculation_space` and nullable `assumption_id`; `limitations[]` is the single normative warning channel; numerical reproducibility is bound to `input.route_id` + exact ordered `input.points` rather than UI-only `route_revision`.
 
 ### P6.C3 — Calibration & Fixture Laboratory
 Status: **NOT STARTED**.
@@ -379,13 +381,12 @@ P6.7A is **CLOSED / VERIFIED / MERGED**:
 - PR #34 merge `cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`.
 
 Current task:
-1. Architecture Amendment exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; PR #36 was then explicitly authorized and merged at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
-2. **P6.C1 is now IN PROGRESS** on `feat/p6.c1-gleason-measurement-reevaluation`, draft PR #37 retargeted to `main` and synchronized after PR #36 through `16b122f77ffbfd02129448a57f5096e1973a7e45`.
-3. P6.C1 contract/source audit demotes the circle-derived profile to diagnostic, fails closed on unresolved Figure 43 SI conversion, registers Walter direct-SI external comparison, and gates video/raster calibration profiles.
-4. Exact P6.C1 verification head `1d316618163a26c4647aec63682b0a4c7bd39a26` passed **Release Acceptance Gates #845 — SUCCESS**; the subsequent owner-test candidate `0fe9a18943fd6404773d6604c5ee901fd6773589` passed **#850 — SUCCESS**, and the owner reported **6/6 PASS — REPORTED BY OWNER**.
-5. Owner manual verification completed **6/6 PASS — REPORTED BY OWNER** on `0fe9a18943fd6404773d6604c5ee901fd6773589` after **#850 — SUCCESS**. Closure-state head `4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22` passed **#859 — SUCCESS**; the recording head now requires one final complete gate run before merge authorization.
-6. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69` after #864 SUCCESS.
-7. P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»**; P6.C3 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+1. Architecture Amendment is **CLOSED / VERIFIED / MERGED** through PR #36.
+2. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37 at `main @ 3096d963b75478682923c20925e3eac974bbfb69`; exact recording-head CI **#864 — SUCCESS**.
+3. P6.C2 is the active slice on draft PR #38. Browser/backend SI engines, offline fallback, UI cards, parity and live API gates are implemented.
+4. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870; pre-reconciliation recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874.
+5. Final-contract/documentation reconciliation is now part of P6.C2 and must pass complete Release Acceptance Gates on its exact head before owner manual testing.
+6. Owner manual P6.C2 remains **NOT RUN**; P6.C3–P6.C5 remain **NOT STARTED** and P6.7B remains **PAUSED / NOT STARTED** until the corrective sequence closes.
 
 ### P6.6 source-audit correction package — 2026-09-21
 

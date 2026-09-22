@@ -9,9 +9,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` — PR **#34** / P6.7A merge.
+- Current integration baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` — PR **#37** / P6.C1 merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working functional branch: `feat/p6.c2-gleason-si-measurement-engine`; P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»** from `main @ 3096d963b75478682923c20925e3eac974bbfb69`. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37; final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed **#864 — SUCCESS** before merge. P6.C3 is NOT STARTED; P6.7B remains paused/not-started.
+- Current working functional branch: `feat/p6.c2-gleason-si-measurement-engine`; P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»** from `main @ 3096d963b75478682923c20925e3eac974bbfb69`. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37; final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed **#864 — SUCCESS** before merge. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870 and pre-reconciliation recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874; the final contract/documentation reconciliation head requires exact-head CI before owner manual testing. P6.C3 is NOT STARTED; P6.7B remains paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -62,6 +62,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.7A **CLOSED / VERIFIED / MERGED**: one P6.2 canonical ordered route; one selected computation identity and three renderings under `preserve-computation-identity`. Contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`. The owner then inserted P6.C1–P6.C5 before P6.7B.
 - P6.C1 **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69`.
 - P6.C2 runtime implementation is **IN PROGRESS** on PR #38: browser/backend SI profiles, explicit provenance, m/km/NM outputs, fail-closed unresolved historical profile, and browser/backend parity. Contract: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
+- P6.C2 final-contract reconciliation explicitly returns `calculation_space` and nullable `assumption_id` per executable profile; `limitations[]` is the single normative warning channel; `route_revision` stays UI/session state while numerical reproducibility uses the returned `input.route_id` + exact ordered `input.points` snapshot.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -1141,12 +1142,12 @@ PR #31 now targets the owner-approved corrected scale architecture:
 `gleason-fig43-circle-derived` default, radial-60 legacy comparison, Walter
 configurable comparison, same-latitude arc/chord separation, and provisional
 georeferencing for the owner-supplied 4653x6506 restored Gleason raster.
-P6.7A remains NOT STARTED.
+At that 2026-09-21 audit checkpoint P6.7A had not started; it subsequently
+closed/verified/merged through PR #34.
 
 
 ### P6.6 corrected-contract closure state — 2026-09-21
 
 The owner completed the corrected Gleason contract checklist **6/6 PASS —
 REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
-which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. P6.7A remains NOT STARTED. A documentation/state reconciliation was explicitly requested by the owner on 2026-09-22 before any next implementation slice
-closure.
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. At that checkpoint P6.7A had not started; it subsequently closed/verified/merged through PR #34. The owner then approved the corrective sequence P6.C1–P6.C5; P6.C1 is merged and P6.C2 is the active slice.

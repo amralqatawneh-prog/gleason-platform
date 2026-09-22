@@ -930,7 +930,16 @@
       "verification_ci_conclusion": "success",
       "duplicate_verification_ci_run": 869,
       "duplicate_verification_ci_conclusion": "success",
-      "recording_head_ci": "pending"
+      "recording_head_ci": "pending",
+      "final_contract": {
+        "version": "P6.C2-1",
+        "calculation_space": "explicit-per-executable-profile",
+        "assumption_id": "nullable-explicit-per-profile-null-for-direct-si",
+        "profile_id": "primary-executable-conversion-profile-identity",
+        "warnings_policy": "limitations-array-is-single-normative-warning-channel",
+        "route_revision_policy": "excluded-ui-session-state-exact-route-id-and-ordered-input-points-are-numerical-reproducibility-boundary",
+        "si_unit_policy": "explicit-distance-m-km-nmi-fields-plus-provider-unit-provenance-no-duplicate-generic-si-unit"
+      }
     }
   },
   "post_pr16_merge_reconciliation": {

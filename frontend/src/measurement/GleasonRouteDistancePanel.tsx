@@ -105,6 +105,8 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
           data-si-profile-id={profile.profile_id}
           data-si-conversion-status={profile.conversion_status}
           data-si-evidence-level={profile.evidence_level}
+          data-si-calculation-space={profile.calculation_space}
+          data-si-assumption-id={profile.assumption_id ?? ''}
           data-si-distance-m={profile.distance_m.toFixed(6)}
           data-si-distance-km={profile.distance_km.toFixed(9)}
           data-si-distance-nmi={profile.distance_nmi.toFixed(9)}
@@ -126,7 +128,9 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
           <p className="muted">{profile.conversion_basis}</p>
           <div className="gleason-si-profile-provenance">
             <strong>{locale === 'ar' ? 'الهوية والدليل' : 'Identity & evidence'}</strong>
-            <span>{profile.evidence_level} · {profile.native_distance_unit}</span>
+            <span>{profile.evidence_level} · {profile.calculation_space}</span>
+            <span>{profile.assumption_id ?? (locale === 'ar' ? 'لا يوجد افتراض تحويل' : 'no conversion assumption')}</span>
+            <span>{profile.native_distance_unit}</span>
             <span dir="ltr">{format(profile.native_distance_value, locale, 6)} {profile.native_distance_unit}</span>
           </div>
           {profile.limitations.map(item => <small key={item} className="muted">{item}</small>)}

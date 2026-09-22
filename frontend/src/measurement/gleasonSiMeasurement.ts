@@ -17,6 +17,11 @@ export type GleasonSiEvidenceLevel =
   | 'EXTERNAL_COMPARATIVE'
   | 'ASSUMPTION_PROFILE';
 
+export type GleasonSiCalculationSpace =
+  | 'WALTER_SI_FLAT_PLANE'
+  | 'GLEASON_DERIVED_NORMALIZED_PLANE'
+  | 'GLEASON_LEGACY_COMPARISON';
+
 export type GleasonSiProfileId =
   | 'walter-flat-plane-eq-10008'
   | 'fig43-circle-ch17-6075ft-assumption'
@@ -41,7 +46,9 @@ export interface GleasonSiProfileOutput {
     | 'GLEASON_PRIMARY_HISTORICAL'
     | 'OWNER_SECONDARY_OBSERVED';
   readonly evidence_level: GleasonSiEvidenceLevel;
+  readonly calculation_space: GleasonSiCalculationSpace;
   readonly conversion_status: 'direct-si' | 'assumption-profile';
+  readonly assumption_id: string | null;
   readonly native_distance_value: number;
   readonly native_distance_unit: string;
   readonly distance_m: number;
@@ -89,7 +96,9 @@ interface ConversionSpec {
   readonly source_profile_id: string;
   readonly source_class: GleasonSiProfileOutput['source_class'];
   readonly evidence_level: GleasonSiEvidenceLevel;
+  readonly calculation_space: GleasonSiCalculationSpace;
   readonly conversion_status: GleasonSiProfileOutput['conversion_status'];
+  readonly assumption_id: string | null;
   readonly native_unit: string;
   readonly nativeTotal: (base: GleasonRouteDistanceResult) => number;
   readonly nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => number;
@@ -121,7 +130,9 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     source_profile_id: 'walter-flat-plane-eq-10008',
     source_class: 'EXTERNAL_COMPARATIVE_MODEL',
     evidence_level: 'EXTERNAL_COMPARATIVE',
+    calculation_space: 'WALTER_SI_FLAT_PLANE',
     conversion_status: 'direct-si',
+    assumption_id: null,
     native_unit: 'normalized-radius-unit',
     nativeTotal: (base: GleasonRouteDistanceResult) => base.output.total_distance_normalized_radius_unit,
     nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => segment.distance_normalized_radius_unit,
@@ -142,7 +153,9 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     source_profile_id: 'gleason-fig43-circle-derived-diagnostic',
     source_class: 'GLEASON_PRIMARY_HISTORICAL',
     evidence_level: 'ASSUMPTION_PROFILE',
+    calculation_space: 'GLEASON_DERIVED_NORMALIZED_PLANE',
     conversion_status: 'assumption-profile',
+    assumption_id: 'chapter17-nautical-6075ft-context-assumption',
     native_unit: 'historical-fig43-mile',
     nativeTotal: (base: GleasonRouteDistanceResult) => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => segment.distance_historical_fig43_mile_derived,
@@ -163,7 +176,9 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     source_profile_id: 'gleason-fig43-circle-derived-diagnostic',
     source_class: 'GLEASON_PRIMARY_HISTORICAL',
     evidence_level: 'ASSUMPTION_PROFILE',
+    calculation_space: 'GLEASON_DERIVED_NORMALIZED_PLANE',
     conversion_status: 'assumption-profile',
+    assumption_id: 'fig37-208english-180nautical-context-assumption',
     native_unit: 'historical-fig43-mile',
     nativeTotal: (base: GleasonRouteDistanceResult) => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => segment.distance_historical_fig43_mile_derived,
@@ -184,7 +199,9 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     source_profile_id: 'gleason-fig43-circle-derived-diagnostic',
     source_class: 'GLEASON_PRIMARY_HISTORICAL',
     evidence_level: 'ASSUMPTION_PROFILE',
+    calculation_space: 'GLEASON_DERIVED_NORMALIZED_PLANE',
     conversion_status: 'assumption-profile',
+    assumption_id: 'chapter19-navigator-6070ft-context',
     native_unit: 'historical-fig43-mile',
     nativeTotal: (base: GleasonRouteDistanceResult) => base.output.total_distance_historical_fig43_mile_derived,
     nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => segment.distance_historical_fig43_mile_derived,
@@ -205,7 +222,9 @@ const CONVERSIONS: readonly ConversionSpec[] = Object.freeze([
     source_profile_id: 'gleason-radial-60nm-legacy',
     source_class: 'OWNER_SECONDARY_OBSERVED',
     evidence_level: 'ASSUMPTION_PROFILE',
+    calculation_space: 'GLEASON_LEGACY_COMPARISON',
     conversion_status: 'assumption-profile',
+    assumption_id: 'legacy-radial60-intl-nm-assumption',
     native_unit: 'nautical-mile-legacy',
     nativeTotal: (base: GleasonRouteDistanceResult) => base.output.total_distance_legacy_radial60_nautical_mile,
     nativeSegment: (segment: GleasonRouteDistanceResult['output']['segments'][number]) => segment.distance_legacy_radial60_nautical_mile,
@@ -243,7 +262,9 @@ export function gleasonSiFromNativeResult(base: GleasonRouteDistanceResult): Gle
       source_profile_id: spec.source_profile_id,
       source_class: spec.source_class,
       evidence_level: spec.evidence_level,
+      calculation_space: spec.calculation_space,
       conversion_status: spec.conversion_status,
+      assumption_id: spec.assumption_id,
       native_distance_value: nativeTotal,
       native_distance_unit: spec.native_unit,
       distance_m: distanceM,

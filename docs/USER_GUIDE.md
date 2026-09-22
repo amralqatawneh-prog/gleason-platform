@@ -53,7 +53,7 @@ Always read the method/unit/provenance labels.
 
 ## 3.1 Same route — three renderings (P6.7A)
 
-P6.7A is currently **IN PROGRESS**. The ordered A → B → C → … route still
+P6.7A is **CLOSED / VERIFIED / MERGED** through PR #34. The ordered A → B → C → … route still
 comes from the one transient P6.2 route list.
 
 The new **Same route — three renderings** panel lets you choose which
@@ -74,6 +74,24 @@ Changing the P6.7A visual computation identity does not rewrite their numbers.
 P6.7A does not provide a road route, flight track, ETA or turn-by-turn
 instructions. Those provider-backed navigation semantics remain P6.7B/future
 work.
+
+## 3.2 Gleason SI profiles (P6.C2)
+
+P6.C2 is the active Phase 6 slice and is awaiting owner manual verification
+after final-contract reconciliation CI. In the Gleason Measurement Laboratory:
+
+- **DIRECT SI** is currently the Walter external-comparative profile; it is not
+  relabeled as Gleason historical.
+- Figure 43 SI presentations appear only as **EXPLICIT ASSUMPTION** profiles.
+- the direct `gleason-book-historical` SI conversion remains **FAIL CLOSED /
+  UNRESOLVED**.
+- every executable card exposes its calculation space and, when applicable, its
+  explicit assumption id.
+- the native value/unit, conversion basis, provenance and limitations remain
+  visible beside m/km/NM outputs.
+
+The result does not treat the UI route revision as a numerical input. It returns
+the route id and exact ordered point snapshot used for the calculation.
 
 ## 4. Planned observer and astronomy features
 

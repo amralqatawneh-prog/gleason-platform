@@ -52,6 +52,8 @@ def test_p6_c2_si_endpoint_exposes_direct_and_assumption_profiles(tmp_path) -> N
     walter = profiles["walter-flat-plane-eq-10008"]
     assert walter["conversion_status"] == "direct-si"
     assert walter["source_class"] == "EXTERNAL_COMPARATIVE_MODEL"
+    assert walter["calculation_space"] == "WALTER_SI_FLAT_PLANE"
+    assert walter["assumption_id"] is None
     assert walter["distance_km"] == pytest.approx(10008.0)
 
     for profile_id in [
@@ -62,6 +64,12 @@ def test_p6_c2_si_endpoint_exposes_direct_and_assumption_profiles(tmp_path) -> N
     ]:
         assert profiles[profile_id]["conversion_status"] == "assumption-profile"
         assert profiles[profile_id]["evidence_level"] == "ASSUMPTION_PROFILE"
+        assert profiles[profile_id]["assumption_id"] is not None
+
+    assert profiles["fig43-circle-ch17-6075ft-assumption"]["calculation_space"] == "GLEASON_DERIVED_NORMALIZED_PLANE"
+    assert profiles["fig43-circle-fig37-ratio-assumption"]["calculation_space"] == "GLEASON_DERIVED_NORMALIZED_PLANE"
+    assert profiles["fig43-circle-ch19-6070ft-assumption"]["calculation_space"] == "GLEASON_DERIVED_NORMALIZED_PLANE"
+    assert profiles["legacy-radial60-intl-nm-assumption"]["calculation_space"] == "GLEASON_LEGACY_COMPARISON"
 
 
 def test_p6_c2_unresolved_historical_profile_stays_fail_closed(tmp_path) -> None:

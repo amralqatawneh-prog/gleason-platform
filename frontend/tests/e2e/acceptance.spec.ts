@@ -1052,12 +1052,16 @@ test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities
   const walter=si.locator('[data-si-profile-id="walter-flat-plane-eq-10008"]');
   await expect(walter).toHaveAttribute('data-si-conversion-status','direct-si');
   await expect(walter).toHaveAttribute('data-si-evidence-level','EXTERNAL_COMPARATIVE');
+  await expect(walter).toHaveAttribute('data-si-calculation-space','WALTER_SI_FLAT_PLANE');
+  await expect(walter).toHaveAttribute('data-si-assumption-id','');
   await expect(walter).not.toHaveAttribute('data-si-distance-m','');
   await expect(walter).toContainText('km');
 
   const chapter17=si.locator('[data-si-profile-id="fig43-circle-ch17-6075ft-assumption"]');
   await expect(chapter17).toHaveAttribute('data-si-conversion-status','assumption-profile');
   await expect(chapter17).toHaveAttribute('data-si-evidence-level','ASSUMPTION_PROFILE');
+  await expect(chapter17).toHaveAttribute('data-si-calculation-space','GLEASON_DERIVED_NORMALIZED_PLANE');
+  await expect(chapter17).toHaveAttribute('data-si-assumption-id','chapter17-nautical-6075ft-context-assumption');
   await expect(chapter17).not.toHaveAttribute('data-si-distance-m','');
 
   const fig37=si.locator('[data-si-profile-id="fig43-circle-fig37-ratio-assumption"]');

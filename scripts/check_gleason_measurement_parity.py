@@ -143,8 +143,25 @@ def main() -> None:
         for profile_id in browser_profiles:
             actual_profile = browser_profiles[profile_id]
             expected_profile = backend_profiles[profile_id]
-            assert actual_profile["conversion_status"] == expected_profile["conversion_status"]
-            assert actual_profile["evidence_level"] == expected_profile["evidence_level"]
+            for metadata_key in [
+                "source_profile_id",
+                "source_class",
+                "evidence_level",
+                "calculation_space",
+                "conversion_status",
+                "assumption_id",
+                "native_distance_unit",
+                "conversion_basis",
+                "provenance",
+                "limitations",
+            ]:
+                assert actual_profile[metadata_key] == expected_profile[metadata_key], (
+                    inputs,
+                    profile_id,
+                    metadata_key,
+                    actual_profile[metadata_key],
+                    expected_profile[metadata_key],
+                )
             si_total_delta = abs(actual_profile["distance_m"] - expected_profile["distance_m"])
             max_si_total_delta_m = max(max_si_total_delta_m, si_total_delta)
             assert si_total_delta < 1e-6, (inputs, profile_id, actual_profile, expected_profile)

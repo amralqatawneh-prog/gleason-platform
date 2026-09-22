@@ -188,8 +188,10 @@ jobs:
           set -euo pipefail
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/si-route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"A","latitude":90,"longitude":0},{"point_id":"B","latitude":0,"longitude":0}]}' >/tmp/gleason-si-route.json
           jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_si_route_distance" and .output.base_method_id=="gleason-native-normalized" and (.output.base_distance_normalized_radius_unit>0.499999999 and .output.base_distance_normalized_radius_unit<0.500000001) and (.output.profiles|length)==5' /tmp/gleason-si-route.json
-          jq -e 'any(.output.profiles[]; .profile_id=="walter-flat-plane-eq-10008" and .conversion_status=="direct-si" and .evidence_level=="EXTERNAL_COMPARATIVE" and (.distance_km>10007.999 and .distance_km<10008.001))' /tmp/gleason-si-route.json
-          jq -e 'all(.output.profiles[] | select(.profile_id!="walter-flat-plane-eq-10008"); .conversion_status=="assumption-profile")' /tmp/gleason-si-route.json
+          jq -e 'any(.output.profiles[]; .profile_id=="walter-flat-plane-eq-10008" and .conversion_status=="direct-si" and .evidence_level=="EXTERNAL_COMPARATIVE" and .calculation_space=="WALTER_SI_FLAT_PLANE" and .assumption_id==null and (.distance_km>10007.999 and .distance_km<10008.001))' /tmp/gleason-si-route.json
+          jq -e 'all(.output.profiles[] | select(.profile_id!="walter-flat-plane-eq-10008"); .conversion_status=="assumption-profile" and (.assumption_id|type)=="string" and (.assumption_id|length)>0)' /tmp/gleason-si-route.json
+          jq -e 'all(.output.profiles[] | select(.source_profile_id=="gleason-fig43-circle-derived-diagnostic"); .calculation_space=="GLEASON_DERIVED_NORMALIZED_PLANE")' /tmp/gleason-si-route.json
+          jq -e 'any(.output.profiles[]; .profile_id=="legacy-radial60-intl-nm-assumption" and .calculation_space=="GLEASON_LEGACY_COMPARISON")' /tmp/gleason-si-route.json
           jq -e '(.output.unavailable_profile_ids|index("gleason-book-historical"))!=null and (.output.unavailable_profile_ids|index("gleason-video-ruler-calibrated"))!=null and (.output.unavailable_profile_ids|index("gleason-raster-calibrated"))!=null and (.output.unavailable_profile_ids|index("gleason-fig43-circle-derived-diagnostic"))!=null' /tmp/gleason-si-route.json
           jq -e '.provenance.provider_id=="gleason-si-profiles" and .provenance.provider_version=="P6.C2-1"' /tmp/gleason-si-route.json
       - name: Verify P6.6 polygon measurement APIs

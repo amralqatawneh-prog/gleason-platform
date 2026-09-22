@@ -1,6 +1,6 @@
 # Phase 6 · P6.C2 — Gleason SI Measurement Engine
 
-Status: **IN PROGRESS / TECHNICALLY GREEN — #870 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**
+Status: **IN PROGRESS — IMPLEMENTATION GREEN (#869/#870; pre-reconciliation recording head #874 SUCCESS) — FINAL CONTRACT RECONCILIATION HEAD MUST PASS CI BEFORE OWNER MANUAL**
 
 Owner instruction: **«ابدأ»**
 
@@ -142,7 +142,9 @@ Both return:
 - conversion profile id;
 - source class;
 - evidence level;
+- explicit calculation space;
 - conversion status;
+- nullable explicit assumption id;
 - native value/unit;
 - metres;
 - kilometres;
@@ -151,6 +153,49 @@ Both return:
 - provenance;
 - limitations;
 - per-segment SI values.
+
+### 4.1 Final P6.C2 output-contract decisions
+
+The final runtime contract is version **P6.C2-1**.
+
+Per executable profile, the normative identity/measurement fields are:
+
+- `profile_id` and `profile_version`;
+- `source_profile_id`, `source_class`, `evidence_level`;
+- `calculation_space`;
+- `conversion_status`;
+- `assumption_id` (nullable; `null` for direct-SI profiles);
+- `native_distance_value` and `native_distance_unit`;
+- `distance_m`, `distance_km`, `distance_nmi`;
+- `conversion_basis`, `provenance[]`, `limitations[]`;
+- per-segment SI values.
+
+Contract reconciliation decisions:
+
+1. `profile_id` remains the primary executable conversion-profile identity.
+   `assumption_id` identifies the explicit assumption source/scenario when the
+   conversion is assumption-based; it is `null` for Walter direct SI.
+2. `calculation_space` is explicit in every returned profile so Walter,
+   Gleason-derived and legacy-comparison calculations cannot be silently
+   collapsed.
+3. There is no duplicate `warnings[]` field. `limitations[]` is the single
+   normative warning/limitation channel; user interfaces may render those
+   limitations as warnings.
+4. There is no `route_revision` in the P6.C2 numerical result. The reproducible
+   numerical input boundary is `input.route_id` plus the exact ordered
+   `input.points` snapshot returned with the result. `OrderedRouteState.revision`
+   remains UI/session state and is not a numerical input to this engine.
+5. There is no duplicate generic `si_unit` field on the result profile because
+   SI outputs are explicitly typed by field name (`distance_m`,
+   `distance_km`, `distance_nmi`) and the provider provenance carries unit
+   semantics.
+6. Fail-closed source profiles remain listed in
+   `unavailable_profile_ids`; an unavailable historical/calibration profile is
+   never represented by a fabricated numeric zero.
+
+These decisions reconcile the broader architecture/handoff field wishlist with
+the executable P6.C2 API and prevent two parallel identity/warning/state fields
+from drifting.
 
 ## 5. Browser/offline semantics
 
@@ -235,7 +280,11 @@ Development runs #866–#868 failed before this verified head. Their causes were
 fixed: TypeScript narrowing/typing and a P6.5 provenance-locator regression.
 They are retained as development history and are not closure evidence.
 
-Owner manual verification remains **NOT RUN**.
+Owner manual verification remains **NOT RUN**. The prior recording head
+`31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed Release Acceptance Gates
+**#874 — SUCCESS**. Because the final-contract/documentation reconciliation
+changes the PR head, the corrected head must pass the complete gates again
+before manual verification starts.
 
 ## 9. Acceptance path
 

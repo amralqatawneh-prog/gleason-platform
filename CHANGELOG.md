@@ -2,6 +2,9 @@
 
 ## [Unreleased] — P6.C2 Gleason SI Measurement Engine (2026-09-22)
 
+- Reconciled current-state documentation after P6.C1 merge and P6.C2 implementation; removed stale P6.7A/P6.C1 pre-merge status wording.
+- Finalized P6.C2-1 output semantics with explicit per-profile `calculation_space` and nullable `assumption_id`; locked `limitations[]` as the sole normative warning channel and kept UI `route_revision` outside the numerical result contract.
+- Strengthened frontend/backend/unit/E2E/parity/live-Docker acceptance checks for the final P6.C2 profile identity contract.
 - P6.C1 / PR #37 merged to `main @ 3096d963b75478682923c20925e3eac974bbfb69` after final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed Release Acceptance Gates **#864 — SUCCESS**.
 - Owner instructed **«ابدأ»**; P6.C2 started on `feat/p6.c2-gleason-si-measurement-engine` / draft PR #38.
 - Added browser and backend P6.C2 SI engines with profile identity/provenance and metre/kilometre/international-NM display outputs.

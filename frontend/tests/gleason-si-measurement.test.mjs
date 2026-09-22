@@ -19,6 +19,8 @@ test('P6.C2 Walter profile produces direct SI from normalized Gleason geometry',
   assert.ok(walter);
   assert.equal(walter.conversion_status,'direct-si');
   assert.equal(walter.evidence_level,'EXTERNAL_COMPARATIVE');
+  assert.equal(walter.calculation_space,'WALTER_SI_FLAT_PLANE');
+  assert.equal(walter.assumption_id,null);
   assert.equal(walter.native_distance_value,0.5);
   assert.equal(walter.distance_km,10008);
   assert.equal(walter.distance_m,10_008_000);
@@ -37,6 +39,8 @@ test('P6.C2 exposes historical Figure43 SI only as explicit assumption profiles'
   for (const profile of [chapter17,fig37,chapter19]) {
     assert.equal(profile.conversion_status,'assumption-profile');
     assert.equal(profile.evidence_level,'ASSUMPTION_PROFILE');
+    assert.equal(profile.calculation_space,'GLEASON_DERIVED_NORMALIZED_PLANE');
+    assert.ok(profile.assumption_id);
     assert.equal(profile.source_profile_id,'gleason-fig43-circle-derived-diagnostic');
   }
   assert.ok(Math.abs(CHAPTER17_6075FT_METRES_PER_MILE-1851.66)<1e-9);
@@ -55,6 +59,8 @@ test('P6.C2 legacy 60-NM SI result remains an explicit assumption', () => {
   assert.ok(legacy);
   assert.equal(legacy.conversion_status,'assumption-profile');
   assert.equal(legacy.source_profile_id,'gleason-radial-60nm-legacy');
+  assert.equal(legacy.calculation_space,'GLEASON_LEGACY_COMPARISON');
+  assert.equal(legacy.assumption_id,'legacy-radial60-intl-nm-assumption');
   assert.equal(legacy.native_distance_value,5400);
   assert.equal(legacy.distance_m,5400*1852);
 });
