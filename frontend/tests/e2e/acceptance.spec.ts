@@ -1075,3 +1075,51 @@ test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities
   await expect(unresolved).toContainText('FAIL CLOSED');
   await expect(unresolved).toContainText('unresolved');
 });
+
+
+test('P6.C3 calibration laboratory exposes source-backed fixtures, residuals and fail-closed 8K gate',async({page,servers})=>{
+  await english(page,servers.url);
+
+  const lab=page.locator('.gleason-calibration-laboratory');
+  await expect(lab).toBeVisible();
+  await expect(lab).toHaveAttribute('data-p6c3-status','in-progress');
+  await expect(lab).toHaveAttribute('data-p6c3-profile','all');
+  await expect(lab).toHaveAttribute('data-p6c3-fixture-count','9');
+
+  const book=lab.locator('[data-p6c3-fixture-id="book-fig43-equator-one-degree"]');
+  await expect(book).toHaveAttribute('data-p6c3-source-class','GLEASON_PRIMARY_HISTORICAL');
+  await expect(book).toHaveAttribute('data-p6c3-fixture-status','ready');
+  await expect(book).toContainText('historical-fig43-mile');
+
+  const walter=lab.locator('[data-p6c3-fixture-id="walter-pole-equator-default"]');
+  await expect(walter).toHaveAttribute('data-p6c3-source-class','EXTERNAL_COMPARATIVE_MODEL');
+  await expect(walter).toContainText('10008');
+
+  const reference=lab.locator('[data-p6c3-fixture-id="reference-equator-one-degree-wgs84-vs-walter"]');
+  await expect(reference).toHaveAttribute('data-p6c3-source-class','REFERENCE_SOURCE');
+  await expect(reference).toContainText('metre');
+
+  const restored=lab.locator('[data-p6c3-fixture-id="raster-restored-outer-ring-fit"]');
+  await expect(restored).toHaveAttribute('data-p6c3-fixture-status','diagnostic-only');
+  await expect(restored).toContainText('5.768749');
+
+  const owner8k=lab.locator('[data-p6c3-fixture-id="raster-owner-8k-jgw"]');
+  await expect(owner8k).toHaveAttribute('data-p6c3-fixture-status','gated');
+  await expect(owner8k.locator('[data-p6c3-gate-reason="missing-true-companion-8k-raster"]')).toBeVisible();
+  await expect(lab.locator('[data-p6c3-8k-raster-gate="missing-true-companion-raster"]')).toContainText('true companion 8K raster');
+
+  await lab.getByLabel('Research profile').selectOption('walter-flat-plane-eq-10008');
+  await expect(lab).toHaveAttribute('data-p6c3-profile','walter-flat-plane-eq-10008');
+  await expect(lab).toHaveAttribute('data-p6c3-fixture-count','2');
+  await expect(lab.locator('[data-p6c3-fixture-id="walter-pole-equator-default"]')).toBeVisible();
+  await expect(lab.locator('[data-p6c3-fixture-id="reference-equator-one-degree-wgs84-vs-walter"]')).toBeVisible();
+
+  const diagnostic=lab.locator('[data-p6c3-tool="local-scale-diagnostic"]');
+  await diagnostic.getByLabel('Diagnostic latitude').fill('-30');
+  await expect(diagnostic).toContainText('80');
+  await expect(diagnostic).toContainText('13344');
+
+  await page.getByRole('button',{name:'العربية'}).click();
+  await expect(lab).toContainText('مختبر المعايرة');
+  await expect(lab).toContainText('مغلق حتى اكتمال المصدر');
+});
