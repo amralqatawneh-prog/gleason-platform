@@ -9,6 +9,7 @@
 - Registers Walter Bislin comparative distance/mapping/flight/dome/refraction sources in `data/sources/walter-bislin-comparative-models.yaml`.
 - Inserts corrective Phase 6 sequence **P6.C1 → P6.C2 → P6.C3 → P6.C4 → P6.C5** before P6.7B.
 - Demotes the existing Fig.43 circle-derived multiplier to a diagnostic profile; P6.C1 must define versioned book/Walter/video/raster profiles and fail-closed SI conversion semantics.
+- P6.C1 owner-test candidate `0fe9a18943fd6404773d6604c5ee901fd6773589` passed Release Acceptance Gates **#850 — SUCCESS**; owner manual verification: **6/6 PASS — REPORTED BY OWNER**. Final closure-state CI remains required before separate merge authorization.
 - Reserves `ElevationProvider` for WGS84 ellipsoidal height and ECEF, without inventing h=0.
 - Approves Map-First single/dual comparison workspace architecture.
 - Separates observer-dome projection, terrestrial/astronomical refraction and synthetic ray mapping contracts.
