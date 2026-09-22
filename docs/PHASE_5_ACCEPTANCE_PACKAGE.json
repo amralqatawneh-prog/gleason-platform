@@ -301,7 +301,7 @@
     "current_slice": "P6.7A",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "in_progress",
+    "current_slice_status": "closed",
     "next_slice": "P6.7B",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -708,7 +708,7 @@
       "baseline_evidence": "PR #33 final head a72249b35250e3aeee1c3dbfac9c59dd89a7edfb passed Release Acceptance Gates #803 before merge",
       "branch": "feat/p6.7a-same-route-three-renderings",
       "pr": 34,
-      "pr_status": "draft-open",
+      "pr_status": "draft-open-awaiting-final-closure-ci",
       "scope": "one canonical P6.2 route, one selected computation identity, and three independent renderings on Gleason/AE/WGS84 with preserve-computation-identity",
       "supported_computation_identities": [
         "wgs84-geodesic",
@@ -721,8 +721,8 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-awaiting-owner-manual",
-      "owner_manual_status": "not_run",
+      "automated_status": "technically-green-owner-manual-passed-awaiting-final-closure-ci",
+      "owner_manual_status": "pass-reported-by-owner",
       "automated_head": "02dad46db4f692709ded3f0471097aa3c4683fb7",
       "automated_ci_run": 816,
       "automated_ci_conclusion": "success",
@@ -730,8 +730,26 @@
       "p6_7a_targeted_core_tests_passed": 8,
       "browser_acceptance_tests_passed": 25,
       "pwa_tests_passed": 2,
-      "automated_note": "Exact implementation/documentation head passed complete Release Acceptance Gates #816 including P6.7A core/E2E, browser/PWA/offline, Docker runtime, P6.5/P6.6 APIs, PostGIS/source/search and Redis regressions."
-    }
+      "automated_note": "Exact implementation/documentation head passed complete Release Acceptance Gates #816 including P6.7A core/E2E, browser/PWA/offline, Docker runtime, P6.5/P6.6 APIs, PostGIS/source/search and Redis regressions.",
+      "owner_tested_head": "a11f7263cf42880ce0309c49f79ba45c29d78323",
+      "pre_manual_ci_run": 821,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_result": "6/6-pass-reported-by-owner",
+      "manual_checks": {
+        "two_point_wgs84_identity": "pass-reported-by-owner",
+        "switch_computation_identity": "pass-reported-by-owner",
+        "multi_point_live_edits": "pass-reported-by-owner",
+        "antimeridian_polar_case": "pass-reported-by-owner",
+        "arabic_mobile": "pass-reported-by-owner",
+        "backend_unavailable_browser_local_rendering": "pass-reported-by-owner"
+      },
+      "closure_status": "closed-awaiting-final-closure-ci",
+      "final_closure_ci_run": null,
+      "final_closure_ci_conclusion": "pending",
+      "merge_authorization": "pending-separate-owner-instruction"
+    },
+    "p6_7a_status": "closed"
   },
   "post_pr16_merge_reconciliation": {
     "date": "2026-09-20",
