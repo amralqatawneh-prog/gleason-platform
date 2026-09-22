@@ -94,7 +94,7 @@ model engines:
 | P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
-| P6.C1 | IN PROGRESS 🛠️ | Versioned measurement profiles, Figure 43 unit audit, diagnostic demotion, Walter external SI contract, video/raster calibration gates; stacked PR #37 |
+| P6.C1 | IN PROGRESS / TECHNICALLY GREEN 🛠️ | Versioned measurement profiles, Figure 43 unit audit, diagnostic demotion, Walter external SI contract, video/raster calibration gates; #845 SUCCESS; owner manual NOT RUN; draft PR #37 |
 | P6.C2–P6.C5 | NOT STARTED ⏳ | SI engine, calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
