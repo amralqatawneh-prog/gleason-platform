@@ -5,23 +5,29 @@ Status: **IN PROGRESS — CONTRACT / SOURCE AUDIT IMPLEMENTED — AWAITING COMPL
 Owner authorization:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
 
-## 1. Stacked baseline
+## 1. Baseline and post-merge retargeting
 
-P6.C1 is intentionally stacked on the verified architecture amendment:
+P6.C1 was intentionally started stacked on the verified architecture amendment:
 
-- base branch:
+- historical stacked base branch:
   `docs/measurement-ux-celestial-architecture-amendment-2026-09-22`;
-- exact base head:
+- historical stacked base head:
   `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1`;
 - amendment initial verification:
   Release Acceptance Gates **#832 — SUCCESS**;
 - amendment exact closure-state verification:
-  Release Acceptance Gates **#837 — SUCCESS**;
-- architecture PR: **#36 — OPEN / DRAFT / UNMERGED**;
-- P6.C1 PR: **#37 — OPEN / DRAFT / STACKED ON PR #36**.
+  Release Acceptance Gates **#837 — SUCCESS**.
 
-P6.C1 must not merge into `main` before PR #36 is separately authorized and
-merged.
+The owner then explicitly authorized **«قم بدمج PR #36.»**. PR #36 was merged
+into `main` at:
+
+`7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
+
+PR #37 was retargeted to `main` and synchronized with that merge through:
+
+`16b122f77ffbfd02129448a57f5096e1973a7e45`.
+
+Current P6.C1 PR state: **#37 — OPEN / DRAFT / BASED ON main**.
 
 P6.7B remains **PAUSED / NOT STARTED**.
 
@@ -228,5 +234,5 @@ Before P6.C1 can close:
    fail-closed semantics;
 3. owner result must be recorded as reported;
 4. closure-state CI must pass;
-5. PR #36 must be merged before PR #37 can merge to `main`;
+5. PR #36 merge prerequisite is satisfied; PR #37 now requires its own complete CI, owner manual verification, closure-state CI and separate merge authorization;
 6. merge of PR #37 requires separate owner authorization.
