@@ -252,10 +252,15 @@ Deliver:
 - no Map-First UI redesign yet.
 
 ### P6.C2 — Gleason SI Measurement Engine
-Status: **NOT STARTED**.
+Status: **IN PROGRESS**.
 
 Implement approved profiles with metre/km/NM outputs where justified, explicit
 profile provenance, browser/backend parity and no hidden normalization.
+
+Working branch: `feat/p6.c2-gleason-si-measurement-engine`.
+Baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` after P6.C1 / PR #37 merge.
+Contract/report: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
+P6.C3 remains NOT STARTED; P6.7B remains PAUSED / NOT STARTED.
 
 ### P6.C3 — Calibration & Fixture Laboratory
 Status: **NOT STARTED**.
@@ -377,7 +382,8 @@ Current task:
 3. P6.C1 contract/source audit demotes the circle-derived profile to diagnostic, fails closed on unresolved Figure 43 SI conversion, registers Walter direct-SI external comparison, and gates video/raster calibration profiles.
 4. Exact P6.C1 verification head `1d316618163a26c4647aec63682b0a4c7bd39a26` passed **Release Acceptance Gates #845 — SUCCESS**; the subsequent owner-test candidate `0fe9a18943fd6404773d6604c5ee901fd6773589` passed **#850 — SUCCESS**, and the owner reported **6/6 PASS — REPORTED BY OWNER**.
 5. Owner manual verification completed **6/6 PASS — REPORTED BY OWNER** on `0fe9a18943fd6404773d6604c5ee901fd6773589` after **#850 — SUCCESS**. Closure-state head `4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22` passed **#859 — SUCCESS**; the recording head now requires one final complete gate run before merge authorization.
-6. P6.C2 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+6. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69` after #864 SUCCESS.
+7. P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»**; P6.C3 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
