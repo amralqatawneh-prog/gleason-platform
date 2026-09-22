@@ -101,7 +101,15 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
       </article>)}
     </div>
 
-    <article className="gleason-lab-card" data-p6c3-tool="local-scale-diagnostic">
+    <article
+      className="gleason-lab-card"
+      data-p6c3-tool="local-scale-diagnostic"
+      data-p6c3-latitude-deg={diagnostic.latitude_deg.toFixed(6)}
+      data-p6c3-fig43-miles-per-longitude-degree={diagnostic.historical_fig43_miles_per_longitude_degree.toFixed(12)}
+      data-p6c3-walter-radius-km={diagnostic.walter_radius_km.toFixed(12)}
+      data-p6c3-walter-tangential-km-per-longitude-degree={diagnostic.walter_tangential_km_per_longitude_degree.toFixed(12)}
+      data-p6c3-walter-radial-km-per-latitude-degree={diagnostic.walter_radial_km_per_latitude_degree.toFixed(12)}
+    >
       <div className="polygon-measurement-card__head">
         <div>
           <strong>{locale === 'ar' ? 'تشخيص المقياس المحلي' : 'Local scale diagnostic'}</strong>
