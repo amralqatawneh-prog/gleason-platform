@@ -269,7 +269,7 @@ Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c
 Final P6.C2 contract: explicit per-profile `calculation_space` and nullable `assumption_id`; `limitations[]` is the single normative warning channel; numerical reproducibility is bound to `input.route_id` + exact ordered `input.points` rather than UI-only `route_revision`.
 
 ### P6.C3 — Calibration & Fixture Laboratory
-Status: **IN PROGRESS**.
+Status: **IN PROGRESS / TECHNICALLY GREEN — implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a` · Release Acceptance Gates #897 SUCCESS · owner manual NOT RUN · exact recording-head CI required**.
 
 Start authorization: owner instruction on 2026-09-22 to reconcile post-PR #38 documentation and begin P6.C3.
 
@@ -279,6 +279,8 @@ Baseline: `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` after PR #38 / P6.C2
 Contract/report: `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`.
 
 Compare book/video/Walter/raster/reference fixtures, report residuals and local scale/distortion diagnostics, and expose research profile selection. Initial implementation order is registry/schema → deterministic prediction/residual engine → tests → bilingual research UI. The true 8K/JGW raster calibration remains fail-closed until the actual companion 8K raster is present and audited.
+
+Automated evidence: #894 and #895 were development failures fixed before exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a`; that head passed complete Release Acceptance Gates **#897 — SUCCESS**. Owner manual verification remains **NOT RUN**; the new documentation/state head must pass complete gates before manual testing.
 
 ### P6.C4 — Ellipsoidal Elevation Provider
 Status: **NOT STARTED**.
