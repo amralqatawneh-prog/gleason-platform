@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased] — Corrective Measurement / UX / Celestial Architecture Amendment (2026-09-22)
+
+- Owner approved the revised roadmap and instructed a formal Architecture Amendment before P6.C1.
+- Baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`, the PR #34 / P6.7A merge commit.
+- P6.7A closure evidence: owner-tested `a11f7263…`, #821 SUCCESS, owner manual 6/6 PASS, closure head `8b60cac4…`, #829 SUCCESS, PR #34 merged.
+- Adds governing document `docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
+- Registers Walter Bislin comparative distance/mapping/flight/dome/refraction sources in `data/sources/walter-bislin-comparative-models.yaml`.
+- Inserts corrective Phase 6 sequence **P6.C1 → P6.C2 → P6.C3 → P6.C4 → P6.C5** before P6.7B.
+- Demotes the existing Fig.43 circle-derived multiplier to a diagnostic profile; P6.C1 must define versioned book/Walter/video/raster profiles and fail-closed SI conversion semantics.
+- Reserves `ElevationProvider` for WGS84 ellipsoidal height and ECEF, without inventing h=0.
+- Approves Map-First single/dual comparison workspace architecture.
+- Separates observer-dome projection, terrestrial/astronomical refraction and synthetic ray mapping contracts.
+- Architecture/governance only: no production numerical engine/UI/astronomy implementation, tag, GitHub Release or deployment.
+
 ## [Unreleased] — Phase 6 / P6.7A Same Route, Three Renderings (2026-09-22)
 
 - Owner explicitly instructed **«ابدأ P6.7A»**.
