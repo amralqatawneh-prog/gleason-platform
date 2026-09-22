@@ -1,7 +1,7 @@
 # Phase 6 — P6.7A Same Route, Three Renderings
 
 Date started: 2026-09-22  
-Status: **IN PROGRESS**  
+Status: **IN PROGRESS / TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**  
 Owner instruction: **«ابدأ P6.7A»**  
 Branch: `feat/p6.7a-same-route-three-renderings`  
 PR: **#34 — draft / open**
@@ -155,7 +155,18 @@ Full repository regression remains mandatory.
 
 ## Owner manual checklist
 
-Manual verification is **NOT RUN** until automated gates are green.
+Automated verification is now green on exact head
+`02dad46db4f692709ded3f0471097aa3c4683fb7`:
+
+- Release Acceptance Gates **#816 — SUCCESS**;
+- frontend core: **150/150 PASS**;
+- targeted P6.7A core tests: **8/8 PASS**;
+- PWA: **2/2 PASS**;
+- Chromium E2E: **25/25 PASS**, including the P6.7A cross-view identity scenario;
+- full Docker/PostGIS/source/search/Redis regressions: PASS.
+
+Manual verification is **NOT RUN**. The six checks below must be reported by the
+owner one at a time before closure.
 
 1. **Two-point WGS84 identity** — add two route points; verify all three views
    show the route and all identify the computation as `wgs84-geodesic`.
