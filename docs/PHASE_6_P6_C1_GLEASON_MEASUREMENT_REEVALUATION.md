@@ -1,6 +1,6 @@
 # Phase 6 / P6.C1 — Gleason Measurement Re-evaluation
 
-Status: **IN PROGRESS / TECHNICALLY GREEN — #845 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**
+Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER — AWAITING FINAL CLOSURE CI**
 
 Owner authorization:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -240,16 +240,35 @@ backend/frontend tests, WGS84 and Gleason parity, P6.6 polygon parity,
 production build/PWA/offline, browser acceptance, Docker runtime, PostGIS
 catalog/import/search checks and Redis.
 
-Owner manual verification remains **NOT RUN**.
+Owner manual verification completed successfully on exact tested head:
+
+`0fe9a18943fd6404773d6604c5ee901fd6773589`
+
+That head had already passed Release Acceptance Gates **#850 — SUCCESS**.
+
+Owner statement:
+
+**«اختبارات P6.C1 الستة نجحت كلها على الرأس
+`0fe9a18943fd6404773d6604c5ee901fd6773589`»**
+
+Manual result: **6/6 PASS — REPORTED BY OWNER**.
+
+Verified checks:
+
+1. Fig.43 / circle-derived remains explicitly diagnostic/derived;
+2. unresolved Figure 43 mile identity fails closed for SI;
+3. Figure 43 remains local/latitude-dependent and is not generalized across different latitudes;
+4. Figure 37 frame/time and historical conversion relations remain separate;
+5. Arabic/English source/evidence boundaries remain intact;
+6. P6.C2 and P6.7B boundaries remain preserved / not started.
 
 ## 10. Acceptance path
 
 Before P6.C1 can close:
 
 1. complete Release Acceptance Gates must pass on the exact implementation head;
-2. targeted manual verification must confirm the profile/source labels and
-   fail-closed semantics;
-3. owner result must be recorded as reported;
-4. closure-state CI must pass;
+2. targeted manual verification is complete: **6/6 PASS — REPORTED BY OWNER**;
+3. owner result is recorded on exact head `0fe9a18943fd6404773d6604c5ee901fd6773589`;
+4. closure-state CI must pass on the new documentation/state head;
 5. PR #36 merge prerequisite is satisfied; PR #37 now requires its own complete CI, owner manual verification, closure-state CI and separate merge authorization;
 6. merge of PR #37 requires separate owner authorization.
