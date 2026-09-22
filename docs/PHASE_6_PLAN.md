@@ -205,7 +205,15 @@ Acceptance:
 
 ## P6.7A — Same Route, Three Renderings
 
-Status: **NOT STARTED**.
+Status: **IN PROGRESS**.
+
+Start authorization: owner instruction **«ابدأ P6.7A»**.
+
+Start baseline: `main @ 1825852da81c04cee8e5b9f73dba28b55068c000` after PR #33 merged. PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
+
+Working branch: `feat/p6.7a-same-route-three-renderings`; draft PR #34.
+
+Detailed contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
 
 Render the same ordered geographic path across Gleason, AE and WGS84 while
 preserving the selected computation identity.
@@ -296,23 +304,29 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-P6.6 is **CLOSED / VERIFIED / MERGED** through PR #31.
+P6.7A — **Same Route, Three Renderings** is **IN PROGRESS** by explicit owner
+instruction **«ابدأ P6.7A»**.
 
 Current integration baseline:
-`main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`.
+`main @ 1825852da81c04cee8e5b9f73dba28b55068c000`.
 
-Verification evidence:
-- corrected-contract owner-tested head: `e96712975fc9f54f2615e235bb6976136efe8a2d`;
-- Release Acceptance Gates **#783 — SUCCESS**;
-- corrected-contract owner manual verification: **6/6 PASS — REPORTED BY OWNER**;
-- exact final closure head: `1d84ba85ba21d320a0de0ed16d87006c5ef80c84`;
-- Release Acceptance Gates **#784 — SUCCESS**;
-- PR #31 merge commit: `6a2666112e56514051ea62fbe1c25f5a8016f1ae`;
-- no independent post-merge push-run is claimed.
+Start evidence:
+- PR #33 final head: `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb`;
+- PR #33 pre-merge Release Acceptance Gates: **#803 — SUCCESS**;
+- PR #33 merge commit: `1825852da81c04cee8e5b9f73dba28b55068c000`;
+- no independent post-merge push CI is claimed;
+- working branch: `feat/p6.7a-same-route-three-renderings`;
+- draft PR: **#34**.
 
-The owner requested documentation/state reconciliation before any new functional
-slice. P6.7A remains **NOT STARTED** until that reconciliation is verified and
-handled under the normal separate-merge boundary.
+The implementation reuses the single P6.2 ordered route and permits exactly one
+selected computation identity at a time: WGS84 geodesic, AE projected-plane, or
+Gleason native normalized. One computation geometry is built, then visualized
+independently on all three models under
+`preserve-computation-identity`.
+
+Current task: complete full automated regression, then run the six owner manual
+checks one at a time. P6.7B remains **NOT STARTED** and no RouteProvider,
+turn-by-turn, road-route or flight-route semantics are introduced.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
@@ -320,5 +334,4 @@ Owner approved the final formulation. Current target contract uses
 `gleason-fig43-circle-derived` as the preferred historical scale,
 `gleason-radial-60nm-legacy` as comparison only, and
 `walter-eq-configurable` as external comparison. The restored map is registered
-with provisional raster georeferencing. Fresh CI and targeted manual tests are
-were completed before P6.6 was re-closed. Corrected-contract owner verification passed 6/6, final closure CI #784 succeeded, and PR #31 was merged.
+with provisional raster georeferencing. Fresh CI and targeted manual tests were completed before P6.6 was re-closed. Corrected-contract owner verification passed 6/6, final closure CI #784 succeeded, and PR #31 was merged.
