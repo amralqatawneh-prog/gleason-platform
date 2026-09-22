@@ -1,6 +1,6 @@
 # Roadmap & Architecture Amendment — Gleason Measurement, Map-First Comparison, Elevation, Observer Dome & Optics — 2026-09-22
 
-Status: **OWNER APPROVED / IN PROGRESS — AWAITING RELEASE ACCEPTANCE GATES**
+Status: **CLOSED / VERIFIED — #832 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
 
 Owner approval:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -655,6 +655,26 @@ It must:
 
 P6.C1 may be developed as a stacked branch from the verified amendment head, but
 must not be merged into `main` before this amendment is merged.
+
+## 14.1 Verification evidence
+
+Initial exact verification head:
+`20a203fad5b86409c64e9129806dd07169d3cddf`.
+
+Release Acceptance Gates:
+**#832 — SUCCESS**.
+
+The complete gate set passed, including repository/source policy, machine-readable
+state validation, backend/frontend tests, WGS84/Gleason/P6.6 parity, production
+build/PWA/offline, browser acceptance, Docker runtime, P6.5/P6.6 APIs,
+PostGIS/source/search, Arabic/offline search and Redis.
+
+This document now records #832, so the resulting closure-state head must itself
+pass the complete Release Acceptance Gates once more. That final run is recorded
+on PR #36 without changing the verified head afterward.
+
+PR #36 remains draft/open/unmerged. Merge requires separate explicit owner
+authorization.
 
 ## 15. Immediate next action
 
