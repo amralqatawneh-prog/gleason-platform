@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
 import {
   fixturesForResearchProfile,
+  GLEASON_RULER_UNIT_POLICY,
   gleasonLocalScaleDiagnostic,
+  gleasonRulerUnitVerifications,
   type CalibrationResearchProfileId,
 } from './gleasonCalibrationLaboratory';
 
@@ -29,6 +31,7 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
   const [profileId, setProfileId] = useState<CalibrationResearchProfileId | 'all'>('all');
   const [latitude, setLatitude] = useState(0);
   const fixtures = useMemo(() => fixturesForResearchProfile(profileId), [profileId]);
+  const rulerUnits = useMemo(() => gleasonRulerUnitVerifications(), []);
   const diagnostic = useMemo(() => gleasonLocalScaleDiagnostic(latitude), [latitude]);
 
   return <section
@@ -63,6 +66,58 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
         ? 'هذا الاختيار يرشح نتائج المختبر فقط؛ لا يغيّر المسار أو هوية P6.C2 أو تمثيل P6.7A.'
         : 'This selection filters the laboratory only; it does not rewrite the route, P6.C2 identity, or P6.7A rendering.'}</small>
     </div>
+
+    <article
+      className="gleason-lab-card"
+      data-p6c3-tool="verified-ruler-units"
+      data-p6c3-visual-reference="gleason-owner-hires-jpeg-reference-2026-09-22"
+      data-p6c3-visual-reference-width="1464"
+      data-p6c3-visual-reference-height="2048"
+      data-p6c3-fig43-mile-si-status={GLEASON_RULER_UNIT_POLICY.generic_fig43_mile_si_status}
+      data-p6c3-jgw-unit-status={GLEASON_RULER_UNIT_POLICY.owner_jgw_native_unit_status}
+    >
+      <div className="polygon-measurement-card__head">
+        <div>
+          <strong>{locale === 'ar' ? 'وحدات المسطرة المتحقق منها' : 'Verified ruler units'}</strong>
+          <small>{locale === 'ar'
+            ? 'مرجع بصري 1464×2048 مع تحقق كتابي من الفصل السابع عشر/الشكل 37'
+            : '1464×2048 visual reference cross-checked against Chapter XVII / Figure 37'}</small>
+        </div>
+        <span className="evidence-badge">VERIFIED PROFILES</span>
+      </div>
+
+      <p>{locale === 'ar'
+        ? 'اعتمدنا الصورة الأقل جودة كمرجع بصري للمسطرة. التحويلات أدناه ملفات مسماة ومتحقق منها؛ لا تعني أن كل كلمة mile في المصدر التاريخي لها هوية واحدة.'
+        : 'The lower-resolution image is accepted as a visual ruler reference. These are named verified conversion profiles; they do not assign one identity to every historical occurrence of “mile”.'}</p>
+
+      <div className="gleason-lab-grid" data-p6c3-ruler-unit-count={rulerUnits.length}>
+        {rulerUnits.map(unit => <div
+          key={unit.unit_profile_id}
+          className="gleason-si-profile-provenance"
+          data-p6c3-ruler-unit-id={unit.unit_profile_id}
+          data-p6c3-metre-per-unit={unit.metre_per_unit.toFixed(6)}
+          data-p6c3-ruler-unit-status={unit.status}
+        >
+          <strong>{unit.source_label}</strong>
+          <span>{unit.source_relation}</span>
+          <span dir="ltr">{format(unit.metre_per_unit, locale, 6)} m / mile</span>
+          <span>{unit.conversion_basis}</span>
+          {unit.conflict_group && <span>{locale === 'ar'
+            ? 'تعارض تاريخي محفوظ — لا يتم اختيار ملف واحد سرًا.'
+            : 'Historical conflict preserved — no profile is silently selected.'}</span>}
+        </div>)}
+      </div>
+
+      <div className="notice" data-p6c3-ruler-conflict="preserve-both">
+        <strong>{locale === 'ar' ? 'تعارض تاريخي موثق' : 'Documented historical conflict'}</strong>
+        <span>{locale === 'ar'
+          ? 'تعريف 6075 قدم يعطي 1851.66 م، بينما علاقة الشكل 37 تعطي 1859.6864 م. يحتفظ المختبر بالقيمتين منفصلتين.'
+          : 'The 6075-foot definition gives 1851.66 m, while the Figure-37 ratio gives 1859.6864 m. The laboratory keeps both values separate.'}</span>
+      </div>
+      <small className="muted">{locale === 'ar'
+        ? 'يبقى historical-fig43-mile غير محسوم للتحويل التلقائي إلى SI، كما تبقى وحدة JGW غير معروفة.'
+        : 'historical-fig43-mile remains unresolved for automatic SI conversion, and the JGW native unit remains unknown.'}</small>
+    </article>
 
     <div className="gleason-lab-grid" data-p6c3-tool="fixture-results">
       {fixtures.map(fixture => <article
@@ -142,10 +197,10 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
     </article>
 
     <div className="notice" data-p6c3-8k-raster-gate="missing-true-companion-raster">
-      <strong>{locale === 'ar' ? '8K/JGW — مغلق حتى اكتمال المصدر' : '8K/JGW — gated until source bundle is complete'}</strong>
+      <strong>{locale === 'ar' ? 'مرجع المسطرة معتمد — معايرة JGW الجغرافية ما زالت مغلقة' : 'Ruler reference approved — JGW georeferencing still gated'}</strong>
       <span>{locale === 'ar'
-        ? 'ملف JGW محفوظ، لكن صورة 8K المطابقة غير موجودة بعد. لا نستخدم JPEG ‏1464×2048 كبديل ولا نسمّي وحدات JGW أمتارًا أو أميالًا دون تحقق مستقل.'
-        : 'The JGW is preserved, but the true companion 8K raster is still missing. The 1464×2048 JPEG is not substituted, and JGW units are not named metres/miles without independent verification.'}</span>
+        ? 'الصورة 1464×2048 معتمدة الآن كمرجع بصري للمسطرة والوحدات المطبوعة، لكنها ليست الصورة المطابقة لملف JGW. لذلك تبقى وحدة JGW وCRS غير معروفتين حتى توفر companion raster حقيقي أو دليل مستقل.'
+        : 'The 1464×2048 image is now approved as a visual reference for the printed ruler and unit labels, but it is not the JGW companion raster. The JGW unit and CRS therefore remain unknown until the true companion raster or independent evidence is available.'}</span>
     </div>
   </section>;
 }
