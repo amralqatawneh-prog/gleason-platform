@@ -1,0 +1,62 @@
+source_id: gleason-owner-8k-map-2026-09-22
+verification_date: "2026-09-22"
+owner_authorization:
+  original_full_resolution_unavailable: true
+  received_lower_quality_image_may_be_used_as_reference: true
+  metre_mile_units_may_be_adopted_after_verification: true
+received_proxy:
+  file_name: Gleason-map-8k.jpg
+  format: JPEG
+  mode: RGB
+  width_px: 1361
+  height_px: 2048
+  bytes: 1233904
+  sha256: 884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d
+  library_path: "/Gleason Platform Sources/Gleason-map-8k.jpg"
+  library_file_id: "libfile_59fd00b0a9908191b5a57473d3b40383"
+  role: owner_authorized_visual_proxy
+  exact_original_8k_matrix: false
+  exact_4x_candidate_dimensions: [5444, 8192]
+  exact_4x_candidate_is_hypothesis_only: true
+printed_units:
+  visual_status: verified_from_proxy
+  verified_labels:
+    - English_or_Land_miles
+    - Nautical_or_Sea_miles
+    - Geographical_miles
+  historical_relation:
+    english_miles: 208
+    nautical_geographical_miles: 180
+  rule: "Preserve historical mile identities separately; do not silently replace them with modern SI mile definitions."
+jgw:
+  file: data/sources/artifacts/8k-Flat-Earth-map.jgw
+  sha256: 0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43
+  A_pixel_size_x: 5014.54829148701719532
+  D_rotation_y: 0
+  B_rotation_x: 0
+  E_pixel_size_y: -5014.54829148701719532
+  C_upper_left_pixel_center_x: -19423852.80707496032118797
+  F_upper_left_pixel_center_y: 19448678.93866851553320885
+  square_pixels: true
+  north_up: true
+  crs: unknown_not_encoded_in_world_file
+  affine_unit:
+    name: metre
+    status: owner_authorized_proxy_verified_working_unit
+    evidence_level: OWNER_AUTHORIZED_PROXY_VERIFIED
+  exact_proxy_pixel_pairing:
+    status: unverified
+    reason: "Received proxy is transport-resampled and exact original 8K dimensions/crop are unavailable."
+modern_explicit_conversions:
+  international_statute_mile_m: 1609.344
+  international_nautical_mile_m: 1852
+  jgw_pixel_step_m: 5014.54829148701719532
+  jgw_pixel_step_international_statute_mile: 3.115895850412974
+  jgw_pixel_step_international_nautical_mile: 2.7076394662456895
+runtime_policy:
+  exact_pixel_calibration: gated
+  affine_unit_diagnostic: allowed
+  proxy_visual_transcription: allowed
+  named_crs_inference: forbidden
+  fabricated_control_points: forbidden
+  figure43_historical_mile_si_identity: unresolved
