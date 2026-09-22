@@ -1,6 +1,6 @@
 # Phase 6 · P6.C3 — Calibration & Fixture Laboratory
 
-Status: **IN PROGRESS — CONTRACT/FOUNDATION STARTED**
+Status: **IN PROGRESS — FIXTURE ENGINE + RESEARCH UI IMPLEMENTED / AWAITING COMPLETE CI**
 
 Date started: 2026-09-22
 
@@ -211,3 +211,23 @@ P6.C3 does **not**:
 P6.C4 and P6.C5 remain **NOT STARTED**.
 P6.7B remains **PAUSED / NOT STARTED**.
 No tag, GitHub Release or deployment is created by starting P6.C3.
+
+## 10. Current implementation checkpoint
+
+Implemented on draft PR #39:
+
+- source registry: `data/sources/gleason-calibration-fixtures.yaml`;
+- deterministic browser engine: `frontend/src/measurement/gleasonCalibrationLaboratory.ts`;
+- bilingual research UI: `frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx`;
+- core tests: `frontend/tests/gleason-calibration-laboratory.test.mjs`;
+- browser acceptance coverage in `frontend/tests/e2e/acceptance.spec.ts`;
+- workspace integration in `frontend/src/App.tsx`.
+
+The initial executable registry contains **9 fixtures** across the approved
+book/video/Walter/reference/raster families. The restored 4653x6506 raster is
+diagnostic-only and preserves its recorded pixel RMS. The owner 8K/JGW fixture
+is visible but **GATED** with reason
+`missing-true-companion-8k-raster`.
+
+Complete Release Acceptance Gates must pass before this checkpoint is considered
+technically green. Owner manual verification remains **NOT RUN**.
