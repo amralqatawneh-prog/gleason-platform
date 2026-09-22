@@ -311,3 +311,13 @@ gates before merge.
 6. verify the exact recording head by complete gates, then merge only by separate owner authorization.
 
 No tag, GitHub Release or deployment is created by P6.C2.
+
+## 10. Final recording-head verification
+
+The closure evidence recorded above is complete through final closure-state
+Release Acceptance Gates **#877 — SUCCESS** on
+`d698c88b43cd75f7925551d323c10836cac41ab8`.
+
+This recording-only package introduces no new P6.C2 numerical behavior. The
+exact current PR head must pass the complete Release Acceptance Gates once more
+before PR #38 is eligible for separate owner merge authorization.
