@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current functional slice: **none**. The owner-approved corrective Architecture Amendment on draft PR #36 is **CLOSED / VERIFIED** after exact head `20a203fad5b86409c64e9129806dd07169d3cddf` passed **#832 — SUCCESS**; closure-state CI is running/pending before separate merge authorization. P6.7A is merged; next functional slice is **P6.C1 — Gleason Measurement Re-evaluation**. P6.7B is **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+- Current functional slice: **P6.C1 — Gleason Measurement Re-evaluation / IN PROGRESS** on stacked draft PR #37. It is based on the exact verified Architecture Amendment closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1`, which passed **#837 — SUCCESS**; architecture PR #36 remains draft/unmerged pending separate owner authorization. P6.C2 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
@@ -94,7 +94,8 @@ model engines:
 | P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
-| P6.C1–P6.C5 | NEXT / NOT STARTED ⏳ | Gleason measurement re-evaluation, SI engine, calibration lab, ellipsoidal elevation, map-first workspace |
+| P6.C1 | IN PROGRESS 🛠️ | Versioned measurement profiles, Figure 43 unit audit, diagnostic demotion, Walter external SI contract, video/raster calibration gates; stacked PR #37 |
+| P6.C2–P6.C5 | NOT STARTED ⏳ | SI engine, calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
