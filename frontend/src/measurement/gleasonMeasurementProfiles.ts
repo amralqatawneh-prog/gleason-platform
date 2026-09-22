@@ -49,6 +49,60 @@ export interface GleasonMeasurementProfile {
   readonly runtime_status: 'contract-only' | 'diagnostic-runtime' | 'legacy-runtime';
 }
 
+export interface GleasonHistoricalUnitScenario {
+  readonly scenario_id: string;
+  readonly evidence_level: GleasonMeasurementEvidenceLevel;
+  readonly status: 'unresolved' | 'context-assumption';
+  readonly source_relation: string;
+  readonly source_value: number | null;
+  readonly source_unit: string;
+  readonly note: string;
+}
+
+/**
+ * P6.C1 deliberately keeps mutually inconsistent historical conversion statements
+ * separate. No scenario is the automatic Figure 43 -> SI default.
+ */
+export const GLEASON_HISTORICAL_UNIT_SCENARIOS: readonly Readonly<GleasonHistoricalUnitScenario>[] =
+  Object.freeze([
+    Object.freeze({
+      scenario_id: 'fig43-mile-unresolved',
+      evidence_level: 'DOCUMENTED',
+      status: 'unresolved',
+      source_relation: 'Figure 43 longitude in miles',
+      source_value: null,
+      source_unit: 'historical-fig43-mile',
+      note: 'Figure 43 does not explicitly identify its mile as nautical/sea/Solar or English/statute in the figure passage.',
+    }),
+    Object.freeze({
+      scenario_id: 'chapter17-nautical-6075ft-context-assumption',
+      evidence_level: 'ASSUMPTION_PROFILE',
+      status: 'context-assumption',
+      source_relation: 'Chapter XVII textual nautical/sea/Solar mile definition',
+      source_value: 6075,
+      source_unit: 'foot-per-nautical-sea-solar-mile',
+      note: 'May support an explicitly labeled later SI assumption if Figure 43 miles are intentionally interpreted as Chapter XVII nautical/sea/Solar miles.',
+    }),
+    Object.freeze({
+      scenario_id: 'fig37-208english-180nautical-context-assumption',
+      evidence_level: 'ASSUMPTION_PROFILE',
+      status: 'context-assumption',
+      source_relation: 'Figure 37 ratio: 208 English miles = 180 nautical/sea/geographical miles',
+      source_value: 208 / 180,
+      source_unit: 'english-mile-per-nautical-geographical-mile',
+      note: 'Kept separate because it is not numerically identical to the Chapter XVII 6075-foot definition.',
+    }),
+    Object.freeze({
+      scenario_id: 'chapter19-navigator-6070ft-context',
+      evidence_level: 'DOCUMENTED',
+      status: 'context-assumption',
+      source_relation: 'Reproduced navigator letter: 6070 feet to the nautical mile',
+      source_value: 6070,
+      source_unit: 'foot-per-nautical-mile',
+      note: 'Historical Chapter XIX correspondence; retained as a separate source statement rather than silently reconciled with 6075 feet.',
+    }),
+  ]);
+
 export const WALTER_DEFAULT_EQUATOR_DISTANCE_KM = 10008 as const;
 export const WALTER_DEFAULT_KM_PER_NRU = 2 * WALTER_DEFAULT_EQUATOR_DISTANCE_KM;
 
