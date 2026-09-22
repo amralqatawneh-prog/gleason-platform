@@ -34,7 +34,7 @@ model engines:
 
 ## Current verified development baseline
 
-- Current integration baseline: `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae` (PR #31 merge)
+- Current integration baseline: `main @ 1825852da81c04cee8e5b9f73dba28b55068c000` (PR #33 merge)
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
@@ -49,8 +49,8 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current active implementation slice: **none**. P6.6 is closed/verified/merged. Post-PR31 reconciliation PR #33 passed Release Acceptance Gates **#790 — SUCCESS** on `d2bae09cb9ee8e35954bdd4036d2e7b710b8969d`; its closure-state head requires one final complete gate run before separate merge authorization. P6.7A remains NOT STARTED.
-- P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. No independent post-merge push CI is claimed. P6.7A remains **NOT STARTED**.
+- Current active implementation slice: **P6.7A — Same Route, Three Renderings / IN PROGRESS** on `feat/p6.7a-same-route-three-renderings`, draft PR #34. It starts from `main @ 1825852da81c04cee8e5b9f73dba28b55068c000` after PR #33 merged; PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge. P6.7B remains **NOT STARTED**.
+- P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
 - P6.3 automated verification: head `06f2397f63648d879d6271064f3297608a59c333` · **CI #565 SUCCESS** · 20/20 browser tests.
@@ -93,7 +93,8 @@ model engines:
 | Roadmap Architecture Amendment 2026-09-21 | CLOSED + MERGED ✅ | Initial verification `cb4b4681bd359e29b08542856b7bff144a239796` / CI #673; exact final head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` / CI #676; PR #23 merged at `de2cf9b0a8a48a788323373eb2b9c72622c288f8` |
 | P6.5 | CLOSED ✅ | Gleason normalized-native segment/open-polyline distance; no metre/km conversion; CI #691 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER |
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
-| P6.7A–P6.10 | NOT STARTED ⏳ | Same-route rendering, turn-by-turn provider slice, laboratories, regression |
+| P6.7A | IN PROGRESS 🛠️ | Same canonical ordered route, one selected computation identity, three independent renderings; draft PR #34 |
+| P6.7B–P6.10 | NOT STARTED ⏳ | RouteProvider/turn-by-turn, laboratories and Phase 6 regression |
 
 Phase 5 as a whole is **ACCEPTED BY OWNER**. Historical reports retain the status
 that was true when each report was written; current status is defined by this
@@ -164,7 +165,7 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- P6.7A Same Route, Three Renderings remains NOT STARTED. P6.6 polygon/perimeter/area is CLOSED + VERIFIED + MERGED.
+- P6.7A Same Route, Three Renderings is **IN PROGRESS** on draft PR #34. P6.6 polygon/perimeter/area is CLOSED + VERIFIED + MERGED.
 - P6.7B RouteProvider / turn-by-turn routing; provider-backed road/flight paths remain unavailable until dedicated providers are implemented.
 - Phase 9–12 astronomy/time/ObserverContext/virtual observer dome/analemma/eclipse engines.
 - Phase 15 Aviation Laboratory live/historical/scheduled provider integrations.
@@ -294,7 +295,7 @@ Current source-of-truth documents:
 - `docs/ROADMAP_CURRENT.md` — approved phases 0–22 and boundaries.
 - `docs/PHASE_5_PLAN.md` — ordered Phase 5 slice contracts/status.
 - `docs/PHASE_5_P5_9_REPORT.md` — latest closed Phase 5 slice.
-- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.1–P6.6 are closed, with P6.6 merged through PR #31; P6.7A is next / NOT STARTED.
+- `docs/PHASE_6_PLAN.md` — ordered Phase 6 slices; P6.1–P6.6 are closed; P6.7A is IN PROGRESS and P6.7B remains NOT STARTED.
 - `docs/PHASE_6_P6_3_REPORT.md` — closed P6.3 implementation/verification report.
 - `docs/PHASE_6_P6_4_REPORT.md` — closed P6.4 implementation/verification report.
 - `docs/PHASE_6_P6_5_REPORT.md` — closed P6.5 Gleason native measurement report.
@@ -341,7 +342,7 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1–P6.6 are **CLOSED**, and P6.6 is merged through PR #31. P6.7A remains **NOT STARTED**.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.6 are **CLOSED**. P6.7A is **IN PROGRESS**; P6.7B remains **NOT STARTED**.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
