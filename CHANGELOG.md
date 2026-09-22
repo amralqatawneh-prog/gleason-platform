@@ -7,6 +7,8 @@
 - Added the initial P6.C3 contract at `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`: source-backed book/video/Walter/raster/reference fixtures, residual semantics, local scale/distortion diagnostics, research profile selection, and fail-closed 8K/JGW calibration until the true companion raster is available.
 - Added `gleason-calibration-fixtures.yaml` with nine source-backed initial fixtures and an explicit missing-companion-raster gate for the owner 8K/JGW source.
 - Added the P6.C3 browser fixture/residual engine, local-scale diagnostics, bilingual research-profile UI, unit tests and Playwright acceptance coverage; complete CI is required before manual verification.
+- Development CI #894 (TSX escape) and #895 (legacy selector ambiguity/localized text assertion) exposed implementation/test issues; both were corrected.
+- Exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a` passed complete Release Acceptance Gates **#897 — SUCCESS**. Owner manual verification remains NOT RUN; exact recording-head CI is required before manual testing.
 - P6.C4/P6.C5 remain NOT STARTED; P6.7B remains PAUSED / NOT STARTED. No tag, GitHub Release or deployment.
 
 # Changelog
