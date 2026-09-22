@@ -140,8 +140,10 @@ approved the recovered `Gleason-map-8k.jpg` received representation
 (**1361 x 2048**, SHA-256 `884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d`)
 as the P6.C3 visual/ruler proxy because the original full-resolution raster is unavailable.
 
-The reference is verified in
-`docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md`.
+The current proxy/JGW verification is recorded in
+`docs/GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md`. The earlier
+`GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md` is retained only
+as a superseded historical checkpoint.
 
 Verified named ruler conversion profiles are now:
 
@@ -162,8 +164,9 @@ After numeric verification plus the owner's proxy authorization, the JGW
 The named CRS remains unknown/not encoded and exact proxy-to-original pixel
 pairing remains gated.
 
-The earlier JGW native unit
-and CRS also remain unknown.
+The earlier "JGW native unit unknown" state is superseded only for the affine
+working unit: **metre is now accepted**. CRS and exact pixel pairing remain
+unknown/gated.
 
 ### 4.5 Modern reference pairs
 
@@ -253,8 +256,8 @@ Implemented on draft PR #39:
 The initial executable registry contains **9 fixtures** across the approved
 book/video/Walter/reference/raster families. The restored 4653x6506 raster is
 diagnostic-only and preserves its recorded pixel RMS. The owner 8K/JGW fixture
-is visible but **GATED** with reason
-`missing-true-companion-8k-raster`.
+is visible but **GATED for exact pixel pairing** with reason
+`exact-pixel-pairing-unverified-proxy-only`; its affine working unit is metre.
 
 Exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a`
 passed the complete Release Acceptance Gates **#897 — SUCCESS**.
@@ -317,15 +320,14 @@ image is unavailable, and adopt metre/mile conversions after verification.
 Implementation decisions:
 
 - `Gleason-map-8k.jpg` 1361×2048 (SHA-256 `884e9b...`) is the approved **owner-authorized visual/ruler proxy**;
-- its SHA-256 remains
-  `9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03`;
+- its exact received SHA-256 is
+  `884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d`;
 - three named historical ruler conversion profiles are exposed;
 - the 6075-foot and Figure-37 ratio conflict is displayed explicitly;
 - generic Figure-43 mile SI identity remains unresolved;
 - JGW affine working unit is **metre** under owner-authorized proxy verification;
 - explicit modern international statute-mile and nautical-mile conversions are exposed;
 - JGW CRS remains unknown/not encoded;
-- exact proxy/original pixel pairing remains gated because the original full-resolution raster is unavailable;
-  georeferencing evidence exists.
+- exact proxy/original pixel pairing remains gated because the original full-resolution raster is unavailable.
 
 Targeted owner retest status: **NOT RUN**.
