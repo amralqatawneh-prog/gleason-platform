@@ -923,8 +923,14 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "awaiting-complete-ci",
-      "owner_manual_status": "not_run"
+      "automated_status": "technically-green-awaiting-owner-manual",
+      "owner_manual_status": "not_run",
+      "verification_head": "e1e708ce864e97ac4dd6dc23106ecca475948080",
+      "verification_ci_run": 870,
+      "verification_ci_conclusion": "success",
+      "duplicate_verification_ci_run": 869,
+      "duplicate_verification_ci_conclusion": "success",
+      "recording_head_ci": "pending"
     }
   },
   "post_pr16_merge_reconciliation": {
