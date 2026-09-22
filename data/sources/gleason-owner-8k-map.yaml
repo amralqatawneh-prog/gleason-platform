@@ -2,7 +2,7 @@ id: gleason-owner-8k-map-2026-09-22
 source_type: owner_supplied_high_resolution_gleason_map_bundle
 authority: visual_and_georeferencing_research_input
 validation_truth: false
-status: incomplete_bundle_waiting_for_companion_raster
+status: owner_8k_source_received_as_chat_downsampled_representation_original_bytes_pending
 owner_statement:
   supplied_as: "higher-resolution Gleason map, approximately 8K"
   intended_uses:
@@ -45,15 +45,31 @@ related_non_8k_visual_reference:
   rule: "This JPEG is not the JGW companion raster and must not be used for JGW calibration."
 
 companion_raster:
-  received: false
-  expected_role: "original high-resolution image whose basename corresponds to this world file"
-  dimensions_px: unknown
-  sha256: unknown
-  note: "The JGW contains affine georeferencing only; it does not contain the 8K image pixels, printed labels, ruler graphics, or boundary artwork."
+  original_8k_bytes_received: false
+  owner_confirms_source_is_8k: true
+  received_chat_representation:
+    received: true
+    file_name: "Gleason-map-8k.jpg"
+    format: JPEG
+    mode: RGB
+    dimensions_px: [1361, 2048]
+    bytes: 1233904
+    sha256: "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d"
+    preservation:
+      chatgpt_library_path: "/Gleason Platform Sources/Gleason-map-8k.jpg"
+      library_file_id: "libfile_59fd00b0a9908191b5a57473d3b40383"
+      exact_received_bytes_preserved: true
+    transport_note: "The ChatGPT-delivered representation is 1361x2048, not full 8K. 4x dimensions would be 5444x8192, exactly matching an 8192-pixel portrait height, which is consistent with transport downsampling but is not proof of the original dimensions."
+  expected_original_role: "full-resolution owner-supplied raster to pair with the JGW after exact dimensions/hash and pairing are verified"
+  original_dimensions_px: unknown_pending_original_file
+  original_sha256: unknown_pending_original_file
+  jgw_pairing_status: unverified_until_original_file
+  note: "Do not apply the JGW numerically to the chat-downsampled representation. Printed labels/ruler/frame may be used as visual historical evidence where legible."
 relationship_to_existing_source:
   existing_registry: "data/sources/gleason-restored-map.yaml"
-  role: higher_resolution_successor_candidate
-  preferred_visual_status: pending_companion_raster_and_audit
+  role: owner_preferred_historical_visual_source
+  preferred_visual_status: visually_received_and_partially_audited_original_8k_bytes_pending
+  label_policy: "Prefer this source for historical city/country/ocean/sea spellings where legible; do not silently substitute those historical label positions for modern authoritative coordinates."
 book_audit:
   primary_source_registry: "data/sources/gleason-book.yaml"
   required_cross_checks:
@@ -66,6 +82,29 @@ book_audit:
     - "Do not treat the bottom ruler as a universal arbitrary-segment scale until its printed legend and book relation are inspected on the companion raster."
     - "Do not infer time zones from the outer frame until the printed dial, longitude rays, and book 15-degrees-per-hour relation are cross-checked."
     - "Keep raster pixel geometry, historical map geometry, and computation geometry as separate identities."
+audit_2026_09_22:
+  report: "docs/GLEASON_8K_RASTER_AUDIT_2026-09-22.md"
+  book_cross_check_status: partial_pass
+  visually_confirmed:
+    - "Longitude and Time Calculator outer dial"
+    - "24-hour Roman-numeral frame with morning/evening/noon/midnight sectors"
+    - "red-frame text: Degrees of Longitude Reduces to Sun-Time in Minutes"
+    - "longitude rays and latitude rings"
+    - "bottom English/Land vs Nautical/Sea/Geographical mile conversion scale"
+    - "bottom longitude-arc vs Sun-time conversion scale"
+    - "scale note instructing use of a straight-edge across divisions"
+  book_consistency:
+    - "Figs. 37-38 registry: circular map, 24-hour dial, longitude/time relation — consistent with image"
+    - "frame_time registry: 15 degrees longitude = 1 hour; 1 degree = 4 minutes — consistent with the 24-hour/360-degree relation"
+    - "frame_time registry: 180 nautical/geographical miles = 208 English miles — visually represented by the bottom ruler endpoints"
+    - "Fig. 43 remains the registered basis for latitude-dependent longitude-mile scale; do not derive arbitrary segment distance from the ruler"
+  remaining_before_full_8k_promotion:
+    - "receive original full-resolution raster bytes without chat downsampling"
+    - "verify exact pairing to JGW"
+    - "measure original-pixel outer-circle center/radius and residuals"
+    - "complete label inventory at original resolution"
+    - "transcribe every ruler/frame division from original pixels"
+
 planned_audit_outputs:
   - image_dimensions_and_hash
   - no-resample_archival_copy
