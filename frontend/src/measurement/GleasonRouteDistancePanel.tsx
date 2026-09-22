@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { gleasonRouteDistance, type GleasonRouteDistanceResult } from '../api';
+import { gleasonRouteDistance, gleasonSiRouteDistance, type GleasonRouteDistanceResult, type GleasonSiRouteDistanceResult } from '../api';
 import {
   gleasonFig37NauticalToEnglishMiles,
   gleasonFrameTimeDifference,
@@ -23,6 +23,7 @@ function format(value: number, locale: 'ar' | 'en', digits = 3): string {
 
 export function GleasonRouteDistancePanel({ locale, state }: Props) {
   const [result, setResult] = useState<GleasonRouteDistanceResult | null>(null);
+  const [siResult, setSiResult] = useState<GleasonSiRouteDistanceResult | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
   const requestRevision = useRef(0);
   const points = useMemo(() => state.points.map(point => ({
@@ -33,14 +34,17 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
 
   useEffect(() => {
     const revision = ++requestRevision.current;
-    if (points.length < 2) { setResult(null); setStatus('idle'); return; }
-    setResult(null); setStatus('loading');
-    void gleasonRouteDistance(points, state.routeId).then(next => {
+    if (points.length < 2) { setResult(null); setSiResult(null); setStatus('idle'); return; }
+    setResult(null); setSiResult(null); setStatus('loading');
+    void Promise.all([
+      gleasonRouteDistance(points, state.routeId),
+      gleasonSiRouteDistance(points, state.routeId),
+    ]).then(([next, nextSi]) => {
       if (requestRevision.current !== revision) return;
-      setResult(next); setStatus('ready');
+      setResult(next); setSiResult(nextSi); setStatus('ready');
     }).catch(() => {
       if (requestRevision.current !== revision) return;
-      setResult(null); setStatus('error');
+      setResult(null); setSiResult(null); setStatus('error');
     });
     return () => { requestRevision.current += 1; };
   }, [points, state.routeId, state.revision]);
@@ -80,7 +84,7 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
           ? 'ثلاث هويات منفصلة: مسطرة المستوى المشتقة، مقياس خطوط الطول التاريخي Fig.43، ومحول الإطار/الزمن Fig.37–38. لا ندمجها في رقم واحد.'
           : 'Three separate identities: derived map-plane ruler, historical Figure 43 longitude scale, and Figure 37–38 frame/time calculator. They are never collapsed into one number.'}</p>
       </div>
-      <span className="evidence-badge">P6.5/P6.6 · SOURCE AUDIT</span>
+      <span className="evidence-badge">P6.C2 · SI PROFILES</span>
     </div>
 
     {points.length < 2 && <p className="muted gleason-route-distance-empty">{locale === 'ar'
@@ -94,6 +98,53 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
     </div>}
 
     {result && <>
+      {siResult && <div className="gleason-lab-grid gleason-si-grid" data-gleason-tool="si-profiles">
+        {siResult.output.profiles.map((profile, index) => <article
+          key={profile.profile_id}
+          className="gleason-lab-card"
+          data-si-profile-id={profile.profile_id}
+          data-si-conversion-status={profile.conversion_status}
+          data-si-evidence-level={profile.evidence_level}
+          data-si-distance-m={profile.distance_m.toFixed(6)}
+          data-si-distance-km={profile.distance_km.toFixed(9)}
+          data-si-distance-nmi={profile.distance_nmi.toFixed(9)}
+        >
+          <div className="polygon-measurement-card__head">
+            <div>
+              <strong>{index + 1}) {profile.profile_id}</strong>
+              <small>{profile.source_profile_id} · {profile.source_class}</small>
+            </div>
+            <span className="evidence-badge">{profile.conversion_status === 'direct-si'
+              ? 'DIRECT SI'
+              : (locale === 'ar' ? 'افتراض معلن' : 'EXPLICIT ASSUMPTION')}</span>
+          </div>
+          <div className="gleason-route-distance-total">
+            <span>{locale === 'ar' ? 'المسافة المحولة وفق هذا الملف' : 'Distance under this profile'}</span>
+            <strong dir="ltr">{format(profile.distance_km, locale, 3)} km</strong>
+            <small dir="ltr">{format(profile.distance_m, locale, 2)} m · {format(profile.distance_nmi, locale, 3)} NM</small>
+          </div>
+          <p className="muted">{profile.conversion_basis}</p>
+          <div className="gleason-route-distance-provenance">
+            <strong>{locale === 'ar' ? 'الهوية والدليل' : 'Identity & evidence'}</strong>
+            <span>{profile.evidence_level} · {profile.native_distance_unit}</span>
+            <span dir="ltr">{format(profile.native_distance_value, locale, 6)} {profile.native_distance_unit}</span>
+          </div>
+          {profile.limitations.map(item => <small key={item} className="muted">{item}</small>)}
+        </article>)}
+        <article className="gleason-lab-card" data-si-profile-unavailable="gleason-book-historical">
+          <div className="polygon-measurement-card__head">
+            <div>
+              <strong>{locale === 'ar' ? 'ملف Gleason التاريخي المباشر إلى SI' : 'Direct Gleason historical → SI'}</strong>
+              <small>gleason-book-historical · FAIL CLOSED</small>
+            </div>
+            <span className="evidence-badge">UNRESOLVED</span>
+          </div>
+          <p className="muted">{locale === 'ar'
+            ? 'لا يزال التحويل المباشر مغلقًا لأن هوية mile في Fig.43 غير محسومة. القيم أعلاه التي تستخدم Fig.43 تظهر فقط كافتراضات معلنة منفصلة، وليست نتيجة Gleason تاريخية نهائية.'
+            : 'Direct conversion remains closed because the Figure 43 mile identity is unresolved. Figure-43-based SI values above are exposed only as separate explicit assumptions, not as the final Gleason historical result.'}</p>
+        </article>
+      </div>}
+
       <div className="gleason-lab-grid">
         <article className="gleason-lab-card" data-gleason-tool="historical-circle-derived">
           <div className="polygon-measurement-card__head">
