@@ -269,7 +269,7 @@ Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c
 Final P6.C2 contract: explicit per-profile `calculation_space` and nullable `assumption_id`; `limitations[]` is the single normative warning channel; numerical reproducibility is bound to `input.route_id` + exact ordered `input.points` rather than UI-only `route_revision`.
 
 ### P6.C3 — Calibration & Fixture Laboratory
-Status: **IN PROGRESS / TECHNICALLY GREEN — implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a` · Release Acceptance Gates #897 SUCCESS · owner manual NOT RUN · exact recording-head CI required**.
+Status: **OWNER MANUAL 6/6 PASS — exact tested head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` · #904 SUCCESS — OWNER-APPROVED RULER/UNIT REFINEMENT IN PROGRESS · targeted retest pending after CI**.
 
 Start authorization: owner instruction on 2026-09-22 to reconcile post-PR #38 documentation and begin P6.C3.
 
@@ -280,7 +280,7 @@ Contract/report: `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`.
 
 Compare book/video/Walter/raster/reference fixtures, report residuals and local scale/distortion diagnostics, and expose research profile selection. Initial implementation order is registry/schema → deterministic prediction/residual engine → tests → bilingual research UI. The true 8K/JGW raster calibration remains fail-closed until the actual companion 8K raster is present and audited.
 
-Automated evidence: #894 and #895 were development failures fixed before exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a`; that head passed complete Release Acceptance Gates **#897 — SUCCESS**. Owner manual verification remains **NOT RUN**; the new documentation/state head must pass complete gates before manual testing.
+Automated evidence: #894/#895 were development failures fixed before implementation head `ed411b6f…`; #897 SUCCESS. Recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**, then the owner reported **6/6 PASS**. A post-manual owner refinement now approves the lower-resolution visual/ruler reference and named metre/mile profiles; complete CI plus targeted ruler/JGW retest are required before closure.
 
 ### P6.C4 — Ellipsoidal Elevation Provider
 Status: **NOT STARTED**.
