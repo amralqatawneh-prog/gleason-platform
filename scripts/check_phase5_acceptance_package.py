@@ -161,7 +161,7 @@ require(
     "Walter comparative source registry path drifted",
 )
 require(amendment.get("corrective_sequence") == ["P6.C1","P6.C2","P6.C3","P6.C4","P6.C5"], "corrective Phase 6 sequence drifted")
-require(amendment.get("p6_c1_status") == "in_progress", "P6.C1 must be in progress on the verified stacked amendment")
+require(amendment.get("p6_c1_status") == "closed", "P6.C1 amendment status must be closed after owner verification")
 require(
     amendment.get("p6_7b_status") == "paused-not-started-until-corrective-sequence-closes",
     "P6.7B must remain paused/not-started",
@@ -229,7 +229,7 @@ require(p6_c1.get("final_closure_ci_run") is None, "P6.C1 final closure CI run m
 require(p6_c1.get("final_closure_ci_conclusion") == "pending", "P6.C1 final closure CI conclusion must be pending")
 require(p6_c1.get("merge_authorization") == "pending-separate-owner-instruction", "P6.C1 merge must await separate owner authorization")
 require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must be closed after owner verification")
-require(phase6_start.get("p6_c1_status") == "in_progress", "P6.C1 top-level status must be in_progress")
+require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must remain closed after owner verification")
 for path in [
     "frontend/src/measurement/gleasonMeasurementProfiles.ts",
     "data/sources/gleason-measurement-unit-audit-2026-09-22.yaml",
