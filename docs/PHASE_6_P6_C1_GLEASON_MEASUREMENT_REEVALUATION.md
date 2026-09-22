@@ -1,6 +1,6 @@
 # Phase 6 / P6.C1 — Gleason Measurement Re-evaluation
 
-Status: **IN PROGRESS — CONTRACT / SOURCE AUDIT IMPLEMENTED — AWAITING COMPLETE CI**
+Status: **IN PROGRESS / TECHNICALLY GREEN — #845 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**
 
 Owner authorization:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -224,6 +224,23 @@ P6.C1 does not:
 - implement Map-First UI;
 - start P6.7B;
 - create a tag, GitHub Release or deployment.
+
+## 10. Automated verification
+
+Exact implementation/state head:
+
+`1d316618163a26c4647aec63682b0a4c7bd39a26`
+
+Release Acceptance Gates:
+
+**#845 — SUCCESS**
+
+The complete gate set passed, including repository/source-state validation,
+backend/frontend tests, WGS84 and Gleason parity, P6.6 polygon parity,
+production build/PWA/offline, browser acceptance, Docker runtime, PostGIS
+catalog/import/search checks and Redis.
+
+Owner manual verification remains **NOT RUN**.
 
 ## 10. Acceptance path
 
