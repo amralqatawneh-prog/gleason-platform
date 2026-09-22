@@ -11,7 +11,7 @@
 - Every view preserves `preserve-computation-identity`; rendered-on model never relabels the method/unit/scale basis.
 - WGS84 rendering geometry is sampled on the WGS84 ellipsoidal geodesic; AE and Gleason are sampled from one straight chord in their own computation plane then inverse-projected for cross-view display.
 - P6.7B RouteProvider / turn-by-turn remains **NOT STARTED**; no road/flight provider route, tag, GitHub Release or deployment is introduced.
-- Automated regression and owner manual verification remain pending before P6.7A closure.
+- Exact automated head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS**: 150 frontend core tests, 8 targeted P6.7A core tests, 2 PWA tests and 25 Chromium E2E scenarios. Owner manual verification remains NOT RUN before closure.
 
 ## [Unreleased] — Post-PR #31 merge reconciliation (2026-09-22)
 
