@@ -205,15 +205,17 @@ Acceptance:
 
 ## P6.7A — Same Route, Three Renderings
 
-Status: **IN PROGRESS / TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**.
+Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER — AWAITING FINAL CLOSURE CI**.
 
-Automated evidence: exact head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS** with **150/150 frontend core**, **8/8 targeted P6.7A core**, **2/2 PWA**, and **25/25 Chromium E2E** tests.
+Automated evidence: earlier implementation head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS**. The exact owner-tested head `a11f7263cf42880ce0309c49f79ba45c29d78323` passed Release Acceptance Gates **#821 — SUCCESS** immediately before manual verification.
 
 Start authorization: owner instruction **«ابدأ P6.7A»**.
 
 Start baseline: `main @ 1825852da81c04cee8e5b9f73dba28b55068c000` after PR #33 merged. PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
 
 Working branch: `feat/p6.7a-same-route-three-renderings`; draft PR #34.
+
+Owner manual evidence: exact tested head `a11f7263cf42880ce0309c49f79ba45c29d78323`; pre-manual Release Acceptance Gates **#821 — SUCCESS**; result **6/6 PASS — REPORTED BY OWNER**. PR #34 remains draft/open/unmerged pending final closure CI and separate merge authorization.
 
 Detailed contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
 
@@ -306,7 +308,7 @@ Whole Phase 6 acceptance remains a separate explicit owner decision.
 
 ## Current next action
 
-P6.7A — **Same Route, Three Renderings** is **IN PROGRESS** by explicit owner
+P6.7A — **Same Route, Three Renderings** is **CLOSED by owner verification / awaiting final closure CI** after explicit owner
 instruction **«ابدأ P6.7A»**.
 
 Current integration baseline:
@@ -326,7 +328,7 @@ Gleason native normalized. One computation geometry is built, then visualized
 independently on all three models under
 `preserve-computation-identity`.
 
-Current task: run the six owner manual checks one at a time on the CI-green P6.7A state. P6.7B remains **NOT STARTED** and no RouteProvider, turn-by-turn, road-route or flight-route semantics are introduced.
+Owner manual verification completed **6/6 PASS — REPORTED BY OWNER** on `a11f7263cf42880ce0309c49f79ba45c29d78323`. Current task: run the complete final closure Release Acceptance Gates on the documentation/state closure head. P6.7B remains **NOT STARTED** and no RouteProvider, turn-by-turn, road-route or flight-route semantics are introduced.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
