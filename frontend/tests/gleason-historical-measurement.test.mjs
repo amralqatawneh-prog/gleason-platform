@@ -18,9 +18,9 @@ import { GLEASON_SCALE_PROFILES } from '../.phase1-test-build/measurement/gleaso
 
 const close = (actual, expected, tol=1e-9) => assert.ok(Math.abs(actual-expected) < tol, `${actual} != ${expected}`);
 
-test('scale registry separates historical default, legacy video assumption and Walter configurable profile', () => {
+test('scale registry separates diagnostic circle derivation, legacy video assumption and Walter configurable profile', () => {
   assert.equal(GLEASON_SCALE_PROFILES[0].id, 'gleason-fig43-circle-derived');
-  assert.equal(GLEASON_SCALE_PROFILES[0].role, 'historical-default');
+  assert.equal(GLEASON_SCALE_PROFILES[0].role, 'diagnostic-derived');
   close(GLEASON_FIG43_CIRCLE_MILES_PER_NRU, 21600 / Math.PI, 1e-12);
   assert.equal(GLEASON_LEGACY_RADIAL60_NAUTICAL_MILES_PER_NRU, 10800);
   assert.equal(GLEASON_SCALE_PROFILES[2].id, 'walter-eq-configurable');
@@ -84,7 +84,7 @@ test('historical scale reproduces new-video spreadsheet fixtures', () => {
   );
 });
 
-test('legacy radial-60 scale remains available but is not the historical default', () => {
+test('legacy radial-60 scale remains available and distinct from the diagnostic circle derivation', () => {
   const start={ latitude: 90, longitude: 0 };
   const end={ latitude: 0, longitude: 0 };
   close(gleasonLegacyRadial60Distance(start,end), 5400, 1e-12);
