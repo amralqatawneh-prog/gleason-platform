@@ -1,6 +1,6 @@
 # Post-PR #31 Merge Reconciliation — 2026-09-22
 
-Status: **CLOSED / VERIFIED — CI #790 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
+Status: **CLOSED / VERIFIED / MERGED through PR #33**
 
 Owner instruction:
 **«قم بتحديث وتوثيق ملفات وبيانات وتقارير github قبل ان نبدأ بأي مرحلة قادمه»**
@@ -44,7 +44,7 @@ P6.6 corrected-contract evidence:
 - Phase 6: **IN PROGRESS**;
 - P6.1–P6.6: **CLOSED**;
 - P6.6: **CLOSED / VERIFIED / MERGED**;
-- P6.7A: **NOT STARTED**;
+- At reconciliation closure P6.7A was **NOT STARTED**. After PR #33 merged, the owner separately instructed **«ابدأ P6.7A»**; P6.7A is now IN PROGRESS on PR #34.
 - P6.7B–P6.10: **NOT STARTED**;
 - tag: not created;
 - GitHub Release: not created;
@@ -104,9 +104,14 @@ production build/PWA/offline, browser acceptance, Docker runtime, P6.5/P6.6
 APIs, PostGIS import/coverage/provenance, unified search, Arabic/offline search,
 Redis and frontend-over-Docker checks.
 
-This file records #790, so the resulting closure-state head must itself pass the
-complete Release Acceptance Gates once more before PR #33 is a verified merge
-candidate.
+The reconciliation later received additional owner-supplied Gleason source
+registration updates. Its exact final head
+`a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates
+**#803 — SUCCESS**.
 
-Merge into `main` remains a separate owner authorization. Until then, P6.7A
-remains NOT STARTED.
+The owner then separately authorized PR #33 merge. PR #33 merged to:
+
+`main @ 1825852da81c04cee8e5b9f73dba28b55068c000`.
+
+No independent post-merge push CI is claimed. After that merge, the owner
+separately started P6.7A.
