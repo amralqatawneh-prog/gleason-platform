@@ -721,8 +721,16 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "in_progress",
-      "owner_manual_status": "not_run"
+      "automated_status": "technically-green-awaiting-owner-manual",
+      "owner_manual_status": "not_run",
+      "automated_head": "02dad46db4f692709ded3f0471097aa3c4683fb7",
+      "automated_ci_run": 816,
+      "automated_ci_conclusion": "success",
+      "frontend_core_tests_passed": 150,
+      "p6_7a_targeted_core_tests_passed": 8,
+      "browser_acceptance_tests_passed": 25,
+      "pwa_tests_passed": 2,
+      "automated_note": "Exact implementation/documentation head passed complete Release Acceptance Gates #816 including P6.7A core/E2E, browser/PWA/offline, Docker runtime, P6.5/P6.6 APIs, PostGIS/source/search and Redis regressions."
     }
   },
   "post_pr16_merge_reconciliation": {
