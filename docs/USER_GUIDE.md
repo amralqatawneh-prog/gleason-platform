@@ -51,6 +51,30 @@ area orientation but not primary area or perimeter.
 
 Always read the method/unit/provenance labels.
 
+## 3.1 Same route — three renderings (P6.7A)
+
+P6.7A is currently **IN PROGRESS**. The ordered A → B → C → … route still
+comes from the one transient P6.2 route list.
+
+The new **Same route — three renderings** panel lets you choose which
+calculation identity owns the line shown on all three views:
+
+- **WGS84 geodesic**;
+- **AE projected-plane chord**;
+- **Gleason normalized-plane chord**.
+
+All three views then show the same selected path geometry, projected into each
+view independently. The view does not rename the calculation. For example,
+a WGS84 geodesic drawn on the Gleason view is still a WGS84 geodesic rendered
+on Gleason; it is not a Gleason distance.
+
+The existing WGS84, AE and Gleason numeric measurement panels remain separate.
+Changing the P6.7A visual computation identity does not rewrite their numbers.
+
+P6.7A does not provide a road route, flight track, ETA or turn-by-turn
+instructions. Those provider-backed navigation semantics remain P6.7B/future
+work.
+
 ## 4. Planned observer and astronomy features
 
 Approved future scope includes:

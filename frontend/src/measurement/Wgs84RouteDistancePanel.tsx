@@ -94,11 +94,11 @@ export function Wgs84RouteDistancePanel({ locale, state }: Props) {
         <small dir="ltr">{(result.output.total_distance_m / 1000).toFixed(3)} km · display conversion only</small>
       </div>
 
-      <div className="notice route-guide-notice" data-route-guide-semantics="visual-only">
-        <strong>{locale === 'ar' ? 'خط المسار على الخرائط' : 'Route line on maps'}</strong>
+      <div className="notice route-guide-notice" data-route-guide-semantics="p6.7a-controlled">
+        <strong>{locale === 'ar' ? 'العرض المرئي تديره P6.7A' : 'Visual rendering is controlled by P6.7A'}</strong>
         <span>{locale === 'ar'
-          ? 'الخط الذهبي وعلامات A/B/C دليل بصري لربط نقاط المسار المرتبة فقط. في Gleason وAE يُرسم كل مقطع خطًا مستقيمًا تمامًا بعد الإسقاط، بينما يتبع الخط على كرة WGS84 مرجع Great Circle كأقصر قوس على كرة مرجعية. هذا ليس مسار رحلة جوية فعلية مسجّلة؛ الرحلات الحقيقية قد تنحرف بسبب الممرات والرياح والمراقبة الجوية. حساب المسافة العددي يبقى WGS84 geodesic.'
-          : 'The gold line and A/B/C markers are a visual guide connecting the ordered route points only. Gleason and AE use exact straight projected segments, while the WGS84 globe follows a Great Circle reference as the shortest arc on a reference sphere. This is not an observed flight track; real flights can deviate because of airways, winds and ATC. Numeric distance remains WGS84 geodesic.'}</span>
+          ? 'هذه اللوحة تحسب مسافة WGS84 الجيوديسية فقط. الخط الذهبي على الخرائط الثلاث تديره لوحة P6.7A وفق هوية الحساب المختارة هناك؛ تغيير طريقة العرض لا يغيّر نتيجة هذه اللوحة ولا يحول الخط إلى طريق أو مسار رحلة جوية مسجّل.'
+          : 'This panel computes WGS84 geodesic distance only. The gold path on all three views is controlled by the P6.7A selected computation identity; changing that rendering method does not change this numeric result and never turns the line into a road or observed flight track.'}</span>
       </div>
 
       <div className="wgs84-route-distance-meta">

@@ -24,6 +24,7 @@ import { gleasonAdapter } from '../comparison/adapters/gleasonAdapter';
 import { aeAdapter } from '../comparison/adapters/aeAdapter';
 import type { GeoPoint } from '../models/projectionTypes';
 import { buildStraightProjectedRouteSegments } from '../measurement/routeGuide';
+import type { SameRouteRenderingPlan } from '../measurement/sameRouteRendering';
 import { GLEASON_CODE, registerPhase2Projections } from './registerProjections';
 import { worldCountriesGeoJson } from './worldData';
 
@@ -35,6 +36,7 @@ interface Props {
   selectionPoint: GeoPoint | null;
   selectionLabel?: string;
   routePoints?: readonly GeoPoint[];
+  routeRenderingPlan?: SameRouteRenderingPlan;
 }
 type NavState={zoom:number;rotation:number;centerX:number;centerY:number};
 
@@ -46,7 +48,7 @@ const routePointStyle = (label:string) => new Style({
   text: new Text({ text: label, fill: new Fill({ color: '#fff4c7' }), stroke: new Stroke({ color: '#07111c', width: 3 }), offsetY: -13, font: '700 11px system-ui' }),
 });
 
-export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectionLabel, routePoints = [] }: Props) {
+export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectionLabel, routePoints = [], routeRenderingPlan }: Props) {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<Overlay | null>(null);
   const mapRef = useRef<Map | null>(null);
@@ -58,6 +60,7 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
   const zoomAreaActiveRef = useRef(false);
   const [zoomAreaActive,setZoomAreaActive]=useState(false);
   const [nav,setNav]=useState<NavState>({zoom:0,rotation:0,centerX:0,centerY:0});
+  const renderedRoutePoints = routeRenderingPlan?.canonicalPoints.map(item => item.point) ?? routePoints;
 
   useEffect(() => {
     if (!targetRef.current) return;
@@ -130,27 +133,45 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
     const source = routeSourceRef.current;
     if (!source) return;
     source.clear();
-    if (routePoints.length === 0) return;
+    if (renderedRoutePoints.length === 0) return;
     const adapter = model === 'gleason' ? gleasonAdapter : aeAdapter;
-    const projectedSegments = buildStraightProjectedRouteSegments(routePoints, point => {
-      const projected = adapter.forward(point).value;
-      return [projected.x, projected.y] as const;
-    });
-    for (const segment of projectedSegments) {
-      const feature = new Feature(new LineString(segment.coordinates.map(([x,y]) => [x,y])));
-      feature.set('routeRole', 'line');
-      feature.set('routeGuideId', segment.segmentId);
-      feature.set('routeGuideGeometry', 'straight-projected-segment');
-      source.addFeature(feature);
+
+    if (routeRenderingPlan) {
+      for (const segment of routeRenderingPlan.segments) {
+        const coordinates = segment.samples.map(point => {
+          const projected = adapter.forward(point).value;
+          return [projected.x, projected.y] as [number, number];
+        });
+        const feature = new Feature(new LineString(coordinates));
+        feature.set('routeRole', 'line');
+        feature.set('routeGuideId', segment.segmentId);
+        feature.set('routeGuideGeometry', routeRenderingPlan.geometryKind);
+        feature.set('routeComputationMethod', routeRenderingPlan.computation.methodId);
+        feature.set('routeRenderedOnModel', model);
+        source.addFeature(feature);
+      }
+    } else {
+      const projectedSegments = buildStraightProjectedRouteSegments(renderedRoutePoints, point => {
+        const projected = adapter.forward(point).value;
+        return [projected.x, projected.y] as const;
+      });
+      for (const segment of projectedSegments) {
+        const feature = new Feature(new LineString(segment.coordinates.map(([x,y]) => [x,y])));
+        feature.set('routeRole', 'line');
+        feature.set('routeGuideId', segment.segmentId);
+        feature.set('routeGuideGeometry', 'straight-projected-segment');
+        source.addFeature(feature);
+      }
     }
-    routePoints.forEach((point, index) => {
+
+    renderedRoutePoints.forEach((point, index) => {
       const projected = adapter.forward(point).value;
       const feature = new Feature(new Point([projected.x, projected.y]));
       feature.set('routeRole', 'point');
       feature.set('routeLabel', index < 26 ? String.fromCharCode(65 + index) : `P${index + 1}`);
       source.addFeature(feature);
     });
-  }, [routePoints, model]);
+  }, [renderedRoutePoints, routeRenderingPlan, model]);
 
   const setAreaMode=(active:boolean)=>{
     zoomAreaActiveRef.current=active;
@@ -190,7 +211,17 @@ export function ProjectionMap({ model, locale, onPoint, selectionPoint, selectio
     reset:'Reset orientation',fit:'Fit full model',focus:'Focus selected',active:'Area zoom mode active'
   };
   return <section className="projection-card" data-model={model} data-selected-latitude={selectionPoint?.latitude} data-selected-longitude={selectionPoint?.longitude}
-    data-route-guide="visual-only" data-route-guide-geometry="straight-projected-segments" data-route-guide-points={routePoints.length} data-route-guide-segments={Math.max(0, routePoints.length - 1)}
+    data-route-guide="visual-only"
+    data-route-guide-geometry={routeRenderingPlan?.geometryKind ?? 'straight-projected-segments'}
+    data-route-guide-points={renderedRoutePoints.length}
+    data-route-guide-segments={routeRenderingPlan?.segments.length ?? Math.max(0, renderedRoutePoints.length - 1)}
+    data-route-id={routeRenderingPlan?.routeId ?? ''}
+    data-route-revision={routeRenderingPlan?.routeRevision ?? ''}
+    data-route-computation-method={routeRenderingPlan?.computation.methodId ?? ''}
+    data-route-computation-model={routeRenderingPlan?.computation.calculationModel ?? ''}
+    data-route-computation-unit={routeRenderingPlan?.computation.unit ?? ''}
+    data-route-rendered-on-model={model}
+    data-route-interpretation-rule={routeRenderingPlan?.visualizations[model].interpretationRule ?? ''}
     data-pan-enabled={zoomAreaActive?'false':'true'} data-pan-inputs="mouse-touch"
     data-view-zoom={nav.zoom.toFixed(4)} data-view-rotation={nav.rotation.toFixed(6)} data-view-center-x={nav.centerX.toFixed(6)} data-view-center-y={nav.centerY.toFixed(6)} data-area-mode={zoomAreaActive?'true':'false'}>
     <div className="projection-card__head"><strong>{title}</strong><span>{model === 'gleason' ? 'DERIVED · GH-0.2.0' : 'REFERENCE · AE-0.2.0'}</span></div>

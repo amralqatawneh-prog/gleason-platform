@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased] — Phase 6 / P6.7A Same Route, Three Renderings (2026-09-22)
+
+- Owner explicitly instructed **«ابدأ P6.7A»**.
+- Start baseline: `main @ 1825852da81c04cee8e5b9f73dba28b55068c000`, the PR #33 merge commit.
+- PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
+- Working branch: `feat/p6.7a-same-route-three-renderings`; draft PR **#34**.
+- Reuses the one P6.2 `OrderedRouteState`; no parallel route state is introduced.
+- Adds one selectable computation identity — `wgs84-geodesic`, `ae-projected-plane`, or `gleason-native-normalized` — and renders the resulting geometry independently on Gleason, AE and WGS84.
+- Every view preserves `preserve-computation-identity`; rendered-on model never relabels the method/unit/scale basis.
+- WGS84 rendering geometry is sampled on the WGS84 ellipsoidal geodesic; AE and Gleason are sampled from one straight chord in their own computation plane then inverse-projected for cross-view display.
+- P6.7B RouteProvider / turn-by-turn remains **NOT STARTED**; no road/flight provider route, tag, GitHub Release or deployment is introduced.
+- Initial automated head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS**. Exact owner-tested head `a11f7263cf42880ce0309c49f79ba45c29d78323` then passed **#821 — SUCCESS**, and the owner reported all six P6.7A manual checks **6/6 PASS — REPORTED BY OWNER**. P6.7A is closed by owner verification and awaits final closure CI; PR #34 remains draft/open/unmerged pending separate merge authorization.
+
 ## [Unreleased] — Post-PR #31 merge reconciliation (2026-09-22)
 
 - Owner requested a complete GitHub files/data/reports synchronization before any next implementation slice.
