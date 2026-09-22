@@ -792,7 +792,7 @@
         "P6.C4",
         "P6.C5"
       ],
-      "p6_c1_status": "in_progress",
+      "p6_c1_status": "closed",
       "p6_7b_status": "paused-not-started-until-corrective-sequence-closes",
       "functional_implementation": false,
       "accepted_phase_remains": 5,
