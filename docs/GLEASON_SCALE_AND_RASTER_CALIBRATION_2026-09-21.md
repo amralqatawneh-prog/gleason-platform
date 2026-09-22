@@ -105,3 +105,22 @@ No JGW coordinate unit is to be silently interpreted as metres, historical
 miles or a named EPSG CRS until independent metadata or geometric evidence
 supports that interpretation.
 
+## Non-8K owner JPEG visual reference — 2026-09-22
+
+A separate owner-supplied JPEG was inspected and registered as a visual
+reference only:
+
+- dimensions: **1464 × 2048 px**;
+- format/mode: **JPEG / RGB**;
+- file size: **1,119,790 bytes**;
+- SHA-256:
+  `9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03`;
+- registry:
+  `data/sources/gleason-owner-hires-jpeg-reference.yaml`.
+
+This JPEG is **not 8K** and is **not** the companion raster for
+`8k-Flat-Earth-map.jgw`. It may be used for visual transcription of labels,
+graticule, bottom ruler and outer longitude/time dial where legible, but it must
+not be paired with the JGW or promoted over the existing 4653×6506 restored
+raster. The true 8K raster is still awaited.
+
