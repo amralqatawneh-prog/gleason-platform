@@ -1,6 +1,6 @@
 # Phase 6 · P6.C3 — Calibration & Fixture Laboratory
 
-Status: **IN PROGRESS / TECHNICALLY GREEN — #897 SUCCESS — AWAITING OWNER MANUAL VERIFICATION AFTER EXACT RECORDING-HEAD CI**
+Status: **OWNER MANUAL 6/6 PASS ON `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` AFTER #904 SUCCESS — OWNER-APPROVED RULER/UNIT REFINEMENT IN PROGRESS — TARGETED RETEST REQUIRED AFTER CI**
 
 Date started: 2026-09-22
 
@@ -134,9 +134,25 @@ geometric calibration foundation:
 
 This is **not** a geographic city-control truth set.
 
-The owner 8K/JGW source remains `gated`: the true companion 8K raster is still
-missing. The JGW alone must not be treated as named metres/miles/CRS or as final
-pixel calibration.
+The true owner 8K/JGW companion raster remains unavailable, so **JGW georeferencing**
+stays gated. However, after the owner's 6/6 manual PASS, the owner explicitly
+approved the available lower-resolution `1464 x 2048` JPEG as the P6.C3
+visual/ruler calibration reference.
+
+The reference is verified in
+`docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md`.
+
+Verified named ruler conversion profiles are now:
+
+- English/Land/Statute mile: `5280 ft = 1609.344 m`;
+- Nautical/Sea/Solar mile — Chapter XVII: `6075 ft = 1851.66 m`;
+- Figure-37 ratio-derived Nautical/Sea/Geographical mile:
+  `208 English = 180 nautical` -> `1859.6864 m`.
+
+The 6075-foot and Figure-37 ratio profiles conflict by `8.0264 m` per mile;
+both remain visible and separately named. The generic `historical-fig43-mile`
+identity remains unresolved for automatic SI conversion. The JGW native unit
+and CRS also remain unknown.
 
 ### 4.5 Modern reference pairs
 
@@ -189,7 +205,7 @@ P6.C3 does **not**:
 - declare a preferred scientific winner;
 - infer Figure-43 mile identity;
 - fabricate raster/city control points;
-- pair the 8K JGW with the unrelated 1464x2048 JPEG;
+- pair the 1464x2048 reference with the JGW as if it were the missing companion raster;
 - promote the provisional restored-raster fit to geographic truth;
 - start P6.C4 elevation work;
 - redesign the workspace for P6.C5;
@@ -243,6 +259,60 @@ backend, frontend core tests, WGS84/Gleason/P6.6 parity, production build/PWA,
 browser acceptance, Docker runtime, PostGIS import/coverage, Arabic/offline
 search, Redis and frontend-over-Docker all passed.
 
-This documentation/state recording changes the PR head, so the exact recording
-head must pass the complete gates before owner manual verification starts.
-Owner manual verification remains **NOT RUN**.
+The exact recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57`
+passed Release Acceptance Gates **#904 — SUCCESS** before owner manual testing.
+
+Owner manual verification then completed **6/6 PASS — REPORTED BY OWNER** on
+that exact head.
+
+After the manual PASS, the owner approved the lower-resolution visual/ruler
+reference and requested verified metre/mile adoption. This post-manual
+refinement changes source policy and UI behavior. It therefore requires:
+
+1. complete Release Acceptance Gates on the refinement head;
+2. a **targeted owner retest** limited to the affected ruler/unit/JGW
+   presentation;
+3. only then may P6.C3 proceed to closure-state CI.
+
+The six original manual checks remain recorded as PASS; they are not discarded.
+
+
+## 11. Owner manual verification record
+
+Exact tested head:
+`acb232c9ab78bcd8c84e16fd666b37200b5d1c57`
+
+Pre-manual Release Acceptance Gates:
+**#904 — SUCCESS**
+
+Owner result:
+**6/6 PASS — REPORTED BY OWNER**
+
+Passed items:
+
+1. laboratory presence and complete nine-fixture set;
+2. source identity and residual semantics;
+3. research-profile selector;
+4. local-scale diagnostic;
+5. raster diagnostic + original 8K/JGW fail-closed presentation;
+6. Arabic, route regression and general stability.
+
+## 12. Post-manual owner-approved ruler refinement
+
+Owner instruction:
+use the available lower-quality image as the reference because the higher-quality
+image is unavailable, and adopt metre/mile conversions after verification.
+
+Implementation decisions:
+
+- the 1464x2048 JPEG is now the approved **visual/ruler calibration reference**;
+- its SHA-256 remains
+  `9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03`;
+- three named historical ruler conversion profiles are exposed;
+- the 6075-foot and Figure-37 ratio conflict is displayed explicitly;
+- generic Figure-43 mile SI identity remains unresolved;
+- JGW native unit/CRS remain unknown;
+- JGW georeferencing remains gated until the true companion raster or independent
+  georeferencing evidence exists.
+
+Targeted owner retest status: **NOT RUN**.
