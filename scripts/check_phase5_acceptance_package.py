@@ -326,7 +326,7 @@ require(p6_c3.get("report") == "docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATOR
 require(p6_c3.get("fixture_registry") == "data/sources/gleason-calibration-fixtures.yaml", "P6.C3 fixture registry path drifted")
 require(p6_c3.get("browser_engine") == "frontend/src/measurement/gleasonCalibrationLaboratory.ts", "P6.C3 browser engine path drifted")
 require(p6_c3.get("ui_panel") == "frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx", "P6.C3 UI panel path drifted")
-require(p6_c3.get("raster_8k_status") == "visual-ruler-reference-approved-jgw-georeferencing-gated", "P6.C3 raster/JGW refinement status drifted")
+require(p6_c3.get("raster_8k_status") == "owner-proxy-verified-jgw-affine-metre-exact-pixel-pairing-gated", "P6.C3 raster/JGW refinement status drifted")
 require(p6_c3.get("p6_c4_status") == "not_started", "P6.C4 must remain not_started")
 require(p6_c3.get("p6_c5_status") == "not_started", "P6.C5 must remain not_started")
 require(p6_c3.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
@@ -351,7 +351,7 @@ for key in [
     "arabic_route_regression_general_stability",
 ]:
     require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C3 manual check missing/pass drift: {key}")
-require(p6_c3.get("automated_status") == "owner-approved-ruler-refinement-awaiting-ci", "P6.C3 refinement automated status drifted")
+require(p6_c3.get("automated_status") == "owner-approved-proxy-jgw-metre-refinement-awaiting-ci", "P6.C3 refinement automated status drifted")
 require(p6_c3.get("verification_head") == "ed411b6f14ab1df2b406004a44a13af48dcd534a", "P6.C3 verification head drifted")
 require(p6_c3.get("verification_ci_run") == 897, "P6.C3 verification CI must be #897")
 require(p6_c3.get("verification_ci_conclusion") == "success", "P6.C3 verification CI #897 must remain success")
@@ -362,9 +362,14 @@ require(p6_c3.get("recording_head_ci") == "superseded-by-owner-refinement-after-
 failures = p6_c3.get("development_failures", [])
 require([item.get("run") for item in failures] == [894, 895], "P6.C3 development-failure history drifted")
 owner_refinement = p6_c3.get("owner_ruler_reference_refinement", {})
-require(owner_refinement.get("decision") == "owner-approved-lower-resolution-visual-ruler-reference", "P6.C3 lower-resolution reference decision missing")
-require(owner_refinement.get("visual_reference_dimensions_px") == [1464, 2048], "P6.C3 visual reference dimensions drifted")
-require(owner_refinement.get("visual_reference_sha256") == "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03", "P6.C3 visual reference SHA drifted")
+require(owner_refinement.get("decision") == "owner-authorized-received-proxy-and-metremile-after-verification", "P6.C3 owner proxy/metre-mile decision missing")
+require(owner_refinement.get("received_proxy_file") == "Gleason-map-8k.jpg", "P6.C3 received proxy file drifted")
+require(owner_refinement.get("received_proxy_dimensions_px") == [1361, 2048], "P6.C3 received proxy dimensions drifted")
+require(owner_refinement.get("received_proxy_bytes") == 1233904, "P6.C3 received proxy byte count drifted")
+require(owner_refinement.get("received_proxy_sha256") == "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d", "P6.C3 received proxy SHA drifted")
+require(owner_refinement.get("received_proxy_library_file_id") == "libfile_59fd00b0a9908191b5a57473d3b40383", "P6.C3 received proxy Library id drifted")
+require(owner_refinement.get("proxy_manifest") == "data/sources/gleason-owner-8k-proxy-verification.yaml", "P6.C3 proxy manifest path drifted")
+require(owner_refinement.get("verification_report") == "docs/GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md", "P6.C3 proxy/JGW verification report path drifted")
 require(owner_refinement.get("verified_unit_profiles") == {
     "english_land_statute_mile_m": 1609.344,
     "nautical_sea_solar_6075ft_m": 1851.66,
@@ -372,8 +377,14 @@ require(owner_refinement.get("verified_unit_profiles") == {
 }, "P6.C3 verified ruler-unit profiles drifted")
 require(owner_refinement.get("conflict_policy") == "preserve-both-do-not-silently-select", "P6.C3 historical ruler conflict policy drifted")
 require(owner_refinement.get("generic_fig43_mile_si_status") == "unresolved", "P6.C3 generic Figure-43 mile must remain unresolved")
-require(owner_refinement.get("jgw_native_unit_status") == "unknown", "P6.C3 JGW native unit must remain unknown")
-require(owner_refinement.get("jgw_georeferencing_status") == "gated-missing-true-companion-raster", "P6.C3 JGW georeferencing gate drifted")
+require(owner_refinement.get("jgw_affine_unit_status") == "metre-owner-authorized-proxy-verified", "P6.C3 JGW affine metre status drifted")
+require(owner_refinement.get("jgw_affine_unit_evidence_level") == "OWNER_AUTHORIZED_PROXY_VERIFIED", "P6.C3 JGW affine unit evidence drifted")
+require(abs(owner_refinement.get("jgw_pixel_step_m", 0) - 5014.548291487017) < 1e-9, "P6.C3 JGW metre-per-pixel drifted")
+require(abs(owner_refinement.get("jgw_pixel_step_international_statute_mile", 0) - 3.115895850412974) < 1e-12, "P6.C3 JGW statute-mile conversion drifted")
+require(abs(owner_refinement.get("jgw_pixel_step_international_nautical_mile", 0) - 2.7076394662456895) < 1e-12, "P6.C3 JGW nautical-mile conversion drifted")
+require(owner_refinement.get("jgw_crs_status") == "unknown-not-encoded", "P6.C3 JGW CRS gate drifted")
+require(owner_refinement.get("jgw_exact_pixel_pairing_status") == "gated-exact-original-unavailable", "P6.C3 JGW exact-pixel pairing gate drifted")
+require(owner_refinement.get("separate_1464x2048_reference_status") == "not-current-proxy", "P6.C3 separate 1464x2048 reference status drifted")
 require(p6_c3.get("refinement_status") == "implemented-awaiting-complete-ci", "P6.C3 refinement status drifted")
 require(p6_c3.get("refinement_verification_head") is None, "P6.C3 refinement verification head must not be invented before CI")
 require(p6_c3.get("refinement_ci_run") is None, "P6.C3 refinement CI run must remain unset until observed")
@@ -400,7 +411,10 @@ for marker in [
     "reference-equator-one-degree-wgs84-vs-walter",
     "raster-restored-outer-ring-fit",
     "raster-owner-8k-jgw",
-    "missing-true-companion-8k-raster",
+    "exact-pixel-pairing-unverified-proxy-only",
+    "metre-affine-unit-verified",
+    "owner_jgw_native_unit_status: metre-owner-authorized-proxy-verified",
+    "5014.548291487017",
     "english-land-statute-mile-5280ft",
     "nautical-sea-solar-mile-6075ft",
     "fig37-nautical-geographical-mile-by-208-to-180-ratio",
@@ -418,17 +432,25 @@ for path in [
     require((ROOT / path).is_file(), f"P6.C2 artifact missing: {path}")
 
 require((ROOT / "docs" / "PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md").is_file(), "P6.C3 contract/report missing")
-require((ROOT / "docs" / "GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md").is_file(), "P6.C3 lower-resolution ruler verification report missing")
-lower_ref_registry = (ROOT / "data" / "sources" / "gleason-owner-hires-jpeg-reference.yaml").read_text(encoding="utf-8")
+require((ROOT / "docs" / "GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md").is_file(), "P6.C3 proxy/JGW verification report missing")
+require((ROOT / "data" / "sources" / "gleason-owner-8k-proxy-verification.yaml").is_file(), "P6.C3 owner proxy verification manifest missing")
+proxy_registry = (ROOT / "data" / "sources" / "gleason-owner-8k-proxy-verification.yaml").read_text(encoding="utf-8")
 for marker in [
-    "owner_approved_p6c3_visual_ruler_reference",
-    "english_land_statute_mile_m: 1609.344",
-    "nautical_sea_solar_6075ft_m: 1851.66",
-    "fig37_ratio_nautical_geographical_mile_m: 1859.6864",
-    "generic_fig43_mile_si_status: unresolved",
-    "jgw_unit_status: unknown",
+    "Gleason-map-8k.jpg",
+    "width_px: 1361",
+    "height_px: 2048",
+    "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d",
+    "name: metre",
+    "owner_authorized_proxy_verified_working_unit",
+    "jgw_pixel_step_m: 5014.54829148701719532",
+    "jgw_pixel_step_international_statute_mile: 3.115895850412974",
+    "jgw_pixel_step_international_nautical_mile: 2.7076394662456895",
+    "exact_pixel_calibration: gated",
+    "figure43_historical_mile_si_identity: unresolved",
 ]:
-    require(marker in lower_ref_registry, f"P6.C3 lower-resolution reference registry marker missing: {marker}")
+    require(marker in proxy_registry, f"P6.C3 proxy/JGW verification marker missing: {marker}")
+lower_ref_registry = (ROOT / "data" / "sources" / "gleason-owner-hires-jpeg-reference.yaml").read_text(encoding="utf-8")
+require("registered_reference_not_current_owner_proxy" in lower_ref_registry, "P6.C3 separate 1464x2048 reference must not remain the current proxy")
 
 for path in [
     "frontend/src/measurement/gleasonMeasurementProfiles.ts",
