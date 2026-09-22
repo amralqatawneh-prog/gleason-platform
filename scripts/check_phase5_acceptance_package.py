@@ -55,10 +55,10 @@ require(
 )
 require(phase6_start.get("previous_slice") == "P6.7A", "previous Phase 6 slice must be P6.7A")
 require(phase6_start.get("previous_slice_status") == "closed-verified-merged", "P6.7A must be closed/verified/merged")
-require(phase6_start.get("current_slice") is None, "no functional Phase 6 slice may be active during the architecture amendment")
-require(phase6_start.get("current_slice_status") == "none", "current functional slice status must be none")
-require(phase6_start.get("next_slice") == "P6.C1", "next Phase 6 slice must be P6.C1")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.C1 must remain not_started until amendment verification")
+require(phase6_start.get("current_slice") == "P6.C1", "current Phase 6 slice must be P6.C1")
+require(phase6_start.get("current_slice_status") == "in_progress", "P6.C1 current slice status must be in_progress")
+require(phase6_start.get("next_slice") == "P6.C2", "next Phase 6 slice must be P6.C2")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.C2 must remain not_started")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
 require(p6_7a_start.get("decision") == "started-by-owner", "P6.7A owner start evidence missing")
 require(p6_7a_start.get("owner_statement") == "ابدأ P6.7A", "P6.7A owner statement drifted")
@@ -161,7 +161,7 @@ require(
     "Walter comparative source registry path drifted",
 )
 require(amendment.get("corrective_sequence") == ["P6.C1","P6.C2","P6.C3","P6.C4","P6.C5"], "corrective Phase 6 sequence drifted")
-require(amendment.get("p6_c1_status") == "not_started", "P6.C1 must not start before amendment verification")
+require(amendment.get("p6_c1_status") == "in_progress", "P6.C1 must be in progress on the verified stacked amendment")
 require(
     amendment.get("p6_7b_status") == "paused-not-started-until-corrective-sequence-closes",
     "P6.7B must remain paused/not-started",
@@ -178,6 +178,34 @@ require(amendment.get("verification_ci_conclusion") == "success", "architecture 
 require(amendment.get("pr") == 36, "architecture amendment must reference PR #36")
 require(amendment.get("pr_status") == "draft-open-unmerged", "architecture amendment PR #36 must remain draft/open/unmerged before authorization")
 require(amendment.get("merge_authorization") == "pending-separate-owner-instruction", "architecture amendment merge must await owner authorization")
+require(amendment.get("exact_closure_head") == "06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1", "architecture amendment exact closure head drifted")
+require(amendment.get("exact_closure_ci_run") == 837, "architecture amendment exact closure CI must be #837")
+require(amendment.get("exact_closure_ci_conclusion") == "success", "architecture amendment exact closure CI #837 must remain success")
+
+p6_c1 = phase6_start.get("p6_c1_start", {})
+require(p6_c1.get("decision") == "started-by-owner-on-verified-stacked-amendment", "P6.C1 owner start evidence missing")
+require(p6_c1.get("branch") == "feat/p6.c1-gleason-measurement-reevaluation", "P6.C1 branch drifted")
+require(p6_c1.get("pr") == 37, "P6.C1 must reference PR #37")
+require(p6_c1.get("pr_status") == "draft-open-stacked-on-pr36", "P6.C1 PR status drifted")
+require(p6_c1.get("stacked_base_pr") == 36, "P6.C1 must be stacked on PR #36")
+require(p6_c1.get("stacked_base_head") == "06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1", "P6.C1 stacked base head drifted")
+require(p6_c1.get("stacked_base_ci_run") == 837, "P6.C1 stacked base CI must be #837")
+require(p6_c1.get("stacked_base_ci_conclusion") == "success", "P6.C1 stacked base CI #837 must remain success")
+require(p6_c1.get("fig43_si_conversion_status") == "unresolved-unit-identity-fail-closed", "P6.C1 Figure 43 SI fail-closed status drifted")
+require(p6_c1.get("circle_derived_role") == "diagnostic-derived", "P6.C1 circle-derived role must be diagnostic")
+require(p6_c1.get("p6_c2_status") == "not_started", "P6.C2 must remain not_started")
+require(p6_c1.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
+require(p6_c1.get("accepted_phase_remains") == 5, "P6.C1 must not accept Phase 6")
+require(p6_c1.get("accepted_application_version_remains") == "0.5.0", "P6.C1 must not change accepted version")
+require(p6_c1.get("automated_status") == "awaiting-complete-ci", "P6.C1 automated status must await CI")
+require(p6_c1.get("owner_manual_status") == "not_run", "P6.C1 owner manual verification must not be fabricated")
+require(phase6_start.get("p6_c1_status") == "in_progress", "P6.C1 top-level status must be in_progress")
+for path in [
+    "frontend/src/measurement/gleasonMeasurementProfiles.ts",
+    "data/sources/gleason-measurement-unit-audit-2026-09-22.yaml",
+    "docs/PHASE_6_P6_C1_GLEASON_MEASUREMENT_REEVALUATION.md",
+]:
+    require((ROOT / path).is_file(), f"P6.C1 contract artifact missing: {path}")
 
 amendment_doc = ROOT / "docs" / "ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md"
 walter_registry_path = ROOT / "data" / "sources" / "walter-bislin-comparative-models.yaml"
