@@ -38,7 +38,7 @@ model engines:
 - PR #23 Roadmap & Architecture Amendment is **MERGED**; exact final PR head `c73ca4cdd41b2e3cd745df5412be30a44d2bda9c` passed Release Acceptance Gates **#676 — SUCCESS** before merge
 - Post-PR23 documentation reconciliation: **CLOSED + MERGED** through PR #24; exact final head `2c3b12ceabdf374d587c96f49f23d097de8d8d1d` passed Release Acceptance Gates **#684 — SUCCESS** and merge commit is `fc42af3cd97706ddc3f92b44f7e784ba86fc7536`
 - Post-PR25 documentation reconciliation: **CLOSED + MERGED** through PR #26 at `main @ 6bbfe92e8a4c0b66415eb888598cace5b7b15102`; exact final head `24aba98192483dc8fc3d60cacbb8eac96f0fa5aa` passed Release Acceptance Gates **#718 — SUCCESS** before merge.
-- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED + MERGED** through PR #27 at `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11`; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge. At that historical amendment point P6.6 had not started; current state is P6.6 and P6.7A CLOSED / VERIFIED / MERGED, P6.C1 CLOSED / VERIFIED / MERGED, and P6.C2 IN PROGRESS.
+- Owner-approved **Roadmap & Astronomy Architecture Amendment** is **CLOSED / VERIFIED + MERGED** through PR #27 at `main @ 5442852ef4bc2e760db39743d0bc7b3bc57d0b11`; exact final head `8d84c2e83a148a359fd0d75da7e5f3b21570ac22` passed Release Acceptance Gates **#726 — SUCCESS** before merge. At that historical amendment point P6.6 had not started; current state is P6.6 and P6.7A CLOSED / VERIFIED / MERGED, P6.C1 CLOSED / VERIFIED / MERGED, and P6.C2 CLOSED / VERIFIED awaiting merge authorization.
 - Post-PR27 documentation reconciliation is **CLOSED + MERGED** through PR #28. Its initial verification head `018e6a7984dcf682e94f36668333ea00ccbaf085` passed Release Acceptance Gates **#738 — SUCCESS**; exact final head `8f6b69c90148e0c5e9200ebab2dfab88ed0f5789` passed **#744 — SUCCESS** and PR #28 merged to `main @ a96f47b95c542c2eafb21771bc7c53e7ab40d170`. No post-merge workflow result is claimed without independent observation.
 - Post-PR28 documentation reconciliation is **CLOSED + MERGED** through PR #29. Initial verification head `3e23d2074a65ce6422e378b7a62211627157c968` passed Release Acceptance Gates **#753 — SUCCESS**; exact final head `7751e76c1d3fe3e8c129436717042a49040ead4b` passed **#754 — SUCCESS**; PR #29 merged to `main @ 8ac38042050f24c0ec30e30b32d37cd1900abf92`. No post-merge workflow result is claimed without independent observation.
 - Post-PR29 documentation reconciliation is **CLOSED + MERGED** through PR #30. Initial head `0ccd24dbbc665c81dfa8cddec82ffde4ca9ef448` passed **#758 — SUCCESS**; exact final head `14c69a8cb1aaae2b375803e6400efe24aa83fd03` passed **#759 — SUCCESS**; PR #30 merged to `main @ 1c64285b92c093365b74f3256aa9557b9a48268e`. No post-merge CI result is claimed without independent observation. The owner simultaneously authorized starting P6.6.
@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current functional slice: **P6.C2 — Gleason SI Measurement Engine / CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE-STATE CI** on `feat/p6.c2-gleason-si-measurement-engine`. Exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed **#876 — SUCCESS** before owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C3 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
+- Current functional slice: **P6.C2 — Gleason SI Measurement Engine / CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION** on `feat/p6.c2-gleason-si-measurement-engine`. Exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed **#876 — SUCCESS** before owner manual **6/6 PASS — REPORTED BY OWNER**; final closure head `d698c88b43cd75f7925551d323c10836cac41ab8` passed **#877 — SUCCESS**. P6.C3 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
 - P6.C2 final contract is **P6.C2-1**: executable profiles expose explicit `calculation_space` plus nullable `assumption_id`; `limitations[]` is the single normative warning channel; UI-only `route_revision` is not duplicated into the numerical result because the exact ordered input-point snapshot is returned with the result.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
@@ -96,7 +96,7 @@ model engines:
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
 | P6.C1 | CLOSED / VERIFIED / MERGED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure #859; recording head `385a04bc…` #864 SUCCESS; PR #37 merged at `3096d963…` |
-| P6.C2 | CLOSED BY OWNER VERIFICATION / FINAL CI PENDING ✅🛠️ | Exact tested head `b1dacada…`; #876 SUCCESS; owner manual 6/6 PASS — REPORTED BY OWNER; final closure-state CI required; draft PR #38 remains unmerged |
+| P6.C2 | CLOSED / VERIFIED / AWAITING MERGE ✅ | Exact tested head `b1dacada…` #876 SUCCESS; owner manual 6/6 PASS; closure `d698c88b…` #877 SUCCESS; draft PR #38 remains unmerged pending separate authorization |
 | P6.C3–P6.C5 | NOT STARTED ⏳ | Calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
@@ -169,7 +169,7 @@ reference. Provider-backed road/flight routing remains fail-closed.
 
 ## Explicitly not implemented yet
 
-- P6.7A Same Route, Three Renderings is **CLOSED / VERIFIED / MERGED** through PR #34. P6.C1 is also **CLOSED / VERIFIED / MERGED** through PR #37. P6.C2 is now IN PROGRESS; P6.7B remains paused/not-started until P6.C1–P6.C5 close.
+- P6.7A Same Route, Three Renderings is **CLOSED / VERIFIED / MERGED** through PR #34. P6.C1 is also **CLOSED / VERIFIED / MERGED** through PR #37. P6.C2 is **CLOSED / VERIFIED / AWAITING MERGE** on PR #38; P6.7B remains paused/not-started until P6.C1–P6.C5 close.
 - P6.C1–P6.C5 corrective sequence: measurement profiles/SI, calibration fixtures, ellipsoidal elevation, and map-first comparison workspace. P6.7B RouteProvider / turn-by-turn resumes afterward; provider-backed road/flight paths remain unavailable until dedicated providers are implemented.
 - Phase 9–12 astronomy/time/ObserverContext/virtual observer dome/analemma/eclipse engines.
 - Phase 15 Aviation Laboratory live/historical/scheduled provider integrations.
@@ -348,7 +348,7 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIFIED / MERGED**. **P6.C2 is CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE-STATE CI**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIFIED / MERGED**. **P6.C2 is CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
@@ -370,4 +370,4 @@ Phase 6 remains **IN PROGRESS**; P6.1–P6.7A and **P6.C1** are **CLOSED / VERIF
 - Implementation head `bd73fa0f6aa4cfd9c1d415c915f0ad35bd4c3476` passed Release Acceptance Gates **#653 — SUCCESS**.
 - Current owner-tested head `59d19a96c6a7af443429d8ba7585386d4f491dee` passed Release Acceptance Gates **#661 — SUCCESS**.
 - Owner manual verification: **6/6 PASS — REPORTED BY OWNER**.
-- Historical note: at P6.4 closure, P6.5/P6.6/P6.7A/P6.7B had not started. Current state supersedes that checkpoint: P6.5/P6.6/P6.7A are CLOSED / MERGED, P6.C1 is CLOSED / MERGED, P6.C2 is IN PROGRESS, and P6.7B remains paused/not-started.
+- Historical note: at P6.4 closure, P6.5/P6.6/P6.7A/P6.7B had not started. Current state supersedes that checkpoint: P6.5/P6.6/P6.7A are CLOSED / MERGED, P6.C1 is CLOSED / MERGED, P6.C2 is CLOSED / VERIFIED / AWAITING MERGE, and P6.7B remains paused/not-started.

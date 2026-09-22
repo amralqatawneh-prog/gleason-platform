@@ -1,6 +1,6 @@
 # Phase 6 · P6.C2 — Gleason SI Measurement Engine
 
-Status: **CLOSED BY OWNER VERIFICATION — 6/6 PASS ON `b1dacada7cb84c715b71c654c7abe465d370cc0b` AFTER #876 SUCCESS — AWAITING FINAL CLOSURE-STATE CI**
+Status: **CLOSED / VERIFIED — owner manual 6/6 PASS; final closure head `d698c88b43cd75f7925551d323c10836cac41ab8`; Release Acceptance Gates #877 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
 
 Owner instruction: **«ابدأ»**
 
@@ -294,8 +294,12 @@ Owner manual verification then completed **6/6 PASS — REPORTED BY OWNER** on
 5. backend-stop browser-local fallback preserves P6.C2 identities and outputs;
 6. Arabic/mobile/provenance/limitations and WGS84/AE/P6.7A cross-slice regression remain intact.
 
-The new documentation/state head must now pass the complete Release Acceptance
-Gates as the final closure-state CI. No merge is implied by owner verification.
+The documentation/state closure head
+`d698c88b43cd75f7925551d323c10836cac41ab8` passed the complete Release
+Acceptance Gates **#877 — SUCCESS**. P6.C2 is therefore **CLOSED / VERIFIED**.
+PR #38 remains draft/open/unmerged. Merge requires a separate explicit owner
+authorization and the exact final recording head must itself pass the complete
+gates before merge.
 
 ## 9. Acceptance path
 
@@ -303,7 +307,7 @@ Gates as the final closure-state CI. No merge is implied by owner verification.
 2. pass complete Release Acceptance Gates — **#876 SUCCESS on exact owner-tested head**;
 3. owner manual verification — **COMPLETE, 6/6 PASS — REPORTED BY OWNER**;
 4. record owner PASS on exact tested head — **COMPLETE**;
-5. run final closure-state CI on the new documentation/state head;
-6. merge only by separate owner authorization.
+5. final closure-state CI — **COMPLETE: #877 SUCCESS on `d698c88b43cd75f7925551d323c10836cac41ab8`**;
+6. verify the exact recording head by complete gates, then merge only by separate owner authorization.
 
 No tag, GitHub Release or deployment is created by P6.C2.

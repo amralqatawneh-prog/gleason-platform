@@ -7,6 +7,7 @@
 - Strengthened frontend/backend/unit/E2E/parity/live-Docker acceptance checks for the final P6.C2 profile identity contract.
 - Exact final-contract owner-test head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed Release Acceptance Gates **#876 — SUCCESS**; owner then reported the full P6.C2 manual checklist **6/6 PASS — REPORTED BY OWNER**.
 - P6.C2 is closed by owner verification and now awaits final closure-state CI; PR #38 remains draft/open/unmerged and no merge authorization is implied.
+- Final closure-state head `d698c88b43cd75f7925551d323c10836cac41ab8` passed Release Acceptance Gates **#877 — SUCCESS**. P6.C2 is now **CLOSED / VERIFIED** and PR #38 remains draft/open/unmerged pending exact recording-head verification and separate owner merge authorization.
 - P6.C1 / PR #37 merged to `main @ 3096d963b75478682923c20925e3eac974bbfb69` after final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed Release Acceptance Gates **#864 — SUCCESS**.
 - Owner instructed **«ابدأ»**; P6.C2 started on `feat/p6.c2-gleason-si-measurement-engine` / draft PR #38.
 - Added browser and backend P6.C2 SI engines with profile identity/provenance and metre/kilometre/international-NM display outputs.

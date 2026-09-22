@@ -252,7 +252,7 @@ Deliver:
 - no Map-First UI redesign yet.
 
 ### P6.C2 — Gleason SI Measurement Engine
-Status: **CLOSED BY OWNER VERIFICATION — exact tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` · #876 SUCCESS · owner manual 6/6 PASS — AWAITING FINAL CLOSURE-STATE CI**.
+Status: **CLOSED / VERIFIED — exact tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` · #876 SUCCESS · owner manual 6/6 PASS · final closure head `d698c88b43cd75f7925551d323c10836cac41ab8` · #877 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**.
 
 Implement approved profiles with metre/km/NM outputs where justified, explicit
 profile provenance, browser/backend parity and no hidden normalization.
@@ -264,7 +264,7 @@ P6.C3 remains NOT STARTED; P6.7B remains PAUSED / NOT STARTED.
 
 Automated evidence: exact implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870; prior recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874; exact final-contract owner-test head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed **#876 — SUCCESS**.
 
-Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c715b71c654c7abe465d370cc0b`. Final closure-state CI is now required on the documentation/state head before separate merge authorization.
+Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c715b71c654c7abe465d370cc0b`. Final closure-state head `d698c88b43cd75f7925551d323c10836cac41ab8` passed **#877 — SUCCESS**. P6.C2 is CLOSED / VERIFIED and awaits exact recording-head verification plus separate merge authorization.
 
 Final P6.C2 contract: explicit per-profile `calculation_space` and nullable `assumption_id`; `limitations[]` is the single normative warning channel; numerical reproducibility is bound to `input.route_id` + exact ordered `input.points` rather than UI-only `route_revision`.
 
@@ -388,7 +388,7 @@ Current task:
 3. P6.C2 is the active slice on draft PR #38. Browser/backend SI engines, offline fallback, UI cards, parity and live API gates are implemented.
 4. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870; pre-reconciliation recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874.
 5. Final-contract candidate `b1dacada7…` passed #876 SUCCESS and the owner reported all six manual checks PASS.
-6. P6.C2 is **CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE-STATE CI**; P6.C3–P6.C5 remain **NOT STARTED** and P6.7B remains **PAUSED / NOT STARTED** until the corrective sequence closes.
+6. P6.C2 is **CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION** after #877 SUCCESS; P6.C3–P6.C5 remain **NOT STARTED** and P6.7B remains **PAUSED / NOT STARTED** until the corrective sequence closes.
 
 ### P6.6 source-audit correction package — 2026-09-21
 

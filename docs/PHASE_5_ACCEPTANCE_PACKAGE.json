@@ -301,7 +301,7 @@
     "current_slice": "P6.C2",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "closed-owner-verified-awaiting-final-closure-ci",
+    "current_slice_status": "closed-verified-awaiting-merge",
     "next_slice": "P6.C3",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -886,7 +886,7 @@
       "post_merge_main_ci_run": null,
       "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_c2_status": "closed-owner-verified-awaiting-final-closure-ci",
+    "p6_c2_status": "closed-verified-awaiting-merge",
     "p6_c2_start": {
       "date": "2026-09-22",
       "owner_statement": "ابدأ",
@@ -896,7 +896,7 @@
       "branch": "feat/p6.c2-gleason-si-measurement-engine",
       "pr": 38,
       "pr_status": "draft-open",
-      "status": "closed-owner-verified-awaiting-final-closure-ci",
+      "status": "closed-verified-awaiting-merge",
       "scope": "execute P6.C1-approved SI profiles with metres/kilometres/NM where justified; explicit profile provenance; browser/backend parity; no hidden normalization",
       "report": "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md",
       "browser_engine": "frontend/src/measurement/gleasonSiMeasurement.ts",
@@ -923,14 +923,14 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "owner-verified-awaiting-final-closure-ci",
+      "automated_status": "closed-verified-awaiting-merge",
       "owner_manual_status": "pass-reported-by-owner",
       "verification_head": "e1e708ce864e97ac4dd6dc23106ecca475948080",
       "verification_ci_run": 870,
       "verification_ci_conclusion": "success",
       "duplicate_verification_ci_run": 869,
       "duplicate_verification_ci_conclusion": "success",
-      "recording_head_ci": "pending",
+      "recording_head_ci": "required-before-merge",
       "final_contract": {
         "version": "P6.C2-1",
         "calculation_space": "explicit-per-executable-profile",
@@ -954,10 +954,10 @@
         "backend_stop_browser_fallback": "pass-reported-by-owner",
         "arabic_mobile_provenance_cross_slice_regression": "pass-reported-by-owner"
       },
-      "closure_status": "closed-owner-verified-awaiting-final-closure-ci",
-      "final_closure_head": null,
-      "final_closure_ci_run": null,
-      "final_closure_ci_conclusion": "pending"
+      "closure_status": "closed-verified-awaiting-merge",
+      "final_closure_head": "d698c88b43cd75f7925551d323c10836cac41ab8",
+      "final_closure_ci_run": 877,
+      "final_closure_ci_conclusion": "success"
     }
   },
   "post_pr16_merge_reconciliation": {
