@@ -56,7 +56,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.6", "previous Phase 6 slice must be P6.6")
 require(phase6_start.get("previous_slice_status") == "closed", "P6.6 must remain closed")
 require(phase6_start.get("current_slice") == "P6.7A", "current Phase 6 slice must be P6.7A")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.7A current slice status must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.7A current slice status must be closed after owner verification")
 require(phase6_start.get("next_slice") == "P6.7B", "next Phase 6 slice must be P6.7B")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.7B must remain not_started")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
@@ -71,7 +71,7 @@ require(
     "P6.7A branch evidence drifted",
 )
 require(p6_7a_start.get("pr") == 34, "P6.7A must reference PR #34")
-require(p6_7a_start.get("pr_status") == "draft-open", "P6.7A PR #34 must remain draft/open before closure")
+require(p6_7a_start.get("pr_status") == "draft-open-awaiting-final-closure-ci", "P6.7A PR #34 must remain draft/open while final closure CI is pending")
 require(
     p6_7a_start.get("supported_computation_identities")
     == ["wgs84-geodesic", "ae-projected-plane", "gleason-native-normalized"],
@@ -90,8 +90,8 @@ require(p6_7a_start.get("tag") == "not_created", "P6.7A must not create a tag")
 require(p6_7a_start.get("github_release") == "not_created", "P6.7A must not create a GitHub Release")
 require(p6_7a_start.get("deployment") == "not_created", "P6.7A must not deploy")
 require(
-    p6_7a_start.get("automated_status") == "technically-green-awaiting-owner-manual",
-    "P6.7A automated status must be technically green awaiting owner manual verification",
+    p6_7a_start.get("automated_status") == "technically-green-owner-manual-passed-awaiting-final-closure-ci",
+    "P6.7A automated/manual closure state drifted",
 )
 require(
     p6_7a_start.get("automated_head") == "02dad46db4f692709ded3f0471097aa3c4683fb7",
@@ -103,7 +103,27 @@ require(p6_7a_start.get("frontend_core_tests_passed") == 150, "P6.7A frontend co
 require(p6_7a_start.get("p6_7a_targeted_core_tests_passed") == 8, "P6.7A targeted core count must be 8")
 require(p6_7a_start.get("browser_acceptance_tests_passed") == 25, "P6.7A browser acceptance count must be 25")
 require(p6_7a_start.get("pwa_tests_passed") == 2, "P6.7A PWA test count must be 2")
-require(p6_7a_start.get("owner_manual_status") == "not_run", "P6.7A owner manual verification must not be fabricated")
+require(p6_7a_start.get("owner_manual_status") == "pass-reported-by-owner", "P6.7A owner manual PASS evidence missing")
+require(p6_7a_start.get("owner_tested_head") == "a11f7263cf42880ce0309c49f79ba45c29d78323", "P6.7A owner-tested head drifted")
+require(p6_7a_start.get("pre_manual_ci_run") == 821, "P6.7A pre-manual CI must be #821")
+require(p6_7a_start.get("pre_manual_ci_conclusion") == "success", "P6.7A pre-manual CI #821 must remain success")
+require(p6_7a_start.get("manual_checklist_items_passed") == 6, "P6.7A must record 6/6 manual checks")
+require(p6_7a_start.get("manual_result") == "6/6-pass-reported-by-owner", "P6.7A owner manual result drifted")
+manual_checks = p6_7a_start.get("manual_checks", {})
+for key in [
+    "two_point_wgs84_identity",
+    "switch_computation_identity",
+    "multi_point_live_edits",
+    "antimeridian_polar_case",
+    "arabic_mobile",
+    "backend_unavailable_browser_local_rendering",
+]:
+    require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.7A manual check missing: {key}")
+require(p6_7a_start.get("closure_status") == "closed-awaiting-final-closure-ci", "P6.7A must await final closure CI")
+require(p6_7a_start.get("final_closure_ci_run") is None, "P6.7A final closure CI run must be pending on this head")
+require(p6_7a_start.get("final_closure_ci_conclusion") == "pending", "P6.7A final closure CI conclusion must be pending")
+require(p6_7a_start.get("merge_authorization") == "pending-separate-owner-instruction", "P6.7A merge must await separate owner authorization")
+require(phase6_start.get("p6_7a_status") == "closed", "P6.7A top-level status must be closed after owner verification")
 
 p6_5_start = phase6_start.get("p6_5_start", {})
 require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
