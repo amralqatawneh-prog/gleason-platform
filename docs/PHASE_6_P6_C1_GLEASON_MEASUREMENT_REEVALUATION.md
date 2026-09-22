@@ -1,6 +1,6 @@
 # Phase 6 / P6.C1 — Gleason Measurement Re-evaluation
 
-Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER — AWAITING FINAL CLOSURE CI**
+Status: **CLOSED / VERIFIED — #859 SUCCESS — AWAITING EXACT RECORDING-HEAD CI + SEPARATE MERGE AUTHORIZATION**
 
 Owner authorization:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -224,6 +224,38 @@ P6.C1 does not:
 - implement Map-First UI;
 - start P6.7B;
 - create a tag, GitHub Release or deployment.
+
+## 10. Closure verification
+
+Owner-tested head:
+
+`0fe9a18943fd6404773d6604c5ee901fd6773589`
+
+Pre-manual Release Acceptance Gates:
+
+**#850 — SUCCESS**
+
+Owner manual result:
+
+**6/6 PASS — REPORTED BY OWNER**
+
+Closure-state head after recording the owner result:
+
+`4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22`
+
+Release Acceptance Gates:
+
+**#859 — SUCCESS**
+
+A stale checker assertion caused the preceding #857 run to fail before functional
+gates; it incorrectly still required P6.C1 to be `in_progress`. The stale
+assertions were corrected to the owner-verified `closed` state, and #859 then
+passed the complete gate set.
+
+The files now record #859, so this recording head must itself pass one final
+complete gate run. No additional file commit is required after that pass; the
+final exact-head evidence will be recorded in PR #37 comments so the verified
+head remains unchanged.
 
 ## 10. Automated verification
 
