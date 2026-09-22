@@ -11,7 +11,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` — PR **#34** / P6.7A merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working branch: `docs/measurement-ux-celestial-architecture-amendment-2026-09-22`; draft PR #36. Architecture amendment is **CLOSED / VERIFIED** after `20a203fad5b86409c64e9129806dd07169d3cddf` passed **#832 — SUCCESS**; closure-state CI remains required before separate merge authorization. P6.7A is merged; next functional slice is P6.C1; P6.7B is paused/not-started.
+- Current working functional branch: `feat/p6.c1-gleason-measurement-reevaluation`; draft stacked PR **#37** based on architecture PR #36 exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1`, which passed **#837 — SUCCESS**. PR #36 remains draft/unmerged pending separate owner authorization. P6.C1 is **IN PROGRESS**; P6.C2 is NOT STARTED; P6.7B is paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -79,7 +79,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. The owner-approved corrective sequence P6.C1–P6.C5 is next; P6.7B is paused/not-started until that sequence closes.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. **P6.C1 is IN PROGRESS** on stacked PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
