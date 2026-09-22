@@ -849,7 +849,7 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-owner-manual-passed-awaiting-final-closure-ci",
+      "automated_status": "closed-verified-awaiting-separate-merge-authorization",
       "owner_manual_status": "pass-reported-by-owner",
       "current_base_branch": "main",
       "current_base_commit": "7e398ebab7841f0b5e6ced9f9437f144efc318e7",
@@ -875,10 +875,12 @@
         "bilingual_source_evidence_boundaries": "pass-reported-by-owner",
         "p6c2_p6c7b_boundaries_preserved": "pass-reported-by-owner"
       },
-      "closure_status": "closed-awaiting-final-closure-ci",
-      "final_closure_ci_run": null,
-      "final_closure_ci_conclusion": "pending",
-      "merge_authorization": "pending-separate-owner-instruction"
+      "closure_status": "closed-verified-awaiting-separate-merge-authorization",
+      "final_closure_ci_run": 859,
+      "final_closure_ci_conclusion": "success",
+      "merge_authorization": "pending-separate-owner-instruction",
+      "final_closure_head": "4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22",
+      "exact_recording_head_ci": "pending"
     }
   },
   "post_pr16_merge_reconciliation": {
