@@ -776,14 +776,18 @@ test('P6.3 WGS84 ruler reports live segment and open-polyline totals with explic
     await expect(view).toHaveAttribute('data-route-guide-segments','1');
   }
   for(const flat of await page.locator('.projection-card').all()){
-    await expect(flat).toHaveAttribute('data-route-guide-geometry','straight-projected-segments');
+    await expect(flat).toHaveAttribute('data-route-guide-geometry','wgs84-ellipsoidal-geodesic');
+    await expect(flat).toHaveAttribute('data-route-computation-method','wgs84-geodesic');
+    await expect(flat).toHaveAttribute('data-route-interpretation-rule','preserve-computation-identity');
     await expect(flat).toHaveAttribute('data-pan-inputs','mouse-touch');
   }
   const globeGuide=page.locator('.reference-card');
-  await expect(globeGuide).toHaveAttribute('data-route-guide-geometry','great-circle-reference');
+  await expect(globeGuide).toHaveAttribute('data-route-guide-geometry','wgs84-ellipsoidal-geodesic');
+  await expect(globeGuide).toHaveAttribute('data-route-computation-method','wgs84-geodesic');
+  await expect(globeGuide).toHaveAttribute('data-route-interpretation-rule','preserve-computation-identity');
   await expect(globeGuide).toHaveAttribute('data-flight-track','false');
-  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('Great Circle');
-  await expect(ruler.locator('[data-route-guide-semantics="visual-only"]')).toContainText('not an observed flight track');
+  await expect(ruler.locator('[data-route-guide-semantics="p6.7a-controlled"]')).toContainText('controlled by P6.7A');
+  await expect(ruler.locator('[data-route-guide-semantics="p6.7a-controlled"]')).toContainText('observed flight track');
   await expect(ruler).toContainText('wgs84-geodesic');
   await expect(ruler).toContainText('open-polyline');
   await expect(ruler).toContainText('wgs84-ellipsoid');
@@ -923,6 +927,73 @@ test('P6.5 Gleason normalized ruler stays live without SI conversion',async({pag
   await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
 });
 
+
+
+
+test('P6.7A renders one computation identity on Gleason, AE and WGS84 without relabeling it',async({page,servers})=>{
+  await english(page,servers.url);
+  const route=page.locator('.ordered-route-panel');
+  const panel=page.locator('.same-route-rendering-panel');
+
+  await expect(panel).toHaveAttribute('data-computation-method','wgs84-geodesic');
+  await expect(panel).toHaveAttribute('data-route-segment-count','0');
+
+  await locate(page,'TEST Doha');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  await expect(panel).toHaveAttribute('data-route-id','transient-route');
+  await expect(panel).toHaveAttribute('data-route-point-count','2');
+  await expect(panel).toHaveAttribute('data-route-segment-count','1');
+  await expect(panel).toHaveAttribute('data-computation-method','wgs84-geodesic');
+  await expect(panel).toHaveAttribute('data-computation-unit','metre');
+  await expect(panel).toHaveAttribute('data-computation-geometry','wgs84-ellipsoidal-geodesic');
+
+  for(const [selector,model] of [['.projection-card[data-model="gleason"]','gleason'],['.projection-card[data-model="ae"]','ae'],['.reference-card','wgs84']]){
+    const view=page.locator(selector);
+    await expect(view).toHaveAttribute('data-route-id','transient-route');
+    await expect(view).toHaveAttribute('data-route-computation-method','wgs84-geodesic');
+    await expect(view).toHaveAttribute('data-route-rendered-on-model',model);
+    await expect(view).toHaveAttribute('data-route-interpretation-rule','preserve-computation-identity');
+    await expect(view).toHaveAttribute('data-route-guide-geometry','wgs84-ellipsoidal-geodesic');
+  }
+
+  await panel.getByRole('button',{name:'AE projected-plane chord',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-computation-method','ae-projected-plane');
+  await expect(panel).toHaveAttribute('data-computation-geometry','ae-straight-projected-chord');
+  for(const view of await page.locator('.reference-card,.projection-card').all()){
+    await expect(view).toHaveAttribute('data-route-computation-method','ae-projected-plane');
+    await expect(view).toHaveAttribute('data-route-guide-geometry','ae-straight-projected-chord');
+  }
+
+  await panel.getByRole('button',{name:'Gleason normalized-plane chord',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-computation-method','gleason-native-normalized');
+  await expect(panel).toHaveAttribute('data-computation-unit','normalized-radius-unit');
+  await expect(panel).toHaveAttribute('data-computation-geometry','gleason-straight-projected-chord');
+  for(const view of await page.locator('.reference-card,.projection-card').all()){
+    await expect(view).toHaveAttribute('data-route-computation-method','gleason-native-normalized');
+    await expect(view).toHaveAttribute('data-route-guide-geometry','gleason-straight-projected-chord');
+  }
+
+  await locate(page,'TEST North East Edge');
+  await route.getByRole('button',{name:'Add current point',exact:true}).click();
+  await expect(panel).toHaveAttribute('data-route-point-count','3');
+  await expect(panel).toHaveAttribute('data-route-segment-count','2');
+  const revisionBefore=Number(await panel.getAttribute('data-route-revision'));
+  await route.getByRole('button',{name:'Move C up',exact:true}).click();
+  await expect.poll(async()=>Number(await panel.getAttribute('data-route-revision'))).toBeGreaterThan(revisionBefore);
+  const revision=await panel.getAttribute('data-route-revision');
+  for(const view of await page.locator('.reference-card,.projection-card').all()){
+    await expect(view).toHaveAttribute('data-route-revision',revision!);
+    await expect(view).toHaveAttribute('data-route-guide-segments','2');
+  }
+
+  await page.getByRole('button',{name:'العربية',exact:true}).click();
+  await expect(panel).toContainText('نفس المسار — ثلاثة تمثيلات');
+  await page.setViewportSize({width:390,height:844});
+  await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
+});
 
 test('P6.6 computes one closed polygon independently in all three measurement engines',async({page,servers})=>{
   await english(page,servers.url);
