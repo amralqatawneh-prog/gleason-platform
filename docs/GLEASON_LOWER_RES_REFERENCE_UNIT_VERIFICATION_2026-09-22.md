@@ -1,6 +1,8 @@
 # Gleason Lower-Resolution Reference & Ruler-Unit Verification — 2026-09-22
 
-Status: **VERIFIED FOR P6.C3 VISUAL/RULER REFERENCE — JGW GEOREFERENCING STILL GATED**
+Status: **SUPERSEDED BY `docs/GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md` AFTER RECOVERY OF THE OWNER-SUPPLIED `Gleason-map-8k.jpg` PROXY**
+
+> Historical checkpoint: this report used the separate 1464×2048 JPEG before the exact received `Gleason-map-8k.jpg` proxy (1361×2048, SHA-256 `884e9b...`) was recovered from Library and authorized by the owner. Current P6.C3 policy is defined by the proxy/JGW verification report.
 
 ## 1. Owner decision
 
