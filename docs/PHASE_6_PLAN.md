@@ -239,7 +239,7 @@ Governing architecture:
 P6.7B is intentionally paused until P6.C1–P6.C5 close.
 
 ### P6.C1 — Gleason Measurement Re-evaluation
-Status: **NOT STARTED — next functional slice after amendment verification/merge**.
+Status: **IN PROGRESS — STACKED PR #37 ON VERIFIED ARCHITECTURE PR #36**.
 
 Deliver:
 - versioned Gleason measurement-profile contract;
@@ -372,10 +372,10 @@ P6.7A is **CLOSED / VERIFIED / MERGED**:
 - PR #34 merge `cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`.
 
 Current task:
-1. verify the architecture amendment and Walter source registry;
-2. merge the amendment only by separate owner authorization;
-3. start **P6.C1 — Gleason Measurement Re-evaluation** from the verified amendment head;
-4. keep P6.7B **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+1. Architecture Amendment exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; PR #36 remains unmerged pending separate owner authorization.
+2. **P6.C1 is now IN PROGRESS** on `feat/p6.c1-gleason-measurement-reevaluation`, stacked draft PR #37 based exactly on that verified head.
+3. P6.C1 contract/source audit demotes the circle-derived profile to diagnostic, fails closed on unresolved Figure 43 SI conversion, registers Walter direct-SI external comparison, and gates video/raster calibration profiles.
+4. P6.C2 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
