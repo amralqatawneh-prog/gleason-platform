@@ -204,7 +204,7 @@ require(p6_c1.get("p6_c2_status") == "not_started", "P6.C2 must remain not_start
 require(p6_c1.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
 require(p6_c1.get("accepted_phase_remains") == 5, "P6.C1 must not accept Phase 6")
 require(p6_c1.get("accepted_application_version_remains") == "0.5.0", "P6.C1 must not change accepted version")
-require(p6_c1.get("automated_status") == "technically-green-owner-manual-passed-awaiting-final-closure-ci", "P6.C1 automated/manual closure state drifted")
+require(p6_c1.get("automated_status") == "closed-verified-awaiting-separate-merge-authorization", "P6.C1 automated closure state drifted")
 require(p6_c1.get("verification_head") == "1d316618163a26c4647aec63682b0a4c7bd39a26", "P6.C1 verification head drifted")
 require(p6_c1.get("verification_ci_run") == 845, "P6.C1 verification CI must be #845")
 require(p6_c1.get("verification_ci_conclusion") == "success", "P6.C1 verification CI #845 must remain success")
@@ -224,10 +224,12 @@ for key in [
     "p6c2_p6c7b_boundaries_preserved",
 ]:
     require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C1 manual check missing: {key}")
-require(p6_c1.get("closure_status") == "closed-awaiting-final-closure-ci", "P6.C1 must await final closure CI")
-require(p6_c1.get("final_closure_ci_run") is None, "P6.C1 final closure CI run must be pending on this head")
-require(p6_c1.get("final_closure_ci_conclusion") == "pending", "P6.C1 final closure CI conclusion must be pending")
+require(p6_c1.get("closure_status") == "closed-verified-awaiting-separate-merge-authorization", "P6.C1 closure status drifted")
+require(p6_c1.get("final_closure_ci_run") == 859, "P6.C1 final closure CI must be #859")
+require(p6_c1.get("final_closure_ci_conclusion") == "success", "P6.C1 final closure CI #859 must remain success")
+require(p6_c1.get("final_closure_head") == "4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22", "P6.C1 final closure head drifted")
 require(p6_c1.get("merge_authorization") == "pending-separate-owner-instruction", "P6.C1 merge must await separate owner authorization")
+require(p6_c1.get("exact_recording_head_ci") == "pending", "P6.C1 exact recording-head CI must remain pending until this head passes")
 require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must be closed after owner verification")
 require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must remain closed after owner verification")
 for path in [
