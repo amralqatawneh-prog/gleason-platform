@@ -75,7 +75,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Historical P6.3 route-guide behavior is superseded for active route visualization by P6.7A: the selected computation identity now owns the geometry shown on all three views. Flat-model pan/touch behavior remains unchanged; numeric P6.3–P6.5 measurement panels retain their own independent identities.
-- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34 and PR #36 are **MERGED**. P6.2–P6.7A are CLOSED. Corrective architecture amendment is merged; P6.C1 is closed by owner verification on PR #37 and awaits final closure CI. No tag, GitHub Release or deployment has been created.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34, PR #36 and PR #37 are **MERGED**. P6.2–P6.7A and P6.C1 are CLOSED. P6.C2 is IN PROGRESS. No tag, GitHub Release or deployment has been created.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
