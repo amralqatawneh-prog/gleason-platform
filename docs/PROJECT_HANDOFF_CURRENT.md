@@ -60,6 +60,8 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
 - P6.6 is **CLOSED / VERIFIED / MERGED**. The corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 with owner manual 6/6 PASS; exact closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. Closure report: `docs/PHASE_6_P6_6_REPORT.md`.
 - P6.7A **CLOSED / VERIFIED / MERGED**: one P6.2 canonical ordered route; one selected computation identity and three renderings under `preserve-computation-identity`. Contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`. The owner then inserted P6.C1–P6.C5 before P6.7B.
+- P6.C1 **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69`.
+- P6.C2 runtime implementation is **IN PROGRESS** on PR #38: browser/backend SI profiles, explicit provenance, m/km/NM outputs, fail-closed unresolved historical profile, and browser/backend parity. Contract: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
