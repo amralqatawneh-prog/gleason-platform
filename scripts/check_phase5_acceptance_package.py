@@ -143,7 +143,7 @@ require(p6_7a_merge.get("post_merge_ci_run") is None, "P6.7A merge record must n
 
 amendment = phase6_start.get("corrective_measurement_architecture_amendment", {})
 require(amendment.get("decision") == "approved-and-started-by-owner", "corrective architecture amendment owner approval missing")
-require(amendment.get("status") == "in_progress-awaiting-ci", "corrective architecture amendment must await CI on this head")
+require(amendment.get("status") == "closed-verified-awaiting-separate-merge-authorization", "corrective architecture amendment must be closed/verified before merge authorization")
 require(
     amendment.get("branch") == "docs/measurement-ux-celestial-architecture-amendment-2026-09-22",
     "corrective architecture amendment branch drifted",
@@ -172,6 +172,12 @@ require(amendment.get("accepted_application_version_remains") == "0.5.0", "archi
 require(amendment.get("tag") == "not_created", "architecture amendment must not create a tag")
 require(amendment.get("github_release") == "not_created", "architecture amendment must not create a GitHub Release")
 require(amendment.get("deployment") == "not_created", "architecture amendment must not deploy")
+require(amendment.get("verification_head") == "20a203fad5b86409c64e9129806dd07169d3cddf", "architecture amendment verification head drifted")
+require(amendment.get("verification_ci_run") == 832, "architecture amendment verification CI must be #832")
+require(amendment.get("verification_ci_conclusion") == "success", "architecture amendment verification CI #832 must remain success")
+require(amendment.get("pr") == 36, "architecture amendment must reference PR #36")
+require(amendment.get("pr_status") == "draft-open-unmerged", "architecture amendment PR #36 must remain draft/open/unmerged before authorization")
+require(amendment.get("merge_authorization") == "pending-separate-owner-instruction", "architecture amendment merge must await owner authorization")
 
 amendment_doc = ROOT / "docs" / "ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md"
 walter_registry_path = ROOT / "data" / "sources" / "walter-bislin-comparative-models.yaml"
