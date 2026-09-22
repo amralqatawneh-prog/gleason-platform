@@ -42,7 +42,7 @@ related_non_8k_visual_reference:
   registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
   dimensions_px: [1464, 2048]
   sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
-  rule: "This JPEG is not the JGW companion raster and must not be used for JGW calibration."
+  rule: "This JPEG is owner-approved for P6.C3 visual/ruler calibration, but it is not the JGW companion raster and must not be used to infer JGW CRS/native units."
 
 companion_raster:
   received: false
@@ -53,7 +53,7 @@ companion_raster:
 relationship_to_existing_source:
   existing_registry: "data/sources/gleason-restored-map.yaml"
   role: higher_resolution_successor_candidate
-  preferred_visual_status: pending_companion_raster_and_audit
+  preferred_visual_status: lower_resolution_reference_approved_for_ruler_visuals_jgw_georeferencing_still_pending
 book_audit:
   primary_source_registry: "data/sources/gleason-book.yaml"
   required_cross_checks:
@@ -77,3 +77,13 @@ planned_audit_outputs:
   - outer_time_dial_transcription_and_15deg_per_hour_test
   - comparison_against_gleason_book_figures_37_38_43
   - residual_report_against_existing_restored_raster
+
+p6c3_reference_policy_update:
+  date: "2026-09-22"
+  owner_decision: "Use the lower-quality 1464x2048 JPEG as the available visual reference; verify and expose metre/mile ruler conversions."
+  visual_ruler_reference: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+  visual_ruler_reference_status: approved
+  jgw_georeferencing_status: gated_missing_true_companion_raster
+  jgw_native_unit_status: unknown
+  verified_ruler_conversion_report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
+  rule: "Printed ruler unit verification does not establish the JGW native unit or CRS."
