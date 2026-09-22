@@ -1034,3 +1034,40 @@ test('Gleason source-audit laboratory separates ruler, Figure 43 and frame/time 
   await expect(lab).toHaveAttribute('data-historical-scale-profile','gleason-fig43-circle-derived');
   await expect(lab.locator('[data-gleason-raster-foundation="provisional"]')).toContainText('4653×6506');
 });
+
+
+test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities',async({page,servers})=>{
+  await english(page,servers.url);
+  await locate(page,'TEST Doha');
+  await page.getByRole('button',{name:'Add current point',exact:true}).click();
+  await locate(page,'TEST Amman');
+  await page.getByRole('button',{name:'Add current point',exact:true}).click();
+
+  const lab=page.locator('.gleason-measurement-lab');
+  await expect(lab).toHaveAttribute('data-measurement-status','ready');
+
+  const si=lab.locator('[data-gleason-tool="si-profiles"]');
+  await expect(si).toBeVisible();
+
+  const walter=si.locator('[data-si-profile-id="walter-flat-plane-eq-10008"]');
+  await expect(walter).toHaveAttribute('data-si-conversion-status','direct-si');
+  await expect(walter).toHaveAttribute('data-si-evidence-level','EXTERNAL_COMPARATIVE');
+  await expect(walter).not.toHaveAttribute('data-si-distance-m','');
+  await expect(walter).toContainText('km');
+
+  const chapter17=si.locator('[data-si-profile-id="fig43-circle-ch17-6075ft-assumption"]');
+  await expect(chapter17).toHaveAttribute('data-si-conversion-status','assumption-profile');
+  await expect(chapter17).toHaveAttribute('data-si-evidence-level','ASSUMPTION_PROFILE');
+  await expect(chapter17).not.toHaveAttribute('data-si-distance-m','');
+
+  const fig37=si.locator('[data-si-profile-id="fig43-circle-fig37-ratio-assumption"]');
+  const chapter19=si.locator('[data-si-profile-id="fig43-circle-ch19-6070ft-assumption"]');
+  const legacy=si.locator('[data-si-profile-id="legacy-radial60-intl-nm-assumption"]');
+  await expect(fig37).toBeVisible();
+  await expect(chapter19).toBeVisible();
+  await expect(legacy).toBeVisible();
+
+  const unresolved=si.locator('[data-si-profile-unavailable="gleason-book-historical"]');
+  await expect(unresolved).toContainText('FAIL CLOSED');
+  await expect(unresolved).toContainText('unresolved');
+});
