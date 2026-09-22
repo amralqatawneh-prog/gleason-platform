@@ -53,12 +53,12 @@ require(
     phase6_start.get("baseline_ci_conclusion") == "success",
     "Phase 6 baseline CI #517 must remain success",
 )
-require(phase6_start.get("previous_slice") == "P6.6", "previous Phase 6 slice must be P6.6")
-require(phase6_start.get("previous_slice_status") == "closed", "P6.6 must remain closed")
-require(phase6_start.get("current_slice") == "P6.7A", "current Phase 6 slice must be P6.7A")
-require(phase6_start.get("current_slice_status") == "closed", "P6.7A current slice status must be closed after owner verification")
-require(phase6_start.get("next_slice") == "P6.7B", "next Phase 6 slice must be P6.7B")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.7B must remain not_started")
+require(phase6_start.get("previous_slice") == "P6.7A", "previous Phase 6 slice must be P6.7A")
+require(phase6_start.get("previous_slice_status") == "closed-verified-merged", "P6.7A must be closed/verified/merged")
+require(phase6_start.get("current_slice") is None, "no functional Phase 6 slice may be active during the architecture amendment")
+require(phase6_start.get("current_slice_status") == "none", "current functional slice status must be none")
+require(phase6_start.get("next_slice") == "P6.C1", "next Phase 6 slice must be P6.C1")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.C1 must remain not_started until amendment verification")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
 require(p6_7a_start.get("decision") == "started-by-owner", "P6.7A owner start evidence missing")
 require(p6_7a_start.get("owner_statement") == "ابدأ P6.7A", "P6.7A owner statement drifted")
@@ -71,7 +71,7 @@ require(
     "P6.7A branch evidence drifted",
 )
 require(p6_7a_start.get("pr") == 34, "P6.7A must reference PR #34")
-require(p6_7a_start.get("pr_status") == "draft-open-awaiting-final-closure-ci", "P6.7A PR #34 must remain draft/open while final closure CI is pending")
+require(p6_7a_start.get("pr_status") == "merged", "P6.7A PR #34 must be recorded as merged")
 require(
     p6_7a_start.get("supported_computation_identities")
     == ["wgs84-geodesic", "ae-projected-plane", "gleason-native-normalized"],
@@ -90,8 +90,8 @@ require(p6_7a_start.get("tag") == "not_created", "P6.7A must not create a tag")
 require(p6_7a_start.get("github_release") == "not_created", "P6.7A must not create a GitHub Release")
 require(p6_7a_start.get("deployment") == "not_created", "P6.7A must not deploy")
 require(
-    p6_7a_start.get("automated_status") == "technically-green-owner-manual-passed-awaiting-final-closure-ci",
-    "P6.7A automated/manual closure state drifted",
+    p6_7a_start.get("automated_status") == "closed-verified-merged",
+    "P6.7A automated/manual closure state must be closed/verified/merged",
 )
 require(
     p6_7a_start.get("automated_head") == "02dad46db4f692709ded3f0471097aa3c4683fb7",
@@ -119,11 +119,85 @@ for key in [
     "backend_unavailable_browser_local_rendering",
 ]:
     require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.7A manual check missing: {key}")
-require(p6_7a_start.get("closure_status") == "closed-awaiting-final-closure-ci", "P6.7A must await final closure CI")
-require(p6_7a_start.get("final_closure_ci_run") is None, "P6.7A final closure CI run must be pending on this head")
-require(p6_7a_start.get("final_closure_ci_conclusion") == "pending", "P6.7A final closure CI conclusion must be pending")
-require(p6_7a_start.get("merge_authorization") == "pending-separate-owner-instruction", "P6.7A merge must await separate owner authorization")
-require(phase6_start.get("p6_7a_status") == "closed", "P6.7A top-level status must be closed after owner verification")
+require(p6_7a_start.get("closure_status") == "closed-verified-merged", "P6.7A closure status must be closed/verified/merged")
+require(p6_7a_start.get("final_closure_head") == "8b60cac42431947b52950c9e8b9d920ca46ebd5b", "P6.7A final closure head drifted")
+require(p6_7a_start.get("final_closure_ci_run") == 829, "P6.7A final closure CI must be #829")
+require(p6_7a_start.get("final_closure_ci_conclusion") == "success", "P6.7A final closure CI #829 must remain success")
+require(p6_7a_start.get("merge_authorization") == "explicit-owner-instruction", "P6.7A merge authorization evidence missing")
+require(p6_7a_start.get("merge_commit") == "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52", "P6.7A merge commit drifted")
+require(p6_7a_start.get("post_merge_main_ci_run") is None, "P6.7A must not invent an unseen post-merge CI run")
+require(p6_7a_start.get("post_merge_main_ci_conclusion") == "not-independently-observed", "P6.7A post-merge CI evidence state drifted")
+require(phase6_start.get("p6_7a_status") == "closed-verified-merged", "P6.7A top-level status must be closed/verified/merged")
+
+p6_7a_merge = phase6_start.get("p6_7a_merge", {})
+require(p6_7a_merge.get("decision") == "merged-by-separate-owner-authorization", "P6.7A merge decision missing")
+require(p6_7a_merge.get("owner_statement") == "أدمج PR #34", "P6.7A merge owner statement drifted")
+require(p6_7a_merge.get("pr") == 34, "P6.7A merge must reference PR #34")
+require(p6_7a_merge.get("pre_manual_ci_run") == 821, "P6.7A owner-tested CI must be #821")
+require(p6_7a_merge.get("owner_manual") == "6/6-pass-reported-by-owner", "P6.7A owner manual merge evidence missing")
+require(p6_7a_merge.get("final_head") == "8b60cac42431947b52950c9e8b9d920ca46ebd5b", "P6.7A merge final head drifted")
+require(p6_7a_merge.get("pre_merge_ci_run") == 829, "P6.7A pre-merge CI must be #829")
+require(p6_7a_merge.get("pre_merge_ci_conclusion") == "success", "P6.7A pre-merge CI #829 must remain success")
+require(p6_7a_merge.get("merge_commit") == "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52", "P6.7A merge commit evidence drifted")
+require(p6_7a_merge.get("post_merge_ci_run") is None, "P6.7A merge record must not invent post-merge CI")
+
+amendment = phase6_start.get("corrective_measurement_architecture_amendment", {})
+require(amendment.get("decision") == "approved-and-started-by-owner", "corrective architecture amendment owner approval missing")
+require(amendment.get("status") == "in_progress-awaiting-ci", "corrective architecture amendment must await CI on this head")
+require(
+    amendment.get("branch") == "docs/measurement-ux-celestial-architecture-amendment-2026-09-22",
+    "corrective architecture amendment branch drifted",
+)
+require(
+    amendment.get("baseline_commit") == "cd78f560c5070d3f525ddaf124c5fb5ec4d25c52",
+    "corrective architecture amendment baseline drifted",
+)
+require(
+    amendment.get("document") == "docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md",
+    "corrective architecture amendment document path drifted",
+)
+require(
+    amendment.get("walter_source_registry") == "data/sources/walter-bislin-comparative-models.yaml",
+    "Walter comparative source registry path drifted",
+)
+require(amendment.get("corrective_sequence") == ["P6.C1","P6.C2","P6.C3","P6.C4","P6.C5"], "corrective Phase 6 sequence drifted")
+require(amendment.get("p6_c1_status") == "not_started", "P6.C1 must not start before amendment verification")
+require(
+    amendment.get("p6_7b_status") == "paused-not-started-until-corrective-sequence-closes",
+    "P6.7B must remain paused/not-started",
+)
+require(amendment.get("functional_implementation") is False, "architecture amendment must not contain functional implementation")
+require(amendment.get("accepted_phase_remains") == 5, "architecture amendment must not accept Phase 6")
+require(amendment.get("accepted_application_version_remains") == "0.5.0", "architecture amendment must not change accepted version")
+require(amendment.get("tag") == "not_created", "architecture amendment must not create a tag")
+require(amendment.get("github_release") == "not_created", "architecture amendment must not create a GitHub Release")
+require(amendment.get("deployment") == "not_created", "architecture amendment must not deploy")
+
+amendment_doc = ROOT / "docs" / "ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md"
+walter_registry_path = ROOT / "data" / "sources" / "walter-bislin-comparative-models.yaml"
+require(amendment_doc.is_file(), "corrective architecture amendment document missing")
+require(walter_registry_path.is_file(), "Walter comparative source registry missing")
+amendment_text = amendment_doc.read_text(encoding="utf-8")
+walter_registry = walter_registry_path.read_text(encoding="utf-8")
+for marker in [
+    "P6.C1 — Gleason Measurement Re-evaluation",
+    "P6.C4 — Ellipsoidal Elevation Provider",
+    "P6.C5 — Map-First Comparison Workspace",
+    "DomeProjectionProvider",
+    "ObserverOpticsProvider",
+    "SyntheticObserverRayMapping",
+    "P6.7B is paused",
+]:
+    require(marker in amendment_text, f"architecture amendment marker missing: {marker}")
+for marker in [
+    "walter-distances-globe-flat-earth",
+    "E = 10008 km",
+    "1 NRU = 2*E = 20016 km",
+    "east_west_stretch",
+    "walter-flat-earth-flight-plans",
+    "walter-terrestrial-refraction",
+]:
+    require(marker in walter_registry, f"Walter comparative registry marker missing: {marker}")
 
 p6_5_start = phase6_start.get("p6_5_start", {})
 require(p6_5_start.get("decision") == "started-by-owner", "P6.5 owner start evidence missing")
