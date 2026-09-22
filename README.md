@@ -49,7 +49,7 @@ model engines:
 - Phase 5 owner acceptance: **2026-09-20** (`docs/PHASE_5_ACCEPTANCE.md`)
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
-- Current functional slice: **P6.C1 — Gleason Measurement Re-evaluation / IN PROGRESS** on stacked draft PR #37. It is based on the exact verified Architecture Amendment closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1`, which passed **#837 — SUCCESS**; architecture PR #36 remains draft/unmerged pending separate owner authorization. P6.C2 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
+- Current functional slice: **P6.C1 — Gleason Measurement Re-evaluation / IN PROGRESS** on draft PR #37. Architecture PR #36 is **MERGED** at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7` after exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**. PR #37 is now based on `main` and synchronized through `16b122f77ffbfd02129448a57f5096e1973a7e45`. P6.C2 remains NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
 - P6.2 verification: **CI #532/#546 SUCCESS · owner manual 6/6 PASS + refinement retest PASS — REPORTED BY OWNER**
@@ -346,7 +346,7 @@ PR #19 was separately authorized and merged at
 **#642 — SUCCESS**, and post-merge `main` passed **#643 — SUCCESS**.
 
 No tag or GitHub Release exists and deployment remains a separate authorization.
-Phase 6 remains **IN PROGRESS**; P6.1–P6.7A are **CLOSED**, with P6.7A merged through PR #34. P6.C1 is next / NOT STARTED; P6.7B is paused/not-started until P6.C1–P6.C5 close.
+Phase 6 remains **IN PROGRESS**; P6.1–P6.7A are **CLOSED**, with P6.7A merged through PR #34. **P6.C1 is IN PROGRESS** on PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 
 ### P6.3 closure and merge
 - Base manual verification: **6/6 PASS — REPORTED BY OWNER**.
