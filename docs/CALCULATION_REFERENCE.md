@@ -72,8 +72,11 @@ the absolute value. Backend/browser parity is required.
 The audited Gleason tools are intentionally separate:
 
 - `gleason-map-ruler-derived`: straight GH-0.2.0 map-plane chord. NRU remains
-  native; derived ruler display uses 10800 NM/NRU from 60 nautical miles per
-  radial latitude degree. Evidence class: DERIVED.
+  native. The preferred audited historical display profile is
+  `gleason-fig43-circle-derived`: `1 NRU = 21600/pi ≈ 6875.493541569879`
+  historical Fig.43 miles, evidence `DERIVED_FROM_DOCUMENTED`. The earlier
+  `10800 NM/NRU` profile remains `gleason-radial-60nm-legacy`,
+  `SECONDARY_OBSERVED`, comparison-only.
 - `gleason-historical-longitude-scale`: Figure 43 latitude-specific
   historical-book miles per longitude degree,
   `60 - (2/3 * latitude_deg)`. It is not a general slanted-segment rule.
@@ -95,6 +98,63 @@ source-defined physical surface metric.
 - no cross-model area normalization.
 
 Full contract: `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
+
+## 1.1 P6.7A same-route rendering geometry
+
+P6.7A does not introduce a fourth measurement method. It selects one existing
+distance computation identity and builds one geometry for cross-view display.
+
+### WGS84 rendering geometry
+
+- computation method: `wgs84-geodesic`;
+- calculation model: WGS84;
+- unit identity: metre;
+- scale basis: WGS84 ellipsoid;
+- rendering geometry: `wgs84-ellipsoidal-geodesic`;
+- browser geometry engine: `geographiclib-geodesic 2.2.0`, WGS84
+  inverse/direct sampling.
+
+Drawing this geometry on AE or Gleason does not turn the method into an AE or
+Gleason distance.
+
+### AE rendering geometry
+
+- computation method: `ae-projected-plane`;
+- calculation model: AE;
+- unit identity: metre;
+- scale basis: AE projected-plane SI metre;
+- rendering geometry: `ae-straight-projected-chord`.
+
+For each adjacent pair, endpoints are projected to the AE plane and one straight
+chord is defined there. Display samples along the chord are inverse-projected
+back to canonical geographic coordinates so the identical AE-owned geometry can
+be projected independently by all views.
+
+### Gleason rendering geometry
+
+- computation method: `gleason-native-normalized`;
+- calculation model: Gleason;
+- unit identity: `normalized-radius-unit`;
+- scale basis: `gleason-normalized-model-radius`;
+- rendering geometry: `gleason-straight-projected-chord`.
+
+For each adjacent pair, endpoints are projected into GH-0.2.0 normalized space
+and one straight chord is defined there. Samples are inverse-projected only as
+an interchange step for rendering on the other views. This does not convert NRU
+to metres or make GH-0.2.0 a formula printed by the historical source.
+
+### Visualization identity
+
+Every destination view carries:
+
+`interpretationRule = preserve-computation-identity`.
+
+Therefore:
+
+`computation identity != visualization identity`.
+
+The destination renderer changes only where the geometry is drawn, not who
+computed it, its units, scale basis or semantic class.
 
 ## 2. Measurement polyline vs navigation route
 
