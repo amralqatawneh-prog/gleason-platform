@@ -99,6 +99,52 @@ source-defined physical surface metric.
 
 Full contract: `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
+## 1.0.1 Owner-approved corrective Gleason measurement architecture — planned
+
+Governing amendment:
+`docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
+
+This section describes the **next contract**, not yet a runtime replacement for
+the existing P6.5/P6.6 outputs.
+
+P6.C1 must replace the single-preferred-scale assumption with explicit profiles:
+
+- `gleason-book-historical`;
+- `walter-flat-plane-eq-10008` — external comparative only;
+- `gleason-video-ruler-calibrated`;
+- `gleason-raster-calibrated` — gated by exact source calibration;
+- `gleason-fig43-circle-derived-diagnostic`;
+- `gleason-radial-60nm-legacy`.
+
+Figure 43 remains a latitude-dependent **longitude scale** source. The current
+circle-derived `21600/pi` NRU multiplier is retained for diagnostics/regression
+but is no longer designated as the universal preferred route-distance profile.
+
+Walter external profile:
+
+`r_i = (1 - latitude_i/90deg) * E`, with default `E=10008 km`;
+
+`x_i=r_i*cos(longitude_i)`;
+
+`y_i=r_i*sin(longitude_i)`;
+
+`L=sqrt((x2-x1)^2+(y2-y1)^2)`.
+
+Under the project normalized radial rule, Walter's default corresponds to
+`1 NRU = 20016 km`. This is **EXTERNAL_COMPARATIVE**, not a Gleason-book rule.
+
+P6.C1 must also resolve or fail closed on the exact unit identity of Figure 43
+"miles" before automatic SI conversion. Chapter XVII separately documents
+English/statute and nautical/sea/Solar mile relationships; contextual equivalence
+must not be silently assumed.
+
+P6.C2 may expose metre/km/NM only when a versioned profile declares the conversion
+basis. Every SI value must preserve the original computation/profile identity.
+
+P6.C3 adds fixture residuals and local distortion diagnostics, including the
+Walter external east/west factor
+`k=(pi/2-latitude_rad)/cos(latitude_rad)`.
+
 ## 1.1 P6.7A same-route rendering geometry
 
 P6.7A does not introduce a fourth measurement method. It selects one existing
