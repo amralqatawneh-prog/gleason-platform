@@ -301,7 +301,7 @@
     "current_slice": "P6.C3",
     "accepted_application_version_remains": "0.5.0",
     "accepted_phase_remains": 5,
-    "current_slice_status": "technically-green-awaiting-owner-manual",
+    "current_slice_status": "owner-verified-refinement-in-progress",
     "next_slice": "P6.C4",
     "next_slice_status": "not_started",
     "p6_1_owner_manual": {
@@ -967,7 +967,7 @@
       "post_merge_main_ci_run": null,
       "post_merge_main_ci_conclusion": "not-independently-observed"
     },
-    "p6_c3_status": "technically-green-awaiting-owner-manual",
+    "p6_c3_status": "owner-verified-refinement-in-progress",
     "p6_c3_start": {
       "date": "2026-09-22",
       "decision": "started-by-owner-after-p6c2-merge",
@@ -976,14 +976,14 @@
       "branch": "feat/p6.c3-calibration-fixture-laboratory",
       "pr": 39,
       "pr_status": "draft-open",
-      "status": "technically-green-awaiting-owner-manual",
+      "status": "owner-verified-refinement-in-progress",
       "report": "docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md",
       "fixture_registry": "data/sources/gleason-calibration-fixtures.yaml",
       "browser_engine": "frontend/src/measurement/gleasonCalibrationLaboratory.ts",
       "ui_panel": "frontend/src/measurement/GleasonCalibrationLaboratoryPanel.tsx",
       "scope": "book/video/Walter/raster/reference fixtures; residual/error reports; local scale/distortion diagnostics; research profile selection",
       "source_policy": "no fabricated control points, raster pairing, unit identity or hidden normalization",
-      "raster_8k_status": "gated-missing-true-companion-raster",
+      "raster_8k_status": "visual-ruler-reference-approved-jgw-georeferencing-gated",
       "p6_c4_status": "not_started",
       "p6_c5_status": "not_started",
       "p6_7b_status": "paused-not-started",
@@ -992,8 +992,8 @@
       "tag": "not_created",
       "github_release": "not_created",
       "deployment": "not_created",
-      "automated_status": "technically-green-awaiting-owner-manual",
-      "owner_manual_status": "not_run",
+      "automated_status": "owner-approved-ruler-refinement-awaiting-ci",
+      "owner_manual_status": "pass-reported-by-owner",
       "fixture_count": 9,
       "fixture_set_version": "P6.C3-fixtures-v1",
       "implemented_artifacts": [
@@ -1014,7 +1014,7 @@
       "verification_head": "ed411b6f14ab1df2b406004a44a13af48dcd534a",
       "verification_ci_run": 897,
       "verification_ci_conclusion": "success",
-      "recording_head_ci": "pending",
+      "recording_head_ci": "superseded-by-owner-refinement-after-manual",
       "development_failures": [
         {
           "run": 894,
@@ -1026,7 +1026,59 @@
           "cause": "Browser acceptance regressions: legacy Gleason lab selectors became ambiguous after adding P6.C3, and a localized thousands separator made one textual numeric assertion brittle.",
           "resolution": "Scoped legacy selectors to the route-distance laboratory and added stable numeric data attributes for local-scale diagnostics; #897 passed."
         }
-      ]
+      ],
+      "owner_tested_head": "acb232c9ab78bcd8c84e16fd666b37200b5d1c57",
+      "pre_manual_ci_run": 904,
+      "pre_manual_ci_conclusion": "success",
+      "manual_checklist_items_passed": 6,
+      "manual_result": "6/6-pass-reported-by-owner",
+      "manual_date": "2026-09-22",
+      "manual_checks": {
+        "laboratory_presence_complete_fixture_set": "pass-reported-by-owner",
+        "source_identity_residual_semantics": "pass-reported-by-owner",
+        "research_profile_selector": "pass-reported-by-owner",
+        "local_scale_diagnostic": "pass-reported-by-owner",
+        "raster_diagnostic_8k_fail_closed": "pass-reported-by-owner",
+        "arabic_route_regression_general_stability": "pass-reported-by-owner"
+      },
+      "pre_refinement_recording_head": "acb232c9ab78bcd8c84e16fd666b37200b5d1c57",
+      "pre_refinement_recording_ci_run": 904,
+      "pre_refinement_recording_ci_conclusion": "success",
+      "owner_ruler_reference_refinement": {
+        "date": "2026-09-22",
+        "decision": "owner-approved-lower-resolution-visual-ruler-reference",
+        "owner_statement": "الصورة غير متوفره لدي تستطيع الاعتماد على الصوره صاحبة الاقل جوده كمرجع وتعتمد عليها واعتماد metre/mile بعد ان تتحقق منها.",
+        "visual_reference_registry": "data/sources/gleason-owner-hires-jpeg-reference.yaml",
+        "visual_reference_file": "hi res restored gleason map.jpg",
+        "visual_reference_dimensions_px": [
+          1464,
+          2048
+        ],
+        "visual_reference_sha256": "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03",
+        "verification_report": "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md",
+        "verified_unit_profiles": {
+          "english_land_statute_mile_m": 1609.344,
+          "nautical_sea_solar_6075ft_m": 1851.66,
+          "fig37_ratio_nautical_geographical_mile_m": 1859.6864
+        },
+        "historical_conflict_absolute_difference_m": 8.0264,
+        "conflict_policy": "preserve-both-do-not-silently-select",
+        "generic_fig43_mile_si_status": "unresolved",
+        "jgw_native_unit_status": "unknown",
+        "jgw_georeferencing_status": "gated-missing-true-companion-raster"
+      },
+      "refinement_status": "implemented-awaiting-complete-ci",
+      "refinement_verification_head": null,
+      "refinement_ci_run": null,
+      "refinement_ci_conclusion": "pending",
+      "targeted_owner_retest_required": true,
+      "targeted_owner_retest_scope": [
+        "verified-ruler-unit-profiles",
+        "historical-6075ft-vs-fig37-ratio-conflict-display",
+        "lower-resolution-reference-approval-wording",
+        "jgw-georeferencing-remains-gated"
+      ],
+      "targeted_owner_retest_status": "not_run"
     }
   },
   "post_pr16_merge_reconciliation": {
