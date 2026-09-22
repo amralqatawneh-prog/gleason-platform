@@ -204,7 +204,10 @@ require(p6_c1.get("p6_c2_status") == "not_started", "P6.C2 must remain not_start
 require(p6_c1.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
 require(p6_c1.get("accepted_phase_remains") == 5, "P6.C1 must not accept Phase 6")
 require(p6_c1.get("accepted_application_version_remains") == "0.5.0", "P6.C1 must not change accepted version")
-require(p6_c1.get("automated_status") == "awaiting-complete-ci", "P6.C1 automated status must await CI")
+require(p6_c1.get("automated_status") == "technically-green-awaiting-owner-manual", "P6.C1 automated status must be technically green awaiting owner manual")
+require(p6_c1.get("verification_head") == "1d316618163a26c4647aec63682b0a4c7bd39a26", "P6.C1 verification head drifted")
+require(p6_c1.get("verification_ci_run") == 845, "P6.C1 verification CI must be #845")
+require(p6_c1.get("verification_ci_conclusion") == "success", "P6.C1 verification CI #845 must remain success")
 require(p6_c1.get("owner_manual_status") == "not_run", "P6.C1 owner manual verification must not be fabricated")
 require(phase6_start.get("p6_c1_status") == "in_progress", "P6.C1 top-level status must be in_progress")
 for path in [
