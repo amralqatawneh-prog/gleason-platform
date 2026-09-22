@@ -50,7 +50,7 @@ model engines:
 - Phase 6 start: explicit owner instruction **«ابدأ بتنفيذ Phase 6»**
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d` after Release Acceptance Gates **#783 — SUCCESS**.
 - P6.C2 is **CLOSED / VERIFIED / MERGED** through PR #38 at `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f`; exact final recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` passed **#878 — SUCCESS** before the separately authorized merge.
-- Current functional slice: **P6.C3 — Calibration & Fixture Laboratory / OWNER MANUAL 6/6 PASS + OWNER-APPROVED RULER REFINEMENT IN PROGRESS** on `feat/p6.c3-calibration-fixture-laboratory` / draft PR #39. Exact manual-tested head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS** before owner **6/6 PASS — REPORTED BY OWNER**. The lower-resolution 1464×2048 JPEG is now approved as a visual/ruler reference; named metre/mile profiles are being verified/exposed while JGW georeferencing remains gated. Targeted retest of the affected ruler/JGW presentation is required after complete CI. P6.C4/P6.C5 remain NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
+- Current functional slice: **P6.C3 — Calibration & Fixture Laboratory / OWNER MANUAL 6/6 PASS + OWNER-APPROVED PROXY/JGW-METRE REFINEMENT IN PROGRESS** on `feat/p6.c3-calibration-fixture-laboratory` / draft PR #39. Exact manual-tested head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS** before owner **6/6 PASS — REPORTED BY OWNER**. The recovered `Gleason-map-8k.jpg` proxy (1361×2048, SHA-256 `884e9b…`) is now the owner-authorized visual/ruler reference. The JGW affine working unit is verified as **metre** with explicit statute-mile/nautical-mile conversions, while CRS and exact original-pixel pairing remain gated. Targeted retest of the affected proxy/JGW presentation is required after complete CI. P6.C4/P6.C5 remain NOT STARTED and P6.7B remains PAUSED / NOT STARTED.
 - P6.C2 final contract is **P6.C2-1**: executable profiles expose explicit `calculation_space` plus nullable `assumption_id`; `limitations[]` is the single normative warning channel; UI-only `route_revision` is not duplicated into the numerical result because the exact ordered input-point snapshot is returned with the result.
 - P6.6 final closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed Release Acceptance Gates **#784 — SUCCESS** after corrected-contract owner verification **6/6 PASS — REPORTED BY OWNER**; PR #31 was then explicitly authorized and **MERGED** at `main @ 6a2666112e56514051ea62fbe1c25f5a8016f1ae`. P6.7A subsequently started by explicit owner instruction on 2026-09-22.
 - P6.1 verification: **CI #519/#520/#529 SUCCESS · owner manual 5/5 PASS — REPORTED BY OWNER**
@@ -98,7 +98,7 @@ model engines:
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
 | P6.C1 | CLOSED / VERIFIED / MERGED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure #859; recording head `385a04bc…` #864 SUCCESS; PR #37 merged at `3096d963…` |
 | P6.C2 | CLOSED / VERIFIED / MERGED ✅ | Exact tested head `b1dacada…` #876 SUCCESS; owner manual 6/6 PASS; closure `d698c88b…` #877 SUCCESS; final recording `b70c78cd…` #878 SUCCESS; PR #38 merged at `90d03c98…` |
-| P6.C3 | OWNER-VERIFIED / REFINEMENT IN PROGRESS 🛠️ | Original manual 6/6 PASS on `acb232c9…` after #904 SUCCESS; lower-res visual/ruler reference approved; verified metre/mile profiles + explicit historical conflict; targeted retest pending; draft PR #39 |
+| P6.C3 | OWNER-VERIFIED / PROXY+JGW-METRE REFINEMENT IN PROGRESS 🛠️ | Original manual 6/6 PASS on `acb232c9…` after #904 SUCCESS; recovered 1361×2048 proxy authorized; JGW affine unit = metre; CRS/exact pixel pairing still gated; targeted retest pending; draft PR #39 |
 | P6.C4–P6.C5 | NOT STARTED ⏳ | Ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
@@ -197,7 +197,7 @@ Current locked catalog expectations: **177 countries · 243 cities · 16 seas ·
 Authoritative manifests:
 
 - `data/sources/gleason-book.yaml`
-- `data/sources/gleason-owner-8k-map.yaml` — owner-supplied higher-resolution Gleason source bundle; JGW preserved, companion 8K raster still required before visual/ruler/frame audit.
+- `data/sources/gleason-owner-8k-map.yaml` — owner-supplied Gleason/JGW bundle; original full-resolution raster is unavailable, so `Gleason-map-8k.jpg` 1361×2048 is the owner-authorized proxy for visual/ruler audit. JGW affine units are verified as metre for diagnostics; CRS and exact original-pixel pairing remain gated.
 - `data/sources/phase3-source-lock.json`
 - `data/sources/phase3-place-sources.yaml`
 
