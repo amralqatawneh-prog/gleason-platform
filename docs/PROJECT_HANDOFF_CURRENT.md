@@ -79,7 +79,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. **P6.C1 is IN PROGRESS** on stacked PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.7A and P6.C1 are CLOSED / MERGED. **P6.C2 is IN PROGRESS**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
