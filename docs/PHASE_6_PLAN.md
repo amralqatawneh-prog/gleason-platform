@@ -205,7 +205,9 @@ Acceptance:
 
 ## P6.7A — Same Route, Three Renderings
 
-Status: **IN PROGRESS**.
+Status: **IN PROGRESS / TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**.
+
+Automated evidence: exact head `02dad46db4f692709ded3f0471097aa3c4683fb7` passed Release Acceptance Gates **#816 — SUCCESS** with **150/150 frontend core**, **8/8 targeted P6.7A core**, **2/2 PWA**, and **25/25 Chromium E2E** tests.
 
 Start authorization: owner instruction **«ابدأ P6.7A»**.
 
@@ -324,9 +326,7 @@ Gleason native normalized. One computation geometry is built, then visualized
 independently on all three models under
 `preserve-computation-identity`.
 
-Current task: complete full automated regression, then run the six owner manual
-checks one at a time. P6.7B remains **NOT STARTED** and no RouteProvider,
-turn-by-turn, road-route or flight-route semantics are introduced.
+Current task: run the six owner manual checks one at a time on the CI-green P6.7A state. P6.7B remains **NOT STARTED** and no RouteProvider, turn-by-turn, road-route or flight-route semantics are introduced.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
