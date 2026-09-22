@@ -1,7 +1,7 @@
 # Phase 6 — P6.7A Same Route, Three Renderings
 
 Date started: 2026-09-22  
-Status: **IN PROGRESS / TECHNICALLY GREEN — AWAITING OWNER MANUAL VERIFICATION**  
+Status: **CLOSED — OWNER MANUAL 6/6 PASS — REPORTED BY OWNER — AWAITING FINAL CLOSURE CI**  
 Owner instruction: **«ابدأ P6.7A»**  
 Branch: `feat/p6.7a-same-route-three-renderings`  
 PR: **#34 — draft / open**
@@ -165,8 +165,18 @@ Automated verification is now green on exact head
 - Chromium E2E: **25/25 PASS**, including the P6.7A cross-view identity scenario;
 - full Docker/PostGIS/source/search/Redis regressions: PASS.
 
-Manual verification is **NOT RUN**. The six checks below must be reported by the
-owner one at a time before closure.
+Owner manual verification completed successfully on exact tested head
+`a11f7263cf42880ce0309c49f79ba45c29d78323`, which had Release Acceptance
+Gates **#821 — SUCCESS** before the manual run.
+
+Owner statement:
+
+**«اختبارات P6.7A الستة نجحت كلها على الرأس
+`a11f7263cf42880ce0309c49f79ba45c29d78323`»**
+
+Manual result: **6/6 PASS — REPORTED BY OWNER**.
+
+The six verified checks are:
 
 1. **Two-point WGS84 identity** — add two route points; verify all three views
    show the route and all identify the computation as `wgs84-geodesic`.
@@ -185,5 +195,11 @@ owner one at a time before closure.
    because its rendering geometry is browser-local. Do not infer road/flight
    routing from this fallback.
 
-Record owner results only as **PASS — REPORTED BY OWNER** after the owner
-actually reports each test result.
+Recorded result: **PASS — REPORTED BY OWNER** for all six checks on
+`a11f7263cf42880ce0309c49f79ba45c29d78323`.
+
+Because this report now records the owner manual result, the resulting closure
+head must pass the complete Release Acceptance Gates once more before PR #34 is
+a verified merge candidate. PR #34 remains draft/open/unmerged and merge into
+`main` requires separate explicit owner authorization. P6.7B remains
+**NOT STARTED**.
