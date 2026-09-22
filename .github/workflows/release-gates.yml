@@ -51,6 +51,10 @@ jobs:
           test -s frontend/src/measurement/gleasonPolygon.ts
           test -s frontend/src/measurement/gleasonHistoricalMeasurement.ts
           test -s frontend/src/measurement/gleasonScaleProfiles.ts
+          test -s frontend/src/measurement/gleasonSiMeasurement.ts
+          test -s frontend/tests/gleason-si-measurement.test.mjs
+          test -s backend/tests/test_phase6_gleason_si_measurement.py
+          test -s docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md
           test -s frontend/src/models/gleasonHistoricalRaster.ts
           test -s frontend/src/measurement/routeGuide.ts
           test -s frontend/tests/wgs84-route-distance.test.mjs
@@ -179,6 +183,15 @@ jobs:
           curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"route-point-1","latitude":90,"longitude":0},{"point_id":"route-point-2","latitude":0,"longitude":0},{"point_id":"route-point-3","latitude":0,"longitude":90}]}' >/tmp/gleason-route.json
           jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_route_distance" and .output.method_id=="gleason-native-normalized" and .output.unit=="normalized-radius-unit" and .output.scale_basis=="gleason-normalized-model-radius" and .output.segment_count==2 and (.output.total_distance_normalized_radius_unit>1.2071067 and .output.total_distance_normalized_radius_unit<1.2071069) and .output.historical_scale_profile_id=="gleason-fig43-circle-derived" and (.output.total_distance_historical_fig43_mile_derived>8299.45 and .output.total_distance_historical_fig43_mile_derived<8299.46) and .output.legacy_scale_profile_id=="gleason-radial-60nm-legacy"' /tmp/gleason-route.json
           jq -e '.provenance.provider_id=="gleason-historical" and .provenance.provider_version=="GH-0.2.0"' /tmp/gleason-route.json
+      - name: Verify P6.C2 Gleason SI measurement API
+        run: |
+          set -euo pipefail
+          curl --fail --silent -X POST http://127.0.0.1:8000/api/v1/measurement/gleason/si-route-distance -H 'content-type: application/json' -d '{"route_id":"transient-route","points":[{"point_id":"A","latitude":90,"longitude":0},{"point_id":"B","latitude":0,"longitude":0}]}' >/tmp/gleason-si-route.json
+          jq -e '.semantic_type=="COMPUTED_RESULT" and .operation=="gleason_si_route_distance" and .output.base_method_id=="gleason-native-normalized" and (.output.base_distance_normalized_radius_unit>0.499999999 and .output.base_distance_normalized_radius_unit<0.500000001) and (.output.profiles|length)==5' /tmp/gleason-si-route.json
+          jq -e 'any(.output.profiles[]; .profile_id=="walter-flat-plane-eq-10008" and .conversion_status=="direct-si" and .evidence_level=="EXTERNAL_COMPARATIVE" and (.distance_km>10007.999 and .distance_km<10008.001))' /tmp/gleason-si-route.json
+          jq -e 'all(.output.profiles[] | select(.profile_id!="walter-flat-plane-eq-10008"); .conversion_status=="assumption-profile")' /tmp/gleason-si-route.json
+          jq -e '(.output.unavailable_profile_ids|index("gleason-book-historical"))!=null and (.output.unavailable_profile_ids|index("gleason-video-ruler-calibrated"))!=null and (.output.unavailable_profile_ids|index("gleason-raster-calibrated"))!=null and (.output.unavailable_profile_ids|index("gleason-fig43-circle-derived-diagnostic"))!=null' /tmp/gleason-si-route.json
+          jq -e '.provenance.provider_id=="gleason-si-profiles" and .provenance.provider_version=="P6.C2-1"' /tmp/gleason-si-route.json
       - name: Verify P6.6 polygon measurement APIs
         run: |
           set -euo pipefail
