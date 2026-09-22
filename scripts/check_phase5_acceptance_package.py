@@ -241,6 +241,8 @@ require(p6_c2.get("decision") == "started-by-owner-after-p6c1-merge", "P6.C2 own
 require(p6_c2.get("owner_statement") == "ابدأ", "P6.C2 owner statement drifted")
 require(p6_c2.get("baseline_commit") == "3096d963b75478682923c20925e3eac974bbfb69", "P6.C2 baseline commit drifted")
 require(p6_c2.get("branch") == "feat/p6.c2-gleason-si-measurement-engine", "P6.C2 branch drifted")
+require(p6_c2.get("pr") == 38, "P6.C2 must reference PR #38")
+require(p6_c2.get("pr_status") == "draft-open", "P6.C2 PR #38 must remain draft/open before owner verification")
 require(p6_c2.get("status") == "in_progress", "P6.C2 must remain in_progress before owner verification")
 require(p6_c2.get("report") == "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md", "P6.C2 report path drifted")
 require(p6_c2.get("browser_engine") == "frontend/src/measurement/gleasonSiMeasurement.ts", "P6.C2 browser engine path drifted")
