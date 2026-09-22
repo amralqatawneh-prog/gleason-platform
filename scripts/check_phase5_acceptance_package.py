@@ -89,7 +89,20 @@ require(
 require(p6_7a_start.get("tag") == "not_created", "P6.7A must not create a tag")
 require(p6_7a_start.get("github_release") == "not_created", "P6.7A must not create a GitHub Release")
 require(p6_7a_start.get("deployment") == "not_created", "P6.7A must not deploy")
-require(p6_7a_start.get("automated_status") == "in_progress", "P6.7A automated status must be in_progress")
+require(
+    p6_7a_start.get("automated_status") == "technically-green-awaiting-owner-manual",
+    "P6.7A automated status must be technically green awaiting owner manual verification",
+)
+require(
+    p6_7a_start.get("automated_head") == "02dad46db4f692709ded3f0471097aa3c4683fb7",
+    "P6.7A automated verified head drifted",
+)
+require(p6_7a_start.get("automated_ci_run") == 816, "P6.7A automated CI must be #816")
+require(p6_7a_start.get("automated_ci_conclusion") == "success", "P6.7A automated CI #816 must remain success")
+require(p6_7a_start.get("frontend_core_tests_passed") == 150, "P6.7A frontend core count must be 150")
+require(p6_7a_start.get("p6_7a_targeted_core_tests_passed") == 8, "P6.7A targeted core count must be 8")
+require(p6_7a_start.get("browser_acceptance_tests_passed") == 25, "P6.7A browser acceptance count must be 25")
+require(p6_7a_start.get("pwa_tests_passed") == 2, "P6.7A PWA test count must be 2")
 require(p6_7a_start.get("owner_manual_status") == "not_run", "P6.7A owner manual verification must not be fabricated")
 
 p6_5_start = phase6_start.get("p6_5_start", {})
