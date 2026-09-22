@@ -252,7 +252,7 @@ Deliver:
 - no Map-First UI redesign yet.
 
 ### P6.C2 — Gleason SI Measurement Engine
-Status: **IN PROGRESS**.
+Status: **IN PROGRESS / TECHNICALLY GREEN — #870 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**.
 
 Implement approved profiles with metre/km/NM outputs where justified, explicit
 profile provenance, browser/backend parity and no hidden normalization.
@@ -261,6 +261,8 @@ Working branch: `feat/p6.c2-gleason-si-measurement-engine`.
 Baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` after P6.C1 / PR #37 merge.
 Contract/report: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
 P6.C3 remains NOT STARTED; P6.7B remains PAUSED / NOT STARTED.
+
+Automated evidence: exact head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed Release Acceptance Gates **#870 — SUCCESS** (duplicate same-head run #869 also SUCCESS). Owner manual verification remains NOT RUN.
 
 ### P6.C3 — Calibration & Fixture Laboratory
 Status: **NOT STARTED**.
