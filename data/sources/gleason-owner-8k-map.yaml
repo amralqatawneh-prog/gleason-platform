@@ -37,12 +37,25 @@ world_file:
   north_up: true
   rotation: zero
   crs: unknown_not_encoded_in_world_file
-  units: unknown_until_crs_or_companion_metadata_is_verified
+  units: metre_owner_authorized_proxy_verified
+  unit_evidence_level: OWNER_AUTHORIZED_PROXY_VERIFIED
+  exact_pixel_pairing: unverified
+  named_crs: unknown_not_encoded
+owner_authorized_proxy_reference:
+  file_name: "Gleason-map-8k.jpg"
+  dimensions_px: [1361, 2048]
+  bytes: 1233904
+  sha256: "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d"
+  library_file_id: "libfile_59fd00b0a9908191b5a57473d3b40383"
+  registry: "data/sources/gleason-owner-8k-proxy-verification.yaml"
+  role: owner_authorized_visual_ruler_proxy
+  exact_original_pixel_matrix: false
+  rule: "Use as visual/ruler proxy only; do not claim exact JGW pixel pairing."
 related_non_8k_visual_reference:
   registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
   dimensions_px: [1464, 2048]
   sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
-  rule: "This JPEG is owner-approved for P6.C3 visual/ruler calibration, but it is not the JGW companion raster and must not be used to infer JGW CRS/native units."
+  rule: "Separate visual reference; it is not the current owner-authorized proxy and is not a JGW companion."
 
 companion_raster:
   received: false
@@ -61,7 +74,9 @@ book_audit:
     - "PDF p. 429 / printed p. 402, Fig. 43: longitude-line geometry and historical longitude scale"
     - "PDF pp. 343-344 / printed pp. 317-318: mile/time conversion context already registered by the project"
   rules:
-    - "Do not treat JGW numeric units as metres, miles, or any named CRS until independently verified."
+    - "Treat JGW affine numeric units as metres for P6.C3 working diagnostics under owner-authorized proxy verification."
+    - "Do not infer or name a CRS/EPSG code from the JGW alone."
+    - "Do not claim exact proxy-pixel pairing with the unavailable original raster."
     - "Do not use label positions as authoritative modern coordinates without a documented control-point/residual audit."
     - "Do not treat the bottom ruler as a universal arbitrary-segment scale until its printed legend and book relation are inspected on the companion raster."
     - "Do not infer time zones from the outer frame until the printed dial, longitude rays, and book 15-degrees-per-hour relation are cross-checked."
@@ -80,10 +95,11 @@ planned_audit_outputs:
 
 p6c3_reference_policy_update:
   date: "2026-09-22"
-  owner_decision: "Use the lower-quality 1464x2048 JPEG as the available visual reference; verify and expose metre/mile ruler conversions."
-  visual_ruler_reference: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
-  visual_ruler_reference_status: approved
-  jgw_georeferencing_status: gated_missing_true_companion_raster
-  jgw_native_unit_status: unknown
-  verified_ruler_conversion_report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
-  rule: "Printed ruler unit verification does not establish the JGW native unit or CRS."
+  owner_decision: "Original full-resolution image unavailable; use Gleason-map-8k.jpg 1361x2048 as the proxy reference and adopt metre/mile after verification."
+  visual_ruler_reference: "data/sources/gleason-owner-8k-proxy-verification.yaml"
+  visual_ruler_reference_status: owner_authorized_proxy_verified
+  jgw_affine_unit_status: metre-owner-authorized-proxy-verified
+  jgw_exact_pixel_pairing_status: gated-exact-original-unavailable
+  jgw_crs_status: unknown-not-encoded
+  verified_ruler_conversion_report: "docs/GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md"
+  rule: "Printed historical mile identities and modern JGW metre/statute-mile/nautical-mile conversions remain separate identities."
