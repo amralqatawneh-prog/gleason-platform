@@ -38,6 +38,12 @@ world_file:
   rotation: zero
   crs: unknown_not_encoded_in_world_file
   units: unknown_until_crs_or_companion_metadata_is_verified
+related_non_8k_visual_reference:
+  registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+  dimensions_px: [1464, 2048]
+  sha256: "9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03"
+  rule: "This JPEG is not the JGW companion raster and must not be used for JGW calibration."
+
 companion_raster:
   received: false
   expected_role: "original high-resolution image whose basename corresponds to this world file"
