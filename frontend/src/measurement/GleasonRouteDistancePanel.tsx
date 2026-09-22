@@ -98,19 +98,19 @@ export function GleasonRouteDistancePanel({ locale, state }: Props) {
         <article className="gleason-lab-card" data-gleason-tool="historical-circle-derived">
           <div className="polygon-measurement-card__head">
             <div>
-              <strong>{locale === 'ar' ? '1) المسطرة التاريخية المشتقة من Fig.43 والدائرة' : '1) Fig.43 / circle-derived ruler'}</strong>
+              <strong>{locale === 'ar' ? '1) تشخيص Fig.43/الدائرة — اشتقاق للمقارنة وليس مسافة تاريخية عامة' : '1) Fig.43 / circle-derived diagnostic'}</strong>
               <small>gleason-fig43-circle-derived · DERIVED_FROM_DOCUMENTED</small>
             </div>
             <span className="evidence-badge">DERIVED_FROM_DOCUMENTED</span>
           </div>
           <div className="gleason-route-distance-total">
-            <span>{locale === 'ar' ? 'المجموع بالمقياس التاريخي المشتق' : 'Historical circle-derived total'}</span>
+            <span>{locale === 'ar' ? 'المجموع بالاشتقاق التشخيصي الحالي' : 'Current circle-derived diagnostic total'}</span>
             <strong dir="ltr">{format(result.output.total_distance_historical_fig43_mile_derived, locale, 2)} historical Fig.43 miles</strong>
             <small dir="ltr">{format(result.output.total_distance_normalized_radius_unit, locale, 9)} NRU</small>
           </div>
           <p className="muted">{locale === 'ar'
-            ? 'المعايرة الافتراضية: Fig.43 يعطي 60 mile/° عند خط الاستواء؛ 360×60=21600 للمحيط، ثم C=2πr. لذلك 1 NRU = 21600/π ≈ 6875.49 historical Fig.43 miles. فرضية 10800 NM/NRU محفوظة للمقارنة فقط.'
-            : 'Default calibration: Figure 43 gives 60 miles/degree at the Equator; 360×60=21600 circumference, then C=2πr. Thus 1 NRU = 21600/π ≈ 6875.49 historical Fig.43 miles. The 10800 NM/NRU assumption remains legacy-only.'}</p>
+            ? 'P6.C1 أعاد تصنيف هذه القيمة كتشخيص اشتقاقي: Fig.43 يعطي 60 mile/° عند خط الاستواء، ثم يشتق المشروع 21600 للمحيط ويطبق C=2πr. لا تُعامل هذه القيمة وحدها كمسافة Gleason عامة أو كتحويل SI. فرضية 10800 NM/NRU تبقى مقارنة قديمة فقط.'
+            : 'P6.C1 reclassifies this value as a derived diagnostic: Figure 43 gives 60 miles/degree at the Equator, then the project derives 21600 circumference and applies C=2πr. This value alone is not a universal Gleason route distance or an SI conversion. The 10800 NM/NRU assumption remains legacy-only.'}</p>
           <ol className="gleason-route-distance-segments">
             {result.output.segments.map(segment => <li
               key={segment.segment_id}
