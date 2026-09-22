@@ -1770,12 +1770,16 @@ require(owner_8k_world_path.is_file(), "owner-supplied 8K Gleason JGW source mis
 owner_8k_registry = owner_8k_registry_path.read_text(encoding="utf-8")
 for marker in [
     "gleason-owner-8k-map-2026-09-22",
-    "incomplete_bundle_waiting_for_companion_raster",
+    "owner_8k_source_received_as_chat_downsampled_representation_original_bytes_pending",
     "0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43",
     "bottom_measurement_ruler",
     "longitude_time_zone_frame",
     "crs: unknown_not_encoded_in_world_file",
     "preserve_original_resolution: true",
+    "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d",
+    "owner_confirms_source_is_8k: true",
+    "jgw_pairing_status: unverified_until_original_file",
+    "docs/GLEASON_8K_RASTER_AUDIT_2026-09-22.md",
 ]:
     require(marker in owner_8k_registry, f"8K Gleason source registry marker missing: {marker}")
 require(
@@ -1783,6 +1787,22 @@ require(
     == "0ec28720f782561377aea0a23909336b707584e1ceade4cbeb382bdfd6c95a43",
     "owner-supplied 8K Gleason JGW SHA-256 drifted",
 )
+
+owner_8k_manifest_path = ROOT / "data" / "sources" / "gleason-owner-8k-received-manifest.yaml"
+owner_8k_audit_path = ROOT / "docs" / "GLEASON_8K_RASTER_AUDIT_2026-09-22.md"
+require(owner_8k_manifest_path.is_file(), "owner 8K received-representation manifest missing")
+require(owner_8k_audit_path.is_file(), "owner 8K raster audit report missing")
+owner_8k_manifest = owner_8k_manifest_path.read_text(encoding="utf-8")
+for marker in [
+    "width_px: 1361",
+    "height_px: 2048",
+    "bytes: 1233904",
+    "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d",
+    "exact_4x_candidate_dimensions: [5444, 8192]",
+    "candidate_is_hypothesis_only: true",
+    "status: unverified_until_original_raster_bytes",
+]:
+    require(marker in owner_8k_manifest, f"owner 8K received manifest marker missing: {marker}")
 
 historical = (ROOT / "data" / "sources" / "gleason-book.yaml").read_text(encoding="utf-8")
 require("control_points: []" in historical, "historical control points must remain empty")
