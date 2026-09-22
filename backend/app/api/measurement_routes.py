@@ -13,6 +13,7 @@ from ..services.measurement import (
     ae_route_distance,
     gleason_polygon_measurement,
     gleason_route_distance,
+    gleason_si_route_distance,
 )
 
 router = APIRouter()
@@ -26,6 +27,11 @@ def ae_route_distance_endpoint(request: AERouteDistanceRequest) -> dict[str, obj
 @router.post("/measurement/gleason/route-distance", tags=["measurement"])
 def gleason_route_distance_endpoint(request: GleasonRouteDistanceRequest) -> dict[str, object]:
     return gleason_route_distance(request.route_id, request.points).model_dump()
+
+
+@router.post("/measurement/gleason/si-route-distance", tags=["measurement"])
+def gleason_si_route_distance_endpoint(request: GleasonRouteDistanceRequest) -> dict[str, object]:
+    return gleason_si_route_distance(request.route_id, request.points).model_dump()
 
 
 

@@ -46,7 +46,7 @@ export interface GleasonMeasurementProfile {
   readonly provenance: readonly string[];
   readonly limitations: readonly string[];
   readonly fixture_set_version: string;
-  readonly runtime_status: 'contract-only' | 'diagnostic-runtime' | 'legacy-runtime';
+  readonly runtime_status: 'contract-only' | 'implemented' | 'diagnostic-runtime' | 'legacy-runtime';
 }
 
 export interface GleasonHistoricalUnitScenario {
@@ -156,7 +156,7 @@ export const GLEASON_MEASUREMENT_PROFILES: readonly Readonly<GleasonMeasurementP
         'Must preserve Walter source identity when rendered or compared on another model.',
       ]),
       fixture_set_version: 'P6.C1-fixtures-v1',
-      runtime_status: 'contract-only',
+      runtime_status: 'implemented',
     }),
     Object.freeze({
       profile_id: 'gleason-video-ruler-calibrated',

@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from app.domain.measurement import GleasonRoutePoint  # noqa: E402
-from app.services.measurement import gleason_route_distance  # noqa: E402
+from app.services.measurement import gleason_route_distance, gleason_si_route_distance  # noqa: E402
 
 
 def main() -> None:
@@ -50,9 +50,14 @@ def main() -> None:
     source = """
       import {localGleasonRouteDistance}
         from './frontend/.phase1-test-build/measurement/gleasonRouteDistance.js';
+      import {localGleasonSiRouteDistance}
+        from './frontend/.phase1-test-build/measurement/gleasonSiMeasurement.js';
       let input=''; for await (const part of process.stdin) input+=part;
       const routes=JSON.parse(input);
-      console.log(JSON.stringify(routes.map(points=>localGleasonRouteDistance(points))));
+      console.log(JSON.stringify(routes.map(points=>({
+        native: localGleasonRouteDistance(points),
+        si: localGleasonSiRouteDistance(points),
+      }))));
     """
     run = subprocess.run(
         ["node", "--input-type=module", "-e", source],
@@ -70,7 +75,12 @@ def main() -> None:
     max_historical_scale_delta = 0.0
     max_legacy_scale_delta = 0.0
 
-    for inputs, browser in zip(routes, browser_results, strict=True):
+    max_si_total_delta_m = 0.0
+    max_si_segment_delta_m = 0.0
+
+    for inputs, browser_bundle in zip(routes, browser_results, strict=True):
+        browser = browser_bundle["native"]
+        browser_si = browser_bundle["si"]
         backend = gleason_route_distance(
             "transient-route",
             [GleasonRoutePoint(**point) for point in inputs],
@@ -121,6 +131,55 @@ def main() -> None:
         )
         max_total_delta = max(max_total_delta, total_delta)
         assert total_delta < 1e-12, (inputs, browser["output"], backend["output"])
+        backend_si = gleason_si_route_distance(
+            "transient-route",
+            [GleasonRoutePoint(**point) for point in inputs],
+        ).model_dump()
+        assert browser_si["operation"] == backend_si["operation"] == "gleason_si_route_distance"
+        assert browser_si["output"]["unavailable_profile_ids"] == backend_si["output"]["unavailable_profile_ids"]
+        browser_profiles = {item["profile_id"]: item for item in browser_si["output"]["profiles"]}
+        backend_profiles = {item["profile_id"]: item for item in backend_si["output"]["profiles"]}
+        assert browser_profiles.keys() == backend_profiles.keys()
+        for profile_id in browser_profiles:
+            actual_profile = browser_profiles[profile_id]
+            expected_profile = backend_profiles[profile_id]
+            for metadata_key in [
+                "source_profile_id",
+                "source_class",
+                "evidence_level",
+                "calculation_space",
+                "conversion_status",
+                "assumption_id",
+                "native_distance_unit",
+                "conversion_basis",
+                "provenance",
+                "limitations",
+            ]:
+                assert actual_profile[metadata_key] == expected_profile[metadata_key], (
+                    inputs,
+                    profile_id,
+                    metadata_key,
+                    actual_profile[metadata_key],
+                    expected_profile[metadata_key],
+                )
+            si_total_delta = abs(actual_profile["distance_m"] - expected_profile["distance_m"])
+            max_si_total_delta_m = max(max_si_total_delta_m, si_total_delta)
+            assert si_total_delta < 1e-6, (inputs, profile_id, actual_profile, expected_profile)
+            for actual_segment, expected_segment in zip(
+                actual_profile["segments"],
+                expected_profile["segments"],
+                strict=True,
+            ):
+                si_segment_delta = abs(
+                    actual_segment["distance_m"] - expected_segment["distance_m"]
+                )
+                max_si_segment_delta_m = max(max_si_segment_delta_m, si_segment_delta)
+                assert si_segment_delta < 1e-6, (
+                    inputs,
+                    profile_id,
+                    actual_segment,
+                    expected_segment,
+                )
 
     print(json.dumps({
         "status": "PASS",
@@ -130,6 +189,8 @@ def main() -> None:
         "max_projected_coordinate_difference": max_coordinate_delta,
         "max_historical_fig43_scale_difference": max_historical_scale_delta,
         "max_legacy_radial60_scale_difference": max_legacy_scale_delta,
+        "max_p6_c2_si_total_difference_m": max_si_total_delta_m,
+        "max_p6_c2_si_segment_difference_m": max_si_segment_delta_m,
     }, indent=2))
 
 

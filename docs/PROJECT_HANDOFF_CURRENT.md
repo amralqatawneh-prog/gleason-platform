@@ -9,9 +9,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` — PR **#34** / P6.7A merge.
+- Current integration baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` — PR **#37** / P6.C1 merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working functional branch: `feat/p6.c1-gleason-measurement-reevaluation`; draft PR **#37** is now based on `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7` after PR #36 merged. Historical architecture closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; branch synchronization commit is `16b122f77ffbfd02129448a57f5096e1973a7e45`. P6.C1 is **CLOSED by owner verification / awaiting final closure CI** after owner-tested head `0fe9a18943fd6404773d6604c5ee901fd6773589` passed **#850 — SUCCESS** and owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C2 is NOT STARTED; P6.7B is paused/not-started.
+- Current working functional branch: `feat/p6.c2-gleason-si-measurement-engine`; P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»** from `main @ 3096d963b75478682923c20925e3eac974bbfb69`. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37; final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed **#864 — SUCCESS** before merge. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870, prior recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874, and exact owner-tested final-contract head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed #876 before owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C2 final closure head `d698c88b43cd75f7925551d323c10836cac41ab8` passed #877 SUCCESS; P6.C2 is CLOSED / VERIFIED and awaits separate merge authorization after exact recording-head CI. P6.C3 is NOT STARTED; P6.7B remains paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -60,6 +60,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Latest closed slice: **P6.6 — Polygon / Perimeter / Area**, corrected contract owner manual **6/6 PASS — REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`; pre-manual Release Acceptance Gates **#783 — SUCCESS**; final closure CI pending on the closure-state head.
 - P6.6 is **CLOSED / VERIFIED / MERGED**. The corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 with owner manual 6/6 PASS; exact closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. Closure report: `docs/PHASE_6_P6_6_REPORT.md`.
 - P6.7A **CLOSED / VERIFIED / MERGED**: one P6.2 canonical ordered route; one selected computation identity and three renderings under `preserve-computation-identity`. Contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`. The owner then inserted P6.C1–P6.C5 before P6.7B.
+- P6.C1 **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69`.
+- P6.C2 runtime implementation on PR #38 is **CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION**: exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b`, pre-manual #876 SUCCESS, owner manual 6/6 PASS — REPORTED BY OWNER, final closure head `d698c88b43cd75f7925551d323c10836cac41ab8`, #877 SUCCESS. Contract: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
+- P6.C2 final-contract reconciliation explicitly returns `calculation_space` and nullable `assumption_id` per executable profile; `limitations[]` is the single normative warning channel; `route_revision` stays UI/session state while numerical reproducibility uses the returned `input.route_id` + exact ordered `input.points` snapshot.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
 - P6.2 automated evidence: Release Acceptance Gates **#532/#546 — SUCCESS**.
@@ -75,11 +78,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Historical P6.3 route-guide behavior is superseded for active route visualization by P6.7A: the selected computation identity now owns the geometry shown on all three views. Flat-model pan/touch behavior remains unchanged; numeric P6.3–P6.5 measurement panels retain their own independent identities.
-- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34 and PR #36 are **MERGED**. P6.2–P6.7A are CLOSED. Corrective architecture amendment is merged; P6.C1 is closed by owner verification on PR #37 and awaits final closure CI. No tag, GitHub Release or deployment has been created.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34, PR #36 and PR #37 are **MERGED**. P6.2–P6.7A and P6.C1 are CLOSED. P6.C2 is CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION. No tag, GitHub Release or deployment has been created.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.7A are CLOSED. **P6.C1 is IN PROGRESS** on stacked PR #37; P6.C2–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.7A and P6.C1 are CLOSED / MERGED. **P6.C2 is CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.
@@ -1139,12 +1142,12 @@ PR #31 now targets the owner-approved corrected scale architecture:
 `gleason-fig43-circle-derived` default, radial-60 legacy comparison, Walter
 configurable comparison, same-latitude arc/chord separation, and provisional
 georeferencing for the owner-supplied 4653x6506 restored Gleason raster.
-P6.7A remains NOT STARTED.
+At that 2026-09-21 audit checkpoint P6.7A had not started; it subsequently
+closed/verified/merged through PR #34.
 
 
 ### P6.6 corrected-contract closure state — 2026-09-21
 
 The owner completed the corrected Gleason contract checklist **6/6 PASS —
 REPORTED BY OWNER** on `e96712975fc9f54f2615e235bb6976136efe8a2d`,
-which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. P6.7A remains NOT STARTED. A documentation/state reconciliation was explicitly requested by the owner on 2026-09-22 before any next implementation slice
-closure.
+which had Release Acceptance Gates **#783 — SUCCESS**. P6.6 is **CLOSED / VERIFIED / MERGED** after final closure-state CI #784 and the separately authorized PR #31 merge. At that checkpoint P6.7A had not started; it subsequently closed/verified/merged through PR #34. The owner then approved the corrective sequence P6.C1–P6.C5; P6.C1 is merged and P6.C2 is the active slice.

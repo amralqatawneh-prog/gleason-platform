@@ -185,6 +185,245 @@ def gleason_route_distance(route_id: str, points: list[GleasonRoutePoint]) -> Me
     )
 
 
+INTERNATIONAL_FOOT_METRES = 0.3048
+INTERNATIONAL_NAUTICAL_MILE_METRES = 1852.0
+WALTER_DEFAULT_KM_PER_NRU = 20016.0
+CHAPTER17_6075FT_METRES_PER_MILE = 6075.0 * INTERNATIONAL_FOOT_METRES
+FIG37_RATIO_METRES_PER_MILE = (208.0 / 180.0) * (5280.0 * INTERNATIONAL_FOOT_METRES)
+CHAPTER19_6070FT_METRES_PER_MILE = 6070.0 * INTERNATIONAL_FOOT_METRES
+
+
+def gleason_si_route_distance(route_id: str, points: list[GleasonRoutePoint]) -> MeasurementResult:
+    """Execute P6.C2 direct-SI and explicitly labeled assumption profiles."""
+
+    base = gleason_route_distance(route_id, points)
+    output = base.output
+    segments = output["segments"]
+
+    specs = [
+        {
+            "profile_id": "walter-flat-plane-eq-10008",
+            "source_profile_id": "walter-flat-plane-eq-10008",
+            "source_class": "EXTERNAL_COMPARATIVE_MODEL",
+            "evidence_level": "EXTERNAL_COMPARATIVE",
+            "calculation_space": "WALTER_SI_FLAT_PLANE",
+            "conversion_status": "direct-si",
+            "assumption_id": None,
+            "native_distance_unit": "normalized-radius-unit",
+            "native_total": output["total_distance_normalized_radius_unit"],
+            "native_segment_key": "distance_normalized_radius_unit",
+            "metres_per_native_unit": WALTER_DEFAULT_KM_PER_NRU * 1000.0,
+            "conversion_basis": (
+                "Walter external comparison: E=10008 km north-pole-to-Equator, "
+                "therefore 1 NRU=20016 km in the shared polar normalized geometry."
+            ),
+            "provenance": [
+                "walter-distances-globe-flat-earth",
+                "walter-globe-flat-transformations",
+                "gleason-measurement-profile-contract:P6.C1-1",
+            ],
+            "limitations": [
+                "External comparative SI model only; it is not a Gleason-book historical rule.",
+                "The result preserves Walter source identity even when rendered on Gleason.",
+            ],
+        },
+        {
+            "profile_id": "fig43-circle-ch17-6075ft-assumption",
+            "source_profile_id": "gleason-fig43-circle-derived-diagnostic",
+            "source_class": "GLEASON_PRIMARY_HISTORICAL",
+            "evidence_level": "ASSUMPTION_PROFILE",
+            "calculation_space": "GLEASON_DERIVED_NORMALIZED_PLANE",
+            "conversion_status": "assumption-profile",
+            "assumption_id": "chapter17-nautical-6075ft-context-assumption",
+            "native_distance_unit": "historical-fig43-mile",
+            "native_total": output["total_distance_historical_fig43_mile_derived"],
+            "native_segment_key": "distance_historical_fig43_mile_derived",
+            "metres_per_native_unit": CHAPTER17_6075FT_METRES_PER_MILE,
+            "conversion_basis": (
+                "Explicit assumption: interpret each diagnostic Figure 43 mile as "
+                "the Chapter XVII nautical/sea/Solar mile stated as 6075 feet; "
+                "1 international foot=0.3048 m."
+            ),
+            "provenance": [
+                "gleason-1893-upload-v1:Fig.43",
+                "gleason-1893-upload-v1:Chapter XVII 6075-foot context",
+                "gleason-measurement-unit-audit-2026-09-22",
+            ],
+            "limitations": [
+                "The Figure 43 passage does not itself prove that its mile is the Chapter XVII 6075-foot mile.",
+                "This is an explicit assumption profile, not the automatic Gleason historical SI result.",
+            ],
+        },
+        {
+            "profile_id": "fig43-circle-fig37-ratio-assumption",
+            "source_profile_id": "gleason-fig43-circle-derived-diagnostic",
+            "source_class": "GLEASON_PRIMARY_HISTORICAL",
+            "evidence_level": "ASSUMPTION_PROFILE",
+            "calculation_space": "GLEASON_DERIVED_NORMALIZED_PLANE",
+            "conversion_status": "assumption-profile",
+            "assumption_id": "fig37-208english-180nautical-context-assumption",
+            "native_distance_unit": "historical-fig43-mile",
+            "native_total": output["total_distance_historical_fig43_mile_derived"],
+            "native_segment_key": "distance_historical_fig43_mile_derived",
+            "metres_per_native_unit": FIG37_RATIO_METRES_PER_MILE,
+            "conversion_basis": (
+                "Explicit assumption: interpret each diagnostic Figure 43 mile as "
+                "the nautical/geographical side of Fig.37 ratio 180 nautical/geographical "
+                "= 208 English miles; English mile=5280 international feet."
+            ),
+            "provenance": [
+                "gleason-1893-upload-v1:Figs.37-38",
+                "gleason-1893-upload-v1:Fig.43",
+                "gleason-measurement-unit-audit-2026-09-22",
+            ],
+            "limitations": [
+                "The Figure 37 ratio is preserved separately because it is not numerically identical to the 6075-foot statement.",
+                "This is an explicit assumption profile, not the automatic Gleason historical SI result.",
+            ],
+        },
+        {
+            "profile_id": "fig43-circle-ch19-6070ft-assumption",
+            "source_profile_id": "gleason-fig43-circle-derived-diagnostic",
+            "source_class": "GLEASON_PRIMARY_HISTORICAL",
+            "evidence_level": "ASSUMPTION_PROFILE",
+            "calculation_space": "GLEASON_DERIVED_NORMALIZED_PLANE",
+            "conversion_status": "assumption-profile",
+            "assumption_id": "chapter19-navigator-6070ft-context",
+            "native_distance_unit": "historical-fig43-mile",
+            "native_total": output["total_distance_historical_fig43_mile_derived"],
+            "native_segment_key": "distance_historical_fig43_mile_derived",
+            "metres_per_native_unit": CHAPTER19_6070FT_METRES_PER_MILE,
+            "conversion_basis": (
+                "Explicit assumption: interpret each diagnostic Figure 43 mile "
+                "using the reproduced Chapter XIX navigator statement of 6070 feet "
+                "per nautical mile; 1 international foot=0.3048 m."
+            ),
+            "provenance": [
+                "gleason-1893-upload-v1:Chapter XIX navigator correspondence",
+                "gleason-1893-upload-v1:Fig.43",
+                "gleason-measurement-unit-audit-2026-09-22",
+            ],
+            "limitations": [
+                "This historical statement conflicts slightly with the Chapter XVII 6075-foot statement and is not silently reconciled.",
+                "This is an explicit assumption profile, not the automatic Gleason historical SI result.",
+            ],
+        },
+        {
+            "profile_id": "legacy-radial60-intl-nm-assumption",
+            "source_profile_id": "gleason-radial-60nm-legacy",
+            "source_class": "OWNER_SECONDARY_OBSERVED",
+            "evidence_level": "ASSUMPTION_PROFILE",
+            "calculation_space": "GLEASON_LEGACY_COMPARISON",
+            "conversion_status": "assumption-profile",
+            "assumption_id": "legacy-radial60-intl-nm-assumption",
+            "native_distance_unit": "nautical-mile-legacy",
+            "native_total": output["total_distance_legacy_radial60_nautical_mile"],
+            "native_segment_key": "distance_legacy_radial60_nautical_mile",
+            "metres_per_native_unit": INTERNATIONAL_NAUTICAL_MILE_METRES,
+            "conversion_basis": (
+                "Explicit comparison assumption: interpret the legacy secondary-video "
+                "60-NM/radial-degree profile with the international nautical mile of 1852 m."
+            ),
+            "provenance": [
+                "gleason-video-measurement-audit-2026-09-21",
+                "international-nautical-mile-display-conversion",
+            ],
+            "limitations": [
+                "Secondary/legacy comparison only; it is not promoted to the preferred Gleason historical result.",
+                "P6.C3 must evaluate this profile against the approved fixture set before any calibration claim.",
+            ],
+        },
+    ]
+
+    profiles: list[dict[str, object]] = []
+    for spec in specs:
+        total_m = float(spec["native_total"]) * float(spec["metres_per_native_unit"])
+        profile_segments: list[dict[str, object]] = []
+        for segment in segments:
+            segment_m = float(segment[str(spec["native_segment_key"])]) * float(
+                spec["metres_per_native_unit"]
+            )
+            profile_segments.append(
+                {
+                    "segment_id": segment["segment_id"],
+                    "index": segment["index"],
+                    "distance_m": segment_m,
+                    "distance_km": segment_m / 1000.0,
+                    "distance_nmi": segment_m / INTERNATIONAL_NAUTICAL_MILE_METRES,
+                }
+            )
+        profiles.append(
+            {
+                "profile_id": spec["profile_id"],
+                "profile_version": "P6.C2-1",
+                "source_profile_id": spec["source_profile_id"],
+                "source_class": spec["source_class"],
+                "evidence_level": spec["evidence_level"],
+                "calculation_space": spec["calculation_space"],
+                "conversion_status": spec["conversion_status"],
+                "assumption_id": spec["assumption_id"],
+                "native_distance_value": spec["native_total"],
+                "native_distance_unit": spec["native_distance_unit"],
+                "distance_m": total_m,
+                "distance_km": total_m / 1000.0,
+                "distance_nmi": total_m / INTERNATIONAL_NAUTICAL_MILE_METRES,
+                "conversion_basis": spec["conversion_basis"],
+                "provenance": spec["provenance"],
+                "limitations": spec["limitations"],
+                "segments": profile_segments,
+            }
+        )
+
+    return MeasurementResult(
+        semantic_type="COMPUTED_RESULT",
+        operation="gleason_si_route_distance",
+        input=base.input,
+        output={
+            "quantity": "distance",
+            "path_semantics": "open-polyline",
+            "base_method_id": "gleason-native-normalized",
+            "base_distance_normalized_radius_unit": output[
+                "total_distance_normalized_radius_unit"
+            ],
+            "profiles": profiles,
+            "unavailable_profile_ids": [
+                "gleason-book-historical",
+                "gleason-video-ruler-calibrated",
+                "gleason-raster-calibrated",
+                "gleason-fig43-circle-derived-diagnostic",
+            ],
+        },
+        provenance=MeasurementProvenance(
+            semantic_type="COMPUTED_RESULT",
+            provider_id="gleason-si-profiles",
+            provider_version="P6.C2-1",
+            reference_frame=(
+                "canonical WGS84 geographic input -> profile-specific "
+                "Gleason/Walter SI interpretations"
+            ),
+            operation="gleason_si_route_distance",
+            implementation="python-math",
+            implementation_version="P6.C2-1",
+            algorithm=(
+                "Execute only P6.C1-approved direct-SI or explicitly labeled "
+                "assumption conversions over the preserved native Gleason route result; "
+                "no hidden normalization or WGS84 substitution."
+            ),
+            units={
+                "distance_m": "metre",
+                "distance_km": "kilometre",
+                "distance_nmi": "international-nautical-mile-display",
+            },
+            notes=[
+                "The unresolved gleason-book-historical profile remains fail-closed for direct SI.",
+                "The circle-derived diagnostic remains diagnostic; SI values derived from it are exposed only under explicit assumption profiles.",
+                "Video and raster calibrated profiles remain unavailable until P6.C3 calibration evidence is versioned.",
+                "Walter output remains an external comparative model and is never relabeled as Gleason historical.",
+            ],
+        ),
+    )
+
+
 
 def ae_polygon_measurement(polygon_id: str, points: list[AERoutePoint]) -> MeasurementResult:
     """Measure a closed ring in the independent AE projected plane."""

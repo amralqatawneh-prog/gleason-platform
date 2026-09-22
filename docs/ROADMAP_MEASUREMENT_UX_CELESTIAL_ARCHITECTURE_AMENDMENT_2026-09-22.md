@@ -1,6 +1,6 @@
 # Roadmap & Architecture Amendment — Gleason Measurement, Map-First Comparison, Elevation, Observer Dome & Optics — 2026-09-22
 
-Status: **CLOSED / VERIFIED — #832 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
+Status: **CLOSED / VERIFIED / MERGED — #832 initial verification; #837 exact closure SUCCESS; PR #36 merged at `7e398ebab7841f0b5e6ced9f9437f144efc318e7`**
 
 Owner approval:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -669,17 +669,14 @@ state validation, backend/frontend tests, WGS84/Gleason/P6.6 parity, production
 build/PWA/offline, browser acceptance, Docker runtime, P6.5/P6.6 APIs,
 PostGIS/source/search, Arabic/offline search and Redis.
 
-This document now records #832, so the resulting closure-state head must itself
-pass the complete Release Acceptance Gates once more. That final run is recorded
-on PR #36 without changing the verified head afterward.
+The exact closure-state head
+`06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` subsequently passed Release
+Acceptance Gates **#837 — SUCCESS**. The owner separately authorized merge and
+PR #36 merged at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
 
-PR #36 remains draft/open/unmerged. Merge requires separate explicit owner
-authorization.
+## 15. Current sequence after amendment closure
 
-## 15. Immediate next action
-
-1. verify this amendment and source registry by CI;
-2. create P6.C1 from the verified amendment head;
-3. P6.C1 starts with contract/tests/documentation and only then modifies
-   production measurement code;
-4. keep P6.7B NOT STARTED until P6.C1–P6.C5 close.
+1. P6.C1 was created, verified, owner-tested, closed and merged through PR #37.
+2. P6.C2 is the active slice on PR #38 and implements the approved SI-profile runtime contract.
+3. P6.C3–P6.C5 remain NOT STARTED.
+4. P6.7B remains PAUSED / NOT STARTED until P6.C1–P6.C5 close.

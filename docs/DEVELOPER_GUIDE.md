@@ -138,16 +138,21 @@ navigation. Those remain P6.7B.
 Detailed contract:
 `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
 
-## 6.2 Corrective measurement/provider architecture — approved, not yet implemented
+## 6.2 Corrective measurement/provider architecture — approved; P6.C1 merged, P6.C2 active
 
 Governing document:
 `docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
 
-The next functional sequence is P6.C1–P6.C5 before P6.7B.
+P6.C1 is CLOSED / VERIFIED / MERGED. P6.C2 has browser/backend SI engines,
+offline fallback and parity coverage and is in final-contract reconciliation
+before owner manual verification. P6.C3–P6.C5 follow before P6.7B.
 
-New/reserved contracts:
+Current/new contracts:
 
 - `MeasurementProfile` for Gleason profile identity/evidence/scale/SI status;
+- P6.C2 runtime profile results expose explicit `calculation_space` and nullable
+  `assumption_id`; do not add a parallel `warnings[]` alias for
+  `limitations[]`, and do not treat UI `route_revision` as numerical input;
 - `ElevationProvider` for orthometric/geoid/ellipsoidal-height provenance;
 - `CoordinateDomain` to separate WGS84/AE/Gleason/Walter/raster/dome spaces;
 - `DomeProjectionProvider`;

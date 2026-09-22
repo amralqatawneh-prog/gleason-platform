@@ -99,15 +99,15 @@ source-defined physical surface metric.
 
 Full contract: `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
-## 1.0.1 Owner-approved corrective Gleason measurement architecture — planned
+## 1.0.1 Owner-approved corrective Gleason measurement architecture — P6.C1 merged / P6.C2 implemented
 
 Governing amendment:
 `docs/ROADMAP_MEASUREMENT_UX_CELESTIAL_ARCHITECTURE_AMENDMENT_2026-09-22.md`.
 
-This section describes the **next contract**, not yet a runtime replacement for
-the existing P6.5/P6.6 outputs.
+This section describes the corrective contract now governing P6.C1/P6.C2 while
+preserving P6.5/P6.6 native identities.
 
-P6.C1 must replace the single-preferred-scale assumption with explicit profiles:
+P6.C1 replaced the single-preferred-scale assumption with explicit profiles:
 
 - `gleason-book-historical`;
 - `walter-flat-plane-eq-10008` — external comparative only;
@@ -133,13 +133,17 @@ Walter external profile:
 Under the project normalized radial rule, Walter's default corresponds to
 `1 NRU = 20016 km`. This is **EXTERNAL_COMPARATIVE**, not a Gleason-book rule.
 
-P6.C1 must also resolve or fail closed on the exact unit identity of Figure 43
-"miles" before automatic SI conversion. Chapter XVII separately documents
+P6.C1 resolved this contract by keeping the exact unit identity of Figure 43
+"miles" fail-closed for automatic SI conversion. Chapter XVII separately documents
 English/statute and nautical/sea/Solar mile relationships; contextual equivalence
-must not be silently assumed.
+is exposed only through explicitly named assumption profiles.
 
-P6.C2 may expose metre/km/NM only when a versioned profile declares the conversion
-basis. Every SI value must preserve the original computation/profile identity.
+P6.C2 exposes metre/km/NM only when a versioned profile declares the conversion
+basis. Every SI value preserves the original computation/profile identity. The
+final P6.C2-1 runtime output explicitly carries `calculation_space` and nullable
+`assumption_id`; `limitations[]` is the single normative warning channel and
+the exact ordered input-point snapshot, not UI `route_revision`, is the
+numerical reproducibility boundary.
 
 P6.C3 adds fixture residuals and local distortion diagnostics, including the
 Walter external east/west factor

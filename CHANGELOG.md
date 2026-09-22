@@ -1,5 +1,23 @@
 # Changelog
 
+## [Unreleased] — P6.C2 Gleason SI Measurement Engine (2026-09-22)
+
+- Reconciled current-state documentation after P6.C1 merge and P6.C2 implementation; removed stale P6.7A/P6.C1 pre-merge status wording.
+- Finalized P6.C2-1 output semantics with explicit per-profile `calculation_space` and nullable `assumption_id`; locked `limitations[]` as the sole normative warning channel and kept UI `route_revision` outside the numerical result contract.
+- Strengthened frontend/backend/unit/E2E/parity/live-Docker acceptance checks for the final P6.C2 profile identity contract.
+- Exact final-contract owner-test head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed Release Acceptance Gates **#876 — SUCCESS**; owner then reported the full P6.C2 manual checklist **6/6 PASS — REPORTED BY OWNER**.
+- P6.C2 is closed by owner verification and now awaits final closure-state CI; PR #38 remains draft/open/unmerged and no merge authorization is implied.
+- Final closure-state head `d698c88b43cd75f7925551d323c10836cac41ab8` passed Release Acceptance Gates **#877 — SUCCESS**. P6.C2 is now **CLOSED / VERIFIED** and PR #38 remains draft/open/unmerged pending exact recording-head verification and separate owner merge authorization.
+- P6.C1 / PR #37 merged to `main @ 3096d963b75478682923c20925e3eac974bbfb69` after final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed Release Acceptance Gates **#864 — SUCCESS**.
+- Owner instructed **«ابدأ»**; P6.C2 started on `feat/p6.c2-gleason-si-measurement-engine` / draft PR #38.
+- Added browser and backend P6.C2 SI engines with profile identity/provenance and metre/kilometre/international-NM display outputs.
+- Walter `E=10008 km` is executable as **DIRECT SI / EXTERNAL_COMPARATIVE**, not Gleason historical.
+- Figure 43 SI interpretations are exposed only as separately named **ASSUMPTION_PROFILE** conversions (6075-ft context, Fig.37 180↔208 ratio, and 6070-ft context); no hidden reconciliation is applied.
+- Legacy radial-60 NM can be displayed in SI only as an explicit comparison assumption.
+- `gleason-book-historical`, video-calibrated, raster-calibrated, and the raw Figure 43 diagnostic remain fail-closed for automatic direct SI.
+- Added backend endpoint `POST /api/v1/measurement/gleason/si-route-distance`, offline browser fallback, cross-engine parity, targeted core/backend/E2E coverage and SI cards in the Gleason Measurement Laboratory.
+- P6.C3–P6.C5 remain NOT STARTED; P6.7B remains PAUSED / NOT STARTED. No tag, GitHub Release or deployment.
+
 ## [Unreleased] — Corrective Measurement / UX / Celestial Architecture Amendment (2026-09-22)
 
 - Owner approved the revised roadmap and instructed a formal Architecture Amendment before P6.C1.

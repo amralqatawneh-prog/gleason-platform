@@ -13,6 +13,10 @@ import {
   type GleasonRouteDistanceResult,
 } from './measurement/gleasonRouteDistance';
 import {
+  localGleasonSiRouteDistance,
+  type GleasonSiRouteDistanceResult,
+} from './measurement/gleasonSiMeasurement';
+import {
   localWgs84PolygonMeasurement,
   type Wgs84PolygonResult,
 } from './measurement/wgs84Polygon';
@@ -194,6 +198,26 @@ export async function gleasonRouteDistance(
   }
 }
 
+export async function gleasonSiRouteDistance(
+  pointsInput: readonly GleasonRouteDistancePoint[],
+  routeId = 'transient-route',
+): Promise<GleasonSiRouteDistanceResult> {
+  const points = validateGleasonRouteDistancePoints(pointsInput);
+  if (!navigator.onLine) return localGleasonSiRouteDistance(points, routeId);
+  try {
+    const response = await fetch(`${API_BASE}/measurement/gleason/si-route-distance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ route_id: routeId, points }),
+      signal: AbortSignal.timeout(4000),
+    });
+    if (!response.ok) throw new Error(`Gleason SI route distance failed: ${response.status}`);
+    return await response.json() as GleasonSiRouteDistanceResult;
+  } catch {
+    return localGleasonSiRouteDistance(points, routeId);
+  }
+}
+
 export async function wgs84PolygonMeasurement(
   pointsInput: readonly PolygonMeasurementPoint[],
   polygonId = 'transient-polygon',
@@ -261,6 +285,7 @@ export type {
   GleasonPolygonResult,
   GleasonRouteDistancePoint,
   GleasonRouteDistanceResult,
+  GleasonSiRouteDistanceResult,
   PolygonMeasurementPoint,
   Wgs84PolygonResult,
   Wgs84RouteDistancePoint,

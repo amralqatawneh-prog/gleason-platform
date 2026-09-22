@@ -55,10 +55,10 @@ require(
 )
 require(phase6_start.get("previous_slice") == "P6.7A", "previous Phase 6 slice must be P6.7A")
 require(phase6_start.get("previous_slice_status") == "closed-verified-merged", "P6.7A must be closed/verified/merged")
-require(phase6_start.get("current_slice") == "P6.C1", "current Phase 6 slice must be P6.C1")
-require(phase6_start.get("current_slice_status") == "closed", "P6.C1 current slice status must be closed after owner verification")
-require(phase6_start.get("next_slice") == "P6.C2", "next Phase 6 slice must be P6.C2")
-require(phase6_start.get("next_slice_status") == "not_started", "P6.C2 must remain not_started")
+require(phase6_start.get("current_slice") == "P6.C2", "current Phase 6 slice must be P6.C2")
+require(phase6_start.get("current_slice_status") == "closed-verified-awaiting-merge", "P6.C2 current slice status must be closed/verified awaiting separate merge authorization")
+require(phase6_start.get("next_slice") == "P6.C3", "next Phase 6 slice must be P6.C3")
+require(phase6_start.get("next_slice_status") == "not_started", "P6.C3 must remain not_started")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
 require(p6_7a_start.get("decision") == "started-by-owner", "P6.7A owner start evidence missing")
 require(p6_7a_start.get("owner_statement") == "ابدأ P6.7A", "P6.7A owner statement drifted")
@@ -190,7 +190,7 @@ p6_c1 = phase6_start.get("p6_c1_start", {})
 require(p6_c1.get("decision") == "started-by-owner-on-verified-amendment", "P6.C1 owner start evidence missing")
 require(p6_c1.get("branch") == "feat/p6.c1-gleason-measurement-reevaluation", "P6.C1 branch drifted")
 require(p6_c1.get("pr") == 37, "P6.C1 must reference PR #37")
-require(p6_c1.get("pr_status") == "draft-open-based-on-main-after-pr36-merge", "P6.C1 PR status drifted")
+require(p6_c1.get("pr_status") == "merged", "P6.C1 PR #37 must be recorded as merged")
 require(p6_c1.get("historical_stacked_base_pr") == 36, "P6.C1 historical stacked base PR must remain #36")
 require(p6_c1.get("historical_stacked_base_head") == "06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1", "P6.C1 historical stacked base head drifted")
 require(p6_c1.get("historical_stacked_base_ci_run") == 837, "P6.C1 historical stacked base CI must be #837")
@@ -200,11 +200,11 @@ require(p6_c1.get("current_base_commit") == "7e398ebab7841f0b5e6ced9f9437f144efc
 require(p6_c1.get("sync_commit_after_pr36_merge") == "16b122f77ffbfd02129448a57f5096e1973a7e45", "P6.C1 post-PR36 sync commit drifted")
 require(p6_c1.get("fig43_si_conversion_status") == "unresolved-unit-identity-fail-closed", "P6.C1 Figure 43 SI fail-closed status drifted")
 require(p6_c1.get("circle_derived_role") == "diagnostic-derived", "P6.C1 circle-derived role must be diagnostic")
-require(p6_c1.get("p6_c2_status") == "not_started", "P6.C2 must remain not_started")
+require(p6_c1.get("p6_c2_status") == "in_progress", "P6.C2 must be in_progress after owner start")
 require(p6_c1.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
 require(p6_c1.get("accepted_phase_remains") == 5, "P6.C1 must not accept Phase 6")
 require(p6_c1.get("accepted_application_version_remains") == "0.5.0", "P6.C1 must not change accepted version")
-require(p6_c1.get("automated_status") == "closed-verified-awaiting-separate-merge-authorization", "P6.C1 automated closure state drifted")
+require(p6_c1.get("automated_status") == "closed-verified-merged", "P6.C1 automated closure state must be merged")
 require(p6_c1.get("verification_head") == "1d316618163a26c4647aec63682b0a4c7bd39a26", "P6.C1 verification head drifted")
 require(p6_c1.get("verification_ci_run") == 845, "P6.C1 verification CI must be #845")
 require(p6_c1.get("verification_ci_conclusion") == "success", "P6.C1 verification CI #845 must remain success")
@@ -224,14 +224,96 @@ for key in [
     "p6c2_p6c7b_boundaries_preserved",
 ]:
     require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C1 manual check missing: {key}")
-require(p6_c1.get("closure_status") == "closed-verified-awaiting-separate-merge-authorization", "P6.C1 closure status drifted")
+require(p6_c1.get("closure_status") == "closed-verified-merged", "P6.C1 closure status must be merged")
 require(p6_c1.get("final_closure_ci_run") == 859, "P6.C1 final closure CI must be #859")
 require(p6_c1.get("final_closure_ci_conclusion") == "success", "P6.C1 final closure CI #859 must remain success")
 require(p6_c1.get("final_closure_head") == "4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22", "P6.C1 final closure head drifted")
-require(p6_c1.get("merge_authorization") == "pending-separate-owner-instruction", "P6.C1 merge must await separate owner authorization")
-require(p6_c1.get("exact_recording_head_ci") == "pending", "P6.C1 exact recording-head CI must remain pending until this head passes")
-require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must be closed after owner verification")
-require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must remain closed after owner verification")
+require(p6_c1.get("merge_authorization") == "explicit-owner-instruction", "P6.C1 merge authorization evidence missing")
+require(p6_c1.get("exact_recording_head_ci") == "864-success", "P6.C1 exact recording-head CI must remain #864 success")
+require(p6_c1.get("merge_authorization_statement") == "ادمج PR #37 مع `main`", "P6.C1 merge statement drifted")
+require(p6_c1.get("merge_commit") == "3096d963b75478682923c20925e3eac974bbfb69", "P6.C1 merge commit drifted")
+require(p6_c1.get("post_merge_main_ci_run") is None, "P6.C1 must not invent post-merge CI")
+require(p6_c1.get("post_merge_main_ci_conclusion") == "not-independently-observed", "P6.C1 post-merge CI evidence state drifted")
+require(phase6_start.get("p6_c1_status") == "closed-verified-merged", "P6.C1 top-level status must be closed/verified/merged")
+require(phase6_start.get("p6_c1_status") == "closed-verified-merged", "P6.C1 top-level status must remain closed/verified/merged")
+p6_c2 = phase6_start.get("p6_c2_start", {})
+require(p6_c2.get("decision") == "started-by-owner-after-p6c1-merge", "P6.C2 owner start evidence missing")
+require(p6_c2.get("owner_statement") == "ابدأ", "P6.C2 owner statement drifted")
+require(p6_c2.get("baseline_commit") == "3096d963b75478682923c20925e3eac974bbfb69", "P6.C2 baseline commit drifted")
+require(p6_c2.get("branch") == "feat/p6.c2-gleason-si-measurement-engine", "P6.C2 branch drifted")
+require(p6_c2.get("pr") == 38, "P6.C2 must reference PR #38")
+require(p6_c2.get("pr_status") == "draft-open", "P6.C2 PR #38 must remain draft/open before separate merge authorization")
+require(p6_c2.get("status") == "closed-verified-awaiting-merge", "P6.C2 must be closed/verified before separate merge authorization")
+require(p6_c2.get("report") == "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md", "P6.C2 report path drifted")
+require(p6_c2.get("browser_engine") == "frontend/src/measurement/gleasonSiMeasurement.ts", "P6.C2 browser engine path drifted")
+require(p6_c2.get("backend_endpoint") == "/api/v1/measurement/gleason/si-route-distance", "P6.C2 backend endpoint drifted")
+require(p6_c2.get("executable_profiles") == [
+    "walter-flat-plane-eq-10008",
+    "fig43-circle-ch17-6075ft-assumption",
+    "fig43-circle-fig37-ratio-assumption",
+    "fig43-circle-ch19-6070ft-assumption",
+    "legacy-radial60-intl-nm-assumption",
+], "P6.C2 executable profile set drifted")
+require(p6_c2.get("fail_closed_profiles") == [
+    "gleason-book-historical",
+    "gleason-video-ruler-calibrated",
+    "gleason-raster-calibrated",
+    "gleason-fig43-circle-derived-diagnostic",
+], "P6.C2 fail-closed profile set drifted")
+require(p6_c2.get("p6_c3_status") == "not_started", "P6.C3 must remain not_started")
+require(p6_c2.get("p6_c4_status") == "not_started", "P6.C4 must remain not_started")
+require(p6_c2.get("p6_c5_status") == "not_started", "P6.C5 must remain not_started")
+require(p6_c2.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
+require(p6_c2.get("accepted_phase_remains") == 5, "P6.C2 must not accept Phase 6")
+require(p6_c2.get("accepted_application_version_remains") == "0.5.0", "P6.C2 must not change accepted version")
+require(p6_c2.get("tag") == "not_created", "P6.C2 must not create a tag")
+require(p6_c2.get("github_release") == "not_created", "P6.C2 must not create a GitHub Release")
+require(p6_c2.get("deployment") == "not_created", "P6.C2 must not deploy")
+require(p6_c2.get("automated_status") == "closed-verified-awaiting-merge", "P6.C2 automated state must record successful final closure CI before merge")
+require(p6_c2.get("verification_head") == "e1e708ce864e97ac4dd6dc23106ecca475948080", "P6.C2 verification head drifted")
+require(p6_c2.get("verification_ci_run") == 870, "P6.C2 verification CI must be #870")
+require(p6_c2.get("verification_ci_conclusion") == "success", "P6.C2 verification CI #870 must remain success")
+require(p6_c2.get("duplicate_verification_ci_run") == 869, "P6.C2 duplicate verification CI must preserve #869")
+require(p6_c2.get("duplicate_verification_ci_conclusion") == "success", "P6.C2 duplicate verification CI #869 must remain success")
+final_contract = p6_c2.get("final_contract", {})
+require(final_contract.get("version") == "P6.C2-1", "P6.C2 final contract version drifted")
+require(final_contract.get("calculation_space") == "explicit-per-executable-profile", "P6.C2 calculation-space contract drifted")
+require(final_contract.get("assumption_id") == "nullable-explicit-per-profile-null-for-direct-si", "P6.C2 assumption-id contract drifted")
+require(final_contract.get("profile_id") == "primary-executable-conversion-profile-identity", "P6.C2 profile-id contract drifted")
+require(final_contract.get("warnings_policy") == "limitations-array-is-single-normative-warning-channel", "P6.C2 warning-channel contract drifted")
+require(final_contract.get("route_revision_policy") == "excluded-ui-session-state-exact-route-id-and-ordered-input-points-are-numerical-reproducibility-boundary", "P6.C2 route-revision contract drifted")
+require(final_contract.get("si_unit_policy") == "explicit-distance-m-km-nmi-fields-plus-provider-unit-provenance-no-duplicate-generic-si-unit", "P6.C2 SI-unit contract drifted")
+require(p6_c2.get("recording_head_ci") == "required-before-merge", "P6.C2 exact recording-head CI requirement must remain explicit before merge")
+require(p6_c2.get("owner_manual_status") == "pass-reported-by-owner", "P6.C2 owner manual PASS evidence missing")
+require(p6_c2.get("owner_tested_head") == "b1dacada7cb84c715b71c654c7abe465d370cc0b", "P6.C2 owner-tested head drifted")
+require(p6_c2.get("pre_manual_ci_run") == 876, "P6.C2 owner manual verification must follow exact-head CI #876")
+require(p6_c2.get("pre_manual_ci_conclusion") == "success", "P6.C2 pre-manual CI #876 must remain success")
+require(p6_c2.get("manual_checklist_items_passed") == 6, "P6.C2 must record all six owner manual checks as passed")
+require(p6_c2.get("manual_result") == "6/6-pass-reported-by-owner", "P6.C2 owner manual result drifted")
+require(p6_c2.get("manual_date") == "2026-09-22", "P6.C2 owner manual date drifted")
+manual_checks = p6_c2.get("manual_checks", {})
+for key in [
+    "walter_direct_si_identity",
+    "figure43_explicit_assumption_profiles",
+    "historical_si_fail_closed",
+    "multi_point_live_recomputation",
+    "backend_stop_browser_fallback",
+    "arabic_mobile_provenance_cross_slice_regression",
+]:
+    require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C2 manual check missing/pass drift: {key}")
+require(p6_c2.get("closure_status") == "closed-verified-awaiting-merge", "P6.C2 closure status must be closed/verified awaiting separate merge authorization")
+require(p6_c2.get("final_closure_head") == "d698c88b43cd75f7925551d323c10836cac41ab8", "P6.C2 final closure head drifted")
+require(p6_c2.get("final_closure_ci_run") == 877, "P6.C2 final closure CI must be #877")
+require(p6_c2.get("final_closure_ci_conclusion") == "success", "P6.C2 final closure CI #877 must remain success")
+require(phase6_start.get("p6_c2_status") == "closed-verified-awaiting-merge", "P6.C2 top-level status must be closed/verified awaiting merge")
+for path in [
+    "frontend/src/measurement/gleasonSiMeasurement.ts",
+    "docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md",
+    "frontend/tests/gleason-si-measurement.test.mjs",
+    "backend/tests/test_phase6_gleason_si_measurement.py",
+]:
+    require((ROOT / path).is_file(), f"P6.C2 artifact missing: {path}")
+
 for path in [
     "frontend/src/measurement/gleasonMeasurementProfiles.ts",
     "data/sources/gleason-measurement-unit-audit-2026-09-22.yaml",

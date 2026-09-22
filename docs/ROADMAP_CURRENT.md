@@ -5,7 +5,7 @@
 ## الحالة المرجعية الحالية — 2026-09-22
 
 - Phase 5 **ACCEPTED** والإصدار المقبول **v0.5.0**.
-- Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.7A **CLOSED**. P6.7A دُمجت عبر PR #34 عند `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52`. التعديل المعماري التصحيحي على PR #36 أصبح **CLOSED / VERIFIED / MERGED**؛ رأس الإغلاق الدقيق `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` نجح في **#837 — SUCCESS** ثم دُمج إلى `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`. بدأت **P6.C1 — Gleason Measurement Re-evaluation** على PR #37، وأصبح PR #37 مبنيًا على `main` بعد المزامنة `16b122f77ffbfd02129448a57f5096e1973a7e45`. الرأس المختبَر `0fe9a18943fd6404773d6604c5ee901fd6773589` نجح في **#850 — SUCCESS** وأبلغ المالك نجاح الاختبارات اليدوية **6/6 — REPORTED BY OWNER**؛ لذلك P6.C1 الآن **CLOSED BY OWNER VERIFICATION / AWAITING FINAL CLOSURE CI**. P6.C2 لم تبدأ، وP6.7B **PAUSED / NOT STARTED**.
+- Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.7A وP6.C1 **CLOSED / VERIFIED / MERGED**. P6.C1 دُمجت عبر PR #37 عند `main @ 3096d963b75478682923c20925e3eac974bbfb69` بعد نجاح رأس التسجيل النهائي `385a04bc032fd7f3e0609a501a826023ea0a627e` في **#864 — SUCCESS**. أصدر المالك **«ابدأ»**؛ لذلك بدأت **P6.C2 — Gleason SI Measurement Engine** من هذا الـbaseline. رأس التنفيذ `e1e708ce…` نجح في #869/#870، ورأس التسجيل السابق `31d84936…` نجح في #874؛ تجري الآن مصالحة العقد/التوثيق النهائية ويجب أن ينجح رأسها الدقيق قبل الاختبار اليدوي. P6.C3 لم تبدأ، وP6.7B **PAUSED / NOT STARTED**.
 - مصالحة ما بعد PR #31 أُغلقت وتحققت ثم دُمجت عبر PR #33. الرأس النهائي `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` نجح في Release Acceptance Gates **#803 — SUCCESS** قبل الدمج، وأصبح baseline الحالي `main @ 1825852da81c04cee8e5b9f73dba28b55068c000`. لا يوجد post-merge push CI مستقل مُثبت.
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
 - **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
@@ -301,4 +301,4 @@ route/ruler/area في P6.1.
 
 - P6.6 corrected Gleason contract: owner manual **6/6 PASS — REPORTED BY OWNER**
   on `e96712975fc9f54f2615e235bb6976136efe8a2d` after **#783 SUCCESS**.
-  P6.6 is CLOSED / VERIFIED / MERGED after final closure-state CI #784 and merge commit `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A subsequently started; owner-tested head `a11f7263cf42880ce0309c49f79ba45c29d78323` passed #821 and owner manual verification is 6/6 PASS. Final closure CI is pending on PR #34.
+  P6.6 is CLOSED / VERIFIED / MERGED after final closure-state CI #784 and merge commit `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A subsequently completed owner verification 6/6, passed final closure #829 and merged through PR #34. P6.C1 then closed/merged through PR #37; P6.C2 is the active slice.

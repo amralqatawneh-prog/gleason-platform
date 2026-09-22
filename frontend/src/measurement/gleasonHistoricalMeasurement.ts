@@ -66,8 +66,9 @@ function normalizedChord(start: GleasonHistoricalPoint, end: GleasonHistoricalPo
   return Math.hypot(b.x - a.x, b.y - a.y);
 }
 
-/** Preferred audited historical scale profile, derived from Fig.43's 60 miles
+/** Diagnostic derived scale retained after P6.C1, based on Fig.43's 60 miles
  * per longitude degree at the Equator plus the circle relation C=2πr.
+ * It is not a universal historical route metric and has no automatic SI identity.
  */
 export function gleasonFig43CircleDerivedDistance(
   start: GleasonHistoricalPoint,

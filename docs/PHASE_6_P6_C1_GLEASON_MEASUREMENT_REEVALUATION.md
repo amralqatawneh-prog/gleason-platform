@@ -1,6 +1,6 @@
 # Phase 6 / P6.C1 — Gleason Measurement Re-evaluation
 
-Status: **CLOSED / VERIFIED — #859 SUCCESS — AWAITING EXACT RECORDING-HEAD CI + SEPARATE MERGE AUTHORIZATION**
+Status: **CLOSED / VERIFIED / MERGED — owner manual 6/6 PASS; #859 closure; exact recording head #864 SUCCESS; PR #37 merged at `3096d963b75478682923c20925e3eac974bbfb69`**
 
 Owner authorization:
 **«انا اعتمد هذه الخارطة، أبدأ أولًا بإنشاء وثيقة Architecture Amendment رسمية على GitHub تجمع هذه القرارات والمعادلات ومصادرها، ثم نبدأ P6.C1 منها.»**
@@ -27,7 +27,7 @@ PR #37 was retargeted to `main` and synchronized with that merge through:
 
 `16b122f77ffbfd02129448a57f5096e1973a7e45`.
 
-Current P6.C1 PR state: **#37 — OPEN / DRAFT / BASED ON main**.
+Final P6.C1 PR state: **#37 — MERGED / CLOSED**. Merge commit: `3096d963b75478682923c20925e3eac974bbfb69`.
 
 P6.7B remains **PAUSED / NOT STARTED**.
 
@@ -294,13 +294,15 @@ Verified checks:
 5. Arabic/English source/evidence boundaries remain intact;
 6. P6.C2 and P6.7B boundaries remain preserved / not started.
 
-## 10. Acceptance path
+## 10. Closure record
 
-Before P6.C1 can close:
+P6.C1 completed its full acceptance path:
 
-1. complete Release Acceptance Gates must pass on the exact implementation head;
-2. targeted manual verification is complete: **6/6 PASS — REPORTED BY OWNER**;
-3. owner result is recorded on exact head `0fe9a18943fd6404773d6604c5ee901fd6773589`;
-4. closure-state CI must pass on the new documentation/state head;
-5. PR #36 merge prerequisite is satisfied; PR #37 now requires its own complete CI, owner manual verification, closure-state CI and separate merge authorization;
-6. merge of PR #37 requires separate owner authorization.
+1. implementation/source-contract verification passed;
+2. owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `0fe9a18943fd6404773d6604c5ee901fd6773589` after #850 SUCCESS;
+3. closure-state head `4e08520df5a8bbe5ed10e5f2ebc9ae8b8d4dac22` passed #859 SUCCESS;
+4. exact recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed #864 SUCCESS;
+5. the owner separately authorized merge;
+6. PR #37 merged to `main @ 3096d963b75478682923c20925e3eac974bbfb69`.
+
+P6.C2 subsequently started from that merge baseline; P6.7B remains paused until P6.C1–P6.C5 close.
