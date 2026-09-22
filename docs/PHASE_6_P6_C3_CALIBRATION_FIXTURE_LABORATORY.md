@@ -136,8 +136,9 @@ This is **not** a geographic city-control truth set.
 
 The true owner 8K/JGW companion raster remains unavailable, so **JGW georeferencing**
 stays gated. However, after the owner's 6/6 manual PASS, the owner explicitly
-approved the available lower-resolution `1464 x 2048` JPEG as the P6.C3
-visual/ruler calibration reference.
+approved the recovered `Gleason-map-8k.jpg` received representation
+(**1361 x 2048**, SHA-256 `884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d`)
+as the P6.C3 visual/ruler proxy because the original full-resolution raster is unavailable.
 
 The reference is verified in
 `docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md`.
@@ -151,7 +152,17 @@ Verified named ruler conversion profiles are now:
 
 The 6075-foot and Figure-37 ratio profiles conflict by `8.0264 m` per mile;
 both remain visible and separately named. The generic `historical-fig43-mile`
-identity remains unresolved for automatic SI conversion. The JGW native unit
+identity remains unresolved for automatic SI conversion.
+
+After numeric verification plus the owner's proxy authorization, the JGW
+**affine working unit is metre**. One JGW pixel step is
+`5014.548291487017 m` =
+`3.115895850413 international statute miles` =
+`2.707639466246 international nautical miles`.
+The named CRS remains unknown/not encoded and exact proxy-to-original pixel
+pairing remains gated.
+
+The earlier JGW native unit
 and CRS also remain unknown.
 
 ### 4.5 Modern reference pairs
@@ -205,7 +216,7 @@ P6.C3 does **not**:
 - declare a preferred scientific winner;
 - infer Figure-43 mile identity;
 - fabricate raster/city control points;
-- pair the 1464x2048 reference with the JGW as if it were the missing companion raster;
+- claim the 1361x2048 proxy is the unavailable original 8K pixel matrix or exact JGW pixel companion;
 - promote the provisional restored-raster fit to geographic truth;
 - start P6.C4 elevation work;
 - redesign the workspace for P6.C5;
@@ -305,14 +316,16 @@ image is unavailable, and adopt metre/mile conversions after verification.
 
 Implementation decisions:
 
-- the 1464x2048 JPEG is now the approved **visual/ruler calibration reference**;
+- `Gleason-map-8k.jpg` 1361×2048 (SHA-256 `884e9b...`) is the approved **owner-authorized visual/ruler proxy**;
 - its SHA-256 remains
   `9ccbf6b304062082b813a4719654ffbca03e965e7d9ded5b8ee7b34914dd8a03`;
 - three named historical ruler conversion profiles are exposed;
 - the 6075-foot and Figure-37 ratio conflict is displayed explicitly;
 - generic Figure-43 mile SI identity remains unresolved;
-- JGW native unit/CRS remain unknown;
-- JGW georeferencing remains gated until the true companion raster or independent
+- JGW affine working unit is **metre** under owner-authorized proxy verification;
+- explicit modern international statute-mile and nautical-mile conversions are exposed;
+- JGW CRS remains unknown/not encoded;
+- exact proxy/original pixel pairing remains gated because the original full-resolution raster is unavailable;
   georeferencing evidence exists.
 
 Targeted owner retest status: **NOT RUN**.
