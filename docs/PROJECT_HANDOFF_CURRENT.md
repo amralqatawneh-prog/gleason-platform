@@ -11,7 +11,7 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - Repository: `amralqatawneh-prog/gleason-platform`.
 - Current integration baseline: `main @ cd78f560c5070d3f525ddaf124c5fb5ec4d25c52` — PR **#34** / P6.7A merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working branch: `docs/measurement-ux-celestial-architecture-amendment-2026-09-22`; owner-approved architecture/governance work only. P6.7A is **CLOSED / VERIFIED / MERGED**: owner-tested `a11f7263…` / #821 / manual 6/6; closure `8b60cac4…` / #829; PR #34 merged at `cd78f560…`. Next functional slice is P6.C1; P6.7B is paused/not-started.
+- Current working branch: `docs/measurement-ux-celestial-architecture-amendment-2026-09-22`; draft PR #36. Architecture amendment is **CLOSED / VERIFIED** after `20a203fad5b86409c64e9129806dd07169d3cddf` passed **#832 — SUCCESS**; closure-state CI remains required before separate merge authorization. P6.7A is merged; next functional slice is P6.C1; P6.7B is paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
