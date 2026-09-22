@@ -56,7 +56,7 @@ require(
 require(phase6_start.get("previous_slice") == "P6.7A", "previous Phase 6 slice must be P6.7A")
 require(phase6_start.get("previous_slice_status") == "closed-verified-merged", "P6.7A must be closed/verified/merged")
 require(phase6_start.get("current_slice") == "P6.C1", "current Phase 6 slice must be P6.C1")
-require(phase6_start.get("current_slice_status") == "in_progress", "P6.C1 current slice status must be in_progress")
+require(phase6_start.get("current_slice_status") == "closed", "P6.C1 current slice status must be closed after owner verification")
 require(phase6_start.get("next_slice") == "P6.C2", "next Phase 6 slice must be P6.C2")
 require(phase6_start.get("next_slice_status") == "not_started", "P6.C2 must remain not_started")
 p6_7a_start = phase6_start.get("p6_7a_start", {})
@@ -204,11 +204,31 @@ require(p6_c1.get("p6_c2_status") == "not_started", "P6.C2 must remain not_start
 require(p6_c1.get("p6_7b_status") == "paused-not-started", "P6.7B must remain paused/not-started")
 require(p6_c1.get("accepted_phase_remains") == 5, "P6.C1 must not accept Phase 6")
 require(p6_c1.get("accepted_application_version_remains") == "0.5.0", "P6.C1 must not change accepted version")
-require(p6_c1.get("automated_status") == "technically-green-awaiting-owner-manual", "P6.C1 automated status must be technically green awaiting owner manual")
+require(p6_c1.get("automated_status") == "technically-green-owner-manual-passed-awaiting-final-closure-ci", "P6.C1 automated/manual closure state drifted")
 require(p6_c1.get("verification_head") == "1d316618163a26c4647aec63682b0a4c7bd39a26", "P6.C1 verification head drifted")
 require(p6_c1.get("verification_ci_run") == 845, "P6.C1 verification CI must be #845")
 require(p6_c1.get("verification_ci_conclusion") == "success", "P6.C1 verification CI #845 must remain success")
-require(p6_c1.get("owner_manual_status") == "not_run", "P6.C1 owner manual verification must not be fabricated")
+require(p6_c1.get("owner_manual_status") == "pass-reported-by-owner", "P6.C1 owner manual PASS evidence missing")
+require(p6_c1.get("owner_tested_head") == "0fe9a18943fd6404773d6604c5ee901fd6773589", "P6.C1 owner-tested head drifted")
+require(p6_c1.get("pre_manual_ci_run") == 850, "P6.C1 pre-manual CI must be #850")
+require(p6_c1.get("pre_manual_ci_conclusion") == "success", "P6.C1 pre-manual CI #850 must remain success")
+require(p6_c1.get("manual_checklist_items_passed") == 6, "P6.C1 must record 6/6 manual checks")
+require(p6_c1.get("manual_result") == "6/6-pass-reported-by-owner", "P6.C1 owner manual result drifted")
+manual_checks = p6_c1.get("manual_checks", {})
+for key in [
+    "fig43_circle_derived_diagnostic_label",
+    "unresolved_fig43_si_fails_closed",
+    "fig43_local_latitude_dependent_semantics",
+    "fig37_frame_time_conversions_separate",
+    "bilingual_source_evidence_boundaries",
+    "p6c2_p6c7b_boundaries_preserved",
+]:
+    require(manual_checks.get(key) == "pass-reported-by-owner", f"P6.C1 manual check missing: {key}")
+require(p6_c1.get("closure_status") == "closed-awaiting-final-closure-ci", "P6.C1 must await final closure CI")
+require(p6_c1.get("final_closure_ci_run") is None, "P6.C1 final closure CI run must be pending on this head")
+require(p6_c1.get("final_closure_ci_conclusion") == "pending", "P6.C1 final closure CI conclusion must be pending")
+require(p6_c1.get("merge_authorization") == "pending-separate-owner-instruction", "P6.C1 merge must await separate owner authorization")
+require(phase6_start.get("p6_c1_status") == "closed", "P6.C1 top-level status must be closed after owner verification")
 require(phase6_start.get("p6_c1_status") == "in_progress", "P6.C1 top-level status must be in_progress")
 for path in [
     "frontend/src/measurement/gleasonMeasurementProfiles.ts",
