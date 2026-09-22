@@ -91,6 +91,53 @@ the same ordered vertices as a separately labeled closed polygon; this does not
 change the P6.3–P6.5 open-polyline distance semantics. See
 `docs/PHASE_6_P6_6_POLYGON_SEMANTICS.md`.
 
+### 6.1 P6.7A same-route rendering architecture
+
+P6.7A reuses the **single** P6.2 `OrderedRouteState`. Do not introduce a
+parallel route store for visualization.
+
+`buildSameRouteRenderingPlan(...)` produces one immutable
+`SameRouteRenderingPlan` from:
+
+- the route id/revision and canonical WGS84 geographic vertices;
+- one selected `MeasurementMethodId`;
+- the existing measurement computation identity contract.
+
+The plan contains:
+
+- canonical point IDs and points;
+- computation method/model/quantity/unit/scale basis;
+- one computation-geometry kind;
+- sampled geographic geometry per adjacent segment;
+- three `MeasurementVisualizationIdentity` values, each using
+  `preserve-computation-identity`.
+
+Geometry construction is method-specific:
+
+- `wgs84-geodesic`: GeographicLib WGS84 inverse/direct samples the ellipsoidal
+  geodesic;
+- `ae-projected-plane`: endpoints are projected with the existing AE adapter,
+  a straight chord is sampled in AE metres, then samples are inverse-projected
+  to geographic interchange coordinates;
+- `gleason-native-normalized`: endpoints are projected with GH-0.2.0, a
+  straight normalized-plane chord is sampled, then samples are inverse-projected
+  to geographic interchange coordinates.
+
+The resulting geographic samples are passed unchanged to all three view
+renderers. Each view then performs only its own display projection. A renderer
+must never recompute a different route merely because the destination view is
+different.
+
+The canonical A/B/C/... vertices are route identity. Intermediate samples are
+rendering geometry only and must not become route waypoints.
+
+P6.7A is browser-local rendering work. It does not create a `RouteProvider`,
+road/flight route, distance/duration/ETA, maneuver list or turn-by-turn
+navigation. Those remain P6.7B.
+
+Detailed contract:
+`docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`.
+
 ## 7. Astronomy architecture
 
 Future astronomy must use the approved `CelestialComputationProvider` identity
