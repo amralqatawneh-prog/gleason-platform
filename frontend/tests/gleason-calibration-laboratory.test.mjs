@@ -5,6 +5,8 @@ import {
   fixturesForResearchProfile,
   gleasonCalibrationFixtures,
   gleasonLocalScaleDiagnostic,
+  gleasonRulerUnitVerifications,
+  GLEASON_RULER_UNIT_POLICY,
 } from '../.phase1-test-build/measurement/gleasonCalibrationLaboratory.js';
 
 test('P6.C3 fixture registry exposes the source-backed initial fixture families', () => {
@@ -101,4 +103,26 @@ test('local scale diagnostic keeps Figure 43 and Walter calculation spaces separ
   assert.equal(south30.historical_fig43_miles_per_longitude_degree,80);
   assert.equal(south30.walter_radius_km,13344);
   assert.throws(()=>gleasonLocalScaleDiagnostic(91),RangeError);
+});
+
+
+test('verified lower-resolution ruler reference exposes named metre-per-mile profiles without resolving generic Figure-43 mile or JGW units', () => {
+  const units=gleasonRulerUnitVerifications();
+  assert.equal(units.length,3);
+  const english=units.find(item=>item.unit_profile_id==='english-land-statute-mile-5280ft');
+  const nautical6075=units.find(item=>item.unit_profile_id==='nautical-sea-solar-mile-6075ft');
+  const fig37=units.find(item=>item.unit_profile_id==='fig37-nautical-geographical-mile-by-208-to-180-ratio');
+  assert.ok(english);
+  assert.ok(nautical6075);
+  assert.ok(fig37);
+  assert.equal(english.metre_per_unit,1609.344);
+  assert.equal(nautical6075.metre_per_unit,1851.66);
+  assert.ok(Math.abs(fig37.metre_per_unit-1859.6864)<1e-9);
+  assert.ok(Math.abs(fig37.metre_per_unit-nautical6075.metre_per_unit-8.0264)<1e-9);
+  assert.equal(nautical6075.conflict_group,'historical-nautical-mile-context');
+  assert.equal(fig37.conflict_group,'historical-nautical-mile-context');
+  assert.equal(GLEASON_RULER_UNIT_POLICY.visual_reference_id,'gleason-owner-hires-jpeg-reference-2026-09-22');
+  assert.deepEqual(GLEASON_RULER_UNIT_POLICY.visual_reference_dimensions_px,[1464,2048]);
+  assert.equal(GLEASON_RULER_UNIT_POLICY.generic_fig43_mile_si_status,'unresolved');
+  assert.equal(GLEASON_RULER_UNIT_POLICY.owner_jgw_native_unit_status,'unknown');
 });
