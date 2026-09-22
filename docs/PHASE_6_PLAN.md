@@ -239,7 +239,7 @@ Governing architecture:
 P6.7B is intentionally paused until P6.C1–P6.C5 close.
 
 ### P6.C1 — Gleason Measurement Re-evaluation
-Status: **IN PROGRESS — PR #37 BASED ON main AFTER VERIFIED/MERGED ARCHITECTURE PR #36**.
+Status: **IN PROGRESS / TECHNICALLY GREEN — #845 SUCCESS — AWAITING OWNER MANUAL VERIFICATION**.
 
 Deliver:
 - versioned Gleason measurement-profile contract;
@@ -375,7 +375,8 @@ Current task:
 1. Architecture Amendment exact closure head `06b9d4ad2b8c13fabed90fdd76d1e50faed2c2d1` passed **#837 — SUCCESS**; PR #36 was then explicitly authorized and merged at `main @ 7e398ebab7841f0b5e6ced9f9437f144efc318e7`.
 2. **P6.C1 is now IN PROGRESS** on `feat/p6.c1-gleason-measurement-reevaluation`, draft PR #37 retargeted to `main` and synchronized after PR #36 through `16b122f77ffbfd02129448a57f5096e1973a7e45`.
 3. P6.C1 contract/source audit demotes the circle-derived profile to diagnostic, fails closed on unresolved Figure 43 SI conversion, registers Walter direct-SI external comparison, and gates video/raster calibration profiles.
-4. P6.C2 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
+4. Exact P6.C1 verification head `1d316618163a26c4647aec63682b0a4c7bd39a26` passed **Release Acceptance Gates #845 — SUCCESS**; owner manual verification is NOT RUN.
+5. P6.C2 remains NOT STARTED and P6.7B remains **PAUSED / NOT STARTED** until P6.C1–P6.C5 close.
 
 ### P6.6 source-audit correction package — 2026-09-21
 
