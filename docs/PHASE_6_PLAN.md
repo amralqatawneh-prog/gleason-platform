@@ -278,9 +278,9 @@ Draft PR: **#39**.
 Baseline: `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` after PR #38 / P6.C2 merge.
 Contract/report: `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`.
 
-Compare book/video/Walter/raster/reference fixtures, report residuals and local scale/distortion diagnostics, and expose research profile selection. Initial implementation order is registry/schema → deterministic prediction/residual engine → tests → bilingual research UI. The true 8K/JGW raster calibration remains fail-closed until the actual companion 8K raster is present and audited.
+Compare book/video/Walter/raster/reference fixtures, report residuals and local scale/distortion diagnostics, and expose research profile selection. Initial implementation order is registry/schema → deterministic prediction/residual engine → tests → bilingual research UI. The unavailable original full-resolution raster no longer blocks visual/ruler research: the recovered 1361×2048 proxy is owner-authorized. Exact original-pixel pairing and CRS remain fail-closed, while the JGW affine unit is verified as metre for diagnostics.
 
-Automated evidence: #894/#895 were development failures fixed before implementation head `ed411b6f…`; #897 SUCCESS. Recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**, then the owner reported **6/6 PASS**. A post-manual owner refinement now approves the lower-resolution visual/ruler reference and named metre/mile profiles; complete CI plus targeted ruler/JGW retest are required before closure.
+Automated evidence: #894/#895 were development failures fixed before implementation head `ed411b6f…`; #897 SUCCESS. Recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**, then the owner reported **6/6 PASS**. A post-manual owner refinement now uses the recovered `Gleason-map-8k.jpg` 1361×2048 proxy as the authorized visual/ruler reference, verifies JGW affine units as metre, and exposes explicit modern statute-mile/nautical-mile conversions while keeping CRS/exact original-pixel pairing gated. Complete CI plus targeted proxy/JGW retest are required before closure.
 
 ### P6.C4 — Ellipsoidal Elevation Provider
 Status: **NOT STARTED**.
