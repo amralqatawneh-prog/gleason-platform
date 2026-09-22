@@ -324,7 +324,7 @@ function gated8kRasterFixture(): GleasonCalibrationFixtureResult {
     evidence_level: 'SECONDARY_OBSERVED',
     endpoints: null,
     source_distance: null,
-    source_unit: 'unknown-jgw-native-unit',
+    source_unit: 'metre-affine-unit-verified',
     profile_prediction: null,
     prediction_unit: null,
     residual_signed: null,
@@ -334,14 +334,15 @@ function gated8kRasterFixture(): GleasonCalibrationFixtureResult {
     latitude_context: 'not-applicable',
     direction_context: 'not-applicable',
     status: 'gated',
-    gate_reason: 'missing-true-companion-8k-raster',
+    gate_reason: 'exact-pixel-pairing-unverified-proxy-only',
     provenance: Object.freeze([
       'gleason-owner-8k-map-2026-09-22',
       'data/sources/artifacts/8k-Flat-Earth-map.jgw',
     ]),
     notes: Object.freeze([
-      'The JGW alone is not an image and does not prove metres, miles or a named CRS.',
-      'Do not pair it with the unrelated 1464x2048 JPEG.',
+      'The JGW affine working unit is metre by owner-authorized proxy verification; this does not identify a CRS.',
+      'The 1361x2048 received proxy is authorized for visual/ruler reference but is not treated as the exact original pixel companion.',
+      'The separate 1464x2048 JPEG remains unrelated to JGW pairing.',
     ]),
   });
 }
@@ -435,8 +436,8 @@ export function gleasonRulerUnitVerifications(): readonly Readonly<GleasonRulerU
       conflict_group: null,
       provenance: Object.freeze([
         'gleason-1893-upload-v1:Chapter XVII',
-        'gleason-owner-hires-jpeg-reference-2026-09-22',
-        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+        'gleason-owner-8k-received-proxy-2026-09-22',
+        'GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22',
       ]),
       notes: Object.freeze([
         'This named profile does not assign the generic historical Figure-43 mile to the English/statute mile.',
@@ -453,7 +454,7 @@ export function gleasonRulerUnitVerifications(): readonly Readonly<GleasonRulerU
       conflict_group: 'historical-nautical-mile-context' as const,
       provenance: Object.freeze([
         'gleason-1893-upload-v1:Chapter XVII',
-        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+        'GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22',
       ]),
       notes: Object.freeze([
         'Historical source profile; do not silently replace with the modern international nautical mile.',
@@ -470,8 +471,8 @@ export function gleasonRulerUnitVerifications(): readonly Readonly<GleasonRulerU
       conflict_group: 'historical-nautical-mile-context' as const,
       provenance: Object.freeze([
         'gleason-1893-upload-v1:Figure 37',
-        'gleason-owner-hires-jpeg-reference-2026-09-22',
-        'GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22',
+        'gleason-owner-8k-received-proxy-2026-09-22',
+        'GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22',
       ]),
       notes: Object.freeze([
         'This ratio-derived value conflicts with the Chapter-XVII 6075-foot profile; both remain visible.',
@@ -481,9 +482,15 @@ export function gleasonRulerUnitVerifications(): readonly Readonly<GleasonRulerU
 }
 
 export const GLEASON_RULER_UNIT_POLICY = Object.freeze({
-  visual_reference_id: 'gleason-owner-hires-jpeg-reference-2026-09-22',
-  visual_reference_dimensions_px: Object.freeze([1464, 2048] as const),
+  visual_reference_id: 'gleason-owner-8k-received-proxy-2026-09-22',
+  visual_reference_file: 'Gleason-map-8k.jpg' as const,
+  visual_reference_dimensions_px: Object.freeze([1361, 2048] as const),
+  visual_reference_sha256: '884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d' as const,
   generic_fig43_mile_si_status: 'unresolved' as const,
-  owner_jgw_native_unit_status: 'unknown' as const,
-  jgw_georeferencing_status: 'gated-missing-true-companion-raster' as const,
+  owner_jgw_native_unit_status: 'metre-owner-authorized-proxy-verified' as const,
+  owner_jgw_crs_status: 'unknown-not-encoded' as const,
+  owner_jgw_pixel_step_m: 5014.548291487017 as const,
+  owner_jgw_pixel_step_international_statute_mile: 3.115895850412974 as const,
+  owner_jgw_pixel_step_international_nautical_mile: 2.7076394662456895 as const,
+  jgw_exact_pixel_pairing_status: 'gated-exact-original-unavailable' as const,
 });
