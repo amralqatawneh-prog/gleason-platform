@@ -95,7 +95,7 @@ model engines:
 | P6.6 | CLOSED + VERIFIED + MERGED ✅ | Corrected contract owner 6/6 PASS on `e967129…`; final closure head `1d84ba85…` passed #784 SUCCESS; PR #31 merged at `6a266611…` |
 | P6.7A | CLOSED + VERIFIED + MERGED ✅ | Same canonical route / one computation identity / three renderings; owner-tested `a11f7263…`; #821 SUCCESS; owner 6/6 PASS; closure `8b60cac4…`; #829 SUCCESS; PR #34 merged at `cd78f560…` |
 | P6.C1 | CLOSED / VERIFIED / MERGED ✅ | Owner-tested `0fe9a189…`; #850 SUCCESS; manual 6/6 PASS; closure #859; recording head `385a04bc…` #864 SUCCESS; PR #37 merged at `3096d963…` |
-| P6.C2 | IN PROGRESS 🛠️ | SI engine: executable m/km/NM profiles with explicit DIRECT SI vs ASSUMPTION identity; draft PR #38 |
+| P6.C2 | IN PROGRESS / TECHNICALLY GREEN 🛠️ | SI engine m/km/NM profiles; exact head `e1e708ce…`; #870 SUCCESS; owner manual NOT RUN; draft PR #38 |
 | P6.C3–P6.C5 | NOT STARTED ⏳ | Calibration lab, ellipsoidal elevation, map-first workspace |
 | P6.7B–P6.10 | PAUSED / NOT STARTED ⏸️ | Resume RouteProvider/turn-by-turn only after P6.C1–P6.C5 close |
 
