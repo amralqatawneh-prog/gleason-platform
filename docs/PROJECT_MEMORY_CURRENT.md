@@ -14,6 +14,22 @@ When continuing in a new conversation, use this file together with:
 
 Do not treat an experimental proposal as implemented unless explicitly marked IMPLEMENTED / VERIFIED / MERGED.
 
+## Canonical master references
+
+For future cross-conversation recovery, read these in this order:
+
+1. `docs/PROJECT_MASTER_REFERENCE_CURRENT.md` — comprehensive self-explanation of the whole project, completed work, current state, sources, experiments and immediate next actions.
+2. `docs/PROJECT_MEMORY_CURRENT.md` — compact canonical state snapshot.
+3. `docs/PROJECT_HANDOFF_CURRENT.md` — continuity/governance handoff.
+4. `docs/PROJECT_FUTURE_PHASES_CURRENT.md` — detailed execution-oriented breakdown of remaining Phase 6 work and Phases 7–22.
+
+Persistent Library mirrors:
+- `/Gleason-platform/handoffs/PROJECT_MASTER_REFERENCE_CURRENT.md`
+- `/Gleason-platform/handoffs/PROJECT_MEMORY_CURRENT.md`
+- `/Gleason-platform/handoffs/PROJECT_FUTURE_PHASES_CURRENT.md`
+
+The detailed future sub-slice numbering in `PROJECT_FUTURE_PHASES_CURRENT.md` is an operational continuity plan derived from the approved roadmap; exact slice boundaries must still be confirmed with the owner at each future phase start.
+
 ## Repository and governance
 Repository: `amralqatawneh-prog/gleason-platform`
 
