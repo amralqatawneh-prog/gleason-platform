@@ -1,10 +1,18 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-22_
+_Last updated: 2026-09-23_
 
 ## Purpose
 
 This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, accepted Phase 5 baseline, validation evidence, known boundaries, and the next permitted steps.
+
+## Cross-conversation project memory
+
+- Canonical continuity snapshot: `docs/PROJECT_MEMORY_CURRENT.md`.
+- Persistent ChatGPT Library project folder: `/Gleason-platform/`.
+- Latest experimental azimuthal test standard is **North Pole → South Pole = 12,720.6 km**, documented as RESEARCH ONLY / NOT IMPLEMENTED in the project memory file.
+- The earlier 12,731-km test standard is retained only as superseded experiment history.
+- P6.C3 refinement head `a0e8436c307c9384c06413bcf8264f7c57c8ec13` failed Release Acceptance Gates **#936** only at Browser/E2E because the rendered `data-p6c3-visual-reference` still exposed the older `gleason-owner-hires-jpeg-reference-2026-09-22` identity while the test expects `gleason-owner-8k-received-proxy-2026-09-22`. All pre-browser gates were green. This must be fixed before targeted owner retest or closure.
 
 ## Repository and working branch
 
