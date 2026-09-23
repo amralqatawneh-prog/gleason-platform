@@ -8,7 +8,9 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 
 ## Cross-conversation project memory
 
+- Canonical comprehensive self-reference: `docs/PROJECT_MASTER_REFERENCE_CURRENT.md`.
 - Canonical continuity snapshot: `docs/PROJECT_MEMORY_CURRENT.md`.
+- Detailed future execution breakdown: `docs/PROJECT_FUTURE_PHASES_CURRENT.md`.
 - Persistent ChatGPT Library project folder: `/Gleason-platform/`.
 - Latest experimental azimuthal test standard is **North Pole → South Pole = 12,720.6 km**, documented as RESEARCH ONLY / NOT IMPLEMENTED in the project memory file.
 - The earlier 12,731-km test standard is retained only as superseded experiment history.
