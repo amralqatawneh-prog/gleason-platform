@@ -24,8 +24,10 @@ Current functional branch:
 `feat/p6.c3-calibration-fixture-laboratory`
 
 Current PR: #39 — DRAFT / OPEN / UNMERGED
-Current head at reconciliation:
+Runtime refinement head analyzed under CI #936:
 `a0e8436c307c9384c06413bcf8264f7c57c8ec13`
+
+Persistence/documentation commits may advance the PR head without changing runtime logic. Always query PR #39 fresh before making any code change.
 
 Governance:
 1. One phase/slice at a time.
