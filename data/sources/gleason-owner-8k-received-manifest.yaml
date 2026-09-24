@@ -1,0 +1,24 @@
+source_id: gleason-owner-8k-map-2026-09-22
+received_representation:
+  file_name: Gleason-map-8k.jpg
+  format: JPEG
+  mode: RGB
+  width_px: 1361
+  height_px: 2048
+  bytes: 1233904
+  sha256: 884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d
+  exact_received_bytes_preserved_in_library: true
+  library_path: "/Gleason Platform Sources/Gleason-map-8k.jpg"
+  library_file_id: "libfile_59fd00b0a9908191b5a57473d3b40383"
+owner_source_claim:
+  original_is_8k: true
+transport_resolution_note:
+  received_is_not_original_8k_matrix: true
+  exact_4x_candidate_dimensions: [5444, 8192]
+  candidate_is_hypothesis_only: true
+jgw_pairing:
+  file: data/sources/artifacts/8k-Flat-Earth-map.jgw
+  status: unverified_until_original_raster_bytes
+book_audit:
+  report: docs/GLEASON_8K_RASTER_AUDIT_2026-09-22.md
+  status: partial_pass

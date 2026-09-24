@@ -124,3 +124,46 @@ graticule, bottom ruler and outer longitude/time dial where legible, but it must
 not be paired with the JGW or promoted over the existing 4653×6506 restored
 raster. The true 8K raster is still awaited.
 
+## Owner 8K source visual audit update — 2026-09-22
+
+The owner supplied the map identified as the 8K source. The exact image
+representation delivered through the chat transport was inspected and preserved
+without further modification:
+
+- received file: `Gleason-map-8k.jpg`;
+- received dimensions: **1361 × 2048 px**;
+- received bytes: **1,233,904**;
+- received SHA-256:
+  `884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d`;
+- persistent archival copy:
+  `/Gleason Platform Sources/Gleason-map-8k.jpg` in ChatGPT Library;
+- source registry:
+  `data/sources/gleason-owner-8k-map.yaml`;
+- received-representation manifest:
+  `data/sources/gleason-owner-8k-received-manifest.yaml`;
+- audit report:
+  `docs/GLEASON_8K_RASTER_AUDIT_2026-09-22.md`.
+
+The owner identifies the underlying source as 8K. The chat-delivered JPEG is
+not the original 8K pixel matrix. A 4× dimension hypothesis gives 5444×8192,
+which is consistent with transport downsampling but is not accepted as the
+original size until the original file bytes are uploaded without image
+resampling.
+
+Visual/book cross-checks are consistent for:
+
+- the circular Longitude and Time Calculator;
+- the 24-hour outer dial;
+- longitude rays and latitude rings;
+- the printed longitude-to-Sun-time relation;
+- the bottom English/Land versus Nautical/Sea/Geographical mile ruler;
+- the bottom arc/time ruler;
+- the book-registered relation 180 nautical/geographical miles = 208 English
+  miles;
+- the book-registered 15° longitude = 1 hour and 1° = 4 minutes relation.
+
+The source is now the preferred historical visual source for legible historical
+city/country/ocean/sea labels, graticule, ruler and frame research. It does not
+replace modern canonical place coordinates, and the JGW remains unpaired
+numerically until the original full-resolution raster is preserved and hashed.
+
