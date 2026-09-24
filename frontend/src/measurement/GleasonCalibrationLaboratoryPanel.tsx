@@ -70,7 +70,7 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
     <article
       className="gleason-lab-card"
       data-p6c3-tool="verified-ruler-units"
-      data-p6c3-visual-reference="gleason-owner-hires-jpeg-reference-2026-09-22"
+      data-p6c3-visual-reference="gleason-owner-8k-received-proxy-2026-09-22"
       data-p6c3-visual-reference-width="1361"
       data-p6c3-visual-reference-height="2048"
       data-p6c3-fig43-mile-si-status={GLEASON_RULER_UNIT_POLICY.generic_fig43_mile_si_status}
