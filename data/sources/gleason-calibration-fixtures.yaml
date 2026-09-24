@@ -1,0 +1,197 @@
+id: gleason-calibration-fixtures-p6c3-v1
+version: P6.C3-fixtures-v1
+date: "2026-09-22"
+status: in_progress
+policy:
+  - "Every fixture preserves source class, evidence level, native unit and provenance."
+  - "Residuals require semantically compatible quantities and units; otherwise fail closed."
+  - "No city/raster control point may be fabricated."
+  - "Gleason-map-8k.jpg (1361x2048, SHA-256 884e9b...) is the owner-authorized visual/ruler proxy because the original full-resolution raster is unavailable."
+  - "The JGW affine working unit is metre by owner-authorized proxy verification; exact original-pixel pairing and CRS remain gated."
+fixtures:
+  - fixture_id: book-fig43-equator-one-degree
+    fixture_kind: historical_longitude_arc
+    source_class: GLEASON_PRIMARY_HISTORICAL
+    evidence_level: DOCUMENTED
+    endpoints:
+      - { latitude: 0, longitude: 0 }
+      - { latitude: 0, longitude: 1 }
+    source_distance: 60
+    source_unit: historical-fig43-mile
+    prediction_profile_id: gleason-book-local-longitude
+    expected_prediction: 60
+    prediction_unit: historical-fig43-mile
+    provenance:
+      - "gleason-1893-upload-v1:PDF p.429 / printed p.402 / Fig.43"
+      - "gleason-measurement-unit-audit-2026-09-22"
+    notes:
+      - "Local longitude-scale fixture only; not a universal arbitrary-route law."
+
+  - fixture_id: video-dNBxb-spreadsheet-chord
+    fixture_kind: geographic_chord
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: SECONDARY_OBSERVED
+    endpoints:
+      - { latitude: 0, longitude: -105 }
+      - { latitude: -60, longitude: -165 }
+    source_distance: 4994.930255778278
+    source_unit: historical-fig43-mile
+    prediction_profile_id: gleason-fig43-circle-derived-diagnostic
+    expected_prediction: 4994.930255778278
+    prediction_unit: historical-fig43-mile
+    provenance:
+      - "gleason-video-measurement-audit-2026-09-21:dNBxb-UTmeg"
+
+  - fixture_id: video-dNBxb-australia-chord
+    fixture_kind: geographic_chord
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: SECONDARY_OBSERVED
+    endpoints:
+      - { latitude: -30, longitude: 114.967 }
+      - { latitude: -30, longitude: 153.25 }
+    source_distance: 3005.986408184987
+    source_unit: historical-fig43-mile
+    prediction_profile_id: gleason-fig43-circle-derived-diagnostic
+    expected_prediction: 3005.986408184987
+    prediction_unit: historical-fig43-mile
+    context:
+      parallel_arc_source_value: 3062.64
+      parallel_arc_source_unit: historical-fig43-mile
+    provenance:
+      - "gleason-video-measurement-audit-2026-09-21:dNBxb-UTmeg"
+
+  - fixture_id: video-dNBxb-australia-north-south
+    fixture_kind: geographic_chord
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: SECONDARY_OBSERVED
+    endpoints:
+      - { latitude: -2.605, longitude: 134 }
+      - { latitude: -38.06, longitude: 134 }
+    source_distance: 1354.281241757556
+    source_unit: historical-fig43-mile
+    prediction_profile_id: gleason-fig43-circle-derived-diagnostic
+    expected_prediction: 1354.281241757556
+    prediction_unit: historical-fig43-mile
+    provenance:
+      - "gleason-video-measurement-audit-2026-09-21:dNBxb-UTmeg"
+
+  - fixture_id: video-SuHnvvYEfok-ruler-triangle
+    fixture_kind: abstract_triangle
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: SECONDARY_OBSERVED
+    geometry:
+      side_a_cm: 17.3
+      side_b_cm: 10.6
+      included_angle_deg: 52
+    source_distance: 13.6326812223
+    source_unit: centimetre
+    prediction_profile_id: planar-law-of-cosines-diagnostic
+    expected_prediction: 13.6326812223
+    prediction_unit: centimetre
+    provenance:
+      - "gleason-video-measurement-audit-2026-09-21:SuHnvvYEfok"
+
+  - fixture_id: walter-pole-equator-default
+    fixture_kind: geographic_chord
+    source_class: EXTERNAL_COMPARATIVE_MODEL
+    evidence_level: EXTERNAL_COMPARATIVE
+    endpoints:
+      - { latitude: 90, longitude: 0 }
+      - { latitude: 0, longitude: 0 }
+    source_distance: 10008
+    source_unit: kilometre
+    prediction_profile_id: walter-flat-plane-eq-10008
+    expected_prediction: 10008
+    prediction_unit: kilometre
+    provenance:
+      - "walter-distances-globe-flat-earth"
+      - "walter-globe-flat-transformations"
+
+  - fixture_id: reference-equator-one-degree-wgs84-vs-walter
+    fixture_kind: reference_comparison
+    source_class: REFERENCE_SOURCE
+    evidence_level: REFERENCE
+    endpoints:
+      - { latitude: 0, longitude: 0 }
+      - { latitude: 0, longitude: 1 }
+    source_unit: metre
+    prediction_profile_id: walter-flat-plane-eq-10008
+    prediction_unit: metre
+    source_method: wgs84-geodesic
+    provenance:
+      - "WGS84-0.4.0 reference"
+      - "geographiclib-geodesic browser implementation"
+
+  - fixture_id: raster-restored-outer-ring-fit
+    fixture_kind: raster_fit_diagnostic
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: DERIVED_FROM_DOCUMENTED
+    source_unit: raster-pixel
+    fitted_radius_px: 1851.8383776797139
+    residual_kind: radial-fit-rms
+    residual_absolute: 5.768749489287826
+    residual_percent_of_radius: 0.31151473901927984
+    median_absolute_residual_px: 4.706116332701413
+    status: diagnostic-only
+    provenance:
+      - "gleason-restored-map-owner-upload-2026-09-21"
+    notes:
+      - "Provisional geometry calibration only; not a city-coordinate truth set."
+
+  - fixture_id: raster-owner-8k-jgw
+    fixture_kind: raster_fit
+    source_class: OWNER_SECONDARY_OBSERVED
+    evidence_level: SECONDARY_OBSERVED
+    source_unit: metre-affine-unit-verified
+    prediction_profile_id: gleason-raster-calibrated
+    status: gated
+    gate_reason: exact-pixel-pairing-unverified-proxy-only
+    provenance:
+      - "gleason-owner-8k-map-2026-09-22"
+      - "data/sources/artifacts/8k-Flat-Earth-map.jgw"
+    notes:
+      - "Gleason-map-8k.jpg (1361x2048; SHA-256 884e9b...) is the owner-authorized visual/ruler proxy."
+      - "The JGW affine unit is metre for P6.C3 working diagnostics; explicit modern statute-mile and nautical-mile conversions are allowed."
+      - "Exact proxy-to-JGW pixel pairing is not claimed and CRS remains unknown/not encoded."
+
+verified_ruler_units:
+  reference_registry: "data/sources/gleason-owner-hires-jpeg-reference.yaml"
+  verification_report: "docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md"
+  foot_to_metre_convention: 0.3048
+  profiles:
+    - unit_profile_id: english-land-statute-mile-5280ft
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      source_value_feet: 5280
+      metre_per_unit: 1609.344
+      status: verified-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Chapter XVII"
+        - "gleason-owner-hires-jpeg-reference-2026-09-22"
+    - unit_profile_id: nautical-sea-solar-mile-6075ft
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      source_value_feet: 6075
+      metre_per_unit: 1851.66
+      status: verified-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Chapter XVII"
+    - unit_profile_id: fig37-nautical-geographical-mile-by-208-to-180-ratio
+      source_class: GLEASON_PRIMARY_HISTORICAL
+      relation: "208 English miles = 180 nautical/sea/geographical miles"
+      metre_per_unit: 1859.6864
+      status: verified-ratio-derived-conversion-profile
+      provenance:
+        - "gleason-1893-upload-v1:Figure 37"
+        - "gleason-owner-hires-jpeg-reference-2026-09-22"
+  conflict:
+    profiles:
+      - nautical-sea-solar-mile-6075ft
+      - fig37-nautical-geographical-mile-by-208-to-180-ratio
+    absolute_difference_m: 8.0264
+    policy: preserve-both-do-not-silently-select
+  generic_fig43_mile_si_status: unresolved
+  owner_jgw_native_unit_status: metre-owner-authorized-proxy-verified
+  owner_jgw_crs_status: unknown-not-encoded
+  owner_jgw_pixel_step_m: 5014.548291487017
+  owner_jgw_pixel_step_international_statute_mile: 3.115895850412974
+  owner_jgw_pixel_step_international_nautical_mile: 2.7076394662456895
+  owner_jgw_exact_pixel_pairing_status: gated-exact-original-unavailable

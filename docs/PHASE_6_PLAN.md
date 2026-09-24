@@ -252,7 +252,7 @@ Deliver:
 - no Map-First UI redesign yet.
 
 ### P6.C2 — Gleason SI Measurement Engine
-Status: **CLOSED / VERIFIED — exact tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` · #876 SUCCESS · owner manual 6/6 PASS · final closure head `d698c88b43cd75f7925551d323c10836cac41ab8` · #877 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**.
+Status: **CLOSED / VERIFIED / MERGED — exact tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` · #876 SUCCESS · owner manual 6/6 PASS · closure `d698c88b43cd75f7925551d323c10836cac41ab8` #877 SUCCESS · final recording `b70c78cd5bde41ab5ebe72a042115a1754491f54` #878 SUCCESS · PR #38 merged at `90d03c98d3345d563dd3a6721be4542c1d35af9f`**.
 
 Implement approved profiles with metre/km/NM outputs where justified, explicit
 profile provenance, browser/backend parity and no hidden normalization.
@@ -260,19 +260,27 @@ profile provenance, browser/backend parity and no hidden normalization.
 Working branch: `feat/p6.c2-gleason-si-measurement-engine`.
 Baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` after P6.C1 / PR #37 merge.
 Contract/report: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
-P6.C3 remains NOT STARTED; P6.7B remains PAUSED / NOT STARTED.
+P6.C3 is IN PROGRESS on `feat/p6.c3-calibration-fixture-laboratory` / draft PR #39; P6.7B remains PAUSED / NOT STARTED.
 
 Automated evidence: exact implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870; prior recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874; exact final-contract owner-test head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed **#876 — SUCCESS**.
 
-Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c715b71c654c7abe465d370cc0b`. Final closure-state head `d698c88b43cd75f7925551d323c10836cac41ab8` passed **#877 — SUCCESS**. P6.C2 is CLOSED / VERIFIED and awaits exact recording-head verification plus separate merge authorization.
+Owner manual verification: **6/6 PASS — REPORTED BY OWNER** on `b1dacada7cb84c715b71c654c7abe465d370cc0b`. Final closure-state head `d698c88b43cd75f7925551d323c10836cac41ab8` passed **#877 — SUCCESS**; exact recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` passed **#878 — SUCCESS**; the owner separately authorized merge and PR #38 merged at `90d03c98d3345d563dd3a6721be4542c1d35af9f`.
 
 Final P6.C2 contract: explicit per-profile `calculation_space` and nullable `assumption_id`; `limitations[]` is the single normative warning channel; numerical reproducibility is bound to `input.route_id` + exact ordered `input.points` rather than UI-only `route_revision`.
 
 ### P6.C3 — Calibration & Fixture Laboratory
-Status: **NOT STARTED**.
+Status: **OWNER MANUAL 6/6 PASS — exact tested head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` · #904 SUCCESS — OWNER-APPROVED RULER/UNIT REFINEMENT IN PROGRESS · targeted retest pending after CI**.
 
-Compare book/video/Walter/raster/reference fixtures, report residuals and local
-scale/distortion diagnostics, and expose research profile selection.
+Start authorization: owner instruction on 2026-09-22 to reconcile post-PR #38 documentation and begin P6.C3.
+
+Working branch: `feat/p6.c3-calibration-fixture-laboratory`.
+Draft PR: **#39**.
+Baseline: `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` after PR #38 / P6.C2 merge.
+Contract/report: `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`.
+
+Compare book/video/Walter/raster/reference fixtures, report residuals and local scale/distortion diagnostics, and expose research profile selection. Initial implementation order is registry/schema → deterministic prediction/residual engine → tests → bilingual research UI. The unavailable original full-resolution raster no longer blocks visual/ruler research: the recovered 1361×2048 proxy is owner-authorized. Exact original-pixel pairing and CRS remain fail-closed, while the JGW affine unit is verified as metre for diagnostics.
+
+Automated evidence: #894/#895 were development failures fixed before implementation head `ed411b6f…`; #897 SUCCESS. Recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**, then the owner reported **6/6 PASS**. A post-manual owner refinement now uses the recovered `Gleason-map-8k.jpg` 1361×2048 proxy as the authorized visual/ruler reference, verifies JGW affine units as metre, and exposes explicit modern statute-mile/nautical-mile conversions while keeping CRS/exact original-pixel pairing gated. Complete CI plus targeted proxy/JGW retest are required before closure.
 
 ### P6.C4 — Ellipsoidal Elevation Provider
 Status: **NOT STARTED**.
@@ -388,7 +396,7 @@ Current task:
 3. P6.C2 is the active slice on draft PR #38. Browser/backend SI engines, offline fallback, UI cards, parity and live API gates are implemented.
 4. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870; pre-reconciliation recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874.
 5. Final-contract candidate `b1dacada7…` passed #876 SUCCESS and the owner reported all six manual checks PASS.
-6. P6.C2 is **CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION** after #877 SUCCESS; P6.C3–P6.C5 remain **NOT STARTED** and P6.7B remains **PAUSED / NOT STARTED** until the corrective sequence closes.
+6. P6.C2 is **CLOSED / VERIFIED / MERGED** through PR #38 at `90d03c98d…` after #878 SUCCESS; P6.C3 is **IN PROGRESS** on PR #39; P6.C4/P6.C5 remain **NOT STARTED** and P6.7B remains **PAUSED / NOT STARTED** until the corrective sequence closes.
 
 ### P6.6 source-audit correction package — 2026-09-21
 

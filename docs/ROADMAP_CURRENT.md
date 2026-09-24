@@ -5,7 +5,7 @@
 ## الحالة المرجعية الحالية — 2026-09-22
 
 - Phase 5 **ACCEPTED** والإصدار المقبول **v0.5.0**.
-- Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.7A وP6.C1 **CLOSED / VERIFIED / MERGED**. P6.C1 دُمجت عبر PR #37 عند `main @ 3096d963b75478682923c20925e3eac974bbfb69` بعد نجاح رأس التسجيل النهائي `385a04bc032fd7f3e0609a501a826023ea0a627e` في **#864 — SUCCESS**. أصدر المالك **«ابدأ»**؛ لذلك بدأت **P6.C2 — Gleason SI Measurement Engine** من هذا الـbaseline. رأس التنفيذ `e1e708ce…` نجح في #869/#870، ورأس التسجيل السابق `31d84936…` نجح في #874؛ تجري الآن مصالحة العقد/التوثيق النهائية ويجب أن ينجح رأسها الدقيق قبل الاختبار اليدوي. P6.C3 لم تبدأ، وP6.7B **PAUSED / NOT STARTED**.
+- Phase 6 **IN PROGRESS**؛ الشرائح P6.1–P6.7A وP6.C1 وP6.C2 **CLOSED / VERIFIED / MERGED**. دُمج PR #38 عند `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` بعد نجاح رأس التسجيل النهائي `b70c78cd5bde41ab5ebe72a042115a1754491f54` في **#878 — SUCCESS**. وبأمر المالك الحالي بدأت **P6.C3 — Calibration & Fixture Laboratory** من هذا الـbaseline على `feat/p6.c3-calibration-fixture-laboratory` / draft PR #39. P6.C4/P6.C5 لم تبدأ، وP6.7B **PAUSED / NOT STARTED**. P6.C3 owner manual 6/6 PASS has been reported; a same-slice proxy/JGW unit refinement is in progress using the recovered 1361×2048 owner proxy, with JGW affine metre verified and CRS/exact pixel pairing still gated.
 - مصالحة ما بعد PR #31 أُغلقت وتحققت ثم دُمجت عبر PR #33. الرأس النهائي `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` نجح في Release Acceptance Gates **#803 — SUCCESS** قبل الدمج، وأصبح baseline الحالي `main @ 1825852da81c04cee8e5b9f73dba28b55068c000`. لا يوجد post-merge push CI مستقل مُثبت.
 - PR #21 الخاص بـP6.4 **MERGED** إلى `main @ 11b571f08f72732b509f049f1a2ab1be92292938`؛ P6.4 بقيت CLOSED.
 - **Post-PR21 Merge Documentation Reconciliation / PR #22** دُمجت إلى `main @ ba44ae59410e02ae748b235ed9792c8d4ee31b02`; رأس PR النهائي `a76fcff0ac7ad366143645ad722ff5d91183561e` نجح في Release Acceptance Gates **#671 — SUCCESS** قبل الدمج.
@@ -301,4 +301,4 @@ route/ruler/area في P6.1.
 
 - P6.6 corrected Gleason contract: owner manual **6/6 PASS — REPORTED BY OWNER**
   on `e96712975fc9f54f2615e235bb6976136efe8a2d` after **#783 SUCCESS**.
-  P6.6 is CLOSED / VERIFIED / MERGED after final closure-state CI #784 and merge commit `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A subsequently completed owner verification 6/6, passed final closure #829 and merged through PR #34. P6.C1 then closed/merged through PR #37; P6.C2 is the active slice.
+  P6.6 is CLOSED / VERIFIED / MERGED after final closure-state CI #784 and merge commit `6a2666112e56514051ea62fbe1c25f5a8016f1ae`; P6.7A subsequently completed owner verification 6/6, passed final closure #829 and merged through PR #34. P6.C1 then closed/merged through PR #37; P6.C2 closed/verified/merged through PR #38 at `90d03c98d3345d563dd3a6721be4542c1d35af9f`; P6.C3 is now the active slice on PR #39.

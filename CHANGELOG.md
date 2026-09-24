@@ -1,3 +1,23 @@
+## [Unreleased] — P6.C3 Calibration & Fixture Laboratory (2026-09-22)
+
+- PR #38 / P6.C2 was separately authorized and merged at `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f`; exact final recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` passed Release Acceptance Gates **#878 — SUCCESS** before merge.
+- Reconciled README, current handoff, roadmap, Phase 6 plan, P6.C2 report and machine-readable acceptance state to the new P6.C2-merged baseline.
+- Owner instructed post-PR #38 reconciliation followed by starting **P6.C3 — Calibration & Fixture Laboratory**.
+- Created `feat/p6.c3-calibration-fixture-laboratory` from the exact PR #38 merge baseline and opened draft PR #39.
+- Added the initial P6.C3 contract at `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`: source-backed book/video/Walter/raster/reference fixtures, residual semantics, local scale/distortion diagnostics, research profile selection, and fail-closed 8K/JGW calibration until the true companion raster is available.
+- Added `gleason-calibration-fixtures.yaml` with nine source-backed initial fixtures and an explicit missing-companion-raster gate for the owner 8K/JGW source.
+- Added the P6.C3 browser fixture/residual engine, local-scale diagnostics, bilingual research-profile UI, unit tests and Playwright acceptance coverage; complete CI is required before manual verification.
+- Development CI #894 (TSX escape) and #895 (legacy selector ambiguity/localized text assertion) exposed implementation/test issues; both were corrected.
+- Exact implementation head `ed411b6f14ab1df2b406004a44a13af48dcd534a` passed complete Release Acceptance Gates **#897 — SUCCESS**. Owner manual verification remains NOT RUN; exact recording-head CI is required before manual testing.
+- Exact recording head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed **#904 — SUCCESS**; owner manual P6.C3 then completed **6/6 PASS — REPORTED BY OWNER**.
+- Post-manual owner refinement approves `hi res restored gleason map.jpg` (1464×2048, SHA-256 `9ccbf6…`) as the visual/ruler reference. Verified named profiles: English/statute mile = 1609.344 m; Chapter-XVII 6075-ft nautical/sea/Solar mile = 1851.66 m; Figure-37 ratio-derived nautical/geographical mile = 1859.6864 m. The historical conflict is preserved, generic Figure-43 mile remains unresolved, and JGW georeferencing/native units remain gated/unknown.
+- Added `docs/GLEASON_LOWER_RES_REFERENCE_UNIT_VERIFICATION_2026-09-22.md`; targeted owner retest of the affected ruler/JGW presentation is required after complete CI.
+- Recovered the exact received `Gleason-map-8k.jpg` proxy from Library (1361×2048, 1,233,904 bytes, SHA-256 `884e9b2473...`) and superseded the earlier 1464×2048 proxy assumption.
+- Owner authorized this received representation as the working visual/ruler proxy because the original full-resolution image is unavailable.
+- Verified the JGW affine working unit as **metre** for P6.C3 diagnostics while keeping CRS and exact original-pixel pairing gated; one JGW pixel step = 5014.548291487017 m = 3.115895850413 international statute mi = 2.707639466246 international NM.
+- Added `docs/GLEASON_PROXY_JGW_UNIT_VERIFICATION_2026-09-22.md` and `data/sources/gleason-owner-8k-proxy-verification.yaml`.
+- P6.C4/P6.C5 remain NOT STARTED; P6.7B remains PAUSED / NOT STARTED. No tag, GitHub Release or deployment.
+
 # Changelog
 
 ## [Unreleased] — P6.C2 Gleason SI Measurement Engine (2026-09-22)

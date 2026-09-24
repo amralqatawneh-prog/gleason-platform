@@ -2,7 +2,7 @@ id: gleason-owner-hires-jpeg-reference-2026-09-22
 source_type: owner_supplied_visual_reference
 authority: visual_reference
 validation_truth: false
-status: registered_reference_not_8k
+status: registered_reference_not_current_owner_proxy
 file_name: "hi res restored gleason map.jpg"
 image:
   width_px: 1464
@@ -18,6 +18,8 @@ classification:
     - visual_transcription_reference
     - longitude_latitude_graticule_review
     - bottom_ruler_review
+    - historical_visual_cross_check
+    - printed_unit_verification
     - outer_longitude_time_dial_review
     - city_country_ocean_sea_label_review
 relationship:
@@ -27,5 +29,13 @@ relationship:
 resolution_policy:
   - "Do not upscale and then call the result 8K."
   - "Do not replace the existing 4653x6506 restored-raster reference with this lower-resolution JPEG."
-  - "Use this JPEG for visual reading only where its content is legible."
-  - "Await the true 8K companion raster before JGW-based calibration, full label inventory, or promotion."
+  - "Keep as a separate historical visual cross-check."
+  - "The current owner-authorized proxy is Gleason-map-8k.jpg (1361x2048, SHA-256 884e9b...)."
+  - "Do not use this 1464x2048 JPEG to establish JGW pixel pairing or unit identity."
+
+p6c3_owner_decision:
+  status: superseded_for_p6c3_proxy_role
+  current_proxy_registry: "data/sources/gleason-owner-8k-proxy-verification.yaml"
+  current_proxy_file: "Gleason-map-8k.jpg"
+  current_proxy_dimensions_px: [1361, 2048]
+  current_proxy_sha256: "884e9b2473eac5929b25375bc2a1be9907866e03653722b6a3bbc2dd9a62ef1d"

@@ -1,6 +1,6 @@
 # Phase 6 · P6.C2 — Gleason SI Measurement Engine
 
-Status: **CLOSED / VERIFIED — owner manual 6/6 PASS; final closure head `d698c88b43cd75f7925551d323c10836cac41ab8`; Release Acceptance Gates #877 SUCCESS — AWAITING SEPARATE MERGE AUTHORIZATION**
+Status: **CLOSED / VERIFIED / MERGED — owner manual 6/6 PASS; closure #877 SUCCESS; final recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` #878 SUCCESS; PR #38 merged at `90d03c98d3345d563dd3a6721be4542c1d35af9f`**
 
 Owner instruction: **«ابدأ»**
 
@@ -297,9 +297,11 @@ Owner manual verification then completed **6/6 PASS — REPORTED BY OWNER** on
 The documentation/state closure head
 `d698c88b43cd75f7925551d323c10836cac41ab8` passed the complete Release
 Acceptance Gates **#877 — SUCCESS**. P6.C2 is therefore **CLOSED / VERIFIED**.
-PR #38 remains draft/open/unmerged. Merge requires a separate explicit owner
-authorization and the exact final recording head must itself pass the complete
-gates before merge.
+The exact final recording head
+`b70c78cd5bde41ab5ebe72a042115a1754491f54` subsequently passed the complete
+Release Acceptance Gates **#878 — SUCCESS**. The owner then separately
+authorized merge; PR #38 merged to
+`main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f`.
 
 ## 9. Acceptance path
 
@@ -318,6 +320,6 @@ The closure evidence recorded above is complete through final closure-state
 Release Acceptance Gates **#877 — SUCCESS** on
 `d698c88b43cd75f7925551d323c10836cac41ab8`.
 
-This recording-only package introduces no new P6.C2 numerical behavior. The
-exact current PR head must pass the complete Release Acceptance Gates once more
-before PR #38 is eligible for separate owner merge authorization.
+That recording-only package introduced no new P6.C2 numerical behavior. Its
+exact head passed #878 SUCCESS and was then merged by separate owner
+authorization. P6.C3 starts from the resulting main baseline.

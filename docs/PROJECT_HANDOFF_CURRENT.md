@@ -1,17 +1,27 @@
 # Gleason Platform — Current Project Handoff
 
-_Last updated: 2026-09-22_
+_Last updated: 2026-09-23_
 
 ## Purpose
 
 This document is the canonical continuity handoff for the Gleason Platform project. It records the agreed roadmap, implementation rules, completed phases, accepted Phase 5 baseline, validation evidence, known boundaries, and the next permitted steps.
 
+## Cross-conversation project memory
+
+- Canonical comprehensive self-reference: `docs/PROJECT_MASTER_REFERENCE_CURRENT.md`.
+- Canonical continuity snapshot: `docs/PROJECT_MEMORY_CURRENT.md`.
+- Detailed future execution breakdown: `docs/PROJECT_FUTURE_PHASES_CURRENT.md`.
+- Persistent ChatGPT Library project folder: `/Gleason-platform/`.
+- Latest experimental azimuthal test standard is **North Pole → South Pole = 12,720.6 km**, documented as RESEARCH ONLY / NOT IMPLEMENTED in the project memory file.
+- The earlier 12,731-km test standard is retained only as superseded experiment history.
+- P6.C3 refinement head `a0e8436c307c9384c06413bcf8264f7c57c8ec13` failed Release Acceptance Gates **#936** only at Browser/E2E because the rendered `data-p6c3-visual-reference` still exposed the older `gleason-owner-hires-jpeg-reference-2026-09-22` identity while the test expects `gleason-owner-8k-received-proxy-2026-09-22`. All pre-browser gates were green. This must be fixed before targeted owner retest or closure.
+
 ## Repository and working branch
 
 - Repository: `amralqatawneh-prog/gleason-platform`.
-- Current integration baseline: `main @ 3096d963b75478682923c20925e3eac974bbfb69` — PR **#37** / P6.C1 merge.
+- Current integration baseline: `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f` — PR **#38** / P6.C2 merge.
 - PR #33 exact final head `a72249b35250e3aeee1c3dbfac9c59dd89a7edfb` passed Release Acceptance Gates **#803 — SUCCESS** before merge; no independent post-merge push CI is claimed.
-- Current working functional branch: `feat/p6.c2-gleason-si-measurement-engine`; P6.C2 is **IN PROGRESS** by owner instruction **«ابدأ»** from `main @ 3096d963b75478682923c20925e3eac974bbfb69`. P6.C1 is **CLOSED / VERIFIED / MERGED** through PR #37; final recording head `385a04bc032fd7f3e0609a501a826023ea0a627e` passed **#864 — SUCCESS** before merge. P6.C2 implementation head `e1e708ce864e97ac4dd6dc23106ecca475948080` passed #869/#870, prior recording head `31d84936486b77490fb2db7a1f4c05bfbb602a5a` passed #874, and exact owner-tested final-contract head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed #876 before owner manual **6/6 PASS — REPORTED BY OWNER**. P6.C2 final closure head `d698c88b43cd75f7925551d323c10836cac41ab8` passed #877 SUCCESS; P6.C2 is CLOSED / VERIFIED and awaits separate merge authorization after exact recording-head CI. P6.C3 is NOT STARTED; P6.7B remains paused/not-started.
+- Current working functional branch: `feat/p6.c3-calibration-fixture-laboratory`; P6.C2 is **CLOSED / VERIFIED / MERGED** through PR #38 at `main @ 90d03c98d3345d563dd3a6721be4542c1d35af9f`. Exact P6.C2 owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b` passed #876 before owner manual **6/6 PASS — REPORTED BY OWNER**; closure head `d698c88b43cd75f7925551d323c10836cac41ab8` passed #877; final recording head `b70c78cd5bde41ab5ebe72a042115a1754491f54` passed #878 before merge. P6.C3 is **OWNER-VERIFIED / REFINEMENT IN PROGRESS** on draft PR #39. Exact manual-tested head `acb232c9ab78bcd8c84e16fd666b37200b5d1c57` passed #904 SUCCESS and owner manual **6/6 PASS — REPORTED BY OWNER**. After that PASS, the owner confirmed the original full-resolution image is unavailable and authorized the recovered `Gleason-map-8k.jpg` proxy (1361×2048, SHA-256 `884e9b…`) as the visual/ruler reference. JGW affine working units are verified as metre with explicit modern statute-mile/nautical-mile conversions; CRS and exact original-pixel pairing remain gated. Targeted retest is required after refinement CI. P6.C4/P6.C5 are NOT STARTED; P6.7B remains paused/not-started.
 - PR **#21**: **MERGED** into `main` with explicit owner authorization on 2026-09-21.
 - PR #21 final head: `ced5649c3c2d6e1c8e1d96af35fb0775637719a3`; pre-merge Release Acceptance Gates **#668 — SUCCESS**.
 - PR #21 merge commit / current integration baseline: `11b571f08f72732b509f049f1a2ab1be92292938`.
@@ -61,7 +71,8 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.6 is **CLOSED / VERIFIED / MERGED**. The corrected-contract owner-tested head `e96712975fc9f54f2615e235bb6976136efe8a2d` passed #783 with owner manual 6/6 PASS; exact closure head `1d84ba85ba21d320a0de0ed16d87006c5ef80c84` passed #784; PR #31 merged at `6a2666112e56514051ea62fbe1c25f5a8016f1ae`. Closure report: `docs/PHASE_6_P6_6_REPORT.md`.
 - P6.7A **CLOSED / VERIFIED / MERGED**: one P6.2 canonical ordered route; one selected computation identity and three renderings under `preserve-computation-identity`. Contract: `docs/PHASE_6_P6_7A_SAME_ROUTE_THREE_RENDERINGS.md`. The owner then inserted P6.C1–P6.C5 before P6.7B.
 - P6.C1 **CLOSED / VERIFIED / MERGED** through PR #37 at `3096d963b75478682923c20925e3eac974bbfb69`.
-- P6.C2 runtime implementation on PR #38 is **CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION**: exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b`, pre-manual #876 SUCCESS, owner manual 6/6 PASS — REPORTED BY OWNER, final closure head `d698c88b43cd75f7925551d323c10836cac41ab8`, #877 SUCCESS. Contract: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
+- P6.C2 runtime implementation is **CLOSED / VERIFIED / MERGED** through PR #38: exact owner-tested head `b1dacada7cb84c715b71c654c7abe465d370cc0b`, #876 SUCCESS, owner manual 6/6 PASS, closure `d698c88b43cd75f7925551d323c10836cac41ab8` #877 SUCCESS, recording `b70c78cd5bde41ab5ebe72a042115a1754491f54` #878 SUCCESS, merge `90d03c98d3345d563dd3a6721be4542c1d35af9f`. Contract: `docs/PHASE_6_P6_C2_GLEASON_SI_MEASUREMENT_ENGINE.md`.
+- P6.C3 Calibration & Fixture Laboratory is **OWNER-VERIFIED / REFINEMENT IN PROGRESS** on draft PR #39 from the PR #38 merge baseline. The original nine-fixture laboratory passed owner manual 6/6 on `acb232c9…` after #904. The recovered 1361×2048 `Gleason-map-8k.jpg` is the owner-authorized proxy; explicit English/statute and historical nautical/geographical metre-per-mile profiles remain exposed. JGW affine unit is metre, while CRS and exact original-pixel pairing remain unresolved/gated. Contract: `docs/PHASE_6_P6_C3_CALIBRATION_FIXTURE_LABORATORY.md`.
 - P6.C2 final-contract reconciliation explicitly returns `calculation_space` and nullable `assumption_id` per executable profile; `limitations[]` is the single normative warning channel; `route_revision` stays UI/session state while numerical reproducibility uses the returned `input.route_id` + exact ordered `input.points` snapshot.
 - P6.1 automated evidence: Release Acceptance Gates **#519/#520/#529 — SUCCESS**.
 - P6.1 owner manual verification: **5/5 PASS — REPORTED BY OWNER**.
@@ -78,11 +89,11 @@ This document is the canonical continuity handoff for the Gleason Platform proje
 - P6.3 final closure head `c775aac8a97a6782915782ed2118c3018cfe5a1a` passed Release Acceptance Gates **#642 — SUCCESS**.
 - PR #19 merged to `main` at `4aac199646f3a899b45e241bf8995e8ba7c8f2a0`; post-merge Release Acceptance Gates **#643 — SUCCESS**.
 - Historical P6.3 route-guide behavior is superseded for active route visualization by P6.7A: the selected computation identity now owns the geometry shown on all three views. Flat-model pan/touch behavior remains unchanged; numeric P6.3–P6.5 measurement panels retain their own independent identities.
-- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34, PR #36 and PR #37 are **MERGED**. P6.2–P6.7A and P6.C1 are CLOSED. P6.C2 is CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION. No tag, GitHub Release or deployment has been created.
+- PR #16, PR #19, PR #20, PR #24, PR #25, PR #30, PR #31, PR #33, PR #34, PR #36, PR #37 and PR #38 are **MERGED**. P6.2–P6.7A and P6.C1/P6.C2 are CLOSED. P6.C3 is IN PROGRESS on PR #39. No tag, GitHub Release or deployment has been created.
 - Phase 5 started by explicit owner instruction on 2026-09-19. **P5.1–P5.9 are CLOSED** after their recorded automated evidence and owner-reported manual PASS.
 - **P5.9 owner manual regression: PASS — REPORTED BY OWNER (10/10 checks)** on the clean P5.9 branch after clean-head CI #487 SUCCESS.
 - **Phase 5 is ACCEPTED BY OWNER** by explicit decision «أعتمد المرحلة الخامسة» on 2026-09-20.
-- **Phase 6 is IN PROGRESS**. P6.1–P6.7A and P6.C1 are CLOSED / MERGED. **P6.C2 is CLOSED / VERIFIED / AWAITING SEPARATE MERGE AUTHORIZATION**; P6.C3–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
+- **Phase 6 is IN PROGRESS**. P6.1–P6.7A and P6.C1/P6.C2 are CLOSED / MERGED. **P6.C3 is IN PROGRESS**; P6.C4–P6.C5 remain NOT STARTED; P6.7B is paused/not-started until the corrective sequence closes.
 - Current Phase 5 report: `docs/PHASE_5_P5_9_REPORT.md`.
 - Formal Phase 5 acceptance record: `docs/PHASE_5_ACCEPTANCE.md`.
 - Canonical Phase 5 plan: `docs/PHASE_5_PLAN.md`.

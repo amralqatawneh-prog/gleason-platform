@@ -1023,7 +1023,7 @@ test('Gleason source-audit laboratory separates ruler, Figure 43 and frame/time 
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
   await locate(page,'TEST Amman');
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
-  const lab=page.locator('.gleason-measurement-lab');
+  const lab=page.locator('.gleason-route-distance-panel.gleason-measurement-lab');
   await expect(lab).toHaveAttribute('data-measurement-status','ready');
   await expect(lab.locator('[data-gleason-tool="historical-circle-derived"]')).toContainText('gleason-fig43-circle-derived');
   await expect(lab.locator('[data-gleason-tool="historical-longitude-scale"]')).toContainText('Fig.43');
@@ -1043,7 +1043,7 @@ test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities
   await locate(page,'TEST Amman');
   await page.getByRole('button',{name:'Add current point',exact:true}).click();
 
-  const lab=page.locator('.gleason-measurement-lab');
+  const lab=page.locator('.gleason-route-distance-panel.gleason-measurement-lab');
   await expect(lab).toHaveAttribute('data-measurement-status','ready');
 
   const si=lab.locator('[data-gleason-tool="si-profiles"]');
@@ -1074,4 +1074,74 @@ test('P6.C2 Gleason SI profiles expose direct and explicit-assumption identities
   const unresolved=si.locator('[data-si-profile-unavailable="gleason-book-historical"]');
   await expect(unresolved).toContainText('FAIL CLOSED');
   await expect(unresolved).toContainText('unresolved');
+});
+
+
+test('P6.C3 calibration laboratory exposes source-backed fixtures, residuals and fail-closed 8K gate',async({page,servers})=>{
+  await english(page,servers.url);
+
+  const lab=page.locator('.gleason-calibration-laboratory');
+  await expect(lab).toBeVisible();
+  await expect(lab).toHaveAttribute('data-p6c3-status','in-progress');
+  await expect(lab).toHaveAttribute('data-p6c3-profile','all');
+  await expect(lab).toHaveAttribute('data-p6c3-fixture-count','9');
+
+  const book=lab.locator('[data-p6c3-fixture-id="book-fig43-equator-one-degree"]');
+  await expect(book).toHaveAttribute('data-p6c3-source-class','GLEASON_PRIMARY_HISTORICAL');
+  await expect(book).toHaveAttribute('data-p6c3-fixture-status','ready');
+  await expect(book).toContainText('historical-fig43-mile');
+
+  const walter=lab.locator('[data-p6c3-fixture-id="walter-pole-equator-default"]');
+  await expect(walter).toHaveAttribute('data-p6c3-source-class','EXTERNAL_COMPARATIVE_MODEL');
+  await expect(walter).toContainText('10008');
+
+  const reference=lab.locator('[data-p6c3-fixture-id="reference-equator-one-degree-wgs84-vs-walter"]');
+  await expect(reference).toHaveAttribute('data-p6c3-source-class','REFERENCE_SOURCE');
+  await expect(reference).toContainText('metre');
+
+  const restored=lab.locator('[data-p6c3-fixture-id="raster-restored-outer-ring-fit"]');
+  await expect(restored).toHaveAttribute('data-p6c3-fixture-status','diagnostic-only');
+  await expect(restored).toContainText('5.768749');
+
+  const owner8k=lab.locator('[data-p6c3-fixture-id="raster-owner-8k-jgw"]');
+  await expect(owner8k).toHaveAttribute('data-p6c3-fixture-status','gated');
+  await expect(owner8k.locator('[data-p6c3-gate-reason="exact-pixel-pairing-unverified-proxy-only"]')).toBeVisible();
+  await expect(owner8k).toContainText('metre-affine-unit-verified');
+
+  const rulerUnits=lab.locator('[data-p6c3-tool="verified-ruler-units"]');
+  await expect(rulerUnits).toBeVisible();
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-visual-reference','gleason-owner-8k-received-proxy-2026-09-22');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-fig43-mile-si-status','unresolved');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-unit-status','metre-owner-authorized-proxy-verified');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-crs-status','unknown-not-encoded');
+  await expect(rulerUnits).toHaveAttribute('data-p6c3-jgw-pixel-step-m','5014.548291487017');
+  await expect(rulerUnits.locator('[data-p6c3-jgw-affine-unit="metre-owner-authorized-proxy-verified"]')).toContainText('JGW affine unit verified: metre');
+  await expect(rulerUnits.locator('[data-p6c3-ruler-unit-count="3"]')).toBeVisible();
+  await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="english-land-statute-mile-5280ft"]')).toHaveAttribute('data-p6c3-metre-per-unit','1609.344000');
+  await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="nautical-sea-solar-mile-6075ft"]')).toHaveAttribute('data-p6c3-metre-per-unit','1851.660000');
+  await expect(rulerUnits.locator('[data-p6c3-ruler-unit-id="fig37-nautical-geographical-mile-by-208-to-180-ratio"]')).toHaveAttribute('data-p6c3-metre-per-unit','1859.686400');
+  await expect(rulerUnits.locator('[data-p6c3-ruler-conflict="preserve-both"]')).toContainText('keeps both values separate');
+
+  const jgwNotice=lab.locator('[data-p6c3-8k-raster-gate="exact-pixel-pairing-unverified-proxy-only"]');
+  await expect(jgwNotice).toContainText('metre verified');
+  await expect(jgwNotice).toContainText('no CRS is named');
+
+  await lab.getByLabel('Research profile').selectOption('walter-flat-plane-eq-10008');
+  await expect(lab).toHaveAttribute('data-p6c3-profile','walter-flat-plane-eq-10008');
+  await expect(lab).toHaveAttribute('data-p6c3-fixture-count','2');
+  await expect(lab.locator('[data-p6c3-fixture-id="walter-pole-equator-default"]')).toBeVisible();
+  await expect(lab.locator('[data-p6c3-fixture-id="reference-equator-one-degree-wgs84-vs-walter"]')).toBeVisible();
+
+  const diagnostic=lab.locator('[data-p6c3-tool="local-scale-diagnostic"]');
+  await diagnostic.getByLabel('Diagnostic latitude').fill('-30');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-latitude-deg','-30.000000');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-fig43-miles-per-longitude-degree','80.000000000000');
+  await expect(diagnostic).toHaveAttribute('data-p6c3-walter-radius-km','13344.000000000000');
+
+  await page.getByRole('button',{name:'العربية'}).click();
+  await expect(lab).toContainText('مختبر المعايرة');
+  await expect(lab).toContainText('وحدات المسطرة المتحقق منها');
+  await expect(lab).toContainText('مرجع المسطرة معتمد');
+  await expect(lab).toContainText('1851.66');
+  await expect(lab).toContainText('1859.6864');
 });
