@@ -84,7 +84,7 @@ export function GleasonCalibrationLaboratoryPanel({ locale }: Props) {
         <div>
           <strong>{locale === 'ar' ? 'وحدات المسطرة المتحقق منها' : 'Verified ruler units'}</strong>
           <small>{locale === 'ar'
-            ? 'مرجع بصري 1361×2048 مع تحقق كتابي من الفصل السابع عشر/الشكل 37'
+            ? 'مرجع المسطرة معتمد: مرجع بصري 1361×2048 مع تحقق كتابي من الفصل السابع عشر/الشكل 37'
             : '1361×2048 visual reference cross-checked against Chapter XVII / Figure 37'}</small>
         </div>
         <span className="evidence-badge">VERIFIED PROFILES</span>
